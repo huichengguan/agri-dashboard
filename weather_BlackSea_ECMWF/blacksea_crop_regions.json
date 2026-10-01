@@ -1,0 +1,785 @@
+{
+  "Ukraine - Central Forest-Steppe Heartland": {
+    "region_id": "ua_central_heartland",
+    "description": "Ukraine's core Chernozem granary along the Dnieper River basin, representing the primary production heartland for grain corn, sunflower seed, and high-protein winter wheat.",
+    "states": [
+      {
+        "name": "Poltava Oblast",
+        "code": "UA-POL",
+        "country": "Ukraine",
+        "district": "Mirgorod / Khorol Rural Chernozem Granary",
+        "lat": 49.78,
+        "lon": 33.60,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 4.8,
+            "yield_tha": 7.45,
+            "share_pct": 16.5,
+            "status": "Late Denting / Grain Maturation & Harvest Window"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.5,
+            "yield_tha": 2.75,
+            "share_pct": 11.2,
+            "status": "Desiccation & Active Combining"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.4,
+            "yield_tha": 5.20,
+            "share_pct": 6.8,
+            "status": "Seedbed Preparation & Autumn Drilling Window"
+          }
+        ]
+      },
+      {
+        "name": "Cherkasy Oblast",
+        "code": "UA-CHK",
+        "country": "Ukraine",
+        "district": "Uman / Zhashkiv High-Yield Chernozem Plateau",
+        "lat": 48.85,
+        "lon": 30.25,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 3.6,
+            "yield_tha": 7.80,
+            "share_pct": 12.4,
+            "status": "Maturity / Early Combining"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.9,
+            "yield_tha": 2.85,
+            "share_pct": 6.7,
+            "status": "Active Harvesting"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.2,
+            "yield_tha": 5.60,
+            "share_pct": 5.8,
+            "status": "Autumn Sowing & Pre-Plant Moisture Monitoring"
+          }
+        ]
+      },
+      {
+        "name": "Vinnytsia Oblast",
+        "code": "UA-VIN",
+        "country": "Ukraine",
+        "district": "Nemyriv / Haisyn Podolian Agricultural Basin",
+        "lat": 48.95,
+        "lon": 29.10,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 3.5,
+            "yield_tha": 7.90,
+            "share_pct": 12.0,
+            "status": "Black Layer Maturity / Harvesting"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.8,
+            "yield_tha": 5.85,
+            "share_pct": 8.7,
+            "status": "Autumn Seedbed Prep & Early Drilling"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.5,
+            "yield_tha": 3.40,
+            "share_pct": 12.5,
+            "status": "Post-Planting Emergence & Rosette Formation"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.8,
+            "yield_tha": 2.70,
+            "share_pct": 6.0,
+            "status": "Active Combining"
+          }
+        ]
+      },
+      {
+        "name": "Kirovohrad Oblast",
+        "code": "UA-KIR",
+        "country": "Ukraine",
+        "district": "Novoukrainka / Dobrovelychkivka Steppe Granary",
+        "lat": 48.40,
+        "lon": 31.55,
+        "commodities": [
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.7,
+            "yield_tha": 2.65,
+            "share_pct": 12.8,
+            "status": "Peak Combining & Grain Delivery"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.5,
+            "yield_tha": 4.70,
+            "share_pct": 7.2,
+            "status": "Seedbed Preparation / Moisture Deficit Watch"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.9,
+            "yield_tha": 6.20,
+            "share_pct": 6.5,
+            "status": "Harvesting Progress"
+          }
+        ]
+      }
+    ]
+  },
+  "Ukraine - Western Podolia & Volhynia": {
+    "region_id": "ua_west_podolia",
+    "description": "High-precipitation western agricultural belt with moderate maritime influence, representing Ukraine's elite winter rapeseed cluster and highest-yielding soft wheat plains.",
+    "states": [
+      {
+        "name": "Khmelnytskyi Oblast",
+        "code": "UA-KHM",
+        "country": "Ukraine",
+        "district": "Starokostiantyniv / Krasyliv Rapeseed & Wheat Belt",
+        "lat": 49.70,
+        "lon": 27.20,
+        "commodities": [
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.6,
+            "yield_tha": 3.65,
+            "share_pct": 15.0,
+            "status": "Active Rosette Establishment (4-6 True Leaves)"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.9,
+            "yield_tha": 6.30,
+            "share_pct": 9.2,
+            "status": "Optimal Autumn Drilling Window"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 3.0,
+            "yield_tha": 8.50,
+            "share_pct": 10.3,
+            "status": "Field Drying & Early Combining"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.6,
+            "yield_tha": 2.95,
+            "share_pct": 4.5,
+            "status": "Harvest Completion"
+          }
+        ]
+      },
+      {
+        "name": "Ternopil Oblast",
+        "code": "UA-TER",
+        "country": "Ukraine",
+        "district": "Chortkiv / Terebovlya High-Yield Podolian Plain",
+        "lat": 49.15,
+        "lon": 25.75,
+        "commodities": [
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.45,
+            "yield_tha": 3.70,
+            "share_pct": 11.2,
+            "status": "Rosette Development & Autumn Hardening"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.4,
+            "yield_tha": 6.40,
+            "share_pct": 6.8,
+            "status": "Autumn Seeding Operations"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.8,
+            "yield_tha": 8.40,
+            "share_pct": 6.2,
+            "status": "Harvest Preparation"
+          }
+        ]
+      },
+      {
+        "name": "Lviv Oblast",
+        "code": "UA-LVI",
+        "country": "Ukraine",
+        "district": "Radekhiv / Brody Small Polissia Oilseed Corridor",
+        "lat": 50.25,
+        "lon": 24.65,
+        "commodities": [
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.35,
+            "yield_tha": 3.55,
+            "share_pct": 8.8,
+            "status": "Early Emergence & Vegetative Vigour"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 0.9,
+            "yield_tha": 6.10,
+            "share_pct": 4.4,
+            "status": "Autumn Drilling Underway"
+          }
+        ]
+      }
+    ]
+  },
+  "Ukraine - Northern Polissia & Forest-Steppe": {
+    "region_id": "ua_north_polissia",
+    "description": "Northern sandy loam and forest-steppe transitions characterized by abundant summer rainfall, forming an expanding frontier for high-yield grain corn and winter oilseeds.",
+    "states": [
+      {
+        "name": "Chernihiv Oblast",
+        "code": "UA-CHE",
+        "country": "Ukraine",
+        "district": "Pryluky / Nizhyn Southern Granary Plains",
+        "lat": 50.70,
+        "lon": 32.15,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 4.2,
+            "yield_tha": 8.10,
+            "share_pct": 14.4,
+            "status": "Maturity & Grain Desiccation"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.75,
+            "yield_tha": 2.60,
+            "share_pct": 5.6,
+            "status": "Harvest Ongoing"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.3,
+            "yield_tha": 3.30,
+            "share_pct": 7.5,
+            "status": "Vegetative Establishment"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 0.95,
+            "yield_tha": 5.10,
+            "share_pct": 4.6,
+            "status": "Drilling & Early Germination"
+          }
+        ]
+      },
+      {
+        "name": "Sumy Oblast",
+        "code": "UA-SUM",
+        "country": "Ukraine",
+        "district": "Romny / Konotop Forest-Steppe Grain Basin",
+        "lat": 50.75,
+        "lon": 33.50,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 3.4,
+            "yield_tha": 7.70,
+            "share_pct": 11.6,
+            "status": "Grain Maturation & Pre-Harvest Drying"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.8,
+            "yield_tha": 2.65,
+            "share_pct": 6.0,
+            "status": "Harvest Window"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.1,
+            "yield_tha": 5.30,
+            "share_pct": 5.3,
+            "status": "Autumn Seeding"
+          }
+        ]
+      }
+    ]
+  },
+  "Ukraine - Southern & Eastern Black Sea Steppe": {
+    "region_id": "ua_south_east_steppe",
+    "description": "Expansive semi-arid southern steppe bordering the Black Sea and Sea of Azov, home to Ukraine's deepest export infrastructure and premier winter wheat and drought-hardy sunflower acreage.",
+    "states": [
+      {
+        "name": "Odesa Oblast",
+        "code": "UA-ODE",
+        "country": "Ukraine",
+        "district": "Artsyz / Sarata Budjak Steppe Grain Belt",
+        "lat": 45.95,
+        "lon": 29.60,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 2.4,
+            "yield_tha": 3.80,
+            "share_pct": 11.6,
+            "status": "Autumn Drilling Window / Awaiting Seedbed Moisture"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.1,
+            "yield_tha": 2.10,
+            "share_pct": 8.2,
+            "status": "Harvest Near Complete"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.35,
+            "yield_tha": 2.60,
+            "share_pct": 8.8,
+            "status": "Dry Seedbed Emergence Watch"
+          }
+        ]
+      },
+      {
+        "name": "Mykolaiv Oblast",
+        "code": "UA-MYK",
+        "country": "Ukraine",
+        "district": "Voznesensk / Pervomaisk Inland Steppe Plain",
+        "lat": 47.55,
+        "lon": 31.35,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.7,
+            "yield_tha": 3.90,
+            "share_pct": 8.2,
+            "status": "Seedbed Preparation & Autumn Drilling"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.0,
+            "yield_tha": 2.15,
+            "share_pct": 7.5,
+            "status": "Harvest Operations Concluding"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.25,
+            "yield_tha": 2.50,
+            "share_pct": 6.3,
+            "status": "Emergence & Tiller / Leaf Emergence"
+          }
+        ]
+      },
+      {
+        "name": "Dnipropetrovsk Oblast",
+        "code": "UA-DNI",
+        "country": "Ukraine",
+        "district": "Synelnykove / Pavlohrad Agricultural Basin",
+        "lat": 48.25,
+        "lon": 35.70,
+        "commodities": [
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.5,
+            "yield_tha": 2.40,
+            "share_pct": 11.2,
+            "status": "Active Combining & Transport"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.9,
+            "yield_tha": 4.30,
+            "share_pct": 9.2,
+            "status": "Autumn Drilling Campaign"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.4,
+            "yield_tha": 5.80,
+            "share_pct": 4.8,
+            "status": "Harvest Ongoing"
+          }
+        ]
+      },
+      {
+        "name": "Kharkiv Oblast",
+        "code": "UA-KHA",
+        "country": "Ukraine",
+        "district": "Krasnohrad / Lozova Chernozem Granary",
+        "lat": 49.40,
+        "lon": 35.60,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.8,
+            "yield_tha": 4.60,
+            "share_pct": 8.7,
+            "status": "Seedbed Drilling & Germination"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.3,
+            "yield_tha": 2.50,
+            "share_pct": 9.7,
+            "status": "Harvest Completion Phase"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.6,
+            "yield_tha": 6.50,
+            "share_pct": 5.5,
+            "status": "Combining in Progress"
+          }
+        ]
+      }
+    ]
+  },
+  "Russia - Southern Federal District (Kuban & Don Basins)": {
+    "region_id": "ru_south_grain_belt",
+    "description": "Russia's premier agricultural export powerhouse, containing the high-yielding Kuban alluvial plain and vast Don river steppe, producing over 35% of all Russian winter wheat and leading sunflower volume.",
+    "states": [
+      {
+        "name": "Krasnodar Krai (Kuban)",
+        "code": "RU-KDA",
+        "country": "Russia",
+        "district": "Kanevskaya / Timashevsk Agricultural Heartland",
+        "lat": 46.00,
+        "lon": 39.00,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 11.8,
+            "yield_tha": 6.45,
+            "share_pct": 18.2,
+            "status": "Pre-Sowing Soil Preparation & Early Drilling"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 2.8,
+            "yield_tha": 6.80,
+            "share_pct": 18.5,
+            "status": "Grain Maturity & Active Harvesting"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.2,
+            "yield_tha": 2.80,
+            "share_pct": 7.5,
+            "status": "Combining & Desiccation"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.45,
+            "yield_tha": 3.10,
+            "share_pct": 10.5,
+            "status": "Drilling & Rosette Formation"
+          }
+        ]
+      },
+      {
+        "name": "Rostov Oblast (Don Basin)",
+        "code": "RU-ROS",
+        "country": "Russia",
+        "district": "Salsk Steppe Cereal & Oilseed Plain",
+        "lat": 46.50,
+        "lon": 41.50,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 12.5,
+            "yield_tha": 4.40,
+            "share_pct": 19.3,
+            "status": "Autumn Seeding Campaign / Moisture Scarcity Watch"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 2.2,
+            "yield_tha": 2.35,
+            "share_pct": 13.8,
+            "status": "Active Combining Across Salsk Basin"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 0.8,
+            "yield_tha": 4.50,
+            "share_pct": 5.3,
+            "status": "Harvest Operations"
+          }
+        ]
+      },
+      {
+        "name": "Stavropol Krai",
+        "code": "RU-STA",
+        "country": "Russia",
+        "district": "Ipatovo / Svetlograd North Caucasus Steppe",
+        "lat": 45.70,
+        "lon": 42.90,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 7.8,
+            "yield_tha": 4.20,
+            "share_pct": 12.0,
+            "status": "Autumn Drilling Window"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.65,
+            "yield_tha": 2.20,
+            "share_pct": 4.1,
+            "status": "Combining"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.35,
+            "yield_tha": 2.70,
+            "share_pct": 8.2,
+            "status": "Emergence & Root Collar Growth"
+          }
+        ]
+      },
+      {
+        "name": "Volgograd Oblast",
+        "code": "RU-VGG",
+        "country": "Russia",
+        "district": "Mikhailovka / Novoanninsky Medveditsa Basin",
+        "lat": 50.10,
+        "lon": 43.25,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 4.5,
+            "yield_tha": 3.35,
+            "share_pct": 7.0,
+            "status": "Autumn Sowing Operations / Topsoil Deficit"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.4,
+            "yield_tha": 1.85,
+            "share_pct": 8.8,
+            "status": "Harvest in Full Swing"
+          }
+        ]
+      }
+    ]
+  },
+  "Russia - Central Black Earth (Chernozem) Belt": {
+    "region_id": "ru_central_chernozem",
+    "description": "Russia's richest humus-dense Chernozem soils (TsChR) characterized by high organic content, supporting the highest national yields for corn, winter wheat, sunflower seed, and burgeoning rapeseed clusters.",
+    "states": [
+      {
+        "name": "Voronezh Oblast",
+        "code": "RU-VOR",
+        "country": "Russia",
+        "district": "Pavlovsk / Talovaya Kamennaya Steppe Granary",
+        "lat": 50.80,
+        "lon": 40.20,
+        "commodities": [
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 1.5,
+            "yield_tha": 2.65,
+            "share_pct": 9.4,
+            "status": "Active Harvesting"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 3.8,
+            "yield_tha": 4.80,
+            "share_pct": 5.9,
+            "status": "Autumn Seeding in Progress"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.6,
+            "yield_tha": 6.60,
+            "share_pct": 10.5,
+            "status": "Grain Maturation & Drying"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.2,
+            "yield_tha": 2.90,
+            "share_pct": 4.7,
+            "status": "Emergence & Tiller Development"
+          }
+        ]
+      },
+      {
+        "name": "Kursk Oblast",
+        "code": "RU-KRS",
+        "country": "Russia",
+        "district": "Shchigry / Medvenka Deep Chernozem Plain",
+        "lat": 51.40,
+        "lon": 36.60,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 3.5,
+            "yield_tha": 5.75,
+            "share_pct": 5.4,
+            "status": "Autumn Drilling Underway"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 2.2,
+            "yield_tha": 7.90,
+            "share_pct": 14.5,
+            "status": "Field Maturation"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.35,
+            "yield_tha": 3.35,
+            "share_pct": 8.2,
+            "status": "Rosette Establishment Ahead of Frost"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.55,
+            "yield_tha": 2.80,
+            "share_pct": 3.4,
+            "status": "Harvest Operations"
+          }
+        ]
+      },
+      {
+        "name": "Belgorod Oblast",
+        "code": "RU-BEL",
+        "country": "Russia",
+        "district": "Alekseyevka / Valuyki Agro-Industrial Basin",
+        "lat": 50.30,
+        "lon": 37.80,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 2.8,
+            "yield_tha": 5.60,
+            "share_pct": 4.3,
+            "status": "Drilling & Seedbed Establishment"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.8,
+            "yield_tha": 7.80,
+            "share_pct": 11.8,
+            "status": "Harvest in Progress"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.6,
+            "yield_tha": 2.85,
+            "share_pct": 3.8,
+            "status": "Combining"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.25,
+            "yield_tha": 3.20,
+            "share_pct": 5.9,
+            "status": "Vegetative Growth Phase"
+          }
+        ]
+      },
+      {
+        "name": "Lipetsk Oblast",
+        "code": "RU-LIP",
+        "country": "Russia",
+        "district": "Yelets / Dobrinka Chernozem Plain",
+        "lat": 52.30,
+        "lon": 39.00,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 2.9,
+            "yield_tha": 5.40,
+            "share_pct": 4.5,
+            "status": "Autumn Seeding Campaign"
+          },
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.3,
+            "yield_tha": 3.15,
+            "share_pct": 7.0,
+            "status": "Rosette Development"
+          },
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 0.65,
+            "yield_tha": 2.75,
+            "share_pct": 4.1,
+            "status": "Harvesting"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.2,
+            "yield_tha": 7.40,
+            "share_pct": 7.9,
+            "status": "Maturity / Combining"
+          }
+        ]
+      }
+    ]
+  },
+  "Russia - Volga Steppe & Baltic Oilseed Enclave": {
+    "region_id": "ru_volga_baltic",
+    "description": "The expansive eastern sunflower granary of the Saratov Trans-Volga steppe, combined with the maritime high-yield winter rapeseed enclave of Kaliningrad.",
+    "states": [
+      {
+        "name": "Saratov Oblast",
+        "code": "RU-SAR",
+        "country": "Russia",
+        "district": "Balashov / Samoilovka Khopyor Sunflower Basin",
+        "lat": 51.50,
+        "lon": 43.30,
+        "commodities": [
+          {
+            "crop": "Sunflower Seed",
+            "production_mmt": 2.3,
+            "yield_tha": 1.95,
+            "share_pct": 14.4,
+            "status": "Peak Harvest Window Across Right-Bank Basin"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 3.8,
+            "yield_tha": 3.20,
+            "share_pct": 5.9,
+            "status": "Autumn Seeding / Subsoil Deficit Watch"
+          }
+        ]
+      },
+      {
+        "name": "Kaliningrad Oblast",
+        "code": "RU-KGD",
+        "country": "Russia",
+        "district": "Gvardeysk / Pravdinsk Rural Rapeseed Lowlands",
+        "lat": 54.50,
+        "lon": 21.30,
+        "commodities": [
+          {
+            "crop": "Winter Rapeseed",
+            "production_mmt": 0.45,
+            "yield_tha": 3.90,
+            "share_pct": 10.5,
+            "status": "Active Rosette Growth (6-8 Leaves Before Freeze)"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 0.75,
+            "yield_tha": 6.20,
+            "share_pct": 1.2,
+            "status": "Optimal Autumn Drilling"
+          }
+        ]
+      }
+    ]
+  }
+}

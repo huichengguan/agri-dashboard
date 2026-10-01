@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USA Farmer Selling Intelligence | Multi-Year Commercialization Benchmarks</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #151d2f;
+      --card-border: #23314d;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 1320px;
+    }
+    header {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .control-panel {
+      background: var(--card-bg);
+      padding: 18px 22px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .selectors-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    select, button {
+      background: #0b0f19;
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    select:hover, button:hover {
+      border-color: #475569;
+    }
+    .season-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .season-presets {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .preset-btn {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+    }
+    .preset-btn:hover, .preset-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .season-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #111827;
+      border: 1px solid #374151;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .chip.selected {
+      border-color: #60a5fa;
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+    }
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .metric-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .metric-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .metric-delta {
+      font-size: 13px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .delta-pos { color: #10b981; }
+    .delta-neg { color: #f43f5e; }
+    .delta-neutral { color: #94a3b8; }
+    
+    .chart-wrapper {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px 20px 20px 20px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 0 8px;
+    }
+    .chart-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 560px;
+    }
+    .methodology-box {
+      margin-top: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .methodology-box h3 {
+      font-size: 15px;
+      margin-bottom: 12px;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .method-col strong {
+      color: #93c5fd;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h1>USA Farmer Selling Intelligence</h1>
+          <span class="badge">Percent, Million Bushels & MMT</span>
+        </div>
+        <div class="subtitle">Multi-year US crop commercialization pace & physical volume benchmarks (2016-17 to 2026-27)</div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+        <div>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3); margin-right: 8px;">
+            Last Updated: 2026-09-29 16:39
+          </span>
+          <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3);">
+            Next Expected (FAS: Thu, Oct 01 / CFTC: Fri, Oct 02)
+          </span>
+        </div>
+        <button onclick="downloadChart()" style="background: #1e293b; color:#fff; border-color:#3b82f6;">Export PNG</button>
+      </div>
+    </header>
+
+    <div class="control-panel">
+      <div class="selectors-row">
+        <div class="control-group" style="min-width: 240px;">
+          <label>Commodity</label>
+          <select id="cropSelect" onchange="renderCurrentDataset()">
+            <option value="corn">Corn (U.S. National)</option>
+            <option value="soybeans">Soybeans (U.S. National)</option>
+            <option value="wheat">All Wheat (U.S. National)</option>
+          </select>
+        </div>
+
+        <div class="control-group" id="unitGroup" style="min-width: 240px;">
+          <label>Display Mode (Unit)</label>
+          <select id="unitSelect" onchange="renderCurrentDataset()">
+            <option value="pct">% of Production Pace</option>
+            <option value="mbu">Physical Volume (Million Bushels)</option>
+            <option value="mmt">Physical Volume (Million Metric Tons)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Season Filter Toolbar -->
+      <div class="season-toolbar">
+        <div class="season-presets">
+          <label style="margin-right: 6px;">Season Presets:</label>
+          <button class="preset-btn active" onclick="applyPreset('recent5')">Recent 5 Years (Benchmark)</button>
+          <button class="preset-btn" onclick="applyPreset('all')">All Historical (11 Years)</button>
+          <button class="preset-btn" onclick="applyPreset('active_prior')">Active & Prior Only</button>
+        </div>
+        <div class="season-chips" id="seasonChips">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics-row" id="metricsRow">
+      <div class="metric-card">
+        <div class="metric-label">Latest Active Progress (2025-26)</div>
+        <div class="metric-value" id="metricActiveVal">--</div>
+        <div class="metric-delta" id="metricActiveDelta">--</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Prior Season at Same Month (2024-25)</div>
+        <div class="metric-value" id="metricPriorVal">--</div>
+        <div class="metric-delta delta-neutral">Completed Benchmark</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">5-Year Historical Average</div>
+        <div class="metric-value" id="metricAvgVal">--</div>
+        <div class="metric-delta" id="metricAvgDelta">--</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Next Crop Forward Selling (2026-27)</div>
+        <div class="metric-value" id="metricForwardVal">--</div>
+        <div class="metric-delta delta-neutral">Pre-Harvest Advance Sales</div>
+      </div>
+    </div>
+
+    <div class="chart-wrapper">
+      <div class="chart-header">
+        <div class="chart-title" id="chartDisplayTitle">USA Farmer Selling Curve</div>
+      </div>
+      <div class="canvas-container">
+        <canvas id="sellingChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Methodology & Sources Card -->
+    <div class="methodology-box">
+      <h3>ℹ️ USA Institutional Methodology & Data Provenance</h3>
+      <div class="methodology-grid">
+        <div class="method-col">
+          <strong>1. Historical Ground Truth (USDA NASS & ERS)</strong>
+          Post-harvest marketing distributions are grounded in official monthly surveys of ~1,900 commercial grain elevators by USDA NASS (<em>Agricultural Prices</em> and ERS supply & disappearance yearbooks), calibrated to quarterly on-farm disappearance checkpoints (<em>Grain Stocks</em>).
+        </div>
+        <div class="method-col">
+          <strong>2. Pre-Harvest Forward Engine (CFTC & FAS)</strong>
+          Because elevators are not legally mandated to report cash contracts, forward commercialization (Jan–Aug pre-harvest) is modeled from weekly changes in CFTC Commercial (Producer/Merchant) short hedging positions and USDA FAS weekly export commitments.
+        </div>
+        <div class="method-col">
+          <strong>3. Physical Volume Conversion</strong>
+          Standardized to official USDA production sizes. 1 bu corn = 56 lbs (0.0254 MMT); 1 bu soybeans/wheat = 60 lbs (0.0272 MMT). User overrides for active seasons can be specified in <code>data/usa_pace_overrides.json</code>.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      USA Agribusiness Analytics &bull; Multi-Year Commercialization Benchmarks (2016-17 to 2026-27)
+    </div>
+  </div>
+
+  <script>
+    const RAW_DATA = {"usa_corn_pct": {"meta": {"crop_id": "corn", "file_name": "usa_corn_pct.csv", "unit": "%", "title": "USA Corn Farmer Selling Pace (% of Total Production)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1", "jul n+1", "aug n+1", "sep n+1"], "rel_idx": [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [2.1, 3.2, 5.0, 7.8, 11.2, 14.5, 17.8, 21.0, 31.5, 47.2, 58.5, 66.2, 73.0, 77.5, 82.1, 86.4, 90.2, 93.8, 96.5, 99.2, 100.0], "2017-18": [2.5, 3.8, 5.5, 8.2, 12.0, 15.2, 18.5, 22.1, 32.8, 48.0, 59.4, 67.0, 74.2, 78.6, 83.0, 87.2, 91.0, 94.5, 97.0, 99.5, 100.0], "2018-19": [1.8, 2.9, 4.4, 6.8, 10.1, 13.4, 16.8, 20.2, 30.2, 45.8, 56.9, 64.5, 71.5, 76.0, 80.8, 85.2, 89.1, 93.0, 96.0, 99.0, 100.0], "2019-20": [2.0, 3.0, 4.8, 7.2, 10.5, 14.0, 17.5, 21.5, 31.0, 46.5, 57.8, 65.4, 72.4, 77.0, 81.5, 86.0, 89.8, 93.5, 96.4, 99.1, 100.0], "2020-21": [3.5, 5.2, 7.8, 11.5, 16.2, 20.8, 24.9, 28.5, 39.2, 54.8, 65.2, 72.8, 79.4, 83.2, 87.5, 90.8, 94.0, 96.8, 98.6, 99.8, 100.0], "2021-22": [3.8, 5.5, 8.2, 12.0, 17.0, 21.9, 26.2, 30.1, 41.0, 56.5, 66.8, 74.2, 80.8, 84.5, 88.6, 91.8, 94.8, 97.2, 99.0, 100.0, 100.0], "2022-23": [3.0, 4.6, 7.0, 10.2, 14.8, 19.0, 23.1, 26.8, 37.0, 52.1, 62.8, 70.5, 77.0, 81.0, 85.4, 89.0, 92.5, 95.4, 97.8, 99.5, 100.0], "2023-24": [1.5, 2.5, 4.0, 6.2, 9.0, 12.2, 15.5, 18.8, 28.5, 43.5, 54.0, 61.8, 68.5, 73.0, 77.8, 82.5, 86.8, 91.0, 94.5, 98.2, 100.0], "2024-25": [1.6, 2.7, 4.2, 6.5, 9.4, 12.8, 16.0, 19.5, 29.2, 44.2, 54.8, 62.5, 69.2, 73.8, 78.5, 83.2, 87.5, 91.8, 95.2, 98.6, 100.0], "2025-26": [1.8, 2.8, 4.5, 6.9, 10.0, 13.5, 17.0, 20.8, 30.5, 45.8, 56.2, 64.0, 71.0, 75.4, 80.2, 85.0, 89.2, 93.1, 96.2, 98.8, NaN], "2026-27": [1.4, 2.2, 3.6, 5.5, 8.2, 11.4, 14.8, 18.2, 27.5, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_corn_mbu": {"meta": {"crop_id": "corn", "file_name": "usa_corn_mbu.csv", "unit": "Mbu", "title": "USA Corn Farmer Commercialization Volume (Million Bushels)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1", "jul n+1", "aug n+1", "sep n+1"], "rel_idx": [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [318.1, 484.7, 757.4, 1181.5, 1696.6, 2196.5, 2696.3, 3181.1, 4771.6, 7149.9, 8861.6, 10028.0, 11058.0, 11739.7, 12436.5, 13087.9, 13663.5, 14208.8, 14617.8, 15026.8, 15148.0], "2017-18": [365.2, 555.1, 803.5, 1197.9, 1753.1, 2220.6, 2702.7, 3228.6, 4791.8, 7012.3, 8677.7, 9788.0, 10839.9, 11482.7, 12125.5, 12739.0, 13294.2, 13805.5, 14170.7, 14536.0, 14609.0], "2018-19": [258.1, 415.9, 631.0, 975.1, 1448.3, 1921.6, 2409.1, 2896.7, 4330.7, 6567.7, 8159.5, 9249.3, 10253.1, 10898.4, 11586.7, 12217.7, 12776.9, 13336.2, 13766.4, 14196.6, 14340.0], "2019-20": [272.4, 408.6, 653.8, 980.6, 1430.1, 1906.8, 2383.5, 2928.3, 4222.2, 6333.3, 7872.4, 8907.5, 9860.9, 10487.4, 11100.3, 11713.2, 12230.8, 12734.7, 13129.7, 13497.4, 13620.0], "2020-21": [493.9, 733.8, 1100.7, 1622.8, 2286.0, 2935.1, 3513.6, 4021.6, 5531.5, 7732.8, 9200.4, 10272.8, 11204.1, 11740.4, 12347.1, 12812.8, 13264.3, 13659.4, 13913.4, 14082.8, 14111.0], "2021-22": [572.8, 829.1, 1236.1, 1808.9, 2562.6, 3301.2, 3949.4, 4537.3, 6180.3, 8516.8, 10069.4, 11184.9, 12179.8, 12737.5, 13355.6, 13837.9, 14290.2, 14651.9, 14923.3, 15074.0, 15074.0], "2022-23": [409.5, 627.9, 955.6, 1392.4, 2020.3, 2593.7, 3153.4, 3658.5, 5050.9, 7112.2, 8572.8, 9624.0, 10511.3, 11057.3, 11658.0, 12149.4, 12627.2, 13023.1, 13350.7, 13582.7, 13651.0], "2023-24": [230.1, 383.5, 613.6, 951.1, 1380.7, 1871.6, 2377.9, 2884.1, 4372.2, 6673.3, 8284.1, 9480.7, 10508.6, 11198.9, 11935.3, 12656.3, 13316.0, 13960.3, 14497.2, 15064.9, 15341.0], "2024-25": [242.3, 408.9, 636.0, 984.3, 1423.4, 1938.3, 2422.9, 2952.9, 4421.8, 6693.2, 8298.4, 9464.4, 10479.0, 11175.5, 11887.3, 12599.0, 13250.1, 13901.3, 14416.1, 14931.0, 15143.0], "2025-26": [273.6, 425.6, 684.0, 1048.8, 1520.0, 2052.0, 2584.0, 3161.6, 4636.0, 6961.6, 8542.4, 9728.0, 10792.0, 11460.8, 12190.4, 12920.0, 13558.4, 14151.2, 14622.4, 15017.6, NaN], "2026-27": [214.9, 337.7, 552.6, 844.2, 1258.7, 1749.9, 2271.8, 2793.7, 4221.2, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_corn_mmt": {"meta": {"crop_id": "corn", "file_name": "usa_corn_mmt.csv", "unit": "MMT", "title": "USA Corn Farmer Commercialization Volume (Million Metric Tons)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1", "jul n+1", "aug n+1", "sep n+1"], "rel_idx": [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [8.08, 12.31, 19.24, 30.01, 43.1, 55.8, 68.49, 80.81, 121.21, 181.63, 225.11, 254.74, 280.9, 298.22, 315.92, 332.47, 347.09, 360.94, 371.33, 381.72, 384.8], "2017-18": [9.28, 14.1, 20.41, 30.43, 44.53, 56.41, 68.65, 82.01, 121.72, 178.13, 220.43, 248.64, 275.36, 291.68, 308.01, 323.6, 337.7, 350.69, 359.97, 369.24, 371.1], "2018-19": [6.56, 10.56, 16.03, 24.77, 36.79, 48.82, 61.2, 73.59, 110.02, 166.85, 207.29, 234.97, 260.47, 276.87, 294.35, 310.38, 324.59, 338.8, 349.73, 360.66, 364.3], "2019-20": [6.92, 10.38, 16.6, 24.9, 36.32, 48.43, 60.53, 74.37, 107.23, 160.84, 199.93, 226.22, 250.43, 266.34, 281.91, 297.47, 310.62, 323.42, 333.45, 342.79, 345.9], "2020-21": [12.54, 18.64, 27.96, 41.22, 58.06, 74.55, 89.24, 102.14, 140.49, 196.4, 233.68, 260.92, 284.57, 298.19, 313.6, 325.43, 336.9, 346.93, 353.38, 357.68, 358.4], "2021-22": [14.55, 21.06, 31.4, 45.95, 65.09, 83.86, 100.32, 115.25, 156.99, 216.34, 255.78, 284.11, 309.38, 323.55, 339.25, 351.5, 362.99, 372.18, 379.07, 382.9, 382.9], "2022-23": [10.4, 15.95, 24.28, 35.37, 51.33, 65.89, 80.11, 92.94, 128.32, 180.68, 217.79, 244.49, 267.04, 280.91, 296.17, 308.65, 320.79, 330.85, 339.17, 345.07, 346.8], "2023-24": [5.85, 9.74, 15.59, 24.16, 35.07, 47.54, 60.4, 73.26, 111.06, 169.52, 210.44, 240.83, 266.94, 284.48, 303.19, 321.5, 338.26, 354.63, 368.27, 382.69, 389.7], "2024-25": [6.16, 10.39, 16.16, 25.01, 36.16, 49.24, 61.55, 75.02, 112.33, 170.04, 210.82, 240.44, 266.21, 283.91, 301.99, 320.07, 336.61, 353.15, 366.23, 379.31, 384.7], "2025-26": [6.95, 10.81, 17.37, 26.64, 38.61, 52.12, 65.64, 80.31, 117.76, 176.83, 216.99, 247.1, 274.13, 291.12, 309.65, 328.18, 344.4, 359.46, 371.43, 381.47, NaN], "2026-27": [5.46, 8.58, 14.04, 21.44, 31.97, 44.45, 57.71, 70.96, 107.22, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_soybeans_pct": {"meta": {"crop_id": "soybeans", "file_name": "usa_soybeans_pct.csv", "unit": "%", "title": "USA Soybean Farmer Selling Pace (% of Total Production)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1", "jul n+1", "aug n+1", "sep n+1"], "rel_idx": [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [2.5, 4.0, 6.2, 9.5, 13.8, 18.2, 22.8, 27.5, 38.5, 57.2, 69.5, 77.0, 83.5, 87.0, 90.5, 93.5, 96.0, 97.8, 99.0, 99.8, 100.0], "2017-18": [2.8, 4.5, 7.0, 10.2, 14.5, 19.0, 23.5, 28.2, 39.5, 58.0, 70.2, 77.8, 84.2, 87.8, 91.2, 94.0, 96.4, 98.1, 99.2, 99.9, 100.0], "2018-19": [2.0, 3.2, 5.0, 7.8, 11.5, 15.5, 19.5, 23.8, 34.0, 52.5, 64.0, 72.0, 79.0, 83.5, 87.5, 91.0, 94.0, 96.5, 98.2, 99.5, 100.0], "2019-20": [2.2, 3.6, 5.8, 8.8, 12.8, 17.2, 21.6, 26.0, 37.0, 55.8, 68.0, 75.5, 82.0, 86.0, 89.8, 93.0, 95.5, 97.4, 98.8, 99.7, 100.0], "2020-21": [4.5, 7.0, 10.5, 15.2, 20.8, 26.5, 31.8, 36.5, 48.5, 68.0, 78.5, 85.0, 90.2, 93.5, 96.0, 97.8, 99.0, 99.6, 100.0, 100.0, 100.0], "2021-22": [4.8, 7.4, 11.0, 16.0, 21.9, 27.8, 33.2, 38.0, 50.2, 69.5, 79.8, 86.2, 91.2, 94.2, 96.6, 98.2, 99.2, 99.8, 100.0, 100.0, 100.0], "2022-23": [3.8, 5.8, 8.9, 13.0, 18.2, 23.5, 28.5, 33.0, 44.5, 63.5, 74.8, 82.0, 87.8, 91.2, 94.5, 96.8, 98.2, 99.2, 99.8, 100.0, 100.0], "2023-24": [2.0, 3.4, 5.2, 8.0, 11.8, 16.0, 20.2, 24.5, 35.5, 54.0, 65.5, 73.5, 80.5, 85.0, 88.8, 92.2, 95.0, 97.0, 98.5, 99.6, 100.0], "2024-25": [2.1, 3.5, 5.5, 8.4, 12.2, 16.5, 21.0, 25.2, 36.5, 55.0, 66.5, 74.5, 81.5, 85.8, 89.5, 92.8, 95.5, 97.5, 98.8, 99.7, 100.0], "2025-26": [2.4, 3.8, 6.0, 9.0, 13.0, 17.5, 22.2, 26.8, 38.0, 56.8, 68.2, 76.0, 82.8, 87.0, 90.5, 93.6, 96.2, 98.0, 99.2, 99.8, NaN], "2026-27": [1.8, 2.9, 4.6, 7.2, 10.8, 14.8, 19.2, 23.5, 34.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_soybeans_mbu": {"meta": {"crop_id": "soybeans", "file_name": "usa_soybeans_mbu.csv", "unit": "Mbu", "title": "USA Soybean Farmer Commercialization Volume (Million Bushels)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1", "jul n+1", "aug n+1", "sep n+1"], "rel_idx": [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [107.4, 171.8, 266.4, 408.1, 592.8, 781.9, 979.5, 1181.4, 1654.0, 2457.3, 2985.7, 3307.9, 3587.2, 3737.5, 3887.9, 4016.8, 4124.2, 4201.5, 4253.0, 4287.4, 4296.0], "2017-18": [123.5, 198.5, 308.8, 450.0, 639.7, 838.3, 1036.8, 1244.2, 1742.7, 2559.0, 3097.2, 3432.5, 3714.9, 3873.7, 4023.7, 4147.3, 4253.2, 4328.2, 4376.7, 4407.6, 4412.0], "2018-19": [88.6, 141.7, 221.4, 345.4, 509.2, 686.3, 863.5, 1053.9, 1505.5, 2324.7, 2833.9, 3188.2, 3498.1, 3697.4, 3874.5, 4029.5, 4162.3, 4273.0, 4348.3, 4405.9, 4428.0], "2019-20": [78.1, 127.9, 206.0, 312.6, 454.7, 610.9, 767.2, 923.5, 1314.2, 1982.0, 2415.4, 2681.8, 2912.6, 3054.7, 3189.7, 3303.4, 3392.2, 3459.6, 3509.4, 3541.3, 3552.0], "2020-21": [189.7, 295.1, 442.7, 640.8, 876.9, 1117.2, 1340.7, 1538.8, 2044.8, 2866.9, 3309.6, 3583.6, 3802.8, 3942.0, 4047.4, 4123.2, 4173.8, 4199.1, 4216.0, 4216.0, 4216.0], "2021-22": [214.3, 330.4, 491.2, 714.4, 977.8, 1241.3, 1482.4, 1696.7, 2241.4, 3103.2, 3563.1, 3848.8, 4072.1, 4206.0, 4313.2, 4384.6, 4429.3, 4456.1, 4465.0, 4465.0, 4465.0], "2022-23": [162.3, 247.7, 380.0, 555.1, 777.1, 1003.4, 1217.0, 1409.1, 1900.2, 2711.4, 3194.0, 3501.4, 3749.1, 3894.2, 4035.2, 4133.4, 4193.1, 4235.8, 4261.5, 4270.0, 4270.0], "2023-24": [83.2, 141.5, 216.4, 333.0, 491.1, 665.9, 840.7, 1019.7, 1477.5, 2247.5, 2726.1, 3059.1, 3350.4, 3537.7, 3695.9, 3837.4, 3953.9, 4037.1, 4099.6, 4145.4, 4162.0], "2024-25": [96.2, 160.4, 252.0, 384.9, 559.0, 756.0, 962.2, 1154.7, 1672.4, 2520.1, 3047.0, 3413.6, 3734.3, 3931.4, 4100.9, 4252.1, 4375.8, 4467.4, 4527.0, 4568.3, 4582.0], "2025-26": [106.8, 169.1, 267.0, 400.5, 578.5, 778.8, 987.9, 1192.6, 1691.0, 2527.6, 3034.9, 3382.0, 3684.6, 3871.5, 4027.2, 4165.2, 4280.9, 4361.0, 4414.4, 4441.1, NaN], "2026-27": [81.9, 132.0, 209.3, 327.6, 491.4, 673.4, 873.6, 1069.2, 1547.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_soybeans_mmt": {"meta": {"crop_id": "soybeans", "file_name": "usa_soybeans_mmt.csv", "unit": "MMT", "title": "USA Soybean Farmer Commercialization Volume (Million Metric Tons)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1", "jul n+1", "aug n+1", "sep n+1"], "rel_idx": [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [2.92, 4.68, 7.25, 11.11, 16.13, 21.28, 26.65, 32.15, 45.01, 66.87, 81.25, 90.01, 97.61, 101.7, 105.79, 109.3, 112.22, 114.33, 115.73, 116.67, 116.9], "2017-18": [3.36, 5.4, 8.41, 12.25, 17.41, 22.82, 28.22, 33.87, 47.44, 69.66, 84.31, 93.44, 101.12, 105.45, 109.53, 112.89, 115.78, 117.82, 119.14, 119.98, 120.1], "2018-19": [2.41, 3.86, 6.02, 9.4, 13.86, 18.68, 23.5, 28.68, 40.97, 63.26, 77.12, 86.76, 95.2, 100.62, 105.44, 109.66, 113.27, 116.28, 118.33, 119.9, 120.5], "2019-20": [2.13, 3.48, 5.61, 8.51, 12.38, 16.63, 20.89, 25.14, 35.78, 53.96, 65.76, 73.01, 79.29, 83.16, 86.84, 89.93, 92.35, 94.19, 95.54, 96.41, 96.7], "2020-21": [5.16, 8.03, 12.04, 17.43, 23.86, 30.4, 36.47, 41.87, 55.63, 78.0, 90.04, 97.5, 103.46, 107.24, 110.11, 112.18, 113.55, 114.24, 114.7, 114.7, 114.7], "2021-22": [5.83, 8.99, 13.36, 19.44, 26.61, 33.78, 40.34, 46.17, 60.99, 84.44, 96.96, 104.73, 110.81, 114.45, 117.37, 119.31, 120.53, 121.26, 121.5, 121.5, 121.5], "2022-23": [4.42, 6.74, 10.34, 15.11, 21.15, 27.31, 33.12, 38.35, 51.71, 73.79, 86.92, 95.28, 102.02, 105.97, 109.81, 112.48, 114.11, 115.27, 115.97, 116.2, 116.2], "2023-24": [2.27, 3.85, 5.89, 9.06, 13.37, 18.13, 22.89, 27.76, 40.22, 61.18, 74.21, 83.28, 91.21, 96.3, 100.61, 104.46, 107.64, 109.9, 111.6, 112.85, 113.3], "2024-25": [2.62, 4.36, 6.86, 10.47, 15.21, 20.58, 26.19, 31.42, 45.52, 68.58, 82.93, 92.9, 101.63, 106.99, 111.61, 115.72, 119.09, 121.58, 123.2, 124.33, 124.7], "2025-26": [2.91, 4.6, 7.27, 10.9, 15.74, 21.19, 26.88, 32.45, 46.02, 68.78, 82.59, 92.04, 100.27, 105.36, 109.6, 113.35, 116.5, 118.68, 120.13, 120.86, NaN], "2026-27": [2.23, 3.59, 5.69, 8.91, 13.37, 18.32, 23.77, 29.09, 42.09, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_wheat_pct": {"meta": {"crop_id": "wheat", "file_name": "usa_wheat_pct.csv", "unit": "%", "title": "USA All Wheat Commercialization Pace (% of Production)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1"], "rel_idx": [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [4.5, 7.8, 12.0, 17.5, 23.0, 36.5, 52.0, 63.5, 71.0, 77.2, 82.5, 86.8, 90.5, 93.8, 96.5, 98.5, 99.8, 100.0], "2017-18": [5.0, 8.5, 13.0, 18.8, 24.5, 38.0, 54.0, 65.2, 72.8, 78.8, 83.9, 88.0, 91.5, 94.6, 97.1, 98.9, 100.0, 100.0], "2018-19": [4.0, 7.0, 11.2, 16.5, 21.8, 35.0, 50.5, 61.8, 69.5, 75.8, 81.2, 85.5, 89.2, 92.8, 95.8, 98.0, 99.5, 100.0], "2019-20": [4.2, 7.5, 11.8, 17.2, 22.5, 36.0, 51.5, 62.8, 70.5, 76.8, 82.0, 86.2, 90.0, 93.4, 96.2, 98.3, 99.7, 100.0], "2020-21": [5.8, 9.8, 15.0, 21.2, 27.5, 42.0, 58.5, 69.8, 77.5, 83.2, 87.8, 91.5, 94.5, 96.8, 98.5, 99.6, 100.0, 100.0], "2021-22": [6.2, 10.5, 16.0, 22.5, 29.0, 44.0, 60.5, 71.8, 79.5, 85.0, 89.2, 92.8, 95.5, 97.6, 99.0, 99.8, 100.0, 100.0], "2022-23": [5.5, 9.2, 14.2, 20.0, 26.0, 40.5, 56.5, 67.8, 75.2, 81.5, 86.2, 90.2, 93.4, 96.0, 98.0, 99.4, 100.0, 100.0], "2023-24": [3.8, 6.8, 10.8, 15.8, 21.0, 34.2, 49.5, 60.8, 68.5, 75.0, 80.5, 85.0, 88.8, 92.2, 95.4, 97.8, 99.5, 100.0], "2024-25": [4.0, 7.2, 11.4, 16.5, 22.0, 35.5, 51.0, 62.2, 70.0, 76.2, 81.6, 86.0, 89.8, 93.2, 96.0, 98.2, 99.7, 100.0], "2025-26": [4.3, 7.6, 12.0, 17.2, 23.0, 36.8, 52.5, 63.8, 71.5, 77.8, 83.0, 87.2, 90.8, 94.0, 96.8, 98.7, 100.0, 100.0], "2026-27": [3.5, 6.5, 10.5, 15.2, 20.5, 33.8, 49.0, 60.5, 68.2, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_wheat_mbu": {"meta": {"crop_id": "wheat", "file_name": "usa_wheat_mbu.csv", "unit": "Mbu", "title": "USA All Wheat Commercialization Volume (Million Bushels)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1"], "rel_idx": [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [103.9, 180.1, 277.1, 404.1, 531.1, 842.8, 1200.7, 1466.2, 1639.4, 1782.5, 1904.9, 2004.2, 2089.6, 2165.8, 2228.2, 2274.4, 2304.4, 2309.0], "2017-18": [87.0, 148.0, 226.3, 327.3, 426.5, 661.6, 940.1, 1135.1, 1267.4, 1371.9, 1460.7, 1532.1, 1593.0, 1647.0, 1690.5, 1721.8, 1741.0, 1741.0], "2018-19": [75.4, 132.0, 211.1, 311.0, 410.9, 659.8, 951.9, 1164.9, 1310.1, 1428.8, 1530.6, 1611.7, 1681.4, 1749.3, 1805.8, 1847.3, 1875.6, 1885.0], "2019-20": [81.1, 144.9, 228.0, 332.3, 434.7, 695.5, 995.0, 1213.3, 1362.1, 1483.8, 1584.2, 1665.4, 1738.8, 1804.5, 1858.6, 1899.2, 1926.2, 1932.0], "2020-21": [106.0, 179.1, 274.2, 387.5, 502.7, 767.8, 1069.4, 1275.9, 1416.7, 1520.9, 1605.0, 1672.6, 1727.5, 1769.5, 1800.6, 1820.7, 1828.0, 1828.0], "2021-22": [102.1, 172.8, 263.4, 370.4, 477.3, 724.2, 995.8, 1181.8, 1308.6, 1399.1, 1468.2, 1527.5, 1571.9, 1606.5, 1629.5, 1642.7, 1646.0, 1646.0], "2022-23": [90.8, 151.8, 234.3, 330.0, 429.0, 668.2, 932.2, 1118.7, 1240.8, 1344.8, 1422.3, 1488.3, 1541.1, 1584.0, 1617.0, 1640.1, 1650.0, 1650.0], "2023-24": [68.9, 123.2, 195.7, 286.3, 380.5, 619.7, 896.9, 1101.7, 1241.2, 1359.0, 1458.7, 1540.2, 1609.1, 1670.7, 1728.6, 1772.1, 1802.9, 1812.0], "2024-25": [78.8, 141.9, 224.7, 325.2, 433.6, 699.7, 1005.2, 1226.0, 1379.7, 1501.9, 1608.3, 1695.1, 1770.0, 1837.0, 1892.2, 1935.5, 1965.1, 1971.0], "2025-26": [85.1, 150.5, 237.6, 340.6, 455.4, 728.6, 1039.5, 1263.2, 1415.7, 1540.4, 1643.4, 1726.6, 1797.8, 1861.2, 1916.6, 1954.3, 1980.0, 1980.0], "2026-27": [70.0, 130.0, 210.0, 304.0, 410.0, 676.0, 980.0, 1210.0, 1364.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}, "usa_wheat_mmt": {"meta": {"crop_id": "wheat", "file_name": "usa_wheat_mmt.csv", "unit": "MMT", "title": "USA All Wheat Commercialization Volume (Million Metric Tons)"}, "labels": ["jan n", "feb n", "mar n", "apr n", "may n", "jun n", "jul n", "aug n", "sep n", "oct n", "nov n", "dec n", "jan n+1", "feb n+1", "mar n+1", "apr n+1", "may n+1", "jun n+1"], "rel_idx": [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "series": {"2016-17": [2.83, 4.9, 7.54, 10.99, 14.44, 22.92, 32.66, 39.88, 44.59, 48.48, 51.81, 54.51, 56.83, 58.91, 60.6, 61.86, 62.67, 62.8], "2017-18": [2.37, 4.03, 6.16, 8.91, 11.61, 18.01, 25.6, 30.9, 34.51, 37.35, 39.77, 41.71, 43.37, 44.84, 46.03, 46.88, 47.4, 47.4], "2018-19": [2.05, 3.59, 5.75, 8.46, 11.18, 17.95, 25.91, 31.7, 35.65, 38.89, 41.66, 43.86, 45.76, 47.61, 49.15, 50.27, 51.04, 51.3], "2019-20": [2.21, 3.94, 6.21, 9.05, 11.84, 18.94, 27.09, 33.03, 37.08, 40.4, 43.13, 45.34, 47.34, 49.13, 50.6, 51.71, 52.44, 52.6], "2020-21": [2.89, 4.88, 7.47, 10.56, 13.7, 20.92, 29.13, 34.76, 38.6, 41.43, 43.72, 45.57, 47.06, 48.21, 49.05, 49.6, 49.8, 49.8], "2021-22": [2.78, 4.7, 7.17, 10.08, 12.99, 19.71, 27.1, 32.17, 35.62, 38.08, 39.96, 41.57, 42.78, 43.72, 44.35, 44.71, 44.8, 44.8], "2022-23": [2.47, 4.13, 6.38, 8.98, 11.67, 18.18, 25.37, 30.44, 33.76, 36.59, 38.7, 40.5, 41.94, 43.1, 44.0, 44.63, 44.9, 44.9], "2023-24": [1.87, 3.35, 5.32, 7.79, 10.35, 16.86, 24.4, 29.97, 33.77, 36.98, 39.69, 41.9, 43.78, 45.45, 47.03, 48.22, 49.05, 49.3], "2024-25": [2.14, 3.86, 6.11, 8.84, 11.79, 19.03, 27.34, 33.34, 37.52, 40.84, 43.74, 46.1, 48.13, 49.96, 51.46, 52.64, 53.44, 53.6], "2025-26": [2.32, 4.1, 6.47, 9.27, 12.4, 19.84, 28.3, 34.39, 38.54, 41.93, 44.74, 47.0, 48.94, 50.67, 52.18, 53.2, 53.9, 53.9], "2026-27": [1.9, 3.54, 5.71, 8.27, 11.15, 18.39, 26.66, 32.91, 37.1, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]}}};
+    const MASTER_SEASONS = ["2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27"];
+
+    const SEASON_COLORS = {
+      '2016-17': '#CBD5E1',
+      '2017-18': '#94A3B8',
+      '2018-19': '#64748B',
+      '2019-20': '#475569',
+      '2020-21': '#B2B5B8',
+      '2021-22': '#3C3D40',
+      '2022-23': '#5CA4DB',
+      '2023-24': '#EDB844',
+      '2024-25': '#499853',
+      '2025-26': '#0C4B8E',
+      '2026-27': '#BA1B1D'
+    };
+
+    let activeSeasons = new Set(['2022-23', '2023-24', '2024-25', '2025-26', '2026-27']);
+    let chartInstance = null;
+
+    function initChips() {
+      const container = document.getElementById('seasonChips');
+      container.innerHTML = '';
+      MASTER_SEASONS.forEach(s => {
+        const chip = document.createElement('div');
+        chip.className = 'chip' + (activeSeasons.has(s) ? ' selected' : '');
+        chip.id = `chip_${s}`;
+        chip.onclick = () => toggleSeason(s);
+
+        const dot = document.createElement('div');
+        dot.className = 'chip-dot';
+        dot.style.background = SEASON_COLORS[s] || '#fff';
+
+        const label = document.createElement('span');
+        label.innerText = s;
+
+        chip.appendChild(dot);
+        chip.appendChild(label);
+        container.appendChild(chip);
+      });
+    }
+
+    function toggleSeason(s) {
+      if (activeSeasons.has(s)) {
+        if (activeSeasons.size > 1) {
+          activeSeasons.delete(s);
+        }
+      } else {
+        activeSeasons.add(s);
+      }
+      updateChipClasses();
+      renderCurrentDataset();
+    }
+
+    function updateChipClasses() {
+      MASTER_SEASONS.forEach(s => {
+        const chip = document.getElementById(`chip_${s}`);
+        if (chip) {
+          chip.className = 'chip' + (activeSeasons.has(s) ? ' selected' : '');
+        }
+      });
+    }
+
+    function applyPreset(mode) {
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (mode === 'recent5') {
+        activeSeasons = new Set(['2022-23', '2023-24', '2024-25', '2025-26', '2026-27']);
+      } else if (mode === 'all') {
+        activeSeasons = new Set(MASTER_SEASONS);
+      } else if (mode === 'active_prior') {
+        activeSeasons = new Set(['2024-25', '2025-26', '2026-27']);
+      }
+      updateChipClasses();
+      renderCurrentDataset();
+    }
+
+    function getCurrentDatasetKey() {
+      const crop = document.getElementById('cropSelect').value;
+      const unit = document.getElementById('unitSelect').value;
+      return `usa_${crop}_${unit}`;
+    }
+
+    function renderCurrentDataset() {
+      const key = getCurrentDatasetKey();
+      const ds = RAW_DATA[key];
+      if (!ds) {
+        console.warn('Dataset not found:', key);
+        return;
+      }
+
+      document.getElementById('chartDisplayTitle').innerText = ds.meta.title;
+
+      updateMetrics(ds);
+      renderChart(ds);
+    }
+
+    function updateMetrics(ds) {
+      const series = ds.series;
+      const unit = ds.meta.unit;
+
+      const s2526 = series['2025-26'] || [];
+      const s2425 = series['2024-25'] || [];
+      const s2627 = series['2026-27'] || [];
+
+      let latestIdx = -1;
+      for (let i = s2526.length - 1; i >= 0; i--) {
+        const v = s2526[i];
+        if (v !== null && v !== undefined && !isNaN(v)) {
+          latestIdx = i;
+          break;
+        }
+      }
+
+      const activeValEl = document.getElementById('metricActiveVal');
+      const activeDeltaEl = document.getElementById('metricActiveDelta');
+      const priorValEl = document.getElementById('metricPriorVal');
+      const avgValEl = document.getElementById('metricAvgVal');
+      const avgDeltaEl = document.getElementById('metricAvgDelta');
+      const forwardValEl = document.getElementById('metricForwardVal');
+
+      if (latestIdx >= 0) {
+        const curVal = s2526[latestIdx];
+        const priorVal = s2425[latestIdx];
+
+        activeValEl.innerText = `${curVal.toFixed(1)} ${unit}`;
+        priorValEl.innerText = (priorVal !== null && !isNaN(priorVal)) ? `${priorVal.toFixed(1)} ${unit}` : '--';
+
+        if (priorVal !== null && !isNaN(priorVal)) {
+          const diff = curVal - priorVal;
+          const sign = diff >= 0 ? '+' : '';
+          activeDeltaEl.innerText = `${sign}${diff.toFixed(1)} ${unit} vs prior season`;
+          activeDeltaEl.className = 'metric-delta ' + (diff >= 0 ? 'delta-pos' : 'delta-neg');
+        } else {
+          activeDeltaEl.innerText = '--';
+          activeDeltaEl.className = 'metric-delta delta-neutral';
+        }
+
+        // 5-year average
+        const histSeasons = ['2020-21', '2021-22', '2022-23', '2023-24', '2024-25'];
+        const validVals = [];
+        histSeasons.forEach(s => {
+          if (series[s] && series[s][latestIdx] !== null && !isNaN(series[s][latestIdx])) {
+            validVals.push(series[s][latestIdx]);
+          }
+        });
+
+        if (validVals.length > 0) {
+          const avg = validVals.reduce((a, b) => a + b, 0) / validVals.length;
+          avgValEl.innerText = `${avg.toFixed(1)} ${unit}`;
+          const diffAvg = curVal - avg;
+          const signAvg = diffAvg >= 0 ? '+' : '';
+          avgDeltaEl.innerText = `${signAvg}${diffAvg.toFixed(1)} ${unit} vs 5-yr avg`;
+          avgDeltaEl.className = 'metric-delta ' + (diffAvg >= 0 ? 'delta-pos' : 'delta-neg');
+        } else {
+          avgValEl.innerText = '--';
+          avgDeltaEl.innerText = '--';
+          avgDeltaEl.className = 'metric-delta delta-neutral';
+        }
+      } else {
+        activeValEl.innerText = '--';
+        activeDeltaEl.innerText = '--';
+        priorValEl.innerText = '--';
+        avgValEl.innerText = '--';
+        avgDeltaEl.innerText = '--';
+      }
+
+      // Next crop forward 26/27
+      let forwardIdx = -1;
+      for (let i = s2627.length - 1; i >= 0; i--) {
+        const v = s2627[i];
+        if (v !== null && v !== undefined && !isNaN(v)) {
+          forwardIdx = i;
+          break;
+        }
+      }
+      if (forwardIdx >= 0) {
+        forwardValEl.innerText = `${s2627[forwardIdx].toFixed(1)} ${unit}`;
+      } else {
+        forwardValEl.innerText = '--';
+      }
+    }
+
+    function renderChart(ds) {
+      const ctx = document.getElementById('sellingChart').getContext('2d');
+      const unit = ds.meta.unit;
+      const isPct = unit === '%';
+
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      const datasets = [];
+      MASTER_SEASONS.forEach(s => {
+        if (!activeSeasons.has(s)) return;
+
+        const dataPts = ds.series[s];
+        if (!dataPts) return;
+
+        const color = SEASON_COLORS[s] || '#94a3b8';
+        const is2627 = (s === '2026-27');
+        const is2526 = (s === '2025-26');
+
+        datasets.push({
+          label: s,
+          data: dataPts,
+          borderColor: color,
+          backgroundColor: is2627 ? '#ffffff' : color,
+          borderWidth: is2627 ? 3 : (is2526 ? 3 : 2),
+          pointRadius: is2627 ? 4.5 : (is2526 ? 2.5 : 0),
+          pointHoverRadius: 6,
+          pointBorderColor: color,
+          pointBorderWidth: is2627 ? 2.2 : 1,
+          pointBackgroundColor: is2627 ? '#ffffff' : color,
+          tension: 0.15,
+          fill: false,
+          spanGaps: false
+        });
+      });
+
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ds.labels,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              top: 25,
+              bottom: 10,
+              left: 10,
+              right: 20
+            }
+          },
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 14,
+                boxHeight: 2.5,
+                usePointStyle: false,
+                font: { size: 12, family: 'system-ui' },
+                color: '#334155',
+                padding: 18
+              }
+            },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              titleColor: '#f8fafc',
+              bodyColor: '#cbd5e1',
+              borderColor: '#334155',
+              borderWidth: 1,
+              padding: 10,
+              displayColors: true,
+              filter: function(item) {
+                return item.parsed.y !== null && !isNaN(item.parsed.y);
+              },
+              callbacks: {
+                label: function(context) {
+                  const val = context.parsed.y;
+                  if (val === null || val === undefined || isNaN(val)) return null;
+                  return `${context.dataset.label}: ${val.toFixed(1)} ${ds.meta.unit}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                autoSkip: false,
+                maxRotation: 90,
+                minRotation: 90,
+                font: { size: 11 },
+                color: '#475569'
+              }
+            },
+            y: {
+              min: 0,
+              max: isPct ? 100 : undefined,
+              grace: isPct ? undefined : '10%',
+              clip: false,
+              grid: {
+                color: '#e2e8f0',
+                drawBorder: false
+              },
+              ticks: {
+                stepSize: isPct ? 20 : undefined,
+                padding: 8,
+                font: { size: 12 },
+                color: '#475569'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function downloadChart() {
+      if (!chartInstance) return;
+      const a = document.createElement('a');
+      a.href = chartInstance.toBase64Image('image/png', 1.0);
+      const key = getCurrentDatasetKey();
+      a.download = `${key}_chart.png`;
+      a.click();
+    }
+
+    window.onload = function() {
+      initChips();
+      renderCurrentDataset();
+    };
+  </script>
+</body>
+</html>

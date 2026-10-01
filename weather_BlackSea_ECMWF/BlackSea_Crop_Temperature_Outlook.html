@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Sea Crop Thermal Stress & Extremes Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 16px 24px;
+            line-height: 1.4;
+        }
+        
+        /* Universal Navigation Header */
+        .suite-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .suite-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .suite-brand-badge {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .suite-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suite-tab {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #0f172a;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .suite-tab:hover { color: #f8fafc; border-color: #64748b; }
+        .suite-tab.active { background: #0284c7; color: #ffffff; border-color: #0284c7; font-weight: 700; }
+
+        /* Header Card */
+        .header-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-bottom: 18px;
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+        .header-title-group h1 { font-size: 22px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 10px; }
+        .header-subtitle { font-size: 13.5px; color: var(--text-secondary); margin-top: 4px; }
+        .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .meta-tag { background: #0f172a; border: 1px solid #334155; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; color: #cbd5e1; }
+        
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .kpi-card {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+        }
+        .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+        .kpi-value { font-size: 22px; font-weight: 800; color: #f8fafc; margin: 4px 0; }
+        .kpi-sub { font-size: 11.5px; color: var(--text-secondary); }
+
+        /* Controls Bar */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .filter-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+        .filter-btn {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #0f172a;
+            color: #94a3b8;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .filter-btn.active, .filter-btn:hover { background: #334155; color: #f8fafc; }
+        .search-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #f8fafc;
+            width: 240px;
+            outline: none;
+        }
+
+        /* Table */
+        .table-container {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #334155;
+            vertical-align: middle;
+        }
+        th {
+            background: #0f172a;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 11px;
+            text-align: left;
+            user-select: none;
+            cursor: pointer;
+        }
+        th:hover { color: #38bdf8; }
+        
+        .reg-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border-left: 4px solid #0284c7;
+        }
+        .reg-banner-title { font-size: 13px; font-weight: 800; color: #38bdf8; }
+        .reg-banner-count { font-size: 11px; color: #94a3b8; font-weight: 600; }
+
+        .col-location { width: 220px; min-width: 220px; }
+        .loc-country { font-size: 11px; color: #94a3b8; font-weight: 700; }
+        .loc-name { font-size: 13.5px; color: #f8fafc; margin: 1px 0; }
+        .loc-district { font-size: 10.5px; color: #64748b; }
+
+        .col-commodities { width: 340px; min-width: 300px; }
+        .commodities-wrap { display: flex; flex-direction: column; gap: 4px; }
+        .crop-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            width: fit-content;
+        }
+        .badge-rapeseed { background: rgba(234, 179, 8, 0.2); border: 1px solid rgba(234, 179, 8, 0.4); color: #fef08a; }
+        .badge-sunflower { background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); color: #fde68a; }
+        .badge-corn { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #a7f3d0; }
+        .badge-wheat { background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); color: #bae6fd; }
+        .yield-tag { color: #cbd5e1; font-weight: 500; font-size: 10px; margin-left: 2px; }
+
+        .col-dual { width: 220px; min-width: 200px; text-align: center; }
+        .view-dual { display: flex; gap: 6px; justify-content: center; }
+        .temp-pill {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .col-stress { width: 200px; min-width: 180px; }
+        .stress-wrap { display: flex; flex-direction: column; gap: 4px; }
+        .stress-badge {
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 10.5px;
+            font-weight: 700;
+            width: fit-content;
+        }
+        .badge-heat { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; }
+        .badge-frost { background: rgba(2, 132, 199, 0.2); border: 1px solid rgba(2, 132, 199, 0.4); color: #7dd3fc; }
+        .badge-freeze { background: rgba(30, 58, 138, 0.4); border: 1px solid rgba(59, 130, 246, 0.5); color: #bfdbfe; }
+        .badge-benign { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+
+        .col-comment { min-width: 280px; font-size: 11.5px; color: #cbd5e1; line-height: 1.4; }
+        .ag-comment { background: #0f172a; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #0284c7; }
+    </style>
+</head>
+<body>
+
+    <!-- Universal Suite Navigation -->
+    <div class="suite-nav">
+        <div class="suite-brand">
+            <span>🌡️</span>
+            <span>Black Sea Crop Ag-Weather Suite</span>
+            <span class="suite-brand-badge">ECMWF IFS 0.25°</span>
+        </div>
+        <div class="suite-tabs">
+            <a href="BlackSea_Crop_2_Week_Outlook.html" class="suite-tab">🌧️ 2-Week Outlook</a>
+            <a href="BlackSea_Crop_Soil_Moisture_Outlook.html" class="suite-tab">🌱 Soil Moisture</a>
+            <a href="BlackSea_Crop_Temperature_Outlook.html" class="suite-tab active">🌡️ Temperature Outlook</a>
+            <a href="BlackSea_Crop_Weather_Matrix.html" class="suite-tab">📊 Weather Matrix</a>
+            <a href="index.html" class="suite-tab">🏠 Suite Portal</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="header-top">
+            <div class="header-title-group">
+                <h1>🌡️ Black Sea Crop Thermal Stress & Extremes Outlook</h1>
+                <div class="header-subtitle">
+                    ECMWF IFS 14-Day Forward Thermal Extremes (Highs, Lows, Frost & Heat Spikes) across Ukraine & European Russia
+                </div>
+            </div>
+            <div class="meta-tags">
+                <div class="meta-tag"><strong>Generated:</strong> 2026-09-14 18:38:46 UTC</div>
+                <div class="meta-tag"><strong>Model:</strong> ECMWF IFS (0.25°) Seamless Operational & Ag-Reanalysis</div>
+                <div class="meta-tag"><strong>Phenology Focus:</strong> Hardening & Harvest Windows</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Heat Stress Days (≥32°C)</div>
+            <div class="kpi-value" style="color: #f87171;">0</div>
+            <div class="kpi-sub">Pollen & Evapotranspiration Risks</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Air Freezing Days (≤0°C)</div>
+            <div class="kpi-value" style="color: #60a5fa;">0</div>
+            <div class="kpi-sub">Halts Late Vegetative Rosette Sowing</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Frost Watch Days (≤3°C)</div>
+            <div class="kpi-value" style="color: #38bdf8;">0</div>
+            <div class="kpi-sub">Triggers Winter Acclimatization</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Active Thermal Mode</div>
+            <div class="kpi-value" style="font-size: 18px; color: #34d399;">Favorable / Transitional</div>
+            <div class="kpi-sub">Supportive Autumn Drilling Regime</div>
+        </div>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+        <div class="filter-group">
+            <button class="filter-btn active" onclick="filterCountry('all')">All (23 Basins)</button>
+            <button class="filter-btn" onclick="filterCountry('Ukraine')">🇺🇦 Ukraine (13)</button>
+            <button class="filter-btn" onclick="filterCountry('Russia')">🇷🇺 Russia (10)</button>
+        </div>
+        <div class="filter-group">
+            <div style="display:flex; border:1px solid #334155; border-radius:6px; overflow:hidden;">
+                <button class="filter-btn active" id="btnDual" onclick="setViewMode('dual')">Dual (High/Low)</button>
+                <button class="filter-btn" id="btnTmax" onclick="setViewMode('tmax')">Daytime High</button>
+                <button class="filter-btn" id="btnTmin" onclick="setViewMode('tmin')">Nighttime Low</button>
+                <button class="filter-btn" id="btnTmean" onclick="setViewMode('tmean')">24-Hr Mean</button>
+            </div>
+            <div style="display:flex; border:1px solid #334155; border-radius:6px; overflow:hidden;">
+                <button class="filter-btn active" id="btnTempC" onclick="setTempUnit('C')">°C</button>
+                <button class="filter-btn" id="btnTempF" onclick="setTempUnit('F')">°F</button>
+            </div>
+            <input type="text" id="searchInput" class="search-box" placeholder="Search basin or crop..." onkeyup="filterRows()">
+        </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+        <table id="tempTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('name')">Agricultural Basin & Coordinates ⇕</th>
+                    <th>Core Commodities (MMT, Yield, Share)</th>
+                    <th onclick="sortTable('tmax')">14-Day Forward Temperatures ⇕</th>
+                    <th onclick="sortTable('heat')">Stress Category ⇕</th>
+                    <th>Agronomic Thermal Guidance</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr class="region-header-row" data-region="Ukraine - Central Forest-Steppe Heartland">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Central Forest-Steppe Heartland</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Poltava Oblast" 
+                data-code="UA-POL" 
+                data-country="Ukraine" 
+                data-peak-tmax="24.5" 
+                data-low-tmin="9.9"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Poltava Oblast</strong> <span class="loc-code">(UA-POL)</span></div>
+                    <div class="loc-district">📍 Mirgorod / Khorol Rural Chernozem Granary (49.78°N, 33.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 4.8 MMT <span class="yield-tag">(7.45 t/ha, 16.5%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.5 MMT <span class="yield-tag">(2.75 t/ha, 11.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.4 MMT <span class="yield-tag">(5.20 t/ha, 6.8%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 24.5°C</span>
+                            <span class="t-f" style="display:none;">High: 76.1°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 9.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 49.8°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 24.5°C (Avg: 21.2°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 76.1°F (Avg: 70.1°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 9.9°C (Avg: 12.3°C)</span>
+                            <span class="t-f" style="display:none;">Low: 49.8°F (Avg: 54.1°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 16.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 61.6°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.11 m³/m³); prime moisture conditions (0.35 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Cherkasy Oblast" 
+                data-code="UA-CHK" 
+                data-country="Ukraine" 
+                data-peak-tmax="24.2" 
+                data-low-tmin="10.1"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Cherkasy Oblast</strong> <span class="loc-code">(UA-CHK)</span></div>
+                    <div class="loc-district">📍 Uman / Zhashkiv High-Yield Chernozem Plateau (48.85°N, 30.25°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.6 MMT <span class="yield-tag">(7.80 t/ha, 12.4%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.9 MMT <span class="yield-tag">(2.85 t/ha, 6.7%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.2 MMT <span class="yield-tag">(5.60 t/ha, 5.8%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 24.2°C</span>
+                            <span class="t-f" style="display:none;">High: 75.6°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.1°C</span>
+                            <span class="t-f" style="display:none;">Low: 50.2°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 24.2°C (Avg: 20.1°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 75.6°F (Avg: 68.2°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.1°C (Avg: 11.6°C)</span>
+                            <span class="t-f" style="display:none;">Low: 50.2°F (Avg: 52.8°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 15.6°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 60.0°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (0.7 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.22 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Vinnytsia Oblast" 
+                data-code="UA-VIN" 
+                data-country="Ukraine" 
+                data-peak-tmax="23.4" 
+                data-low-tmin="8.5"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Vinnytsia Oblast</strong> <span class="loc-code">(UA-VIN)</span></div>
+                    <div class="loc-district">📍 Nemyriv / Haisyn Podolian Agricultural Basin (48.95°N, 29.10°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.5 MMT <span class="yield-tag">(7.90 t/ha, 12.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.8 MMT <span class="yield-tag">(5.85 t/ha, 8.7%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.40 t/ha, 12.5%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.8 MMT <span class="yield-tag">(2.70 t/ha, 6.0%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 23.4°C</span>
+                            <span class="t-f" style="display:none;">High: 74.1°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 47.3°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 23.4°C (Avg: 19.1°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 74.1°F (Avg: 66.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.5°C (Avg: 11.1°C)</span>
+                            <span class="t-f" style="display:none;">Low: 47.3°F (Avg: 52.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 14.8°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 58.7°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (2.4 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.22 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kirovohrad Oblast" 
+                data-code="UA-KIR" 
+                data-country="Ukraine" 
+                data-peak-tmax="24.9" 
+                data-low-tmin="10.2"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Kirovohrad Oblast</strong> <span class="loc-code">(UA-KIR)</span></div>
+                    <div class="loc-district">📍 Novoukrainka / Dobrovelychkivka Steppe Granary (48.40°N, 31.55°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.7 MMT <span class="yield-tag">(2.65 t/ha, 12.8%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.5 MMT <span class="yield-tag">(4.70 t/ha, 7.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.9 MMT <span class="yield-tag">(6.20 t/ha, 6.5%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 24.9°C</span>
+                            <span class="t-f" style="display:none;">High: 76.8°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.2°C</span>
+                            <span class="t-f" style="display:none;">Low: 50.4°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 24.9°C (Avg: 20.8°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 76.8°F (Avg: 69.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.2°C (Avg: 11.7°C)</span>
+                            <span class="t-f" style="display:none;">Low: 50.4°F (Avg: 53.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 15.8°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 60.5°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.11 m³/m³); prime moisture conditions (0.39 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ukraine - Western Podolia & Volhynia">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Western Podolia & Volhynia</span>
+                    <span class="reg-banner-count">3 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Khmelnytskyi Oblast" 
+                data-code="UA-KHM" 
+                data-country="Ukraine" 
+                data-peak-tmax="24.0" 
+                data-low-tmin="7.8"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Khmelnytskyi Oblast</strong> <span class="loc-code">(UA-KHM)</span></div>
+                    <div class="loc-district">📍 Starokostiantyniv / Krasyliv Rapeseed & Wheat Belt (49.70°N, 27.20°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.6 MMT <span class="yield-tag">(3.65 t/ha, 15.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.9 MMT <span class="yield-tag">(6.30 t/ha, 9.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.0 MMT <span class="yield-tag">(8.50 t/ha, 10.3%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.6 MMT <span class="yield-tag">(2.95 t/ha, 4.5%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 24.0°C</span>
+                            <span class="t-f" style="display:none;">High: 75.2°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.8°C</span>
+                            <span class="t-f" style="display:none;">Low: 46.0°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 24.0°C (Avg: 19.1°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 75.2°F (Avg: 66.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.8°C (Avg: 10.8°C)</span>
+                            <span class="t-f" style="display:none;">Low: 46.0°F (Avg: 51.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 14.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 58.1°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.5 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.22 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Ternopil Oblast" 
+                data-code="UA-TER" 
+                data-country="Ukraine" 
+                data-peak-tmax="24.8" 
+                data-low-tmin="7.5"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Ternopil Oblast</strong> <span class="loc-code">(UA-TER)</span></div>
+                    <div class="loc-district">📍 Chortkiv / Terebovlya High-Yield Podolian Plain (49.15°N, 25.75°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.70 t/ha, 11.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.4 MMT <span class="yield-tag">(6.40 t/ha, 6.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.8 MMT <span class="yield-tag">(8.40 t/ha, 6.2%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 24.8°C</span>
+                            <span class="t-f" style="display:none;">High: 76.6°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 45.5°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 24.8°C (Avg: 19.3°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 76.6°F (Avg: 66.7°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.5°C (Avg: 10.2°C)</span>
+                            <span class="t-f" style="display:none;">Low: 45.5°F (Avg: 50.4°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 14.3°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 57.7°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.6 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.17 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Lviv Oblast" 
+                data-code="UA-LVI" 
+                data-country="Ukraine" 
+                data-peak-tmax="25.1" 
+                data-low-tmin="7.8"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Lviv Oblast</strong> <span class="loc-code">(UA-LVI)</span></div>
+                    <div class="loc-district">📍 Radekhiv / Brody Small Polissia Oilseed Corridor (50.25°N, 24.65°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.55 t/ha, 8.8%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 0.9 MMT <span class="yield-tag">(6.10 t/ha, 4.4%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 25.1°C</span>
+                            <span class="t-f" style="display:none;">High: 77.2°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.8°C</span>
+                            <span class="t-f" style="display:none;">Low: 46.0°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 25.1°C (Avg: 18.9°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 77.2°F (Avg: 66.1°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.8°C (Avg: 10.5°C)</span>
+                            <span class="t-f" style="display:none;">Low: 46.0°F (Avg: 51.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 14.3°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 57.8°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.27 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ukraine - Northern Polissia & Forest-Steppe">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Northern Polissia & Forest-Steppe</span>
+                    <span class="reg-banner-count">2 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Chernihiv Oblast" 
+                data-code="UA-CHE" 
+                data-country="Ukraine" 
+                data-peak-tmax="25.0" 
+                data-low-tmin="9.9"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Chernihiv Oblast</strong> <span class="loc-code">(UA-CHE)</span></div>
+                    <div class="loc-district">📍 Pryluky / Nizhyn Southern Granary Plains (50.70°N, 32.15°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 4.2 MMT <span class="yield-tag">(8.10 t/ha, 14.4%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.8 MMT <span class="yield-tag">(2.60 t/ha, 5.6%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.30 t/ha, 7.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 0.9 MMT <span class="yield-tag">(5.10 t/ha, 4.6%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 25.0°C</span>
+                            <span class="t-f" style="display:none;">High: 77.0°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 9.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 49.8°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 25.0°C (Avg: 20.8°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 77.0°F (Avg: 69.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 9.9°C (Avg: 12.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 49.8°F (Avg: 53.6°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 16.0°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 60.9°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.3 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.23 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Sumy Oblast" 
+                data-code="UA-SUM" 
+                data-country="Ukraine" 
+                data-peak-tmax="24.8" 
+                data-low-tmin="9.1"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Sumy Oblast</strong> <span class="loc-code">(UA-SUM)</span></div>
+                    <div class="loc-district">📍 Romny / Konotop Forest-Steppe Grain Basin (50.75°N, 33.50°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.4 MMT <span class="yield-tag">(7.70 t/ha, 11.6%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.8 MMT <span class="yield-tag">(2.65 t/ha, 6.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.1 MMT <span class="yield-tag">(5.30 t/ha, 5.3%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 24.8°C</span>
+                            <span class="t-f" style="display:none;">High: 76.6°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 9.1°C</span>
+                            <span class="t-f" style="display:none;">Low: 48.4°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 24.8°C (Avg: 20.6°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 76.6°F (Avg: 69.2°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 9.1°C (Avg: 12.1°C)</span>
+                            <span class="t-f" style="display:none;">Low: 48.4°F (Avg: 53.7°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 16.2°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 61.2°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (7.3 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.27 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ukraine - Southern & Eastern Black Sea Steppe">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Southern & Eastern Black Sea Steppe</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Odesa Oblast" 
+                data-code="UA-ODE" 
+                data-country="Ukraine" 
+                data-peak-tmax="25.6" 
+                data-low-tmin="10.5"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Odesa Oblast</strong> <span class="loc-code">(UA-ODE)</span></div>
+                    <div class="loc-district">📍 Artsyz / Sarata Budjak Steppe Grain Belt (45.95°N, 29.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 2.4 MMT <span class="yield-tag">(3.80 t/ha, 11.6%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.1 MMT <span class="yield-tag">(2.10 t/ha, 8.2%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(2.60 t/ha, 8.8%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 25.6°C</span>
+                            <span class="t-f" style="display:none;">High: 78.1°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 50.9°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 25.6°C (Avg: 22.6°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 78.1°F (Avg: 72.6°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.5°C (Avg: 12.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 50.9°F (Avg: 55.2°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 17.3°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 63.1°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.26 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Mykolaiv Oblast" 
+                data-code="UA-MYK" 
+                data-country="Ukraine" 
+                data-peak-tmax="26.3" 
+                data-low-tmin="10.9"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Mykolaiv Oblast</strong> <span class="loc-code">(UA-MYK)</span></div>
+                    <div class="loc-district">📍 Voznesensk / Pervomaisk Inland Steppe Plain (47.55°N, 31.35°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.7 MMT <span class="yield-tag">(3.90 t/ha, 8.2%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.0 MMT <span class="yield-tag">(2.15 t/ha, 7.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.2 MMT <span class="yield-tag">(2.50 t/ha, 6.3%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 26.3°C</span>
+                            <span class="t-f" style="display:none;">High: 79.3°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 51.6°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 26.3°C (Avg: 22.3°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 79.3°F (Avg: 72.1°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.9°C (Avg: 12.5°C)</span>
+                            <span class="t-f" style="display:none;">Low: 51.6°F (Avg: 54.4°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 16.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 62.4°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.18 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Dnipropetrovsk Oblast" 
+                data-code="UA-DNI" 
+                data-country="Ukraine" 
+                data-peak-tmax="26.4" 
+                data-low-tmin="10.0"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Dnipropetrovsk Oblast</strong> <span class="loc-code">(UA-DNI)</span></div>
+                    <div class="loc-district">📍 Synelnykove / Pavlohrad Agricultural Basin (48.25°N, 35.70°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.5 MMT <span class="yield-tag">(2.40 t/ha, 11.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.9 MMT <span class="yield-tag">(4.30 t/ha, 9.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.4 MMT <span class="yield-tag">(5.80 t/ha, 4.8%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 26.4°C</span>
+                            <span class="t-f" style="display:none;">High: 79.5°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.0°C</span>
+                            <span class="t-f" style="display:none;">Low: 50.0°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 26.4°C (Avg: 23.3°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 79.5°F (Avg: 74.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 10.0°C (Avg: 13.6°C)</span>
+                            <span class="t-f" style="display:none;">Low: 50.0°F (Avg: 56.6°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 18.2°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 64.7°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Marginal seedbed moisture deficit; balanced conditions across the agricultural basin with subsoil buffer at 0.19 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kharkiv Oblast" 
+                data-code="UA-KHA" 
+                data-country="Ukraine" 
+                data-peak-tmax="25.3" 
+                data-low-tmin="8.9"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Kharkiv Oblast</strong> <span class="loc-code">(UA-KHA)</span></div>
+                    <div class="loc-district">📍 Krasnohrad / Lozova Chernozem Granary (49.40°N, 35.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.8 MMT <span class="yield-tag">(4.60 t/ha, 8.7%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.3 MMT <span class="yield-tag">(2.50 t/ha, 9.7%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.6 MMT <span class="yield-tag">(6.50 t/ha, 5.5%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 25.3°C</span>
+                            <span class="t-f" style="display:none;">High: 77.5°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 48.0°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 25.3°C (Avg: 21.9°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 77.5°F (Avg: 71.4°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.9°C (Avg: 12.6°C)</span>
+                            <span class="t-f" style="display:none;">Low: 48.0°F (Avg: 54.6°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 17.1°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 62.7°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Marginal seedbed moisture deficit; balanced conditions across the agricultural basin with subsoil buffer at 0.25 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Russia - Southern Federal District (Kuban & Don Basins)">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Russia - Southern Federal District (Kuban & Don Basins)</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Krasnodar Krai (Kuban)" 
+                data-code="RU-KDA" 
+                data-country="Russia" 
+                data-peak-tmax="30.3" 
+                data-low-tmin="13.3"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Krasnodar Krai (Kuban)</strong> <span class="loc-code">(RU-KDA)</span></div>
+                    <div class="loc-district">📍 Kanevskaya / Timashevsk Agricultural Heartland (46.00°N, 39.00°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 11.8 MMT <span class="yield-tag">(6.45 t/ha, 18.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 2.8 MMT <span class="yield-tag">(6.80 t/ha, 18.5%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.2 MMT <span class="yield-tag">(2.80 t/ha, 7.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.10 t/ha, 10.5%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 30.3°C</span>
+                            <span class="t-f" style="display:none;">High: 86.5°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Low: 13.3°C</span>
+                            <span class="t-f" style="display:none;">Low: 55.9°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 30.3°C (Avg: 27.1°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 86.5°F (Avg: 80.8°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Low: 13.3°C (Avg: 17.5°C)</span>
+                            <span class="t-f" style="display:none;">Low: 55.9°F (Avg: 63.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 21.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 71.4°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Severe topsoil seedbed dryness (0.13 m³/m³); critical need for soaking rain to ensure uniform winter rapeseed emergence and timely rosette establishment before winter freeze.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Rostov Oblast (Don Basin)" 
+                data-code="RU-ROS" 
+                data-country="Russia" 
+                data-peak-tmax="31.0" 
+                data-low-tmin="13.1"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Rostov Oblast (Don Basin)</strong> <span class="loc-code">(RU-ROS)</span></div>
+                    <div class="loc-district">📍 Salsk Steppe Cereal & Oilseed Plain (46.50°N, 41.50°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 12.5 MMT <span class="yield-tag">(4.40 t/ha, 19.3%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 2.2 MMT <span class="yield-tag">(2.35 t/ha, 13.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 0.8 MMT <span class="yield-tag">(4.50 t/ha, 5.3%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#ea580c; color:#ffffff;">
+                            <span class="t-c">High: 31.0°C</span>
+                            <span class="t-f" style="display:none;">High: 87.8°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Low: 13.1°C</span>
+                            <span class="t-f" style="display:none;">Low: 55.6°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#ea580c; color:#ffffff;">
+                            <span class="t-c">Peak: 31.0°C (Avg: 27.3°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 87.8°F (Avg: 81.2°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Low: 13.1°C (Avg: 16.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 55.6°F (Avg: 62.4°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 21.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 71.4°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.4 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.16 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Stavropol Krai" 
+                data-code="RU-STA" 
+                data-country="Russia" 
+                data-peak-tmax="30.4" 
+                data-low-tmin="12.5"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Stavropol Krai</strong> <span class="loc-code">(RU-STA)</span></div>
+                    <div class="loc-district">📍 Ipatovo / Svetlograd North Caucasus Steppe (45.70°N, 42.90°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 7.8 MMT <span class="yield-tag">(4.20 t/ha, 12.0%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.7 MMT <span class="yield-tag">(2.20 t/ha, 4.1%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(2.70 t/ha, 8.2%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 30.4°C</span>
+                            <span class="t-f" style="display:none;">High: 86.7°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Low: 12.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 54.5°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 30.4°C (Avg: 27.4°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 86.7°F (Avg: 81.3°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Low: 12.5°C (Avg: 16.1°C)</span>
+                            <span class="t-f" style="display:none;">Low: 54.5°F (Avg: 61.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 21.4°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 70.5°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Severe topsoil seedbed dryness (0.15 m³/m³); critical need for soaking rain to ensure uniform winter rapeseed emergence and timely rosette establishment before winter freeze.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Volgograd Oblast" 
+                data-code="RU-VGG" 
+                data-country="Russia" 
+                data-peak-tmax="29.1" 
+                data-low-tmin="8.5"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Volgograd Oblast</strong> <span class="loc-code">(RU-VGG)</span></div>
+                    <div class="loc-district">📍 Mikhailovka / Novoanninsky Medveditsa Basin (50.10°N, 43.25°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 4.5 MMT <span class="yield-tag">(3.35 t/ha, 7.0%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.4 MMT <span class="yield-tag">(1.85 t/ha, 8.8%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 29.1°C</span>
+                            <span class="t-f" style="display:none;">High: 84.4°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 47.3°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 29.1°C (Avg: 25.0°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 84.4°F (Avg: 77.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.5°C (Avg: 14.4°C)</span>
+                            <span class="t-f" style="display:none;">Low: 47.3°F (Avg: 57.8°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 19.4°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 67.0°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Marginal seedbed moisture deficit; balanced conditions across the agricultural basin with subsoil buffer at 0.21 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Russia - Central Black Earth (Chernozem) Belt">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Russia - Central Black Earth (Chernozem) Belt</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Voronezh Oblast" 
+                data-code="RU-VOR" 
+                data-country="Russia" 
+                data-peak-tmax="27.3" 
+                data-low-tmin="8.8"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Voronezh Oblast</strong> <span class="loc-code">(RU-VOR)</span></div>
+                    <div class="loc-district">📍 Pavlovsk / Talovaya Kamennaya Steppe Granary (50.80°N, 40.20°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.5 MMT <span class="yield-tag">(2.65 t/ha, 9.4%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 3.8 MMT <span class="yield-tag">(4.80 t/ha, 5.9%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.6 MMT <span class="yield-tag">(6.60 t/ha, 10.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.2 MMT <span class="yield-tag">(2.90 t/ha, 4.7%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 27.3°C</span>
+                            <span class="t-f" style="display:none;">High: 81.1°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.8°C</span>
+                            <span class="t-f" style="display:none;">Low: 47.8°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 27.3°C (Avg: 23.6°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 81.1°F (Avg: 74.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.8°C (Avg: 13.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 47.8°F (Avg: 57.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 18.3°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 64.9°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.26 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kursk Oblast" 
+                data-code="RU-KRS" 
+                data-country="Russia" 
+                data-peak-tmax="26.3" 
+                data-low-tmin="7.3"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Kursk Oblast</strong> <span class="loc-code">(RU-KRS)</span></div>
+                    <div class="loc-district">📍 Shchigry / Medvenka Deep Chernozem Plain (51.40°N, 36.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 3.5 MMT <span class="yield-tag">(5.75 t/ha, 5.4%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 2.2 MMT <span class="yield-tag">(7.90 t/ha, 14.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.35 t/ha, 8.2%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.6 MMT <span class="yield-tag">(2.80 t/ha, 3.4%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 26.3°C</span>
+                            <span class="t-f" style="display:none;">High: 79.3°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.3°C</span>
+                            <span class="t-f" style="display:none;">Low: 45.1°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 26.3°C (Avg: 22.2°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 79.3°F (Avg: 71.9°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.3°C (Avg: 12.3°C)</span>
+                            <span class="t-f" style="display:none;">Low: 45.1°F (Avg: 54.1°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 16.8°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 62.2°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.35 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Belgorod Oblast" 
+                data-code="RU-BEL" 
+                data-country="Russia" 
+                data-peak-tmax="26.9" 
+                data-low-tmin="8.4"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Belgorod Oblast</strong> <span class="loc-code">(RU-BEL)</span></div>
+                    <div class="loc-district">📍 Alekseyevka / Valuyki Agro-Industrial Basin (50.30°N, 37.80°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 2.8 MMT <span class="yield-tag">(5.60 t/ha, 4.3%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.8 MMT <span class="yield-tag">(7.80 t/ha, 11.8%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.6 MMT <span class="yield-tag">(2.85 t/ha, 3.8%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.2 MMT <span class="yield-tag">(3.20 t/ha, 5.9%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 26.9°C</span>
+                            <span class="t-f" style="display:none;">High: 80.4°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.4°C</span>
+                            <span class="t-f" style="display:none;">Low: 47.1°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 26.9°C (Avg: 23.0°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 80.4°F (Avg: 73.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.4°C (Avg: 12.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 47.1°F (Avg: 55.3°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 17.6°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 63.6°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Accelerated topsoil drydown (-0.03 m³/m³); prime moisture conditions (0.25 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Lipetsk Oblast" 
+                data-code="RU-LIP" 
+                data-country="Russia" 
+                data-peak-tmax="26.1" 
+                data-low-tmin="7.4"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Lipetsk Oblast</strong> <span class="loc-code">(RU-LIP)</span></div>
+                    <div class="loc-district">📍 Yelets / Dobrinka Chernozem Plain (52.30°N, 39.00°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 2.9 MMT <span class="yield-tag">(5.40 t/ha, 4.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.15 t/ha, 7.0%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.7 MMT <span class="yield-tag">(2.75 t/ha, 4.1%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.2 MMT <span class="yield-tag">(7.40 t/ha, 7.9%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 26.1°C</span>
+                            <span class="t-f" style="display:none;">High: 79.0°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.4°C</span>
+                            <span class="t-f" style="display:none;">Low: 45.3°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 26.1°C (Avg: 22.5°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 79.0°F (Avg: 72.4°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.4°C (Avg: 13.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 45.3°F (Avg: 55.5°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 17.1°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 62.8°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.03 m³/m³); prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Russia - Volga Steppe & Baltic Oilseed Enclave">
+            <td colspan="5">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Russia - Volga Steppe & Baltic Oilseed Enclave</span>
+                    <span class="reg-banner-count">2 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Saratov Oblast" 
+                data-code="RU-SAR" 
+                data-country="Russia" 
+                data-peak-tmax="26.9" 
+                data-low-tmin="7.5"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Saratov Oblast</strong> <span class="loc-code">(RU-SAR)</span></div>
+                    <div class="loc-district">📍 Balashov / Samoilovka Khopyor Sunflower Basin (51.50°N, 43.30°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 2.3 MMT <span class="yield-tag">(1.95 t/ha, 14.4%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 3.8 MMT <span class="yield-tag">(3.20 t/ha, 5.9%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">High: 26.9°C</span>
+                            <span class="t-f" style="display:none;">High: 80.4°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 45.5°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#d97706; color:#ffffff;">
+                            <span class="t-c">Peak: 26.9°C (Avg: 23.1°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 80.4°F (Avg: 73.6°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 7.5°C (Avg: 13.1°C)</span>
+                            <span class="t-f" style="display:none;">Low: 45.5°F (Avg: 55.6°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 17.6°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 63.8°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.27 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kaliningrad Oblast" 
+                data-code="RU-KGD" 
+                data-country="Russia" 
+                data-peak-tmax="21.8" 
+                data-low-tmin="8.7"
+                data-heat-days="0"
+                data-frost-days="0">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Kaliningrad Oblast</strong> <span class="loc-code">(RU-KGD)</span></div>
+                    <div class="loc-district">📍 Gvardeysk / Pravdinsk Rural Rapeseed Lowlands (54.50°N, 21.30°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.90 t/ha, 10.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 0.8 MMT <span class="yield-tag">(6.20 t/ha, 1.2%)</span></span></div>
+                </td>
+                
+                <td class="col-dual">
+                    <div class="view-dual">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">High: 21.8°C</span>
+                            <span class="t-f" style="display:none;">High: 71.2°F</span>
+                        </span>
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.7°C</span>
+                            <span class="t-f" style="display:none;">Low: 47.7°F</span>
+                        </span>
+                    </div>
+                    <div class="view-tmax" style="display:none;">
+                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
+                            <span class="t-c">Peak: 21.8°C (Avg: 17.8°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 71.2°F (Avg: 64.0°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmin" style="display:none;">
+                        <span class="temp-pill" style="background:#0d9488; color:#ffffff;">
+                            <span class="t-c">Low: 8.7°C (Avg: 11.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 47.7°F (Avg: 51.8°F)</span>
+                        </span>
+                    </div>
+                    <div class="view-tmean" style="display:none;">
+                        <span class="temp-pill" style="background:#334155; color:#f8fafc;">
+                            <span class="t-c">24-Hr Mean: 14.2°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 57.5°F</span>
+                        </span>
+                    </div>
+                </td>
+                
+                <td class="col-stress">
+                    <div class="stress-wrap"><span class="stress-badge badge-benign">✨ Favorable Vegetative Regime</span></div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.30 m³/m³.</div>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentUnit = 'C';
+        let currentView = 'dual';
+        let countryFilter = 'all';
+        let currentSort = { col: null, asc: true };
+
+        function setTempUnit(u) {
+            currentUnit = u;
+            document.getElementById('btnTempC').classList.toggle('active', u === 'C');
+            document.getElementById('btnTempF').classList.toggle('active', u === 'F');
+            
+            document.querySelectorAll('.t-c').forEach(el => el.style.display = (u === 'C' ? 'inline' : 'none'));
+            document.querySelectorAll('.t-f').forEach(el => el.style.display = (u === 'F' ? 'inline' : 'none'));
+        }
+
+        function setViewMode(m) {
+            currentView = m;
+            document.getElementById('btnDual').classList.toggle('active', m === 'dual');
+            document.getElementById('btnTmax').classList.toggle('active', m === 'tmax');
+            document.getElementById('btnTmin').classList.toggle('active', m === 'tmin');
+            document.getElementById('btnTmean').classList.toggle('active', m === 'tmean');
+            
+            document.querySelectorAll('.view-dual').forEach(el => el.style.display = (m === 'dual' ? 'flex' : 'none'));
+            document.querySelectorAll('.view-tmax').forEach(el => el.style.display = (m === 'tmax' ? 'block' : 'none'));
+            document.querySelectorAll('.view-tmin').forEach(el => el.style.display = (m === 'tmin' ? 'block' : 'none'));
+            document.querySelectorAll('.view-tmean').forEach(el => el.style.display = (m === 'tmean' ? 'block' : 'none'));
+        }
+
+        function filterCountry(c) {
+            countryFilter = c;
+            document.querySelectorAll('.filter-group:first-child .filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            filterRows();
+        }
+
+        function filterRows() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('tr.data-row');
+            
+            rows.forEach(r => {
+                const c = r.getAttribute('data-country');
+                const text = r.innerText.toLowerCase();
+                const cMatch = (countryFilter === 'all' || c === countryFilter);
+                const qMatch = (!q || text.includes(q));
+                r.style.display = (cMatch && qMatch) ? '' : 'none';
+            });
+        }
+
+        function sortTable(key) {
+            const tbody = document.querySelector('#tempTable tbody');
+            const rows = Array.from(document.querySelectorAll('tr.data-row'));
+            
+            let asc = true;
+            if (currentSort.col === key) {
+                asc = !currentSort.asc;
+            }
+            currentSort = { col: key, asc: asc };
+            
+            rows.sort((a, b) => {
+                let vA, vB;
+                if (key === 'name') {
+                    vA = a.getAttribute('data-name');
+                    vB = b.getAttribute('data-name');
+                    return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                } else if (key === 'tmax') {
+                    vA = parseFloat(a.getAttribute('data-peak-tmax'));
+                    vB = parseFloat(b.getAttribute('data-peak-tmax'));
+                } else if (key === 'heat') {
+                    vA = parseInt(a.getAttribute('data-heat-days'));
+                    vB = parseInt(b.getAttribute('data-heat-days'));
+                }
+                return asc ? (vA - vB) : (vB - vA);
+            });
+            
+            document.querySelectorAll('tr.region-header-row').forEach(el => el.style.display = 'none');
+            rows.forEach(r => tbody.appendChild(r));
+        }
+    </script>
+</body>
+</html>

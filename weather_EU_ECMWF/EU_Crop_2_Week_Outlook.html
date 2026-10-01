@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>European Crop 2-Week & Full Season Weather Matrix | ECMWF IFS 0.25°</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131b2e;
+            --bg-card: #172033;
+            --border-color: #273549;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-rose: #f43f5e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 24px;
+            line-height: 1.5;
+        }
+        
+        /* Universal Navigation Header */
+        .suite-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #131b2e;
+            border: 1px solid #273549;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .suite-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .suite-brand-badge {
+            background: linear-gradient(135deg, #059669, #0d9488);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .suite-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suite-tab {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #0b0f19;
+            border: 1px solid #273549;
+            transition: all 0.2s;
+        }
+        .suite-tab:hover { color: #f8fafc; border-color: #64748b; }
+        .suite-tab.active { background: #0284c7; color: #ffffff; border-color: #0284c7; font-weight: 700; }
+
+        /* Header Card */
+        .header-card {
+            background: linear-gradient(135deg, #172033 0%, #0b0f19 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-title p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .header-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .badge-model { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-commodities { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-time { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid #334155; }
+
+        /* Controls Section */
+        .controls-card {
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .metric-switcher {
+            display: flex;
+            background: #0b0f19;
+            border: 1px solid #273549;
+            border-radius: 10px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .metric-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .metric-btn.active {
+            background: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+        }
+        
+        .unit-group {
+            display: flex;
+            background: #0b0f19;
+            border: 1px solid #273549;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .unit-btn {
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .unit-btn.active {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        /* Guidance Card */
+        .guidance-card {
+            background: #131b2e;
+            border: 1px solid #273549;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .guidance-icon {
+            font-size: 28px;
+            background: #0b0f19;
+            border: 1px solid #273549;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .guidance-content h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-bottom: 4px;
+        }
+        .guidance-content p {
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Filter bar */
+        .search-filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .search-input {
+            background: #0b0f19;
+            border: 1px solid #273549;
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: #f8fafc;
+            font-size: 13px;
+            width: 260px;
+            outline: none;
+        }
+        .country-pills {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .country-pill {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #0b0f19;
+            color: #94a3b8;
+            border: 1px solid #273549;
+            cursor: pointer;
+        }
+        .country-pill.active, .country-pill:hover {
+            background: #273549;
+            color: #f8fafc;
+        }
+
+        /* Table */
+        .matrix-table-container {
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow-x: auto;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        th, td {
+            padding: 2px 2px;
+            border-bottom: 1px solid #1e293b;
+        }
+        th {
+            background: #0b0f19;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 11px;
+            user-select: none;
+        }
+        th.sticky-col, td.sticky-col {
+            position: sticky;
+            left: 0;
+            background: #131b2e;
+            z-index: 2;
+            text-align: left;
+            padding: 2px 4px;
+            width: 230px;
+            min-width: 230px;
+            max-width: 250px;
+            border-right: 1px solid #273549;
+            white-space: normal;
+        }
+        th.sticky-col { background: #0b0f19; z-index: 3; }
+        
+        .commodities-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1px;
+            margin-top: 1px;
+        }
+        .crop-badge {
+            font-size: 8.5px;
+            padding: 0px 3px;
+            border-radius: 2px;
+            background: #1e293b;
+            color: #cbd5e1;
+        }
+        .crop-badge.highlight {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .soil-pill {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .summary-val {
+            font-weight: 800;
+            font-size: 13px;
+            padding: 4px 6px;
+            border-radius: 6px;
+        }
+
+        .heat-cell {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-weight: 700;
+            font-size: 11.5px;
+            padding: 3px 2px;
+            border-radius: 4px;
+            min-width: 38px;
+        }
+        .forecast-header {
+            background: rgba(2, 132, 199, 0.25) !important;
+            color: #38bdf8 !important;
+            border-bottom: 2px solid #0284c7 !important;
+        }
+        .observed-header {
+            background: #0b0f19 !important;
+            color: #94a3b8 !important;
+        }
+        .today-col {
+            border-left: 2px solid #f59e0b !important;
+            border-right: 2px solid #f59e0b !important;
+        }
+
+        .comment-col {
+            text-align: left;
+            padding: 2px 4px;
+            max-width: 280px;
+            min-width: 240px;
+            white-space: normal;
+            font-size: 10px;
+            color: #cbd5e1;
+            line-height: 1.1;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Suite Cross-Navigation Header -->
+    <div class="suite-nav">
+        <div class="suite-brand">
+            <span>🇪🇺</span>
+            <span>European Crop Ag-Weather Intelligence</span>
+            <span class="suite-brand-badge">ECMWF IFS 0.25°</span>
+        </div>
+        <div class="suite-tabs">
+            <a href="EU_Crop_2_Week_Outlook.html" class="suite-tab active">🌧️ 2-Week Outlook</a>
+            <a href="EU_Crop_Soil_Moisture_Outlook.html" class="suite-tab">🌱 Soil Moisture</a>
+            <a href="EU_Crop_Temperature_Outlook.html" class="suite-tab">🌡️ Temperature</a>
+            <a href="EU_Crop_Weather_Matrix.html" class="suite-tab">📊 17-Year Matrix</a>
+            <a href="../dashboard/index.html" class="suite-tab">🏠 Master Portal</a>
+        </div>
+    </div>
+
+    <!-- Executive Header Card -->
+    <div class="header-card">
+        <div class="header-top">
+            <div class="header-title">
+                <h1>🇪🇺 European Crop 2-Week & Full Season Weather Matrix</h1>
+                <p>High-resolution operational ag-weather analytics across 13 core European agricultural basins</p>
+            </div>
+            <div class="header-badges">
+                <div class="badge badge-model">📡 ECMWF IFS (0.25°) Seamless Operational & Ag-Reanalysis</div>
+                <div class="badge badge-commodities">🌾 Rapeseed, Corn, Soft Wheat, Durum, Barley</div>
+                <div class="badge badge-time">🕒 Updated: 2026-09-27 06:35:07 UTC</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Controls Card -->
+    <div class="controls-card">
+        <div class="metric-switcher">
+            <button class="metric-btn active" id="btn-metric-precip" onclick="setMetric('precip')">
+                💧 Precipitation
+            </button>
+            <button class="metric-btn" id="btn-metric-tmax" onclick="setMetric('tmax')">
+                ☀️ Daytime Max (T-Max)
+            </button>
+            <button class="metric-btn" id="btn-metric-tmin" onclick="setMetric('tmin')">
+                🌙 Night Min (T-Min)
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="unit-group">
+                <button class="unit-btn active" id="unit-metric-btn" onclick="toggleUnit('metric')">Metric (mm / °C)</button>
+                <button class="unit-btn" id="unit-imperial-btn" onclick="toggleUnit('imperial')">Imperial (in / °F)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agronomic Guidance Card -->
+    <div class="guidance-card" id="guidance-card">
+        <div class="guidance-icon" id="guidance-icon">💧</div>
+        <div class="guidance-content">
+            <h3 id="guidance-title">European Crop Precipitation & Moisture Guidance</h3>
+            <p id="guidance-desc">
+                Monitoring moisture dynamics for winter rapeseed emergence (drilled late Aug–Sept), grain corn drydown & harvest (Sept–Nov), and winter wheat / winter barley autumn seedbed preparation.
+            </p>
+        </div>
+    </div>
+
+    <!-- Search & Country Filters -->
+    <div class="search-filter-bar">
+        <input type="text" class="search-input" id="search-box" placeholder="🔍 Search region, country, crop..." oninput="filterTable()">
+        <div class="country-pills">
+            <button class="country-pill active" onclick="setCountryFilter('ALL', this)">All Europe (13)</button>
+            <button class="country-pill" onclick="setCountryFilter('Bulgaria', this)">Bulgaria</button><button class="country-pill" onclick="setCountryFilter('France', this)">France</button><button class="country-pill" onclick="setCountryFilter('Germany', this)">Germany</button><button class="country-pill" onclick="setCountryFilter('Hungary', this)">Hungary</button><button class="country-pill" onclick="setCountryFilter('Italy', this)">Italy</button><button class="country-pill" onclick="setCountryFilter('Poland', this)">Poland</button><button class="country-pill" onclick="setCountryFilter('Romania', this)">Romania</button><button class="country-pill" onclick="setCountryFilter('Spain', this)">Spain</button>
+        </div>
+    </div>
+
+    <!-- Matrix Table Container -->
+    <div class="matrix-table-container">
+        <table id="matrix-table">
+            <thead>
+                <tr id="header-dates-row">
+                    <th class="sticky-col">Agricultural Basin & Commodities</th>
+                    <th>Topsoil (0-7cm)</th>
+                    <th>Subsoil (7-100cm)</th>
+                    <th title="Total 7-day forward precipitation">7D Fwd</th>
+                    <th title="Total 14-day forward precipitation">14D Fwd</th>
+                    <th title="Total 14-day trailing precipitation">14D Trail</th>
+                    <!-- Dynamic Date Columns Injected by JS -->
+                    <th id="dates-anchor" style="display: none;"></th>
+                    <th class="comment-col">Agronomic Status & Outlook</th>
+                </tr>
+            </thead>
+            <tbody id="matrix-tbody">
+                <!-- Injected via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-note">
+        ECMWF IFS (0.25°) Operational Model & Ag-Reanalysis • European Crop Weather Intelligence • Powered by Open-Meteo
+    </div>
+
+    <script>
+        const NODES_DATA = {"FR-NORTH": {"name": "Northern Granary (Beauce / Champagne / Picardy)", "code": "FR-NORTH", "country": "France", "macro_region": "France - Cereal & Oilseed Granary Core", "district": "Paris Basin & Grand Est (Chartres / Reims / Amiens)", "commodities": [{"crop": "Soft Wheat", "production_mmt": 14.0, "yield_tha": 7.85, "share_pct": 11.2, "status": "Autumn Drilling Window / Pre-Sowing Seedbed Prep"}, {"crop": "Barley (Winter & Malting)", "production_mmt": 5.4, "yield_tha": 7.4, "share_pct": 10.8, "status": "Field Prep / Autumn Winter Barley Sowing"}, {"crop": "Rapeseed (Colza)", "production_mmt": 2.3, "yield_tha": 3.5, "share_pct": 12.1, "status": "Active Emergence / Rosette Establishment"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.2, 0.0, 0.0, 0.3, 0.0, 0.9, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.8, 0.6, 0.2, 0.0, 2.0, 11.2, 3.6, 7.6, 0.0, 8.0, 0.0], "tmax_daily": [25.3, 28.6, 31.8, 21.2, 22.2, 21.2, 23.6, 23.7, 21.1, 23.0, 25.1, 22.8, 26.1, 22.2, 26.6, 27.1, 27.4, 24.6, 21.4, 21.3, 20.9, 20.1, 16.8, 13.1, 16.0, 13.7, 15.5, 15.7, 22.0], "tmin_daily": [14.1, 15.5, 17.0, 13.6, 11.6, 11.4, 11.6, 11.9, 10.5, 9.8, 10.3, 11.0, 10.7, 11.5, 11.9, 16.2, 16.3, 19.9, 15.1, 13.3, 12.4, 10.2, 10.0, 9.5, 10.5, 10.1, 7.2, 10.7, 12.0], "topsoil_daily": [0.1238, 0.1188, 0.1162, 0.118, 0.1424, 0.1506, 0.152, 0.1572, 0.1442, 0.1489, 0.1379, 0.1338, 0.1283, 0.1225, 0.1189, 0.1161, 0.1138, 0.112, 0.1778, 0.2038, 0.1783, 0.1691, 0.1721, 0.2372, 0.3077, 0.3377, 0.3097, 0.3243, 0.3262], "subsoil_daily": [0.1748, 0.1746, 0.1732, 0.1729, 0.1737, 0.1738, 0.1738, 0.1734, 0.1726, 0.1731, 0.1724, 0.1726, 0.1721, 0.1714, 0.1713, 0.171, 0.1709, 0.1708, 0.1708, 0.1705, 0.17, 0.1699, 0.1697, 0.1701, 0.1726, 0.1763, 0.1804, 0.1826, 0.1854], "today_index": 14, "ag_comment": "Critical topsoil moisture deficit (0.119 m\u00b3/m\u00b3); dry seedbeds pose uneven germination risks for recently drilled winter rapeseed."}, "FR-SW": {"name": "Southwest Maize & Durum Basin", "code": "FR-SW", "country": "France", "macro_region": "France - Cereal & Oilseed Granary Core", "district": "Nouvelle-Aquitaine & Occitanie (Niort / Bordeaux / Toulouse)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 5.1, "yield_tha": 9.45, "share_pct": 8.2, "status": "Grain Maturation / Active Harvest Window"}, {"crop": "Soft Wheat", "production_mmt": 3.4, "yield_tha": 6.8, "share_pct": 2.7, "status": "Stubble Clearing & Seedbed Prep"}, {"crop": "Durum Wheat", "production_mmt": 0.6, "yield_tha": 5.4, "share_pct": 8.5, "status": "Pre-Sowing Preparation"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 0.0, 0.1, 0.2, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.2, 0.0, 0.7, 0.0, 21.5, 4.8, 6.4, 7.6, 3.0, 0.4, 0.0, 5.0, 2.2, 6.4, 0.0], "tmax_daily": [29.5, 32.6, 34.0, 24.1, 22.8, 23.8, 25.2, 28.3, 29.1, 28.2, 29.7, 32.2, 29.5, 26.1, 30.0, 29.0, 30.7, 30.9, 23.6, 22.8, 22.4, 21.7, 19.0, 20.2, 19.9, 19.1, 18.7, 16.0, 22.0], "tmin_daily": [13.4, 15.7, 16.5, 17.5, 11.7, 14.2, 11.0, 12.1, 13.1, 13.5, 10.8, 12.6, 14.0, 17.6, 16.6, 19.3, 20.2, 21.5, 17.6, 17.0, 18.1, 16.4, 13.5, 11.3, 9.6, 12.5, 11.2, 13.4, 12.0], "topsoil_daily": [0.145, 0.1445, 0.1487, 0.1385, 0.151, 0.1513, 0.1613, 0.1519, 0.1517, 0.1516, 0.1481, 0.1452, 0.1465, 0.1342, 0.1303, 0.1264, 0.129, 0.1261, 0.2846, 0.3092, 0.2495, 0.2984, 0.2905, 0.2684, 0.2452, 0.248, 0.2705, 0.3103, 0.2949], "subsoil_daily": [0.1507, 0.1527, 0.1533, 0.153, 0.154, 0.1548, 0.1548, 0.1543, 0.1546, 0.1553, 0.1588, 0.1603, 0.1608, 0.1592, 0.158, 0.158, 0.158, 0.158, 0.161, 0.1658, 0.1586, 0.1606, 0.1634, 0.1651, 0.1657, 0.166, 0.167, 0.1689, 0.1714], "today_index": 14, "ag_comment": "Critical topsoil moisture deficit (0.130 m\u00b3/m\u00b3); farmers delaying winter cereal drilling awaiting autumn soaking rains. Beneficial forward rain (33.6 mm) will nourish emerging winter oilseeds and winter cereals."}, "DE-NORTH": {"name": "North & Central B\u00f6rde Oilseed Belt", "code": "DE-NORTH", "country": "Germany", "macro_region": "Germany - B\u00f6rde Loess & Maize Belts", "district": "Saxony-Anhalt, Lower Saxony & Baltic Plain (Magdeburg / Hannover / Rostock)", "commodities": [{"crop": "Rapeseed (Raps)", "production_mmt": 2.1, "yield_tha": 3.75, "share_pct": 11.0, "status": "Emergence & Early Rosette Formation"}, {"crop": "Winter Wheat", "production_mmt": 7.0, "yield_tha": 8.3, "share_pct": 5.6, "status": "Pre-Drilling Seedbed Preparation"}, {"crop": "Winter Barley", "production_mmt": 4.0, "yield_tha": 7.7, "share_pct": 8.0, "status": "Early Autumn Drilling Initiation"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [5.9, 0.2, 0.0, 9.8, 0.1, 0.0, 0.1, 1.4, 0.9, 0.3, 0.0, 3.3, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.7, 2.2, 0.4, 0.4, 0.4, 21.8, 0.2, 1.4, 0.0, 0.0], "tmax_daily": [21.1, 20.1, 26.2, 19.8, 19.2, 19.5, 20.8, 20.4, 17.3, 18.1, 19.8, 14.4, 17.4, 21.8, 24.4, 26.5, 24.9, 23.2, 21.7, 20.4, 19.7, 20.4, 18.6, 17.2, 17.3, 17.2, 16.1, 16.8, 22.0], "tmin_daily": [14.6, 11.5, 11.9, 13.0, 11.4, 13.8, 12.6, 13.2, 11.5, 9.8, 7.9, 11.5, 9.3, 7.4, 11.5, 11.9, 12.9, 12.5, 12.9, 14.6, 13.5, 12.4, 12.1, 11.2, 10.9, 9.5, 10.0, 6.8, 12.0], "topsoil_daily": [0.1543, 0.1679, 0.1668, 0.2219, 0.2255, 0.2063, 0.1897, 0.1673, 0.162, 0.1583, 0.156, 0.1342, 0.1402, 0.1537, 0.1371, 0.1289, 0.1235, 0.1192, 0.1167, 0.1371, 0.2492, 0.2372, 0.2225, 0.2159, 0.3507, 0.313, 0.2959, 0.2743, 0.2606], "subsoil_daily": [0.1519, 0.1525, 0.1527, 0.1523, 0.1533, 0.1536, 0.1535, 0.1535, 0.1533, 0.153, 0.1535, 0.1525, 0.1523, 0.1535, 0.1529, 0.1527, 0.1526, 0.1525, 0.1524, 0.1523, 0.1538, 0.1545, 0.1547, 0.1549, 0.1632, 0.1697, 0.1714, 0.1717, 0.1717], "today_index": 14, "ag_comment": "Critical topsoil moisture deficit (0.137 m\u00b3/m\u00b3); dry seedbeds pose uneven germination risks for recently drilled winter rapeseed."}, "DE-SOUTH": {"name": "South Grain & Maize Basin", "code": "DE-SOUTH", "country": "Germany", "macro_region": "Germany - B\u00f6rde Loess & Maize Belts", "district": "Bavaria Danube & North Rhine-Westphalia (Straubing / Soest)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 6.5, "yield_tha": 7.8, "share_pct": 5.2, "status": "Pre-Drilling Window"}, {"crop": "Winter & Brewing Barley", "production_mmt": 3.6, "yield_tha": 7.2, "share_pct": 7.2, "status": "Early Autumn Sowing Window"}, {"crop": "Corn (Grain Maize)", "production_mmt": 2.2, "yield_tha": 9.9, "share_pct": 3.5, "status": "Silage & Grain Maturation / Harvest"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [3.0, 7.2, 0.0, 1.5, 0.3, 0.0, 0.0, 0.2, 2.3, 0.0, 0.0, 1.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 8.8, 9.4, 14.2, 0.0, 1.0, 0.0, 0.0], "tmax_daily": [19.6, 19.8, 23.2, 23.4, 19.0, 19.1, 20.7, 22.0, 15.3, 14.7, 16.9, 15.3, 17.5, 21.7, 21.8, 22.7, 22.1, 22.5, 22.5, 23.0, 20.9, 21.0, 19.8, 15.8, 16.4, 17.5, 15.1, 14.8, 22.0], "tmin_daily": [12.6, 14.1, 11.1, 14.4, 11.2, 10.0, 9.6, 11.0, 9.6, 7.9, 3.7, 8.8, 3.6, 5.6, 8.7, 9.0, 10.5, 10.6, 9.5, 12.0, 8.9, 10.7, 13.1, 11.5, 9.4, 6.4, 8.8, 7.7, 12.0], "topsoil_daily": [0.2778, 0.3535, 0.3123, 0.276, 0.2682, 0.2664, 0.2409, 0.23, 0.2321, 0.2313, 0.2396, 0.2412, 0.2371, 0.2295, 0.1973, 0.1862, 0.176, 0.1666, 0.1602, 0.156, 0.1589, 0.154, 0.2283, 0.3091, 0.3751, 0.3267, 0.3077, 0.2969, 0.2861], "subsoil_daily": [0.1704, 0.1755, 0.1779, 0.1783, 0.1798, 0.1809, 0.1802, 0.1806, 0.1813, 0.1822, 0.1841, 0.183, 0.182, 0.1806, 0.1765, 0.1753, 0.174, 0.1728, 0.1718, 0.1709, 0.1724, 0.1714, 0.1707, 0.1714, 0.1823, 0.1872, 0.1878, 0.1878, 0.1879], "today_index": 14, "ag_comment": "Sub-optimal topsoil moisture (0.197 m\u00b3/m\u00b3); adequate for fieldwork but rain welcomed for autumn sowing. Open, dry weather (<0.0 mm) provides ideal harvest efficiency for grain corn."}, "PL-WEST": {"name": "West & Central Core", "code": "PL-WEST", "country": "Poland", "macro_region": "Poland - Central European Grain Corridor", "district": "Greater Poland & Lower Silesia (Pozna\u0144 / Wroc\u0142aw)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 3.7, "yield_tha": 7.45, "share_pct": 5.9, "status": "Maturation / Grain Drydown"}, {"crop": "Winter Wheat", "production_mmt": 4.4, "yield_tha": 6.5, "share_pct": 3.5, "status": "Autumn Drilling Window"}, {"crop": "Rapeseed (Rzepak)", "production_mmt": 1.35, "yield_tha": 3.4, "share_pct": 7.1, "status": "Emergence / Autumn Establishment"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 2.2, 0.0, 10.8, 9.2, 0.0, 0.0, 3.5, 3.2, 1.0, 0.0, 1.4, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 4.4, 4.0, 0.2, 0.0], "tmax_daily": [18.4, 19.6, 20.7, 23.8, 18.3, 19.8, 21.2, 18.9, 15.3, 16.2, 15.9, 15.0, 14.0, 19.1, 20.3, 21.4, 21.8, 20.2, 21.2, 21.4, 20.3, 20.0, 19.9, 18.9, 16.2, 14.8, 15.1, 17.5, 22.0], "tmin_daily": [11.0, 12.5, 9.2, 12.1, 12.5, 11.9, 10.5, 13.3, 10.2, 9.7, 7.3, 8.9, 10.4, 7.4, 8.8, 9.9, 10.0, 9.7, 13.2, 11.5, 8.6, 9.2, 9.8, 11.6, 12.4, 10.7, 10.9, 8.9, 12.0], "topsoil_daily": [0.2888, 0.2981, 0.2933, 0.3081, 0.3594, 0.3366, 0.3161, 0.3021, 0.3478, 0.3333, 0.325, 0.3364, 0.3496, 0.3438, 0.3256, 0.3085, 0.2955, 0.2847, 0.2721, 0.2622, 0.2551, 0.2502, 0.2454, 0.2389, 0.248, 0.2769, 0.3391, 0.3192, 0.3074], "subsoil_daily": [0.2454, 0.2466, 0.2473, 0.2468, 0.2506, 0.2558, 0.2557, 0.2529, 0.2547, 0.2571, 0.2591, 0.2627, 0.2672, 0.2695, 0.2696, 0.2685, 0.2671, 0.2657, 0.2643, 0.2629, 0.2607, 0.2596, 0.2586, 0.2576, 0.2568, 0.2565, 0.2577, 0.259, 0.2594], "today_index": 14, "ag_comment": "Favorable rootzone conditions (0.326 m\u00b3/m\u00b3); dry harvest window accelerating corn grain drydown and field combines. Open, dry weather (<0.0 mm) provides ideal harvest efficiency for grain corn."}, "PL-EAST": {"name": "North & East Loess Belt", "code": "PL-EAST", "country": "Poland", "macro_region": "Poland - Central European Grain Corridor", "district": "Kuyavia & Lublin (Inowroc\u0142aw / Lublin)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 3.7, "yield_tha": 6.1, "share_pct": 3.0, "status": "Pre-Sowing Field Preparation"}, {"crop": "Corn (Grain Maize)", "production_mmt": 2.0, "yield_tha": 7.05, "share_pct": 3.2, "status": "Grain Filling & Drydown"}, {"crop": "Rapeseed (Rzepak)", "production_mmt": 1.05, "yield_tha": 3.3, "share_pct": 5.5, "status": "Seedling Emergence / Rosette"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.4, 1.2, 0.2, 0.0, 6.8, 0.0, 0.0, 1.6, 11.6, 4.9, 1.3, 1.4, 2.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0, 0.0], "tmax_daily": [19.5, 19.0, 19.8, 24.0, 18.3, 21.4, 21.2, 20.2, 13.2, 13.4, 15.8, 13.6, 15.6, 17.4, 19.8, 20.1, 20.2, 20.0, 19.2, 19.5, 18.8, 17.6, 19.3, 16.3, 17.7, 18.6, 19.9, 18.4, 22.0], "tmin_daily": [10.0, 13.7, 12.8, 11.4, 11.1, 9.7, 11.4, 13.9, 10.0, 8.9, 9.0, 7.5, 10.0, 9.8, 9.9, 8.9, 10.5, 9.5, 10.9, 10.3, 8.8, 7.8, 7.8, 10.9, 13.0, 10.2, 8.7, 10.8, 12.0], "topsoil_daily": [0.2536, 0.265, 0.267, 0.2519, 0.3094, 0.2995, 0.2769, 0.2651, 0.3297, 0.3509, 0.334, 0.3339, 0.3378, 0.3315, 0.3185, 0.3048, 0.2946, 0.2863, 0.2792, 0.2729, 0.2668, 0.2617, 0.2572, 0.2547, 0.2516, 0.2464, 0.2419, 0.239, 0.2364], "subsoil_daily": [0.2152, 0.2222, 0.2308, 0.2338, 0.2408, 0.2547, 0.2561, 0.2556, 0.2594, 0.2721, 0.2779, 0.2816, 0.2842, 0.2862, 0.2869, 0.286, 0.2847, 0.2837, 0.2821, 0.2805, 0.2783, 0.2772, 0.2756, 0.2748, 0.2738, 0.2727, 0.2715, 0.2704, 0.2697], "today_index": 14, "ag_comment": "Favorable rootzone conditions (0.319 m\u00b3/m\u00b3); dry harvest window accelerating corn grain drydown and field combines. Open, dry weather (<0.0 mm) provides ideal harvest efficiency for grain corn."}, "RO-DANUBE": {"name": "Romania Wallachian Plain & Danube Breadbasket", "code": "RO-DANUBE", "country": "Romania", "macro_region": "Southeast Europe - Danubian Breadbasket", "district": "Muntenia & Oltenia (B\u0103r\u0103gan Steppe / C\u0103l\u0103ra\u0219i / Craiova)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 5.6, "yield_tha": 5.6, "share_pct": 9.0, "status": "Active Harvesting Window"}, {"crop": "Winter Wheat", "production_mmt": 5.3, "yield_tha": 4.8, "share_pct": 4.2, "status": "Stubble Clearing & Seedbed Prep"}, {"crop": "Rapeseed (Rapi\u021b\u0103)", "production_mmt": 0.95, "yield_tha": 2.65, "share_pct": 5.0, "status": "Autumn Sowing & Emergence"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [22.7, 2.3, 0.0, 0.2, 0.0, 0.0, 0.0, 0.3, 0.3, 2.4, 0.2, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "tmax_daily": [19.6, 21.9, 24.6, 24.4, 26.5, 27.4, 27.9, 27.5, 26.3, 18.1, 17.3, 21.1, 21.9, 19.6, 22.6, 20.5, 21.0, 20.9, 20.5, 19.8, 20.3, 19.6, 19.0, 20.5, 19.9, 19.3, 18.3, 19.1, 22.0], "tmin_daily": [14.4, 13.3, 13.0, 15.2, 13.8, 14.3, 15.0, 15.4, 15.5, 12.0, 11.5, 10.5, 9.9, 12.2, 11.6, 12.8, 14.8, 12.7, 11.3, 8.7, 10.8, 9.3, 10.1, 8.9, 9.7, 9.4, 9.8, 9.2, 12.0], "topsoil_daily": [0.4522, 0.4503, 0.4271, 0.4011, 0.3882, 0.3712, 0.3637, 0.35, 0.3505, 0.3625, 0.399, 0.3845, 0.3924, 0.3967, 0.39, 0.3787, 0.37, 0.3611, 0.3522, 0.3446, 0.3383, 0.3325, 0.3274, 0.323, 0.3183, 0.3143, 0.3115, 0.3094, 0.3078], "subsoil_daily": [0.3467, 0.3532, 0.355, 0.3543, 0.3547, 0.3536, 0.3533, 0.352, 0.3516, 0.3521, 0.3514, 0.3509, 0.352, 0.3548, 0.355, 0.3544, 0.354, 0.3535, 0.3528, 0.3522, 0.3516, 0.3507, 0.3497, 0.3491, 0.3486, 0.3483, 0.3479, 0.3476, 0.3472], "today_index": 14, "ag_comment": "High soil moisture saturation (0.390 m\u00b3/m\u00b3); saturated soils may hinder combine trafficability during corn harvest. Open, dry weather (<0.1 mm) provides ideal harvest efficiency for grain corn."}, "RO-BANAT": {"name": "Romania Banat / Western Plain", "code": "RO-BANAT", "country": "Romania", "macro_region": "Southeast Europe - Danubian Breadbasket", "district": "Timi\u0219 & Arad (Timi\u0219oara)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 2.4, "yield_tha": 6.6, "share_pct": 3.8, "status": "Grain Maturation & Harvest"}, {"crop": "Winter Wheat", "production_mmt": 1.9, "yield_tha": 5.4, "share_pct": 1.5, "status": "Autumn Drilling Window"}, {"crop": "Barley", "production_mmt": 0.4, "yield_tha": 5.2, "share_pct": 0.8, "status": "Pre-Sowing Field Prep"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 0.0, 0.2, 0.0, 0.0, 4.9, 0.0, 0.0, 0.0, 2.9, 0.5, 0.2, 2.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.0], "tmax_daily": [21.1, 21.3, 25.4, 27.0, 28.9, 22.7, 26.3, 28.0, 22.3, 16.7, 17.5, 20.7, 17.7, 21.4, 22.6, 23.7, 23.0, 23.5, 22.7, 23.0, 22.1, 22.7, 24.4, 25.1, 25.1, 23.9, 20.9, 21.9, 22.0], "tmin_daily": [10.9, 10.3, 14.7, 12.1, 13.2, 16.2, 13.0, 11.5, 15.1, 9.7, 7.3, 7.2, 11.3, 10.2, 9.7, 10.8, 12.1, 11.4, 10.7, 11.0, 10.1, 10.0, 9.6, 11.5, 11.5, 11.7, 11.8, 12.2, 12.0], "topsoil_daily": [0.3967, 0.3581, 0.3507, 0.3509, 0.3172, 0.3496, 0.401, 0.376, 0.3163, 0.3033, 0.3378, 0.3545, 0.3753, 0.3758, 0.3487, 0.3285, 0.3078, 0.2909, 0.2766, 0.2654, 0.261, 0.2524, 0.2432, 0.2329, 0.2246, 0.2185, 0.2143, 0.2151, 0.2131], "subsoil_daily": [0.2748, 0.2757, 0.2767, 0.2783, 0.2766, 0.2789, 0.281, 0.2817, 0.2808, 0.281, 0.2823, 0.2838, 0.285, 0.2857, 0.2852, 0.2851, 0.2848, 0.2843, 0.2839, 0.2836, 0.2839, 0.2836, 0.2831, 0.2828, 0.2823, 0.2819, 0.2816, 0.2814, 0.2812], "today_index": 14, "ag_comment": "Favorable rootzone conditions (0.349 m\u00b3/m\u00b3); dry harvest window accelerating corn grain drydown and field combines. Open, dry weather (<0.0 mm) provides ideal harvest efficiency for grain corn."}, "BG-DOBRUD": {"name": "Bulgaria Dobrudzha Black Sea Export Hub", "code": "BG-DOBRUD", "country": "Bulgaria", "macro_region": "Southeast Europe - Danubian Breadbasket", "district": "Danubian Plain & Dobrudzha (Dobrich / Pleven)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 4.2, "yield_tha": 5.5, "share_pct": 3.4, "status": "Pre-Sowing Field Operations"}, {"crop": "Corn (Grain Maize)", "production_mmt": 1.8, "yield_tha": 5.85, "share_pct": 2.9, "status": "Active Harvesting Window"}, {"crop": "Barley", "production_mmt": 0.5, "yield_tha": 5.0, "share_pct": 1.0, "status": "Pre-Drilling Window"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [13.3, 0.3, 0.1, 0.9, 0.0, 0.0, 0.0, 0.0, 0.6, 1.0, 0.9, 0.0, 0.0, 0.2, 0.0, 0.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.0], "tmax_daily": [19.9, 21.8, 22.2, 23.5, 24.1, 25.4, 26.1, 26.5, 27.3, 19.3, 16.1, 20.4, 20.2, 19.5, 21.1, 18.0, 16.6, 19.8, 19.4, 19.0, 19.0, 18.5, 17.4, 18.8, 18.1, 18.7, 18.7, 18.2, 22.0], "tmin_daily": [12.7, 12.0, 11.4, 12.8, 12.5, 12.9, 14.5, 14.7, 15.5, 12.9, 10.6, 8.8, 12.1, 13.1, 12.0, 11.3, 13.2, 12.5, 10.7, 10.2, 9.2, 8.5, 8.8, 8.1, 8.6, 9.9, 10.8, 9.6, 12.0], "topsoil_daily": [0.2811, 0.3475, 0.3337, 0.3002, 0.2787, 0.2639, 0.25, 0.2367, 0.2157, 0.2465, 0.2541, 0.2447, 0.2488, 0.2637, 0.2691, 0.2556, 0.2497, 0.2457, 0.2371, 0.2298, 0.2287, 0.2216, 0.2162, 0.2103, 0.2056, 0.2018, 0.1991, 0.1969, 0.1971], "subsoil_daily": [0.2088, 0.2177, 0.2232, 0.2235, 0.223, 0.2224, 0.2213, 0.2201, 0.2186, 0.219, 0.22, 0.2205, 0.2211, 0.2227, 0.223, 0.2224, 0.2226, 0.2222, 0.2215, 0.2209, 0.2204, 0.2198, 0.2191, 0.2184, 0.2178, 0.2173, 0.2168, 0.2163, 0.2159], "today_index": 14, "ag_comment": "Favorable rootzone conditions (0.269 m\u00b3/m\u00b3); dry harvest window accelerating corn grain drydown and field combines. Open, dry weather (<0.8 mm) provides ideal harvest efficiency for grain corn."}, "HU-ALFOLD": {"name": "Hungary Pannonian Basin Grain Core", "code": "HU-ALFOLD", "country": "Hungary", "macro_region": "Pannonian Basin - Hungary Grain Hub", "district": "Great Alf\u00f6ld & Transdanubia (B\u00e9k\u00e9scsaba / Sz\u00e9kesfeh\u00e9rv\u00e1r)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 4.7, "yield_tha": 7.5, "share_pct": 7.5, "status": "Grain Maturation & Early Harvest"}, {"crop": "Winter Wheat", "production_mmt": 4.0, "yield_tha": 5.9, "share_pct": 3.2, "status": "Autumn Seedbed Preparation"}, {"crop": "Barley", "production_mmt": 1.1, "yield_tha": 5.7, "share_pct": 2.2, "status": "Field Prep / Autumn Drilling"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 1.3, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.3, 0.1, 3.0, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.8, 8.6, 0.0], "tmax_daily": [23.0, 20.7, 25.1, 27.1, 28.1, 25.8, 27.0, 27.9, 20.5, 19.1, 19.8, 21.4, 17.9, 21.4, 22.5, 23.5, 23.1, 23.9, 22.8, 23.2, 23.5, 23.6, 23.8, 24.2, 24.7, 23.5, 20.5, 19.6, 22.0], "tmin_daily": [9.3, 14.0, 12.3, 11.7, 12.6, 14.7, 12.6, 13.4, 13.5, 10.8, 8.7, 7.4, 8.5, 7.6, 9.6, 10.3, 10.5, 10.2, 10.2, 10.8, 10.3, 10.3, 10.6, 13.2, 14.5, 14.4, 11.8, 11.8, 12.0], "topsoil_daily": [0.2342, 0.1778, 0.1716, 0.1543, 0.1116, 0.116, 0.1428, 0.1333, 0.1171, 0.1199, 0.1172, 0.135, 0.1533, 0.1705, 0.1565, 0.14, 0.1243, 0.112, 0.1032, 0.0962, 0.089, 0.0845, 0.0812, 0.0792, 0.0778, 0.0768, 0.1059, 0.1889, 0.1946], "subsoil_daily": [0.1087, 0.1069, 0.1063, 0.1083, 0.1051, 0.1052, 0.1057, 0.1069, 0.1067, 0.1071, 0.1065, 0.1067, 0.1082, 0.1098, 0.1096, 0.1094, 0.109, 0.1087, 0.1084, 0.1081, 0.1076, 0.1074, 0.1071, 0.1068, 0.1066, 0.1064, 0.1061, 0.1062, 0.1067], "today_index": 14, "ag_comment": "Critical topsoil moisture deficit (0.157 m\u00b3/m\u00b3); farmers delaying winter cereal drilling awaiting autumn soaking rains. Open, dry weather (<0.0 mm) provides ideal harvest efficiency for grain corn."}, "ES-CASTILE": {"name": "Spain Castile & Duero Granary", "code": "ES-CASTILE", "country": "Spain", "macro_region": "Mediterranean Basin - Southern Cereals, Durum & Maize", "district": "Castile and Le\u00f3n (Valladolid / Palencia)", "commodities": [{"crop": "Barley (Winter & Spring)", "production_mmt": 3.2, "yield_tha": 3.4, "share_pct": 6.5, "status": "Stubble Fallow / Autumn Seedbed Prep"}, {"crop": "Soft Wheat", "production_mmt": 2.4, "yield_tha": 3.55, "share_pct": 1.9, "status": "Pre-Sowing Preparation"}, {"crop": "Corn (Grain Maize)", "production_mmt": 1.1, "yield_tha": 12.1, "share_pct": 1.8, "status": "Irrigated Grain Maturation / Harvest"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.6, 1.0, 1.3, 5.8, 4.4, 2.2, 0.4, 0.2, 0.0, 0.0, 0.0, 0.2, 0.0], "tmax_daily": [30.7, 32.8, 32.6, 22.7, 21.4, 24.3, 28.0, 30.2, 31.5, 30.9, 30.8, 32.6, 31.7, 30.0, 30.6, 27.4, 23.4, 26.7, 25.0, 23.5, 19.8, 20.1, 20.2, 21.3, 20.2, 20.9, 22.9, 18.7, 22.0], "tmin_daily": [12.4, 13.7, 14.7, 13.7, 9.5, 9.8, 10.2, 13.0, 13.6, 13.9, 13.8, 12.1, 14.6, 11.4, 15.5, 14.5, 14.0, 17.3, 14.6, 13.9, 15.4, 14.3, 10.9, 9.8, 9.5, 10.1, 11.1, 12.2, 12.0], "topsoil_daily": [0.0998, 0.1108, 0.1087, 0.104, 0.1019, 0.104, 0.1042, 0.1026, 0.1038, 0.1038, 0.1067, 0.1076, 0.1057, 0.1102, 0.1097, 0.1095, 0.115, 0.1209, 0.1263, 0.1674, 0.2371, 0.2551, 0.2459, 0.2282, 0.2132, 0.1997, 0.1866, 0.1762, 0.1666], "subsoil_daily": [0.1735, 0.1769, 0.1762, 0.1753, 0.1747, 0.1754, 0.1752, 0.1751, 0.1752, 0.1774, 0.1758, 0.1755, 0.1753, 0.1756, 0.1755, 0.1754, 0.1752, 0.1752, 0.175, 0.1745, 0.1748, 0.1757, 0.1763, 0.1768, 0.177, 0.1772, 0.1773, 0.1773, 0.1773], "today_index": 14, "ag_comment": "Critical topsoil moisture deficit (0.110 m\u00b3/m\u00b3); farmers delaying winter cereal drilling awaiting autumn soaking rains."}, "IT-POV": {"name": "Italy Po Valley Corn & Wheat Heartland", "code": "IT-POV", "country": "Italy", "macro_region": "Mediterranean Basin - Southern Cereals, Durum & Maize", "district": "Lombardy, Veneto & Emilia-Romagna (Cremona / Bologna)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 4.6, "yield_tha": 10.4, "share_pct": 7.4, "status": "Active Harvest Window"}, {"crop": "Soft Wheat", "production_mmt": 2.4, "yield_tha": 6.9, "share_pct": 1.9, "status": "Seedbed Preparation"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 0.0, 0.0, 1.0, 17.2, 0.9, 5.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 18.8, 4.6, 2.0, 0.0, 2.4, 2.6, 0.0], "tmax_daily": [27.9, 29.1, 29.0, 30.0, 24.7, 25.4, 26.6, 28.7, 29.3, 25.9, 24.7, 26.2, 25.2, 25.5, 27.1, 27.4, 27.3, 27.2, 27.4, 27.6, 26.3, 26.6, 20.1, 21.6, 20.1, 22.1, 21.1, 20.1, 22.0], "tmin_daily": [16.3, 18.0, 17.6, 17.5, 18.9, 16.6, 16.7, 16.6, 17.4, 17.6, 14.1, 11.9, 15.2, 13.5, 13.8, 14.4, 15.5, 15.9, 15.5, 16.3, 14.4, 13.7, 16.1, 14.7, 14.0, 12.3, 13.9, 12.5, 12.0], "topsoil_daily": [0.2677, 0.2395, 0.2186, 0.2007, 0.2786, 0.3288, 0.3159, 0.2782, 0.258, 0.2339, 0.2054, 0.1922, 0.1875, 0.1677, 0.1631, 0.161, 0.1597, 0.1589, 0.1581, 0.1579, 0.158, 0.1573, 0.304, 0.3783, 0.3796, 0.3501, 0.3433, 0.3395, 0.4399], "subsoil_daily": [0.2263, 0.2248, 0.223, 0.2227, 0.2228, 0.2229, 0.2205, 0.2204, 0.2211, 0.2206, 0.2201, 0.2199, 0.2194, 0.219, 0.219, 0.2189, 0.2188, 0.2187, 0.2185, 0.2185, 0.2185, 0.2184, 0.2189, 0.2219, 0.2249, 0.2266, 0.2273, 0.2279, 0.2354], "today_index": 14, "ag_comment": "Sub-optimal topsoil moisture (0.163 m\u00b3/m\u00b3); adequate for fieldwork but rain welcomed for autumn sowing. Open, dry weather (<0.0 mm) provides ideal harvest efficiency for grain corn."}, "IT-PUGLIA": {"name": "Italy Apulia Tavoliere Durum Heartland", "code": "IT-PUGLIA", "country": "Italy", "macro_region": "Mediterranean Basin - Southern Cereals, Durum & Maize", "district": "Apulia (Tavoliere delle Puglie / Foggia)", "commodities": [{"crop": "Durum Wheat", "production_mmt": 1.8, "yield_tha": 2.9, "share_pct": 25.0, "status": "Autumn Fallow & Pre-Sowing Window"}, {"crop": "Barley", "production_mmt": 0.2, "yield_tha": 2.7, "share_pct": 0.4, "status": "Pre-Sowing Field Operations"}], "dates": ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"], "precipitation_daily": [0.0, 0.0, 0.3, 0.0, 0.0, 0.3, 1.2, 0.0, 0.0, 0.2, 0.0, 0.0, 3.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 1.2, 18.6, 0.6, 0.8, 0.0], "tmax_daily": [27.6, 29.7, 28.4, 30.2, 33.1, 30.1, 28.5, 28.0, 29.0, 26.0, 23.4, 25.9, 22.9, 22.1, 25.8, 26.6, 26.6, 26.4, 26.4, 26.8, 26.1, 27.6, 29.3, 27.1, 28.4, 23.1, 25.1, 24.3, 22.0], "tmin_daily": [21.0, 19.6, 20.2, 18.5, 18.4, 19.6, 18.8, 19.5, 18.7, 18.8, 15.1, 13.0, 16.7, 16.0, 16.3, 14.2, 15.1, 14.4, 15.6, 15.2, 16.4, 14.3, 14.2, 17.3, 19.0, 16.6, 14.3, 14.1, 12.0], "topsoil_daily": [0.1881, 0.1937, 0.1935, 0.2062, 0.2044, 0.2019, 0.2098, 0.2501, 0.27, 0.2518, 0.2005, 0.2103, 0.2683, 0.2678, 0.2442, 0.2306, 0.2202, 0.2121, 0.2058, 0.2011, 0.1994, 0.1962, 0.1942, 0.194, 0.1965, 0.3754, 0.4003, 0.3803, 0.3688], "subsoil_daily": [0.3154, 0.315, 0.3146, 0.3148, 0.3153, 0.3154, 0.3181, 0.3246, 0.3235, 0.3211, 0.3196, 0.3219, 0.3249, 0.3225, 0.3202, 0.3198, 0.3195, 0.319, 0.319, 0.3188, 0.3205, 0.3202, 0.3198, 0.3198, 0.3194, 0.3199, 0.3219, 0.3224, 0.3222], "today_index": 14, "ag_comment": "Favorable rootzone conditions (0.244 m\u00b3/m\u00b3); balanced conditions supporting autumn agricultural operations across the basin."}};
+        const SAMPLE_DATES = ["2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"];
+        const TODAY_INDEX = 14;
+
+        let currentMetric = 'precip'; // 'precip', 'tmax', 'tmin'
+        let currentUnit = 'metric';   // 'metric', 'imperial'
+        let currentCountry = 'ALL';
+        let searchQuery = '';
+
+        function setMetric(m) {
+            currentMetric = m;
+            document.querySelectorAll('.metric-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-metric-' + m).classList.add('active');
+            updateGuidance();
+            renderTable();
+        }
+
+        function toggleUnit(u) {
+            currentUnit = u;
+            document.getElementById('unit-metric-btn').classList.toggle('active', u === 'metric');
+            document.getElementById('unit-imperial-btn').classList.toggle('active', u === 'imperial');
+            renderTable();
+        }
+
+        function setCountryFilter(c, btn) {
+            currentCountry = c;
+            document.querySelectorAll('.country-pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterTable();
+        }
+
+        function filterTable() {
+            searchQuery = document.getElementById('search-box').value.toLowerCase();
+            renderTable();
+        }
+
+        function updateGuidance() {
+            const icon = document.getElementById('guidance-icon');
+            const title = document.getElementById('guidance-title');
+            const desc = document.getElementById('guidance-desc');
+
+            if (currentMetric === 'precip') {
+                icon.innerText = '💧';
+                title.innerText = 'European Crop Precipitation Guidance';
+                desc.innerText = 'Winter Rapeseed: 15–25mm needed for uniform emergence and vigorous rosette rooting before frost. Grain Corn: Dry, sunny weather (<10mm/wk) maximizes harvest machinery efficiency and grain drydown. Cereals: Autumn rainfall replenishes depleted seedbeds for winter wheat & barley drilling.';
+            } else if (currentMetric === 'tmax') {
+                icon.innerText = '☀️';
+                title.innerText = 'Daytime Maximum Temperature (T-Max) & Heat Stress';
+                desc.innerText = 'Warmth (20–28°C) favors autumn field operations and winter crop emergence. Temperatures >32°C accelerate final grain drydown in late corn. Cooler daytime highs (<14°C) slow early seedling growth.';
+            } else {
+                icon.innerText = '🌙';
+                title.innerText = 'Nighttime Minimum Temperature (T-Min) & Frost Watch';
+                desc.innerText = 'Mild nights (8–14°C) promote steady autumn vegetative development. Temperatures dropping below 3°C trigger frost watch for late corn maturity and early emerging winter oilseeds.';
+            }
+        }
+
+        function getHeatColor(val, metric) {
+            if (val === null || val === undefined) return { bg: '#1e293b', text: '#94a3b8' };
+            const v = parseFloat(val);
+
+            if (metric === 'precip') {
+                // v in mm
+                if (v < 0.5) return { bg: '#1e293b', text: '#64748b' };
+                if (v < 2.5) return { bg: '#1e3a5f', text: '#93c5fd' };
+                if (v < 6.0) return { bg: '#0369a1', text: '#e0f2fe' };
+                if (v < 12.0) return { bg: '#0284c7', text: '#ffffff' };
+                if (v < 22.0) return { bg: '#10b981', text: '#ffffff' };
+                if (v < 35.0) return { bg: '#059669', text: '#ffffff' };
+                return { bg: '#047857', text: '#ffffff' };
+            } else if (metric === 'tmax') {
+                // v in C
+                if (v < 10) return { bg: '#1e3a8a', text: '#93c5fd' };
+                if (v < 18) return { bg: '#0284c7', text: '#ffffff' };
+                if (v < 25) return { bg: '#10b981', text: '#ffffff' };
+                if (v < 30) return { bg: '#f59e0b', text: '#ffffff' };
+                if (v < 34) return { bg: '#ea580c', text: '#ffffff' };
+                return { bg: '#dc2626', text: '#ffffff' };
+            } else {
+                // tmin in C
+                if (v <= 0) return { bg: '#1e1b4b', text: '#c7d2fe' };
+                if (v <= 3) return { bg: '#1e3a8a', text: '#93c5fd' };
+                if (v <= 8) return { bg: '#0284c7', text: '#ffffff' };
+                if (v <= 14) return { bg: '#10b981', text: '#ffffff' };
+                if (v <= 18) return { bg: '#f59e0b', text: '#ffffff' };
+                return { bg: '#ea580c', text: '#ffffff' };
+            }
+        }
+
+        function formatVal(v, metric) {
+            if (v === null || v === undefined) return '-';
+            const num = parseFloat(v);
+            if (metric === 'precip') {
+                if (currentUnit === 'imperial') {
+                    const inches = num / 25.4;
+                    return inches >= 1 ? inches.toFixed(1) : inches.toFixed(2);
+                }
+                return num.toFixed(1);
+            } else {
+                if (currentUnit === 'imperial') {
+                    return Math.round(num * 9/5 + 32) + '°';
+                }
+                return Math.round(num) + '°';
+            }
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('matrix-tbody');
+            const datesRow = document.getElementById('header-dates-row');
+
+            // Build Header Dates
+            let headerHTML = `
+                <th class="sticky-col">Agricultural Basin & Commodities</th>
+                <th>Topsoil (0-7cm)</th>
+                <th>Subsoil (7-100cm)</th>
+                <th>7D Fwd</th>
+                <th>14D Fwd</th>
+                <th>14D Trail</th>
+            `;
+
+            SAMPLE_DATES.forEach((d, idx) => {
+                const isToday = idx === TODAY_INDEX;
+                const isForecast = idx >= TODAY_INDEX;
+                const cls = (isForecast ? 'forecast-header' : 'observed-header') + (isToday ? ' today-col' : '');
+                const label = isToday ? 'TODAY<br>' + d.slice(5) : d.slice(5);
+                headerHTML += `<th class="${cls}">${label}</th>`;
+            });
+
+            headerHTML += `<th class="comment-col">Agronomic Status & Outlook</th>`;
+            datesRow.innerHTML = headerHTML;
+
+            // Build Body Rows
+            let bodyHTML = '';
+            Object.keys(NODES_DATA).forEach(code => {
+                const node = NODES_DATA[code];
+                
+                // Filter
+                if (currentCountry !== 'ALL' && node.country !== currentCountry) return;
+                const searchHaystack = (node.name + ' ' + node.country + ' ' + node.district + ' ' + node.commodities.map(c => c.crop).join(' ')).toLowerCase();
+                if (searchQuery && !searchHaystack.includes(searchQuery)) return;
+
+                const commBadges = node.commodities.map(c => 
+                    `<span class="crop-badge ${c.share_pct >= 5 ? 'highlight' : ''}">${c.crop} ${c.production_mmt}M / ${c.share_pct}%</span>`
+                ).join('');
+
+                const topSm = node.topsoil_daily[node.today_index] || 0.28;
+                const subSm = node.subsoil_daily[node.today_index] || 0.30;
+
+                const pDaily = node.precipitation_daily;
+                const p7d = pDaily.slice(node.today_index, node.today_index + 7).reduce((a, b) => a + b, 0);
+                const p14d = pDaily.slice(node.today_index, node.today_index + 14).reduce((a, b) => a + b, 0);
+                const p14trail = pDaily.slice(Math.max(0, node.today_index - 14), node.today_index).reduce((a, b) => a + b, 0);
+
+                let dataSeries = pDaily;
+                if (currentMetric === 'tmax') dataSeries = node.tmax_daily;
+                if (currentMetric === 'tmin') dataSeries = node.tmin_daily;
+
+                let cellsHTML = '';
+                SAMPLE_DATES.forEach((d, idx) => {
+                    const val = dataSeries[idx];
+                    const colors = getHeatColor(val, currentMetric);
+                    const formatted = formatVal(val, currentMetric);
+                    const isToday = idx === TODAY_INDEX;
+                    const cellCls = isToday ? 'heat-cell today-col' : 'heat-cell';
+                    cellsHTML += `
+                        <td style="padding: 1px;">
+                            <div class="${cellCls}" style="background: ${colors.bg}; color: ${colors.text};">
+                                ${formatted}
+                            </div>
+                        </td>
+                    `;
+                });
+
+                bodyHTML += `
+                    <tr>
+                        <td class="sticky-col">
+                            <div style="font-weight: 800; font-size: 11px; color: #f8fafc; line-height: 1;">
+                                ${node.country === 'France' ? '🇫🇷' : node.country === 'Germany' ? '🇩🇪' : node.country === 'Poland' ? '🇵🇱' : node.country === 'Romania' ? '🇷🇴' : node.country === 'Hungary' ? '🇭🇺' : node.country === 'Spain' ? '🇪🇸' : node.country === 'Italy' ? '🇮🇹' : '🇧🇬'}
+                                ${node.name} <span style="font-size: 8.5px; color: #94a3b8; font-weight: normal;">| ${node.district}</span>
+                            </div>
+                            <div class="commodities-wrap">${commBadges}</div>
+                        </td>
+                        <td>
+                            <span class="soil-pill" style="background: ${topSm >= 0.28 ? '#15803d' : topSm >= 0.22 ? '#84cc16' : '#ea580c'}; color: #fff;">
+                                ${topSm.toFixed(3)}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="soil-pill" style="background: ${subSm >= 0.28 ? '#15803d' : subSm >= 0.22 ? '#84cc16' : '#ea580c'}; color: #fff;">
+                                ${subSm.toFixed(3)}
+                            </span>
+                        </td>
+                        <td><span class="summary-val" style="color: #38bdf8;">${formatVal(p7d, 'precip')}</span></td>
+                        <td><span class="summary-val" style="color: #60a5fa;">${formatVal(p14d, 'precip')}</span></td>
+                        <td><span class="summary-val" style="color: #94a3b8;">${formatVal(p14trail, 'precip')}</span></td>
+                        ${cellsHTML}
+                        <td class="comment-col">${node.ag_comment}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = bodyHTML;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+        });
+    </script>
+</body>
+</html>

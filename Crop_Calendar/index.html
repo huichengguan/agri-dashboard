@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Crop Calendar Map</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <h2>Crop Slicer</h2>
+            
+            <div class="filter-group">
+                <h3>Commodity</h3>
+                <label style="border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 5px;"><input type="checkbox" id="selectAllCommodity" checked> <strong>(Select All)</strong></label>
+                <label><input type="checkbox" class="filter-commodity" value="Soybeans" checked> Soybeans</label>
+                <label><input type="checkbox" class="filter-commodity" value="Corn" checked> Corn</label>
+                <label><input type="checkbox" class="filter-commodity" value="Wheat" checked> Wheat</label>
+                <label><input type="checkbox" class="filter-commodity" value="Rapeseed" checked> Rapeseed</label>
+                <label><input type="checkbox" class="filter-commodity" value="Sunflower" checked> Sunflower</label>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Region</h3>
+                <label style="border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 5px;"><input type="checkbox" id="selectAllRegion" checked> <strong>(Select All)</strong></label>
+                <label><input type="checkbox" class="filter-region" value="USA" checked> USA</label>
+                <label><input type="checkbox" class="filter-region" value="Brazil" checked> Brazil</label>
+                <label><input type="checkbox" class="filter-region" value="Argentina" checked> Argentina</label>
+                <label><input type="checkbox" class="filter-region" value="Paraguay" checked> Paraguay</label>
+                <label><input type="checkbox" class="filter-region" value="Uruguay" checked> Uruguay</label>
+                <label><input type="checkbox" class="filter-region" value="China" checked> China</label>
+                <label><input type="checkbox" class="filter-region" value="EU" checked> EU</label>
+                <label><input type="checkbox" class="filter-region" value="Ukraine" checked> Ukraine</label>
+                <label><input type="checkbox" class="filter-region" value="Russia" checked> Russia</label>
+                <label><input type="checkbox" class="filter-region" value="Canada" checked> Canada</label>
+                <label><input type="checkbox" class="filter-region" value="Australia" checked> Australia</label>
+                <label><input type="checkbox" class="filter-region" value="India" checked> India</label>
+            </div>
+            
+            <div class="legend">
+                <h3>Stages Legend</h3>
+                <div class="legend-item"><span class="color-box planting"></span> Planting (Early/Late)</div>
+                <div class="legend-item"><span class="color-box prime-planting"></span> Prime Planting</div>
+                <div class="legend-item"><span class="color-box growing"></span> Growing (Vegetative)</div>
+                <div class="legend-item"><span class="color-box reproduction"></span> Reproduction (Critical)</div>
+                <div class="legend-item"><span class="color-box prime-harvesting"></span> Prime Harvesting</div>
+                <div class="legend-item"><span class="color-box harvesting"></span> Harvesting (Early/Late)</div>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <header>
+                <h1>Global Crop Phenology Gantt Chart</h1>
+                <p>High-resolution calendar mapping prime planting, critical reproduction, and harvest windows (H1 / H2).</p>
+            </header>
+            
+            <div class="calendar-container">
+                <table id="crop-calendar">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="fixed-col" style="width: 90px;">Region</th>
+                            <th rowspan="2" class="fixed-col" style="width: 140px;">Commodity</th>
+                            <th rowspan="2" class="fixed-col" style="width: 80px;">Size</th>
+                            <th colspan="2">Jan</th><th colspan="2">Feb</th><th colspan="2">Mar</th><th colspan="2">Apr</th>
+                            <th colspan="2">May</th><th colspan="2">Jun</th><th colspan="2">Jul</th><th colspan="2">Aug</th>
+                            <th colspan="2">Sep</th><th colspan="2">Oct</th><th colspan="2">Nov</th><th colspan="2">Dec</th>
+                        </tr>
+                        <tr class="sub-header">
+                            <th>1H</th><th>2H</th><th>1H</th><th>2H</th><th>1H</th><th>2H</th><th>1H</th><th>2H</th>
+                            <th>1H</th><th>2H</th><th>1H</th><th>2H</th><th>1H</th><th>2H</th><th>1H</th><th>2H</th>
+                            <th>1H</th><th>2H</th><th>1H</th><th>2H</th><th>1H</th><th>2H</th><th>1H</th><th>2H</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

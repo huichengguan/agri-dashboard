@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South America Crop Weather Matrix | ECMWF IFS & SEAS5</title>
+<style>
+    :root {
+        --primary: #065f46;
+        --primary-light: #ecfdf5;
+        --primary-dark: #022c22;
+        --border-color: #cbd5e1;
+        --bg-main: #f8fafc;
+        --card-bg: #ffffff;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --accent: #0284c7;
+        --accent-light: #f0f9ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        padding: 20px 24px 60px 24px;
+        width: 1640px;
+        margin: 0 auto;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* Universal Suite Navigation Bar */
+    .suite-nav-bar {
+        background: #0f172a;
+        border-radius: 10px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #f8fafc;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .suite-nav-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .suite-brand {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #38bdf8;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .suite-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .nav-tab {
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #94a3b8;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .nav-tab:hover {
+        background: #1e293b;
+        color: #ffffff;
+    }
+    .nav-tab.active {
+        background: #059669;
+        color: #ffffff;
+    }
+
+    /* Header Bar */
+    .header-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        border-bottom: 3px solid var(--primary);
+    }
+    .header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .header-title-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .header-badge {
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+    }
+    .header-badge-17yr {
+        background: #0284c7;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 4px;
+    }
+    .header-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.3px;
+    }
+    .header-subtitle {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn {
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        color: var(--text-secondary);
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .btn:hover {
+        background: #f1f5f9;
+        color: var(--text-primary);
+    }
+    .btn-primary {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+    }
+    .btn-primary:hover {
+        background: #047857;
+        color: #ffffff;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .ctrl-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .var-label {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        margin-right: 2px;
+    }
+    .segmented-btn {
+        padding: 6px 12px;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.15s;
+    }
+    .segmented-btn:hover { background: #f1f5f9; }
+    .segmented-btn.active {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+    }
+    .mode-switch-btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+    }
+    .mode-switch-btn.active {
+        background: #b45309;
+        color: #ffffff;
+        border-color: #b45309;
+    }
+    .unit-switch-btn {
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+    }
+    .unit-switch-btn.active {
+        background: #0284c7;
+        color: #ffffff;
+        border-color: #0284c7;
+    }
+
+    /* Scale Legend */
+    .legend-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .legend-scale-container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    .legend-chip {
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 10px;
+    }
+    .legend-key-box {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--text-secondary);
+        font-size: 10.5px;
+    }
+    .sample-solid {
+        display: inline-block;
+        width: 14px;
+        height: 0;
+        border-top: 2px solid #065f46;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+    .sample-dashed {
+        display: inline-block;
+        width: 14px;
+        height: 0;
+        border-top: 2px dashed #0284c7;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+
+    /* Chart Card */
+    .chart-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .chart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .chart-title-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .chart-title {
+        font-size: 13.5px;
+        font-weight: 800;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .chart-toggles {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    .bench-chip {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+    }
+    .bench-chip.active-drought { background: #dc2626; color: #ffffff; border-color: #dc2626; }
+    .bench-chip.active-flood { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .bench-chip.active-lanina { background: #7c3aed; color: #ffffff; border-color: #7c3aed; }
+    .chart-svg-container { width: 100%; height: 190px; position: relative; }
+    .chart-svg { width: 100%; height: 100%; overflow: visible; }
+
+    /* Regional Picker Section */
+    .picker-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 14px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .picker-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .picker-title-group { display: flex; align-items: center; gap: 8px; }
+    .picker-title { font-size: 13px; font-weight: 800; color: var(--text-primary); text-transform: uppercase; }
+    .search-input {
+        padding: 5px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 11.5px;
+        width: 240px;
+        outline: none;
+    }
+    .quick-select-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 8px 12px;
+        background: #f8fafc;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+    }
+    .preset-chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .preset-divider {
+        color: #94a3b8;
+        font-size: 12px;
+        font-weight: 300;
+        margin: 0 3px;
+        user-select: none;
+    }
+    .preset-chip {
+        padding: 3px 9px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+    }
+    .preset-chip:hover { background: #f1f5f9; color: var(--text-primary); border-color: #94a3b8; }
+    .preset-chip.active {
+        background: #0284c7;
+        color: #ffffff;
+        border-color: #0284c7;
+    }
+    .belt-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11.5px;
+        padding: 2px 0;
+    }
+    .belt-label {
+        font-weight: 700;
+        color: var(--text-secondary);
+        min-width: 170px;
+        cursor: pointer;
+    }
+    .belt-label:hover { color: var(--primary); }
+    .node-chips-container { display: flex; flex-wrap: wrap; gap: 4px; }
+    .node-chip {
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        color: var(--text-secondary);
+        transition: all 0.12s;
+    }
+    .node-chip:hover { background: #f1f5f9; color: var(--text-primary); }
+    .node-chip.active {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+    }
+
+    /* Timeline Card (Seasons & Months) */
+    .timeline-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 12px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .timeline-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .timeline-label {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        min-width: 130px;
+        text-transform: uppercase;
+    }
+    .year-chip, .month-chip {
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        color: var(--text-secondary);
+        transition: all 0.12s;
+    }
+    .year-chip:hover, .month-chip:hover { background: #f1f5f9; }
+    .year-chip.active, .month-chip.active {
+        background: #0f172a;
+        color: #ffffff;
+        border-color: #0f172a;
+    }
+
+    /* Matrix Table Card */
+    .matrix-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        overflow-x: auto;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+        text-align: center;
+        table-layout: fixed;
+    }
+    th, td {
+        padding: 4px 3px;
+        border: 1px solid #e2e8f0;
+        vertical-align: middle;
+        box-sizing: border-box;
+    }
+    th {
+        background: #f1f5f9;
+        color: var(--text-primary);
+        font-weight: 700;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        padding: 8px 3px;
+        font-size: 11px;
+    }
+    .col-node {
+        text-align: left;
+        padding: 8px 10px;
+        width: 230px;
+        min-width: 230px;
+        max-width: 230px;
+        background: #f8fafc;
+        vertical-align: top;
+        border-right: 2px solid #cbd5e1;
+        white-space: normal;
+    }
+    .node-header-name {
+        font-size: 13px;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 2px;
+    }
+    .node-district-sub {
+        font-size: 10px;
+        color: #64748b;
+        line-height: 1.3;
+        margin-bottom: 6px;
+    }
+    .node-commodities-box {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        margin-top: 4px;
+    }
+    .matrix-crop-badge {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+    .matrix-badge-soy {
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #065f46;
+    }
+    .matrix-badge-corn {
+        background: #fefce8;
+        border: 1px solid #fef08a;
+        color: #854d0e;
+    }
+    .matrix-badge-wheat {
+        background: #f0f9ff;
+        border: 1px solid #bae6fd;
+        color: #0369a1;
+    }
+    .matrix-badge-vol {
+        font-weight: 800;
+        color: #0f172a;
+    }
+    .matrix-badge-share {
+        font-size: 9px;
+        font-weight: 700;
+        background: rgba(0,0,0,0.06);
+        padding: 1px 3px;
+        border-radius: 3px;
+    }
+    .col-season {
+        width: 82px;
+        min-width: 82px;
+        max-width: 82px;
+        text-align: center;
+        font-weight: 700;
+        color: #334155;
+    }
+    .col-month {
+        text-align: center;
+        padding: 3px 2px;
+    }
+    .col-mean {
+        width: 88px;
+        min-width: 88px;
+        max-width: 88px;
+        text-align: center;
+        font-weight: 800;
+        color: #0f172a;
+    }
+    .cell-val {
+        display: block;
+        width: 100%;
+        height: 24px;
+        line-height: 24px;
+        padding: 0;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 11px;
+        cursor: pointer;
+        transition: transform 0.1s;
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+        box-sizing: border-box;
+    }
+    .cell-val:hover {
+        transform: scale(1.08);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        z-index: 5;
+        position: relative;
+    }
+    .cell-fcst {
+        border: 1.5px dashed #0284c7;
+    }
+
+    /* Popover Tooltip */
+    .popover {
+        position: fixed;
+        background: #0f172a;
+        color: #f8fafc;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 11.5px;
+        z-index: 1000;
+        display: none;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        max-width: 320px;
+        pointer-events: none;
+    }
+    .popover-title { font-size: 13px; font-weight: 800; color: #38bdf8; margin-bottom: 4px; }
+    .popover-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+    .popover-diag { margin-top: 6px; padding-top: 6px; border-top: 1px solid #334155; font-size: 11px; color: #cbd5e1; }
+</style>
+<script src="sa_crop_matrix_data.js"></script>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Universal Navigation -->
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <div class="suite-brand">
+                <span>🌎 South America Ag-Weather Intelligence</span>
+            </div>
+            <span style="background:#0284c7; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px; text-transform:uppercase;">ECMWF IFS 0.25° & ERA5</span>
+        </div>
+        <div class="suite-nav-links">
+            <a href="SA_Crop_2_Week_Outlook.html" class="nav-tab">🌧️ 2-Week Daily Matrix</a>
+            <a href="SA_Crop_Soil_Moisture_Outlook.html" class="nav-tab">🌱 Soil Moisture Outlook</a>
+            <a href="SA_Crop_Temperature_Outlook.html" class="nav-tab">🌡️ Thermal Stress Outlook</a>
+            <a href="SA_Crop_Weather_Matrix.html" class="nav-tab active">📊 Weather Matrix</a>
+            <a href="SA_Crop_Planting_Calendar.html" class="nav-tab">📋 Planting Windows</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="header-left">
+            <div class="header-title-row">
+                <span class="header-badge">ECMWF ERA5 & IFS</span>
+                <span class="header-badge-17yr">6-Month Seasonal Forecast (SEAS5)</span>
+                <span class="header-badge" id="header-last-updated" style="background:#0f172a; color:#cbd5e1; font-weight:600;">🕒 Data Synced: Live</span>
+                <h1 class="header-title">South America Crop Weather Matrix</h1>
+            </div>
+            <div class="header-subtitle">
+                Long-Term Historical Ag-Reanalysis (2010–2026) & ECMWF SEAS5 6-Month Seasonal Forecast (Sep 2026 – Feb 2027) organized by South American Planting Seasons across 20 Core Agricultural Centers in Brazil, Argentina, Paraguay, Uruguay, and Bolivia
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="resetAllFilters()">Reset All Filters</button>
+        </div>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+        <div class="ctrl-section">
+            <span class="var-label">Variable:</span>
+            <button class="segmented-btn active" data-var="precip" onclick="setVariable('precip')">🌧️ Precipitation</button>
+            <button class="segmented-btn" data-var="topsoil" onclick="setVariable('topsoil')">🌱 Topsoil (0–7cm)</button>
+            <button class="segmented-btn" data-var="subsoil" onclick="setVariable('subsoil')">🌿 Subsoil (7–100cm)</button>
+            <button class="segmented-btn" data-var="temp_max" onclick="setVariable('temp_max')">☀️ Max Temp (T-Max)</button>
+            <button class="segmented-btn" data-var="temp_min" onclick="setVariable('temp_min')">🌙 Min Temp (T-Min)</button>
+            <button class="segmented-btn" data-var="temp" onclick="setVariable('temp')">🌡️ 24-Hr Mean Temp</button>
+        </div>
+
+        <div class="ctrl-section">
+            <button class="segmented-btn" id="btn-mode-anomaly" onclick="toggleAnomalyMode()">+/- Anomaly (vs Normal)</button>
+            <span class="var-label" style="margin-left:12px;">Units:</span>
+            <div id="unit-buttons-container" style="display:inline-flex; gap:4px;"></div>
+        </div>
+    </div>
+
+    <!-- Scale Legend -->
+    <div class="legend-card" id="legend-card"></div>
+
+    <!-- SVG Progression & Climatological Envelope Chart Card -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title-group">
+                <span class="chart-title" id="chart-main-title">Multi-Season Trajectory, Climatological Envelope & 6-Month ECMWF SEAS5 Forecast (Sep–Aug Crop Calendar)</span>
+            </div>
+            <div class="chart-toggles">
+                <span style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-right:4px;">Overlay Benchmarks:</span>
+                <button class="bench-chip active-drought" id="bench-2022-23" onclick="toggleBenchmarkSeason('2022/23', this, 'active-drought')">2022/23 Severe Drought</button>
+                <button class="bench-chip active-flood" id="bench-2023-24" onclick="toggleBenchmarkSeason('2023/24', this, 'active-flood')">2023/24 El Niño Flood</button>
+                <button class="bench-chip" id="bench-2011-12" onclick="toggleBenchmarkSeason('2011/12', this, 'active-lanina')">2011/12 La Niña</button>
+            </div>
+        </div>
+        <div class="chart-svg-container" id="chart-container"></div>
+    </div>
+
+    <!-- Regional Node Picker Section -->
+    <div class="picker-card">
+        <div class="picker-header">
+            <div class="picker-title-group">
+                <span class="picker-title">Agricultural Macro-Belts & Centers (20 Nodes)</span>
+                <span style="font-size:10px; color:#64748b; font-weight:normal; margin-left:8px;">(Click: isolate single &bull; Ctrl+Click: multi-select)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <input type="text" id="state-search-input" class="search-input" placeholder="Search center, country, or commodity..." oninput="filterStatesBySearch()">
+            </div>
+        </div>
+        <div class="quick-select-bar">
+            <span style="font-size:11px; font-weight:700; color:var(--text-secondary); white-space:nowrap;">Quick Select:</span>
+            <div class="preset-chips">
+                <button class="preset-chip" id="preset-all" onclick="selectPreset('all')">All 20 Nodes</button>
+                <button class="preset-chip" id="preset-brazil" onclick="selectPreset('brazil')">🇧🇷 All Brazil (11)</button>
+                <button class="preset-chip" id="preset-argentina" onclick="selectPreset('argentina')">🇦🇷 All Argentina (6)</button>
+                <span class="preset-divider">|</span>
+                <button class="preset-chip" id="preset-cerrado" onclick="selectPreset('cerrado')">🇧🇷 Cerrado</button>
+                <button class="preset-chip" id="preset-sul" onclick="selectPreset('sul')">🇧🇷 South (Sul)</button>
+                <button class="preset-chip" id="preset-southeast" onclick="selectPreset('southeast')">🇧🇷 Southeast</button>
+                <button class="preset-chip" id="preset-matopiba" onclick="selectPreset('matopiba')">🇧🇷 MATOPIBA</button>
+                <span class="preset-divider">|</span>
+                <button class="preset-chip" id="preset-nucleo" onclick="selectPreset('nucleo')">🇦🇷 Zona Núcleo</button>
+                <button class="preset-chip" id="preset-pampas" onclick="selectPreset('pampas')">🇦🇷 S &amp; W Pampas</button>
+                <button class="preset-chip" id="preset-litoral" onclick="selectPreset('litoral')">🇦🇷 Litoral (ER)</button>
+                <span class="preset-divider">|</span>
+                <button class="preset-chip" id="preset-paraguay" onclick="selectPreset('paraguay')">🇵🇾 Paraguay</button>
+                <button class="preset-chip" id="preset-uruguay" onclick="selectPreset('uruguay')">🇺🇾 Uruguay</button>
+                <button class="preset-chip" id="preset-bolivia" onclick="selectPreset('bolivia')">🇧🇴 Bolivia</button>
+            </div>
+        </div>
+        <div id="belt-pickers-container" style="display:flex; flex-direction:column; gap:6px;"></div>
+    </div>
+
+    <!-- Timeline Selector (Crop Seasons & Months) -->
+    <div class="timeline-card">
+        <div class="timeline-row">
+            <span class="timeline-label">Crop Seasons:</span>
+            <span style="font-size:9.5px; color:#64748b; font-weight:normal; margin-right:4px;">(Click: 1 &bull; Ctrl: multi)</span>
+            <div id="season-chips-container" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
+            <div style="margin-left:auto; display:flex; gap:4px;">
+                <button class="preset-chip" onclick="setSeasonPreset('all')">All 17 Seasons</button>
+                <button class="preset-chip" onclick="setSeasonPreset('last5')">Last 5 Seasons</button>
+                <button class="preset-chip" onclick="setSeasonPreset('last10')">Last 10 Seasons</button>
+            </div>
+        </div>
+        <div class="timeline-row">
+            <span class="timeline-label">Months (Sep–Aug):</span>
+            <span style="font-size:9.5px; color:#64748b; font-weight:normal; margin-right:4px;">(Click: 1 &bull; Ctrl: multi)</span>
+            <div id="month-chips-container" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
+            <div style="margin-left:auto; display:flex; gap:4px;">
+                <button class="preset-chip" onclick="setMonthPreset('all')">All 12 Mo (Sep–Aug)</button>
+                <button class="preset-chip" onclick="setMonthPreset('planting')">Sep–Dec (Planting)</button>
+                <button class="preset-chip" onclick="setMonthPreset('fill')">Jan–Apr (Safrinha/Fill)</button>
+                <button class="preset-chip" onclick="setMonthPreset('wheat')">May–Aug (Wheat/Dry)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matrix Table Card -->
+    <div class="matrix-card">
+        <table id="matrix-table">
+            <thead id="matrix-thead"></thead>
+            <tbody id="matrix-tbody"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Interactive Popover Element -->
+<div class="popover" id="cellPopover">
+    <div class="popover-title" id="popoverTitle">Mato Grosso • Sep 2025 (2025/26 Season)</div>
+    <div class="popover-row"><span>Observed / Forecast:</span><strong id="popoverVal">182.4 mm</strong></div>
+    <div class="popover-row"><span>16-Yr Normal (2010-25):</span><span id="popoverBase">195.0 mm</span></div>
+    <div class="popover-row"><span>Anomaly / Departure:</span><strong id="popoverDelta">-12.6 mm (-6.5%)</strong></div>
+    <div class="popover-row"><span>17-Yr Historical Rank:</span><span id="popoverRank">42nd Percentile</span></div>
+    <div class="popover-diag" id="popoverDiag">Favorable vegetative moisture recharge.</div>
+</div>
+
+<script>
+    const ALL_SEASONS = [
+        "2010/11", "2011/12", "2012/13", "2013/14", "2014/15", "2015/16",
+        "2016/17", "2017/18", "2018/19", "2019/20", "2020/21", "2021/22",
+        "2022/23", "2023/24", "2024/25", "2025/26", "2026/27"
+    ];
+
+    const CROP_MONTHS = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
+    const CROP_ORDER = { 9: 0, 10: 1, 11: 2, 12: 3, 1: 4, 2: 5, 3: 6, 4: 7, 5: 8, 6: 9, 7: 10, 8: 11 };
+    const MONTH_NAMES = { 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec" };
+
+    let currentVar = "precip";
+    let isAnomalyMode = false;
+    let precipUnit = "mm_total";
+    let tempUnit = "c";
+    let soilUnit = "vol";
+
+    let selectedStates = ["MT", "PR", "RS", "GO", "BA-N", "SF", "CBA", "BA-S", "PY", "UY", "BO"];
+    let selectedSeasons = ["2018/19", "2019/20", "2020/21", "2021/22", "2022/23", "2023/24", "2024/25", "2025/26", "2026/27"];
+    let selectedMonths = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
+    let benchmarkSeasons = ["2022/23", "2023/24"];
+
+    function getData() {
+        const raw = window.SA_CROP_MATRIX_DATA;
+        if (!raw) return null;
+        
+        // Normalize if raw uses nodes
+        if (raw.nodes && !raw.matrix_by_state) {
+            raw.matrix_by_state = {};
+            raw.baseline_monthly = {};
+            raw.locations = [];
+            
+            Object.keys(raw.nodes).forEach(code => {
+                const n = raw.nodes[code];
+                raw.matrix_by_state[code] = n.monthly || {};
+                raw.baseline_monthly[code] = n.baselines_16yr || {};
+                raw.locations.push({
+                    id: code,
+                    code: code,
+                    name: n.info.name,
+                    country: n.info.country,
+                    region_title: n.info.macro_region,
+                    district: n.info.district,
+                    commodities: n.info.commodities
+                });
+            });
+        }
+        return raw;
+    }
+
+    function init() {
+        const data = getData();
+        if (!data) {
+            setTimeout(init, 200);
+            return;
+        }
+        if (data && data.last_updated) {
+            const el = document.getElementById("header-last-updated");
+            if (el) el.innerText = "🕒 Data Synced: " + data.last_updated;
+        }
+        renderUnitButtons();
+        renderLegend();
+        renderStatePickers();
+        renderSeasonChips();
+        renderMonthChips();
+        renderChart();
+        renderMatrix();
+    }
+
+    function setVariable(v) {
+        currentVar = v;
+        document.querySelectorAll(".segmented-btn[data-var]").forEach(b => {
+            b.classList.toggle("active", b.dataset.var === v);
+        });
+        renderUnitButtons();
+        renderLegend();
+        renderChart();
+        renderMatrix();
+    }
+
+    function toggleAnomalyMode() {
+        isAnomalyMode = !isAnomalyMode;
+        document.getElementById("btn-mode-anomaly").classList.toggle("active", isAnomalyMode);
+        renderLegend();
+        renderMatrix();
+    }
+
+    function renderUnitButtons() {
+        const c = document.getElementById("unit-buttons-container");
+        if (!c) return;
+        if (currentVar === "precip") {
+            c.innerHTML = `
+                <button class="unit-switch-btn ${precipUnit==='mm_total'?'active':''}" onclick="setPrecipUnit('mm_total')">mm/mo</button>
+                <button class="unit-switch-btn ${precipUnit==='mm_day'?'active':''}" onclick="setPrecipUnit('mm_day')">mm/d</button>
+                <button class="unit-switch-btn ${precipUnit==='in_total'?'active':''}" onclick="setPrecipUnit('in_total')">in/mo</button>
+            `;
+        } else if (currentVar === "topsoil" || currentVar === "subsoil") {
+            c.innerHTML = `
+                <button class="unit-switch-btn ${soilUnit==='vol'?'active':''}" onclick="setSoilUnit('vol')">m³/m³</button>
+                <button class="unit-switch-btn ${soilUnit==='pct'?'active':''}" onclick="setSoilUnit('pct')">% Cap</button>
+            `;
+        } else {
+            c.innerHTML = `
+                <button class="unit-switch-btn ${tempUnit==='c'?'active':''}" onclick="setTempUnit('c')">°C</button>
+                <button class="unit-switch-btn ${tempUnit==='f'?'active':''}" onclick="setTempUnit('f')">°F</button>
+            `;
+        }
+    }
+
+    function setPrecipUnit(u) { precipUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+    function setTempUnit(u) { tempUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+    function setSoilUnit(u) { soilUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+
+    function toggleBenchmarkSeason(s, btn, activeClass) {
+        if (benchmarkSeasons.includes(s)) {
+            benchmarkSeasons = benchmarkSeasons.filter(item => item !== s);
+            if (btn) btn.classList.remove(activeClass);
+        } else {
+            benchmarkSeasons.push(s);
+            if (btn) btn.classList.add(activeClass);
+        }
+        renderChart();
+    }
+
+    function getMetricValue(rec, v) {
+        if (!rec) return null;
+        if (v === "precip") return rec.precip_total_mm !== undefined ? rec.precip_total_mm : (rec.precip_mm_day * 30.4);
+        if (v === "temp") return rec.temp_mean_c;
+        if (v === "temp_max") return rec.temp_max_c !== undefined ? rec.temp_max_c : (rec.temp_mean_c + 6.0);
+        if (v === "temp_min") return rec.temp_min_c !== undefined ? rec.temp_min_c : (rec.temp_mean_c - 6.0);
+        if (v === "topsoil") return rec.topsoil_moisture;
+        if (v === "subsoil") return rec.subsoil_moisture;
+        return null;
+    }
+
+    function convertValue(val, v, isDelta = false) {
+        if (val === null || val === undefined || isNaN(val)) return null;
+        if (v === "precip") {
+            if (precipUnit === "in_total") return val / 25.4;
+            if (precipUnit === "mm_day") return val / 30.4;
+            return val;
+        }
+        if (v === "temp" || v === "temp_max" || v === "temp_min") {
+            if (tempUnit === "f") return isDelta ? (val * 9 / 5) : (val * 9 / 5 + 32);
+            return val;
+        }
+        if (v === "topsoil" || v === "subsoil") {
+            if (soilUnit === "pct") return (val / 0.45) * 100;
+            return val;
+        }
+        return val;
+    }
+
+    function getUnitLabel() {
+        if (currentVar === "precip") {
+            if (precipUnit === "in_total") return "in/mo";
+            if (precipUnit === "mm_day") return "mm/d";
+            return "mm/mo";
+        }
+        if (currentVar.startsWith("temp")) return tempUnit === "f" ? "°F" : "°C";
+        return soilUnit === "pct" ? "%" : "m³/m³";
+    }
+
+    function getAgronomicCellColor(valRaw, baseRaw, v, isAnomaly) {
+        if (valRaw === null || valRaw === undefined) return { bg: "transparent", text: "inherit", label: "No Data" };
+
+        if (isAnomaly) {
+            if (baseRaw === null || baseRaw === undefined) return { bg: "#f1f5f9", text: "#334155", label: "Normal (No Baseline)" };
+            const delta = valRaw - baseRaw;
+            
+            if (v.startsWith("temp")) {
+                if (delta > 2.5) return { bg: "#991b1b", text: "#fff", label: `Severe Heatwave (+${delta.toFixed(1)}°C)` };
+                if (delta > 1.0) return { bg: "#fed7aa", text: "#7c2d12", label: `Above Normal (+${delta.toFixed(1)}°C)` };
+                if (delta >= -1.0) return { bg: "#f1f5f9", text: "#334155", label: `Normal (${delta >= 0 ? '+' : ''}${delta.toFixed(1)}°C)` };
+                if (delta >= -2.5) return { bg: "#bae6fd", text: "#0369a1", label: `Below Normal (${delta.toFixed(1)}°C)` };
+                return { bg: "#1d4ed8", text: "#fff", label: `Severe Cold Surge (${delta.toFixed(1)}°C)` };
+            } else {
+                const pct = baseRaw > 0 ? (delta / baseRaw) : 0;
+                const pctStr = (pct * 100).toFixed(0);
+                if (pct > 0.30) return { bg: "#065f46", text: "#fff", label: `Strong Surplus (+${pctStr}%)` };
+                if (pct > 0.10) return { bg: "#a7f3d0", text: "#064e3b", label: `Moderate Surplus (+${pctStr}%)` };
+                if (pct >= -0.10) return { bg: "#f1f5f9", text: "#334155", label: `Near Normal (${pctStr}%)` };
+                if (pct >= -0.30) return { bg: "#fed7aa", text: "#7c2d12", label: `Moderate Deficit (${pctStr}%)` };
+                return { bg: "#991b1b", text: "#fff", label: `Severe Deficit (${pctStr}%)` };
+            }
+        }
+
+        // Absolute Mode: Agronomic thresholds for South American Corn & Soybeans
+        if (v === "precip") {
+            if (valRaw < 40.0) return { bg: "#991b1b", text: "#fff", label: "Severe Deficit / Drought (<40mm)" };
+            if (valRaw < 80.0) return { bg: "#fed7aa", text: "#7c2d12", label: "Moderate Dryness / Stress (40–80mm)" };
+            if (valRaw < 160.0) return { bg: "#86efac", text: "#14532d", label: "Favorable Hydration (80–160mm)" };
+            if (valRaw < 240.0) return { bg: "#0284c7", text: "#fff", label: "Abundant Moisture (160–240mm)" };
+            return { bg: "#581c87", text: "#fff", label: "Excessive / Waterlogging (>240mm)" };
+        }
+
+        if (v === "topsoil") {
+            if (valRaw < 0.18) return { bg: "#991b1b", text: "#fff", label: "Severe Desiccation / Germination Risk (<0.18)" };
+            if (valRaw < 0.26) return { bg: "#fed7aa", text: "#7c2d12", label: "Seedbed Deficit (0.18–0.26)" };
+            if (valRaw < 0.35) return { bg: "#86efac", text: "#14532d", label: "Optimal Emergence & Seedbed (0.26–0.35)" };
+            if (valRaw < 0.42) return { bg: "#0284c7", text: "#fff", label: "Well-Watered Seedbed (0.35–0.42)" };
+            return { bg: "#581c87", text: "#fff", label: "Saturated / Seed Rot Risk (>0.42)" };
+        }
+
+        if (v === "subsoil") {
+            if (valRaw < 0.20) return { bg: "#991b1b", text: "#fff", label: "Deep Root Drought / Severe Stress (<0.20)" };
+            if (valRaw < 0.28) return { bg: "#fed7aa", text: "#7c2d12", label: "Low Reserve / Vulnerable to Dry Spells (0.20–0.28)" };
+            if (valRaw < 0.38) return { bg: "#86efac", text: "#14532d", label: "Optimal Root Hydration & Buffer (0.28–0.38)" };
+            if (valRaw < 0.44) return { bg: "#0284c7", text: "#fff", label: "Abundant Deep Reservoir (0.38–0.44)" };
+            return { bg: "#581c87", text: "#fff", label: "Waterlogged Subsoil / Root Anoxia (>0.44)" };
+        }
+
+        if (v === "temp_max") {
+            if (valRaw < 20.0) return { bg: "#bae6fd", text: "#0369a1", label: "Cool Growth (<20°C / 68°F)" };
+            if (valRaw < 26.0) return { bg: "#a7f3d0", text: "#064e3b", label: "Mild / Favorable (20–26°C / 68–79°F)" };
+            if (valRaw < 31.0) return { bg: "#86efac", text: "#14532d", label: "Optimal Photosynthesis (26–31°C / 79–88°F)" };
+            if (valRaw < 35.0) return { bg: "#fed7aa", text: "#7c2d12", label: "Heat Stress Window (31–35°C / 88–95°F)" };
+            return { bg: "#991b1b", text: "#fff", label: "Extreme Heat / Flower Abortion (≥35°C / 95°F)" };
+        }
+
+        if (v === "temp_min") {
+            if (valRaw <= 3.0) return { bg: "#4c1d95", text: "#fff", label: "Severe Frost Hazard (≤3°C / 37°F)" };
+            if (valRaw < 8.0) return { bg: "#0284c7", text: "#fff", label: "Chilling Window (3–8°C / 37–46°F)" };
+            if (valRaw < 16.0) return { bg: "#86efac", text: "#14532d", label: "Favorable Nocturnal Rest (8–16°C / 46–61°F)" };
+            if (valRaw < 21.0) return { bg: "#fed7aa", text: "#7c2d12", label: "Normal Night (16–21°C / 61–70°F)" };
+            return { bg: "#dc2626", text: "#fff", label: "High Respiration Loss (≥21°C / 70°F)" };
+        }
+
+        if (v === "temp") {
+            if (valRaw < 15.0) return { bg: "#0284c7", text: "#fff", label: "Cool / Winter (<15°C / 59°F)" };
+            if (valRaw < 20.0) return { bg: "#bae6fd", text: "#0369a1", label: "Mild (15–20°C / 59–68°F)" };
+            if (valRaw < 26.0) return { bg: "#86efac", text: "#14532d", label: "Optimal Corn & Soy (20–26°C / 68–79°F)" };
+            if (valRaw < 30.0) return { bg: "#fed7aa", text: "#7c2d12", label: "Warm (26–30°C / 79–86°F)" };
+            return { bg: "#991b1b", text: "#fff", label: "Severe Heat (≥30°C / 86°F)" };
+        }
+
+        return { bg: "#f8fafc", text: "#0f172a", label: "Standard" };
+    }
+
+    function renderLegend() {
+        const c = document.getElementById("legend-card");
+        if (!c) return;
+        if (isAnomalyMode) {
+            if (currentVar.startsWith("temp")) {
+                c.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <strong style="font-size:11.5px;">Thermal Anomaly Scale (Departure from 2010–2025 Normal):</strong>
+                        <div class="legend-scale-container">
+                            <span class="legend-chip" style="background:#1d4ed8; color:#fff;">Severe Cold (&lt; -2.5°C)</span>
+                            <span class="legend-chip" style="background:#bae6fd; color:#0369a1;">Below Normal (-2.5 to -1°C)</span>
+                            <span class="legend-chip" style="background:#f1f5f9; color:#334155;">Normal (±1°C)</span>
+                            <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Above Normal (+1 to +2.5°C)</span>
+                            <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Heatwave (&gt; +2.5°C)</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                c.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <strong style="font-size:11.5px;">Moisture Anomaly Scale (% Departure from 2010–2025 Normal):</strong>
+                        <div class="legend-scale-container">
+                            <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Deficit (&lt; -30%)</span>
+                            <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Moderate Deficit (-10% to -30%)</span>
+                            <span class="legend-chip" style="background:#f1f5f9; color:#334155;">Normal (±10%)</span>
+                            <span class="legend-chip" style="background:#a7f3d0; color:#064e3b;">Moderate Surplus (+10% to +30%)</span>
+                            <span class="legend-chip" style="background:#065f46; color:#fff;">Strong Surplus (&gt; +30%)</span>
+                        </div>
+                    </div>
+                `;
+            }
+        } else {
+            let chipsHtml = "";
+            let scaleTitle = "";
+            if (currentVar === "precip") {
+                scaleTitle = `Rainfall Agronomic Scale for Corn & Soybeans (${getUnitLabel()}):`;
+                if (precipUnit === "mm_total") {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Deficit (&lt; 40mm)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Moderate Dryness (40–80mm)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Favorable Hydration (80–160mm)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Abundant Moisture (160–240mm)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Excessive / Waterlogging (&gt; 240mm)</span>
+                    `;
+                } else if (precipUnit === "mm_day") {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Deficit (&lt; 1.3mm/d)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Moderate Dryness (1.3–2.6mm/d)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Favorable Hydration (2.6–5.3mm/d)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Abundant Moisture (5.3–7.9mm/d)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Excessive / Waterlogging (&gt; 7.9mm/d)</span>
+                    `;
+                } else {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Deficit (&lt; 1.6in)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Moderate Dryness (1.6–3.1in)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Favorable Hydration (3.1–6.3in)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Abundant Moisture (6.3–9.4in)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Excessive / Waterlogging (&gt; 9.4in)</span>
+                    `;
+                }
+            } else if (currentVar === "topsoil") {
+                scaleTitle = `Topsoil Moisture Scale 0–7cm (${getUnitLabel()}):`;
+                if (soilUnit === "pct") {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Desiccation (&lt; 40%)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Seedbed Deficit (40–58%)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Emergence (58–78%)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Well-Watered (78–93%)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Saturated / Ponding (&gt; 93%)</span>
+                    `;
+                } else {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Desiccation (&lt; 0.18)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Seedbed Deficit (0.18–0.26)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Emergence (0.26–0.35)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Well-Watered (0.35–0.42)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Saturated / Ponding (&gt; 0.42)</span>
+                    `;
+                }
+            } else if (currentVar === "subsoil") {
+                scaleTitle = `Subsoil Moisture Scale 7–100cm (${getUnitLabel()}):`;
+                if (soilUnit === "pct") {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Deep Root Drought (&lt; 44%)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Low Reserve (44–62%)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Root Buffer (62–84%)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Abundant Reservoir (84–98%)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Waterlogged (&gt; 98%)</span>
+                    `;
+                } else {
+                    chipsHtml = `
+                        <span class="legend-chip" style="background:#991b1b; color:#fff;">Deep Root Drought (&lt; 0.20)</span>
+                        <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Low Reserve (0.20–0.28)</span>
+                        <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Root Buffer (0.28–0.38)</span>
+                        <span class="legend-chip" style="background:#0284c7; color:#fff;">Abundant Reservoir (0.38–0.44)</span>
+                        <span class="legend-chip" style="background:#581c87; color:#fff;">Waterlogged (&gt; 0.44)</span>
+                    `;
+                }
+            } else if (currentVar === "temp_max") {
+                scaleTitle = `Daytime Max Temperature (${getUnitLabel()}):`;
+                chipsHtml = `
+                    <span class="legend-chip" style="background:#bae6fd; color:#0369a1;">Cool Growth (&lt; 20°C / 68°F)</span>
+                    <span class="legend-chip" style="background:#a7f3d0; color:#064e3b;">Mild (20–26°C / 68–79°F)</span>
+                    <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Photosynthesis (26–31°C / 79–88°F)</span>
+                    <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Heat Stress (31–35°C / 88–95°F)</span>
+                    <span class="legend-chip" style="background:#991b1b; color:#fff;">Extreme Heat / Abortion (≥ 35°C / 95°F)</span>
+                `;
+            } else if (currentVar === "temp_min") {
+                scaleTitle = `Nighttime Min Temperature (${getUnitLabel()}):`;
+                chipsHtml = `
+                    <span class="legend-chip" style="background:#4c1d95; color:#fff;">Severe Frost (≤ 3°C / 37°F)</span>
+                    <span class="legend-chip" style="background:#0284c7; color:#fff;">Chilling (3–8°C / 37–46°F)</span>
+                    <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Rest (8–16°C / 46–61°F)</span>
+                    <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Normal Night (16–21°C / 61–70°F)</span>
+                    <span class="legend-chip" style="background:#dc2626; color:#fff;">Warm / Biomass Loss (≥ 21°C / 70°F)</span>
+                `;
+            } else {
+                scaleTitle = `24-Hour Mean Temperature (${getUnitLabel()}):`;
+                chipsHtml = `
+                    <span class="legend-chip" style="background:#0284c7; color:#fff;">Cool (&lt; 15°C / 59°F)</span>
+                    <span class="legend-chip" style="background:#bae6fd; color:#0369a1;">Mild (15–20°C / 59–68°F)</span>
+                    <span class="legend-chip" style="background:#86efac; color:#14532d;">Optimal Corn & Soy (20–26°C / 68–79°F)</span>
+                    <span class="legend-chip" style="background:#fed7aa; color:#7c2d12;">Warm (26–30°C / 79–86°F)</span>
+                    <span class="legend-chip" style="background:#991b1b; color:#fff;">Severe Heat (≥ 30°C / 86°F)</span>
+                `;
+            }
+
+            c.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <strong style="font-size:11.5px;">${scaleTitle}</strong>
+                    <div class="legend-scale-container">${chipsHtml}</div>
+                </div>
+                <div class="legend-key-box">
+                    <div><span class="sample-solid"></span><strong>Solid:</strong> Observed ERA5</div>
+                    <div><span class="sample-dashed"></span><strong>Dashed:</strong> ECMWF IFS Forecast</div>
+                </div>
+            `;
+        }
+    }
+
+    function sortStatesOrder(statesList, allLocations) {
+        if (!allLocations || !allLocations.length) return statesList;
+        const orderMap = {};
+        allLocations.forEach((l, idx) => { orderMap[l.code] = idx; });
+        return [...statesList].sort((a, b) => (orderMap[a] ?? 999) - (orderMap[b] ?? 999));
+    }
+
+    function renderStatePickers(filterQuery = "") {
+        const data = getData();
+        if (!data) return;
+        const container = document.getElementById("belt-pickers-container");
+        if (!container) return;
+
+        const belts = {};
+        data.locations.forEach(loc => {
+            const comms = (loc.commodities || []).map(c => c.crop.toLowerCase()).join(' ');
+            if (!filterQuery || loc.name.toLowerCase().includes(filterQuery) || loc.code.toLowerCase().includes(filterQuery) || loc.region_title.toLowerCase().includes(filterQuery) || comms.includes(filterQuery)) {
+                if (!belts[loc.region_title]) belts[loc.region_title] = [];
+                belts[loc.region_title].push(loc);
+            }
+        });
+
+        let html = "";
+        for (const [rtitle, locs] of Object.entries(belts)) {
+            let chips = locs.map(l => {
+                const isActive = selectedStates.includes(l.code);
+                const commBrief = (l.commodities || []).map(c => `${c.crop.split(' ')[0]}: ${c.production_mmt}M (${c.share_pct}%)`).join(' | ');
+                return `<button class="node-chip ${isActive ? 'active' : ''}" onclick="toggleState('${l.code}', event)" title="${l.name}: ${commBrief} (Click: isolate, Ctrl+Click: toggle)">${l.name} (${l.code})</button>`;
+            }).join("");
+
+            html += `
+                <div class="belt-row">
+                    <span class="belt-label" onclick="selectBelt('${rtitle}', event)" title="Click to isolate ${rtitle} (Ctrl+Click to add)">${rtitle}:</span>
+                    <div class="node-chips-container">${chips}</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+        updatePresetChips();
+    }
+
+    function toggleState(code, e) {
+        const data = getData();
+        const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+        if (isMulti) {
+            // Multi-select toggle mode
+            if (selectedStates.includes(code)) {
+                if (selectedStates.length > 1) selectedStates = selectedStates.filter(c => c !== code);
+            } else {
+                selectedStates.push(code);
+            }
+        } else {
+            // Single-select isolation mode (Power BI / Excel Slicer behavior)
+            selectedStates = [code];
+        }
+
+        if (data && data.locations) selectedStates = sortStatesOrder(selectedStates, data.locations);
+        renderStatePickers();
+        renderChart();
+        renderMatrix();
+    }
+
+    function selectBelt(rtitle, e) {
+        const data = getData();
+        if (!data) return;
+        const matchingCodes = data.locations.filter(l => l.region_title === rtitle).map(l => l.code);
+        if (!matchingCodes.length) return;
+        const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+        if (isMulti) {
+            const allPresent = matchingCodes.every(c => selectedStates.includes(c));
+            if (allPresent) {
+                const filtered = selectedStates.filter(c => !matchingCodes.includes(c));
+                if (filtered.length > 0) selectedStates = filtered;
+            } else {
+                selectedStates = Array.from(new Set([...selectedStates, ...matchingCodes]));
+            }
+        } else {
+            selectedStates = matchingCodes;
+        }
+
+        if (data && data.locations) selectedStates = sortStatesOrder(selectedStates, data.locations);
+        renderStatePickers();
+        renderChart();
+        renderMatrix();
+    }
+
+    function selectPreset(p) {
+        const data = getData();
+        if (!data) return;
+        if (p === "all") selectedStates = data.locations.map(l => l.code);
+        else if (p === "brazil") selectedStates = ["MT", "GO", "MS", "PR", "RS", "SC", "MG", "SP", "BA", "MA", "TO"];
+        else if (p === "argentina") selectedStates = ["BA-N", "SF", "CBA", "BA-S", "BA-W", "ER"];
+        else if (p === "cerrado") selectedStates = ["MT", "GO", "MS"];
+        else if (p === "sul") selectedStates = ["PR", "RS", "SC"];
+        else if (p === "southeast") selectedStates = ["MG", "SP"];
+        else if (p === "matopiba") selectedStates = ["BA", "MA", "TO"];
+        else if (p === "nucleo") selectedStates = ["BA-N", "SF", "CBA"];
+        else if (p === "pampas") selectedStates = ["BA-S", "BA-W"];
+        else if (p === "litoral") selectedStates = ["ER"];
+        else if (p === "paraguay") selectedStates = ["PY"];
+        else if (p === "uruguay") selectedStates = ["UY"];
+        else if (p === "bolivia") selectedStates = ["BO"];
+
+        if (data && data.locations) selectedStates = sortStatesOrder(selectedStates, data.locations);
+        renderStatePickers();
+        renderChart();
+        renderMatrix();
+    }
+
+    function updatePresetChips() {
+        const presets = {
+            'all': 20,
+            'brazil': ["MT", "GO", "MS", "PR", "RS", "SC", "MG", "SP", "BA", "MA", "TO"],
+            'argentina': ["BA-N", "SF", "CBA", "BA-S", "BA-W", "ER"],
+            'cerrado': ["MT", "GO", "MS"],
+            'sul': ["PR", "RS", "SC"],
+            'southeast': ["MG", "SP"],
+            'matopiba': ["BA", "MA", "TO"],
+            'nucleo': ["BA-N", "SF", "CBA"],
+            'pampas': ["BA-S", "BA-W"],
+            'litoral': ["ER"],
+            'paraguay': ["PY"],
+            'uruguay': ["UY"],
+            'bolivia': ["BO"]
+        };
+        document.querySelectorAll('.quick-select-bar .preset-chip').forEach(btn => btn.classList.remove('active'));
+        const selSet = new Set(selectedStates);
+        for (const [key, val] of Object.entries(presets)) {
+            let matches = false;
+            if (key === 'all') {
+                const data = getData();
+                if (data && data.locations && selectedStates.length === data.locations.length) matches = true;
+            } else {
+                if (val.length === selectedStates.length && val.every(c => selSet.has(c))) {
+                    matches = true;
+                }
+            }
+            if (matches) {
+                const b = document.getElementById(`preset-${key}`);
+                if (b) b.classList.add('active');
+            }
+        }
+    }
+
+    function filterStatesBySearch() {
+        const q = document.getElementById("state-search-input").value.trim().toLowerCase();
+        renderStatePickers(q);
+    }
+
+    function renderSeasonChips() {
+        const c = document.getElementById("season-chips-container");
+        if (!c) return;
+        c.innerHTML = ALL_SEASONS.map(s => {
+            const isActive = selectedSeasons.includes(s);
+            return `<button class="year-chip ${isActive ? 'active' : ''}" onclick="toggleSeason('${s}', event)" title="Click: isolate season, Ctrl+Click: toggle">${s}</button>`;
+        }).join("");
+    }
+
+    function toggleSeason(s, e) {
+        const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+        if (isMulti) {
+            if (selectedSeasons.includes(s)) {
+                if (selectedSeasons.length > 1) selectedSeasons = selectedSeasons.filter(item => item !== s);
+            } else {
+                selectedSeasons.push(s);
+            }
+        } else {
+            selectedSeasons = [s];
+        }
+
+        selectedSeasons.sort((a, b) => parseInt(a.split('/')[0], 10) - parseInt(b.split('/')[0], 10));
+        renderSeasonChips();
+        renderMatrix();
+    }
+
+    function setSeasonPreset(p) {
+        if (p === "all") selectedSeasons = [...ALL_SEASONS];
+        if (p === "last5") selectedSeasons = ["2022/23", "2023/24", "2024/25", "2025/26", "2026/27"];
+        if (p === "last10") selectedSeasons = ["2017/18", "2018/19", "2019/20", "2020/21", "2021/22", "2022/23", "2023/24", "2024/25", "2025/26", "2026/27"];
+        selectedSeasons.sort((a, b) => parseInt(a.split('/')[0], 10) - parseInt(b.split('/')[0], 10));
+        renderSeasonChips();
+        renderMatrix();
+    }
+
+    function renderMonthChips() {
+        const c = document.getElementById("month-chips-container");
+        if (!c) return;
+        c.innerHTML = CROP_MONTHS.map(m => {
+            const isActive = selectedMonths.includes(m);
+            return `<button class="month-chip ${isActive ? 'active' : ''}" onclick="toggleMonth(${m}, event)" title="Click: isolate month, Ctrl+Click: toggle">${MONTH_NAMES[m]}</button>`;
+        }).join("");
+    }
+
+    function toggleMonth(m, e) {
+        const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+        if (isMulti) {
+            if (selectedMonths.includes(m)) {
+                if (selectedMonths.length > 1) selectedMonths = selectedMonths.filter(item => item !== m);
+            } else {
+                selectedMonths.push(m);
+            }
+        } else {
+            selectedMonths = [m];
+        }
+
+        selectedMonths.sort((a, b) => CROP_ORDER[a] - CROP_ORDER[b]);
+        renderMonthChips();
+        renderMatrix();
+    }
+
+    function setMonthPreset(p) {
+        if (p === "all") selectedMonths = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
+        if (p === "planting") selectedMonths = [9, 10, 11, 12];
+        if (p === "fill") selectedMonths = [1, 2, 3, 4];
+        if (p === "wheat") selectedMonths = [5, 6, 7, 8];
+        selectedMonths.sort((a, b) => CROP_ORDER[a] - CROP_ORDER[b]);
+        renderMonthChips();
+        renderMatrix();
+    }
+
+    function renderChart() {
+        const container = document.getElementById("chart-container");
+        const data = getData();
+        if (!container || !data) return;
+
+        const width = container.clientWidth || 1500;
+        const height = 180;
+        const padding = { top: 20, right: 30, bottom: 25, left: 60 };
+
+        const monthlyMin = [];
+        const monthlyMax = [];
+        const monthlyBase = [];
+        const monthly2025_26 = [];
+        const monthly2026_27 = [];
+        const monthlyBench = {};
+        benchmarkSeasons.forEach(bs => monthlyBench[bs] = []);
+
+        for (let i = 0; i < 12; i++) {
+            const m = CROP_MONTHS[i];
+            const mStr = String(m);
+            let allVals = [];
+            let baseVals = [];
+            let vals2025_26 = [];
+            let vals2026_27 = [];
+
+            selectedStates.forEach(code => {
+                const sMatrix = data.matrix_by_state[code] || {};
+                const sBase = (data.baseline_monthly && data.baseline_monthly[code]) ? data.baseline_monthly[code][mStr] : null;
+
+                if (sBase) {
+                    const bVal = getMetricValue(sBase, currentVar);
+                    if (bVal !== null) baseVals.push(bVal);
+                }
+
+                ALL_SEASONS.forEach(s => {
+                    const sYr = parseInt(s.split("/")[0], 10);
+                    const calYr = (m >= 9) ? sYr : sYr + 1;
+                    const rec = sMatrix[String(calYr)] ? sMatrix[String(calYr)][mStr] : null;
+                    const val = getMetricValue(rec, currentVar);
+                    if (val !== null) {
+                        allVals.push(val);
+                        if (s === "2025/26") vals2025_26.push(val);
+                        if (s === "2026/27") vals2026_27.push(val);
+                        if (benchmarkSeasons.includes(s)) {
+                            if (!monthlyBench[s][i]) monthlyBench[s][i] = [];
+                            monthlyBench[s][i].push(val);
+                        }
+                    }
+                });
+            });
+
+            const minV = allVals.length ? Math.min(...allVals) : 0;
+            const maxV = allVals.length ? Math.max(...allVals) : 1;
+            const baseV = baseVals.length ? (baseVals.reduce((a, b) => a + b, 0) / baseVals.length) : (minV + maxV) / 2;
+            const v25_26 = vals2025_26.length ? (vals2025_26.reduce((a, b) => a + b, 0) / vals2025_26.length) : null;
+            const v26_27 = vals2026_27.length ? (vals2026_27.reduce((a, b) => a + b, 0) / vals2026_27.length) : null;
+
+            monthlyMin.push(convertValue(minV, currentVar));
+            monthlyMax.push(convertValue(maxV, currentVar));
+            monthlyBase.push(convertValue(baseV, currentVar));
+            monthly2025_26.push(v25_26 !== null ? convertValue(v25_26, currentVar) : null);
+            monthly2026_27.push(v26_27 !== null ? convertValue(v26_27, currentVar) : null);
+        }
+
+        const benchCurves = {};
+        benchmarkSeasons.forEach(bs => {
+            benchCurves[bs] = [];
+            for (let i = 0; i < 12; i++) {
+                const list = monthlyBench[bs][i] || [];
+                benchCurves[bs].push(list.length ? convertValue(list.reduce((a, b) => a + b, 0) / list.length, currentVar) : null);
+            }
+        });
+
+        let allDisplay = [...monthlyMin, ...monthlyMax, ...monthlyBase, ...monthly2025_26.filter(v => v !== null), ...monthly2026_27.filter(v => v !== null)];
+        Object.values(benchCurves).forEach(arr => arr.forEach(v => { if (v !== null) allDisplay.push(v); }));
+        let yMin = Math.min(...allDisplay);
+        let yMax = Math.max(...allDisplay);
+        const yMargin = (yMax - yMin) * 0.1 || 1;
+        yMin -= yMargin;
+        yMax += yMargin;
+
+        const plotW = width - padding.left - padding.right;
+        const plotH = height - padding.top - padding.bottom;
+
+        const getX = (idx) => padding.left + (idx / 11) * plotW;
+        const getY = (val) => padding.top + plotH - ((val - yMin) / (yMax - yMin)) * plotH;
+
+        let gridHtml = "";
+        const isSoil = (currentVar === "topsoil" || currentVar === "subsoil");
+        const dec = isSoil ? 2 : 1;
+        for (let i = 0; i <= 4; i++) {
+            const gridVal = yMin + (i / 4) * (yMax - yMin);
+            const yPos = getY(gridVal);
+            gridHtml += `
+                <line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#f1f5f9" stroke-width="1"/>
+                <text x="${padding.left - 8}" y="${yPos + 3.5}" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="600">${gridVal.toFixed(dec)}</text>
+            `;
+        }
+
+        let xLabelsHtml = "";
+        for (let i = 0; i < 12; i++) {
+            const xPos = getX(i);
+            const m = CROP_MONTHS[i];
+            xLabelsHtml += `
+                <line x1="${xPos}" y1="${padding.top}" x2="${xPos}" y2="${height - padding.bottom}" stroke="#f8fafc" stroke-width="1"/>
+                <text x="${xPos}" y="${height - padding.bottom + 16}" text-anchor="middle" font-size="10" fill="#64748b" font-weight="700">${MONTH_NAMES[m]}</text>
+            `;
+        }
+
+        let upperPts = monthlyMax.map((v, i) => `${getX(i)},${getY(v)}`).join(" ");
+        let lowerPts = [...monthlyMin].reverse().map((v, i) => `${getX(11 - i)},${getY(v)}`).join(" ");
+        const envelopePath = `M ${upperPts} L ${lowerPts} Z`;
+        const basePts = monthlyBase.map((v, i) => `${getX(i)},${getY(v)}`).join(" L ");
+
+        let benchLinesHtml = "";
+        const benchColors = { "2022/23": "#dc2626", "2023/24": "#2563eb", "2011/12": "#7c3aed" };
+        for (const [bs, vals] of Object.entries(benchCurves)) {
+            const validPts = vals.map((v, i) => v !== null ? `${getX(i)},${getY(v)}` : null).filter(Boolean).join(" L ");
+            if (validPts) {
+                benchLinesHtml += `<path d="M ${validPts}" fill="none" stroke="${benchColors[bs] || '#059669'}" stroke-width="2" stroke-dasharray="4,3"/>`;
+            }
+        }
+
+        // 2025/26 Line (Completed observed season)
+        const pts2025_26 = monthly2025_26.map((v, i) => v !== null ? `${getX(i)},${getY(v)}` : null).filter(Boolean).join(" L ");
+        let line2025_26Html = "";
+        if (pts2025_26) {
+            line2025_26Html += `<path d="M ${pts2025_26}" fill="none" stroke="#065f46" stroke-width="2.5"/>`;
+        }
+
+        // Points
+        let pointsHtml = "";
+        monthly2025_26.forEach((v, i) => {
+            if (v !== null) {
+                const m = CROP_MONTHS[i];
+                pointsHtml += `
+                    <circle cx="${getX(i)}" cy="${getY(v)}" r="3.5" fill="#065f46" stroke="#ffffff" stroke-width="1.5">
+                        <title>${MONTH_NAMES[m]} 2025/26: ${v.toFixed(dec)} ${getUnitLabel()}</title>
+                    </circle>
+                `;
+            }
+        });
+
+        // 2026/27 6-Month Seasonal Forecast Trajectory (Sep 2026 – Feb 2027)
+        const pts2026_27 = [];
+        monthly2026_27.forEach((v, i) => {
+            if (v !== null && v !== undefined) {
+                pts2026_27.push(`${getX(i)},${getY(v)}`);
+            }
+        });
+        let line2026_27Html = "";
+        if (pts2026_27.length > 1) {
+            line2026_27Html = `<path d="M ${pts2026_27.join(' L ')}" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5,3"/>`;
+        }
+
+        // 2026/27 6-Month Forecast Points
+        let points2026_27Html = "";
+        monthly2026_27.forEach((v, i) => {
+            if (v !== null && v !== undefined) {
+                const m = CROP_MONTHS[i];
+                const isFirst = (i === 0);
+                const r = isFirst ? 5.5 : 4.0;
+                points2026_27Html += `
+                    <circle cx="${getX(i)}" cy="${getY(v)}" r="${r}" fill="#0284c7" stroke="#ffffff" stroke-width="1.8">
+                        <title>${MONTH_NAMES[m]} (2026/27 ECMWF 6-Mo Forecast): ${v.toFixed(dec)} ${getUnitLabel()}</title>
+                    </circle>
+                `;
+            }
+        });
+
+        container.innerHTML = `
+            <svg class="chart-svg" viewBox="0 0 ${width} ${height}">
+                ${gridHtml}
+                ${xLabelsHtml}
+                <path d="${envelopePath}" fill="#e2e8f0" fill-opacity="0.45" stroke="#cbd5e1" stroke-width="1"/>
+                <path d="M ${basePts}" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+                ${benchLinesHtml}
+                ${line2025_26Html}
+                ${pointsHtml}
+                ${line2026_27Html}
+                ${points2026_27Html}
+                <g transform="translate(${padding.left + 10}, ${padding.top + 8})">
+                    <rect x="0" y="0" width="14" height="10" fill="#e2e8f0" fill-opacity="0.7" rx="2"/>
+                    <text x="20" y="9" font-size="10" font-weight="700" fill="#475569">17-Season Envelope</text>
+                    <line x1="140" y1="5" x2="160" y2="5" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+                    <text x="166" y="9" font-size="10" font-weight="700" fill="#475569">2010–25 Normal</text>
+                    <line x1="260" y1="5" x2="280" y2="5" stroke="#065f46" stroke-width="2.5"/>
+                    <circle cx="270" cy="5" r="3" fill="#065f46"/>
+                    <text x="286" y="9" font-size="10" font-weight="800" fill="#065f46">2025/26 Observed</text>
+                    <line x1="410" y1="5" x2="430" y2="5" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5,3"/>
+                    <circle cx="420" cy="5" r="4" fill="#0284c7" stroke="#fff" stroke-width="1.5"/>
+                    <text x="436" y="9" font-size="10" font-weight="800" fill="#0284c7">2026/27 6-Month Forecast (ECMWF SEAS5)</text>
+                </g>
+            </svg>
+        `;
+    }
+
+    function renderMatrix() {
+        const data = getData();
+        if (!data) return;
+        const thead = document.getElementById("matrix-thead");
+        const tbody = document.getElementById("matrix-tbody");
+
+        // Thead
+        let hHtml = `<tr><th class="col-node">Agricultural Node</th><th class="col-season">Crop Season</th>`;
+        selectedMonths.forEach(m => {
+            hHtml += `<th class="col-month">${MONTH_NAMES[m]}</th>`;
+        });
+        hHtml += `<th class="col-mean">Season Mean</th></tr>`;
+        thead.innerHTML = hHtml;
+
+        // Tbody
+        let bHtml = "";
+        const sortedSeasons = [...selectedSeasons].sort((a, b) => parseInt(a.split('/')[0], 10) - parseInt(b.split('/')[0], 10));
+
+        selectedStates.forEach(code => {
+            const loc = data.locations.find(l => l.code === code) || { name: code, code: code };
+            const sMatrix = data.matrix_by_state[code] || {};
+            const sBase = data.baseline_monthly[code] || {};
+
+            sortedSeasons.forEach((seasonStr, sIdx) => {
+                bHtml += `<tr>`;
+                if (sIdx === 0) {
+                    let commHtml = "";
+                    if (loc.commodities && loc.commodities.length > 0) {
+                        commHtml = '<div class="node-commodities-box">' + loc.commodities.map(c => {
+                            let icon = "🌱";
+                            let cls = "matrix-badge-soy";
+                            const cr = c.crop.toLowerCase();
+                            if (cr.includes("corn")) {
+                                icon = "🌽";
+                                cls = "matrix-badge-corn";
+                            } else if (cr.includes("wheat")) {
+                                icon = "🌾";
+                                cls = "matrix-badge-wheat";
+                            }
+                            const shortCrop = cr.includes("corn") ? (cr.includes("safrinha") ? "Corn (Saf)" : "Corn") : (cr.includes("soy") ? "Soy" : "Wheat");
+                            return `
+                                <div class="matrix-crop-badge ${cls}" title="${c.crop}: ${c.production_mmt} MMT (${c.share_pct}% share, ${c.yield_tha || '-'} t/ha)">
+                                    <span>${icon} ${shortCrop}</span>
+                                    <span><span class="matrix-badge-vol">${c.production_mmt}M</span> <span class="matrix-badge-share">${c.share_pct}%</span></span>
+                                </div>
+                            `;
+                        }).join("") + '</div>';
+                    }
+
+                    bHtml += `
+                        <td class="col-node" rowspan="${sortedSeasons.length}">
+                            <div class="node-header-name">${loc.name} (${loc.code})</div>
+                            <div class="node-district-sub">${loc.district || ''}</div>
+                            ${commHtml}
+                        </td>
+                    `;
+                }
+                bHtml += `<td class="col-season">${seasonStr}</td>`;
+
+                const startYr = parseInt(seasonStr.split("/")[0], 10);
+                let seasonVals = [];
+
+                selectedMonths.forEach(m => {
+                    const calYear = (m >= 9) ? startYr : startYr + 1;
+                    const mStr = String(m);
+                    const yStr = String(calYear);
+                    const rec = sMatrix[yStr] ? sMatrix[yStr][mStr] : null;
+                    const baseRec = sBase[mStr];
+
+                    const valRaw = getMetricValue(rec, currentVar);
+                    const baseRaw = getMetricValue(baseRec, currentVar);
+
+                    if (valRaw !== null) seasonVals.push(valRaw);
+
+                    let displayVal = "-";
+                    let bg = "transparent";
+                    let text = "inherit";
+                    let borderCls = (rec && rec.is_forecast) ? "cell-fcst" : "";
+
+                    if (valRaw !== null) {
+                        const val = convertValue(valRaw, currentVar);
+                        const colorRes = getAgronomicCellColor(valRaw, baseRaw, currentVar, isAnomalyMode);
+                        bg = colorRes.bg;
+                        text = colorRes.text;
+
+                        const isSoil = (currentVar === "topsoil" || currentVar === "subsoil");
+                        const decimals = isSoil ? 2 : 1;
+
+                        if (isAnomalyMode && baseRaw !== null) {
+                            const delta = valRaw - baseRaw;
+                            const deltaConv = convertValue(delta, currentVar, true);
+                            const sign = deltaConv >= 0 ? "+" : "";
+                            displayVal = sign + deltaConv.toFixed(decimals);
+                        } else {
+                            displayVal = val.toFixed(decimals);
+                        }
+                    }
+
+                    bHtml += `<td class="col-month"><span class="cell-val ${borderCls}" style="background:${bg}; color:${text};" onmouseenter="showPopover(event, '${code}', '${seasonStr}', ${m})" onmouseleave="hidePopover()">${displayVal}</span></td>`;
+                });
+
+                const isSoil = (currentVar === "topsoil" || currentVar === "subsoil");
+                const decimals = isSoil ? 2 : 1;
+                const sMean = seasonVals.length ? (seasonVals.reduce((a,b)=>a+b,0) / seasonVals.length) : null;
+                let sMeanConv = "-";
+                if (sMean !== null) {
+                    const conv = convertValue(sMean, currentVar).toFixed(decimals);
+                    sMeanConv = (seasonStr === "2026/27") ? `<span title="6-Month Forecast Mean (Sep 2026 – Feb 2027)">${conv} <span style="font-size:9px; color:#0284c7; font-weight:800;">(6M)</span></span>` : conv;
+                }
+                bHtml += `<td class="col-mean">${sMeanConv}</td>`;
+                bHtml += `</tr>`;
+            });
+        });
+
+        tbody.innerHTML = bHtml;
+    }
+
+    function showPopover(e, code, seasonStr, m) {
+        const pop = document.getElementById("cellPopover");
+        const data = getData();
+        if (!pop || !data) return;
+
+        const startYr = parseInt(seasonStr.split("/")[0], 10);
+        const calYear = (m >= 9) ? startYr : startYr + 1;
+        const loc = data.locations.find(l => l.code === code) || { name: code };
+        const rec = data.matrix_by_state[code] && data.matrix_by_state[code][String(calYear)] ? data.matrix_by_state[code][String(calYear)][String(m)] : null;
+        const baseRec = data.baseline_monthly[code] ? data.baseline_monthly[code][String(m)] : null;
+
+        const valRaw = getMetricValue(rec, currentVar);
+        const baseRaw = getMetricValue(baseRec, currentVar);
+
+        if (valRaw === null) return;
+
+        const val = convertValue(valRaw, currentVar);
+        const base = baseRaw !== null ? convertValue(baseRaw, currentVar) : null;
+        const delta = (valRaw !== null && baseRaw !== null) ? convertValue(valRaw - baseRaw, currentVar, true) : null;
+        const colorRes = getAgronomicCellColor(valRaw, baseRaw, currentVar, isAnomalyMode);
+
+        const isSoil = (currentVar === "topsoil" || currentVar === "subsoil");
+        const decimals = isSoil ? 2 : 1;
+
+        const fcstModel = (rec && rec.forecast_model) ? rec.forecast_model : ((rec && rec.is_forecast) ? 'ECMWF 6-Mo Forecast' : 'Observed ERA5');
+        document.getElementById("popoverTitle").innerText = `${loc.name} (${code}) • ${MONTH_NAMES[m]} ${calYear} (${seasonStr} Crop Season)`;
+        document.getElementById("popoverVal").innerText = `${val.toFixed(decimals)} ${getUnitLabel()} (${fcstModel})`;
+        document.getElementById("popoverBase").innerText = base !== null ? `${base.toFixed(decimals)} ${getUnitLabel()}` : "N/A";
+        
+        const sign = delta >= 0 ? "+" : "";
+        document.getElementById("popoverDelta").innerText = delta !== null ? `${sign}${delta.toFixed(decimals)} ${getUnitLabel()}` : "N/A";
+        document.getElementById("popoverRank").innerText = `${rec && rec.is_forecast ? '6-Month Seasonal Forward Forecast (Sep 2026 – Feb 2027)' : 'Observed Cycle'}`;
+        document.getElementById("popoverDiag").innerText = `Diagnosis: ${colorRes.label}`;
+
+        pop.style.display = "block";
+        pop.style.left = (e.clientX + 15) + "px";
+        pop.style.top = (e.clientY + 15) + "px";
+    }
+
+    function hidePopover() {
+        const pop = document.getElementById("cellPopover");
+        if (pop) pop.style.display = "none";
+    }
+
+    function resetAllFilters() {
+        const data = getData();
+        if (!data) return;
+        selectedStates = ["MT", "PR", "RS", "GO", "BA-N", "SF", "CBA", "BA-S", "PY", "UY", "BO"];
+        if (data && data.locations) selectedStates = sortStatesOrder(selectedStates, data.locations);
+        selectedSeasons = ["2018/19", "2019/20", "2020/21", "2021/22", "2022/23", "2023/24", "2024/25", "2025/26", "2026/27"];
+        selectedMonths = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
+        isAnomalyMode = false;
+        currentVar = "precip";
+        document.getElementById("btn-mode-anomaly").classList.remove("active");
+        renderStatePickers();
+        renderSeasonChips();
+        renderMonthChips();
+        renderChart();
+        renderMatrix();
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

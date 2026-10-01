@@ -1,0 +1,427 @@
+{
+  "France - Cereal & Oilseed Granary Core": {
+    "region_id": "fr_cereal_core",
+    "description": "France's primary cereal and oilseed heartland encompassing the Paris Basin, Beauce, Picardy, and Champagne plains. Represents over 11% of all EU soft wheat and barley, and 12% of EU rapeseed.",
+    "states": [
+      {
+        "name": "Northern Granary (Beauce / Champagne / Picardy)",
+        "code": "FR-NORTH",
+        "country": "France",
+        "district": "Paris Basin & Grand Est (Chartres / Reims / Amiens)",
+        "lat": 48.80,
+        "lon": 3.20,
+        "commodities": [
+          {
+            "crop": "Soft Wheat",
+            "production_mmt": 14.0,
+            "yield_tha": 7.85,
+            "share_pct": 11.2,
+            "status": "Autumn Drilling Window / Pre-Sowing Seedbed Prep"
+          },
+          {
+            "crop": "Barley (Winter & Malting)",
+            "production_mmt": 5.4,
+            "yield_tha": 7.40,
+            "share_pct": 10.8,
+            "status": "Field Prep / Autumn Winter Barley Sowing"
+          },
+          {
+            "crop": "Rapeseed (Colza)",
+            "production_mmt": 2.3,
+            "yield_tha": 3.50,
+            "share_pct": 12.1,
+            "status": "Active Emergence / Rosette Establishment"
+          }
+        ]
+      },
+      {
+        "name": "Southwest Maize & Durum Basin",
+        "code": "FR-SW",
+        "country": "France",
+        "district": "Nouvelle-Aquitaine & Occitanie (Niort / Bordeaux / Toulouse)",
+        "lat": 44.50,
+        "lon": 0.10,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 5.1,
+            "yield_tha": 9.45,
+            "share_pct": 8.2,
+            "status": "Grain Maturation / Active Harvest Window"
+          },
+          {
+            "crop": "Soft Wheat",
+            "production_mmt": 3.4,
+            "yield_tha": 6.80,
+            "share_pct": 2.7,
+            "status": "Stubble Clearing & Seedbed Prep"
+          },
+          {
+            "crop": "Durum Wheat",
+            "production_mmt": 0.6,
+            "yield_tha": 5.40,
+            "share_pct": 8.5,
+            "status": "Pre-Sowing Preparation"
+          }
+        ]
+      }
+    ]
+  },
+  "Germany - Börde Loess & Maize Belts": {
+    "region_id": "de_borde_maize",
+    "description": "Germany's highest yielding loess agricultural basins and coastal oilseed plains, representing over 20% of EU rapeseed and 22% of EU barley.",
+    "states": [
+      {
+        "name": "North & Central Börde Oilseed Belt",
+        "code": "DE-NORTH",
+        "country": "Germany",
+        "district": "Saxony-Anhalt, Lower Saxony & Baltic Plain (Magdeburg / Hannover / Rostock)",
+        "lat": 52.20,
+        "lon": 11.20,
+        "commodities": [
+          {
+            "crop": "Rapeseed (Raps)",
+            "production_mmt": 2.1,
+            "yield_tha": 3.75,
+            "share_pct": 11.0,
+            "status": "Emergence & Early Rosette Formation"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 7.0,
+            "yield_tha": 8.30,
+            "share_pct": 5.6,
+            "status": "Pre-Drilling Seedbed Preparation"
+          },
+          {
+            "crop": "Winter Barley",
+            "production_mmt": 4.0,
+            "yield_tha": 7.70,
+            "share_pct": 8.0,
+            "status": "Early Autumn Drilling Initiation"
+          }
+        ]
+      },
+      {
+        "name": "South Grain & Maize Basin",
+        "code": "DE-SOUTH",
+        "country": "Germany",
+        "district": "Bavaria Danube & North Rhine-Westphalia (Straubing / Soest)",
+        "lat": 48.80,
+        "lon": 12.10,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 6.5,
+            "yield_tha": 7.80,
+            "share_pct": 5.2,
+            "status": "Pre-Drilling Window"
+          },
+          {
+            "crop": "Winter & Brewing Barley",
+            "production_mmt": 3.6,
+            "yield_tha": 7.20,
+            "share_pct": 7.2,
+            "status": "Early Autumn Sowing Window"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 2.2,
+            "yield_tha": 9.90,
+            "share_pct": 3.5,
+            "status": "Silage & Grain Maturation / Harvest"
+          }
+        ]
+      }
+    ]
+  },
+  "Poland - Central European Grain Corridor": {
+    "region_id": "pl_grain_corridor",
+    "description": "Poland's agricultural core, representing 17% of EU rapeseed, 13% of EU corn, and 10% of EU wheat.",
+    "states": [
+      {
+        "name": "West & Central Core",
+        "code": "PL-WEST",
+        "country": "Poland",
+        "district": "Greater Poland & Lower Silesia (Poznań / Wrocław)",
+        "lat": 51.80,
+        "lon": 16.90,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 3.7,
+            "yield_tha": 7.45,
+            "share_pct": 5.9,
+            "status": "Maturation / Grain Drydown"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 4.4,
+            "yield_tha": 6.50,
+            "share_pct": 3.5,
+            "status": "Autumn Drilling Window"
+          },
+          {
+            "crop": "Rapeseed (Rzepak)",
+            "production_mmt": 1.35,
+            "yield_tha": 3.40,
+            "share_pct": 7.1,
+            "status": "Emergence / Autumn Establishment"
+          }
+        ]
+      },
+      {
+        "name": "North & East Loess Belt",
+        "code": "PL-EAST",
+        "country": "Poland",
+        "district": "Kuyavia & Lublin (Inowrocław / Lublin)",
+        "lat": 52.10,
+        "lon": 20.20,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 3.7,
+            "yield_tha": 6.10,
+            "share_pct": 3.0,
+            "status": "Pre-Sowing Field Preparation"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 2.0,
+            "yield_tha": 7.05,
+            "share_pct": 3.2,
+            "status": "Grain Filling & Drydown"
+          },
+          {
+            "crop": "Rapeseed (Rzepak)",
+            "production_mmt": 1.05,
+            "yield_tha": 3.30,
+            "share_pct": 5.5,
+            "status": "Seedling Emergence / Rosette"
+          }
+        ]
+      }
+    ]
+  },
+  "Southeast Europe - Danubian Breadbasket": {
+    "region_id": "se_danubian_breadbasket",
+    "description": "The fertile Chernozem plains of the lower Danube River across Romania and Bulgaria, accounting for over 25% of EU grain corn exports.",
+    "states": [
+      {
+        "name": "Romania Wallachian Plain & Danube Breadbasket",
+        "code": "RO-DANUBE",
+        "country": "Romania",
+        "district": "Muntenia & Oltenia (Bărăgan Steppe / Călărași / Craiova)",
+        "lat": 44.40,
+        "lon": 26.80,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 5.6,
+            "yield_tha": 5.60,
+            "share_pct": 9.0,
+            "status": "Active Harvesting Window"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 5.3,
+            "yield_tha": 4.80,
+            "share_pct": 4.2,
+            "status": "Stubble Clearing & Seedbed Prep"
+          },
+          {
+            "crop": "Rapeseed (Rapiță)",
+            "production_mmt": 0.95,
+            "yield_tha": 2.65,
+            "share_pct": 5.0,
+            "status": "Autumn Sowing & Emergence"
+          }
+        ]
+      },
+      {
+        "name": "Romania Banat / Western Plain",
+        "code": "RO-BANAT",
+        "country": "Romania",
+        "district": "Timiș & Arad (Timișoara)",
+        "lat": 45.75,
+        "lon": 21.20,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 2.4,
+            "yield_tha": 6.60,
+            "share_pct": 3.8,
+            "status": "Grain Maturation & Harvest"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 1.9,
+            "yield_tha": 5.40,
+            "share_pct": 1.5,
+            "status": "Autumn Drilling Window"
+          },
+          {
+            "crop": "Barley",
+            "production_mmt": 0.4,
+            "yield_tha": 5.20,
+            "share_pct": 0.8,
+            "status": "Pre-Sowing Field Prep"
+          }
+        ]
+      },
+      {
+        "name": "Bulgaria Dobrudzha Black Sea Export Hub",
+        "code": "BG-DOBRUD",
+        "country": "Bulgaria",
+        "district": "Danubian Plain & Dobrudzha (Dobrich / Pleven)",
+        "lat": 43.55,
+        "lon": 27.80,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 4.2,
+            "yield_tha": 5.50,
+            "share_pct": 3.4,
+            "status": "Pre-Sowing Field Operations"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.8,
+            "yield_tha": 5.85,
+            "share_pct": 2.9,
+            "status": "Active Harvesting Window"
+          },
+          {
+            "crop": "Barley",
+            "production_mmt": 0.5,
+            "yield_tha": 5.00,
+            "share_pct": 1.0,
+            "status": "Pre-Drilling Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Pannonian Basin - Hungary Grain Hub": {
+    "region_id": "hu_pannonian_grain",
+    "description": "The Pannonian Plain between the Danube and Tisza rivers, serving as Central Europe's prime grain maize export basin.",
+    "states": [
+      {
+        "name": "Hungary Pannonian Basin Grain Core",
+        "code": "HU-ALFOLD",
+        "country": "Hungary",
+        "district": "Great Alföld & Transdanubia (Békéscsaba / Székesfehérvár)",
+        "lat": 46.75,
+        "lon": 19.80,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 4.7,
+            "yield_tha": 7.50,
+            "share_pct": 7.5,
+            "status": "Grain Maturation & Early Harvest"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 4.0,
+            "yield_tha": 5.90,
+            "share_pct": 3.2,
+            "status": "Autumn Seedbed Preparation"
+          },
+          {
+            "crop": "Barley",
+            "production_mmt": 1.1,
+            "yield_tha": 5.70,
+            "share_pct": 2.2,
+            "status": "Field Prep / Autumn Drilling"
+          }
+        ]
+      }
+    ]
+  },
+  "Mediterranean Basin - Southern Cereals, Durum & Maize": {
+    "region_id": "med_cereal_durum",
+    "description": "Mediterranean agricultural basins characterized by winter cereal dominance, world-leading durum wheat production, and high-yielding irrigated corn.",
+    "states": [
+      {
+        "name": "Spain Castile & Duero Granary",
+        "code": "ES-CASTILE",
+        "country": "Spain",
+        "district": "Castile and León (Valladolid / Palencia)",
+        "lat": 41.65,
+        "lon": -4.70,
+        "commodities": [
+          {
+            "crop": "Barley (Winter & Spring)",
+            "production_mmt": 3.2,
+            "yield_tha": 3.40,
+            "share_pct": 6.5,
+            "status": "Stubble Fallow / Autumn Seedbed Prep"
+          },
+          {
+            "crop": "Soft Wheat",
+            "production_mmt": 2.4,
+            "yield_tha": 3.55,
+            "share_pct": 1.9,
+            "status": "Pre-Sowing Preparation"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.1,
+            "yield_tha": 12.10,
+            "share_pct": 1.8,
+            "status": "Irrigated Grain Maturation / Harvest"
+          }
+        ]
+      },
+      {
+        "name": "Italy Po Valley Corn & Wheat Heartland",
+        "code": "IT-POV",
+        "country": "Italy",
+        "district": "Lombardy, Veneto & Emilia-Romagna (Cremona / Bologna)",
+        "lat": 45.10,
+        "lon": 10.50,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 4.6,
+            "yield_tha": 10.40,
+            "share_pct": 7.4,
+            "status": "Active Harvest Window"
+          },
+          {
+            "crop": "Soft Wheat",
+            "production_mmt": 2.4,
+            "yield_tha": 6.90,
+            "share_pct": 1.9,
+            "status": "Seedbed Preparation"
+          }
+        ]
+      },
+      {
+        "name": "Italy Apulia Tavoliere Durum Heartland",
+        "code": "IT-PUGLIA",
+        "country": "Italy",
+        "district": "Apulia (Tavoliere delle Puglie / Foggia)",
+        "lat": 41.45,
+        "lon": 15.55,
+        "commodities": [
+          {
+            "crop": "Durum Wheat",
+            "production_mmt": 1.8,
+            "yield_tha": 2.90,
+            "share_pct": 25.0,
+            "status": "Autumn Fallow & Pre-Sowing Window"
+          },
+          {
+            "crop": "Barley",
+            "production_mmt": 0.2,
+            "yield_tha": 2.70,
+            "share_pct": 0.4,
+            "status": "Pre-Sowing Field Operations"
+          }
+        ]
+      }
+    ]
+  }
+}

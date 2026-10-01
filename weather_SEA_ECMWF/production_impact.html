@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southeast Asia Palm Oil Production Impact Summary (2010–2027)</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for interactive historical graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Header Banner: Dedicated Standalone Production Impact Header (No Navigation Tabs) -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <div class="header-title">
+                <h1>Southeast Asia Palm Oil Production Impact Summary</h1>
+                <p id="kpi-date">Empirically Calibrated to 21-Year MPOB Production Ground Truth & ECMWF 51-Member Ensemble Projections</p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: #0369a1; border: 1px solid #38bdf8; padding: 5px 14px; border-radius: 20px; font-size: 11.5px; font-weight: 700; color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                <span>📅</span>
+                <span>Target Prediction Period: Oct 2026 – Sep 2027 (Forward Crop Year)</span>
+            </div>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 5px 14px; border-radius: 20px; font-size: 11.5px; font-weight: 700; color: #ffffff;">
+                <span>📊</span>
+                <span>Standalone Production Impact & Yield Forecaster</span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <button class="btn btn-secondary" onclick="exportTableToCSV()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV
+            </button>
+            <button class="btn btn-primary" onclick="location.reload()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                Refresh
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+
+        <!-- KPI Grid: Calibrated & Grounded in Real Production Records -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <span class="kpi-label">Regional Production Risk Level</span>
+                <span class="kpi-value" id="kpi-risk-level" style="font-size: 20px;">-</span>
+                <span class="kpi-sub" id="kpi-risk-sub">Across 41 territories • Target Period: Oct '26 – Sep '27</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Historical MPOB YTD Ground Truth</span>
+                <span class="kpi-value" id="kpi-mpob-val" style="color: #15803d; font-size: 20px;">-</span>
+                <span class="kpi-sub" id="kpi-mpob-sub">Official 2026 Jan–Aug Malaysian production</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Critical Deficit Hotspot</span>
+                <span class="kpi-value" id="kpi-hotspot-val" style="color: #ef4444; font-size: 20px;">-</span>
+                <span class="kpi-sub" id="kpi-hotspot-sub">Highest subsoil anomaly & ABW compression</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Structural 2-Yr Forward Outlook (20–24m)</span>
+                <span class="kpi-value" id="kpi-structural-val" style="color: #ea580c; font-size: 20px;">-</span>
+                <span class="kpi-sub" id="kpi-structural-sub">2027/28 Cycle: Subsoil reserves & floral primordia balance</span>
+            </div>
+        </section>
+
+        <!-- 2015/16 Super El Niño Benchmark Comparison Section -->
+        <section class="benchmark-card">
+            <div class="benchmark-header">
+                <div class="benchmark-title">
+                    <span>⚡ 2015/16 Super El Niño Historical Crash Benchmark vs 2026/27 Trajectory</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label for="benchmark-loc-select" style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary);">Benchmark Territory:</label>
+                    <select id="benchmark-loc-select" class="select-control" style="padding: 4px 10px; font-size: 11.5px; font-weight: 600;" onchange="updateBenchmarkChart()">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="benchmark-stats" id="benchmark-stats-container" style="margin-bottom: 12px;">
+                <!-- Populated dynamically with actual 2015/16 crash numbers -->
+            </div>
+
+            <div style="height: 230px; position: relative;">
+                <canvas id="benchmark-chart"></canvas>
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); text-align: center; margin-top: 6px;">
+                Comparative Trajectory: 2015/16 Historical Super El Niño vs 2025/26 Reanalysis & 2026/27 51-Member Ensemble Projections. In 2016, prolonged subsoil depletion (< 0.26 m³/m³) crashed Malaysian production by -13.2% (-2.63M Tonnes). Current 2026/27 conditions indicate moderate resilience.
+            </div>
+        </section>
+
+        <!-- Controls Bar -->
+        <section class="controls-bar" style="flex-wrap: wrap; gap: 10px;">
+            <!-- Physiological Lag Horizon Selector Pills -->
+            <div class="segmented-control" id="horizon-selector-container">
+                <button class="segmented-btn active" data-horizon="all" onclick="setHorizon('all')" title="Forward 12-Month Crop Cycle (Oct 2026 – Sep 2027)">All Horizons (Oct '26 – Sep '27 Cycle)</button>
+                <button class="segmented-btn" data-horizon="h03" onclick="setHorizon('h03')" title="Immediate harvesting disruption, evacuation roads, mill OER (Oct–Dec 2026)">Lag 0–3m (Oct–Dec '26: Harvest & OER)</button>
+                <button class="segmented-btn" data-horizon="h46" onclick="setHorizon('h46')" title="Cell enlargement, bunch weight shrinkage (Jan–Mar 2027)">Lag 4–6m (Jan–Mar '27: Bunch Weight ABW)</button>
+                <button class="segmented-btn" data-horizon="h912" onclick="setHorizon('h912')" title="Floral inflorescence elongation, abortion rate (Apr–Sep 2027)">Lag 9–12m (Apr–Sep '27: Inflorescence Abortion)</button>
+                <button class="segmented-btn" data-horizon="h2024" onclick="setHorizon('h2024')" title="Floral primordia sex differentiation (Late 2027 – Mid 2028)">Lag 20–24m ('27–'28: Sex Differentiation)</button>
+            </div>
+
+            <!-- Region Filter -->
+            <div class="segmented-control" id="region-filter-container">
+                <button class="segmented-btn active" data-group="all" onclick="setGroup('all')">All (41)</button>
+                <button class="segmented-btn" data-group="Peninsular Malaysia" onclick="setGroup('Peninsular Malaysia')">Peninsular</button>
+                <button class="segmented-btn" data-group="Sabah & Sarawak" onclick="setGroup('Sabah & Sarawak')">Sabah & Sarawak</button>
+                <button class="segmented-btn" data-group="Sumatera" onclick="setGroup('Sumatera')">Sumatera</button>
+                <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan')">Kalimantan</button>
+                <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi')">Sulawesi</button>
+                <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua')">Papua</button>
+                <button class="segmented-btn" data-group="Southern Thailand" onclick="setGroup('Southern Thailand')">Thailand</button>
+                <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)')">Philippines</button>
+            </div>
+
+            <!-- Search input -->
+            <div style="margin-left: auto; display: flex; align-items: center; gap: 6px;">
+                <input type="text" id="state-search-input" placeholder="Search territory or code..." oninput="handleSearch(this.value)" style="padding: 5px 10px; font-size: 11.5px; border: 1px solid var(--border-color); border-radius: 6px; outline: none; width: 170px;">
+            </div>
+        </section>
+
+        <!-- Legend / Explanatory Card -->
+        <section class="legend-card" style="margin-bottom: 16px;">
+            <div class="legend-title">Empirically Calibrated Production Impact Scale:</div>
+            <div class="legend-scale">
+                <span class="legend-chip risk-critical">Critical Deficit (&le; -6.0%)</span>
+                <span class="legend-chip risk-high">High Deficit (-3.5% to -6.0%)</span>
+                <span class="legend-chip risk-moderate">Moderate Deficit (-1.5% to -3.5%)</span>
+                <span class="legend-chip risk-normal">Normal / Favorable (-1.5% to +2.5%)</span>
+                <span class="legend-chip risk-flood">Flood / Evacuation Alert (> 350 mm/mo)</span>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="table-container" id="impact-table-container">
+            <div style="padding: 40px; text-align: center; color: var(--text-secondary);">Calculating empirical agronomic yield impact model...</div>
+        </section>
+
+        <!-- Executive Regional Outlook & Agronomic Synthesis Section -->
+        <section class="benchmark-card" id="regional-outlook-section" style="margin-top: 24px; margin-bottom: 24px;">
+            <div class="benchmark-header">
+                <div class="benchmark-title">
+                    <span>🌾 Executive Regional Production Outlook & Agronomic Synthesis (Oct 2026 – Sep 2027 Crop Cycle)</span>
+                </div>
+            </div>
+            <div id="regional-outlook-container" style="margin-top: 14px;">
+                <!-- Populated dynamically by renderRegionalOutlook() -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- State Drilldown Modal -->
+    <div class="modal-overlay" id="drilldown-modal">
+        <div class="modal-content" style="max-width: 880px;">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modal-title" style="font-size: 18px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+                        <span>Territory Production Impact Analysis</span>
+                        <span id="modal-risk-badge" class="risk-badge"></span>
+                    </h2>
+                    <p id="modal-subtitle" style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;"></p>
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+
+            <!-- Historical Production & MPOB Ground Truth Card -->
+            <div id="modal-historical-card" style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-bottom: 12px;">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Waterfall / 4-Horizon Breakdown Cards -->
+            <div class="waterfall-container" id="modal-waterfall-cards">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- 24-Month Multi-Stress Timeline Chart -->
+            <div style="margin: 10px 0;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">
+                    24-Month Multi-Stress Timeline: Rainfall, 2-Layer Soil Moisture & Maximum Temperature
+                </div>
+                <div class="chart-box" style="height: 250px;">
+                    <canvas id="drilldown-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Agronomic Estate Field Action Recommendations -->
+            <div style="margin-top: 14px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text-primary);">
+                    Recommended Agronomic Estate Interventions:
+                </div>
+                <div class="advisory-grid" id="modal-advisory-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data_cache.js"></script>
+    <script src="production_impact.js"></script>
+</body>
+</html>

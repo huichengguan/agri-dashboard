@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Corn Belt Weather Suite | GFS 0.25°</title>
+    <style>
+        :root { --bg: #0b0f19; --card-bg: #151d2f; --border: #23314d; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 40px 20px; display: flex; justify-content: center; }
+        .container { max-width: 900px; width: 100%; }
+        .back-link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 24px; display: inline-block; }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+        p.sub { color: var(--muted); font-size: 14px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .dash-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: var(--text); transition: all 0.2s ease; display: flex; flex-direction: column; gap: 12px; }
+        .dash-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .badge { align-self: flex-start; background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; }
+        h3 { font-size: 18px; font-weight: 700; }
+        p { color: var(--muted); font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../dashboard/index.html" class="back-link">&larr; Return to Master Portal</a>
+        <header>
+            <h1>US Corn Belt & Ag Weather Intelligence Suite</h1>
+            <p class="sub">NOAA GFS 0.25° Operational Forecasts & 17-Year Climatology</p>
+        </header>
+        <div class="grid">
+            <a href="US_Crop_2_Week_Outlook.html" class="dash-card">
+                <div class="badge">2-Week Outlook</div>
+                <h3>🌧️ 2-Week Crop Weather Outlook</h3>
+                <p>14-day rainfall & temperature anomaly summary across 21 states &rarr;</p>
+            </a>
+            <a href="US_Crop_Precipitation_Forecast.html" class="dash-card">
+                <div class="badge">Precipitation</div>
+                <h3>🌦️ Precipitation Forecast & Ranks</h3>
+                <p>28-day seamless rainfall timeline with historical percentiles &rarr;</p>
+            </a>
+            <a href="US_Crop_Soil_Moisture_Outlook.html" class="dash-card">
+                <div class="badge">Soil Moisture</div>
+                <h3>🌱 Soil Moisture & Drought Outlook</h3>
+                <p>Topsoil (0-10cm) and subsoil (10-40cm) moisture tracking &rarr;</p>
+            </a>
+            <a href="US_Crop_Temperature_Outlook.html" class="dash-card">
+                <div class="badge">Temperature</div>
+                <h3>🌡️ Temperature & Extreme Heat Outlook</h3>
+                <p>GDD accumulation, heat stress days (>95°F/35°C) & Tmax/Tmin &rarr;</p>
+            </a>
+            <a href="US_Crop_Weather_Matrix.html" class="dash-card">
+                <div class="badge">Matrix</div>
+                <h3>📊 17-Year Weather Matrix</h3>
+                <p>Full 2010-2026 multi-metric seasonal matrix with belt filtering &rarr;</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

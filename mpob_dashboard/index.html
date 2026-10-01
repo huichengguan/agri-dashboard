@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPOB Palm Oil Intelligence | Historical Supply, Demand & Yield (2005–2026)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 20h10'/><path d='M10 20c5.5-2.5.8-6.4 3-10'/><path d='M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z'/><path d='M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z'/></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              gold: '#eab308',
+              amber: '#f59e0b',
+              emerald: '#10b981'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js & Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-full flex flex-col font-sans antialiased text-slate-200 bg-slate-950">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-amber-500 flex items-center justify-center shadow-lg shadow-emerald-950/40">
+          <i data-lucide="sprout" class="w-6 h-6 text-slate-950"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-lg font-bold tracking-tight text-white">MPOB PALM OIL INTELLIGENCE</h1>
+            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">2005 - 2026</span>
+          </div>
+          <p class="text-xs text-slate-400">Economics & Industry Development Division &bull; Prestasi Sawit</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions & Downloads -->
+      <div class="flex items-center space-x-3">
+        <div class="hidden md:flex items-center space-x-1.5 bg-slate-800/60 p-1 rounded-lg border border-slate-700/60 text-xs">
+          <button onclick="setQuickRange(1)" class="range-btn px-2.5 py-1 rounded hover:bg-slate-700 transition" data-range="1">1Y</button>
+          <button onclick="setQuickRange(3)" class="range-btn px-2.5 py-1 rounded hover:bg-slate-700 transition" data-range="3">3Y</button>
+          <button onclick="setQuickRange(5)" class="range-btn px-2.5 py-1 rounded hover:bg-slate-700 transition" data-range="5">5Y</button>
+          <button onclick="setQuickRange(10)" class="range-btn px-2.5 py-1 rounded hover:bg-slate-700 transition" data-range="10">10Y</button>
+          <button onclick="setQuickRange('all')" class="range-btn px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition" data-range="all">ALL (2005-2026)</button>
+        </div>
+
+        <div class="h-6 w-px bg-slate-800 hidden md:block"></div>
+
+        <div class="flex items-center space-x-2">
+          <a href="/api/download/csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm">
+            <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Export CSV</span>
+          </a>
+          <a href="/api/download/json" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm">
+            <i data-lucide="file-code" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Export JSON</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6">
+
+    <!-- KPI Summary Section: Latest Month Fundamentals -->
+    <section class="space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div class="flex items-center space-x-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-300">Latest Fundamental Release: <span id="latest-period-badge" class="text-emerald-400 font-bold">Loading...</span></h2>
+        </div>
+        <div class="text-xs text-slate-400">
+          Historical Span: <span class="font-medium text-slate-200" id="hist-span-badge">259 Months (Jan 2005 – Jul 2026)</span>
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+        
+        <!-- CPO Production -->
+        <div class="kpi-card bg-slate-900/80 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-emerald-500/40 transition">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-400">CPO Production</span>
+            <div class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+              <i data-lucide="factory" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 text-xl font-bold text-white tracking-tight" id="kpi-cpo-prod">--</div>
+          <div class="mt-1 flex items-center space-x-2 text-xs">
+            <span id="kpi-cpo-prod-mom" class="font-medium">--</span>
+            <span class="text-slate-500">&bull;</span>
+            <span id="kpi-cpo-prod-yoy" class="font-medium">--</span>
+          </div>
+          <span class="text-[10px] text-slate-500 block mt-0.5">Tonnes</span>
+        </div>
+
+        <!-- Closing Stocks -->
+        <div class="kpi-card bg-slate-900/80 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-amber-500/40 transition">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-400">Closing Stocks</span>
+            <div class="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+              <i data-lucide="database" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 text-xl font-bold text-white tracking-tight" id="kpi-po-stock">--</div>
+          <div class="mt-1 flex items-center space-x-2 text-xs">
+            <span id="kpi-po-stock-mom" class="font-medium">--</span>
+            <span class="text-slate-500">&bull;</span>
+            <span id="kpi-po-stock-yoy" class="font-medium">--</span>
+          </div>
+          <span class="text-[10px] text-slate-500 block mt-0.5">Total Palm Oil (Tonnes)</span>
+        </div>
+
+        <!-- Palm Oil Exports -->
+        <div class="kpi-card bg-slate-900/80 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-blue-500/40 transition">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-400">Exports</span>
+            <div class="p-1.5 rounded-lg bg-blue-500/10 text-blue-400">
+              <i data-lucide="ship" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 text-xl font-bold text-white tracking-tight" id="kpi-po-export">--</div>
+          <div class="mt-1 flex items-center space-x-2 text-xs">
+            <span id="kpi-po-export-mom" class="font-medium">--</span>
+            <span class="text-slate-500">&bull;</span>
+            <span id="kpi-po-export-yoy" class="font-medium">--</span>
+          </div>
+          <span class="text-[10px] text-slate-500 block mt-0.5">Tonnes</span>
+        </div>
+
+        <!-- FFB Yield -->
+        <div class="kpi-card bg-slate-900/80 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-emerald-500/40 transition">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-400">FFB Yield</span>
+            <div class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+              <i data-lucide="scale" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 text-xl font-bold text-emerald-400 tracking-tight" id="kpi-ffb-yield">--</div>
+          <div class="mt-1 flex items-center space-x-2 text-xs">
+            <span id="kpi-ffb-yield-mom" class="font-medium">--</span>
+            <span class="text-slate-500">&bull;</span>
+            <span id="kpi-ffb-yield-yoy" class="font-medium">--</span>
+          </div>
+          <span class="text-[10px] text-slate-500 block mt-0.5">Tonnes / Hectare</span>
+        </div>
+
+        <!-- CPO Yield & OER -->
+        <div class="kpi-card bg-slate-900/80 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-amber-500/40 transition">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-400">CPO Yield & OER</span>
+            <div class="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+              <i data-lucide="droplet" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 text-xl font-bold text-amber-400 tracking-tight" id="kpi-cpo-yield">--</div>
+          <div class="mt-1 text-xs text-slate-400">
+            OER: <span id="kpi-oer-rate" class="text-white font-semibold">--%</span>
+          </div>
+          <span class="text-[10px] text-slate-500 block mt-0.5">CPO T/Ha &bull; OER %</span>
+        </div>
+
+      </div>
+
+      <!-- Secondary Metric Chips -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-lg p-2.5 flex items-center justify-between">
+          <span class="text-slate-400">Domestic Disappearance:</span>
+          <span id="kpi-dom-disapp" class="font-semibold text-slate-200">--</span>
+        </div>
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-lg p-2.5 flex items-center justify-between">
+          <span class="text-slate-400">Stock-to-Use Ratio:</span>
+          <span id="kpi-stock-use" class="font-semibold text-slate-200">--</span>
+        </div>
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-lg p-2.5 flex items-center justify-between">
+          <span class="text-slate-400">Imports (CPO+PPO):</span>
+          <span id="kpi-po-import" class="font-semibold text-slate-200">--</span>
+        </div>
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-lg p-2.5 flex items-center justify-between">
+          <span class="text-slate-400">FFB Price (1% OER):</span>
+          <span id="kpi-ffb-price" class="font-semibold text-amber-400">--</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="border-b border-slate-800 flex items-center justify-between">
+      <nav class="flex space-x-5 overflow-x-auto">
+        <button onclick="switchTab('balance')" id="tab-btn-balance" class="tab-btn active pb-3 text-sm font-semibold border-b-2 border-emerald-500 text-white flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="scale" class="w-4 h-4"></i>
+          <span>Supply & Demand Balance Sheet</span>
+        </button>
+        <button onclick="switchTab('yields')" id="tab-btn-yields" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="sprout" class="w-4 h-4"></i>
+          <span>Yields & State Production</span>
+        </button>
+        <button onclick="switchTab('exports')" id="tab-btn-exports" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="package" class="w-4 h-4 text-emerald-400"></i>
+          <span>Export Product Breakdown</span>
+          <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold uppercase tracking-wider">Report 34</span>
+        </button>
+        <button onclick="switchTab('seasonality')" id="tab-btn-seasonality" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="calendar-range" class="w-4 h-4"></i>
+          <span>20-Year Seasonality & Heatmap</span>
+        </button>
+        <button onclick="switchTab('explorer')" id="tab-btn-explorer" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="table" class="w-4 h-4"></i>
+          <span>Historical Data Explorer</span>
+        </button>
+        <button onclick="switchTab('projections')" id="tab-btn-projections" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-amber-400 hover:text-amber-300 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+          <span>Sep–Dec 2026 Forecast & 2027 Outlook</span>
+          <span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold uppercase tracking-wider">Updated Today</span>
+        </button>
+      </nav>
+
+      <!-- Date Range Controls -->
+      <div class="flex items-center space-x-2 text-xs mb-2">
+        <span class="text-slate-400">From:</span>
+        <select id="start-year-select" onchange="onDateRangeChange()" class="bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+        </select>
+        <span class="text-slate-400">To:</span>
+        <select id="end-year-select" onchange="onDateRangeChange()" class="bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+        </select>
+      </div>
+    </div>
+
+    <!-- TAB 1: Supply & Demand Balance Sheet -->
+    <div id="tab-balance" class="tab-content space-y-6">
+      
+      <!-- Chart 1: Supply & Demand Fundamentals -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+          <div>
+            <h3 class="text-base font-semibold text-white flex items-center space-x-2">
+              <i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i>
+              <span>Supply & Demand Dynamics: Production, Stocks, Exports & Consumption</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Monthly fundamental volumes (tonnes) dating back to 2005</p>
+          </div>
+          <div class="flex items-center space-x-2 text-xs">
+            <button onclick="toggleChartMetric('cpo_production')" class="px-2 py-1 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-medium">Production</button>
+            <button onclick="toggleChartMetric('palm_oil_export')" class="px-2 py-1 rounded border border-blue-500/30 bg-blue-500/10 text-blue-400 font-medium">Exports</button>
+            <button onclick="toggleChartMetric('palm_oil_stock')" class="px-2 py-1 rounded border border-amber-500/30 bg-amber-500/10 text-amber-400 font-medium">Stocks</button>
+            <button onclick="toggleChartMetric('domestic_disappearance')" class="px-2 py-1 rounded border border-purple-500/30 bg-purple-500/10 text-purple-400 font-medium">Domestic Consumption</button>
+          </div>
+        </div>
+        <div class="h-80 w-full">
+          <canvas id="chart-supply-demand"></canvas>
+        </div>
+      </div>
+
+      <!-- Secondary Row: Closing Stocks vs Historical Corridor + Stock to Use -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Stock Range & Trajectory -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="text-sm font-semibold text-white flex items-center space-x-2 mb-1">
+            <i data-lucide="layers" class="w-4 h-4 text-amber-400"></i>
+            <span>Palm Oil Ending Stocks (Tonnes)</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Closing stocks trajectory across selected period</p>
+          <div class="h-64">
+            <canvas id="chart-stocks"></canvas>
+          </div>
+        </div>
+
+        <!-- Stock-to-Use Ratio & Days of Supply -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="text-sm font-semibold text-white flex items-center space-x-2 mb-1">
+            <i data-lucide="gauge" class="w-4 h-4 text-purple-400"></i>
+            <span>Stock-to-Use Ratio (%) & Days of Supply</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Buffer capacity = Ending Stocks / (Exports + Domestic Use)</p>
+          <div class="h-64">
+            <canvas id="chart-stock-use"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Balance Sheet Table & Matrix Multi-View -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-semibold text-white flex items-center space-x-2">
+              <i data-lucide="table-2" class="w-4 h-4 text-emerald-400"></i>
+              <span>Supply & Demand Balance Sheet Matrix</span>
+            </h3>
+            <p class="text-xs text-slate-400">Horizontal multi-year balance ledger: Ending Stock = Beg. Stock + Production + Imports - Exports - Domestic Disappearance</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- View Mode Selector -->
+            <div class="inline-flex rounded-lg bg-slate-800/80 p-1 border border-slate-700/60 text-xs">
+              <button onclick="setBalanceSheetViewMode('horizontal_matrix')" id="btn-mode-matrix" class="px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition flex items-center space-x-1.5">
+                <i data-lucide="columns" class="w-3.5 h-3.5"></i>
+                <span>Horizontal Years Matrix</span>
+              </button>
+              <button onclick="setBalanceSheetViewMode('full_grid')" id="btn-mode-grid" class="px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5">
+                <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                <span>Multi-Year Balance Sheet</span>
+              </button>
+              <button onclick="setBalanceSheetViewMode('vertical_table')" id="btn-mode-table" class="px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5">
+                <i data-lucide="list" class="w-3.5 h-3.5"></i>
+                <span>Vertical Time Series</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode 1: Horizontal Years Matrix (Months on Rows, Years on Columns) -->
+        <div id="container-horizontal-matrix" class="space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center space-x-2">
+              <span class="text-slate-400 font-medium">Select Metric:</span>
+              <select id="matrix-metric-select" onchange="renderHorizontalMatrix()" class="bg-slate-800 border border-slate-700 rounded px-2.5 py-1.5 text-slate-200 font-medium focus:border-emerald-500">
+                <option value="cpo_production">CPO Production (Tonnes)</option>
+                <option value="palm_oil_export">Palm Oil Exports (Tonnes)</option>
+                <option value="palm_oil_stock">Palm Oil Ending Stocks (Tonnes)</option>
+                <option value="beginning_stock">Beginning Stocks (Tonnes)</option>
+                <option value="palm_oil_import">Palm Oil Imports (Tonnes)</option>
+                <option value="domestic_disappearance">Domestic Disappearance / Consumption (Tonnes)</option>
+                <option value="total_supply">Total Supply (Tonnes)</option>
+                <option value="total_use">Total Disappearance / Use (Tonnes)</option>
+                <option value="stock_to_use_pct">Stock-to-Use Ratio (%)</option>
+              </select>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              Comparing monthly trajectories horizontally across <span class="text-emerald-400 font-semibold">2005 – 2026</span> with 5Y & 10Y benchmarks
+            </div>
+          </div>
+
+          <div class="overflow-x-auto border border-slate-800 rounded-lg">
+            <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+              <thead class="bg-slate-900/95 sticky top-0 z-10 text-slate-300 font-semibold" id="matrix-thead">
+                <!-- Dynamically Populated with Years Horizontally -->
+              </thead>
+              <tbody id="matrix-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+                <!-- Dynamically Populated with Months as Rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mode 2: Multi-Year Balance Sheet Grid (Balance Sheet Items on Rows, Years on Columns) -->
+        <div id="container-full-grid" class="hidden space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center space-x-2">
+              <span class="text-slate-400 font-medium">Period Snapshot:</span>
+              <select id="grid-period-select" onchange="renderFullGrid()" class="bg-slate-800 border border-slate-700 rounded px-2.5 py-1.5 text-slate-200 font-medium focus:border-emerald-500">
+                <option value="annual">Full Year (Annual Totals / Year-End Stocks)</option>
+                <option value="1">January (Across All Years)</option>
+                <option value="2">February (Across All Years)</option>
+                <option value="3">March (Across All Years)</option>
+                <option value="4">April (Across All Years)</option>
+                <option value="5">May (Across All Years)</option>
+                <option value="6">June (Across All Years)</option>
+                <option value="7">July (Across All Years)</option>
+                <option value="8">August (Across All Years)</option>
+                <option value="9">September (Across All Years)</option>
+                <option value="10">October (Across All Years)</option>
+                <option value="11">November (Across All Years)</option>
+                <option value="12">December (Across All Years)</option>
+              </select>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              Horizontal multi-year balance sheet ledger with supply-use identities
+            </div>
+          </div>
+
+          <div class="overflow-x-auto border border-slate-800 rounded-lg">
+            <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+              <thead class="bg-slate-900/95 sticky top-0 z-10 text-slate-300 font-semibold" id="full-grid-thead">
+                <!-- Dynamically Populated with Years Horizontally -->
+              </thead>
+              <tbody id="full-grid-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+                <!-- Dynamically Populated with Balance Sheet Items -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mode 3: Vertical Time-Series Table -->
+        <div id="container-vertical-table" class="hidden space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-400">Chronological list of all reporting periods</span>
+            <button onclick="toggleAnnualView()" id="btn-toggle-annual" class="px-3 py-1 text-xs rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+              Switch to Annual Totals
+            </button>
+          </div>
+
+          <div class="overflow-x-auto max-h-96 border border-slate-800 rounded-lg">
+            <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+              <thead class="bg-slate-900/90 sticky top-0 z-10 text-slate-300 font-semibold">
+                <tr>
+                  <th class="py-2.5 px-3">Period</th>
+                  <th class="py-2.5 px-3 text-right">Beg. Stock</th>
+                  <th class="py-2.5 px-3 text-right text-emerald-400">Production</th>
+                  <th class="py-2.5 px-3 text-right">Imports</th>
+                  <th class="py-2.5 px-3 text-right font-bold">Total Supply</th>
+                  <th class="py-2.5 px-3 text-right text-blue-400">Exports</th>
+                  <th class="py-2.5 px-3 text-right text-purple-400">Dom. Disapp.</th>
+                  <th class="py-2.5 px-3 text-right font-bold">Total Use</th>
+                  <th class="py-2.5 px-3 text-right text-amber-400 font-bold">Ending Stock</th>
+                  <th class="py-2.5 px-3 text-right">Stock-to-Use</th>
+                  <th class="py-2.5 px-3 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="balance-sheet-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 2: Yield & Extraction Analytics -->
+    <div id="tab-yields" class="tab-content hidden space-y-6">
+      
+      <!-- Yield Cadence & Regional Control Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 border border-slate-800 rounded-xl p-3.5">
+        <div class="flex items-center space-x-3">
+          <span class="text-xs font-medium text-slate-400">Yield Cadence:</span>
+          <div class="inline-flex rounded-lg bg-slate-800/80 p-1 border border-slate-700/60 text-xs">
+            <button onclick="setYieldCadence('monthly')" id="btn-yield-monthly" class="px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition">Monthly (T/Ha)</button>
+            <button onclick="setYieldCadence('annual')" id="btn-yield-annual" class="px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition">Annual Cumulative (T/Ha)</button>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 text-xs">
+          <span class="text-slate-400">Regional Scope:</span>
+          <select id="yield-region-select" onchange="onYieldRegionChange()" class="bg-slate-800 border border-slate-700 rounded px-2.5 py-1 text-slate-200 font-medium">
+            <option value="all">National & All Regions (Peninsular, Sabah, Sarawak)</option>
+            <option value="national">National Only (Malaysia)</option>
+            <option value="peninsular">Peninsular Malaysia</option>
+            <option value="sabah">Sabah</option>
+            <option value="sarawak">Sarawak</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- FFB Yield & CPO Yield Multi-line Chart -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+          <div>
+            <h3 class="text-base font-semibold text-white flex items-center space-x-2">
+              <i data-lucide="trending-up" class="w-4 h-4 text-emerald-400"></i>
+              <span id="yield-chart-title">FFB Yield & Derived CPO Yield Evolution (2005 – 2026)</span>
+            </h3>
+            <p class="text-xs text-slate-400" id="yield-chart-subtitle">Monthly Fresh Fruit Bunches (FFB) and Crude Palm Oil (CPO) yield in Tonnes / Hectare</p>
+          </div>
+          <div class="flex items-center space-x-3 text-xs" id="yield-chart-legend">
+            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-emerald-500"></span><span>FFB Malaysia</span></span>
+            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-blue-500"></span><span>FFB Peninsular</span></span>
+            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-purple-500"></span><span>FFB Sabah/Sarawak</span></span>
+            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-amber-500"></span><span>CPO Yield Malaysia</span></span>
+          </div>
+        </div>
+        <div class="h-80 w-full">
+          <canvas id="chart-ffb-yield"></canvas>
+        </div>
+      </div>
+
+      <!-- Two Column Yield Breakdown: OER Extraction Rate & Regional Yield Spread -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- OER % Chart -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="text-sm font-semibold text-white flex items-center space-x-2 mb-1">
+            <i data-lucide="percent" class="w-4 h-4 text-amber-400"></i>
+            <span>Oil Extraction Rate (OER %) by Region</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Official mill extraction efficiency: National, Peninsular, Sabah & Sarawak</p>
+          <div class="h-64">
+            <canvas id="chart-oer"></canvas>
+          </div>
+        </div>
+
+        <!-- FFB Reference Price vs Yield Correlation -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="text-sm font-semibold text-white flex items-center space-x-2 mb-1">
+            <i data-lucide="coins" class="w-4 h-4 text-emerald-400"></i>
+            <span>MPOB FFB Reference Price (RM / Tonne at 1% OER)</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Benchmark price paid to estates & smallholders</p>
+          <div class="h-64">
+            <canvas id="chart-price"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Yield Metric Summary Table -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-3">
+        <h3 class="text-base font-semibold text-white">Historical Yield & Productivity Summary</h3>
+        <p class="text-xs text-slate-400">Average annual performance benchmarks over key multi-year intervals</p>
+        <div class="overflow-x-auto border border-slate-800 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+            <thead class="bg-slate-900/90 text-slate-300 font-semibold">
+              <tr>
+                <th class="py-2.5 px-4">Year</th>
+                <th class="py-2.5 px-4 text-right">FFB Malaysia (T/Ha)</th>
+                <th class="py-2.5 px-4 text-right">FFB Peninsular</th>
+                <th class="py-2.5 px-4 text-right">FFB Sabah/Sarawak</th>
+                <th class="py-2.5 px-4 text-right text-amber-400 font-bold">OER (%)</th>
+                <th class="py-2.5 px-4 text-right text-emerald-400 font-bold">CPO Yield (T/Ha)</th>
+                <th class="py-2.5 px-4 text-right text-blue-400 font-bold">CPO Production (Tonnes)</th>
+              </tr>
+            </thead>
+            <tbody id="yield-summary-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Dynamically Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- State-by-State Production & Yield Leaderboard -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-semibold text-white flex items-center space-x-2">
+              <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
+              <span>State-by-State Production & Yield Analysis (All 13 States)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Official MPOB Prestasi Sawit breakdown for all Malaysian oil palm producing states</p>
+          </div>
+          <div class="flex items-center space-x-3 text-xs">
+            <div class="flex items-center space-x-1.5">
+              <span class="text-slate-400">Select Year:</span>
+              <select id="state-year-select" onchange="renderStateAnalytics()" class="bg-slate-800 border border-slate-700 rounded px-2.5 py-1 text-slate-200 font-medium focus:border-emerald-500">
+                <!-- Dynamically populated 2026..2005 -->
+              </select>
+            </div>
+            <a href="/api/download/state-data-csv" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition">
+              <i data-lucide="download" class="w-3 h-3 text-emerald-400"></i>
+              <span>State CSV</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- State Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- State CPO Production Ranking -->
+          <div class="lg:col-span-2 bg-slate-950/50 border border-slate-800/80 rounded-xl p-4">
+            <h4 class="text-xs font-semibold text-slate-300 mb-1 flex items-center space-x-1.5">
+              <i data-lucide="factory" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>CPO Production by State (Tonnes)</span>
+            </h4>
+            <p class="text-[11px] text-slate-400 mb-3">Total crude palm oil processed across state mills</p>
+            <div class="h-64">
+              <canvas id="chart-state-production"></canvas>
+            </div>
+          </div>
+
+          <!-- State Market Share Donut -->
+          <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-4">
+            <h4 class="text-xs font-semibold text-slate-300 mb-1 flex items-center space-x-1.5">
+              <i data-lucide="pie-chart" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Production Share (%)</span>
+            </h4>
+            <p class="text-[11px] text-slate-400 mb-3">State share of national Malaysian CPO output</p>
+            <div class="h-64">
+              <canvas id="chart-state-share"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- State FFB Yield & OER Comparison Chart -->
+        <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-4">
+          <h4 class="text-xs font-semibold text-slate-300 mb-1 flex items-center space-x-1.5">
+            <i data-lucide="sprout" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>FFB Yield (Tonnes/Ha) & Mill OER (%) by State</span>
+          </h4>
+          <p class="text-[11px] text-slate-400 mb-3">Estate productivity vs extraction rate efficiency comparison</p>
+          <div class="h-60">
+            <canvas id="chart-state-yields"></canvas>
+          </div>
+        </div>
+
+        <!-- Full 13-State Performance Ranking Table -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-semibold text-slate-300">State Productivity & Extraction Matrix</h4>
+          <div class="overflow-x-auto border border-slate-800 rounded-lg">
+            <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+              <thead class="bg-slate-900/90 text-slate-300 font-semibold">
+                <tr>
+                  <th class="py-2 px-3 text-center">Rank</th>
+                  <th class="py-2 px-3">State Name</th>
+                  <th class="py-2 px-3">Region</th>
+                  <th class="py-2 px-3 text-right text-emerald-400 font-bold">CPO Production (Tonnes)</th>
+                  <th class="py-2 px-3 text-right">Nat. Share (%)</th>
+                  <th class="py-2 px-3 text-right text-slate-400">FFB Processed (Tonnes)</th>
+                  <th class="py-2 px-3 text-right text-blue-400 font-medium">FFB Yield (T/Ha)</th>
+                  <th class="py-2 px-3 text-right text-amber-400 font-bold">OER (%)</th>
+                  <th class="py-2 px-3 text-right text-purple-400 font-bold">CPO Yield (T/Ha)</th>
+                </tr>
+              </thead>
+              <tbody id="state-ranking-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 3: Product Export Breakdown -->
+    <div id="tab-exports" class="tab-content hidden space-y-6">
+      
+      <!-- Export Products Header Banner -->
+      <div class="bg-gradient-to-r from-emerald-950/40 via-slate-900 to-blue-950/30 border border-emerald-500/20 rounded-xl p-4 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div class="flex items-start space-x-3">
+          <i data-lucide="package" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+          <div class="text-xs text-slate-300 space-y-1">
+            <p class="font-semibold text-white text-sm">MPOB Report 34: Comprehensive Product Export Breakdown</p>
+            <p>Official customs & port records tracking physical volume (Tonnes), revenue value (RM Million), and unit price realizations across all 12 oil palm product categories from 2005 to 2026.</p>
+          </div>
+        </div>
+        <a href="/api/download/export-products-csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm shrink-0">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Export Products CSV</span>
+        </a>
+      </div>
+
+      <!-- Export KPI Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-slate-400">Total Palm Oil Exported (Jul 2026)</span>
+          <div class="mt-1 text-xl font-bold text-white tracking-tight" id="exp-kpi-total-vol">--</div>
+          <div class="text-[11px] text-emerald-400 mt-0.5" id="exp-kpi-total-vol-sub">--</div>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-slate-400">Total Export Revenue (Jul 2026)</span>
+          <div class="mt-1 text-xl font-bold text-emerald-400 tracking-tight" id="exp-kpi-total-rm">--</div>
+          <div class="text-[11px] text-slate-400 mt-0.5" id="exp-kpi-total-rm-sub">--</div>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-slate-400">Average Export Realization</span>
+          <div class="mt-1 text-xl font-bold text-amber-400 tracking-tight" id="exp-kpi-avg-price">--</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">RM / Tonne (All Products)</div>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-slate-400">Value-Added Downstream Share</span>
+          <div class="mt-1 text-xl font-bold text-blue-400 tracking-tight" id="exp-kpi-downstream-share">--</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">PPO + Oleo + Finished + Biodiesel</div>
+        </div>
+      </div>
+
+      <!-- Export Charts Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Stacked Volume Chart -->
+        <div class="lg:col-span-2 bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+            <div>
+              <h3 class="text-base font-semibold text-white flex items-center space-x-2">
+                <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
+                <span>Export Product Volume Breakdown (Tonnes)</span>
+              </h3>
+              <p class="text-xs text-slate-400">Monthly breakdown: CPO, Processed Palm Oil (PPO), Oleochemicals, Biodiesel, etc.</p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs">
+              <button onclick="toggleExportCadence('monthly')" id="btn-exp-monthly" class="px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition">Monthly</button>
+              <button onclick="toggleExportCadence('annual')" id="btn-exp-annual" class="px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition">Annual</button>
+            </div>
+          </div>
+          <div class="h-80 w-full">
+            <canvas id="chart-export-volume"></canvas>
+          </div>
+        </div>
+
+        <!-- Product Mix Donut Chart -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="text-base font-semibold text-white flex items-center space-x-2 mb-1">
+            <i data-lucide="pie-chart" class="w-4 h-4 text-amber-400"></i>
+            <span>Export Product Mix (%)</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Volume distribution across product categories</p>
+          <div class="h-72">
+            <canvas id="chart-export-pie"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Export Revenue & Realized Unit Price Chart -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+          <div>
+            <h3 class="text-base font-semibold text-white flex items-center space-x-2">
+              <i data-lucide="badge-dollar-sign" class="w-4 h-4 text-emerald-400"></i>
+              <span>Export Earnings (RM Million) & Unit Price Realization (RM / Tonne)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Total foreign exchange realization and realized export prices</p>
+          </div>
+        </div>
+        <div class="h-72 w-full">
+          <canvas id="chart-export-revenue"></canvas>
+        </div>
+      </div>
+
+      <!-- Comprehensive Product Export Table -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="text-base font-semibold text-white">Product Export Breakdown Ledger (Report 34)</h3>
+            <p class="text-xs text-slate-400">Detailed monthly and annual export volumes and export value</p>
+          </div>
+          <div class="flex items-center space-x-2 text-xs">
+            <input type="text" id="export-search-input" onkeyup="filterExportTable()" placeholder="Search period (e.g. 2025)..." class="bg-slate-800 border border-slate-700 rounded px-3 py-1.5 text-slate-200 focus:border-emerald-500">
+            <button onclick="toggleExportTableView()" id="btn-toggle-exp-view" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-medium transition">
+              Switch to Annual Totals
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto max-h-96 border border-slate-800 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+            <thead class="bg-slate-900/90 sticky top-0 z-10 text-slate-300 font-semibold">
+              <tr>
+                <th class="py-2.5 px-3">Period</th>
+                <th class="py-2.5 px-3 text-right text-emerald-400 font-bold">Total Products (T)</th>
+                <th class="py-2.5 px-3 text-right text-emerald-300 font-bold">Revenue (RM Mil)</th>
+                <th class="py-2.5 px-3 text-right text-amber-400">Avg RM/T</th>
+                <th class="py-2.5 px-3 text-right text-blue-400">CPO (T)</th>
+                <th class="py-2.5 px-3 text-right text-blue-300">PPO (T)</th>
+                <th class="py-2.5 px-3 text-right text-purple-400">Oleochemicals (T)</th>
+                <th class="py-2.5 px-3 text-right text-cyan-400">Biodiesel (T)</th>
+                <th class="py-2.5 px-3 text-right text-yellow-400">PKO Total (T)</th>
+                <th class="py-2.5 px-3 text-right text-orange-400">PKC (T)</th>
+                <th class="py-2.5 px-3 text-right text-pink-400">Finished Prods (T)</th>
+              </tr>
+            </thead>
+            <tbody id="export-products-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Dynamically Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 3: Seasonality & Heatmap -->
+    <div id="tab-seasonality" class="tab-content hidden space-y-6">
+      
+      <!-- Seasonality Explanation Banner -->
+      <div class="bg-gradient-to-r from-emerald-950/40 via-slate-900 to-amber-950/30 border border-emerald-500/20 rounded-xl p-4 flex items-start space-x-3">
+        <i data-lucide="info" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+        <div class="text-xs text-slate-300 space-y-1">
+          <p class="font-semibold text-white text-sm">Understanding Malaysian Palm Oil Seasonality (Biological Crop Cycle)</p>
+          <p>Oil palm follows an annual biological yield curve: production typically reaches its seasonal trough in January/February due to monsoon rains and seasonal tree rest, then ramps up through Q2 and Q3 to peak between August and October before tapering off in November/December.</p>
+        </div>
+      </div>
+
+      <!-- 12-Month Average Cycle Curve -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="text-base font-semibold text-white flex items-center space-x-2 mb-1">
+          <i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i>
+          <span>12-Month Seasonal Profile: Production & Stocks Norms</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">Historical monthly averages across 2005–2025 vs Current Year (2026)</p>
+        <div class="h-72 w-full">
+          <canvas id="chart-seasonality-curve"></canvas>
+        </div>
+      </div>
+
+      <!-- 20-Year Monthly Production Heatmap -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-semibold text-white">20-Year Monthly Production Heatmap (2005 – 2026)</h3>
+            <p class="text-xs text-slate-400">Heat intensity indicates CPO production volume (Dark Green = Peak Harvest Month >1.8M tonnes; Low Green/Slate = Seasonal Trough)</p>
+          </div>
+          <div class="flex items-center space-x-2 text-[10px] text-slate-400">
+            <span>&lt;1.1M Tonnes</span>
+            <div class="flex space-x-1">
+              <span class="w-3.5 h-3.5 rounded bg-emerald-950"></span>
+              <span class="w-3.5 h-3.5 rounded bg-emerald-800"></span>
+              <span class="w-3.5 h-3.5 rounded bg-emerald-600"></span>
+              <span class="w-3.5 h-3.5 rounded bg-emerald-400"></span>
+            </div>
+            <span>&gt;1.9M Tonnes</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-800 rounded-lg p-2 bg-slate-950/60">
+          <div id="heatmap-container" class="min-w-[650px]">
+            <!-- Heatmap dynamically rendered -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 4: Data Explorer -->
+    <div id="tab-explorer" class="tab-content hidden space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 class="text-base font-semibold text-white">Complete Historical Dataset (2005–2026)</h3>
+          <p class="text-xs text-slate-400">Search, filter, inspect, and export all 259 monthly observations</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <div class="relative">
+            <input type="text" id="explorer-search" oninput="filterExplorerTable()" placeholder="Search year or month..." class="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:border-emerald-500 w-48">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5"></i>
+          </div>
+          <a href="/api/download/csv" class="px-3 py-1.5 text-xs rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium flex items-center space-x-1.5 transition">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Download CSV</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl overflow-hidden shadow-lg">
+        <div class="overflow-x-auto max-h-[550px]">
+          <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+            <thead class="bg-slate-900/95 sticky top-0 z-20 text-slate-300 font-semibold uppercase tracking-wider">
+              <tr>
+                <th class="py-2.5 px-3">Period</th>
+                <th class="py-2.5 px-3 text-right">CPO Prod</th>
+                <th class="py-2.5 px-3 text-right">Ending Stock</th>
+                <th class="py-2.5 px-3 text-right">Exports</th>
+                <th class="py-2.5 px-3 text-right">Imports</th>
+                <th class="py-2.5 px-3 text-right">Dom. Disapp.</th>
+                <th class="py-2.5 px-3 text-right">FFB Yield (T/Ha)</th>
+                <th class="py-2.5 px-3 text-right">OER (%)</th>
+                <th class="py-2.5 px-3 text-right">CPO Yield (T/Ha)</th>
+                <th class="py-2.5 px-3 text-right">FFB Price (RM)</th>
+                <th class="py-2.5 px-3 text-right">PK Prod</th>
+                <th class="py-2.5 px-3 text-right">CPKO Prod</th>
+              </tr>
+            </thead>
+            <tbody id="explorer-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Dynamically Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: Forward Projections (Sep-Dec 2026 & 2027 Outlook) -->
+    <div id="tab-projections" class="tab-content hidden space-y-6">
+
+      <!-- Header & Release Notice -->
+      <div class="bg-gradient-to-r from-amber-950/40 via-slate-900/80 to-emerald-950/40 border border-amber-500/30 rounded-xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wide">Released Today: September 10, 2026</span>
+            <span class="text-xs text-slate-400">Official MPOB August 2026 Actuals & Forward Outlook</span>
+          </div>
+          <h2 class="text-xl font-bold text-white mt-1">August 2026 Release Scorecard, Sep–Dec 2026 Forecast & 2027 Production Outlook</h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-3xl">
+            Official MPOB August 2026 actuals evaluated against our predictive econometric model, followed by complete monthly supply-demand projections for the remainder of 2026 and an in-depth agronomic 2027 production outlook.
+          </p>
+        </div>
+        <div class="bg-slate-900/90 border border-emerald-500/40 rounded-xl p-3.5 text-center shrink-0">
+          <div class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">Model Accuracy Check</div>
+          <div class="text-xl font-extrabold text-white">99.5% Stock Fit</div>
+          <div class="text-[10px] text-slate-400">Variance: -14.4k T on 2.82M T</div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: August 2026 Release Scorecard (Actual vs Projected) -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+              <span>August 2026 Official Release Scorecard (Actual vs. Projected)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Evaluation of MPOB official release today against our pre-release econometric forecast</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-800/60 text-emerald-300 font-mono">High Predictive Fidelity</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <!-- CPO Production Card -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+            <div class="text-xs text-slate-400 font-medium">CPO Production</div>
+            <div class="mt-1 text-xl font-bold text-emerald-400 font-mono">1,817,499 T</div>
+            <div class="text-xs text-slate-300 mt-1">Projected: 1,831,528 T</div>
+            <div class="mt-1 flex items-center justify-between text-[11px]">
+              <span class="text-emerald-400 font-bold">99.23% Accuracy</span>
+              <span class="text-slate-400 font-mono">-14,029 T (-0.77%)</span>
+            </div>
+          </div>
+
+          <!-- Ending Stocks Card -->
+          <div class="bg-slate-950/60 border-2 border-amber-500/40 rounded-xl p-4 bg-amber-500/5">
+            <div class="text-xs text-amber-400 font-semibold uppercase tracking-wide">Closing Stocks</div>
+            <div class="mt-1 text-xl font-black text-amber-300 font-mono">2,824,488 T</div>
+            <div class="text-xs text-slate-300 mt-1">Projected: 2,838,853 T</div>
+            <div class="mt-1 flex items-center justify-between text-[11px]">
+              <span class="text-emerald-400 font-bold">99.49% Accuracy</span>
+              <span class="text-amber-300 font-mono">-14,365 T (-0.51%)</span>
+            </div>
+          </div>
+
+          <!-- Exports Card -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+            <div class="text-xs text-slate-400 font-medium">Palm Oil Exports</div>
+            <div class="mt-1 text-xl font-bold text-blue-400 font-mono">1,294,664 T</div>
+            <div class="text-xs text-slate-300 mt-1">Projected: 1,358,000 T</div>
+            <div class="mt-1 flex items-center justify-between text-[11px]">
+              <span class="text-blue-400 font-bold">95.34% Accuracy</span>
+              <span class="text-slate-400 font-mono">-63,336 T (-4.66%)</span>
+            </div>
+          </div>
+
+          <!-- Domestic & Yields Card -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+            <div class="text-xs text-slate-400 font-medium">Domestic & Yields</div>
+            <div class="mt-1 text-xl font-bold text-purple-400 font-mono">375,770 T</div>
+            <div class="text-xs text-slate-300 mt-1">FFB Yield: <span class="text-emerald-400 font-bold">1.57 T/Ha</span></div>
+            <div class="mt-1 flex items-center justify-between text-[11px]">
+              <span class="text-amber-400 font-bold">OER: 20.01%</span>
+              <span class="text-purple-300 font-mono">CPO: 0.314 T/Ha</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Remaining 4-Month Balance Sheet Forecast (Sep - Dec 2026) -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i>
+              <span>Remaining 4-Month Supply & Demand Balance Sheet (Sep–Dec 2026)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Monthly projections bridging August actuals to Full-Year 2026 close (all figures in Tonnes)</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono">Identity: Beg + Prod + Imp = Exp + Dom + End Stock</span>
+        </div>
+
+        <!-- Monthly Balance Sheet Table -->
+        <div class="overflow-x-auto border border-slate-800 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-800 text-xs">
+            <thead class="bg-slate-950 text-slate-300 font-semibold">
+              <tr>
+                <th class="py-2.5 px-3 text-left">Balance Sheet Line</th>
+                <th class="py-2.5 px-3 text-right text-emerald-400 bg-slate-900">Aug 2026 (Actual)</th>
+                <th class="py-2.5 px-3 text-right">Sep 2026 (Proj)</th>
+                <th class="py-2.5 px-3 text-right bg-emerald-950/30 text-emerald-300 font-bold">Oct 2026 (Peak)</th>
+                <th class="py-2.5 px-3 text-right">Nov 2026 (Proj)</th>
+                <th class="py-2.5 px-3 text-right text-amber-300">Dec 2026 (Proj)</th>
+                <th class="py-2.5 px-3 text-right text-white font-bold bg-slate-900">Full Year 2026 (F)</th>
+                <th class="py-2.5 px-3 text-right text-slate-400">Full Year 2025 (A)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <tr>
+                <td class="py-2 px-3 font-sans font-medium text-white">Beginning Stocks</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50">2,627,899</td>
+                <td class="py-2 px-3 text-right">2,824,488</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">2,934,488</td>
+                <td class="py-2 px-3 text-right">3,129,488</td>
+                <td class="py-2 px-3 text-right text-amber-300">3,267,488</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold">2,814,199 (Jan 1)</td>
+                <td class="py-2 px-3 text-right text-slate-400">2,019,252</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-sans font-medium text-emerald-400">(+) CPO Production</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 text-emerald-400 font-bold">1,817,499</td>
+                <td class="py-2 px-3 text-right text-emerald-300">1,845,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20 text-emerald-400 font-bold">1,920,000</td>
+                <td class="py-2 px-3 text-right">1,780,000</td>
+                <td class="py-2 px-3 text-right">1,660,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-emerald-400">19,835,600</td>
+                <td class="py-2 px-3 text-right text-slate-400">20,283,475</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-sans font-medium text-slate-400">(+) Palm Oil Imports</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50">49,524</td>
+                <td class="py-2 px-3 text-right">50,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">55,000</td>
+                <td class="py-2 px-3 text-right">48,000</td>
+                <td class="py-2 px-3 text-right">45,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50">700,166</td>
+                <td class="py-2 px-3 text-right text-slate-400">624,342</td>
+              </tr>
+              <tr class="bg-slate-800/40 font-semibold text-white">
+                <td class="py-2 px-3 font-sans">(=) Total Supply</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50">4,494,922</td>
+                <td class="py-2 px-3 text-right">4,719,488</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/30 text-emerald-300">4,909,488</td>
+                <td class="py-2 px-3 text-right">4,957,488</td>
+                <td class="py-2 px-3 text-right">4,972,488</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-white">23,349,965</td>
+                <td class="py-2 px-3 text-right text-slate-400">22,927,069</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-sans font-medium text-blue-400">(-) Palm Oil Exports</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 text-blue-400">1,294,664</td>
+                <td class="py-2 px-3 text-right text-blue-300 font-bold">1,420,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20 text-blue-300">1,410,000</td>
+                <td class="py-2 px-3 text-right">1,330,000</td>
+                <td class="py-2 px-3 text-right">1,280,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-blue-400">15,815,580</td>
+                <td class="py-2 px-3 text-right text-slate-400">17,848,655</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-sans font-medium text-purple-400">(-) Domestic Disappearance</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 text-purple-400">375,770</td>
+                <td class="py-2 px-3 text-right">365,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">370,000</td>
+                <td class="py-2 px-3 text-right">360,000</td>
+                <td class="py-2 px-3 text-right">365,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-purple-400">4,443,845</td>
+                <td class="py-2 px-3 text-right text-slate-400">3,490,126</td>
+              </tr>
+              <tr class="bg-slate-800/40 font-semibold text-white">
+                <td class="py-2 px-3 font-sans">(=) Total Disappearance (Use)</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50">1,670,434</td>
+                <td class="py-2 px-3 text-right">1,785,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/30">1,780,000</td>
+                <td class="py-2 px-3 text-right">1,690,000</td>
+                <td class="py-2 px-3 text-right">1,645,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-white">20,259,425</td>
+                <td class="py-2 px-3 text-right text-slate-400">21,338,781</td>
+              </tr>
+              <tr class="bg-slate-900/90 border-t-2 border-amber-500 font-bold">
+                <td class="py-3 px-3 font-sans text-sm text-amber-400">(=) ENDING STOCKS</td>
+                <td class="py-3 px-3 text-right bg-slate-900 text-sm text-amber-300 font-black">2,824,488</td>
+                <td class="py-3 px-3 text-right text-sm text-amber-300">2,934,488</td>
+                <td class="py-3 px-3 text-right bg-emerald-950/40 text-sm text-amber-300 font-black">3,129,488</td>
+                <td class="py-3 px-3 text-right text-sm text-amber-300">3,267,488</td>
+                <td class="py-3 px-3 text-right text-base text-amber-400 font-black bg-amber-500/10">3,327,488</td>
+                <td class="py-3 px-3 text-right bg-slate-900 font-black text-base text-amber-400">3,327,488</td>
+                <td class="py-3 px-3 text-right text-slate-400">2,367,057</td>
+              </tr>
+              <tr class="text-[11px] text-slate-400">
+                <td class="py-2 px-3 font-sans">Stock-to-Use Ratio (%)</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-slate-200">169.1%</td>
+                <td class="py-2 px-3 text-right">164.4%</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">175.8%</td>
+                <td class="py-2 px-3 text-right">193.3%</td>
+                <td class="py-2 px-3 text-right text-amber-300 font-bold">202.3%</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-amber-400">16.4% (Annual)</td>
+                <td class="py-2 px-3 text-right">11.1%</td>
+              </tr>
+              <tr class="text-[11px] text-slate-400">
+                <td class="py-2 px-3 font-sans">Days of Supply</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-cyan-400">51.6 Days</td>
+                <td class="py-2 px-3 text-right">50.1 Days</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">53.6 Days</td>
+                <td class="py-2 px-3 text-right">59.0 Days</td>
+                <td class="py-2 px-3 text-right text-cyan-300 font-bold">61.7 Days</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-cyan-400">60.0 Days</td>
+                <td class="py-2 px-3 text-right">40.5 Days</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3 Scenarios Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-emerald-400 uppercase tracking-wide">Bullish Price / High Demand</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">20% Prob</span>
+            </div>
+            <div class="mt-2 text-xl font-bold text-white font-mono">2,869,488 T</div>
+            <div class="text-xs text-slate-400 mt-1">Year-End Closing Stocks</div>
+            <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
+              Early La Niña monsoon rains disrupt evacuation in Nov-Dec (prod 19.60M T); aggressive destination buying draws down stocks below 2.9M T.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950/60 border-2 border-amber-500/40 bg-amber-500/5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-amber-400 uppercase tracking-wide">Base Case (Consensus)</span>
+              <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">60% Prob</span>
+            </div>
+            <div class="mt-2 text-xl font-black text-amber-300 font-mono">3,327,488 T</div>
+            <div class="text-xs text-slate-300 mt-1">Year-End Closing Stocks</div>
+            <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
+              October production peaks at 1.92M T; standard wet monsoon taper into December; total 2026 output finishes at 19.84M T.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-rose-400 uppercase tracking-wide">Bearish Price / Heavy Flush</span>
+              <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold">20% Prob</span>
+            </div>
+            <div class="mt-2 text-xl font-bold text-white font-mono">3,744,488 T</div>
+            <div class="text-xs text-slate-400 mt-1">Year-End Closing Stocks</div>
+            <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
+              Dry weather prolongs harvesting into November (prod 20.01M T); uncompetitive palm premium stunts destination off-take, creating historical stock glut.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: 2027 Production Outlook & Agronomic Deep Dive -->
+      <div class="bg-gradient-to-br from-slate-900 via-slate-900/90 to-emerald-950/30 border border-emerald-500/30 rounded-xl p-5 shadow-xl space-y-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wide">Long-Range Agronomic Model</span>
+              <span class="text-xs text-slate-400">Target Horizon: Calendar Year 2027</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-1">Malaysia 2027 CPO Production Outlook & Agronomic Forecast</h3>
+            <p class="text-xs text-slate-300 mt-1 max-w-3xl">
+              Multi-factor physiological synthesis incorporating ENSO weather lags, 2024–2026 fertilizer application cycles, labor headcount normalization, and structural tree age ceilings.
+            </p>
+          </div>
+          <div class="bg-slate-950/80 border border-emerald-500/40 rounded-xl p-3.5 text-center shrink-0">
+            <div class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">2027 Headline Production Forecast</div>
+            <div class="text-2xl font-black text-white font-mono mt-0.5">20.10 – 20.45M T</div>
+            <div class="text-xs text-emerald-400 font-bold mt-0.5">Base Point: 20.25M T (+2.1% YoY)</div>
+          </div>
+        </div>
+
+        <!-- 4 Core Agronomic Pillars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Pillar 1: Weather & ENSO -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-bold text-emerald-400 flex items-center space-x-2">
+                <i data-lucide="cloud-rain" class="w-4 h-4"></i>
+                <span>1. Weather, Rainfall & Biological Lags</span>
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Weight: 35%</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Malaysia largely bypassed the severe drought patches of the 2023–2024 El Niño. Regular rainfall across 2025 and 2026 has initiated the crucial <strong class="text-white">22–24 month biological sex differentiation lag</strong>, priming high female-to-male inflorescence ratios for emergence in 2027. Adequate hydration ensures solid bunch density across Peninsular, Sabah, and Sarawak.
+            </p>
+            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[11px] text-emerald-300 font-mono">
+              Impact: +350k to +500k Tonnes structural tailwind for 2027.
+            </div>
+          </div>
+
+          <!-- Pillar 2: Fertilizer Application -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-bold text-amber-400 flex items-center space-x-2">
+                <i data-lucide="flask-conical" class="w-4 h-4"></i>
+                <span>2. Fertilizer Dynamics & 12–18m Legacy</span>
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20">Weight: 30%</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              With MOP and Urea costs down over 50% from 2022 peaks and CPO prices maintaining healthy plantation margins (>RM 1,500/T), Malaysian estates executed <strong class="text-white">100% to 110% of programmed fertilizer rounds</strong> throughout 2024, 2025, and 2026. Potassium uptake operates on a 12–18 month lag, directly enhancing Average Bunch Weight (ABW) into early-to-mid 2027.
+            </p>
+            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[11px] text-amber-300 font-mono">
+              Impact: Higher bunch weights sustain national FFB yield at 17.5+ T/Ha.
+            </div>
+          </div>
+
+          <!-- Pillar 3: Labor Normalization -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-bold text-blue-400 flex items-center space-x-2">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                <span>3. Labor Supply & In-Field Mechanization</span>
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-300 border border-blue-500/20">Weight: 15%</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              The foreign harvester deficit that plagued 2021–2023 has been completely resolved. Harvester-to-hectare ratios are at optimal levels (1:10 to 1:12). Harvesting intervals are disciplined at 10–14 days, preventing loose fruit rot and raising mill extraction recovery (OER sustained above 20.0%).
+            </p>
+            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[11px] text-blue-300 font-mono">
+              Impact: Zero labor-induced crop losses; maximum oil recovery.
+            </div>
+          </div>
+
+          <!-- Pillar 4: Structural Ceiling & Tree Age -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-bold text-purple-400 flex items-center space-x-2">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                <span>4. Tree Aging & Structural Ceiling</span>
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-500/10 text-purple-300 border border-purple-500/20">Weight: 20%</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              The key factor preventing Malaysia from breaking past 21.0 million tonnes is structural tree aging. <strong class="text-white">>30% of Malaysia's 5.67M hectares of palms are over 19 years old</strong>. Replanting rates remain below the recommended 4–5% (~1.8–2.0% actual) as growers defer felling during periods of profitable pricing, imposing an upward biological ceiling.
+            </p>
+            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[11px] text-purple-300 font-mono">
+              Impact: Hard biological ceiling capped between 20.5M and 20.9M Tonnes.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 2027 Scenarios Matrix Table -->
+        <div class="overflow-x-auto border border-slate-800 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
+            <thead class="bg-slate-950 text-slate-300 font-semibold">
+              <tr>
+                <th class="py-2.5 px-3">2027 Scenario</th>
+                <th class="py-2.5 px-3 text-center">Probability</th>
+                <th class="py-2.5 px-3 text-right text-emerald-400 font-bold">CPO Production (T)</th>
+                <th class="py-2.5 px-3 text-right">YoY vs 2026e</th>
+                <th class="py-2.5 px-3 text-right">FFB Yield (T/Ha)</th>
+                <th class="py-2.5 px-3 text-right text-amber-400 font-bold">Mill OER (%)</th>
+                <th class="py-2.5 px-3 text-right text-purple-400 font-bold">CPO Yield (T/Ha)</th>
+                <th class="py-2.5 px-3">Underlying Agronomic Assumption</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <tr class="bg-amber-500/5 font-semibold">
+                <td class="py-2.5 px-3 text-amber-300 font-bold">BASE CASE (Expected)</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">60%</span></td>
+                <td class="py-2.5 px-3 text-right text-base text-amber-300 font-black">20,250,000</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">+2.09%</td>
+                <td class="py-2.5 px-3 text-right">17.55</td>
+                <td class="py-2.5 px-3 text-right text-amber-400 font-bold">20.05%</td>
+                <td class="py-2.5 px-3 text-right text-purple-400 font-bold">3.52</td>
+                <td class="py-2.5 px-3 text-slate-300 font-sans text-[11px]">Normal rainfall, standard Q1 monsoon pause, 100% fertilizer transmission, disciplined harvesting.</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 text-emerald-400 font-bold">BULL CASE (Optimal Weather)</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">25%</span></td>
+                <td class="py-2.5 px-3 text-right text-base text-emerald-400 font-bold">20,850,000</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">+5.11%</td>
+                <td class="py-2.5 px-3 text-right">18.05</td>
+                <td class="py-2.5 px-3 text-right text-amber-400 font-bold">20.20%</td>
+                <td class="py-2.5 px-3 text-right text-purple-400 font-bold">3.65</td>
+                <td class="py-2.5 px-3 text-slate-300 font-sans text-[11px]">Benign non-disruptive monsoon, exceptional bunch weights from 2025/2026 manuring, OER above 20.2%.</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 text-rose-400 font-bold">BEAR CASE (Flood / Fatigue)</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 font-bold">15%</span></td>
+                <td class="py-2.5 px-3 text-right text-base text-rose-300 font-bold">19,650,000</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-bold">-0.94%</td>
+                <td class="py-2.5 px-3 text-right">17.10</td>
+                <td class="py-2.5 px-3 text-right text-amber-400 font-bold">19.80%</td>
+                <td class="py-2.5 px-3 text-right text-purple-400 font-bold">3.39</td>
+                <td class="py-2.5 px-3 text-slate-300 font-sans text-[11px]">Severe Q1 flood disruptions in Johor/Sabah, secondary biological resting cycle following prolonged high flushes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Interactive "What-If" Sensitivity Simulator -->
+      <div class="bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 border border-slate-700/80 rounded-xl p-5 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+              <span>Interactive Sensitivity Simulator ("What-If" Analysis: September 2026)</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Calibrated from official August ending stock (2,824,488 Tonnes) to test September inventory trajectories</p>
+          </div>
+          <button onclick="resetSensitivitySimulator()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 transition font-medium">Reset to Base Case</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Slider 1: Production MoM % -->
+          <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-300 font-medium">September CPO Production Growth (MoM)</span>
+              <span id="slider-prod-pct-val" class="font-mono font-bold text-emerald-400">+1.51%</span>
+            </div>
+            <input type="range" id="slider-prod-pct" min="-2.0" max="5.0" step="0.05" value="1.51" oninput="updateSensitivitySimulation()" class="w-full accent-emerald-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+              <span>-2.0% (1.781M T)</span>
+              <span class="text-slate-400">Base: +1.51%</span>
+              <span>+5.0% (1.908M T)</span>
+            </div>
+            <div class="text-[11px] text-slate-400 pt-1">
+              Implied Production: <span id="sim-prod-tonnes" class="text-white font-bold font-mono">1,845,000</span> Tonnes
+            </div>
+          </div>
+
+          <!-- Slider 2: Exports Volume -->
+          <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-300 font-medium">September Palm Oil Exports Volume</span>
+              <span id="slider-exp-val" class="font-mono font-bold text-blue-400">1,420,000 T</span>
+            </div>
+            <input type="range" id="slider-exp" min="1300000" max="1550000" step="5000" value="1420000" oninput="updateSensitivitySimulation()" class="w-full accent-blue-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+              <span>1.300M T</span>
+              <span class="text-slate-400">Diwali Surge: 1.42M</span>
+              <span>1.550M T</span>
+            </div>
+            <div class="text-[11px] text-slate-400 pt-1">
+              MoM Change vs Aug: <span id="sim-exp-pct" class="text-white font-bold font-mono">+9.68%</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Domestic Disappearance -->
+          <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-300 font-medium">September Domestic Disappearance</span>
+              <span id="slider-dom-val" class="font-mono font-bold text-purple-400">365,000 T</span>
+            </div>
+            <input type="range" id="slider-dom" min="300000" max="420000" step="5000" value="365000" oninput="updateSensitivitySimulation()" class="w-full accent-purple-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+              <span>300k T (Min)</span>
+              <span class="text-slate-400">Base: 365k</span>
+              <span>420k T (Max)</span>
+            </div>
+            <div class="text-[11px] text-slate-400 pt-1">
+              Imports Assumed: <span class="text-white font-bold font-mono">50,000</span> Tonnes
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Simulated Output Result Card -->
+        <div class="bg-slate-950 border-2 border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Your Simulated September Ending Stock:</span>
+            <div class="text-2xl font-black text-emerald-400 font-mono mt-0.5" id="sim-result-stock">2,934,488 Tonnes</div>
+            <div class="text-xs text-slate-300 mt-1">
+              Stock Build vs August: <span id="sim-result-build" class="font-bold text-white font-mono">+110,000 T (+3.89% MoM)</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4 text-xs font-mono">
+            <div class="text-right">
+              <span class="text-slate-400 block text-[11px]">Stock-to-Use</span>
+              <span id="sim-result-stu" class="text-amber-400 font-bold text-base">164.4%</span>
+            </div>
+            <div class="text-right border-l border-slate-800 pl-4">
+              <span class="text-slate-400 block text-[11px]">Days of Supply</span>
+              <span id="sim-result-days" class="text-cyan-400 font-bold text-base">50.1 Days</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500">
+    <p>Data Source: Economics and Industry Development Division, Malaysian Palm Oil Board (MPOB) & Prestasi Sawit &bull; 2005–2026 Historical Supply, Demand & Yield Model</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

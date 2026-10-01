@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US Crop Agricultural Weather &amp; Soil Moisture Matrix (2010–2026)</title>
+<style>
+    :root {
+        --primary: #064e3b;
+        --primary-light: #ecfdf5;
+        --primary-dark: #022c22;
+        --border-color: #e2e8f0;
+        --bg-main: #f8fafc;
+        --card-bg: #ffffff;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --accent: #2563eb;
+        --accent-light: #eff6ff;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        padding: 20px 24px 60px 24px;
+        width: 1580px;
+        margin: 0 auto;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* Universal Suite Navigation Bar */
+    .suite-nav-bar {
+        background: #0f172a;
+        border-radius: 10px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #f8fafc;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .suite-nav-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .suite-brand {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #38bdf8;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .suite-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .nav-tab {
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #94a3b8;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .nav-tab:hover {
+        background: #1e293b;
+        color: #ffffff;
+    }
+    .nav-tab.active {
+        background: #059669;
+        color: #ffffff;
+    }
+
+    /* Header Bar */
+    .header-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        border-bottom: 3px solid var(--primary);
+    }
+    .header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .header-title-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .header-badge {
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+    }
+    .header-badge-17yr {
+        background: #0284c7;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 4px;
+    }
+    .header-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.3px;
+    }
+    .header-subtitle {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn {
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        color: var(--text-secondary);
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .btn:hover {
+        background: #f1f5f9;
+        color: var(--text-primary);
+    }
+    .btn-primary {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+    }
+    .btn-primary:hover {
+        background: #047857;
+        color: #ffffff;
+    }
+
+    /* Controls Bar: Variables, Units, Modes & Density */
+    .controls-bar {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .ctrl-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .var-label {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        margin-right: 2px;
+    }
+    .segmented-btn {
+        padding: 6px 12px;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.15s;
+    }
+    .segmented-btn:hover {
+        background: #f1f5f9;
+    }
+    .segmented-btn.active {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+    }
+
+    /* Toggle Switches */
+    .mode-switch-btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+    }
+    .mode-switch-btn.active {
+        background: #b45309;
+        color: #ffffff;
+        border-color: #b45309;
+    }
+
+    .unit-switch-btn {
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+    }
+    .unit-switch-btn.active {
+        background: #0284c7;
+        color: #ffffff;
+        border-color: #0284c7;
+    }
+
+    /* Scale Legend */
+    .legend-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .legend-scale-container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    .legend-chip {
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 10px;
+    }
+    .legend-key-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 11px;
+        color: var(--text-secondary);
+    }
+    .sample-solid {
+        width: 14px;
+        height: 12px;
+        border-radius: 2px;
+        background: #2d7a2f;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+    .sample-dashed {
+        width: 14px;
+        height: 12px;
+        border-radius: 2px;
+        border: 1.5px dashed #0284c7;
+        background: #e0f2fe;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+
+    /* Interactive Progression & Benchmark Chart Card */
+    .chart-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 16px 22px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .chart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .chart-title-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .chart-title {
+        font-size: 13.5px;
+        font-weight: 800;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .chart-toggles {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    .bench-chip {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+    }
+    .bench-chip.active-2012 {
+        background: #dc2626;
+        color: #ffffff;
+        border-color: #dc2626;
+    }
+    .bench-chip.active-2019 {
+        background: #2563eb;
+        color: #ffffff;
+        border-color: #2563eb;
+    }
+    .bench-chip.active-2025 {
+        background: #7c3aed;
+        color: #ffffff;
+        border-color: #7c3aed;
+    }
+    .chart-svg-container {
+        width: 100%;
+        height: 190px;
+        position: relative;
+    }
+    .chart-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+
+    /* State Picker Section */
+    .picker-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 14px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .picker-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .picker-title-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .picker-title {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .search-input {
+        padding: 4px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 11.5px;
+        outline: none;
+        width: 180px;
+        color: var(--text-primary);
+    }
+    .search-input:focus {
+        border-color: var(--primary);
+    }
+    .quick-filters {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    .pill-btn {
+        font-size: 10.5px;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .pill-btn:hover {
+        background: #e2e8f0;
+    }
+    .belt-groups-container {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .belt-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .belt-label {
+        width: 250px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .state-chips-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .state-chip {
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 10.5px;
+        font-weight: 700;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .state-chip:hover {
+        background: #e2e8f0;
+    }
+    .state-chip.active {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+    }
+
+    /* Filter Pills Bar: Years & Months */
+    .filter-pills-bar {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 12px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .filter-column {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .filter-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        width: 60px;
+    }
+    .year-chip, .month-chip {
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 10.5px;
+        font-weight: 700;
+        border: 1px solid var(--border-color);
+        background: #f8fafc;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .year-chip:hover, .month-chip:hover {
+        background: #e2e8f0;
+    }
+    .year-chip.active {
+        background: #0284c7;
+        color: #ffffff;
+        border-color: #0284c7;
+    }
+    .month-chip.active {
+        background: #059669;
+        color: #ffffff;
+        border-color: #059669;
+    }
+
+    /* Matrix Container */
+    .matrix-container {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+    }
+    .matrix-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .matrix-title-group h2 {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--primary);
+    }
+    .matrix-title-group p {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 2px;
+    }
+    .matrix-kpis {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .matrix-kpi-item {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 8px 14px;
+        text-align: right;
+    }
+    .matrix-kpi-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+    }
+    .matrix-kpi-value {
+        font-size: 17px;
+        font-weight: 800;
+        color: var(--text-primary);
+    }
+
+    /* Table Styles */
+    .matrix-table-wrapper {
+        overflow-x: auto;
+    }
+    .matrix-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 11px;
+    }
+    .matrix-table th {
+        background: #f8fafc;
+        color: var(--text-secondary);
+        font-weight: 800;
+        padding: 8px 4px;
+        border: 1px solid var(--border-color);
+        text-transform: uppercase;
+        font-size: 10.5px;
+    }
+    .matrix-table th.th-year {
+        width: 75px;
+        background: #f1f5f9;
+        font-size: 11.5px;
+    }
+    .matrix-table th.th-avg {
+        width: 95px;
+        background: #f1f5f9;
+    }
+    .matrix-table td {
+        padding: 3px 2px;
+        border: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+    .matrix-year-cell {
+        font-weight: 800;
+        color: var(--text-primary);
+        font-size: 12px;
+        background: #f8fafc;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    /* Square Cell Heatmap */
+    .matrix-square-cell {
+        border-radius: 5px;
+        padding: 6px 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        cursor: pointer;
+        font-weight: 800;
+        font-size: 11.5px;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+        position: relative;
+    }
+    .matrix-square-cell:hover {
+        transform: scale(1.08);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 20;
+    }
+    .matrix-square-sub {
+        font-size: 9px;
+        font-weight: 600;
+        opacity: 0.9;
+        white-space: nowrap;
+    }
+    .forecast-square {
+        border: 1.5px dashed #0284c7 !important;
+    }
+    .forecast-square::after {
+        content: 'GFS';
+        position: absolute;
+        top: 1px;
+        right: 2px;
+        font-size: 7px;
+        font-weight: 900;
+        opacity: 0.8;
+    }
+
+    /* Density Classes */
+    .matrix-compact .matrix-square-cell {
+        padding: 4px 2px;
+        font-size: 10px;
+    }
+    .matrix-compact .matrix-square-sub {
+        font-size: 8px;
+    }
+    .matrix-dense .matrix-square-cell {
+        padding: 2px 1px;
+        font-size: 9px;
+    }
+    .matrix-dense .matrix-square-sub {
+        display: none;
+    }
+
+    /* Floating Interactive Cell Inspector Popover */
+    .cell-inspector-popover {
+        position: fixed;
+        display: none;
+        background: #0f172a;
+        color: #ffffff;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 12px 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        z-index: 1000;
+        width: 270px;
+        pointer-events: none;
+        font-size: 11.5px;
+    }
+    .pop-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #334155;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+    }
+    .pop-title {
+        font-weight: 800;
+        color: #38bdf8;
+        font-size: 12.5px;
+    }
+    .pop-badge {
+        font-size: 9.5px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background: #1e293b;
+        font-weight: 700;
+    }
+    .pop-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+        color: #cbd5e1;
+    }
+    .pop-val {
+        font-weight: 800;
+        color: #ffffff;
+    }
+    .pop-diag {
+        margin-top: 8px;
+        padding-top: 6px;
+        border-top: 1px dashed #334155;
+        font-size: 10.5px;
+        color: #fde047;
+        font-weight: 600;
+    }
+
+    /* Composite Weighted Banner */
+    .composite-row-header {
+        background: #1e293b !important;
+        color: #ffffff !important;
+        font-weight: 800;
+    }
+
+    /* Footer */
+    .footer-bar {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10.5px;
+        color: var(--text-muted);
+    }
+</style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Universal Cross-Dashboard Navigation -->
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127793; US CROP AG-WEATHER INTELLIGENCE</span>
+        </div>
+        <div class="suite-nav-links">
+            <a href="US_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="US_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="US_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="US_Crop_Weather_Matrix.html" class="nav-tab active">&#128202; 17-Year Historical Matrix (2010–2026)</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header-card">
+        <div class="header-left">
+            <div class="header-title-row">
+                <span class="header-badge">NOAA GFS &bull; ERA5 REANALYSIS</span>
+                <span class="header-badge-17yr">17 CONTINUOUS YEARS (2010–2026)</span>
+                <h1 class="header-title">US Crop Agricultural Weather &amp; Soil Moisture Matrix</h1>
+            </div>
+            <p class="header-subtitle">Continuous 17-Year Historical Progression (2010–2025) &amp; Operational GFS Forward Guidance (2026) across 21 Agricultural States</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn" onclick="exportCSV()">&#128229; Export CSV</button>
+            <button class="btn btn-primary" onclick="window.print()">&#128424; Print Matrix</button>
+        </div>
+    </div>
+
+    <!-- Controls Bar: Variable Switcher, View Mode, Units & Density -->
+    <div class="controls-bar">
+        <div class="ctrl-section">
+            <span class="var-label">Metric:</span>
+            <button class="segmented-btn active" data-var="precip" onclick="setVariable('precip')">&#127783; Precipitation</button>
+            <button class="segmented-btn" data-var="temp_max" onclick="setVariable('temp_max')">&#9728;&#65039; Max Temp (T-Max)</button>
+            <button class="segmented-btn" data-var="temp_min" onclick="setVariable('temp_min')">&#127769; Min Temp (T-Min)</button>
+            <button class="segmented-btn" data-var="temp" onclick="setVariable('temp')">&#127777; Mean Temp</button>
+            <button class="segmented-btn" data-var="topsoil" onclick="setVariable('topsoil')">&#127793; Topsoil (0–10cm)</button>
+            <button class="segmented-btn" data-var="subsoil" onclick="setVariable('subsoil')">&#127794; Subsoil (10–100cm)</button>
+        </div>
+
+        <div class="ctrl-section">
+            <span class="var-label">View Mode:</span>
+            <button class="mode-switch-btn" id="btn-mode-abs" onclick="setViewMode('absolute')">&#128203; Absolute</button>
+            <button class="mode-switch-btn active" id="btn-mode-anom" onclick="setViewMode('anomaly')">&#9878;&#65039; Anomaly vs 2010-25 Normal</button>
+        </div>
+
+        <div class="ctrl-section" id="unit-switch-group">
+            <span class="var-label">Unit:</span>
+            <div id="unit-buttons-container"></div>
+        </div>
+
+        <div class="ctrl-section">
+            <span class="var-label">Density:</span>
+            <button class="segmented-btn active" onclick="setDensity('standard')">Standard</button>
+            <button class="segmented-btn" onclick="setDensity('compact')">Compact</button>
+            <button class="segmented-btn" onclick="setDensity('dense')">Dense</button>
+        </div>
+    </div>
+
+    <!-- Scale Legend Bar -->
+    <div class="legend-card" id="legend-container">
+        <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Interactive Progression & Benchmark Comparison Chart -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title-group">
+                <span class="chart-title">&#128200; Multi-Year Monthly Trajectory &amp; Historical Range Envelope (2010–2026)</span>
+            </div>
+            <div class="chart-toggles">
+                <span style="font-size:11px; font-weight:700; color:var(--text-secondary);">Benchmark Overlays:</span>
+                <button class="bench-chip" id="bench-2012" onclick="toggleBenchmarkYear(2012)">&#9888;&#65039; 2012 Historic Drought</button>
+                <button class="bench-chip" id="bench-2019" onclick="toggleBenchmarkYear(2019)">&#127783; 2019 Historic Deluge</button>
+                <button class="bench-chip" id="bench-2025" onclick="toggleBenchmarkYear(2025)">&#128337; 2025 Previous Season</button>
+            </div>
+        </div>
+        <div class="chart-svg-container" id="chart-container">
+            <!-- Rendered dynamically via JavaScript SVG -->
+        </div>
+    </div>
+
+    <!-- State Picker Section with Search & Quick Filters -->
+    <div class="picker-card">
+        <div class="picker-header">
+            <div class="picker-title-group">
+                <span class="picker-title">&#128506; Select States to View:</span>
+                <input type="text" class="search-input" id="state-search-input" placeholder="Search state (e.g. Iowa, KS)..." oninput="filterStatesBySearch()">
+            </div>
+            <div class="quick-filters">
+                <button class="pill-btn" onclick="selectCropGroup('corn')">&#127805; Top Corn States (6)</button>
+                <button class="pill-btn" onclick="selectCropGroup('soy')">&#129752; Top Soybean States (7)</button>
+                <button class="pill-btn" onclick="selectCropGroup('wheat')">&#127806; Top Wheat States (8)</button>
+                <button class="pill-btn" onclick="selectAllStates()">&#127482;&#127484; All 21 States</button>
+                <button class="pill-btn" onclick="resetToIowa()">Reset to Iowa</button>
+            </div>
+        </div>
+        <div class="belt-groups-container" id="belt-pickers-container">
+            <!-- Injected via JavaScript -->
+        </div>
+    </div>
+
+    <!-- 17-Year & Month Filter Controls -->
+    <div class="filter-pills-bar">
+        <div class="filter-column">
+            <span class="filter-label">Years:</span>
+            <div id="year-chips-container" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
+            <button class="pill-btn" onclick="setYearPreset('all')">All 17 Yrs (2010–26)</button>
+            <button class="pill-btn" onclick="setYearPreset('last10')">Last 10 Yrs (2017–26)</button>
+            <button class="pill-btn" onclick="setYearPreset('last5')">Last 5 Yrs (2022–26)</button>
+            <button class="pill-btn" onclick="setYearPreset('bench')">Drought Compare (2012, 2023, 2026)</button>
+            <button class="pill-btn" onclick="setYearPreset('early')">2010–2015 Era</button>
+        </div>
+        <div class="filter-column">
+            <span class="filter-label">Months:</span>
+            <div id="month-chips-container" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
+            <button class="pill-btn" onclick="setMonthPreset('all')">All 12 Mo</button>
+            <button class="pill-btn" onclick="setMonthPreset('q2')">Q2 (Planting)</button>
+            <button class="pill-btn" onclick="setMonthPreset('q3')">Q3 (Grain Fill)</button>
+            <button class="pill-btn" onclick="setMonthPreset('harvest')">Harvest (Aug–Nov)</button>
+        </div>
+    </div>
+
+    <!-- The Matrix Table Card -->
+    <div class="matrix-container" id="matrix-wrapper">
+        <div id="matrix-header-container"></div>
+        <div class="matrix-table-wrapper" id="matrix-table-container"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-bar">
+        <span>Data Grounding: NOAA Operational GFS 0.25° &bull; Open-Meteo ERA5 Continuous Reanalysis Archive (2010–2025) &bull; USDA NASS Production Benchmarks</span>
+        <span>Suite Calibration: Antigravity Ag-Weather Suite &bull; 17-Year Historical Coverage</span>
+    </div>
+</div>
+
+<!-- Floating Inspector Popover -->
+<div class="cell-inspector-popover" id="cell-popover">
+    <div class="pop-header">
+        <span class="pop-title" id="pop-title">Iowa &bull; Jul 2012</span>
+        <span class="pop-badge" id="pop-badge">Observed</span>
+    </div>
+    <div class="pop-row">
+        <span>Metric Value:</span>
+        <span class="pop-val" id="pop-val">1.82 mm/d</span>
+    </div>
+    <div class="pop-row">
+        <span>2010–2025 Normal:</span>
+        <span class="pop-val" id="pop-norm">3.45 mm/d</span>
+    </div>
+    <div class="pop-row">
+        <span>Anomaly Departure:</span>
+        <span class="pop-val" id="pop-anom">-1.63 mm/d (-47%)</span>
+    </div>
+    <div class="pop-row">
+        <span>17-Year Historical Rank:</span>
+        <span class="pop-val" id="pop-rank">2nd Driest since 2010</span>
+    </div>
+    <div class="pop-diag" id="pop-diag">Severe drought stress during reproductive pollination window.</div>
+</div>
+
+<!-- Load Matrix Data Cache -->
+<script src="us_crop_matrix_data.js"></script>
+<script>
+// =============================================================
+// US CROP WEATHER MATRIX CONTROLLER (17 CONTINUOUS YEARS: 2010-2026)
+// =============================================================
+
+let currentVar = "precip"; // 'precip', 'temp_max', 'temp_min', 'temp', 'topsoil', 'subsoil'
+let viewMode = "absolute"; // 'absolute', 'anomaly'
+let precipUnit = "mm_day"; // 'mm_day', 'in_total', 'mm_total'
+let tempUnit = "f";        // 'f', 'c'
+let soilUnit = "vol";      // 'vol' (m3/m3), 'pct' (%)
+let selectedStates = ["IA"];
+let benchmarkYears = [];   // e.g. [2012, 2019, 2025]
+let activeYear = 2026;
+
+// All 17 years: 2010 to 2026
+const ALL_YEARS = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+let selectedYears = [...ALL_YEARS];
+let selectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let matrixDensity = "standard";
+
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// 1. Color Scales (Absolute & Anomaly)
+function getPrecipColor(val, isAnomaly = false) {
+    if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
+    const v = parseFloat(val);
+    if (!isAnomaly) {
+        if (v < 1.0) return { bg: "#991b1b", text: "#ffffff", label: "< 1.0 Extreme Dry" };
+        if (v < 2.0) return { bg: "#ef4444", text: "#ffffff", label: "1.0 - 2.0 Dry" };
+        if (v < 3.0) return { bg: "#fb923c", text: "#ffffff", label: "2.0 - 3.0 Mod Dry" };
+        if (v < 4.0) return { bg: "#fed7aa", text: "#7c2d12", label: "3.0 - 4.0 Below Normal" };
+        if (v <= 5.0) return { bg: "#e2e8f0", text: "#1e293b", label: "4.0 - 5.0 Normal" };
+        if (v < 6.5) return { bg: "#bbf7d0", text: "#14532d", label: "5.0 - 6.5 Favorable" };
+        if (v < 8.5) return { bg: "#86efac", text: "#14532d", label: "6.5 - 8.5 Wet" };
+        if (v < 12.0) return { bg: "#4ade80", text: "#14532d", label: "8.5 - 12.0 Very Wet" };
+        if (v < 16.0) return { bg: "#16a34a", text: "#ffffff", label: "12.0 - 16.0 Heavy" };
+        return { bg: "#14532d", text: "#ffffff", label: "> 16.0 Extreme" };
+    } else {
+        // Anomaly scale mm/day vs normal
+        if (v < -2.0) return { bg: "#7f1d1d", text: "#ffffff", label: "< -2.0 mm/d Severe Deficit" };
+        if (v < -1.0) return { bg: "#dc2626", text: "#ffffff", label: "-1.0 to -2.0 Deficit" };
+        if (v < -0.3) return { bg: "#fed7aa", text: "#7c2d12", label: "-0.3 to -1.0 Moderate Deficit" };
+        if (v <= 0.3) return { bg: "#f1f5f9", text: "#334155", label: "± 0.3 Near Normal" };
+        if (v <= 1.0) return { bg: "#bbf7d0", text: "#14532d", label: "+0.3 to +1.0 Favorable Surplus" };
+        if (v <= 2.0) return { bg: "#4ade80", text: "#14532d", label: "+1.0 to +2.0 Wet Surplus" };
+        return { bg: "#15803d", text: "#ffffff", label: "> +2.0 Heavy Deluge" };
+    }
+}
+
+function getTempMaxColor(val, isAnomaly = false) {
+    if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
+    const v = parseFloat(val);
+    if (!isAnomaly) {
+        if (v < 15.0) return { bg: "#93c5fd", text: "#0f172a", label: "< 15° Cool Highs" };
+        if (v < 22.0) return { bg: "#86efac", text: "#14532d", label: "15–22° Mild Highs" };
+        if (v < 28.0) return { bg: "#fed7aa", text: "#7c2d12", label: "22–28° Optimal Growth" };
+        if (v < 32.0) return { bg: "#fb923c", text: "#ffffff", label: "28–32° Elevated Warmth" };
+        if (v < 35.0) return { bg: "#ef4444", text: "#ffffff", label: "32–35° Heat Stress (90°F+)" };
+        return { bg: "#991b1b", text: "#ffffff", label: "> 35° Severe Heat (95°F+)" };
+    } else {
+        if (v < -2.5) return { bg: "#1e3a8a", text: "#ffffff", label: "< -2.5°C (-4.5°F) Unusually Cool" };
+        if (v < -1.0) return { bg: "#60a5fa", text: "#0f172a", label: "-1.0 to -2.5°C Cool" };
+        if (v <= 1.0) return { bg: "#f1f5f9", text: "#334155", label: "± 1.0°C Near Normal" };
+        if (v <= 2.5) return { bg: "#fb923c", text: "#ffffff", label: "+1.0 to +2.5°C Warm Anomaly" };
+        return { bg: "#dc2626", text: "#ffffff", label: "> +2.5°C (+4.5°F) Extreme Heat Wave" };
+    }
+}
+
+function getTempMinColor(val, isAnomaly = false) {
+    if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
+    const v = parseFloat(val);
+    if (!isAnomaly) {
+        if (v < -15.0) return { bg: "#1e1b4b", text: "#ffffff", label: "< -15° Severe Freeze" };
+        if (v < -2.2) return { bg: "#1e3a8a", text: "#ffffff", label: "-15 to -2° Hard Freeze (28°F)" };
+        if (v <= 0.0) return { bg: "#3b82f6", text: "#ffffff", label: "-2 to 0° Light Frost (32°F)" };
+        if (v < 10.0) return { bg: "#93c5fd", text: "#0f172a", label: "0 to 10° Cool Night" };
+        if (v < 16.0) return { bg: "#86efac", text: "#14532d", label: "10 to 16° Crisp Night" };
+        if (v < 21.1) return { bg: "#fed7aa", text: "#7c2d12", label: "16 to 21° Favorable Night" };
+        return { bg: "#ef4444", text: "#ffffff", label: "≥ 21° Warm Night Respiration (70°F+)" };
+    } else {
+        if (v < -2.5) return { bg: "#1e1b4b", text: "#ffffff", label: "< -2.5°C Severe Frost Risk" };
+        if (v < -1.0) return { bg: "#3b82f6", text: "#ffffff", label: "-1.0 to -2.5°C Cool Night" };
+        if (v <= 1.0) return { bg: "#f1f5f9", text: "#334155", label: "± 1.0°C Normal" };
+        if (v <= 2.5) return { bg: "#fb923c", text: "#ffffff", label: "+1.0 to +2.5°C Warm Night" };
+        return { bg: "#b91c1c", text: "#ffffff", label: "> +2.5°C Elevated Respiration" };
+    }
+}
+
+function getTempColor(val, isAnomaly = false) {
+    if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
+    const v = parseFloat(val);
+    if (!isAnomaly) {
+        if (v < -5.0) return { bg: "#1e3a8a", text: "#ffffff", label: "< -5° Severe Freeze" };
+        if (v < 5.0) return { bg: "#3b82f6", text: "#ffffff", label: "-5-5° Frost/Dormant" };
+        if (v < 15.0) return { bg: "#93c5fd", text: "#0f172a", label: "5-15° Cool/Seeding" };
+        if (v < 22.0) return { bg: "#86efac", text: "#14532d", label: "15-22° Mild/Maturation" };
+        if (v < 26.0) return { bg: "#fed7aa", text: "#7c2d12", label: "22-26° Favorable Fill" };
+        if (v < 30.0) return { bg: "#fb923c", text: "#ffffff", label: "26-30° Elevated Warmth" };
+        if (v < 35.0) return { bg: "#ef4444", text: "#ffffff", label: "30-35° Heat Stress" };
+        return { bg: "#991b1b", text: "#ffffff", label: "> 35° Extreme Heat" };
+    } else {
+        if (v < -2.0) return { bg: "#1e3a8a", text: "#ffffff", label: "< -2.0°C Cool Anomaly" };
+        if (v < -0.8) return { bg: "#60a5fa", text: "#0f172a", label: "-0.8 to -2.0°C Below Normal" };
+        if (v <= 0.8) return { bg: "#f1f5f9", text: "#334155", label: "± 0.8°C Normal" };
+        if (v <= 2.0) return { bg: "#fb923c", text: "#ffffff", label: "+0.8 to +2.0°C Warm Anomaly" };
+        return { bg: "#dc2626", text: "#ffffff", label: "> +2.0°C Severe Heat" };
+    }
+}
+
+function getSoilColor(val, isAnomaly = false) {
+    if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
+    const v = parseFloat(val);
+    if (!isAnomaly) {
+        if (v < 0.160) return { bg: "#991b1b", text: "#ffffff", label: "< 0.160 Extreme Deficit" };
+        if (v < 0.220) return { bg: "#ef4444", text: "#ffffff", label: "0.160-0.220 Moderate Stress" };
+        if (v < 0.280) return { bg: "#fed7aa", text: "#7c2d12", label: "0.220-0.280 Mild Deficit" };
+        if (v <= 0.380) return { bg: "#2d7a2f", text: "#ffffff", label: "0.280-0.380 Favorable" };
+        if (v <= 0.440) return { bg: "#1b5e20", text: "#ffffff", label: "0.380-0.440 Surplus" };
+        return { bg: "#0d3b13", text: "#ffffff", label: "> 0.440 Saturated" };
+    } else {
+        if (v < -0.060) return { bg: "#7f1d1d", text: "#ffffff", label: "< -0.060 Severe Soil Depletion" };
+        if (v < -0.025) return { bg: "#ea580c", text: "#ffffff", label: "-0.025 to -0.060 Moisture Deficit" };
+        if (v <= 0.025) return { bg: "#f1f5f9", text: "#334155", label: "± 0.025 Near Baseline" };
+        if (v <= 0.060) return { bg: "#16a34a", text: "#ffffff", label: "+0.025 to +0.060 Moisture Recharge" };
+        return { bg: "#065f46", text: "#ffffff", label: "> +0.060 Heavy Waterlogging" };
+    }
+}
+
+function getColorForMetric(val, metric, isAnomaly = false) {
+    if (metric === "precip") return getPrecipColor(val, isAnomaly);
+    if (metric === "temp_max") return getTempMaxColor(val, isAnomaly);
+    if (metric === "temp_min") return getTempMinColor(val, isAnomaly);
+    if (metric === "temp") return getTempColor(val, isAnomaly);
+    return getSoilColor(val, isAnomaly);
+}
+
+// 2. Initialization
+async function initMatrixDashboard() {
+    let data = window.US_CROP_MATRIX_DATA;
+    if (!data) {
+        try {
+            const resp = await fetch("us_crop_matrix_data.json");
+            data = await resp.json();
+            window.US_CROP_MATRIX_DATA = data;
+        } catch (e) {
+            console.error("Failed to load matrix data:", e);
+        }
+    }
+
+    // Read URL parameters if provided
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const varParam = urlParams.get("var");
+        const modeParam = urlParams.get("mode");
+        const stateParam = urlParams.get("state");
+        const benchParam = urlParams.get("bench");
+
+        if (varParam && ["precip", "temp_max", "temp_min", "temp", "topsoil", "subsoil"].includes(varParam)) {
+            currentVar = varParam;
+            document.querySelectorAll(".segmented-btn[data-var]").forEach(b => {
+                b.classList.toggle("active", b.dataset.var === varParam);
+            });
+        }
+        if (modeParam && ["absolute", "anomaly"].includes(modeParam)) {
+            viewMode = modeParam;
+            document.getElementById("btn-mode-abs").classList.toggle("active", modeParam === "absolute");
+            document.getElementById("btn-mode-anom").classList.toggle("active", modeParam === "anomaly");
+        }
+        if (stateParam) {
+            selectedStates = stateParam.split(",").map(s => s.trim().toUpperCase()).filter(Boolean);
+        }
+        if (benchParam) {
+            benchParam.split(",").forEach(y => {
+                const num = parseInt(y.trim());
+                if (!isNaN(num) && !benchmarkYears.includes(num)) {
+                    benchmarkYears.push(num);
+                    const el = document.getElementById(`bench-${num}`);
+                    if (el) el.classList.add(`active-${num}`);
+                }
+            });
+        }
+    } catch (e) {
+        console.warn("URL params error:", e);
+    }
+
+    renderStatePickers();
+    renderYearChips();
+    renderMonthChips();
+    renderUnitButtons();
+    renderLegend();
+    renderChart();
+    renderMatrix();
+}
+
+// View Mode Toggle
+function setViewMode(mode) {
+    viewMode = mode;
+    document.getElementById("btn-mode-abs").classList.toggle("active", mode === "absolute");
+    document.getElementById("btn-mode-anom").classList.toggle("active", mode === "anomaly");
+    renderLegend();
+    renderMatrix();
+}
+
+// Unit Switches
+function renderUnitButtons() {
+    const container = document.getElementById("unit-buttons-container");
+    if (!container) return;
+
+    if (currentVar === "precip") {
+        container.innerHTML = `
+            <button class="unit-switch-btn ${precipUnit === 'mm_day' ? 'active' : ''}" onclick="setPrecipUnit('mm_day')">mm/day</button>
+            <button class="unit-switch-btn ${precipUnit === 'in_total' ? 'active' : ''}" onclick="setPrecipUnit('in_total')">Inches Total</button>
+            <button class="unit-switch-btn ${precipUnit === 'mm_total' ? 'active' : ''}" onclick="setPrecipUnit('mm_total')">mm Total</button>
+        `;
+    } else if (currentVar === "topsoil" || currentVar === "subsoil") {
+        container.innerHTML = `
+            <button class="unit-switch-btn ${soilUnit === 'vol' ? 'active' : ''}" onclick="setSoilUnit('vol')">m³/m³</button>
+            <button class="unit-switch-btn ${soilUnit === 'pct' ? 'active' : ''}" onclick="setSoilUnit('pct')">% Cap</button>
+        `;
+    } else {
+        container.innerHTML = `
+            <button class="unit-switch-btn ${tempUnit === 'f' ? 'active' : ''}" onclick="setTempUnit('f')">°F</button>
+            <button class="unit-switch-btn ${tempUnit === 'c' ? 'active' : ''}" onclick="setTempUnit('c')">°C</button>
+        `;
+    }
+}
+
+function setPrecipUnit(u) { precipUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+function setTempUnit(u) { tempUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+function setSoilUnit(u) { soilUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+
+// Render Legend Bar
+function renderLegend() {
+    const container = document.getElementById("legend-container");
+    if (!container) return;
+
+    let chipsHtml = "";
+    let title = "";
+    const isAnom = (viewMode === "anomaly");
+
+    if (isAnom) {
+        title = `ANOMALY DEPARTURE SCALE vs 2010–2025 Normal (${currentVar}):`;
+        let scale = [];
+        if (currentVar === "precip") {
+            scale = [
+                { bg: "#7f1d1d", text: "#fff", lbl: "< -2.0 mm/d Deficit" },
+                { bg: "#dc2626", text: "#fff", lbl: "-1.0 to -2.0" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "-0.3 to -1.0" },
+                { bg: "#f1f5f9", text: "#334155", lbl: "±0.3 Normal" },
+                { bg: "#bbf7d0", text: "#14532d", lbl: "+0.3 to +1.0" },
+                { bg: "#4ade80", text: "#14532d", lbl: "+1.0 to +2.0" },
+                { bg: "#15803d", text: "#fff", lbl: "> +2.0 Deluge" }
+            ];
+        } else if (currentVar === "topsoil" || currentVar === "subsoil") {
+            scale = [
+                { bg: "#7f1d1d", text: "#fff", lbl: "< -0.060 Severe Drydown" },
+                { bg: "#ea580c", text: "#fff", lbl: "-0.025 to -0.060 Stress" },
+                { bg: "#f1f5f9", text: "#334155", lbl: "±0.025 Baseline" },
+                { bg: "#16a34a", text: "#fff", lbl: "+0.025 to +0.060 Recharge" },
+                { bg: "#065f46", text: "#fff", lbl: "> +0.060 Saturated" }
+            ];
+        } else {
+            scale = [
+                { bg: "#1e3a8a", text: "#fff", lbl: "< -2.5°C Cool Anomaly" },
+                { bg: "#60a5fa", text: "#0f172a", lbl: "-1.0 to -2.5°C" },
+                { bg: "#f1f5f9", text: "#334155", lbl: "±1.0°C Normal" },
+                { bg: "#fb923c", text: "#fff", lbl: "+1.0 to +2.5°C Warm" },
+                { bg: "#dc2626", text: "#fff", lbl: "> +2.5°C Extreme Heat" }
+            ];
+        }
+        chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
+    } else {
+        if (currentVar === "precip") {
+            title = "Precipitation Absolute Scale (mm/day):";
+            const scale = [
+                { bg: "#991b1b", text: "#fff", lbl: "< 1.0 Dry" },
+                { bg: "#ef4444", text: "#fff", lbl: "1.0–2.0" },
+                { bg: "#fb923c", text: "#fff", lbl: "2.0–3.0" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "3.0–4.0" },
+                { bg: "#e2e8f0", text: "#1e293b", lbl: "4.0–5.0 Normal" },
+                { bg: "#bbf7d0", text: "#14532d", lbl: "5.0–6.5" },
+                { bg: "#86efac", text: "#14532d", lbl: "6.5–8.5" },
+                { bg: "#4ade80", text: "#14532d", lbl: "8.5–12.0" },
+                { bg: "#16a34a", text: "#fff", lbl: "12.0–16.0" },
+                { bg: "#14532d", text: "#fff", lbl: "> 16.0 Wet" }
+            ];
+            chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
+        } else if (currentVar === "temp_max") {
+            title = "Daytime High T-Max Scale (°C / °F) • Heat Stress:";
+            const scale = [
+                { bg: "#93c5fd", text: "#0f172a", lbl: "< 15° (< 59°F) Cool" },
+                { bg: "#86efac", text: "#14532d", lbl: "15–22° (59–72°F) Mild" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "22–28° (72–82°F) Optimal" },
+                { bg: "#fb923c", text: "#ffffff", lbl: "28–32° (82–90°F) Warm" },
+                { bg: "#ef4444", text: "#ffffff", lbl: "32–35° (90–95°F) Heat Stress" },
+                { bg: "#991b1b", text: "#ffffff", lbl: "> 35° (> 95°F) Severe Shock" }
+            ];
+            chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
+        } else if (currentVar === "temp_min") {
+            title = "Nighttime Low T-Min Scale (°C / °F) • Frost & Night Respiration:";
+            const scale = [
+                { bg: "#1e1b4b", text: "#fff", lbl: "< -15° Deep Freeze" },
+                { bg: "#1e3a8a", text: "#fff", lbl: "-15 to -2° Hard Freeze" },
+                { bg: "#3b82f6", text: "#fff", lbl: "-2 to 0° Light Frost" },
+                { bg: "#93c5fd", text: "#0f172a", lbl: "0 to 10° Cool Night" },
+                { bg: "#86efac", text: "#14532d", lbl: "10 to 16° Crisp Night" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "16 to 21° Favorable" },
+                { bg: "#ef4444", text: "#fff", lbl: "≥ 21° (> 70°F) Respiration Penalty" }
+            ];
+            chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
+        } else if (currentVar === "temp") {
+            title = "24-Hr Mean Temperature Scale (°C / °F):";
+            const scale = [
+                { bg: "#1e3a8a", text: "#fff", lbl: "< -5° Freeze" },
+                { bg: "#3b82f6", text: "#fff", lbl: "-5–5° Frost" },
+                { bg: "#93c5fd", text: "#0f172a", lbl: "5–15° Cool" },
+                { bg: "#86efac", text: "#14532d", lbl: "15–22° Mild" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "22–26° Optimal Fill" },
+                { bg: "#fb923c", text: "#fff", lbl: "26–30° Warm" },
+                { bg: "#ef4444", text: "#fff", lbl: "30–35° Heat Stress" },
+                { bg: "#991b1b", text: "#fff", lbl: "> 35° Severe" }
+            ];
+            chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
+        } else {
+            title = `${currentVar === 'topsoil' ? 'Topsoil (0–10cm)' : 'Subsoil (10–100cm)'} Moisture (m³/m³):`;
+            const scale = [
+                { bg: "#991b1b", text: "#fff", lbl: "< 0.160 Extreme Deficit" },
+                { bg: "#ef4444", text: "#fff", lbl: "0.160–0.220 Moderate Stress" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "0.220–0.280 Mild Deficit" },
+                { bg: "#2d7a2f", text: "#fff", lbl: "0.280–0.380 Favorable" },
+                { bg: "#1b5e20", text: "#fff", lbl: "0.380–0.440 Surplus" },
+                { bg: "#0d3b13", text: "#fff", lbl: "> 0.440 Saturated" }
+            ];
+            chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
+        }
+    }
+
+    container.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <strong style="color:var(--text-primary); font-size:11.5px;">${title}</strong>
+            <div class="legend-scale-container">${chipsHtml}</div>
+        </div>
+        <div class="legend-key-box">
+            <div><span class="sample-solid"></span><strong>Solid:</strong> Observed ERA5 / Archive</div>
+            <div><span class="sample-dashed"></span><strong>Dashed:</strong> GFS Forward Guidance</div>
+        </div>
+    `;
+}
+
+// Render State Pickers
+function renderStatePickers(filterQuery = "") {
+    const data = window.US_CROP_MATRIX_DATA;
+    if (!data) return;
+
+    const container = document.getElementById("belt-pickers-container");
+    if (!container) return;
+
+    const belts = {};
+    data.locations.forEach(loc => {
+        if (!filterQuery || loc.name.toLowerCase().includes(filterQuery) || loc.code.toLowerCase().includes(filterQuery) || loc.region_title.toLowerCase().includes(filterQuery)) {
+            if (!belts[loc.region_title]) belts[loc.region_title] = [];
+            belts[loc.region_title].push(loc);
+        }
+    });
+
+    let html = "";
+    for (const [rtitle, locs] of Object.entries(belts)) {
+        let chips = locs.map(l => {
+            const isActive = selectedStates.includes(l.code);
+            return `<button class="state-chip ${isActive ? 'active' : ''}" onclick="toggleState('${l.code}')">${l.name} (${l.code})</button>`;
+        }).join("");
+
+        html += `
+            <div class="belt-row">
+                <span class="belt-label" title="${rtitle}">${rtitle}:</span>
+                <div class="state-chips-container">${chips}</div>
+            </div>
+        `;
+    }
+    if (Object.keys(belts).length === 0) {
+        html = `<div style="font-size:12px; color:var(--text-muted); padding:4px 0;">No agricultural states match search query.</div>`;
+    }
+    container.innerHTML = html;
+}
+
+function filterStatesBySearch() {
+    const q = document.getElementById("state-search-input").value.trim().toLowerCase();
+    renderStatePickers(q);
+}
+
+// Render Year Chips (All 17 Years)
+function renderYearChips() {
+    const container = document.getElementById("year-chips-container");
+    if (!container) return;
+    container.innerHTML = ALL_YEARS.map(y => {
+        const isActive = selectedYears.includes(y);
+        return `<button class="year-chip ${isActive ? 'active' : ''}" onclick="toggleYear(${y})">${y}</button>`;
+    }).join("");
+}
+
+// Render Month Chips
+function renderMonthChips() {
+    const container = document.getElementById("month-chips-container");
+    if (!container) return;
+    container.innerHTML = monthNames.map((m, idx) => {
+        const mNum = idx + 1;
+        const isActive = selectedMonths.includes(mNum);
+        return `<button class="month-chip ${isActive ? 'active' : ''}" onclick="toggleMonth(${mNum})">${m}</button>`;
+    }).join("");
+}
+
+// Metric Selection
+function setVariable(v) {
+    currentVar = v;
+    document.querySelectorAll(".segmented-btn[data-var]").forEach(b => {
+        b.classList.toggle("active", b.dataset.var === v);
+    });
+    renderUnitButtons();
+    renderLegend();
+    renderChart();
+    renderMatrix();
+}
+
+function setDensity(d) {
+    matrixDensity = d;
+    const wrapper = document.getElementById("matrix-wrapper");
+    wrapper.classList.remove("matrix-compact", "matrix-dense");
+    if (d === "compact") wrapper.classList.add("matrix-compact");
+    if (d === "dense") wrapper.classList.add("matrix-dense");
+}
+
+function toggleState(code) {
+    if (selectedStates.includes(code)) {
+        if (selectedStates.length > 1) {
+            selectedStates = selectedStates.filter(c => c !== code);
+        }
+    } else {
+        selectedStates.push(code);
+    }
+    renderStatePickers();
+    renderChart();
+    renderMatrix();
+}
+
+function selectCropGroup(grp) {
+    if (grp === "corn") selectedStates = ["IA", "IL", "NE", "MN", "IN", "OH"];
+    if (grp === "soy") selectedStates = ["IL", "IA", "MN", "IN", "MO", "OH", "ND"];
+    if (grp === "wheat") selectedStates = ["KS", "ND", "WA", "MT", "OK", "TX", "ID", "CO"];
+    renderStatePickers();
+    renderChart();
+    renderMatrix();
+}
+
+function selectAllStates() {
+    const data = window.US_CROP_MATRIX_DATA;
+    if (data) {
+        selectedStates = data.locations.map(l => l.code);
+        renderStatePickers();
+        renderChart();
+        renderMatrix();
+    }
+}
+
+function resetToIowa() {
+    selectedStates = ["IA"];
+    renderStatePickers();
+    renderChart();
+    renderMatrix();
+}
+
+function toggleYear(y) {
+    if (selectedYears.includes(y)) {
+        if (selectedYears.length > 1) selectedYears = selectedYears.filter(yr => yr !== y);
+    } else {
+        selectedYears.push(y);
+    }
+    renderYearChips();
+    renderChart();
+    renderMatrix();
+}
+
+function setYearPreset(p) {
+    if (p === "all") selectedYears = [...ALL_YEARS];
+    if (p === "last10") selectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
+    if (p === "last5") selectedYears = [2026, 2025, 2024, 2023, 2022];
+    if (p === "bench") selectedYears = [2026, 2023, 2017, 2012];
+    if (p === "early") selectedYears = [2015, 2014, 2013, 2012, 2011, 2010];
+    renderYearChips();
+    renderChart();
+    renderMatrix();
+}
+
+function toggleMonth(m) {
+    if (selectedMonths.includes(m)) {
+        if (selectedMonths.length > 1) selectedMonths = selectedMonths.filter(mn => mn !== m);
+    } else {
+        selectedMonths.push(m);
+    }
+    renderMonthChips();
+    renderMatrix();
+}
+
+function setMonthPreset(p) {
+    if (p === "all") selectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    if (p === "q2") selectedMonths = [4, 5, 6];
+    if (p === "q3") selectedMonths = [7, 8, 9];
+    if (p === "harvest") selectedMonths = [8, 9, 10, 11];
+    renderMonthChips();
+    renderMatrix();
+}
+
+function toggleBenchmarkYear(y) {
+    if (benchmarkYears.includes(y)) {
+        benchmarkYears = benchmarkYears.filter(item => item !== y);
+        document.getElementById(`bench-${y}`).classList.remove(`active-${y}`);
+    } else {
+        benchmarkYears.push(y);
+        document.getElementById(`bench-${y}`).classList.add(`active-${y}`);
+    }
+    renderChart();
+}
+
+// Helper: Extract monthly value from record for current variable
+function getMetricValue(rec, v) {
+    if (!rec) return null;
+    if (v === "precip") return rec.precip_mm_day;
+    if (v === "temp") return rec.temp_mean_c;
+    if (v === "temp_max") return rec.temp_max_c !== undefined ? rec.temp_max_c : (rec.temp_mean_c + 5.5);
+    if (v === "temp_min") return rec.temp_min_c !== undefined ? rec.temp_min_c : (rec.temp_mean_c - 5.5);
+    if (v === "topsoil") return rec.topsoil_moisture;
+    if (v === "subsoil") return rec.subsoil_moisture;
+    return null;
+}
+
+// Helper: Convert metric value to chosen unit
+function convertValue(val, v, isDelta = false) {
+    if (val === null || val === undefined || isNaN(val)) return null;
+    if (v === "precip") {
+        if (precipUnit === "in_total") return (val * 30.4) / 25.4; // approx monthly inches
+        if (precipUnit === "mm_total") return val * 30.4;
+        return val; // mm/day
+    }
+    if (v === "temp" || v === "temp_max" || v === "temp_min") {
+        if (tempUnit === "f") {
+            return isDelta ? (val * 9 / 5) : (val * 9 / 5 + 32);
+        }
+        return val;
+    }
+    if (v === "topsoil" || v === "subsoil") {
+        if (soilUnit === "pct") return (val / 0.45) * 100; // relative saturation %
+        return val;
+    }
+    return val;
+}
+
+function getUnitLabel() {
+    if (currentVar === "precip") {
+        if (precipUnit === "in_total") return 'in/mo';
+        if (precipUnit === "mm_total") return 'mm/mo';
+        return 'mm/d';
+    }
+    if (currentVar === "temp" || currentVar === "temp_max" || currentVar === "temp_min") {
+        return tempUnit === 'f' ? '°F' : '°C';
+    }
+    return soilUnit === 'pct' ? '%' : 'm³/m³';
+}
+
+// 3. Dynamic Interactive Progression & Envelope Chart (SVG)
+function renderChart() {
+    const container = document.getElementById("chart-container");
+    const data = window.US_CROP_MATRIX_DATA;
+    if (!container || !data) return;
+
+    const width = container.clientWidth || 1500;
+    const height = 180;
+    const padding = { top: 20, right: 30, bottom: 25, left: 60 };
+
+    // Compute monthly curves across selected states
+    // 1. Min/Max envelope across all 17 years (2010-2026)
+    // 2. Baseline 2010-2025 mean curve
+    // 3. Active 2026 curve
+    // 4. Benchmark years curves (2012, 2019, 2025)
+
+    const monthlyMin = [];
+    const monthlyMax = [];
+    const monthlyBase = [];
+    const monthly2026 = [];
+    const monthlyBench = {};
+    benchmarkYears.forEach(by => monthlyBench[by] = []);
+
+    for (let m = 1; m <= 12; m++) {
+        const mStr = String(m);
+        let allValsForMonth = [];
+        let baseVals = [];
+        let vals2026 = [];
+
+        selectedStates.forEach(code => {
+            const sMatrix = data.matrix_by_state[code] || {};
+            const sBase = (data.baseline_monthly && data.baseline_monthly[code]) ? data.baseline_monthly[code][mStr] : null;
+
+            if (sBase) {
+                const bVal = getMetricValue(sBase, currentVar);
+                if (bVal !== null) baseVals.push(bVal);
+            }
+
+            ALL_YEARS.forEach(y => {
+                const rec = sMatrix[String(y)] ? sMatrix[String(y)][mStr] : null;
+                const val = getMetricValue(rec, currentVar);
+                if (val !== null) {
+                    allValsForMonth.push(val);
+                    if (y === 2026) vals2026.push(val);
+                    if (benchmarkYears.includes(y)) {
+                        if (!monthlyBench[y][m - 1]) monthlyBench[y][m - 1] = [];
+                        monthlyBench[y][m - 1].push(val);
+                    }
+                }
+            });
+        });
+
+        const minV = allValsForMonth.length ? Math.min(...allValsForMonth) : 0;
+        const maxV = allValsForMonth.length ? Math.max(...allValsForMonth) : 1;
+        const baseV = baseVals.length ? (baseVals.reduce((a, b) => a + b, 0) / baseVals.length) : (minV + maxV) / 2;
+        const v2026 = vals2026.length ? (vals2026.reduce((a, b) => a + b, 0) / vals2026.length) : null;
+
+        monthlyMin.push(convertValue(minV, currentVar));
+        monthlyMax.push(convertValue(maxV, currentVar));
+        monthlyBase.push(convertValue(baseV, currentVar));
+        monthly2026.push(v2026 !== null ? convertValue(v2026, currentVar) : null);
+    }
+
+    // Process benchmarks
+    const benchCurves = {};
+    benchmarkYears.forEach(by => {
+        benchCurves[by] = [];
+        for (let m = 0; m < 12; m++) {
+            const list = monthlyBench[by][m] || [];
+            benchCurves[by].push(list.length ? convertValue(list.reduce((a, b) => a + b, 0) / list.length, currentVar) : null);
+        }
+    });
+
+    // Determine scale limits
+    let allDisplay = [...monthlyMin, ...monthlyMax, ...monthlyBase, ...monthly2026.filter(v => v !== null)];
+    Object.values(benchCurves).forEach(arr => arr.forEach(v => { if (v !== null) allDisplay.push(v); }));
+    let yMin = Math.min(...allDisplay);
+    let yMax = Math.max(...allDisplay);
+    const yMargin = (yMax - yMin) * 0.1 || 1;
+    yMin -= yMargin;
+    yMax += yMargin;
+
+    const plotW = width - padding.left - padding.right;
+    const plotH = height - padding.top - padding.bottom;
+
+    const getX = (idx) => padding.left + (idx / 11) * plotW;
+    const getY = (val) => padding.top + plotH - ((val - yMin) / (yMax - yMin)) * plotH;
+
+    // Build SVG Elements
+    // 1. Gridlines
+    let gridHtml = "";
+    for (let i = 0; i <= 4; i++) {
+        const gridVal = yMin + (i / 4) * (yMax - yMin);
+        const yPos = getY(gridVal);
+        gridHtml += `
+            <line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#f1f5f9" stroke-width="1"/>
+            <text x="${padding.left - 8}" y="${yPos + 3.5}" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="600">${gridVal.toFixed(1)}</text>
+        `;
+    }
+
+    // X Axis Month Labels
+    let xLabelsHtml = "";
+    for (let i = 0; i < 12; i++) {
+        const xPos = getX(i);
+        xLabelsHtml += `
+            <line x1="${xPos}" y1="${padding.top}" x2="${xPos}" y2="${height - padding.bottom}" stroke="#f8fafc" stroke-width="1"/>
+            <text x="${xPos}" y="${height - padding.bottom + 16}" text-anchor="middle" font-size="10" fill="#64748b" font-weight="700">${monthNames[i]}</text>
+        `;
+    }
+
+    // 2. 17-Year Envelope Area Path
+    let upperPts = monthlyMax.map((v, i) => `${getX(i)},${getY(v)}`).join(" ");
+    let lowerPts = [...monthlyMin].reverse().map((v, i) => `${getX(11 - i)},${getY(v)}`).join(" ");
+    const envelopePath = `M ${upperPts} L ${lowerPts} Z`;
+
+    // 3. Baseline Line
+    const basePts = monthlyBase.map((v, i) => `${getX(i)},${getY(v)}`).join(" L ");
+
+    // 4. Benchmark Lines
+    let benchLinesHtml = "";
+    const benchColors = { 2012: "#dc2626", 2019: "#2563eb", 2025: "#7c3aed" };
+    for (const [by, vals] of Object.entries(benchCurves)) {
+        const validPts = vals.map((v, i) => v !== null ? `${getX(i)},${getY(v)}` : null).filter(Boolean).join(" L ");
+        if (validPts) {
+            benchLinesHtml += `<path d="M ${validPts}" fill="none" stroke="${benchColors[by] || '#059669'}" stroke-width="2" stroke-dasharray="4,3"/>`;
+        }
+    }
+
+    // 5. 2026 Line (Jan-Aug solid, Sep-Dec dashed)
+    const pts2026_obs = monthly2026.slice(0, 8).map((v, i) => v !== null ? `${getX(i)},${getY(v)}` : null).filter(Boolean).join(" L ");
+    const pts2026_fcst = monthly2026.slice(7, 12).map((v, i) => v !== null ? `${getX(i + 7)},${getY(v)}` : null).filter(Boolean).join(" L ");
+
+    let line2026Html = "";
+    if (pts2026_obs) {
+        line2026Html += `<path d="M ${pts2026_obs}" fill="none" stroke="#064e3b" stroke-width="3"/>`;
+    }
+    if (pts2026_fcst) {
+        line2026Html += `<path d="M ${pts2026_fcst}" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5,4"/>`;
+    }
+
+    // 6. Data Points for 2026
+    let points2026Html = "";
+    monthly2026.forEach((v, i) => {
+        if (v !== null) {
+            const isFcst = i >= 8;
+            points2026Html += `
+                <circle cx="${getX(i)}" cy="${getY(v)}" r="4.5" fill="${isFcst ? '#0284c7' : '#064e3b'}" stroke="#ffffff" stroke-width="1.5">
+                    <title>${monthNames[i]} 2026: ${v.toFixed(1)} ${getUnitLabel()} (${isFcst ? 'GFS Forecast' : 'Observed'})</title>
+                </circle>
+            `;
+        }
+    });
+
+    container.innerHTML = `
+        <svg class="chart-svg" viewBox="0 0 ${width} ${height}">
+            <!-- Gridlines -->
+            ${gridHtml}
+            ${xLabelsHtml}
+
+            <!-- 17-Year Historical Envelope -->
+            <path d="${envelopePath}" fill="#e2e8f0" fill-opacity="0.45" stroke="#cbd5e1" stroke-width="1"/>
+
+            <!-- 2010-2025 Normal Baseline -->
+            <path d="M ${basePts}" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+
+            <!-- Benchmarks -->
+            ${benchLinesHtml}
+
+            <!-- 2026 Trajectory -->
+            ${line2026Html}
+            ${points2026Html}
+
+            <!-- Legend inside Chart -->
+            <g transform="translate(${padding.left + 15}, ${padding.top + 8})">
+                <rect x="0" y="0" width="14" height="10" fill="#e2e8f0" fill-opacity="0.7" rx="2"/>
+                <text x="20" y="9" font-size="10" font-weight="700" fill="#475569">17-Yr Range (2010–26 Envelope)</text>
+
+                <line x1="190" y1="5" x2="210" y2="5" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="216" y="9" font-size="10" font-weight="700" fill="#475569">2010–25 Normal</text>
+
+                <line x1="310" y1="5" x2="330" y2="5" stroke="#064e3b" stroke-width="3"/>
+                <circle cx="320" cy="5" r="3.5" fill="#064e3b"/>
+                <text x="336" y="9" font-size="10" font-weight="800" fill="#064e3b">2026 Observed</text>
+
+                <line x1="430" y1="5" x2="450" y2="5" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="4,3"/>
+                <circle cx="440" cy="5" r="3.5" fill="#0284c7"/>
+                <text x="456" y="9" font-size="10" font-weight="800" fill="#0284c7">2026 GFS Guidance</text>
+            </g>
+        </svg>
+    `;
+}
+
+// 4. Render Matrix Table (Absolute & Anomaly Modes)
+function renderMatrix() {
+    const data = window.US_CROP_MATRIX_DATA;
+    if (!data) return;
+
+    const headerEl = document.getElementById("matrix-header-container");
+    const tableEl = document.getElementById("matrix-table-container");
+
+    const yearsSorted = [...selectedYears].sort((a, b) => b - a);
+    const monthsSorted = [...selectedMonths].sort((a, b) => a - b);
+
+    const isSingle = (selectedStates.length === 1);
+    const locMap = {};
+    data.locations.forEach(l => locMap[l.code] = l);
+
+    let stateTitle = "";
+    let stateSub = "";
+    if (isSingle) {
+        const l = locMap[selectedStates[0]] || {};
+        stateTitle = `${l.name} (${l.code}) &bull; ${getVarTitle()}`;
+        stateSub = `${l.region_title} &bull; District: ${l.district}`;
+    } else {
+        const names = selectedStates.map(c => (locMap[c] || {}).name || c).slice(0, 6).join(", ");
+        const extra = selectedStates.length > 6 ? ` +${selectedStates.length - 6} more` : '';
+        stateTitle = `Multi-State Composite (${selectedStates.length} States) &bull; ${getVarTitle()}`;
+        stateSub = `Agricultural Districts: ${names}${extra}`;
+    }
+
+    const isAnom = (viewMode === "anomaly");
+
+    // Table Headers
+    let thead = `
+        <thead>
+            <tr>
+                <th class="th-year">Year</th>
+    `;
+    monthsSorted.forEach(m => {
+        thead += `<th>${monthNames[m - 1]}</th>`;
+    });
+    thead += `
+                <th class="th-avg">${isAnom ? 'Period Anom' : 'Period Avg'}</th>
+                <th class="th-avg">${isAnom ? '16-Yr Baseline' : (currentVar === 'precip' ? 'Total Accum' : '16-Yr Baseline')}</th>
+            </tr>
+        </thead>
+    `;
+
+    // Compute Rows
+    let grandSum = 0;
+    let grandCount = 0;
+    let grandTotalAccum = 0;
+    let grandAnomSum = 0;
+    let rowsHtml = "";
+
+    // Pre-calculate baselines for selected states & months
+    const stateBaselines = {};
+    monthsSorted.forEach(m => {
+        const mStr = String(m);
+        let bVals = [];
+        selectedStates.forEach(code => {
+            if (data.baseline_monthly && data.baseline_monthly[code] && data.baseline_monthly[code][mStr]) {
+                const bVal = getMetricValue(data.baseline_monthly[code][mStr], currentVar);
+                if (bVal !== null) bVals.push(bVal);
+            }
+        });
+        stateBaselines[m] = bVals.length ? (bVals.reduce((a, b) => a + b, 0) / bVals.length) : 0;
+    });
+
+    yearsSorted.forEach(y => {
+        let rowSum = 0;
+        let rowCount = 0;
+        let rowTotalAccum = 0;
+        let rowAnomSum = 0;
+        let cellsHtml = "";
+
+        monthsSorted.forEach(m => {
+            let mVals = [];
+            let mAccums = [];
+            let isFcst = false;
+
+            selectedStates.forEach(code => {
+                const sMatrix = data.matrix_by_state[code] || {};
+                const yData = sMatrix[String(y)] || {};
+                const mInfo = yData[String(m)];
+                if (mInfo) {
+                    if (mInfo.is_forecast) isFcst = true;
+                    const val = getMetricValue(mInfo, currentVar);
+                    if (val !== null) mVals.push(val);
+                    if (mInfo.precip_total_mm !== undefined) mAccums.push(mInfo.precip_total_mm);
+                }
+            });
+
+            if (mVals.length > 0) {
+                const rawAvg = mVals.reduce((a, b) => a + b, 0) / mVals.length;
+                const accum = mAccums.length > 0 ? (mAccums.reduce((a, b) => a + b, 0) / mAccums.length) : 0;
+                const norm = stateBaselines[m] || 0;
+                const anom = rawAvg - norm;
+
+                rowSum += rawAvg;
+                rowCount++;
+                rowTotalAccum += accum;
+                rowAnomSum += anom;
+
+                let displayVal = "";
+                let subText = "";
+                let c = null;
+
+                if (isAnom) {
+                    c = getColorForMetric(anom, currentVar, true);
+                    const dispAnom = convertValue(anom, currentVar, true);
+                    const sign = dispAnom >= 0 ? "+" : "";
+                    displayVal = `${sign}${dispAnom.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1)}`;
+                    subText = `${Math.round((anom / (norm || 1)) * 100)}%`;
+                } else {
+                    c = getColorForMetric(rawAvg, currentVar, false);
+                    const dispVal = convertValue(rawAvg, currentVar, false);
+                    displayVal = dispVal.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1);
+                    if (currentVar === "precip") {
+                        subText = `${Math.round(accum)}mm`;
+                    } else if (currentVar === "temp" || currentVar === "temp_max" || currentVar === "temp_min") {
+                        subText = tempUnit === 'f' ? `${Math.round(dispVal)}°F` : `${Math.round(rawAvg)}°C`;
+                    } else {
+                        subText = rawAvg < 0.220 ? "Stress" : (rawAvg > 0.380 ? "Surplus" : "Optimal");
+                    }
+                }
+
+                const sqClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
+                const tip = `${monthNames[m-1]} ${y}: ${displayVal} (${isFcst ? 'GFS Forecast' : 'Historical'})`;
+
+                cellsHtml += `
+                    <td>
+                        <div class="${sqClass}" style="background:${c.bg}; color:${c.text};"
+                             onmouseenter="showCellPopover(event, '${selectedStates.join(",")}', ${y}, ${m}, ${rawAvg}, ${norm}, ${anom}, ${isFcst})"
+                             onmouseleave="hideCellPopover()">
+                            <span>${displayVal}</span>
+                            <span class="matrix-square-sub">${subText}</span>
+                        </div>
+                    </td>
+                `;
+            } else {
+                cellsHtml += `<td><div class="matrix-square-cell" style="background:#f8fafc; color:#cbd5e1; border:1px dashed #e2e8f0;">-</div></td>`;
+            }
+        });
+
+        const rowAvg = rowCount > 0 ? (rowSum / rowCount) : null;
+        const rowAnomAvg = rowCount > 0 ? (rowAnomSum / rowCount) : null;
+
+        if (rowAvg !== null) {
+            grandSum += rowSum;
+            grandCount += rowCount;
+            grandTotalAccum += rowTotalAccum;
+            grandAnomSum += rowAnomSum;
+
+            let cRow = null;
+            let dispRow = "";
+            let subRow = "";
+
+            if (isAnom) {
+                cRow = getColorForMetric(rowAnomAvg, currentVar, true);
+                const dispAnom = convertValue(rowAnomAvg, currentVar, true);
+                const sign = dispAnom >= 0 ? "+" : "";
+                dispRow = `${sign}${dispAnom.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1)}`;
+                subRow = "Anom";
+            } else {
+                cRow = getColorForMetric(rowAvg, currentVar, false);
+                const dispVal = convertValue(rowAvg, currentVar, false);
+                dispRow = dispVal.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1);
+                subRow = currentVar === 'precip' ? `${Math.round(rowTotalAccum)}mm` : 'Mean';
+            }
+
+            const baseAvg = monthsSorted.map(m => stateBaselines[m]).reduce((a, b) => a + b, 0) / monthsSorted.length;
+            const dispBaseAvg = convertValue(baseAvg, currentVar, false);
+
+            cellsHtml += `
+                <td>
+                    <div class="matrix-square-cell" style="background:${cRow.bg}; color:${cRow.text}; border:2px solid rgba(0,0,0,0.15);">
+                        <span>${dispRow}</span>
+                        <span class="matrix-square-sub">${subRow}</span>
+                    </div>
+                </td>
+                <td style="font-weight:700; color:var(--text-primary); font-size:11.5px;">
+                    ${dispBaseAvg !== null ? `${dispBaseAvg.toFixed(1)} ${getUnitLabel()}` : '-'}
+                </td>
+            `;
+        } else {
+            cellsHtml += `<td>-</td><td>-</td>`;
+        }
+
+        rowsHtml += `
+            <tr>
+                <td class="matrix-year-cell">${y}</td>
+                ${cellsHtml}
+            </tr>
+        `;
+    });
+
+    const grandAvg = grandCount > 0 ? (grandSum / grandCount) : 0;
+    const grandAnomAvg = grandCount > 0 ? (grandAnomSum / grandCount) : 0;
+
+    // Header KPI summary
+    headerEl.innerHTML = `
+        <div class="matrix-header">
+            <div class="matrix-title-group">
+                <h2>${stateTitle}</h2>
+                <p>${stateSub} &bull; Filtered Horizon: ${yearsSorted[yearsSorted.length-1]}–${yearsSorted[0]} (${yearsSorted.length} Yrs) &bull; Months: ${monthsSorted.map(m => monthNames[m-1]).join(", ")}</p>
+            </div>
+            <div class="matrix-kpis">
+                <div class="matrix-kpi-item">
+                    <div class="matrix-kpi-label">Filtered ${isAnom ? 'Net Departure' : 'Period Average'}</div>
+                    <div class="matrix-kpi-value">
+                        ${isAnom ? (grandAnomAvg >= 0 ? '+' : '') + convertValue(grandAnomAvg, currentVar, true).toFixed(1) : convertValue(grandAvg, currentVar, false).toFixed(1)}
+                        <span style="font-size:12px; font-weight:600;">${getUnitLabel()}</span>
+                    </div>
+                </div>
+                ${currentVar === 'precip' ? `
+                <div class="matrix-kpi-item">
+                    <div class="matrix-kpi-label">Mean Annual Rainfall</div>
+                    <div class="matrix-kpi-value">${Math.round(grandTotalAccum / yearsSorted.length)} <span style="font-size:12px; font-weight:600;">mm/yr</span></div>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+
+    tableEl.innerHTML = `
+        <table class="matrix-table" id="matrix-export-table">
+            ${thead}
+            <tbody>${rowsHtml}</tbody>
+        </table>
+    `;
+}
+
+// 5. Floating Interactive Cell Popover
+function showCellPopover(e, stateCodes, y, m, val, norm, anom, isFcst) {
+    const pop = document.getElementById("cell-popover");
+    if (!pop) return;
+
+    const data = window.US_CROP_MATRIX_DATA;
+    const codes = stateCodes.split(",");
+    const locName = codes.length === 1 ? ((data.locations.find(l => l.code === codes[0]) || {}).name || codes[0]) : `${codes.length} States Composite`;
+
+    document.getElementById("pop-title").innerText = `${locName} • ${monthNames[m-1]} ${y}`;
+    document.getElementById("pop-badge").innerText = isFcst ? "GFS Guidance" : "Observed";
+    document.getElementById("pop-badge").style.background = isFcst ? "#0284c7" : "#1e293b";
+
+    const dispVal = convertValue(val, currentVar, false);
+    const dispNorm = convertValue(norm, currentVar, false);
+    const dispAnom = convertValue(anom, currentVar, true);
+    const sign = dispAnom >= 0 ? "+" : "";
+    const pct = norm ? Math.round((anom / norm) * 100) : 0;
+
+    document.getElementById("pop-val").innerText = `${dispVal.toFixed(currentVar.includes('soil') ? 3 : 1)} ${getUnitLabel()}`;
+    document.getElementById("pop-norm").innerText = `${dispNorm.toFixed(currentVar.includes('soil') ? 3 : 1)} ${getUnitLabel()}`;
+    document.getElementById("pop-anom").innerText = `${sign}${dispAnom.toFixed(currentVar.includes('soil') ? 3 : 1)} (${sign}${pct}%)`;
+
+    // Agronomic Diagnosis
+    let diag = "";
+    if (currentVar === "precip") {
+        if (anom < -1.5) diag = "Critical moisture deficit; elevated risk of drought stress on canopy & root zone.";
+        else if (anom > 1.5) diag = "Significant precipitation surplus; field waterlogging / harvest delay potential.";
+        else diag = "Precipitation tracked within normal climatological boundaries.";
+    } else if (currentVar === "temp_max") {
+        if (val >= 32.2) diag = "Elevated daytime heat stress (≥90°F); pollen desiccation / flower abortion hazard.";
+        else diag = "Favorable daytime thermal range for vegetative & grain fill development.";
+    } else if (currentVar === "temp_min") {
+        if (val >= 21.1) diag = "Warm night respiration penalty (≥70°F); elevated carbohydrate consumption.";
+        else if (val <= 0.0) diag = "Sub-freezing temperatures (≤32°F); vegetative frost / maturation termination.";
+        else diag = "Crisp nighttime temperatures supporting balanced respiration & recovery.";
+    } else {
+        if (val < 0.200) diag = "Severe root zone moisture depletion; drought stress evident.";
+        else if (val > 0.380) diag = "Field capacity exceeded; high soil saturation / ponding risk.";
+        else diag = "Optimal volumetric soil hydration for root uptake.";
+    }
+    document.getElementById("pop-diag").innerText = diag;
+
+    // Position popover safely near mouse
+    pop.style.display = "block";
+    const x = Math.min(e.clientX + 16, window.innerWidth - 290);
+    const yPos = Math.min(e.clientY - 30, window.innerHeight - 200);
+    pop.style.left = `${x}px`;
+    pop.style.top = `${yPos}px`;
+}
+
+function hideCellPopover() {
+    const pop = document.getElementById("cell-popover");
+    if (pop) pop.style.display = "none";
+}
+
+function getVarTitle() {
+    if (currentVar === "precip") return "Precipitation Matrix";
+    if (currentVar === "temp_max") return "Daytime High Temperature Matrix (T-Max)";
+    if (currentVar === "temp_min") return "Nighttime Low Temperature Matrix (T-Min)";
+    if (currentVar === "temp") return "24-Hr Mean Temperature Matrix";
+    if (currentVar === "topsoil") return "Topsoil (0–10 cm) Seedbed Moisture Matrix";
+    return "Subsoil (10–100 cm) Deep Root Zone Moisture Matrix";
+}
+
+function exportCSV() {
+    const table = document.getElementById("matrix-export-table");
+    if (!table) return;
+    let csv = [];
+    for (let r of table.rows) {
+        let row = [];
+        for (let c of r.cells) {
+            row.push(`"${c.innerText.replace(/\n/g, ' ').trim()}"`);
+        }
+        csv.push(row.join(","));
+    }
+    const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `US_Crop_${currentVar}_${viewMode}_Matrix_${selectedStates.join("-")}.csv`;
+    a.click();
+}
+
+window.addEventListener("DOMContentLoaded", initMatrixDashboard);
+</script>
+
+</body>
+</html>

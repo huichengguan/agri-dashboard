@@ -1,0 +1,564 @@
+{
+  "Core Corn & Soybean Belt (Midwest)": {
+    "region_id": "midwest_core",
+    "description": "The primary heartland of US corn and soybean production with deep, high-fertility mollisol soils.",
+    "states": [
+      {
+        "name": "Iowa",
+        "code": "IA",
+        "district": "Central / Des Moines Lobe (Story/Boone)",
+        "lat": 42.03,
+        "lon": -93.63,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 2627,
+            "yield_bpa": 211,
+            "share_pct": 15.5,
+            "status": "Filling/Maturity"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 590,
+            "yield_bpa": 60,
+            "share_pct": 13.5,
+            "status": "Pod Filling/Maturing"
+          }
+        ]
+      },
+      {
+        "name": "Illinois",
+        "code": "IL",
+        "district": "Central Grain Heartland (Champaign/McLean)",
+        "lat": 40.11,
+        "lon": -88.24,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 2396,
+            "yield_bpa": 217,
+            "share_pct": 14.1,
+            "status": "Maturity/Drydown"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 675,
+            "yield_bpa": 63,
+            "share_pct": 15.5,
+            "status": "Pod Filling/Maturing"
+          },
+          {
+            "crop": "SRW Wheat",
+            "production_mbu": 55,
+            "yield_bpa": 84,
+            "share_pct": 2.7,
+            "status": "Pre-Planting"
+          }
+        ]
+      },
+      {
+        "name": "Indiana",
+        "code": "IN",
+        "district": "Central Corn & Soybean Belt (Tipton/Hamilton)",
+        "lat": 40.28,
+        "lon": -86.13,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 1020,
+            "yield_bpa": 198,
+            "share_pct": 6.0,
+            "status": "Denting/Maturity"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 340,
+            "yield_bpa": 62,
+            "share_pct": 7.8,
+            "status": "Pod Fill/Maturity"
+          },
+          {
+            "crop": "SRW Wheat",
+            "production_mbu": 20,
+            "yield_bpa": 82,
+            "share_pct": 1.0,
+            "status": "Pre-Planting"
+          }
+        ]
+      },
+      {
+        "name": "Ohio",
+        "code": "OH",
+        "district": "West-Central / Plain City Heartland",
+        "lat": 40.35,
+        "lon": -83.5,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 620,
+            "yield_bpa": 192,
+            "share_pct": 3.6,
+            "status": "Denting/Maturity"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 262,
+            "yield_bpa": 52,
+            "share_pct": 6.0,
+            "status": "Pod Drop/Maturing"
+          },
+          {
+            "crop": "SRW Wheat",
+            "production_mbu": 46,
+            "yield_bpa": 85,
+            "share_pct": 2.3,
+            "status": "Pre-Planting"
+          }
+        ]
+      },
+      {
+        "name": "Missouri",
+        "code": "MO",
+        "district": "North-Central Prairie (Chillicothe/Macon)",
+        "lat": 39.5,
+        "lon": -92.5,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 575,
+            "yield_bpa": 172,
+            "share_pct": 3.4,
+            "status": "Mature/Harvest Commencing"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 285,
+            "yield_bpa": 50,
+            "share_pct": 6.5,
+            "status": "Pod Fill/Turning"
+          },
+          {
+            "crop": "SRW Wheat",
+            "production_mbu": 36,
+            "yield_bpa": 72,
+            "share_pct": 1.8,
+            "status": "Pre-Planting"
+          }
+        ]
+      }
+    ]
+  },
+  "Northern Plains & Upper Midwest (Corn, Soy & Spring Wheat)": {
+    "region_id": "northern_plains",
+    "description": "High-latitude northern production zone balancing grain corn, soybeans, and spring wheat.",
+    "states": [
+      {
+        "name": "Minnesota",
+        "code": "MN",
+        "district": "South-Central / Blue Earth Heartland",
+        "lat": 44.5,
+        "lon": -94.5,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 1420,
+            "yield_bpa": 182,
+            "share_pct": 8.4,
+            "status": "Dough/Denting"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 360,
+            "yield_bpa": 50,
+            "share_pct": 8.2,
+            "status": "Leaves Dropping"
+          },
+          {
+            "crop": "HRS Wheat",
+            "production_mbu": 74,
+            "yield_bpa": 61,
+            "share_pct": 3.7,
+            "status": "Harvest Wrapping Up"
+          }
+        ]
+      },
+      {
+        "name": "South Dakota",
+        "code": "SD",
+        "district": "East-Central Plains (Huron/Brookings)",
+        "lat": 44.3,
+        "lon": -97.5,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 840,
+            "yield_bpa": 153,
+            "share_pct": 4.9,
+            "status": "Denting/Maturing"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 231,
+            "yield_bpa": 44,
+            "share_pct": 5.3,
+            "status": "Pod Fill/Turning"
+          },
+          {
+            "crop": "Wheat (Spring/HRW)",
+            "production_mbu": 68,
+            "yield_bpa": 49,
+            "share_pct": 3.4,
+            "status": "Spring Harvest / Winter Seeding"
+          }
+        ]
+      },
+      {
+        "name": "North Dakota",
+        "code": "ND",
+        "district": "Central Plains & Red River Valley",
+        "lat": 47.4,
+        "lon": -98.5,
+        "commodities": [
+          {
+            "crop": "HRS & Durum Wheat",
+            "production_mbu": 325,
+            "yield_bpa": 53,
+            "share_pct": 16.2,
+            "status": "Late Harvest"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 215,
+            "yield_bpa": 36,
+            "share_pct": 4.9,
+            "status": "Pod Fill/Turning"
+          },
+          {
+            "crop": "Corn",
+            "production_mbu": 510,
+            "yield_bpa": 142,
+            "share_pct": 3.0,
+            "status": "Dough/Denting"
+          }
+        ]
+      },
+      {
+        "name": "Wisconsin",
+        "code": "WI",
+        "district": "South-Central / Columbia Grain Area",
+        "lat": 43.5,
+        "lon": -89.5,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 520,
+            "yield_bpa": 175,
+            "share_pct": 3.1,
+            "status": "Denting/Silage Cut"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 105,
+            "yield_bpa": 51,
+            "share_pct": 2.4,
+            "status": "Pod Fill/Maturing"
+          }
+        ]
+      },
+      {
+        "name": "Michigan",
+        "code": "MI",
+        "district": "Central Thumb & Saginaw Basin",
+        "lat": 43.2,
+        "lon": -84.2,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 345,
+            "yield_bpa": 171,
+            "share_pct": 2.0,
+            "status": "Dough/Denting"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 108,
+            "yield_bpa": 48,
+            "share_pct": 2.5,
+            "status": "Pod Fill/Turning"
+          },
+          {
+            "crop": "SRW Wheat",
+            "production_mbu": 46,
+            "yield_bpa": 83,
+            "share_pct": 2.3,
+            "status": "Pre-Planting"
+          }
+        ]
+      }
+    ]
+  },
+  "Central & Southern Plains (Wheat & Western Grain)": {
+    "region_id": "southern_plains",
+    "description": "The epicenter of Hard Red Winter (HRW) wheat production, with extensive dryland and irrigated grain.",
+    "states": [
+      {
+        "name": "Kansas",
+        "code": "KS",
+        "district": "Central Wheat Heartland (Salina/McPherson)",
+        "lat": 38.8,
+        "lon": -98.2,
+        "commodities": [
+          {
+            "crop": "HRW Wheat",
+            "production_mbu": 308,
+            "yield_bpa": 42,
+            "share_pct": 15.4,
+            "status": "Fall Seeding Commencing"
+          },
+          {
+            "crop": "Corn",
+            "production_mbu": 780,
+            "yield_bpa": 137,
+            "share_pct": 4.6,
+            "status": "Mature/Harvest Active"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 130,
+            "yield_bpa": 40,
+            "share_pct": 3.0,
+            "status": "Pod Fill/Turning"
+          }
+        ]
+      },
+      {
+        "name": "Nebraska",
+        "code": "NE",
+        "district": "Central Platte Valley (Grand Island/York)",
+        "lat": 41.2,
+        "lon": -98.0,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 1740,
+            "yield_bpa": 185,
+            "share_pct": 10.2,
+            "status": "Maturity/Drydown"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 270,
+            "yield_bpa": 57,
+            "share_pct": 6.2,
+            "status": "Leaves Dropping"
+          },
+          {
+            "crop": "HRW Wheat",
+            "production_mbu": 48,
+            "yield_bpa": 48,
+            "share_pct": 2.4,
+            "status": "Fall Seeding"
+          }
+        ]
+      },
+      {
+        "name": "Oklahoma",
+        "code": "OK",
+        "district": "North-Central Wheat Belt (Enid/Garfield)",
+        "lat": 36.4,
+        "lon": -98.2,
+        "commodities": [
+          {
+            "crop": "HRW Wheat",
+            "production_mbu": 108,
+            "yield_bpa": 38,
+            "share_pct": 5.4,
+            "status": "Fall Seeding & Emergence"
+          }
+        ]
+      },
+      {
+        "name": "Texas",
+        "code": "TX",
+        "district": "High Plains / Panhandle (Plainview/Lubbock)",
+        "lat": 34.8,
+        "lon": -101.8,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 270,
+            "yield_bpa": 128,
+            "share_pct": 1.6,
+            "status": "Harvest Active"
+          },
+          {
+            "crop": "HRW Wheat",
+            "production_mbu": 68,
+            "yield_bpa": 34,
+            "share_pct": 3.4,
+            "status": "Fall Seeding/Grazing Setup"
+          }
+        ]
+      },
+      {
+        "name": "Colorado",
+        "code": "CO",
+        "district": "Eastern High Plains (Burlington/Yuma)",
+        "lat": 39.8,
+        "lon": -102.8,
+        "commodities": [
+          {
+            "crop": "HRW Wheat",
+            "production_mbu": 82,
+            "yield_bpa": 41,
+            "share_pct": 4.1,
+            "status": "Fall Seeding Active"
+          },
+          {
+            "crop": "Corn",
+            "production_mbu": 140,
+            "yield_bpa": 130,
+            "share_pct": 0.8,
+            "status": "Denting/Maturing"
+          }
+        ]
+      }
+    ]
+  },
+  "Pacific Northwest & Intermountain (Wheat Heartland)": {
+    "region_id": "pacific_northwest",
+    "description": "High-yielding dryland Soft White and hard wheat heartland situated in inland basalt plateaus.",
+    "states": [
+      {
+        "name": "Washington",
+        "code": "WA",
+        "district": "Palouse Hills & Big Bend (Colfax/Whitman)",
+        "lat": 46.9,
+        "lon": -117.8,
+        "commodities": [
+          {
+            "crop": "Soft White & HRW Wheat",
+            "production_mbu": 145,
+            "yield_bpa": 72,
+            "share_pct": 7.2,
+            "status": "Fall Winter Wheat Seeding"
+          }
+        ]
+      },
+      {
+        "name": "Montana",
+        "code": "MT",
+        "district": "Golden Triangle (Great Falls/Chouteau)",
+        "lat": 47.8,
+        "lon": -111.0,
+        "commodities": [
+          {
+            "crop": "Spring & HRW Wheat",
+            "production_mbu": 178,
+            "yield_bpa": 39,
+            "share_pct": 8.9,
+            "status": "Spring Harvest / Winter Seeding"
+          }
+        ]
+      },
+      {
+        "name": "Idaho",
+        "code": "ID",
+        "district": "Snake River Plain & North Idaho",
+        "lat": 42.8,
+        "lon": -113.8,
+        "commodities": [
+          {
+            "crop": "Soft White & Hard Wheat",
+            "production_mbu": 102,
+            "yield_bpa": 84,
+            "share_pct": 5.1,
+            "status": "Fall Seeding Active"
+          }
+        ]
+      }
+    ]
+  },
+  "Delta & Mid-South (Soybeans & Corn)": {
+    "region_id": "delta_south",
+    "description": "Alluvial delta basin with high soybean acreage, long growing season, and intensive irrigation.",
+    "states": [
+      {
+        "name": "Arkansas",
+        "code": "AR",
+        "district": "Grand Prairie & Delta (Stuttgart)",
+        "lat": 34.6,
+        "lon": -91.4,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mbu": 165,
+            "yield_bpa": 54,
+            "share_pct": 3.8,
+            "status": "Maturing/Early Harvest"
+          },
+          {
+            "crop": "Corn",
+            "production_mbu": 120,
+            "yield_bpa": 180,
+            "share_pct": 0.7,
+            "status": "Harvest Well Underway"
+          }
+        ]
+      },
+      {
+        "name": "Mississippi",
+        "code": "MS",
+        "district": "Yazoo/Mississippi Delta (Greenwood)",
+        "lat": 33.6,
+        "lon": -90.6,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mbu": 115,
+            "yield_bpa": 54,
+            "share_pct": 2.6,
+            "status": "Maturing/Harvest Active"
+          },
+          {
+            "crop": "Corn",
+            "production_mbu": 85,
+            "yield_bpa": 175,
+            "share_pct": 0.5,
+            "status": "Harvest Active"
+          }
+        ]
+      },
+      {
+        "name": "Kentucky",
+        "code": "KY",
+        "district": "Western Grain Belt (Hopkinsville/Christian)",
+        "lat": 37.2,
+        "lon": -87.2,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mbu": 265,
+            "yield_bpa": 184,
+            "share_pct": 1.6,
+            "status": "Maturity/Early Harvest"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mbu": 102,
+            "yield_bpa": 53,
+            "share_pct": 2.3,
+            "status": "Pod Fill/Turning"
+          },
+          {
+            "crop": "SRW Wheat",
+            "production_mbu": 32,
+            "yield_bpa": 80,
+            "share_pct": 1.6,
+            "status": "Pre-Planting"
+          }
+        ]
+      }
+    ]
+  }
+}

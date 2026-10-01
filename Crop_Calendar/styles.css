@@ -1,0 +1,124 @@
+:root {
+    --bg: #0b0f19;
+    --panel-bg: #131a2a;
+    --text: #e0e6ed;
+    --border: #2a3a5a;
+    
+    --planting: #86efac;
+    --prime-planting: #16a34a;
+    --growing: #3b82f6;
+    --reproduction: #fbbf24;
+    --prime-harvesting: #dc2626;
+    --harvesting: #fca5a5;
+    --empty: #1e293b;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    font-size: 0.8rem;
+}
+
+.dashboard { display: flex; height: 100vh; overflow: hidden; }
+
+.sidebar {
+    width: 220px;
+    background-color: var(--panel-bg);
+    padding: 15px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar h2 { margin-top: 0; font-size: 1.1rem; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.filter-group h3 { font-size: 0.85rem; margin-bottom: 8px; color: #94a3b8; }
+.filter-group label { display: block; margin-bottom: 5px; cursor: pointer; font-size: 0.8rem; }
+.filter-group input { margin-right: 6px; }
+
+.legend h3 { font-size: 0.85rem; margin-bottom: 8px; color: #94a3b8; }
+.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.75rem; }
+.color-box { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+.color-box.planting { background-color: var(--planting); }
+.color-box.prime-planting { background-color: var(--prime-planting); }
+.color-box.growing { background-color: var(--growing); }
+.color-box.reproduction { background-color: var(--reproduction); }
+.color-box.prime-harvesting { background-color: var(--prime-harvesting); }
+.color-box.harvesting { background-color: var(--harvesting); }
+
+.content { flex: 1; padding: 15px; overflow: hidden; display: flex; flex-direction: column; }
+header { flex-shrink: 0; }
+header h1 { margin: 0 0 5px 0; font-size: 1.3rem; }
+header p { color: #94a3b8; margin-top: 0; font-size: 0.85rem; }
+
+.calendar-container { 
+    margin-top: 15px; 
+    overflow: auto; 
+    flex: 1; 
+    background-color: var(--panel-bg); 
+    border: 1px solid var(--border); 
+    border-radius: 6px; 
+}
+
+table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1000px; }
+th, td { padding: 4px 6px; text-align: left; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); font-size: 0.75rem; }
+
+th { 
+    background-color: #1a233a; 
+    position: sticky; 
+    top: 0; 
+    font-weight: 600; 
+    color: #cbd5e1; 
+    text-align: center; 
+    z-index: 10;
+    box-sizing: border-box;
+    height: 30px;
+}
+
+tr.sub-header th { 
+    top: 30px; 
+    z-index: 9;
+    font-size: 0.65rem; 
+    padding: 2px; 
+    background-color: #202a45; 
+    color: #94a3b8; 
+    border-bottom: 2px solid #64748b; 
+    height: 22px;
+}
+
+.fixed-col { white-space: nowrap; padding-right: 15px; }
+td:nth-child(1), td:nth-child(2), td:nth-child(3) {
+    white-space: nowrap;
+}
+
+th:nth-child(1), th:nth-child(2), th:nth-child(3) { text-align: left; border-right: 2px solid #94a3b8; }
+
+th[colspan="2"] { border-right: 2px solid #94a3b8; }
+tr.sub-header th:nth-child(even) { border-right: 2px solid #94a3b8; }
+
+/* Gantt Cells */
+td.month-cell { 
+    text-align: center; 
+    padding: 0; 
+    height: 22px; 
+    border-right: 1px dashed #2a3b5a; 
+    transition: filter 0.2s;
+}
+td.month-cell:hover { filter: brightness(1.2); cursor: crosshair; }
+
+/* Thick solid borders at the end of every month */
+td.month-cell:nth-child(odd), td:nth-child(3) { border-right: 2px solid #94a3b8; }
+
+/* Gantt Colors */
+td.planting { background-color: var(--planting); }
+td.prime-planting { background-color: var(--prime-planting); }
+td.growing { background-color: var(--growing); }
+td.reproduction { background-color: var(--reproduction); }
+td.prime-harvesting { background-color: var(--prime-harvesting); }
+td.harvesting { background-color: var(--harvesting); }
+td.empty { background-color: var(--empty); }

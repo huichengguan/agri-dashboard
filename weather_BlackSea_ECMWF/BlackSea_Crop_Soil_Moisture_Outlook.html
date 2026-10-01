@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Sea Crop Soil Moisture Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-emerald: #10b981;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-rose: #f43f5e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 16px 24px;
+            line-height: 1.4;
+        }
+        
+        /* Universal Suite Navigation */
+        .suite-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .suite-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .suite-brand-badge {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .suite-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suite-tab {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #0f172a;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .suite-tab:hover { color: #f8fafc; border-color: #64748b; }
+        .suite-tab.active { background: #0284c7; color: #ffffff; border-color: #0284c7; font-weight: 700; }
+
+        /* Header Card */
+        .header-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-bottom: 18px;
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+        .header-title-group h1 { font-size: 22px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 10px; }
+        .header-subtitle { font-size: 13.5px; color: var(--text-secondary); margin-top: 4px; }
+        .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .meta-tag { background: #0f172a; border: 1px solid #334155; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; color: #cbd5e1; }
+        
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .kpi-card {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+        }
+        .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+        .kpi-value { font-size: 22px; font-weight: 800; color: #f8fafc; margin: 4px 0; }
+        .kpi-sub { font-size: 11.5px; color: var(--text-secondary); }
+
+        /* Filter & Controls Bar */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .filter-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+        .filter-btn {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #0f172a;
+            color: #94a3b8;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .filter-btn.active, .filter-btn:hover { background: #334155; color: #f8fafc; }
+        .search-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #f8fafc;
+            width: 240px;
+            outline: none;
+        }
+
+        /* Table */
+        .table-container {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #334155;
+            vertical-align: middle;
+        }
+        th {
+            background: #0f172a;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 11px;
+            text-align: left;
+            user-select: none;
+            cursor: pointer;
+        }
+        th:hover { color: #38bdf8; }
+        
+        .reg-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border-left: 4px solid #0284c7;
+        }
+        .reg-banner-title { font-size: 13px; font-weight: 800; color: #38bdf8; }
+        .reg-banner-count { font-size: 11px; color: #94a3b8; font-weight: 600; }
+
+        .col-location { width: 220px; min-width: 220px; }
+        .loc-country { font-size: 11px; color: #94a3b8; font-weight: 700; }
+        .loc-name { font-size: 13.5px; color: #f8fafc; margin: 1px 0; }
+        .loc-district { font-size: 10.5px; color: #64748b; }
+
+        .col-commodities { width: 340px; min-width: 300px; }
+        .commodities-wrap { display: flex; flex-direction: column; gap: 4px; }
+        .crop-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            width: fit-content;
+        }
+        .badge-rapeseed { background: rgba(234, 179, 8, 0.2); border: 1px solid rgba(234, 179, 8, 0.4); color: #fef08a; }
+        .badge-sunflower { background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); color: #fde68a; }
+        .badge-corn { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #a7f3d0; }
+        .badge-wheat { background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); color: #bae6fd; }
+        .yield-tag { color: #cbd5e1; font-weight: 500; font-size: 10px; margin-left: 2px; }
+
+        .col-topsoil, .col-subsoil { width: 150px; min-width: 140px; text-align: center; }
+        .moist-pill {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 12px;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 1px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            min-width: 110px;
+        }
+        .status-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.9; }
+        .moist-desc { font-size: 10px; color: #94a3b8; margin-top: 4px; line-height: 1.2; text-align: center; }
+
+        .col-trend { width: 130px; min-width: 120px; text-align: center; }
+        .trend-badge {
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .trend-up { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; }
+        .trend-down { background: rgba(244, 63, 94, 0.2); border: 1px solid rgba(244, 63, 94, 0.4); color: #fb7185; }
+        .trend-flat { background: rgba(148, 163, 184, 0.15); border: 1px solid rgba(148, 163, 184, 0.3); color: #cbd5e1; }
+        .trend-sub { font-size: 9.5px; color: #64748b; margin-top: 3px; }
+
+        .col-comment { min-width: 280px; font-size: 11.5px; color: #cbd5e1; line-height: 1.4; }
+        .ag-comment { background: #0f172a; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #0284c7; }
+    </style>
+</head>
+<body>
+
+    <!-- Universal Suite Navigation -->
+    <div class="suite-nav">
+        <div class="suite-brand">
+            <span>🌱</span>
+            <span>Black Sea Crop Ag-Weather Suite</span>
+            <span class="suite-brand-badge">ECMWF IFS 0.25°</span>
+        </div>
+        <div class="suite-tabs">
+            <a href="BlackSea_Crop_2_Week_Outlook.html" class="suite-tab">🌧️ 2-Week Outlook</a>
+            <a href="BlackSea_Crop_Soil_Moisture_Outlook.html" class="suite-tab active">🌱 Soil Moisture</a>
+            <a href="BlackSea_Crop_Temperature_Outlook.html" class="suite-tab">🌡️ Temperature Outlook</a>
+            <a href="BlackSea_Crop_Weather_Matrix.html" class="suite-tab">📊 Weather Matrix</a>
+            <a href="index.html" class="suite-tab">🏠 Suite Portal</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="header-top">
+            <div class="header-title-group">
+                <h1>🌱 Black Sea Dual-Layer Soil Moisture Outlook</h1>
+                <div class="header-subtitle">
+                    ECMWF IFS Multi-Layer Diagnostics: Topsoil Seedbed (0–7cm) & Subsoil Root Zone (7–100cm) across Ukraine & European Russia
+                </div>
+            </div>
+            <div class="meta-tags">
+                <div class="meta-tag"><strong>Generated:</strong> 2026-09-14 18:38:46 UTC</div>
+                <div class="meta-tag"><strong>Atmospheric Model:</strong> ECMWF IFS (0.25°) Seamless Operational & Ag-Reanalysis</div>
+                <div class="meta-tag"><strong>Pedology Focus:</strong> Ukrainian & Russian Chernozem Granaries</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Average Topsoil Moisture (0–7cm)</div>
+            <div class="kpi-value">0.29 m³/m³</div>
+            <div class="kpi-sub">64.5% of Effective Porosity</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Average Subsoil Moisture (7–100cm)</div>
+            <div class="kpi-value">0.23 m³/m³</div>
+            <div class="kpi-sub">51.6% Deep Root Reservoir</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Adequate+ Seedbeds (≥0.22 m³/m³)</div>
+            <div class="kpi-value" style="color: #34d399;">74%</div>
+            <div class="kpi-sub">Sowing Viability for Wheat & Rapeseed</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">7-Day Dynamic Trends</div>
+            <div class="kpi-value" style="font-size: 18px;">
+                <span style="color:#34d399;">▲ 13 Recharge</span> / <span style="color:#fb7185;">▼ 8 Drydown</span>
+            </div>
+            <div class="kpi-sub">2 Basins Steady</div>
+        </div>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+        <div class="filter-group">
+            <button class="filter-btn active" onclick="filterCountry('all')">All (23 Basins)</button>
+            <button class="filter-btn" onclick="filterCountry('Ukraine')">🇺🇦 Ukraine (13)</button>
+            <button class="filter-btn" onclick="filterCountry('Russia')">🇷🇺 Russia (10)</button>
+            <button class="filter-btn" onclick="filterStatus('Optimal')">Optimal</button>
+            <button class="filter-btn" onclick="filterStatus('Adequate')">Adequate</button>
+            <button class="filter-btn" onclick="filterStatus('Deficit')">Deficit</button>
+            <button class="filter-btn" onclick="filterStatus('Severe Stress')">Severe Stress</button>
+        </div>
+        <div class="filter-group">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search basin, oblast, or crop..." onkeyup="filterRows()">
+            <div style="display:flex; border:1px solid #334155; border-radius:6px; overflow:hidden;">
+                <button class="filter-btn active" id="unitVol" onclick="setUnit('vol')">m³/m³</button>
+                <button class="filter-btn" id="unitPct" onclick="setUnit('pct')">% Cap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+        <table id="soilTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('name')">Agricultural Basin & Coordinates ⇕</th>
+                    <th>Core Commodities (MMT, Yield, Share)</th>
+                    <th onclick="sortTable('top')">Topsoil (0–7cm) ⇕</th>
+                    <th onclick="sortTable('sub')">Subsoil (7–100cm) ⇕</th>
+                    <th onclick="sortTable('delta')">7-Day Trend ⇕</th>
+                    <th>Agronomic Soil Commentary & Guidance</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr class="region-header-row" data-region="Ukraine - Central Forest-Steppe Heartland">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Central Forest-Steppe Heartland</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Poltava Oblast" 
+                data-code="UA-POL" 
+                data-country="Ukraine" 
+                data-top="0.354" 
+                data-sub="0.243" 
+                data-delta="0.1114"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Poltava Oblast</strong> <span class="loc-code">(UA-POL)</span></div>
+                    <div class="loc-district">📍 Mirgorod / Khorol Rural Chernozem Granary (49.78°N, 33.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 4.8 MMT <span class="yield-tag">(7.45 t/ha, 16.5%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.5 MMT <span class="yield-tag">(2.75 t/ha, 11.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.4 MMT <span class="yield-tag">(5.20 t/ha, 6.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.354">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.35 m³/m³</span>
+                        <span class="val-pct" style="display:none;">78.6% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.243">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.24 m³/m³</span>
+                        <span class="val-pct" style="display:none;">54.0% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.1114">
+                    <span class="trend-badge trend-up">▲ +11.1% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.11 m³/m³); prime moisture conditions (0.35 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Cherkasy Oblast" 
+                data-code="UA-CHK" 
+                data-country="Ukraine" 
+                data-top="0.298" 
+                data-sub="0.223" 
+                data-delta="0.0108"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Cherkasy Oblast</strong> <span class="loc-code">(UA-CHK)</span></div>
+                    <div class="loc-district">📍 Uman / Zhashkiv High-Yield Chernozem Plateau (48.85°N, 30.25°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.6 MMT <span class="yield-tag">(7.80 t/ha, 12.4%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.9 MMT <span class="yield-tag">(2.85 t/ha, 6.7%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.2 MMT <span class="yield-tag">(5.60 t/ha, 5.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.298">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.30 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.3% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.223">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.22 m³/m³</span>
+                        <span class="val-pct" style="display:none;">49.5% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0108">
+                    <span class="trend-badge trend-flat">■ +1.1% Steady</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (0.7 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.22 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Vinnytsia Oblast" 
+                data-code="UA-VIN" 
+                data-country="Ukraine" 
+                data-top="0.345" 
+                data-sub="0.217" 
+                data-delta="0.1076"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Vinnytsia Oblast</strong> <span class="loc-code">(UA-VIN)</span></div>
+                    <div class="loc-district">📍 Nemyriv / Haisyn Podolian Agricultural Basin (48.95°N, 29.10°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.5 MMT <span class="yield-tag">(7.90 t/ha, 12.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.8 MMT <span class="yield-tag">(5.85 t/ha, 8.7%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.40 t/ha, 12.5%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.8 MMT <span class="yield-tag">(2.70 t/ha, 6.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.345">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.34 m³/m³</span>
+                        <span class="val-pct" style="display:none;">76.6% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.217">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.22 m³/m³</span>
+                        <span class="val-pct" style="display:none;">48.3% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.1076">
+                    <span class="trend-badge trend-up">▲ +10.8% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (2.4 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.22 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kirovohrad Oblast" 
+                data-code="UA-KIR" 
+                data-country="Ukraine" 
+                data-top="0.395" 
+                data-sub="0.218" 
+                data-delta="0.1111"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Kirovohrad Oblast</strong> <span class="loc-code">(UA-KIR)</span></div>
+                    <div class="loc-district">📍 Novoukrainka / Dobrovelychkivka Steppe Granary (48.40°N, 31.55°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.7 MMT <span class="yield-tag">(2.65 t/ha, 12.8%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.5 MMT <span class="yield-tag">(4.70 t/ha, 7.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.9 MMT <span class="yield-tag">(6.20 t/ha, 6.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.395">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.39 m³/m³</span>
+                        <span class="val-pct" style="display:none;">87.7% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.218">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.22 m³/m³</span>
+                        <span class="val-pct" style="display:none;">48.5% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.1111">
+                    <span class="trend-badge trend-up">▲ +11.1% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.11 m³/m³); prime moisture conditions (0.39 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ukraine - Western Podolia & Volhynia">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Western Podolia & Volhynia</span>
+                    <span class="reg-banner-count">3 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Khmelnytskyi Oblast" 
+                data-code="UA-KHM" 
+                data-country="Ukraine" 
+                data-top="0.326" 
+                data-sub="0.216" 
+                data-delta="0.1037"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Khmelnytskyi Oblast</strong> <span class="loc-code">(UA-KHM)</span></div>
+                    <div class="loc-district">📍 Starokostiantyniv / Krasyliv Rapeseed & Wheat Belt (49.70°N, 27.20°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.6 MMT <span class="yield-tag">(3.65 t/ha, 15.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.9 MMT <span class="yield-tag">(6.30 t/ha, 9.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.0 MMT <span class="yield-tag">(8.50 t/ha, 10.3%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.6 MMT <span class="yield-tag">(2.95 t/ha, 4.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.326">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.33 m³/m³</span>
+                        <span class="val-pct" style="display:none;">72.5% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.216">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.22 m³/m³</span>
+                        <span class="val-pct" style="display:none;">48.0% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.1037">
+                    <span class="trend-badge trend-up">▲ +10.4% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.5 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.22 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Ternopil Oblast" 
+                data-code="UA-TER" 
+                data-country="Ukraine" 
+                data-top="0.266" 
+                data-sub="0.167" 
+                data-delta="0.0742"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Ternopil Oblast</strong> <span class="loc-code">(UA-TER)</span></div>
+                    <div class="loc-district">📍 Chortkiv / Terebovlya High-Yield Podolian Plain (49.15°N, 25.75°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.70 t/ha, 11.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.4 MMT <span class="yield-tag">(6.40 t/ha, 6.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.8 MMT <span class="yield-tag">(8.40 t/ha, 6.2%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.266">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.27 m³/m³</span>
+                        <span class="val-pct" style="display:none;">59.0% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.167">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.17 m³/m³</span>
+                        <span class="val-pct" style="display:none;">37.1% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0742">
+                    <span class="trend-badge trend-up">▲ +7.4% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.6 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.17 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Lviv Oblast" 
+                data-code="UA-LVI" 
+                data-country="Ukraine" 
+                data-top="0.343" 
+                data-sub="0.274" 
+                data-delta="0.0501"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Lviv Oblast</strong> <span class="loc-code">(UA-LVI)</span></div>
+                    <div class="loc-district">📍 Radekhiv / Brody Small Polissia Oilseed Corridor (50.25°N, 24.65°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.55 t/ha, 8.8%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 0.9 MMT <span class="yield-tag">(6.10 t/ha, 4.4%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.343">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.34 m³/m³</span>
+                        <span class="val-pct" style="display:none;">76.3% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.274">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.27 m³/m³</span>
+                        <span class="val-pct" style="display:none;">60.8% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0501">
+                    <span class="trend-badge trend-up">▲ +5.0% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.27 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ukraine - Northern Polissia & Forest-Steppe">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Northern Polissia & Forest-Steppe</span>
+                    <span class="reg-banner-count">2 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Chernihiv Oblast" 
+                data-code="UA-CHE" 
+                data-country="Ukraine" 
+                data-top="0.304" 
+                data-sub="0.230" 
+                data-delta="0.0241"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Chernihiv Oblast</strong> <span class="loc-code">(UA-CHE)</span></div>
+                    <div class="loc-district">📍 Pryluky / Nizhyn Southern Granary Plains (50.70°N, 32.15°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 4.2 MMT <span class="yield-tag">(8.10 t/ha, 14.4%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.8 MMT <span class="yield-tag">(2.60 t/ha, 5.6%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.30 t/ha, 7.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 0.9 MMT <span class="yield-tag">(5.10 t/ha, 4.6%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.304">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.30 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.7% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.230">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.23 m³/m³</span>
+                        <span class="val-pct" style="display:none;">51.2% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0241">
+                    <span class="trend-badge trend-up">▲ +2.4% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.3 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.23 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Sumy Oblast" 
+                data-code="UA-SUM" 
+                data-country="Ukraine" 
+                data-top="0.325" 
+                data-sub="0.270" 
+                data-delta="0.0932"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Sumy Oblast</strong> <span class="loc-code">(UA-SUM)</span></div>
+                    <div class="loc-district">📍 Romny / Konotop Forest-Steppe Grain Basin (50.75°N, 33.50°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.4 MMT <span class="yield-tag">(7.70 t/ha, 11.6%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.8 MMT <span class="yield-tag">(2.65 t/ha, 6.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.1 MMT <span class="yield-tag">(5.30 t/ha, 5.3%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.325">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.32 m³/m³</span>
+                        <span class="val-pct" style="display:none;">72.1% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.270">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.27 m³/m³</span>
+                        <span class="val-pct" style="display:none;">59.9% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0932">
+                    <span class="trend-badge trend-up">▲ +9.3% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (7.3 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.27 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ukraine - Southern & Eastern Black Sea Steppe">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ukraine - Southern & Eastern Black Sea Steppe</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Odesa Oblast" 
+                data-code="UA-ODE" 
+                data-country="Ukraine" 
+                data-top="0.382" 
+                data-sub="0.264" 
+                data-delta="0.1458"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Odesa Oblast</strong> <span class="loc-code">(UA-ODE)</span></div>
+                    <div class="loc-district">📍 Artsyz / Sarata Budjak Steppe Grain Belt (45.95°N, 29.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 2.4 MMT <span class="yield-tag">(3.80 t/ha, 11.6%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.1 MMT <span class="yield-tag">(2.10 t/ha, 8.2%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(2.60 t/ha, 8.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.382">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.38 m³/m³</span>
+                        <span class="val-pct" style="display:none;">84.8% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.264">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.26 m³/m³</span>
+                        <span class="val-pct" style="display:none;">58.7% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.1458">
+                    <span class="trend-badge trend-up">▲ +14.6% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.26 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Mykolaiv Oblast" 
+                data-code="UA-MYK" 
+                data-country="Ukraine" 
+                data-top="0.354" 
+                data-sub="0.182" 
+                data-delta="0.0373"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Mykolaiv Oblast</strong> <span class="loc-code">(UA-MYK)</span></div>
+                    <div class="loc-district">📍 Voznesensk / Pervomaisk Inland Steppe Plain (47.55°N, 31.35°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.7 MMT <span class="yield-tag">(3.90 t/ha, 8.2%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.0 MMT <span class="yield-tag">(2.15 t/ha, 7.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.2 MMT <span class="yield-tag">(2.50 t/ha, 6.3%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.354">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.35 m³/m³</span>
+                        <span class="val-pct" style="display:none;">78.7% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.182">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.18 m³/m³</span>
+                        <span class="val-pct" style="display:none;">40.4% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0373">
+                    <span class="trend-badge trend-up">▲ +3.7% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.18 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Dnipropetrovsk Oblast" 
+                data-code="UA-DNI" 
+                data-country="Ukraine" 
+                data-top="0.200" 
+                data-sub="0.188" 
+                data-delta="-0.0715"
+                data-status="Deficit">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Dnipropetrovsk Oblast</strong> <span class="loc-code">(UA-DNI)</span></div>
+                    <div class="loc-district">📍 Synelnykove / Pavlohrad Agricultural Basin (48.25°N, 35.70°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.5 MMT <span class="yield-tag">(2.40 t/ha, 11.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.9 MMT <span class="yield-tag">(4.30 t/ha, 9.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.4 MMT <span class="yield-tag">(5.80 t/ha, 4.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.200">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.20 m³/m³</span>
+                        <span class="val-pct" style="display:none;">44.3% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.188">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.19 m³/m³</span>
+                        <span class="val-pct" style="display:none;">41.8% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0715">
+                    <span class="trend-badge trend-down">▼ -7.1% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Marginal seedbed moisture deficit; balanced conditions across the agricultural basin with subsoil buffer at 0.19 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kharkiv Oblast" 
+                data-code="UA-KHA" 
+                data-country="Ukraine" 
+                data-top="0.212" 
+                data-sub="0.252" 
+                data-delta="-0.1028"
+                data-status="Deficit">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇺🇦 Ukraine</div>
+                    <div class="loc-name"><strong>Kharkiv Oblast</strong> <span class="loc-code">(UA-KHA)</span></div>
+                    <div class="loc-district">📍 Krasnohrad / Lozova Chernozem Granary (49.40°N, 35.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 1.8 MMT <span class="yield-tag">(4.60 t/ha, 8.7%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.3 MMT <span class="yield-tag">(2.50 t/ha, 9.7%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.6 MMT <span class="yield-tag">(6.50 t/ha, 5.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.212">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.21 m³/m³</span>
+                        <span class="val-pct" style="display:none;">47.2% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.252">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.25 m³/m³</span>
+                        <span class="val-pct" style="display:none;">55.9% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.1028">
+                    <span class="trend-badge trend-down">▼ -10.3% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Marginal seedbed moisture deficit; balanced conditions across the agricultural basin with subsoil buffer at 0.25 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Russia - Southern Federal District (Kuban & Don Basins)">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Russia - Southern Federal District (Kuban & Don Basins)</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Krasnodar Krai (Kuban)" 
+                data-code="RU-KDA" 
+                data-country="Russia" 
+                data-top="0.132" 
+                data-sub="0.149" 
+                data-delta="-0.1268"
+                data-status="Severe Stress">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Krasnodar Krai (Kuban)</strong> <span class="loc-code">(RU-KDA)</span></div>
+                    <div class="loc-district">📍 Kanevskaya / Timashevsk Agricultural Heartland (46.00°N, 39.00°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 11.8 MMT <span class="yield-tag">(6.45 t/ha, 18.2%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 2.8 MMT <span class="yield-tag">(6.80 t/ha, 18.5%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.2 MMT <span class="yield-tag">(2.80 t/ha, 7.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.10 t/ha, 10.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.132">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.13 m³/m³</span>
+                        <span class="val-pct" style="display:none;">29.3% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / High Risk of Patchy Germination</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.149">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.15 m³/m³</span>
+                        <span class="val-pct" style="display:none;">33.0% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / High Risk of Patchy Germination</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.1268">
+                    <span class="trend-badge trend-down">▼ -12.7% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Severe topsoil seedbed dryness (0.13 m³/m³); critical need for soaking rain to ensure uniform winter rapeseed emergence and timely rosette establishment before winter freeze.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Rostov Oblast (Don Basin)" 
+                data-code="RU-ROS" 
+                data-country="Russia" 
+                data-top="0.145" 
+                data-sub="0.159" 
+                data-delta="-0.1716"
+                data-status="Severe Stress">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Rostov Oblast (Don Basin)</strong> <span class="loc-code">(RU-ROS)</span></div>
+                    <div class="loc-district">📍 Salsk Steppe Cereal & Oilseed Plain (46.50°N, 41.50°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 12.5 MMT <span class="yield-tag">(4.40 t/ha, 19.3%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 2.2 MMT <span class="yield-tag">(2.35 t/ha, 13.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 0.8 MMT <span class="yield-tag">(4.50 t/ha, 5.3%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.145">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.14 m³/m³</span>
+                        <span class="val-pct" style="display:none;">32.2% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / High Risk of Patchy Germination</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.159">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.16 m³/m³</span>
+                        <span class="val-pct" style="display:none;">35.3% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / High Risk of Patchy Germination</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.1716">
+                    <span class="trend-badge trend-down">▼ -17.2% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Dry forward window (4.4 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.16 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Stavropol Krai" 
+                data-code="RU-STA" 
+                data-country="Russia" 
+                data-top="0.155" 
+                data-sub="0.202" 
+                data-delta="-0.0737"
+                data-status="Severe Stress">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Stavropol Krai</strong> <span class="loc-code">(RU-STA)</span></div>
+                    <div class="loc-district">📍 Ipatovo / Svetlograd North Caucasus Steppe (45.70°N, 42.90°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 7.8 MMT <span class="yield-tag">(4.20 t/ha, 12.0%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.7 MMT <span class="yield-tag">(2.20 t/ha, 4.1%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(2.70 t/ha, 8.2%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.155">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.15 m³/m³</span>
+                        <span class="val-pct" style="display:none;">34.4% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / High Risk of Patchy Germination</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.202">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.20 m³/m³</span>
+                        <span class="val-pct" style="display:none;">44.8% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0737">
+                    <span class="trend-badge trend-down">▼ -7.4% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Severe topsoil seedbed dryness (0.15 m³/m³); critical need for soaking rain to ensure uniform winter rapeseed emergence and timely rosette establishment before winter freeze.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Volgograd Oblast" 
+                data-code="RU-VGG" 
+                data-country="Russia" 
+                data-top="0.220" 
+                data-sub="0.210" 
+                data-delta="-0.0654"
+                data-status="Deficit">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Volgograd Oblast</strong> <span class="loc-code">(RU-VGG)</span></div>
+                    <div class="loc-district">📍 Mikhailovka / Novoanninsky Medveditsa Basin (50.10°N, 43.25°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 4.5 MMT <span class="yield-tag">(3.35 t/ha, 7.0%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.4 MMT <span class="yield-tag">(1.85 t/ha, 8.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.220">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.22 m³/m³</span>
+                        <span class="val-pct" style="display:none;">48.8% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.210">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.21 m³/m³</span>
+                        <span class="val-pct" style="display:none;">46.7% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0654">
+                    <span class="trend-badge trend-down">▼ -6.5% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Marginal seedbed moisture deficit; balanced conditions across the agricultural basin with subsoil buffer at 0.21 m³/m³.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Russia - Central Black Earth (Chernozem) Belt">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Russia - Central Black Earth (Chernozem) Belt</span>
+                    <span class="reg-banner-count">4 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Voronezh Oblast" 
+                data-code="RU-VOR" 
+                data-country="Russia" 
+                data-top="0.260" 
+                data-sub="0.204" 
+                data-delta="0.0113"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Voronezh Oblast</strong> <span class="loc-code">(RU-VOR)</span></div>
+                    <div class="loc-district">📍 Pavlovsk / Talovaya Kamennaya Steppe Granary (50.80°N, 40.20°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 1.5 MMT <span class="yield-tag">(2.65 t/ha, 9.4%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 3.8 MMT <span class="yield-tag">(4.80 t/ha, 5.9%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.6 MMT <span class="yield-tag">(6.60 t/ha, 10.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.2 MMT <span class="yield-tag">(2.90 t/ha, 4.7%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.260">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.26 m³/m³</span>
+                        <span class="val-pct" style="display:none;">57.8% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.204">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.20 m³/m³</span>
+                        <span class="val-pct" style="display:none;">45.3% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0113">
+                    <span class="trend-badge trend-flat">■ +1.1% Steady</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.26 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kursk Oblast" 
+                data-code="RU-KRS" 
+                data-country="Russia" 
+                data-top="0.375" 
+                data-sub="0.348" 
+                data-delta="0.0995"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Kursk Oblast</strong> <span class="loc-code">(RU-KRS)</span></div>
+                    <div class="loc-district">📍 Shchigry / Medvenka Deep Chernozem Plain (51.40°N, 36.60°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 3.5 MMT <span class="yield-tag">(5.75 t/ha, 5.4%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 2.2 MMT <span class="yield-tag">(7.90 t/ha, 14.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.35 t/ha, 8.2%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.6 MMT <span class="yield-tag">(2.80 t/ha, 3.4%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.375">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.38 m³/m³</span>
+                        <span class="val-pct" style="display:none;">83.4% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.348">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.35 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.3% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0995">
+                    <span class="trend-badge trend-up">▲ +10.0% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.35 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Belgorod Oblast" 
+                data-code="RU-BEL" 
+                data-country="Russia" 
+                data-top="0.251" 
+                data-sub="0.208" 
+                data-delta="-0.0269"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Belgorod Oblast</strong> <span class="loc-code">(RU-BEL)</span></div>
+                    <div class="loc-district">📍 Alekseyevka / Valuyki Agro-Industrial Basin (50.30°N, 37.80°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 2.8 MMT <span class="yield-tag">(5.60 t/ha, 4.3%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.8 MMT <span class="yield-tag">(7.80 t/ha, 11.8%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.6 MMT <span class="yield-tag">(2.85 t/ha, 3.8%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.2 MMT <span class="yield-tag">(3.20 t/ha, 5.9%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.251">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.25 m³/m³</span>
+                        <span class="val-pct" style="display:none;">55.8% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.208">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.21 m³/m³</span>
+                        <span class="val-pct" style="display:none;">46.3% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Deficit / Dry Seedbed Slowing Rapeseed & Wheat Drilling</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0269">
+                    <span class="trend-badge trend-down">▼ -2.7% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Accelerated topsoil drydown (-0.03 m³/m³); prime moisture conditions (0.25 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Lipetsk Oblast" 
+                data-code="RU-LIP" 
+                data-country="Russia" 
+                data-top="0.377" 
+                data-sub="0.354" 
+                data-delta="0.0300"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Lipetsk Oblast</strong> <span class="loc-code">(RU-LIP)</span></div>
+                    <div class="loc-district">📍 Yelets / Dobrinka Chernozem Plain (52.30°N, 39.00°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 2.9 MMT <span class="yield-tag">(5.40 t/ha, 4.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.3 MMT <span class="yield-tag">(3.15 t/ha, 7.0%)</span></span><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 0.7 MMT <span class="yield-tag">(2.75 t/ha, 4.1%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.2 MMT <span class="yield-tag">(7.40 t/ha, 7.9%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.377">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.38 m³/m³</span>
+                        <span class="val-pct" style="display:none;">83.8% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.354">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.35 m³/m³</span>
+                        <span class="val-pct" style="display:none;">78.6% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0300">
+                    <span class="trend-badge trend-up">▲ +3.0% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.03 m³/m³); prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Russia - Volga Steppe & Baltic Oilseed Enclave">
+            <td colspan="6">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Russia - Volga Steppe & Baltic Oilseed Enclave</span>
+                    <span class="reg-banner-count">2 Agricultural Basins</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Saratov Oblast" 
+                data-code="RU-SAR" 
+                data-country="Russia" 
+                data-top="0.328" 
+                data-sub="0.266" 
+                data-delta="0.0442"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Saratov Oblast</strong> <span class="loc-code">(RU-SAR)</span></div>
+                    <div class="loc-district">📍 Balashov / Samoilovka Khopyor Sunflower Basin (51.50°N, 43.30°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-sunflower"><strong>🌻 Sunflower Seed</strong>: 2.3 MMT <span class="yield-tag">(1.95 t/ha, 14.4%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 3.8 MMT <span class="yield-tag">(3.20 t/ha, 5.9%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.328">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.33 m³/m³</span>
+                        <span class="val-pct" style="display:none;">72.9% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.266">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.27 m³/m³</span>
+                        <span class="val-pct" style="display:none;">59.0% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate / Favorable Seedbed Moisture</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0442">
+                    <span class="trend-badge trend-up">▲ +4.4% Recharge</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.27 m³/m³.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Kaliningrad Oblast" 
+                data-code="RU-KGD" 
+                data-country="Russia" 
+                data-top="0.333" 
+                data-sub="0.303" 
+                data-delta="-0.0542"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-country">🇷🇺 Russia</div>
+                    <div class="loc-name"><strong>Kaliningrad Oblast</strong> <span class="loc-code">(RU-KGD)</span></div>
+                    <div class="loc-district">📍 Gvardeysk / Pravdinsk Rural Rapeseed Lowlands (54.50°N, 21.30°E)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Winter Rapeseed</strong>: 0.5 MMT <span class="yield-tag">(3.90 t/ha, 10.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Winter Wheat</strong>: 0.8 MMT <span class="yield-tag">(6.20 t/ha, 1.2%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.333">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.33 m³/m³</span>
+                        <span class="val-pct" style="display:none;">73.9% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.303">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.30 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.4% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal / Prime Winter Crop Emergence & Vegetative Vigour</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0542">
+                    <span class="trend-badge trend-down">▼ -5.4% Drydown</span>
+                    <div class="trend-sub">7-Day Topsoil Change</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.30 m³/m³.</div>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentUnit = 'vol';
+        let countryFilter = 'all';
+        let statusFilter = 'all';
+        let currentSort = { col: null, asc: true };
+
+        function setUnit(u) {
+            currentUnit = u;
+            document.getElementById('unitVol').classList.toggle('active', u === 'vol');
+            document.getElementById('unitPct').classList.toggle('active', u === 'pct');
+            
+            document.querySelectorAll('.val-metric').forEach(el => el.style.display = (u === 'vol' ? 'inline' : 'none'));
+            document.querySelectorAll('.val-pct').forEach(el => el.style.display = (u === 'pct' ? 'inline' : 'none'));
+        }
+
+        function filterCountry(c) {
+            countryFilter = c;
+            statusFilter = 'all';
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            filterRows();
+        }
+
+        function filterStatus(s) {
+            statusFilter = s;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            filterRows();
+        }
+
+        function filterRows() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('tr.data-row');
+            
+            rows.forEach(r => {
+                const c = r.getAttribute('data-country');
+                const st = r.getAttribute('data-status');
+                const text = r.innerText.toLowerCase();
+                
+                const cMatch = (countryFilter === 'all' || c === countryFilter);
+                const stMatch = (statusFilter === 'all' || st === statusFilter);
+                const qMatch = (!q || text.includes(q));
+                
+                r.style.display = (cMatch && stMatch && qMatch) ? '' : 'none';
+            });
+        }
+
+        function sortTable(key) {
+            const tbody = document.querySelector('#soilTable tbody');
+            const rows = Array.from(document.querySelectorAll('tr.data-row'));
+            
+            let asc = true;
+            if (currentSort.col === key) {
+                asc = !currentSort.asc;
+            }
+            currentSort = { col: key, asc: asc };
+            
+            rows.sort((a, b) => {
+                let vA, vB;
+                if (key === 'name') {
+                    vA = a.getAttribute('data-name');
+                    vB = b.getAttribute('data-name');
+                    return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                } else if (key === 'top') {
+                    vA = parseFloat(a.getAttribute('data-top'));
+                    vB = parseFloat(b.getAttribute('data-top'));
+                } else if (key === 'sub') {
+                    vA = parseFloat(a.getAttribute('data-sub'));
+                    vB = parseFloat(b.getAttribute('data-sub'));
+                } else if (key === 'delta') {
+                    vA = parseFloat(a.getAttribute('data-delta'));
+                    vB = parseFloat(b.getAttribute('data-delta'));
+                }
+                return asc ? (vA - vB) : (vB - vA);
+            });
+            
+            // Hide section banners while custom sorted
+            document.querySelectorAll('tr.region-header-row').forEach(el => el.style.display = 'none');
+            rows.forEach(r => tbody.appendChild(r));
+        }
+    </script>
+</body>
+</html>

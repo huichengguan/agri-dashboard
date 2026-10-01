@@ -1,0 +1,647 @@
+{
+  "Brazil - Center-West (Cerrado Core)": {
+    "region_id": "br_cerrado_core",
+    "description": "The epicenter of global soybean and second-crop (Safrinha) corn production characterized by tropical oxisols and distinct wet/dry seasonality.",
+    "states": [
+      {
+        "name": "Mato Grosso",
+        "code": "MT",
+        "country": "Brazil",
+        "district": "Mid-North Rural Heartland (Sorriso / Lucas do Rio Verde)",
+        "lat": -12.54,
+        "lon": -55.72,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 48.5,
+            "yield_tha": 3.65,
+            "share_pct": 30.5,
+            "status": "Planting Preparation / Early Sowing"
+          },
+          {
+            "crop": "Corn (Safrinha)",
+            "production_mmt": 46.0,
+            "yield_tha": 6.20,
+            "share_pct": 49.5,
+            "status": "Off-Season / Stored"
+          }
+        ]
+      },
+      {
+        "name": "Goiás",
+        "code": "GO",
+        "country": "Brazil",
+        "district": "Southwest Rural Grain Basin (Rio Verde / Jataí)",
+        "lat": -17.79,
+        "lon": -50.92,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 17.2,
+            "yield_tha": 3.75,
+            "share_pct": 10.8,
+            "status": "Pre-Planting Window"
+          },
+          {
+            "crop": "Corn (Safra & Safrinha)",
+            "production_mmt": 12.5,
+            "yield_tha": 6.40,
+            "share_pct": 10.2,
+            "status": "Off-Season / Field Prep"
+          },
+          {
+            "crop": "Wheat (Irrigated Cerrado)",
+            "production_mmt": 0.4,
+            "yield_tha": 4.80,
+            "share_pct": 4.5,
+            "status": "Maturity / Harvest"
+          }
+        ]
+      },
+      {
+        "name": "Mato Grosso do Sul",
+        "code": "MS",
+        "country": "Brazil",
+        "district": "South-Central Crop Belt (Maracaju / Dourados)",
+        "lat": -21.61,
+        "lon": -54.49,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 14.0,
+            "yield_tha": 3.45,
+            "share_pct": 8.8,
+            "status": "Planting Window Prep"
+          },
+          {
+            "crop": "Corn (Safrinha)",
+            "production_mmt": 11.8,
+            "yield_tha": 5.60,
+            "share_pct": 9.5,
+            "status": "Off-Season"
+          }
+        ]
+      }
+    ]
+  },
+  "Brazil - South Subtropical (Sul)": {
+    "region_id": "br_south_subtropical",
+    "description": "Temperate/subtropical multi-cropping agricultural basin, home to ~90% of Brazil's wheat and major soybean and full-season corn production.",
+    "states": [
+      {
+        "name": "Paraná",
+        "code": "PR",
+        "country": "Brazil",
+        "district": "West & North Agricultural Basin (Cascavel / Londrina)",
+        "lat": -24.50,
+        "lon": -52.50,
+        "commodities": [
+          {
+            "crop": "Wheat",
+            "production_mmt": 4.5,
+            "yield_tha": 3.10,
+            "share_pct": 50.0,
+            "status": "Heading / Grain Filling"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 21.5,
+            "yield_tha": 3.70,
+            "share_pct": 13.5,
+            "status": "Early Planting Authorized"
+          },
+          {
+            "crop": "Corn (Safra & Safrinha)",
+            "production_mmt": 16.5,
+            "yield_tha": 6.10,
+            "share_pct": 13.2,
+            "status": "Early Safra Sowing"
+          }
+        ]
+      },
+      {
+        "name": "Rio Grande do Sul",
+        "code": "RS",
+        "country": "Brazil",
+        "district": "Planalto Médio Crop Plateau (Passo Fundo / Cruz Alta)",
+        "lat": -28.40,
+        "lon": -52.80,
+        "commodities": [
+          {
+            "crop": "Wheat",
+            "production_mmt": 3.8,
+            "yield_tha": 2.95,
+            "share_pct": 42.0,
+            "status": "Stem Elongation / Heading"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 21.8,
+            "yield_tha": 3.25,
+            "share_pct": 13.7,
+            "status": "Pre-Planting (Oct/Nov Window)"
+          },
+          {
+            "crop": "Corn (1st Crop Safra)",
+            "production_mmt": 5.2,
+            "yield_tha": 6.80,
+            "share_pct": 4.2,
+            "status": "Active Sowing / Emergence"
+          }
+        ]
+      },
+      {
+        "name": "Santa Catarina",
+        "code": "SC",
+        "country": "Brazil",
+        "district": "Planalto Grain Belt (Campos Novos / Chapecó)",
+        "lat": -27.20,
+        "lon": -51.50,
+        "commodities": [
+          {
+            "crop": "Corn (1st Crop Safra)",
+            "production_mmt": 2.6,
+            "yield_tha": 8.20,
+            "share_pct": 2.1,
+            "status": "Planting / Emergence"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 0.45,
+            "yield_tha": 3.20,
+            "share_pct": 5.0,
+            "status": "Heading / Flowering"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 2.8,
+            "yield_tha": 3.60,
+            "share_pct": 1.8,
+            "status": "Pre-Planting"
+          }
+        ]
+      }
+    ]
+  },
+  "Brazil - Southeast / East": {
+    "region_id": "br_southeast",
+    "description": "Diversified high-input agricultural region with fertile soils, irrigated pivot valleys, and high-altitude crop zones.",
+    "states": [
+      {
+        "name": "Minas Gerais",
+        "code": "MG",
+        "country": "Brazil",
+        "district": "Triângulo Mineiro & Alto Paranaíba (Patos de Minas / Uberaba)",
+        "lat": -18.80,
+        "lon": -47.80,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 8.2,
+            "yield_tha": 3.80,
+            "share_pct": 5.2,
+            "status": "Pre-Planting Field Prep"
+          },
+          {
+            "crop": "Corn (Safra & Safrinha)",
+            "production_mmt": 7.5,
+            "yield_tha": 6.70,
+            "share_pct": 6.0,
+            "status": "Off-Season / Early Prep"
+          },
+          {
+            "crop": "Wheat (Irrigated Tropical)",
+            "production_mmt": 0.35,
+            "yield_tha": 5.10,
+            "share_pct": 3.8,
+            "status": "Late Grain Fill / Harvest"
+          }
+        ]
+      },
+      {
+        "name": "São Paulo",
+        "code": "SP",
+        "country": "Brazil",
+        "district": "Vale do Paranapanema Grain Axis (Assis / Itapeva)",
+        "lat": -23.00,
+        "lon": -49.50,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 4.6,
+            "yield_tha": 3.65,
+            "share_pct": 2.9,
+            "status": "Pre-Planting Window"
+          },
+          {
+            "crop": "Corn (Safra & Safrinha)",
+            "production_mmt": 4.5,
+            "yield_tha": 6.20,
+            "share_pct": 3.6,
+            "status": "Early Safra Sowing"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 0.38,
+            "yield_tha": 3.30,
+            "share_pct": 4.2,
+            "status": "Grain Filling / Ripening"
+          }
+        ]
+      }
+    ]
+  },
+  "Brazil - MATOPIBA Frontier": {
+    "region_id": "br_matopiba",
+    "description": "Rapidly expanding northern agricultural frontier characterized by expansive plateau flatlands, high solar radiation, and vulnerability to mid-season dry spells (veranicos).",
+    "states": [
+      {
+        "name": "Western Bahia",
+        "code": "BA",
+        "country": "Brazil",
+        "district": "West Bahia Cerrado Plateau (Luís Eduardo Magalhães / São Desidério)",
+        "lat": -12.09,
+        "lon": -45.79,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 4.6,
+            "yield_tha": 3.75,
+            "share_pct": 2.9,
+            "status": "Pre-Planting (Awaiting Rains)"
+          },
+          {
+            "crop": "Corn (Safra)",
+            "production_mmt": 2.6,
+            "yield_tha": 8.50,
+            "share_pct": 2.1,
+            "status": "Pre-Planting Preparation"
+          }
+        ]
+      },
+      {
+        "name": "Southern Maranhão",
+        "code": "MA",
+        "country": "Brazil",
+        "district": "Chapada das Mangabeiras (Balsas Plateau)",
+        "lat": -7.53,
+        "lon": -46.03,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 4.1,
+            "yield_tha": 3.55,
+            "share_pct": 2.6,
+            "status": "Pre-Planting Window"
+          },
+          {
+            "crop": "Corn (Safra)",
+            "production_mmt": 2.1,
+            "yield_tha": 6.80,
+            "share_pct": 1.7,
+            "status": "Pre-Planting Field Prep"
+          }
+        ]
+      },
+      {
+        "name": "Tocantins",
+        "code": "TO",
+        "country": "Brazil",
+        "district": "Central-South Crop Plains (Gurupi / Pedro Afonso)",
+        "lat": -10.80,
+        "lon": -48.40,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 4.2,
+            "yield_tha": 3.50,
+            "share_pct": 2.6,
+            "status": "Pre-Planting Window"
+          },
+          {
+            "crop": "Corn (Safra & Safrinha)",
+            "production_mmt": 1.9,
+            "yield_tha": 5.90,
+            "share_pct": 1.5,
+            "status": "Off-Season / Stored"
+          }
+        ]
+      }
+    ]
+  },
+  "Argentina - Zona Núcleo Core": {
+    "region_id": "ar_zona_nucleo",
+    "description": "The premier grain belt of Argentina with deep, high-organic-matter mollisols directly surrounding the Up-River Rosario export terminal complex.",
+    "states": [
+      {
+        "name": "Buenos Aires North",
+        "code": "BA-N",
+        "country": "Argentina",
+        "district": "Zona Núcleo Heartland (Pergamino / Rojas / Salto)",
+        "lat": -33.89,
+        "lon": -60.57,
+        "commodities": [
+          {
+            "crop": "Soybeans (1st & 2nd)",
+            "production_mmt": 8.5,
+            "yield_tha": 3.80,
+            "share_pct": 17.0,
+            "status": "Pre-Planting / Fallow Weed Control"
+          },
+          {
+            "crop": "Corn (Early & Late)",
+            "production_mmt": 9.2,
+            "yield_tha": 9.40,
+            "share_pct": 16.7,
+            "status": "Early Planting Window Starting"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 2.4,
+            "yield_tha": 4.20,
+            "share_pct": 14.5,
+            "status": "Tillering / Jointing"
+          }
+        ]
+      },
+      {
+        "name": "Santa Fe South/Center",
+        "code": "SF",
+        "country": "Argentina",
+        "district": "Department of General López (Venado Tuerto / Casilda)",
+        "lat": -33.20,
+        "lon": -61.50,
+        "commodities": [
+          {
+            "crop": "Soybeans (1st & 2nd)",
+            "production_mmt": 9.5,
+            "yield_tha": 3.60,
+            "share_pct": 19.0,
+            "status": "Pre-Planting Fallow"
+          },
+          {
+            "crop": "Corn",
+            "production_mmt": 7.8,
+            "yield_tha": 8.90,
+            "share_pct": 14.2,
+            "status": "Early Corn Sowing Starting"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 2.8,
+            "yield_tha": 3.80,
+            "share_pct": 17.0,
+            "status": "Jointing / Stem Elongation"
+          }
+        ]
+      },
+      {
+        "name": "Córdoba Core",
+        "code": "CBA",
+        "country": "Argentina",
+        "district": "Marcos Juárez & Unión Basin (Marcos Juárez / Villa María)",
+        "lat": -32.70,
+        "lon": -62.10,
+        "commodities": [
+          {
+            "crop": "Corn",
+            "production_mmt": 20.5,
+            "yield_tha": 8.60,
+            "share_pct": 37.5,
+            "status": "Early Planting Prep / Late Corn Planning"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 13.8,
+            "yield_tha": 3.35,
+            "share_pct": 27.5,
+            "status": "Pre-Planting Fallow"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 2.1,
+            "yield_tha": 3.10,
+            "share_pct": 12.8,
+            "status": "Jointing / Booting"
+          }
+        ]
+      }
+    ]
+  },
+  "Argentina - Southern & Western Pampas": {
+    "region_id": "ar_south_west_pampas",
+    "description": "The world-famous wheat belt of Southern Buenos Aires and the drought-resilient transitional grain plains of Western Pampas and La Pampa.",
+    "states": [
+      {
+        "name": "Buenos Aires South",
+        "code": "BA-S",
+        "country": "Argentina",
+        "district": "Wheat Heartland (Tres Arroyos / Balcarce / Tandil)",
+        "lat": -38.37,
+        "lon": -60.28,
+        "commodities": [
+          {
+            "crop": "Wheat",
+            "production_mmt": 7.6,
+            "yield_tha": 3.85,
+            "share_pct": 46.0,
+            "status": "Tillering / Stem Elongation"
+          },
+          {
+            "crop": "Soybeans (Late / 2nd)",
+            "production_mmt": 4.5,
+            "yield_tha": 2.80,
+            "share_pct": 9.0,
+            "status": "Awaiting Wheat Harvest for 2nd Soy"
+          },
+          {
+            "crop": "Corn (Late)",
+            "production_mmt": 3.5,
+            "yield_tha": 7.20,
+            "share_pct": 6.4,
+            "status": "Pre-Planting Planning"
+          }
+        ]
+      },
+      {
+        "name": "BA West & La Pampa",
+        "code": "BA-W",
+        "country": "Argentina",
+        "district": "Sandy Pampas Transition (Trenque Lauquen / General Pico)",
+        "lat": -35.97,
+        "lon": -62.73,
+        "commodities": [
+          {
+            "crop": "Corn (Early & Late)",
+            "production_mmt": 6.5,
+            "yield_tha": 7.80,
+            "share_pct": 11.8,
+            "status": "Pre-Planting Soil Moisture Assessment"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 5.8,
+            "yield_tha": 3.10,
+            "share_pct": 11.6,
+            "status": "Pre-Planting Fallow"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 1.6,
+            "yield_tha": 2.90,
+            "share_pct": 9.7,
+            "status": "Tillering / Jointing"
+          }
+        ]
+      }
+    ]
+  },
+  "Argentina - Litoral / Mesopotamia": {
+    "region_id": "ar_litoral",
+    "description": "Clay-rich vertisol agricultural belt bordered by the Paraná and Uruguay rivers, notable for early-season wheat harvesting and double-crop soybeans.",
+    "states": [
+      {
+        "name": "Entre Ríos",
+        "code": "ER",
+        "country": "Argentina",
+        "district": "Southwest Rolling Plains (Victoria / Crespo)",
+        "lat": -32.30,
+        "lon": -60.10,
+        "commodities": [
+          {
+            "crop": "Wheat",
+            "production_mmt": 1.8,
+            "yield_tha": 3.40,
+            "share_pct": 10.9,
+            "status": "Heading / Flowering (Early Cycle)"
+          },
+          {
+            "crop": "Soybeans (1st & 2nd)",
+            "production_mmt": 3.2,
+            "yield_tha": 2.70,
+            "share_pct": 6.4,
+            "status": "Pre-Planting Fallow"
+          },
+          {
+            "crop": "Corn (Safra)",
+            "production_mmt": 1.8,
+            "yield_tha": 6.50,
+            "share_pct": 3.3,
+            "status": "Early Corn Sowing Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Paraguay - Región Oriental": {
+    "region_id": "paraguay_core",
+    "description": "The fertile Paraná River basin corridor of Eastern Paraguay representing >85% of national grain production and making Paraguay the #4 global soybean exporter.",
+    "states": [
+      {
+        "name": "Paraguay Oriental",
+        "code": "PY",
+        "country": "Paraguay",
+        "district": "Alto Paraná & Itapúa Farm Basin (Santa Rita / Naranjal)",
+        "lat": -25.78,
+        "lon": -55.08,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 10.5,
+            "yield_tha": 3.15,
+            "share_pct": 88.0,
+            "status": "Early Sowing Window Opening (Sep/Oct)"
+          },
+          {
+            "crop": "Corn (Zafriña)",
+            "production_mmt": 4.5,
+            "yield_tha": 5.40,
+            "share_pct": 85.0,
+            "status": "Off-Season / Stored"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 1.2,
+            "yield_tha": 2.60,
+            "share_pct": 90.0,
+            "status": "Grain Filling / Approaching Maturity"
+          }
+        ]
+      }
+    ]
+  },
+  "Uruguay - Litoral Oeste": {
+    "region_id": "uruguay_core",
+    "description": "The prime agricultural riverbank along the Uruguay River (Soriano & Río Negro) known as the 'Granero de Uruguay' with direct access to Nueva Palmira export port.",
+    "states": [
+      {
+        "name": "Uruguay Litoral",
+        "code": "UY",
+        "country": "Uruguay",
+        "district": "Granero de Uruguay Agricultural Heart (Dolores / Young)",
+        "lat": -33.53,
+        "lon": -58.21,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 3.0,
+            "yield_tha": 2.75,
+            "share_pct": 85.0,
+            "status": "Pre-Planting Fallow (Nov Window)"
+          },
+          {
+            "crop": "Wheat",
+            "production_mmt": 1.3,
+            "yield_tha": 3.90,
+            "share_pct": 82.0,
+            "status": "Stem Elongation / Heading"
+          },
+          {
+            "crop": "Corn (1st & 2nd)",
+            "production_mmt": 0.85,
+            "yield_tha": 7.10,
+            "share_pct": 80.0,
+            "status": "Early Corn Sowing Prep"
+          }
+        ]
+      }
+    ]
+  },
+  "Bolivia - Santa Cruz Lowlands": {
+    "region_id": "bolivia_core",
+    "description": "The subtropical Tierras Bajas del Este of Santa Cruz, representing ~90% of Bolivia's commercial grain & oilseed production with dual-season cropping.",
+    "states": [
+      {
+        "name": "Santa Cruz Lowlands",
+        "code": "BO",
+        "country": "Bolivia",
+        "district": "Tierras Bajas Farm Heartland (Pailón / Cuatro Cañadas)",
+        "lat": -17.25,
+        "lon": -62.70,
+        "commodities": [
+          {
+            "crop": "Soybeans",
+            "production_mmt": 3.3,
+            "yield_tha": 2.25,
+            "share_pct": 92.0,
+            "status": "Pre-Planting Summer Prep (Nov Window)"
+          },
+          {
+            "crop": "Corn (Winter & Summer)",
+            "production_mmt": 1.1,
+            "yield_tha": 3.80,
+            "share_pct": 85.0,
+            "status": "Winter Corn Harvest / Fallow"
+          },
+          {
+            "crop": "Wheat (Winter Crop)",
+            "production_mmt": 0.28,
+            "yield_tha": 1.85,
+            "share_pct": 90.0,
+            "status": "Ripening / Winter Harvest Finishing"
+          }
+        ]
+      }
+    ]
+  }
+}

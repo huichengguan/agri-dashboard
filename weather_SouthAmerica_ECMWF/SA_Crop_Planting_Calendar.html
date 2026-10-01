@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South America Crop Planting &amp; Phenology Calendar | Soybeans, Corn &amp; Wheat</title>
+    <style>
+        :root {
+            --bg-body: #0b1120;
+            --bg-card: #0f172a;
+            --bg-elevated: #1e293b;
+            --border-subtle: #1e293b;
+            --border-strong: #334155;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #0284c7;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #c084fc;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); padding: 10px 16px; font-size: 11px; }
+
+        /* Suite Navigation Bar */
+        .suite-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 6px 14px;
+            margin-bottom: 10px;
+        }
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .suite-logo {
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #38bdf8;
+            text-transform: uppercase;
+        }
+        .suite-nav-links {
+            display: flex;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.15s ease;
+        }
+        .nav-tab:hover {
+            background: #334155;
+            color: #f8fafc;
+        }
+        .nav-tab.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #38bdf8;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+        }
+        .header-left h1 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+        .header-badges {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .badge-pill {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-cyan { background: #083344; color: #38bdf8; border: 1px solid #0284c7; }
+        .badge-green { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .badge-amber { background: #451a03; color: #fbbf24; border: 1px solid #d97706; }
+        .header-meta {
+            text-align: right;
+            font-size: 10px;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* KPI Banner */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 8px 10px;
+            border-left: 3px solid var(--accent-cyan);
+        }
+        .kpi-card.green { border-left-color: var(--accent-green); }
+        .kpi-card.amber { border-left-color: var(--accent-amber); }
+        .kpi-card.purple { border-left-color: var(--accent-purple); }
+        .kpi-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 3px;
+        }
+        .kpi-val {
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+            font-variant-numeric: tabular-nums;
+        }
+        .kpi-sub {
+            font-size: 9.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Controls Row */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 6px 10px;
+            margin-bottom: 10px;
+        }
+        .ctrl-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .ctrl-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-right: 2px;
+        }
+        .btn-toggle {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.15s ease;
+        }
+        .btn-toggle:hover { background: #334155; color: #ffffff; }
+        .btn-toggle:active { transform: scale(0.96); }
+        .btn-toggle.active { background: #0284c7; color: #ffffff; border-color: #38bdf8; font-weight: 700; }
+        .btn-crop-soy.active, .btn-crop-soybeans.active {
+            background: #059669 !important;
+            border-color: #34d399 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
+        }
+        .btn-crop-corn.active {
+            background: #d97706 !important;
+            border-color: #fbbf24 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.45);
+        }
+        .btn-crop-wheat.active {
+            background: #2563eb !important;
+            border-color: #60a5fa !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.45);
+        }
+        .search-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10.5px;
+            width: 170px;
+            outline: none;
+        }
+        .search-box:focus { border-color: #38bdf8; }
+
+        /* Legend */
+        .legend-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 6px;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+        }
+        .legend-items {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-dim);
+        }
+        .legend-swatch {
+            width: 14px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        .swatch-early { background: #d97706; border: 1px solid #fbbf24; }
+        .swatch-peak { background: #059669; border: 1px solid #34d399; }
+        .swatch-post { background: #0284c7; border: 1px solid #38bdf8; }
+        .swatch-today { background: #00f2fe; width: 3px; height: 14px; }
+
+        /* Main Container for Table / Gantt */
+        .view-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 14px;
+        }
+        table.matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+            table-layout: fixed;
+        }
+        th, td {
+            padding: 4px 6px;
+            border-bottom: 1px solid #1e293b;
+            border-right: 1px solid #1e293b;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background: #131d33;
+            color: #cbd5e1;
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .th-group {
+            background: #0f172a;
+            text-align: center;
+            font-weight: 800;
+            border-bottom: 1px solid #334155;
+            color: #94a3b8;
+        }
+        .th-today-marker {
+            position: relative;
+            background: rgba(0, 242, 254, 0.15) !important;
+            color: #00f2fe !important;
+            border-right: 2px solid #00f2fe !important;
+        }
+        .today-pill {
+            background: #00f2fe;
+            color: #000;
+            font-size: 8px;
+            font-weight: 900;
+            padding: 1px 4px;
+            border-radius: 3px;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+
+        /* Column Sizing */
+        .col-node { width: 230px; }
+        .col-country { width: 80px; }
+        .col-volume { width: 115px; text-align: right; }
+        .col-bucket { width: 44px; text-align: center; padding: 2px 1px; }
+        .col-status { width: 140px; }
+        .col-dates { width: 95px; }
+        .col-harvest { width: 110px; }
+        .col-driver { width: 260px; }
+
+        /* Node Cell */
+        .node-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+        .node-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .state-code {
+            background: #1e293b;
+            color: #38bdf8;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: 700;
+            border: 1px solid #334155;
+        }
+        .node-dist {
+            font-size: 9px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Status Pills */
+        .status-pill {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 8.5px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-align: center;
+        }
+        .status-active { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .status-early { background: #451a03; color: #fbbf24; border: 1px solid #d97706; }
+        .status-await { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+        .status-post { background: #083344; color: #38bdf8; border: 1px solid #0284c7; }
+
+        /* Gantt Bars */
+        .gantt-cell {
+            padding: 3px 1px;
+            text-align: center;
+        }
+        .gantt-cell.today-col {
+            border-right: 2px solid #00f2fe;
+            background: rgba(0, 242, 254, 0.04);
+        }
+        .g-bar {
+            height: 16px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: 700;
+            transition: all 0.15s ease;
+        }
+        .g-bar:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 8px rgba(255,255,255,0.25);
+            z-index: 5;
+        }
+        .g-empty {
+            background: transparent;
+        }
+        .g-early {
+            background: #d97706;
+            color: #ffffff;
+            border: 1px solid #f59e0b;
+        }
+        .g-peak {
+            background: #059669;
+            color: #ffffff;
+            border: 1px solid #10b981;
+            font-weight: 800;
+        }
+        .g-post {
+            background: #0284c7;
+            color: #ffffff;
+            border: 1px solid #38bdf8;
+            font-weight: 800;
+        }
+
+        /* Section Region Banner */
+        .reg-header-row td {
+            background: #0b1528 !important;
+            padding: 4px 8px;
+            font-weight: 800;
+            font-size: 9.5px;
+            letter-spacing: 0.5px;
+            color: #38bdf8;
+            border-top: 1px solid #334155;
+            border-bottom: 1px solid #334155;
+        }
+
+        /* Guidance Grid */
+        .guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .guide-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 10px;
+        }
+        .guide-card h4 {
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .guide-card p {
+            font-size: 10px;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* Tooltip */
+        .tt-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+        .tt-content {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
+            border: 1px solid #38bdf8;
+            color: #fff;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 9.5px;
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: opacity 0.15s ease;
+            pointer-events: none;
+        }
+        .tt-wrapper:hover .tt-content {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Suite Navigation Bar -->
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <span class="suite-logo">&#127758; South America Ag-Weather Intelligence</span>
+        </div>
+        <div class="suite-nav-links">
+            <a href="SA_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="SA_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="SA_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="SA_Crop_Weather_Matrix.html" class="nav-tab">&#128202; Weather Matrix</a>
+            <a href="SA_Crop_Planting_Calendar.html" class="nav-tab active">&#128203; Planting Windows &amp; Gantt</a>
+        </div>
+    </div>
+
+    <!-- Header Bar -->
+    <div class="header-bar">
+        <div class="header-left">
+            <h1 id="page-title">South America Soybean Planting Calendar &amp; Progress Gantt Sheet</h1>
+            <div class="header-badges">
+                <span class="badge-pill badge-cyan">2026/27 Planting Season</span>
+                <span class="badge-pill badge-green">20 Canonical Agricultural Centroids</span>
+                <span class="badge-pill badge-amber">&#9201; Current Date: Sep 30, 2026</span>
+            </div>
+        </div>
+        <div class="header-meta">
+            <div id="meta-scope">Scope: Brazil (11), Argentina (6), Paraguay (1), Uruguay (1), Bolivia (1)</div>
+            <div id="meta-volume">Tracked Soy Output: <strong>168.3 MMT</strong> (88% of South American Production)</div>
+            <div>Governing Frameworks: MAPA Vazio Sanitário, Bolsa de Cereales &amp; SAGyP Calendars</div>
+        </div>
+    </div>
+
+    <!-- KPI Summary Row -->
+    <div class="kpi-row" id="kpi-banner">
+        <!-- Dynamically updated by selected crop -->
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+        <div class="ctrl-group">
+            <span class="ctrl-label">Crop:</span>
+            <button class="btn-toggle btn-crop-soy active" id="btn-crop-soybeans" data-crop="soybeans" onclick="switchCrop('soybeans')">&#127793; Soybeans (168M t)</button>
+            <button class="btn-toggle btn-crop-corn" id="btn-crop-corn" data-crop="corn" onclick="switchCrop('corn')">&#127805; Corn: Safra &amp; Safrinha (148M t)</button>
+            <button class="btn-toggle btn-crop-wheat" id="btn-crop-wheat" data-crop="wheat" onclick="switchCrop('wheat')">&#127806; Wheat: Winter Cereal (29M t)</button>
+        </div>
+        <div class="ctrl-group">
+            <span class="ctrl-label">View:</span>
+            <button class="btn-toggle active" id="btn-view-gantt" onclick="switchView('gantt')">&#128200; Visual Gantt</button>
+            <button class="btn-toggle" id="btn-view-sheet" onclick="switchView('sheet')">&#128196; Structured Sheet</button>
+            <button class="btn-toggle" id="btn-view-both" onclick="switchView('both')">&#128197; Dual View</button>
+        </div>
+        <div class="ctrl-group">
+            <span class="ctrl-label">Country:</span>
+            <button class="btn-toggle active" data-country="all" onclick="filterCountry('all')">All (20)</button>
+            <button class="btn-toggle" data-country="Brazil" onclick="filterCountry('Brazil')">Brazil (11)</button>
+            <button class="btn-toggle" data-country="Argentina" onclick="filterCountry('Argentina')">Argentina (6)</button>
+            <button class="btn-toggle" data-country="Paraguay" onclick="filterCountry('Paraguay')">Paraguay (1)</button>
+            <button class="btn-toggle" data-country="Uruguay" onclick="filterCountry('Uruguay')">Uruguay (1)</button>
+            <button class="btn-toggle" data-country="Bolivia" onclick="filterCountry('Bolivia')">Bolivia (1)</button>
+        </div>
+        <div class="ctrl-group">
+            <input type="text" id="search-input" class="search-box" placeholder="Search state, district, crop..." onkeyup="filterSearch()">
+            <button class="btn-toggle" onclick="resetFilters()">Reset</button>
+        </div>
+    </div>
+
+    <!-- Visual Legend -->
+    <div class="legend-card" id="legend-bar">
+        <div class="legend-items" id="legend-items">
+            <!-- Dynamically populated based on selected crop -->
+        </div>
+        <div style="font-size:9.5px; color:#94a3b8;">Hover over any bar to view exact agronomic windows, critical moisture timing, and rotation succession</div>
+    </div>
+
+    <!-- Main Table Container -->
+    <div class="view-panel">
+        <table class="matrix-table" id="planting-table">
+            <thead>
+                <!-- Top Tier Group Headers -->
+                <tr id="top-tier-row">
+                    <th rowspan="2" class="col-node">Agricultural Node &amp; Heartland District</th>
+                    <th rowspan="2" class="col-country">Country</th>
+                    <th rowspan="2" class="col-volume" id="th-vol-label">Crop Output</th>
+                    
+                    <!-- Gantt Month Groups (dynamically generated for crop) -->
+                    <th colspan="3" class="th-group gantt-col-header" id="th-m1" style="border-left: 2px solid #334155;">Sep</th>
+                    <th colspan="3" class="th-group gantt-col-header" id="th-m2">Oct</th>
+                    <th colspan="3" class="th-group gantt-col-header" id="th-m3">Nov</th>
+                    <th colspan="3" class="th-group gantt-col-header" id="th-m4">Dec</th>
+                    
+                    <!-- Sheet View Headers -->
+                    <th rowspan="2" class="col-status sheet-col-header" style="display:none;">Current Phase</th>
+                    <th rowspan="2" class="col-dates sheet-col-header" style="display:none;">Sowing Start</th>
+                    <th rowspan="2" class="col-dates sheet-col-header" style="display:none;">Peak Window</th>
+                    <th rowspan="2" class="col-harvest sheet-col-header" style="display:none;">Harvest Window</th>
+                    <th rowspan="2" class="col-driver sheet-col-header" style="display:none;">Agronomic Rotation &amp; Succession Constraint</th>
+                </tr>
+                <!-- Subtier 10-day period headers -->
+                <tr id="subtier-row">
+                    <!-- Populated dynamically via JS -->
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Dynamically populated via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 3 Agronomic Guidance Callouts -->
+    <div class="guidance-grid">
+        <div class="guide-card">
+            <h4>&#127793; Soybeans: The Safrinha &amp; Wheat Squeeze</h4>
+            <p><strong>Cerrado (MT/GO/PR)</strong> rushes soybean sowing in September/October to ensure early harvest and safe planting of second-crop corn before late-season rains shut down. In <strong>Rio Grande do Sul &amp; Argentina</strong>, 35–50% of soybeans wait for November/December wheat combines.</p>
+        </div>
+        <div class="guide-card">
+            <h4>&#127805; Corn: Safra (Verão) vs Safrinha (Tardío)</h4>
+            <p><strong>1st Crop Safra</strong> is planted now (Sep–Oct) in Southern Brazil (RS/SC/PR) and Argentina for high-yield grain and silage. <strong>2nd Crop Safrinha</strong> represents 75%+ of Brazilian corn output, planted in Jan/Feb immediately following soybean harvest.</p>
+        </div>
+        <div class="guide-card">
+            <h4>&#127806; Wheat: South America's Winter Cereal Engine</h4>
+            <p>Planted in autumn/winter (May–July), wheat is currently in its <strong>peak heading, grain filling, and harvest phase</strong> across South America. Northern PR &amp; Paraguay are harvesting now, while Rio Grande do Sul and southern Buenos Aires head towards November/December harvest.</p>
+        </div>
+    </div>
+
+    <!-- Embedded Dataset & Interactive Engine -->
+    <script>
+        const ALL_CROP_DATA = {"soybeans": [{"code": "MT", "name": "Mato Grosso", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "Mid-North Rural Heartland (Sorriso / Lucas do Rio Verde)", "prod_mmt": 48.5, "yield_tha": 3.65, "share_pct": 30.5, "field_start": "Sep 16", "peak_start": "Oct 08", "peak_end": "Nov 05", "harvest_window": "Jan 10 \u2013 Mar 05", "current_status": "Early Window Open", "status_class": "status-early", "crop_role": "Main Season Soy", "driver": "Early sowing is critical to harvest by Jan/Feb, ensuring the prime Safrinha corn planting window before Feb 20.", "timeline": ["empty", "early", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty"]}, {"code": "GO", "name": "Goi\u00e1s", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "Southwest Rural Grain Basin (Rio Verde / Jata\u00ed)", "prod_mmt": 17.2, "yield_tha": 3.75, "share_pct": 10.8, "field_start": "Sep 25", "peak_start": "Oct 15", "peak_end": "Nov 15", "harvest_window": "Jan 25 \u2013 Mar 20", "current_status": "Early Window Open", "status_class": "status-early", "crop_role": "Main Season Soy", "driver": "Southwest grain basin plants first; northern savannas wait for deep monsoon wetting.", "timeline": ["empty", "empty", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty"]}, {"code": "MS", "name": "Mato Grosso do Sul", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "South-Central Crop Belt (Maracaju / Dourados)", "prod_mmt": 14.0, "yield_tha": 3.45, "share_pct": 8.8, "field_start": "Sep 16", "peak_start": "Oct 10", "peak_end": "Nov 10", "harvest_window": "Jan 15 \u2013 Mar 10", "current_status": "Early Window Open", "status_class": "status-early", "crop_role": "Main Season Soy", "driver": "Southern border (Dourados/Ponta Por\u00e3) starts early with southern frontal rains.", "timeline": ["empty", "early", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty"]}, {"code": "PR", "name": "Paran\u00e1", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "West & North Agricultural Basin (Cascavel / Londrina)", "prod_mmt": 21.5, "yield_tha": 3.7, "share_pct": 13.5, "field_start": "Sep 11", "peak_start": "Oct 01", "peak_end": "Oct 31", "harvest_window": "Jan 15 \u2013 Mar 15", "current_status": "Active Sowing Surge", "status_class": "status-active", "crop_role": "Early Soy & Post-Wheat", "driver": "Sanitary void ends Sep 10. West/Southwest plants early; North/Center seeds after early wheat harvest.", "timeline": ["empty", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty", "empty"]}, {"code": "RS", "name": "Rio Grande do Sul", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "Planalto M\u00e9dio Crop Plateau (Passo Fundo / Cruz Alta)", "prod_mmt": 21.8, "yield_tha": 3.25, "share_pct": 13.7, "field_start": "Oct 20", "peak_start": "Nov 01", "peak_end": "Dec 10", "harvest_window": "Mar 15 \u2013 May 10", "current_status": "Pre-Planting (Awaiting Wheat)", "status_class": "status-await", "crop_role": "Main Soy & Post-Wheat (45%)", "driver": "Cold spring soils and late frost risk delay field start; ~45% planted in Nov/Dec on fresh wheat stubble.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "peak", "post", "empty"]}, {"code": "SC", "name": "Santa Catarina", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "Planalto Grain Belt (Campos Novos / Chapec\u00f3)", "prod_mmt": 2.8, "yield_tha": 3.6, "share_pct": 1.8, "field_start": "Late Sep", "peak_start": "Oct 20", "peak_end": "Nov 25", "harvest_window": "Feb 20 \u2013 Apr 20", "current_status": "Early Window Open", "status_class": "status-early", "crop_role": "Main Season Soy", "driver": "Full-season corn has machinery priority for local livestock feed; soybean planters follow in Oct/Nov.", "timeline": ["empty", "empty", "early", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty"]}, {"code": "MG", "name": "Minas Gerais", "country": "Brazil", "macro_region": "Brazil - Southeast / East", "district": "Tri\u00e2ngulo Mineiro & Alto Parana\u00edba (Patos de Minas / Uberaba)", "prod_mmt": 8.2, "yield_tha": 3.8, "share_pct": 5.2, "field_start": "Oct 05", "peak_start": "Oct 20", "peak_end": "Nov 20", "harvest_window": "Feb 01 \u2013 Apr 05", "current_status": "Sanitary Void Expiring", "status_class": "status-early", "crop_role": "Main Season Soy", "driver": "Tri\u00e2ngulo Mineiro awaits consistent convective rains in October before machinery ramps up.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty"]}, {"code": "SP", "name": "S\u00e3o Paulo", "country": "Brazil", "macro_region": "Brazil - Southeast / East", "district": "Vale do Paranapanema Grain Axis (Assis / Itapeva)", "prod_mmt": 4.6, "yield_tha": 3.65, "share_pct": 2.9, "field_start": "Sep 20", "peak_start": "Oct 10", "peak_end": "Nov 10", "harvest_window": "Jan 20 \u2013 Mar 25", "current_status": "Early Window Open", "status_class": "status-early", "crop_role": "Main Season Soy", "driver": "Paranapanema valley has high soil moisture; early seeding supports double-crop winter cereal rotation.", "timeline": ["empty", "empty", "early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty"]}, {"code": "BA", "name": "Western Bahia", "country": "Brazil", "macro_region": "Brazil - MATOPIBA Frontier", "district": "West Bahia Cerrado Plateau (Lu\u00eds Eduardo Magalh\u00e3es / S\u00e3o Desid\u00e9rio)", "prod_mmt": 4.6, "yield_tha": 3.75, "share_pct": 2.9, "field_start": "Oct 15", "peak_start": "Nov 10", "peak_end": "Dec 10", "harvest_window": "Mar 01 \u2013 Apr 30", "current_status": "Awaiting Monsoon Onset", "status_class": "status-await", "crop_role": "Single-Crop Soy / Cotton", "driver": "Sandy Oxisols require regular 40-50mm wetting before seeding; tied to ZCAS cloud band formation.", "timeline": ["empty", "empty", "empty", "empty", "early", "early", "peak", "peak", "peak", "early", "empty", "empty"]}, {"code": "MA", "name": "Southern Maranh\u00e3o", "country": "Brazil", "macro_region": "Brazil - MATOPIBA Frontier", "district": "Chapada das Mangabeiras (Balsas Plateau)", "prod_mmt": 4.1, "yield_tha": 3.55, "share_pct": 2.6, "field_start": "Late Oct", "peak_start": "Nov 15", "peak_end": "Dec 15", "harvest_window": "Mar 10 \u2013 May 10", "current_status": "Awaiting Wet Season", "status_class": "status-await", "crop_role": "Single-Crop Soy", "driver": "Northernmost agricultural node; latest monsoon arrival in Brazil, peaking in late November and December.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "early", "empty"]}, {"code": "TO", "name": "Tocantins", "country": "Brazil", "macro_region": "Brazil - MATOPIBA Frontier", "district": "Central-South Crop Plains (Gurupi / Pedro Afonso)", "prod_mmt": 4.2, "yield_tha": 3.5, "share_pct": 2.6, "field_start": "Oct 20", "peak_start": "Nov 01", "peak_end": "Nov 30", "harvest_window": "Feb 15 \u2013 Apr 15", "current_status": "Awaiting Nov Rain", "status_class": "status-await", "crop_role": "Main Season Soy", "driver": "Savanna soils require deep hydration; planting builds rapidly in early November.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "early", "empty", "empty"]}, {"code": "SF", "name": "Santa Fe South/Center", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Department of General L\u00f3pez (Venado Tuerto / Casilda)", "prod_mmt": 9.5, "yield_tha": 3.6, "share_pct": 19.0, "field_start": "Oct 15", "peak_start": "Oct 25", "peak_end": "Nov 15", "harvest_window": "Mar 20 \u2013 May 15", "current_status": "Pre-Planting Window Opening", "status_class": "status-await", "crop_role": "Soja 1\u00aa (65%) & Soja 2\u00aa (35%)", "driver": "Core Pampas heartland; Soja 1\u00aa starts late Oct; Soja 2\u00aa follows wheat harvest in early December.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "early", "post", "post", "empty"]}, {"code": "BA-N", "name": "Buenos Aires North", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Zona N\u00facleo Heartland (Pergamino / Rojas / Salto)", "prod_mmt": 8.5, "yield_tha": 3.8, "share_pct": 17.0, "field_start": "Oct 15", "peak_start": "Oct 25", "peak_end": "Nov 20", "harvest_window": "Mar 25 \u2013 May 20", "current_status": "Pre-Planting Stage", "status_class": "status-await", "crop_role": "Soja 1\u00aa (60%) & Soja 2\u00aa (40%)", "driver": "Prime deep Argiudoll soils. Soil temperature stabilization at 16\u00b0C triggers high-speed planting surge.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "early", "post", "post", "empty"]}, {"code": "CBA", "name": "C\u00f3rdoba Core", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Marcos Ju\u00e1rez & Union Basin (Marcos Ju\u00e1rez / Villa Mar\u00eda)", "prod_mmt": 13.8, "yield_tha": 3.35, "share_pct": 27.5, "field_start": "Oct 20", "peak_start": "Nov 01", "peak_end": "Nov 25", "harvest_window": "Apr 01 \u2013 May 25", "current_status": "Pre-Planting Stage", "status_class": "status-await", "crop_role": "Soja 1\u00aa (70%) & Soja 2\u00aa (30%)", "driver": "Argentina's largest soybean province. Western pampas areas wait for late spring rainfall replenishment.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "early", "post", "empty"]}, {"code": "BA-S", "name": "Buenos Aires South", "country": "Argentina", "macro_region": "Argentina - Southern & Western Pampas", "district": "Wheat Heartland (Tres Arroyos / Balcarce / Tandil)", "prod_mmt": 4.5, "yield_tha": 2.8, "share_pct": 9.0, "field_start": "Nov 01", "peak_start": "Nov 10", "peak_end": "Nov 30", "harvest_window": "Apr 15 \u2013 May 30", "current_status": "Wheat Maturation Stage", "status_class": "status-await", "crop_role": "Soja 2\u00aa Post-Wheat Dominant (>50%)", "driver": "Maritime southern wheat belt; cold springs delay planting. Over 50% seeded in Dec after wheat/barley.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "post", "empty"]}, {"code": "BA-W", "name": "BA West & La Pampa", "country": "Argentina", "macro_region": "Argentina - Southern & Western Pampas", "district": "Sandy Pampas Transition (Trenque Lauquen / General Pico)", "prod_mmt": 5.8, "yield_tha": 2.9, "share_pct": 11.6, "field_start": "Late Oct", "peak_start": "Nov 05", "peak_end": "Nov 30", "harvest_window": "Apr 05 \u2013 May 25", "current_status": "Soil Moisture Recharge", "status_class": "status-await", "crop_role": "Single-Crop Soy / Corn", "driver": "Semiarid sandy soils; requires substantial spring rainfall to establish planting moisture profile.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty"]}, {"code": "ER", "name": "Entre R\u00edos", "country": "Argentina", "macro_region": "Argentina - Litoral / Mesopotamia", "district": "Southwest Rolling Plains (Victoria / Crespo)", "prod_mmt": 3.2, "yield_tha": 2.7, "share_pct": 6.4, "field_start": "Oct 15", "peak_start": "Oct 25", "peak_end": "Nov 20", "harvest_window": "Mar 20 \u2013 May 10", "current_status": "Pre-Planting Field Prep", "status_class": "status-await", "crop_role": "Soja 1\u00aa (65%) & Soja 2\u00aa (35%)", "driver": "Heavy clay vertisols; farmers time planting precisely after rains before topsoil crusts hard.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "early", "post", "post", "empty"]}, {"code": "PY", "name": "Paraguay Oriental", "country": "Paraguay", "macro_region": "Paraguay - Regi\u00f3n Oriental", "district": "Alto Paran\u00e1 & Itap\u00faa Farm Basin (Santa Rita / Naranjal)", "prod_mmt": 10.5, "yield_tha": 3.15, "share_pct": 88.0, "field_start": "Sep 05", "peak_start": "Sep 20", "peak_end": "Oct 25", "harvest_window": "Dec 20 \u2013 Feb 15", "current_status": "Active Peak Sowing Surge", "status_class": "status-active", "crop_role": "Early Soy & Zafri\u00f1a", "driver": "Earliest start in South America. Early harvest in Dec/Jan allows an entire 2nd commercial crop (Zafri\u00f1a).", "timeline": ["early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty", "empty", "empty"]}, {"code": "UY", "name": "Uruguay Litoral", "country": "Uruguay", "macro_region": "Uruguay - Litoral Oeste", "district": "Agricultural Heart (Dolores / Young)", "prod_mmt": 3.0, "yield_tha": 2.75, "share_pct": 85.0, "field_start": "Oct 20", "peak_start": "Nov 01", "peak_end": "Nov 30", "harvest_window": "Apr 01 \u2013 May 25", "current_status": "Pre-Planting Stage", "status_class": "status-await", "crop_role": "Soja 1\u00aa (50%) & Soja 2\u00aa (50%)", "driver": "Intense winter cereal rotation (barley, canola, wheat); 50% planted as 2nd crop in December.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "post", "post", "empty"]}, {"code": "BO", "name": "Santa Cruz Lowlands", "country": "Bolivia", "macro_region": "Bolivia - Santa Cruz Lowlands", "district": "Tierras Bajas Farm Heartland (Pailon / Cuatro Ca\u00f1adas)", "prod_mmt": 3.3, "yield_tha": 2.25, "share_pct": 92.0, "field_start": "Nov 15", "peak_start": "Dec 01", "peak_end": "Jan 10", "harvest_window": "Apr 01 \u2013 Jun 10", "current_status": "Dry Winter Harvest Ending", "status_class": "status-await", "crop_role": "Campa\u00f1a de Verano", "driver": "Summer season (Verano) represents ~75% of production; planting awaits the tropical wet season in Dec.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak"]}], "corn": [{"code": "MT", "name": "Mato Grosso", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "Mid-North Rural Heartland (Sorriso / Lucas do Rio Verde)", "prod_mmt": 46.0, "yield_tha": 6.2, "share_pct": 49.5, "field_start": "Jan 15 (Safrinha)", "peak_start": "Jan 25", "peak_end": "Feb 20", "harvest_window": "Jun 15 \u2013 Aug 15", "current_status": "Off-Season (Awaiting Soy Harvest)", "status_class": "status-await", "crop_role": "2nd Crop Safrinha (100%)", "driver": "100% Safrinha corn. Planting begins the instant soybeans are combined; closing window is Feb 25.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "PR", "name": "Paran\u00e1", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "West & North Agricultural Basin (Cascavel / Londrina)", "prod_mmt": 16.5, "yield_tha": 6.1, "share_pct": 13.2, "field_start": "Late Aug (1st) / Jan (2nd)", "peak_start": "Sep 01 (1st) / Feb 01 (2nd)", "peak_end": "Sep 30 / Feb 28", "harvest_window": "Jan\u2013Mar (1st) / Jun\u2013Aug (2nd)", "current_status": "1st Crop Active / Emergence", "status_class": "status-active", "crop_role": "1st Crop Safra & 2nd Safrinha", "driver": "Southern/Southwest regions plant 1st crop corn in Aug/Sep; Northern PR plants massive Safrinha in Jan/Feb.", "timeline": ["early", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "CBA", "name": "C\u00f3rdoba Core", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Marcos Ju\u00e1rez & Union Basin (Marcos Ju\u00e1rez / Villa Mar\u00eda)", "prod_mmt": 20.5, "yield_tha": 8.6, "share_pct": 37.5, "field_start": "Sep 15 (Early) / Dec 01 (Late)", "peak_start": "Oct 01 (Early) / Dec 10 (Late)", "peak_end": "Oct 25 / Jan 10", "harvest_window": "Mar\u2013May (Early) / Jul\u2013Aug (Late)", "current_status": "Early Corn Sowing Active", "status_class": "status-active", "crop_role": "Ma\u00edz Temprano (40%) & Tard\u00edo (60%)", "driver": "Argentina's corn powerhouse. Staggered into early spring corn and late summer corn (ma\u00edz tard\u00edo).", "timeline": ["empty", "early", "peak", "peak", "early", "empty", "empty", "early", "peak", "peak", "peak", "early"]}, {"code": "GO", "name": "Goi\u00e1s", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "Southwest Rural Grain Basin (Rio Verde / Jata\u00ed)", "prod_mmt": 12.5, "yield_tha": 6.4, "share_pct": 10.2, "field_start": "Oct 15 (1st) / Jan 20 (2nd)", "peak_start": "Nov 01 (1st) / Feb 05 (2nd)", "peak_end": "Nov 25 / Feb 28", "harvest_window": "Feb\u2013Apr (1st) / Jun\u2013Aug (2nd)", "current_status": "Pre-Planting 1st Crop", "status_class": "status-await", "crop_role": "Safra (20%) & Safrinha (80%)", "driver": "Major Safrinha producer; early commercial hybrid corn planted in Oct for dairy/poultry feed.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "empty", "empty", "early", "peak", "peak"]}, {"code": "MS", "name": "Mato Grosso do Sul", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "South-Central Crop Belt (Maracaju / Dourados)", "prod_mmt": 11.8, "yield_tha": 5.6, "share_pct": 9.5, "field_start": "Jan 20 (Safrinha)", "peak_start": "Feb 01", "peak_end": "Feb 28", "harvest_window": "Jun 20 \u2013 Aug 20", "current_status": "Off-Season (Awaiting Soy)", "status_class": "status-await", "crop_role": "2nd Crop Safrinha (95%)", "driver": "Almost exclusively Safrinha corn; highly sensitive to winter frost in southern MS (Dourados/Ponta Por\u00e3).", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "BA-N", "name": "Buenos Aires North", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Zona N\u00facleo Heartland (Pergamino / Rojas / Salto)", "prod_mmt": 9.2, "yield_tha": 9.4, "share_pct": 16.7, "field_start": "Sep 15 (Early) / Dec 05 (Late)", "peak_start": "Sep 25 / Dec 15", "peak_end": "Oct 20 / Jan 05", "harvest_window": "Mar\u2013Apr (Early) / Jul\u2013Aug (Late)", "current_status": "Early Corn Sowing Active", "status_class": "status-active", "crop_role": "Ma\u00edz Temprano (55%) & Tard\u00edo (45%)", "driver": "Highest yielding corn region in South America (~9.4 t/ha). Sown in two distinct cycles to spread pollination risk.", "timeline": ["empty", "early", "peak", "peak", "early", "empty", "empty", "early", "peak", "peak", "early", "empty"]}, {"code": "SF", "name": "Santa Fe South/Center", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Department of General L\u00f3pez (Venado Tuerto / Casilda)", "prod_mmt": 7.8, "yield_tha": 8.9, "share_pct": 14.2, "field_start": "Sep 15 (Early) / Dec 05 (Late)", "peak_start": "Sep 25 / Dec 15", "peak_end": "Oct 20 / Jan 05", "harvest_window": "Mar\u2013Apr (Early) / Jul\u2013Aug (Late)", "current_status": "Early Corn Sowing Active", "status_class": "status-active", "crop_role": "Ma\u00edz Temprano (50%) & Tard\u00edo (50%)", "driver": "Zona N\u00facleo early corn actively seeded right now; late corn seeded after wheat harvest.", "timeline": ["empty", "early", "peak", "peak", "early", "empty", "empty", "early", "peak", "peak", "early", "empty"]}, {"code": "MG", "name": "Minas Gerais", "country": "Brazil", "macro_region": "Brazil - Southeast / East", "district": "Tri\u00e2ngulo Mineiro & Alto Parana\u00edba (Patos de Minas / Uberaba)", "prod_mmt": 7.5, "yield_tha": 6.7, "share_pct": 6.0, "field_start": "Oct 10 (1st) / Feb 01 (2nd)", "peak_start": "Oct 25 (1st) / Feb 10 (2nd)", "peak_end": "Nov 25 / Feb 28", "harvest_window": "Mar\u2013May (1st) / Jun\u2013Aug (2nd)", "current_status": "Pre-Planting 1st Crop", "status_class": "status-await", "crop_role": "Safra (35%) & Safrinha (65%)", "driver": "Dual cropping; high corn silage and grain demand for intensive dairy and swine operations.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "early", "peak", "peak"]}, {"code": "BA-W", "name": "BA West & La Pampa", "country": "Argentina", "macro_region": "Argentina - Southern & Western Pampas", "district": "Sandy Pampas Transition (Trenque Lauquen / General Pico)", "prod_mmt": 6.5, "yield_tha": 7.8, "share_pct": 11.8, "field_start": "Oct 01 (Early) / Dec 01 (Late)", "peak_start": "Oct 15 / Dec 10", "peak_end": "Nov 10 / Jan 05", "harvest_window": "Apr\u2013May (Early) / Jul\u2013Aug (Late)", "current_status": "Pre-Planting Early Corn", "status_class": "status-await", "crop_role": "Ma\u00edz Tard\u00edo Dominant (65%)", "driver": "Sandy semiarid soils heavily favor late corn (ma\u00edz tard\u00edo) to shift pollination out of dry January heat.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "empty", "empty", "early", "peak", "peak", "early"]}, {"code": "RS", "name": "Rio Grande do Sul", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "Planalto M\u00e9dio Crop Plateau (Passo Fundo / Cruz Alta)", "prod_mmt": 5.2, "yield_tha": 6.8, "share_pct": 4.2, "field_start": "Mid-Aug", "peak_start": "Sep 01", "peak_end": "Sep 30", "harvest_window": "Jan 10 \u2013 Mar 20", "current_status": "Active Sowing & Emergence", "status_class": "status-active", "crop_role": "1st Crop Safra Only (100%)", "driver": "100% full-season 1st crop corn. Farmers plant early in August/September to avoid severe December heat waves.", "timeline": ["early", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]}, {"code": "SP", "name": "S\u00e3o Paulo", "country": "Brazil", "macro_region": "Brazil - Southeast / East", "district": "Vale do Paranapanema Grain Axis (Assis / Itapeva)", "prod_mmt": 4.5, "yield_tha": 6.5, "share_pct": 3.6, "field_start": "Sep 15 (1st) / Jan 25 (2nd)", "peak_start": "Oct 01 / Feb 05", "peak_end": "Oct 31 / Feb 28", "harvest_window": "Feb\u2013Apr (1st) / Jun\u2013Aug (2nd)", "current_status": "Early Corn Sowing", "status_class": "status-early", "crop_role": "Safra (30%) & Safrinha (70%)", "driver": "Paranapanema basin features high corn yields supporting state poultry, beef, and industrial starch markets.", "timeline": ["empty", "early", "peak", "peak", "peak", "early", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "PY", "name": "Paraguay Oriental", "country": "Paraguay", "macro_region": "Paraguay - Regi\u00f3n Oriental", "district": "Alto Paran\u00e1 & Itap\u00faa Farm Basin (Santa Rita / Naranjal)", "prod_mmt": 4.5, "yield_tha": 5.4, "share_pct": 85.0, "field_start": "Jan 15 (Zafri\u00f1a)", "peak_start": "Jan 25", "peak_end": "Feb 20", "harvest_window": "Jun 01 \u2013 Jul 31", "current_status": "Off-Season (Awaiting Soy)", "status_class": "status-await", "crop_role": "2nd Crop Zafri\u00f1a (90%)", "driver": "Planted right after early soybean harvest in January; vital export crop to Brazilian livestock feed mills.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "BA-S", "name": "Buenos Aires South", "country": "Argentina", "macro_region": "Argentina - Southern & Western Pampas", "district": "Wheat Heartland (Tres Arroyos / Balcarce / Tandil)", "prod_mmt": 3.5, "yield_tha": 7.2, "share_pct": 6.4, "field_start": "Oct 15 (Early) / Dec 01 (Late)", "peak_start": "Nov 01 / Dec 15", "peak_end": "Nov 25 / Jan 05", "harvest_window": "Apr\u2013May (Early) / Jul\u2013Aug (Late)", "current_status": "Pre-Planting Stage", "status_class": "status-await", "crop_role": "Ma\u00edz Tard\u00edo Dominant (70%)", "driver": "Maritime southern climate; corn planting starts late to avoid frost, heavily skewed toward late-season hybrids.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "empty", "early", "peak", "peak", "early"]}, {"code": "SC", "name": "Santa Catarina", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "Planalto Grain Belt (Campos Novos / Chapec\u00f3)", "prod_mmt": 2.6, "yield_tha": 8.2, "share_pct": 2.1, "field_start": "Late Aug", "peak_start": "Sep 01", "peak_end": "Oct 15", "harvest_window": "Jan 20 \u2013 Mar 31", "current_status": "Active Sowing & Emergence", "status_class": "status-active", "crop_role": "1st Crop Safra (High Tech)", "driver": "Highest corn yield in Brazil (~8.2 t/ha). 100% full-season corn planted to feed state hog and poultry complex.", "timeline": ["early", "peak", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty", "empty", "empty"]}, {"code": "BA", "name": "Western Bahia", "country": "Brazil", "macro_region": "Brazil - MATOPIBA Frontier", "district": "West Bahia Cerrado Plateau (Lu\u00eds Eduardo Magalh\u00e3es / S\u00e3o Desid\u00e9rio)", "prod_mmt": 2.6, "yield_tha": 8.5, "share_pct": 2.1, "field_start": "Nov 01", "peak_start": "Nov 15", "peak_end": "Dec 15", "harvest_window": "Apr 15 \u2013 Jun 30", "current_status": "Awaiting Monsoon Rain", "status_class": "status-await", "crop_role": "1st Crop Safra (High Tech)", "driver": "High-yield commercial grain corn planted under pivot irrigation and high-tech rainfed savanna plateaus.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "early", "empty", "empty"]}, {"code": "MA", "name": "Southern Maranh\u00e3o", "country": "Brazil", "macro_region": "Brazil - MATOPIBA Frontier", "district": "Chapada das Mangabeiras (Balsas Plateau)", "prod_mmt": 2.1, "yield_tha": 6.8, "share_pct": 1.7, "field_start": "Nov 15", "peak_start": "Dec 01", "peak_end": "Dec 31", "harvest_window": "Apr 20 \u2013 Jun 20", "current_status": "Awaiting Monsoon Rain", "status_class": "status-await", "crop_role": "1st Crop Safra (Rainfed)", "driver": "Planted in December as rainy season peaks; primarily supplies northern grain export terminals and local feed.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "early", "empty"]}, {"code": "TO", "name": "Tocantins", "country": "Brazil", "macro_region": "Brazil - MATOPIBA Frontier", "district": "Central-South Crop Plains (Gurupi / Pedro Afonso)", "prod_mmt": 1.9, "yield_tha": 5.9, "share_pct": 1.5, "field_start": "Nov 01 (1st) / Feb 01 (2nd)", "peak_start": "Nov 15 (1st) / Feb 15 (2nd)", "peak_end": "Dec 10 / Feb 28", "harvest_window": "Apr\u2013May (1st) / Jun\u2013Jul (2nd)", "current_status": "Awaiting November Rain", "status_class": "status-await", "crop_role": "Safra & Safrinha Rotation", "driver": "Expanding grain corridor along the North-South railway; both 1st crop and Safrinha planted.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "early", "empty", "peak", "peak"]}, {"code": "ER", "name": "Entre R\u00edos", "country": "Argentina", "macro_region": "Argentina - Litoral / Mesopotamia", "district": "Southwest Rolling Plains (Victoria / Crespo)", "prod_mmt": 1.8, "yield_tha": 6.5, "share_pct": 3.3, "field_start": "Sep 05", "peak_start": "Sep 20", "peak_end": "Oct 15", "harvest_window": "Feb 15 \u2013 Apr 10", "current_status": "Active Sowing & Emergence", "status_class": "status-active", "crop_role": "Ma\u00edz Temprano (80%)", "driver": "Early spring corn planted early to supply local poultry integration and Rosario river export terminals.", "timeline": ["early", "peak", "peak", "peak", "early", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]}, {"code": "BO", "name": "Santa Cruz Lowlands", "country": "Bolivia", "macro_region": "Bolivia - Santa Cruz Lowlands", "district": "Tierras Bajas Farm Heartland (Pailon / Cuatro Ca\u00f1adas)", "prod_mmt": 1.1, "yield_tha": 3.8, "share_pct": 80.0, "field_start": "Nov 20", "peak_start": "Dec 10", "peak_end": "Jan 15", "harvest_window": "May 01 \u2013 Jul 15", "current_status": "Dry Winter Harvest Ending", "status_class": "status-await", "crop_role": "Campa\u00f1a de Verano", "driver": "Corn planted in summer to feed national poultry and swine herds centered around Santa Cruz de la Sierra.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak"]}, {"code": "UY", "name": "Uruguay Litoral", "country": "Uruguay", "macro_region": "Uruguay - Litoral Oeste", "district": "Agricultural Heart (Dolores / Young)", "prod_mmt": 0.85, "yield_tha": 7.1, "share_pct": 80.0, "field_start": "Sep 20 (Early) / Dec 05 (Late)", "peak_start": "Oct 05 / Dec 15", "peak_end": "Oct 31 / Jan 05", "harvest_window": "Mar\u2013Apr (Early) / Jun\u2013Jul (Late)", "current_status": "Early Corn Sowing", "status_class": "status-early", "crop_role": "Ma\u00edz de 1\u00aa & Ma\u00edz de 2\u00aa", "driver": "High-tech silage and grain corn rotated with dairy farming and cattle feedlots.", "timeline": ["empty", "empty", "early", "peak", "peak", "early", "empty", "empty", "early", "peak", "early", "empty"]}], "wheat": [{"code": "BA-S", "name": "Buenos Aires South", "country": "Argentina", "macro_region": "Argentina - Southern & Western Pampas", "district": "Wheat Heartland (Tres Arroyos / Balcarce / Tandil)", "prod_mmt": 7.6, "yield_tha": 3.85, "share_pct": 46.0, "field_start": "Jun 01", "peak_start": "Jun 15", "peak_end": "Jul 25", "harvest_window": "Dec 10 \u2013 Jan 15", "current_status": "Stem Elongation / Jointing", "status_class": "status-active", "crop_role": "Main Season Winter Wheat", "driver": "The premier wheat belt of South America (~7.6M t). Maritime climate powers long grain-fill period.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty"]}, {"code": "PR", "name": "Paran\u00e1", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "West & North Agricultural Basin (Cascavel / Londrina)", "prod_mmt": 4.5, "yield_tha": 3.1, "share_pct": 50.0, "field_start": "Apr 15", "peak_start": "May 01", "peak_end": "Jun 15", "harvest_window": "Aug 20 \u2013 Oct 25", "current_status": "Harvesting & Grain Fill", "status_class": "status-active", "crop_role": "Winter Wheat (50% of Brazil)", "driver": "Brazil's top wheat state. Early harvest in North/West PR allows early soybean seeding in Sep/Oct.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty", "empty"]}, {"code": "RS", "name": "Rio Grande do Sul", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "Planalto M\u00e9dio Crop Plateau (Passo Fundo / Cruz Alta)", "prod_mmt": 3.8, "yield_tha": 2.95, "share_pct": 42.0, "field_start": "May 15", "peak_start": "Jun 01", "peak_end": "Jul 10", "harvest_window": "Oct 15 \u2013 Dec 05", "current_status": "Heading & Flowering", "status_class": "status-active", "crop_role": "Winter Wheat (42% of Brazil)", "driver": "Currently in critical heading/flowering phase; harvest in Nov immediately prefaces double-crop soybeans.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty"]}, {"code": "SF", "name": "Santa Fe South/Center", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Department of General L\u00f3pez (Venado Tuerto / Casilda)", "prod_mmt": 2.8, "yield_tha": 3.8, "share_pct": 17.0, "field_start": "May 20", "peak_start": "Jun 05", "peak_end": "Jul 10", "harvest_window": "Nov 10 \u2013 Dec 15", "current_status": "Heading / Flag Leaf", "status_class": "status-active", "crop_role": "Wheat-Soybean Double Crop Axis", "driver": "Core Pampas wheat; harvest in late Nov allows immediate no-till seeding of Soja de 2\u00aa.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty"]}, {"code": "BA-N", "name": "Buenos Aires North", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Zona N\u00facleo Heartland (Pergamino / Rojas / Salto)", "prod_mmt": 2.4, "yield_tha": 4.2, "share_pct": 14.5, "field_start": "May 25", "peak_start": "Jun 10", "peak_end": "Jul 15", "harvest_window": "Nov 15 \u2013 Dec 20", "current_status": "Booting / Early Heading", "status_class": "status-active", "crop_role": "High-Yield Winter Cereal", "driver": "Highest wheat yields in Argentina (>4.2 t/ha); integral part of the Pergamino intensive rotation.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty"]}, {"code": "CBA", "name": "C\u00f3rdoba Core", "country": "Argentina", "macro_region": "Argentina - Zona N\u00facleo Core", "district": "Marcos Ju\u00e1rez & Union Basin (Marcos Ju\u00e1rez / Villa Mar\u00eda)", "prod_mmt": 2.1, "yield_tha": 3.1, "share_pct": 12.8, "field_start": "May 15", "peak_start": "Jun 01", "peak_end": "Jul 05", "harvest_window": "Nov 01 \u2013 Dec 10", "current_status": "Heading Stage", "status_class": "status-active", "crop_role": "Winter Wheat Rotation", "driver": "Relies heavily on stored subsoil moisture through dry winter; harvest wraps up by early December.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty", "empty"]}, {"code": "ER", "name": "Entre R\u00edos", "country": "Argentina", "macro_region": "Argentina - Litoral / Mesopotamia", "district": "Southwest Rolling Plains (Victoria / Crespo)", "prod_mmt": 1.8, "yield_tha": 3.4, "share_pct": 10.9, "field_start": "May 15", "peak_start": "Jun 01", "peak_end": "Jul 05", "harvest_window": "Nov 01 \u2013 Dec 05", "current_status": "Heading & Flowering", "status_class": "status-active", "crop_role": "Litoral Wheat Basin", "driver": "Harvested early in November, paving the way for high-speed soybean seeding across rolling clay soils.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty", "empty"]}, {"code": "BA-W", "name": "BA West & La Pampa", "country": "Argentina", "macro_region": "Argentina - Southern & Western Pampas", "district": "Sandy Pampas Transition (Trenque Lauquen / General Pico)", "prod_mmt": 1.6, "yield_tha": 2.9, "share_pct": 9.7, "field_start": "Jun 01", "peak_start": "Jun 15", "peak_end": "Jul 20", "harvest_window": "Dec 01 \u2013 Dec 31", "current_status": "Tillering & Stem Elongation", "status_class": "status-active", "crop_role": "Sandy Pampas Cereal", "driver": "Acts as vital winter cover preventing wind erosion in sandy soils; harvested in December.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty"]}, {"code": "UY", "name": "Uruguay Litoral", "country": "Uruguay", "macro_region": "Uruguay - Litoral Oeste", "district": "Agricultural Heart (Dolores / Young)", "prod_mmt": 1.3, "yield_tha": 3.9, "share_pct": 82.0, "field_start": "May 20", "peak_start": "Jun 05", "peak_end": "Jul 10", "harvest_window": "Nov 15 \u2013 Dec 20", "current_status": "Heading / Flowering", "status_class": "status-active", "crop_role": "Winter Cereal Heart", "driver": "Cornerstone of Uruguayan agriculture along with winter barley; directly followed by Soja de 2\u00aa.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty"]}, {"code": "PY", "name": "Paraguay Oriental", "country": "Paraguay", "macro_region": "Paraguay - Regi\u00f3n Oriental", "district": "Alto Paran\u00e1 & Itap\u00faa Farm Basin (Santa Rita / Naranjal)", "prod_mmt": 1.2, "yield_tha": 2.6, "share_pct": 90.0, "field_start": "Apr 20", "peak_start": "May 05", "peak_end": "Jun 05", "harvest_window": "Aug 15 \u2013 Sep 30", "current_status": "Harvest Wrapping Up", "status_class": "status-active", "crop_role": "Early Winter Wheat", "driver": "Subtropical wheat harvested earliest in South America (August/September), opening soil for September soy.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty", "empty", "empty"]}, {"code": "SC", "name": "Santa Catarina", "country": "Brazil", "macro_region": "Brazil - South Subtropical (Sul)", "district": "Planalto Grain Belt (Campos Novos / Chapec\u00f3)", "prod_mmt": 0.45, "yield_tha": 3.2, "share_pct": 5.0, "field_start": "Jun 01", "peak_start": "Jun 15", "peak_end": "Jul 15", "harvest_window": "Nov 01 \u2013 Dec 10", "current_status": "Heading Stage", "status_class": "status-active", "crop_role": "High-Altitude Wheat", "driver": "Planted in high-altitude Planalto (800-1000m); matures late in November.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty"]}, {"code": "GO", "name": "Goi\u00e1s", "country": "Brazil", "macro_region": "Brazil - Center-West (Cerrado Core)", "district": "Southwest Rural Grain Basin (Rio Verde / Jata\u00ed)", "prod_mmt": 0.4, "yield_tha": 4.8, "share_pct": 4.5, "field_start": "Apr 15", "peak_start": "May 01", "peak_end": "May 25", "harvest_window": "Aug 01 \u2013 Sep 15", "current_status": "Harvest Complete / Off-Season", "status_class": "status-await", "crop_role": "Irrigated Tropical Cerrado Wheat", "driver": "Winter wheat grown under center-pivot irrigation in tropical Cerrado with exceptional yields (>4.8 t/ha).", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "empty", "empty", "empty", "empty", "empty", "empty"]}, {"code": "SP", "name": "S\u00e3o Paulo", "country": "Brazil", "macro_region": "Brazil - Southeast / East", "district": "Vale do Paranapanema Grain Axis (Assis / Itapeva)", "prod_mmt": 0.38, "yield_tha": 3.3, "share_pct": 4.2, "field_start": "Apr 20", "peak_start": "May 05", "peak_end": "Jun 05", "harvest_window": "Aug 20 \u2013 Oct 10", "current_status": "Harvest Finishing", "status_class": "status-active", "crop_role": "Southern S\u00e3o Paulo Wheat", "driver": "Planted in Paranapanema valley after early soybeans; harvest wraps up in September.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty", "empty", "empty"]}, {"code": "MG", "name": "Minas Gerais", "country": "Brazil", "macro_region": "Brazil - Southeast / East", "district": "Tri\u00e2ngulo Mineiro & Alto Parana\u00edba (Patos de Minas / Uberaba)", "prod_mmt": 0.35, "yield_tha": 4.5, "share_pct": 3.8, "field_start": "Apr 15", "peak_start": "May 01", "peak_end": "May 25", "harvest_window": "Aug 01 \u2013 Sep 15", "current_status": "Harvest Complete / Off-Season", "status_class": "status-await", "crop_role": "Irrigated Tropical Wheat", "driver": "High-altitude irrigated winter wheat producing premium bakery-grade flour.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "empty", "empty", "empty", "empty", "empty", "empty"]}, {"code": "BO", "name": "Santa Cruz Lowlands", "country": "Bolivia", "macro_region": "Bolivia - Santa Cruz Lowlands", "district": "Tierras Bajas Farm Heartland (Pailon / Cuatro Ca\u00f1adas)", "prod_mmt": 0.28, "yield_tha": 1.85, "share_pct": 90.0, "field_start": "Apr 25", "peak_start": "May 10", "peak_end": "Jun 10", "harvest_window": "Aug 15 \u2013 Sep 30", "current_status": "Winter Harvest Finishing", "status_class": "status-active", "crop_role": "Campa\u00f1a de Invierno (Winter)", "driver": "Winter wheat grown in the dry season (Invierno); harvested in August/September before summer soybean prep.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "peak", "empty", "empty", "empty", "empty", "empty"]}]};
+
+        let activeCrop = 'soybeans'; // 'soybeans', 'corn', 'wheat'
+        let currentView = 'gantt';   // 'gantt', 'sheet', 'both'
+        let currentCountry = 'all';
+        let searchQuery = '';
+
+        const cropMeta = {
+            soybeans: {
+                title: "South America Soybean Planting Calendar &amp; Progress Gantt Sheet",
+                volLabel: "Soy Output",
+                volDesc: "Tracked Soy Output: <strong>168.3 MMT</strong> (88% of South American Production)",
+                kpis: `
+                    <div class="kpi-card green">
+                        <div class="kpi-label">Current Sowing Status (Sep 30)</div>
+                        <div class="kpi-val">Early Sowing Wave</div>
+                        <div class="kpi-sub">Paraguay &amp; Paraná surging; Mato Grosso &amp; Goiás commencing</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Active Planting Windows</div>
+                        <div class="kpi-val">7 of 20 Nodes</div>
+                        <div class="kpi-sub">PY, PR, MT, MS, SP, GO, SC legally authorized &amp; seeding</div>
+                    </div>
+                    <div class="kpi-card amber">
+                        <div class="kpi-label">Next Major Surge (Oct 15 - 31)</div>
+                        <div class="kpi-val">Zona Núcleo &amp; Cerrado Core</div>
+                        <div class="kpi-sub">Santa Fe, Córdoba &amp; Buenos Aires North Soja 1ª kicks off</div>
+                    </div>
+                    <div class="kpi-card purple">
+                        <div class="kpi-label">Late Wave / Double-Crop (Nov - Dec)</div>
+                        <div class="kpi-val">38.4 MMT (Soja 2ª)</div>
+                        <div class="kpi-sub">Rio Grande do Sul &amp; Southern Pampas post-wheat sequence</div>
+                    </div>
+                `,
+                months: ["Sep", "Oct", "Nov", "Dec"],
+                buckets: [
+                    "Sep 01-10", "Sep 11-20", "Sep 21-30",
+                    "Oct 01-10", "Oct 11-20", "Oct 21-31",
+                    "Nov 01-10", "Nov 11-20", "Nov 21-30",
+                    "Dec 01-10", "Dec 11-20", "Dec 21-31"
+                ],
+                todayBucketIdx: 2, // Sep 21-30
+                legend: `
+                    <div class="legend-item"><span class="legend-swatch swatch-early"></span> Early Field Sowing / Soil Prep</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-peak"></span> Peak Sowing Surge (Crest of Planting Curve)</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-post"></span> Soja 2ª / Double-Crop (Post-Wheat Stubble)</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-today"></span> <strong>TODAY (Sep 30)</strong> Active Line</div>
+                `
+            },
+            corn: {
+                title: "South America Corn Planting &amp; Dual-Season Gantt Sheet (Safra &amp; Safrinha)",
+                volLabel: "Corn Output",
+                volDesc: "Tracked Corn Output: <strong>147.8 MMT</strong> (1st Crop Safra &amp; 2nd Crop Safrinha)",
+                kpis: `
+                    <div class="kpi-card green">
+                        <div class="kpi-label">1st Crop Safra Status (Sep 30)</div>
+                        <div class="kpi-val">Active Sowing &amp; Emergence</div>
+                        <div class="kpi-sub">Rio Grande do Sul, Santa Catarina &amp; Paraná actively planting</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Argentina Early Corn (Zona Núcleo)</div>
+                        <div class="kpi-val">Maíz Temprano Underway</div>
+                        <div class="kpi-sub">Santa Fe, Córdoba &amp; BA North planting early hybrids</div>
+                    </div>
+                    <div class="kpi-card amber">
+                        <div class="kpi-label">2nd Crop Safrinha (Jan - Feb)</div>
+                        <div class="kpi-val">90+ MMT Window</div>
+                        <div class="kpi-sub">Center-West Brazil prepares for high-speed seeding post-soy</div>
+                    </div>
+                    <div class="kpi-card purple">
+                        <div class="kpi-label">Top Yield Center</div>
+                        <div class="kpi-val">Buenos Aires North &amp; SC</div>
+                        <div class="kpi-sub">8.2 &ndash; 9.4 t/ha full-season high-tech intensive corn</div>
+                    </div>
+                `,
+                months: ["Sep", "Oct", "Nov", "Dec"],
+                buckets: [
+                    "Sep 01-10", "Sep 11-20", "Sep 21-30",
+                    "Oct 01-10", "Oct 11-20", "Oct 21-31",
+                    "Nov 01-10", "Nov 11-20", "Nov 21-30",
+                    "Dec 01-10", "Dec 11-20", "Dec 21-31"
+                ],
+                todayBucketIdx: 2, // Sep 21-30
+                legend: `
+                    <div class="legend-item"><span class="legend-swatch swatch-early"></span> Early Field Sowing / Safra Prep</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-peak"></span> Peak Sowing Surge (1st Crop Safra &amp; Late Corn)</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-post"></span> Safrinha Planting Preparation</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-today"></span> <strong>TODAY (Sep 30)</strong> Active Line</div>
+                `
+            },
+            wheat: {
+                title: "South America Wheat Phenology &amp; Harvest Succession Gantt Sheet",
+                volLabel: "Wheat Output",
+                volDesc: "Tracked Wheat Output: <strong>29.0 MMT</strong> (Southern Brazil &amp; Argentine Pampas)",
+                kpis: `
+                    <div class="kpi-card green">
+                        <div class="kpi-label">Active Phase (Sep 30)</div>
+                        <div class="kpi-val">Heading &amp; Grain Fill</div>
+                        <div class="kpi-sub">Reproductive stages across RS, Santa Fe &amp; Buenos Aires</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Harvest Commencing</div>
+                        <div class="kpi-val">Paraná &amp; Paraguay</div>
+                        <div class="kpi-sub">Early subtropical combines running in northern Paraná</div>
+                    </div>
+                    <div class="kpi-card amber">
+                        <div class="kpi-label">Next Major Harvest Surge (Oct - Nov)</div>
+                        <div class="kpi-val">Rio Grande do Sul (3.8M t)</div>
+                        <div class="kpi-sub">Precedes massive second-crop soybean double-seeding</div>
+                    </div>
+                    <div class="kpi-card purple">
+                        <div class="kpi-label">South America Wheat Heartland</div>
+                        <div class="kpi-val">Buenos Aires South (7.6M t)</div>
+                        <div class="kpi-sub">Argentina's southern grain belt harvesting December/January</div>
+                    </div>
+                `,
+                months: ["May", "Jun", "Jul", "Aug"],
+                buckets: [
+                    "May 01-10", "May 11-20", "May 21-31",
+                    "Jun 01-10", "Jun 11-20", "Jun 21-30",
+                    "Jul 01-10", "Jul 11-20", "Jul 21-31",
+                    "Aug 01-10", "Aug 11-20", "Aug 21-31"
+                ],
+                todayBucketIdx: -1, // Wheat planting was May-Aug; current Sep 30 is grain fill/harvest
+                legend: `
+                    <div class="legend-item"><span class="legend-swatch swatch-early"></span> Early Field Sowing / Emergence</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-peak"></span> Main Sowing Window (Winter Cereal)</div>
+                    <div class="legend-item"><span class="legend-swatch swatch-post"></span> Late Sowing Window</div>
+                    <div class="legend-item" style="color:#38bdf8;"><strong>🌾 Current Phase (Sep 30):</strong> Heading, Grain Fill &amp; Active Harvest</div>
+                `
+            }
+        };
+
+        function updateHeaders() {
+            const meta = cropMeta[activeCrop];
+            document.getElementById('page-title').innerHTML = meta.title;
+            document.getElementById('th-vol-label').innerHTML = meta.volLabel;
+            document.getElementById('meta-volume').innerHTML = meta.volDesc;
+            document.getElementById('kpi-banner').innerHTML = meta.kpis;
+            document.getElementById('legend-items').innerHTML = meta.legend;
+
+            // Update 4 Month headers
+            for (let i = 0; i < 4; i++) {
+                const el = document.getElementById('th-m' + (i + 1));
+                if (el) el.innerText = meta.months[i];
+            }
+
+            // Update Subtier row
+            const subtier = document.getElementById('subtier-row');
+            let sHtml = '';
+            meta.buckets.forEach((b, idx) => {
+                const isToday = (idx === meta.todayBucketIdx);
+                const todayClass = isToday ? ' th-today-marker' : '';
+                const pill = isToday ? ' <span class="today-pill">TODAY</span>' : '';
+                const parts = b.split(' ');
+                const label = parts[1];
+                sHtml += `<th class="col-bucket gantt-col-header${todayClass}">${label}${pill}</th>`;
+            });
+            subtier.innerHTML = sHtml;
+        }
+
+        function renderRows() {
+            updateHeaders();
+            syncViewHeaders();
+            const tbody = document.getElementById('table-body');
+            let html = '';
+
+            const dataList = ALL_CROP_DATA[activeCrop] || [];
+            const meta = cropMeta[activeCrop];
+
+            // Group by macro-region
+            const regions = {};
+            dataList.forEach(item => {
+                if (!regions[item.macro_region]) regions[item.macro_region] = [];
+                regions[item.macro_region].push(item);
+            });
+
+            for (const [regName, nodes] of Object.entries(regions)) {
+                const filteredNodes = nodes.filter(item => {
+                    const matchCountry = (currentCountry === 'all' || item.country.toLowerCase() === currentCountry.toLowerCase());
+                    const matchSearch = (!searchQuery || 
+                        item.name.toLowerCase().includes(searchQuery) ||
+                        item.code.toLowerCase().includes(searchQuery) ||
+                        item.district.toLowerCase().includes(searchQuery) ||
+                        item.country.toLowerCase().includes(searchQuery) ||
+                        (item.crop_role && item.crop_role.toLowerCase().includes(searchQuery))
+                    );
+                    return matchCountry && matchSearch;
+                });
+
+                if (filteredNodes.length === 0) continue;
+
+                const totalColspan = (currentView === 'sheet') ? 8 : (currentView === 'gantt') ? 15 : 20;
+                html += `<tr class="reg-header-row"><td colspan="${totalColspan}"><strong>${regName}</strong> &bull; ${filteredNodes.length} Centroids</td></tr>`;
+
+                filteredNodes.forEach(node => {
+                    html += `<tr>`;
+                    
+                    // Fixed Node Title
+                    html += `<td class="col-node">
+                        <div class="node-cell">
+                            <div class="node-title">
+                                <span class="state-code">${node.code}</span>
+                                ${node.name}
+                            </div>
+                            <div class="node-dist">${node.district}</div>
+                        </div>
+                    </td>`;
+
+                    // Country
+                    html += `<td class="col-country">${node.country}</td>`;
+
+                    // Volume
+                    html += `<td class="col-volume">
+                        <strong>${node.prod_mmt}M t</strong> 
+                        <span style="color:#64748b; font-size:9.5px;">(${node.share_pct}%)</span>
+                    </td>`;
+
+                    // Gantt Columns
+                    if (currentView === 'gantt' || currentView === 'both') {
+                        node.timeline.forEach((type, bIdx) => {
+                            const isToday = (bIdx === meta.todayBucketIdx);
+                            const todayClass = isToday ? ' today-col' : '';
+                            const bName = meta.buckets[bIdx];
+
+                            let barHtml = `<div class="g-bar g-empty"></div>`;
+                            if (type === 'early') {
+                                barHtml = `<div class="g-bar g-early tt-wrapper">
+                                    <span>░░</span>
+                                    <div class="tt-content"><strong>${node.name} (${node.code})</strong>: Early Field Sowing &bull; ${bName}<br>Early Start: ${node.field_start}</div>
+                                </div>`;
+                            } else if (type === 'peak') {
+                                barHtml = `<div class="g-bar g-peak tt-wrapper">
+                                    <span>PEAK</span>
+                                    <div class="tt-content"><strong>${node.name} (${node.code})</strong>: Peak Sowing Surge &bull; ${bName}<br>Peak Window: ${node.peak_start} to ${node.peak_end}</div>
+                                </div>`;
+                            } else if (type === 'post') {
+                                barHtml = `<div class="g-bar g-post tt-wrapper">
+                                    <span>2ND CROP</span>
+                                    <div class="tt-content"><strong>${node.name} (${node.code})</strong>: Double-Crop Window &bull; ${bName}<br>Role: ${node.crop_role}</div>
+                                </div>`;
+                            }
+
+                            html += `<td class="col-bucket gantt-cell${todayClass}">${barHtml}</td>`;
+                        });
+                    }
+
+                    // Sheet Columns
+                    if (currentView === 'sheet' || currentView === 'both') {
+                        html += `<td class="col-status"><span class="status-pill ${node.status_class}">${node.current_status}</span></td>`;
+                        html += `<td class="col-dates"><strong>${node.field_start}</strong></td>`;
+                        html += `<td class="col-dates" style="color:#34d399;"><strong>${node.peak_start} &ndash; ${node.peak_end}</strong></td>`;
+                        html += `<td class="col-harvest" style="color:#38bdf8;">${node.harvest_window}</td>`;
+                        html += `<td class="col-driver"><div style="font-size:9.5px; line-height:1.35; color:#cbd5e1;">${node.driver}</div></td>`;
+                    }
+
+                    html += `</tr>`;
+                });
+            }
+
+            tbody.innerHTML = html;
+        }
+
+        function syncViewHeaders() {
+            const ganttHeaders = document.querySelectorAll('.gantt-col-header');
+            const sheetHeaders = document.querySelectorAll('.sheet-col-header');
+            const legendBar = document.getElementById('legend-bar');
+
+            if (currentView === 'gantt') {
+                ganttHeaders.forEach(el => el.style.display = '');
+                sheetHeaders.forEach(el => el.style.display = 'none');
+                if (legendBar) legendBar.style.display = 'flex';
+            } else if (currentView === 'sheet') {
+                ganttHeaders.forEach(el => el.style.display = 'none');
+                sheetHeaders.forEach(el => el.style.display = '');
+                if (legendBar) legendBar.style.display = 'none';
+            } else {
+                ganttHeaders.forEach(el => el.style.display = '');
+                sheetHeaders.forEach(el => el.style.display = '');
+                if (legendBar) legendBar.style.display = 'flex';
+            }
+        }
+
+        function switchCrop(crop) {
+            activeCrop = crop;
+            document.querySelectorAll('[data-crop]').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-crop') === crop);
+            });
+            const btnDirect = document.getElementById('btn-crop-' + crop) || 
+                              (crop === 'soybeans' ? document.getElementById('btn-crop-soy') : null);
+            if (btnDirect && !btnDirect.classList.contains('active')) {
+                btnDirect.classList.add('active');
+            }
+            renderRows();
+        }
+
+        function switchView(mode) {
+            currentView = mode;
+            document.getElementById('btn-view-gantt').classList.toggle('active', mode === 'gantt');
+            document.getElementById('btn-view-sheet').classList.toggle('active', mode === 'sheet');
+            document.getElementById('btn-view-both').classList.toggle('active', mode === 'both');
+            renderRows();
+        }
+
+        function filterCountry(country) {
+            currentCountry = country;
+            document.querySelectorAll('[data-country]').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-country') === country);
+            });
+            renderRows();
+        }
+
+        function filterSearch() {
+            searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+            renderRows();
+        }
+
+        function resetFilters() {
+            currentCountry = 'all';
+            searchQuery = '';
+            document.getElementById('search-input').value = '';
+            document.querySelectorAll('[data-country]').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-country') === 'all');
+            });
+            renderRows();
+        }
+
+        // Initial Render
+        renderRows();
+    </script>
+</body>
+</html>
