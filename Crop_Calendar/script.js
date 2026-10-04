@@ -74,7 +74,7 @@ const cropData = [
     { region: "China", commodity: "Sunflower", subtitle: "Main", estSize: "2 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } }
 ];
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function renderCalendar() {
     const selectedCommodities = Array.from(document.querySelectorAll('.filter-commodity'))
@@ -83,7 +83,29 @@ function renderCalendar() {
     const selectedRegions = Array.from(document.querySelectorAll('.filter-region'))
         .filter(cb => cb.checked).map(cb => cb.value);
 
+    const selectedMonths = Array.from(document.querySelectorAll('.filter-month'))
+        .filter(cb => cb.checked).map(cb => cb.value);
+
+    const thead = document.getElementById("calendar-head");
     const tbody = document.getElementById("calendar-body");
+    
+    // Rebuild thead based on selected months
+    let headHtml = `
+        <tr>
+            <th rowspan="2" class="fixed-col" style="width: 90px;">Region</th>
+            <th rowspan="2" class="fixed-col" style="width: 140px; left: 90px;">Commodity</th>
+            <th rowspan="2" class="fixed-col" style="width: 80px; left: 230px;">Size</th>
+    `;
+    selectedMonths.forEach(m => {
+        headHtml += `<th colspan="2">${m}</th>`;
+    });
+    headHtml += `</tr><tr class="sub-header">`;
+    selectedMonths.forEach(m => {
+        headHtml += `<th>1H</th><th>2H</th>`;
+    });
+    headHtml += `</tr>`;
+    thead.innerHTML = headHtml;
+
     tbody.innerHTML = "";
 
     const filteredData = cropData.filter(d => 
@@ -92,7 +114,7 @@ function renderCalendar() {
     );
 
     if (filteredData.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='27' style='text-align:center; padding: 20px;'>No data matches your selection.</td></tr>";
+        tbody.innerHTML = `<tr><td colspan="${3 + selectedMonths.length * 2}" style="text-align:center; padding: 20px;">No data matches your selection.</td></tr>`;
         return;
     }
 
@@ -100,18 +122,23 @@ function renderCalendar() {
         const tr = document.createElement("tr");
         
         const regionTd = document.createElement("td");
+        regionTd.classList.add("fixed-col");
         regionTd.innerHTML = `<strong>${row.region}</strong>`;
         tr.appendChild(regionTd);
         
         const commodityTd = document.createElement("td");
+        commodityTd.classList.add("fixed-col");
+        commodityTd.style.left = "90px";
         commodityTd.innerHTML = `${row.commodity} ${row.subtitle ? `<br><small style="color:#888">${row.subtitle}</small>` : ''}`;
         tr.appendChild(commodityTd);
         
         const sizeTd = document.createElement("td");
+        sizeTd.classList.add("fixed-col");
+        sizeTd.style.left = "230px";
         sizeTd.innerHTML = `<span style="color:#10b981; font-weight:600;">${row.estSize || '-'}</span>`;
         tr.appendChild(sizeTd);
 
-        months.forEach(month => {
+        selectedMonths.forEach(month => {
             const h1 = row.stages[month][0];
             const h2 = row.stages[month][1];
 
@@ -144,8 +171,10 @@ function renderCalendar() {
 
 const selectAllCommodity = document.getElementById('selectAllCommodity');
 const selectAllRegion = document.getElementById('selectAllRegion');
+const selectAllMonths = document.getElementById('selectAllMonths');
 const commodityCheckboxes = document.querySelectorAll('.filter-commodity');
 const regionCheckboxes = document.querySelectorAll('.filter-region');
+const monthCheckboxes = document.querySelectorAll('.filter-month');
 
 function updateSelectAll(groupCheckboxes, selectAllBox) {
     const allChecked = Array.from(groupCheckboxes).every(cb => cb.checked);
@@ -164,12 +193,29 @@ selectAllRegion.addEventListener('change', function() {
     renderCalendar();
 });
 
-document.querySelectorAll('.filter-commodity, .filter-region').forEach(cb => {
+selectAllMonths.addEventListener('change', function() {
+    monthCheckboxes.forEach(cb => cb.checked = this.checked);
+    renderCalendar();
+});
+
+document.querySelectorAll('.filter-commodity, .filter-region, .filter-month').forEach(cb => {
     cb.addEventListener('click', function(e) {
         const isCommodity = this.classList.contains('filter-commodity');
-        const groupSelector = isCommodity ? '.filter-commodity' : '.filter-region';
+        const isRegion = this.classList.contains('filter-region');
+        
+        let groupSelector, selectAllBox;
+        if (isCommodity) {
+            groupSelector = '.filter-commodity';
+            selectAllBox = selectAllCommodity;
+        } else if (isRegion) {
+            groupSelector = '.filter-region';
+            selectAllBox = selectAllRegion;
+        } else {
+            groupSelector = '.filter-month';
+            selectAllBox = selectAllMonths;
+        }
+        
         const groupCheckboxes = document.querySelectorAll(groupSelector);
-        const selectAllBox = isCommodity ? selectAllCommodity : selectAllRegion;
         
         // If user is NOT holding Ctrl (Windows) or Cmd (Mac), exclusively select this one
         if (!e.ctrlKey && !e.metaKey) {

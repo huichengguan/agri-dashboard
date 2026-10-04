@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysia & Indonesia Soil Moisture Dashboard (Topsoil & Subsoil)</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for interactive historical graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Header Banner with 3-Dashboard Navigation -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <div class="header-title">
+                <h1>Malaysia & Indonesia Soil Moisture Dashboard</h1>
+                <p id="kpi-date">Oil Palm Root-Zone Available Moisture & Drought Stress Monitor (2010–Present)</p>
+            </div>
+        </div>
+
+        <nav class="dashboard-nav-tabs">
+            <a href="index.html" class="nav-tab">🌧️ Precipitation</a>
+            <a href="temperature.html" class="nav-tab">🌡️ Temperature</a>
+            <a href="soil_moisture.html" class="nav-tab active">🌱 Topsoil & Subsoil</a>
+        </nav>
+
+        <div class="header-right">
+            <button class="btn btn-secondary" onclick="exportTableToCSV()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV
+            </button>
+            <button class="btn btn-primary" onclick="location.reload()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                Refresh
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+
+        <!-- KPI Grid -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <span class="kpi-label">Active Layer Mean (Latest)</span>
+                <span class="kpi-value" id="kpi-soil-mean">-</span>
+                <span class="kpi-sub" id="kpi-soil-mean-sub">Across 39 regions</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Critical Deficit States</span>
+                <span class="kpi-value" id="kpi-deficit-val" style="color: #ef4444; font-size: 20px;">-</span>
+                <span class="kpi-sub">&lt; 0.240 m³/m³ (Severe / Wilting)</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Optimal Moisture States</span>
+                <span class="kpi-value" id="kpi-optimal-val" style="color: #16a34a; font-size: 20px;">-</span>
+                <span class="kpi-sub">0.360 – 0.440 m³/m³ (Well-Watered)</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Driest Soil Zone (Latest)</span>
+                <span class="kpi-value" id="kpi-driest-val" style="color: #991b1b; font-size: 20px;">-</span>
+                <span class="kpi-sub" id="kpi-driest-sub">-</span>
+            </div>
+        </section>
+
+        <!-- Soil Moisture Depth Selector: Upper Root Zone vs Subsoil -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; flex-wrap: wrap; gap: 10px; background: #ffffff; padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 6px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 11.5px; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.4px;">Root Zone Depth:</span>
+                <div class="segmented-control" id="soil-depth-toggle">
+                    <button class="segmented-btn active" id="btn-depth-rootzone" data-depth="rootzone" onclick="setSoilDepth('rootzone')">🌱 Upper Root Zone (0–28 cm, 25% L1 + 75% L2)</button>
+                    <button class="segmented-btn" id="btn-depth-subsoil" data-depth="subsoil" onclick="setSoilDepth('subsoil')">🌳 Subsoil Deep Root Zone (28–100 cm, L3)</button>
+                </div>
+            </div>
+            <span id="depth-desc-tag" style="font-size: 11px; color: var(--text-secondary); font-style: italic;">Calibrated for Tropical Ultisols, Inceptisols, Oxisols & Peat</span>
+        </div>
+
+        <!-- 6-Tier Soil Moisture Scale Legend -->
+        <section class="legend-card">
+            <div class="legend-title" id="legend-title">Upper Root Zone (0–28 cm) Soil Moisture Scale (m³/m³):</div>
+            <div class="legend-scale">
+                <span class="legend-chip" style="background-color: #991b1b; color: #fff;">&lt; 0.170 Extreme Wilting</span>
+                <span class="legend-chip" style="background-color: #ef4444; color: #fff;">0.170 – 0.240 Severe Stress</span>
+                <span class="legend-chip" style="background-color: #fb923c; color: #fff;">0.240 – 0.300 Moderate Deficit</span>
+                <span class="legend-chip" style="background-color: #fed7aa; color: #7c2d12;">0.300 – 0.360 Mild Deficit / Watch</span>
+                <span class="legend-chip" style="background-color: #2d7a2f; color: #fff;">0.360 – 0.440 Optimal / Well-Watered</span>
+                <span class="legend-chip" style="background-color: #104a29; color: #fff;">&gt; 0.440 Saturated / Surplus</span>
+            </div>
+        </section>
+
+        <!-- Controls Bar -->
+        <section class="controls-bar">
+            <!-- View Mode Toggle -->
+            <div class="segmented-control">
+                <button class="segmented-btn active" data-mode="monthly" onclick="setMode('monthly')">Monthly Overview</button>
+                <button class="segmented-btn" data-mode="state_matrix" onclick="setMode('state_matrix')">State Matrix: Year &times; Month</button>
+            </div>
+
+            <!-- Region Filter -->
+            <div class="segmented-control" id="region-filter-container">
+                <button class="segmented-btn active" data-group="all" onclick="setGroup('all')">All</button>
+                <button class="segmented-btn" data-group="Peninsular Malaysia" onclick="setGroup('Peninsular Malaysia')">Peninsular</button>
+                <button class="segmented-btn" data-group="Sabah & Sarawak" onclick="setGroup('Sabah & Sarawak')">Sabah & Sarawak</button>
+                <button class="segmented-btn" data-group="Sumatera" onclick="setGroup('Sumatera')">Sumatera</button>
+                <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan')">Kalimantan</button>
+                <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi')">Sulawesi</button>
+                <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua')">Papua</button>
+                <button class="segmented-btn" data-group="South Thailand" onclick="setGroup('South Thailand')">S. Thailand</button>
+                <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)')">Mindanao</button>
+            </div>
+
+            <!-- Year Dropdown (for Monthly Mode) -->
+            <div class="filters-group" id="year-select-container">
+                <label for="year-select" style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary);">Year:</label>
+                <select id="year-select" class="select-control"></select>
+            </div>
+        </section>
+
+        <!-- State Matrix Filters (State Multi-Select, Years & Months) -->
+        <section class="matrix-filter-bar" id="matrix-filter-bar" style="display: none;">
+            <!-- Multi-State Picker Box -->
+            <div class="matrix-state-filter-box">
+                <div class="matrix-state-filter-header">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span class="filter-label" style="margin-bottom: 0;">Select States (Click to toggle on/off):</span>
+                        <span class="selected-state-count-badge" id="selected-state-count-badge">1 State Selected</span>
+                        <button class="pill-btn" id="toggle-state-picker-btn" type="button" onclick="toggleStatePicker()" style="font-weight: 700; background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">▲ Hide State Picker</button>
+                    </div>
+                    <div class="state-preset-group">
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Peninsular Malaysia')">Peninsular</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sabah & Sarawak')">Sabah & Sarawak</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sumatera')">Sumatera</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Kalimantan')">Kalimantan</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sulawesi')">Sulawesi</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Papua')">Papua</button>
+                        <button class="pill-btn" type="button" onclick="selectAllStates()">All 39 States</button>
+                        <button class="pill-btn" type="button" onclick="clearStateSelection()" style="color: #ef4444; border-color: #fca5a5;">Reset to First</button>
+                    </div>
+                </div>
+                
+                <!-- Region-grouped State Pills Container -->
+                <div class="matrix-state-pills-container" id="matrix-state-pills-container">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Multi-State View Toggle (visible when >1 state selected) -->
+                <div class="matrix-multi-state-options" id="matrix-multi-state-options" style="display: none;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Multi-State Display:</span>
+                    <div class="segmented-control">
+                        <button class="segmented-btn active" id="btn-view-combined" type="button" onclick="setMultiStateView('combined')">Combined Average Matrix</button>
+                        <button class="segmented-btn" id="btn-view-breakdown" type="button" onclick="setMultiStateView('breakdown')">Combined + Individual States</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Years & Months Row -->
+            <div class="matrix-filter-row" style="margin-top: 6px;">
+                <div class="filter-col" style="flex: 1.1; min-width: 320px;">
+                    <span class="filter-label">Filter Years (Click to toggle on/off)</span>
+                    <div class="year-pill-selector" id="year-pill-selector">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="preset-group" style="margin-top: 4px;">
+                        <button class="pill-btn active" data-ypreset="all" onclick="setYearPreset('all')">All 2010–26</button>
+                        <button class="pill-btn" data-ypreset="last5" onclick="setYearPreset('last5')">Last 5 Yrs</button>
+                        <button class="pill-btn" data-ypreset="last10" onclick="setYearPreset('last10')">Last 10 Yrs</button>
+                        <button class="pill-btn" data-ypreset="elnino" onclick="setYearPreset('elnino')">El Niño 15, 16, 26</button>
+                    </div>
+                </div>
+
+                <div class="filter-col" style="flex: 1; min-width: 320px;">
+                    <span class="filter-label">Filter Months (Click to toggle on/off)</span>
+                    <div class="month-pill-selector" id="month-pill-selector">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="preset-group" style="margin-top: 4px;">
+                        <button class="pill-btn active" data-mpreset="all" onclick="setMonthPreset('all')">All 12 Months</button>
+                        <button class="pill-btn" data-mpreset="q1" onclick="setMonthPreset('q1')">Q1 Jan–Mar</button>
+                        <button class="pill-btn" data-mpreset="q2" onclick="setMonthPreset('q2')">Q2 Apr–Jun</button>
+                        <button class="pill-btn" data-mpreset="q3" onclick="setMonthPreset('q3')">Q3 / Dry Jul–Sep</button>
+                        <button class="pill-btn" data-mpreset="q4" onclick="setMonthPreset('q4')">Q4 / Monsoon Oct–Dec</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="table-container" id="table-container">
+            <div style="padding: 40px; text-align: center; color: var(--text-secondary);">Loading soil moisture data...</div>
+        </section>
+
+    </div>
+
+    <!-- Drilldown Historical Modal -->
+    <div class="modal-overlay" id="drilldown-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modal-title" style="font-size: 18px; font-weight: 700; color: var(--text-primary);">State Soil Moisture Trajectory</h2>
+                    <p id="modal-subtitle" style="font-size: 11.5px; color: var(--text-secondary);"></p>
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="chart-box">
+                <canvas id="drilldown-chart"></canvas>
+            </div>
+            
+            <div style="font-size: 11px; color: var(--text-secondary); text-align: center;">
+                Comparison of 2026 vs prior years and the long-term climatological normal. Values in m³/m³.
+            </div>
+        </div>
+    </div>
+
+    <script src="data_cache.js"></script>
+    <script src="soil_moisture.js"></script>
+</body>
+</html>
