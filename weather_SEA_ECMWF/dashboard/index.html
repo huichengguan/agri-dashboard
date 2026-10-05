@@ -90,6 +90,11 @@
                 <button class="segmented-btn" data-mode="forecast_6mo" onclick="setMode('forecast_6mo')">🔮 6-Month Forecast</button>
             </div>
 
+            <div class="segmented-control" id="forecast-metric-toggle" style="display: none; margin-left: 15px;">
+                <button class="segmented-btn active" data-fcst-metric="absolute" onclick="setFcstMetric('absolute')">Absolute</button>
+                <button class="segmented-btn" data-fcst-metric="anomaly" onclick="setFcstMetric('anomaly')">Anomaly</button>
+            </div>
+
             <!-- Region Filter -->
             <div class="segmented-control" id="region-filter-container">
                 <button class="segmented-btn active" data-group="all" onclick="setGroup('all')">All</button>

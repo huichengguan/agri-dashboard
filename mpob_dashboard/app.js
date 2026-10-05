@@ -56,24 +56,52 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load async secondary datasets
   loadStateData();
   loadExportProductsData();
+  loadWorkdayData();
+  loadSppomaData();
 
   if (window.lucide) lucide.createIcons();
 });
 
+// Universal Fetch Helper (Works seamlessly on GitHub Pages, file://, and local API servers)
+async function fetchJsonData(apiPath, staticFile) {
+  const isStaticHost = window.location.protocol === "file:" ||
+                       window.location.hostname.endsWith("github.io") ||
+                       (window.location.hostname === "localhost" && window.location.pathname.includes("/dashboard/"));
+  if (isStaticHost) {
+    try {
+      const staticRes = await fetch(staticFile);
+      if (staticRes.ok) return await staticRes.json();
+    } catch (e) {
+      console.warn("Static fetch fallback:", e);
+    }
+  }
+
+  try {
+    const res = await fetch(apiPath);
+    if (res.ok) {
+      const ct = res.headers.get("content-type") || "";
+      if (ct.includes("application/json")) {
+        return await res.json();
+      }
+    }
+  } catch (e) {}
+
+  const fallbackRes = await fetch(staticFile);
+  if (!fallbackRes.ok) throw new Error(`Failed to load ${staticFile} (HTTP ${fallbackRes.status})`);
+  return await fallbackRes.json();
+}
+
 async function loadInitialData() {
   try {
-    const res = await fetch("/api/data?start_year=2005&end_year=2026").catch(() => null) || await fetch("api_data.json");
-    const json = await res.json();
+    const json = await fetchJsonData("/api/data?start_year=2005&end_year=2026", "api_data.json");
     masterData = json.data;
     filteredData = [...masterData];
     metadata = json.metadata;
 
-    const sumRes = await fetch("/api/summary").catch(() => null) || await fetch("api_summary.json");
-    const sumJson = await sumRes.json();
+    const sumJson = await fetchJsonData("/api/summary", "api_summary.json");
     latestSnapshot = sumJson.latest_snapshot;
 
-    const seasRes = await fetch("/api/seasonality").catch(() => null) || await fetch("api_seasonality.json");
-    const seasJson = await seasRes.json();
+    const seasJson = await fetchJsonData("/api/seasonality", "api_seasonality.json");
     seasonalBenchmarks = seasJson.seasonal_benchmarks;
   } catch (err) {
     console.error("Failed to load MPOB data:", err);
@@ -192,7 +220,7 @@ function setQuickRange(range) {
 function switchTab(tabId) {
   document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
   document.querySelectorAll(".tab-btn").forEach(el => {
-    el.classList.remove("active", "border-emerald-500", "border-amber-500", "text-white", "text-amber-300");
+    el.classList.remove("active", "border-emerald-500", "border-amber-500", "border-cyan-500", "border-indigo-500", "text-white", "text-amber-300", "text-cyan-300", "text-indigo-300");
     el.classList.add("border-transparent", "text-slate-400");
   });
 
@@ -202,6 +230,10 @@ function switchTab(tabId) {
     target.classList.remove("hidden");
     if (tabId === 'projections') {
       btn.classList.add("active", "border-amber-500", "text-amber-300");
+    } else if (tabId === 'workdays') {
+      btn.classList.add("active", "border-cyan-500", "text-cyan-300");
+    } else if (tabId === 'sppoma') {
+      btn.classList.add("active", "border-indigo-500", "text-indigo-300");
     } else {
       btn.classList.add("active", "border-emerald-500", "text-white");
     }
@@ -223,6 +255,21 @@ function switchTab(tabId) {
     if (chartExportRev) chartExportRev.resize();
   }
   if (tabId === 'seasonality' && chartSeasonality) chartSeasonality.resize();
+  if (tabId === 'workdays') {
+    if (!workdayData) {
+      loadWorkdayData();
+    } else {
+      if (chartWorkdayRunRate) chartWorkdayRunRate.resize();
+    }
+  }
+  if (tabId === 'sppoma') {
+    if (!sppomaData) {
+      loadSppomaData();
+    } else {
+      if (chartSppomaProgression) chartSppomaProgression.resize();
+      if (chartSppomaMultiYear) chartSppomaMultiYear.resize();
+    }
+  }
   if (window.lucide) lucide.createIcons();
 }
 
@@ -1145,8 +1192,7 @@ function onYieldRegionChange() {
 
 async function loadStateData() {
   try {
-    const res = await fetch("/api/state-data?start_year=2005&end_year=2026").catch(() => null) || await fetch("api_state_data.json");
-    stateData = await res.json();
+    stateData = await fetchJsonData("/api/state-data?start_year=2005&end_year=2026", "api_state_data.json");
     populateStateYearSelect();
     renderStateAnalytics();
   } catch (err) {
@@ -1407,8 +1453,7 @@ function renderStateAnalytics() {
 
 async function loadExportProductsData() {
   try {
-    const res = await fetch("/api/export-products?start_year=2005&end_year=2026").catch(() => null) || await fetch("api_export_products.json");
-    exportProductsData = await res.json();
+    exportProductsData = await fetchJsonData("/api/export-products?start_year=2005&end_year=2026", "api_export_products.json");
     renderExportBreakdown();
     renderExportProductsTable();
   } catch (err) {
@@ -1873,10 +1918,10 @@ const PROJ_BASE = {
   begStock: 2824488,
   augProd: 1817499,
   augExp: 1294664,
-  baseProdPct: 1.51,
-  baseExpTonnes: 1420000,
-  baseDomTonnes: 365000,
-  baseImpTonnes: 50000
+  baseProdPct: 6.50,
+  baseExpTonnes: 1105000,
+  baseDomTonnes: 355000,
+  baseImpTonnes: 45000
 };
 
 function updateSensitivitySimulation() {
@@ -1945,3 +1990,1024 @@ function resetSensitivitySimulator() {
   if (domInput) domInput.value = PROJ_BASE.baseDomTonnes;
   updateSensitivitySimulation();
 }
+
+// -------------------------------------------------------------
+// Workday Analytics & Labor Calendar Implementation
+// -------------------------------------------------------------
+
+let workdayData = null;
+let chartWorkdayRunRate = null;
+
+async function loadWorkdayData() {
+  try {
+    const json = await fetchJsonData("/api/workdays?start_year=2010&end_year=2027", "api_workdays.json");
+    workdayData = json.data;
+    setupWorkdaySelectors();
+    renderWorkdayMonthDetail(2026, 9); // default to September 2026
+    renderWorkdayRunRateChart();
+    renderWorkdayHeatmap();
+    renderWorkdayTable();
+    if (window.lucide) lucide.createIcons();
+  } catch (err) {
+    console.error("Failed to load workday analytics:", err);
+  }
+}
+
+function setupWorkdaySelectors() {
+  const ySelect = document.getElementById("workday-year-select");
+  const mSelect = document.getElementById("workday-month-select");
+  if (!ySelect || !mSelect) return;
+
+  ySelect.innerHTML = "";
+  mSelect.innerHTML = "";
+
+  for (let y = 2010; y <= 2027; y++) {
+    const opt = document.createElement("option");
+    opt.value = y;
+    opt.textContent = y;
+    if (y === 2026) opt.selected = true;
+    ySelect.appendChild(opt);
+  }
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  monthNames.forEach((name, idx) => {
+    const opt = document.createElement("option");
+    opt.value = idx + 1;
+    opt.textContent = `${idx + 1} - ${name}`;
+    if (idx + 1 === 9) opt.selected = true; // September default
+    mSelect.appendChild(opt);
+  });
+}
+
+function onWorkdayMonthChange() {
+  const ySelect = document.getElementById("workday-year-select");
+  const mSelect = document.getElementById("workday-month-select");
+  if (!ySelect || !mSelect) return;
+  const y = parseInt(ySelect.value);
+  const m = parseInt(mSelect.value);
+  renderWorkdayMonthDetail(y, m);
+}
+
+function renderWorkdayMonthDetail(year, month) {
+  if (!workdayData) return;
+  const rec = workdayData.find(r => r.year === year && r.month === month);
+  if (!rec) return;
+
+  const cardsContainer = document.getElementById("workday-month-cards");
+  if (cardsContainer) {
+    cardsContainer.innerHTML = `
+      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+        <span class="text-slate-400 block text-[11px]">Calendar Days</span>
+        <span class="text-lg font-bold text-white font-mono mt-0.5">${rec.calendar_days}</span>
+        <span class="text-[10px] text-slate-500 block">Total month days</span>
+      </div>
+      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+        <span class="text-slate-400 block text-[11px]">Sundays (Rest)</span>
+        <span class="text-lg font-bold text-slate-300 font-mono mt-0.5">${rec.sundays_count}</span>
+        <span class="text-[10px] text-slate-500 block">Statutory rest</span>
+      </div>
+      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+        <span class="text-slate-400 block text-[11px]">Public Holidays</span>
+        <span class="text-lg font-bold text-rose-400 font-mono mt-0.5">${rec.national_holidays_count}</span>
+        <span class="text-[10px] text-slate-500 block">Gazetted (Mon-Sat)</span>
+      </div>
+      <div class="bg-cyan-950/30 p-3 rounded-lg border border-cyan-500/30">
+        <span class="text-cyan-300 block text-[11px] font-semibold">National Workdays</span>
+        <span class="text-xl font-black text-cyan-300 font-mono mt-0.5">${rec.workdays_national}</span>
+        <span class="text-[10px] text-cyan-400/80 block">${rec.workdays_mom_diff ? (rec.workdays_mom_diff >= 0 ? '+' : '') + rec.workdays_mom_diff + ' vs Prev Month' : '--'}</span>
+      </div>
+      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+        <span class="text-slate-400 block text-[11px]">CPO Production</span>
+        <span class="text-lg font-bold text-emerald-400 font-mono mt-0.5">${rec.cpo_production ? formatNumber(rec.cpo_production) + ' T' : (rec.is_projected ? 'Projected' : '--')}</span>
+        <span class="text-[10px] text-slate-500 block">${rec.cpo_prod_mom_pct !== null && rec.cpo_prod_mom_pct !== undefined ? (rec.cpo_prod_mom_pct >= 0 ? '+' : '') + rec.cpo_prod_mom_pct.toFixed(1) + '% MoM' : '--'}</span>
+      </div>
+      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+        <span class="text-slate-400 block text-[11px]">CPO / Workday</span>
+        <span class="text-lg font-bold text-amber-300 font-mono mt-0.5">${rec.cpo_per_workday ? formatNumber(rec.cpo_per_workday) + ' T/D' : '--'}</span>
+        <span class="text-[10px] text-slate-500 block">${rec.run_rate_mom_pct !== null && rec.run_rate_mom_pct !== undefined ? (rec.run_rate_mom_pct >= 0 ? '+' : '') + rec.run_rate_mom_pct.toFixed(1) + '% Run Rate' : '--'}</span>
+      </div>
+    `;
+  }
+
+  // Non-working schedule
+  const summaryEl = document.getElementById("workday-nonworking-summary");
+  if (summaryEl) {
+    const totalOff = rec.sundays_count + rec.national_holidays_count;
+    summaryEl.textContent = `${totalOff} Total Non-Working Days (${rec.workdays_national} Effective Harvesting Days)`;
+  }
+
+  const listEl = document.getElementById("workday-nonworking-list");
+  if (listEl) {
+    if (!rec.non_working_days_detail || rec.non_working_days_detail.length === 0) {
+      listEl.innerHTML = `<div class="text-slate-500 text-xs py-2">No non-working days recorded for this month.</div>`;
+    } else {
+      listEl.innerHTML = rec.non_working_days_detail.map(item => {
+        const isSun = item.type === 'rest_day';
+        const badgeClass = isSun 
+          ? "bg-slate-800 text-slate-300 border-slate-700" 
+          : (item.type === 'regional_holiday' ? "bg-blue-950/60 text-blue-300 border-blue-800/50" : "bg-rose-950/60 text-rose-300 border-rose-800/50");
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80 text-xs">
+            <div class="flex items-center space-x-2">
+              <span class="font-mono font-bold text-white w-6 text-center">${item.day}</span>
+              <div>
+                <span class="font-medium text-slate-200 block">${item.reason}</span>
+                <span class="text-[10px] text-slate-400">${item.day_of_week} &bull; ${item.scope}</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] border font-mono font-semibold ${badgeClass}">
+              ${isSun ? 'Sunday' : 'Holiday'}
+            </span>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+}
+
+function renderWorkdayRunRateChart() {
+  const ctx = document.getElementById("chartWorkdayRunRate");
+  if (!ctx || !workdayData) return;
+
+  const dataSlice = workdayData.filter(r => r.year <= 2026 && r.cpo_production);
+  const labels = dataSlice.map(r => r.period);
+  const cpoProd = dataSlice.map(r => r.cpo_production);
+  const runRate = dataSlice.map(r => r.cpo_per_workday);
+  const workdays = dataSlice.map(r => r.workdays_national);
+
+  if (chartWorkdayRunRate) {
+    chartWorkdayRunRate.destroy();
+  }
+
+  chartWorkdayRunRate = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Monthly CPO Production (Tonnes)',
+          data: cpoProd,
+          backgroundColor: 'rgba(16, 185, 129, 0.4)',
+          borderColor: '#10b981',
+          borderWidth: 1,
+          yAxisID: 'y'
+        },
+        {
+          type: 'line',
+          label: 'Daily CPO Run-Rate (Tonnes / Workday)',
+          data: runRate,
+          borderColor: '#06b6d4',
+          backgroundColor: '#06b6d4',
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.2,
+          yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          grid: { color: 'rgba(51, 65, 85, 0.2)' },
+          ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 24 }
+        },
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          grid: { color: 'rgba(51, 65, 85, 0.3)' },
+          ticks: {
+            color: '#10b981',
+            font: { size: 10 },
+            callback: v => (v / 1e6).toFixed(1) + 'M'
+          },
+          title: { display: true, text: 'Monthly Production (Tonnes)', color: '#10b981', font: { size: 11 } }
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          grid: { drawOnChartArea: false },
+          ticks: {
+            color: '#06b6d4',
+            font: { size: 10 },
+            callback: v => (v / 1000).toFixed(0) + 'k'
+          },
+          title: { display: true, text: 'Daily Output / Workday (Tonnes)', color: '#06b6d4', font: { size: 11 } }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: '#e2e8f0', font: { size: 11 } }
+        },
+        tooltip: {
+          backgroundColor: '#0f172a',
+          borderColor: '#334155',
+          borderWidth: 1,
+          callbacks: {
+            afterBody: function(items) {
+              const idx = items[0].dataIndex;
+              const w = workdays[idx];
+              return `Harvesting Workdays: ${w} Days`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderWorkdayHeatmap() {
+  const container = document.getElementById("workday-heatmap-grid");
+  if (!container || !workdayData) return;
+
+  const years = Array.from(new Set(workdayData.map(r => r.year))).sort((a,b) => b - a);
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const monthHeaders = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  let html = `
+    <table class="w-full text-xs font-mono border-collapse">
+      <thead>
+        <tr class="bg-slate-950 text-slate-400">
+          <th class="py-2 px-2 text-left font-sans">Year</th>
+          ${monthHeaders.map(m => `<th class="py-2 px-1 text-center font-sans">${m}</th>`).join('')}
+          <th class="py-2 px-2 text-right font-sans text-white">Annual Total</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-800/60">
+  `;
+
+  years.forEach(y => {
+    const yearRecords = workdayData.filter(r => r.year === y);
+    const totalYearWorkdays = yearRecords.reduce((sum, r) => sum + r.workdays_national, 0).toFixed(1);
+
+    html += `<tr>`;
+    html += `<td class="py-1.5 px-2 font-bold text-white font-sans bg-slate-900/60">${y}</td>`;
+
+    months.forEach(m => {
+      const rec = yearRecords.find(r => r.month === m);
+      if (!rec) {
+        html += `<td class="py-1.5 px-1 text-center text-slate-600">--</td>`;
+      } else {
+        const w = rec.workdays_national;
+        let colorClass = "bg-slate-900 text-slate-300";
+        if (w < 18) colorClass = "bg-rose-950/70 text-rose-300 font-bold border border-rose-800/40";
+        else if (w <= 20) colorClass = "bg-amber-950/70 text-amber-300 border border-amber-800/40";
+        else if (w <= 22) colorClass = "bg-emerald-950/70 text-emerald-300 border border-emerald-800/40";
+        else colorClass = "bg-cyan-950/70 text-cyan-300 font-black border border-cyan-800/50";
+
+        html += `
+          <td class="py-1.5 px-1 text-center">
+            <span class="inline-block w-8 py-0.5 rounded text-[11px] ${colorClass} cursor-pointer" 
+                  title="${y}-${m < 10 ? '0' + m : m}: ${w} Workdays, Sundays: ${rec.sundays_count}, Hols: ${rec.national_holidays_count}"
+                  onclick="selectWorkdayCalendar(${y}, ${m})">
+              ${w}
+            </span>
+          </td>
+        `;
+      }
+    });
+
+    html += `<td class="py-1.5 px-2 text-right font-bold text-cyan-400 font-mono bg-slate-900/60">${totalYearWorkdays}d</td>`;
+    html += `</tr>`;
+  });
+
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
+
+function selectWorkdayCalendar(y, m) {
+  const ySelect = document.getElementById("workday-year-select");
+  const mSelect = document.getElementById("workday-month-select");
+  if (ySelect) ySelect.value = y;
+  if (mSelect) mSelect.value = m;
+  renderWorkdayMonthDetail(y, m);
+}
+
+let workdayTableSortOrder = 'desc'; // default 'desc' for most recent first
+
+function toggleWorkdayTableSort() {
+  workdayTableSortOrder = workdayTableSortOrder === 'desc' ? 'asc' : 'desc';
+  const icon = document.getElementById("workday-sort-icon");
+  if (icon) icon.textContent = workdayTableSortOrder === 'desc' ? '▼' : '▲';
+  filterWorkdayTable();
+}
+
+function renderWorkdayTable(filterQuery = "") {
+  const tbody = document.getElementById("workday-table-body");
+  if (!tbody || !workdayData) return;
+
+  const q = filterQuery.toLowerCase().trim();
+  let filtered = workdayData.filter(r => {
+    if (!q) return true;
+    return r.period.includes(q) || r.month_name.toLowerCase().includes(q) || String(r.year).includes(q);
+  });
+
+  filtered.sort((a, b) => {
+    return workdayTableSortOrder === 'desc'
+      ? b.period.localeCompare(a.period)
+      : a.period.localeCompare(b.period);
+  });
+
+  tbody.innerHTML = filtered.map(r => {
+    const diff = r.workdays_mom_diff;
+    const diffStr = diff !== null && diff !== undefined 
+      ? `<span class="${diff >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${diff >= 0 ? '+' : ''}${diff}</span>` 
+      : '--';
+    
+    const cpoStr = r.cpo_production ? formatNumber(r.cpo_production) : (r.is_projected ? '<span class="text-amber-400">Proj</span>' : '--');
+    const rateStr = r.cpo_per_workday ? formatNumber(r.cpo_per_workday) : '--';
+    const rateMom = r.run_rate_mom_pct !== null && r.run_rate_mom_pct !== undefined 
+      ? `<span class="${r.run_rate_mom_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${r.run_rate_mom_pct >= 0 ? '+' : ''}${r.run_rate_mom_pct.toFixed(1)}%</span>`
+      : '--';
+
+    return `
+      <tr class="hover:bg-slate-800/40 transition">
+        <td class="py-2 px-3 font-sans font-medium text-white">${r.period}</td>
+        <td class="py-2 px-3 text-right">${r.calendar_days}</td>
+        <td class="py-2 px-3 text-right text-slate-400">${r.sundays_count}</td>
+        <td class="py-2 px-3 text-right text-rose-400 font-bold">${r.national_holidays_count}</td>
+        <td class="py-2 px-3 text-right font-black text-cyan-300 bg-slate-900/50">${r.workdays_national}</td>
+        <td class="py-2 px-3 text-right text-slate-400">${r.workdays_sabah}</td>
+        <td class="py-2 px-3 text-right text-slate-400">${r.workdays_sarawak}</td>
+        <td class="py-2 px-3 text-right">${diffStr}</td>
+        <td class="py-2 px-3 text-right text-emerald-400 font-bold">${cpoStr}</td>
+        <td class="py-2 px-3 text-right text-amber-300 font-black bg-slate-900/50">${rateStr}</td>
+        <td class="py-2 px-3 text-right">${rateMom}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function filterWorkdayTable() {
+  const input = document.getElementById("workday-table-search");
+  if (input) {
+    renderWorkdayTable(input.value);
+  }
+}
+
+// -------------------------------------------------------------
+// TAB 8: SPPOMA & MPOA Intra-Month Survey Tracker
+// -------------------------------------------------------------
+
+let sppomaData = null;
+let sppomaMetadata = null;
+let chartSppomaProgression = null;
+let chartSppomaMultiYear = null;
+
+async function loadSppomaData() {
+  try {
+    const json = await fetchJsonData("/api/sppoma-mpoa?start_year=2010&end_year=2026", "api_sppoma_mpoa.json");
+    sppomaData = json.data;
+    sppomaMetadata = json.metadata;
+
+    setupSppomaSelectors();
+    renderSppomaProgression(2026, 9);
+    renderSppomaHistoryChart();
+    renderSppomaTable();
+  } catch (err) {
+    console.error("Failed to load SPPOMA & MPOA data:", err);
+  }
+}
+
+function setupSppomaSelectors() {
+  const ySelect = document.getElementById("sppoma-prog-year");
+  const mSelect = document.getElementById("sppoma-prog-month");
+  if (!ySelect || !mSelect || !sppomaData) return;
+
+  ySelect.innerHTML = "";
+  mSelect.innerHTML = "";
+
+  const years = Array.from(new Set(sppomaData.map(r => r.year))).sort((a,b) => b - a);
+  years.forEach(y => {
+    const opt = document.createElement("option");
+    opt.value = y;
+    opt.textContent = y;
+    if (y === 2026) opt.selected = true;
+    ySelect.appendChild(opt);
+  });
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  monthNames.forEach((name, idx) => {
+    const opt = document.createElement("option");
+    opt.value = idx + 1;
+    opt.textContent = `${idx + 1} - ${name}`;
+    if (idx + 1 === 9) opt.selected = true; // September default
+    mSelect.appendChild(opt);
+  });
+}
+
+function onSppomaProgressionChange() {
+  const ySelect = document.getElementById("sppoma-prog-year");
+  const mSelect = document.getElementById("sppoma-prog-month");
+  if (!ySelect || !mSelect) return;
+  const y = parseInt(ySelect.value);
+  const m = parseInt(mSelect.value);
+  renderSppomaProgression(y, m);
+}
+
+function renderSppomaProgression(year, month) {
+  if (!sppomaData) return;
+  const rec = sppomaData.find(r => r.year === year && r.month === month);
+  if (!rec) return;
+
+  const sp = rec.sppoma;
+  const mp = rec.mpoa;
+  const act = rec.mpob_actual;
+
+  // 1. Populate the 7 Progression Flow Cards
+  const cardsContainer = document.getElementById("sppoma-progression-cards");
+  if (cardsContainer) {
+    const fmtPct = (val) => {
+      if (val === null || val === undefined) return '--';
+      const cls = val >= 0 ? 'text-emerald-400' : 'text-rose-400';
+      return `<span class="${cls} font-mono font-bold">${val >= 0 ? '+' : ''}${val.toFixed(2)}%</span>`;
+    };
+
+    cardsContainer.innerHTML = `
+      <!-- Step 1: Day 1-5 -->
+      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold text-white">Day 1–5</span>
+          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
+        </div>
+        <div class="text-base font-black">${fmtPct(sp['1-5'].cpo_prod_mom_pct)}</div>
+        <div class="text-[10px] text-slate-400 leading-tight">
+          FFB: ${sp['1-5'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-5'].ffb_yield_mom_pct}%<br>
+          OER: ${sp['1-5'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-5'].oer_diff_pts}%
+        </div>
+      </div>
+
+      <!-- Step 2: Day 1-10 -->
+      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold text-white">Day 1–10</span>
+          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
+        </div>
+        <div class="text-base font-black">${fmtPct(sp['1-10'].cpo_prod_mom_pct)}</div>
+        <div class="text-[10px] text-slate-400 leading-tight">
+          FFB: ${sp['1-10'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-10'].ffb_yield_mom_pct}%<br>
+          OER: ${sp['1-10'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-10'].oer_diff_pts}%
+        </div>
+      </div>
+
+      <!-- Step 3: Day 1-15 -->
+      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold text-white">Day 1–15</span>
+          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
+        </div>
+        <div class="text-base font-black">${fmtPct(sp['1-15'].cpo_prod_mom_pct)}</div>
+        <div class="text-[10px] text-slate-400 leading-tight">
+          FFB: ${sp['1-15'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-15'].ffb_yield_mom_pct}%<br>
+          OER: ${sp['1-15'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-15'].oer_diff_pts}%
+        </div>
+      </div>
+
+      <!-- Step 4: Day 1-20 (SPPOMA & MPOA) -->
+      <div class="bg-indigo-950/30 p-3 rounded-xl border border-indigo-500/40 space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold text-indigo-200">Day 1–20</span>
+          <span class="text-[9px] uppercase px-1 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">Anchor</span>
+        </div>
+        <div class="text-base font-black">${fmtPct(sp['1-20'].cpo_prod_mom_pct)}</div>
+        <div class="text-[10px] text-slate-300 leading-tight">
+          MPOA Tot: ${fmtPct(mp['1-20'].total_malaysia_mom_pct)}<br>
+          Pen: ${mp['1-20'].peninsular_mom_pct}% &bull; Sab: ${mp['1-20'].sabah_mom_pct}%
+        </div>
+      </div>
+
+      <!-- Step 5: Day 1-25 -->
+      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold text-white">Day 1–25</span>
+          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
+        </div>
+        <div class="text-base font-black">${fmtPct(sp['1-25'].cpo_prod_mom_pct)}</div>
+        <div class="text-[10px] text-slate-400 leading-tight">
+          FFB: ${sp['1-25'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-25'].ffb_yield_mom_pct}%<br>
+          OER: ${sp['1-25'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-25'].oer_diff_pts}%
+        </div>
+      </div>
+
+      <!-- Step 6: Full Month Surveys -->
+      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold text-white">Full Month Est.</span>
+          <span class="text-[9px] uppercase px-1 rounded bg-amber-950/80 text-amber-300 border border-amber-800/40">Survey End</span>
+        </div>
+        <div class="text-base font-black">${fmtPct(sp['full_month'].cpo_prod_mom_pct)}</div>
+        <div class="text-[10px] text-slate-300 leading-tight">
+          ${mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
+            ? `MPOA Full: ${fmtPct(mp['full_month'].total_malaysia_mom_pct)}<br>Pen: ${mp['full_month'].peninsular_mom_pct}%`
+            : `MPOA Full: <span class="text-amber-400 font-semibold font-mono text-[10px]">Pending (~Oct 7)</span><br><span class="text-slate-500 text-[9px]">Awaiting Final Returns</span>`
+          }
+        </div>
+      </div>
+
+      <!-- Step 7: Official MPOB Actual -->
+      <div class="${act.cpo_mom_pct !== null ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-bold ${act.cpo_mom_pct !== null ? 'text-emerald-300' : 'text-slate-300'}">Official MPOB</span>
+          <span class="text-[9px] uppercase px-1 rounded ${act.cpo_mom_pct !== null ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">${act.cpo_mom_pct !== null ? 'Final' : 'Pending'}</span>
+        </div>
+        <div class="text-base font-black ${act.cpo_mom_pct === null ? 'text-amber-400' : ''}">
+          ${act.cpo_mom_pct !== null ? fmtPct(act.cpo_mom_pct) : '<span class="text-xs font-mono font-bold tracking-tight">Pending Release</span>'}
+        </div>
+        <div class="text-[10px] text-slate-300 leading-tight">
+          ${act.cpo_production_tonnes ? formatNumber(act.cpo_production_tonnes) + ' T' : '<span class="text-slate-400">Due Oct 10, 2026</span>'}<br>
+          <span class="text-[9px] text-slate-400">${act.status}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // 2. Plot Progression Line Chart
+  const ctx = document.getElementById("chartSppomaProgression");
+  if (!ctx) return;
+
+  const labels = ['Day 1–5', 'Day 1–10', 'Day 1–15', 'Day 1–20', 'Day 1–25', 'Full Month', 'Official MPOB'];
+  const sppomaVals = [
+    sp['1-5'].cpo_prod_mom_pct,
+    sp['1-10'].cpo_prod_mom_pct,
+    sp['1-15'].cpo_prod_mom_pct,
+    sp['1-20'].cpo_prod_mom_pct,
+    sp['1-25'].cpo_prod_mom_pct,
+    sp['full_month'].cpo_prod_mom_pct,
+    null
+  ];
+  const mpoaVals = [
+    null, null, null,
+    mp['1-20'].total_malaysia_mom_pct,
+    null,
+    mp['full_month'].total_malaysia_mom_pct,
+    null
+  ];
+  const mpobVal = act.cpo_mom_pct;
+
+  if (chartSppomaProgression) {
+    chartSppomaProgression.destroy();
+  }
+
+  chartSppomaProgression = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'SPPOMA CPO MoM % (Southern Peninsular)',
+          data: sppomaVals,
+          borderColor: '#818cf8',
+          backgroundColor: '#818cf8',
+          borderWidth: 2.5,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.15,
+          spanGaps: true
+        },
+        {
+          label: 'MPOA Total Malaysia MoM % (National Estates)',
+          data: mpoaVals,
+          borderColor: '#06b6d4',
+          backgroundColor: '#06b6d4',
+          borderWidth: 2.5,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          pointStyle: 'rectRot',
+          tension: 0.15,
+          spanGaps: true
+        },
+        {
+          label: `Official MPOB Final Outcome: ${mpobVal !== null ? (mpobVal >= 0 ? '+' : '') + mpobVal + '%' : 'Pending (Due Oct 10, 2026)'}`,
+          data: mpobVal !== null ? [mpobVal, mpobVal, mpobVal, mpobVal, mpobVal, mpobVal, mpobVal] : [null, null, null, null, null, null, null],
+          borderColor: '#10b981',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [6, 4],
+          pointRadius: mpobVal !== null ? [0, 0, 0, 0, 0, 0, 7] : [0, 0, 0, 0, 0, 0, 0],
+          pointBackgroundColor: '#10b981',
+          pointHoverRadius: 9
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: '#e2e8f0', font: { size: 11 } }
+        },
+        tooltip: {
+          backgroundColor: '#0f172a',
+          borderColor: '#334155',
+          borderWidth: 1,
+          callbacks: {
+            label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y !== null ? ctx.parsed.y.toFixed(2) + '%' : '--'}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#94a3b8', font: { size: 11 } },
+          grid: { color: 'rgba(51, 65, 85, 0.2)' }
+        },
+        y: {
+          ticks: {
+            color: '#cbd5e1',
+            font: { size: 11 },
+            callback: v => (v >= 0 ? '+' : '') + v + '%'
+          },
+          grid: { color: 'rgba(51, 65, 85, 0.3)' },
+          title: { display: true, text: 'Production MoM Rate of Change (%)', color: '#94a3b8', font: { size: 11 } }
+        }
+      }
+    }
+  });
+}
+
+let sppomaChartMode = 'deviation'; // 'deviation' or 'absolute'
+let sppomaTableSortOrder = 'desc'; // default 'desc' for most recent first
+
+function setSppomaChartMode(mode) {
+  sppomaChartMode = mode;
+  const btnDev = document.getElementById("btn-sppoma-mode-dev");
+  const btnAbs = document.getElementById("btn-sppoma-mode-abs");
+  if (btnDev && btnAbs) {
+    if (mode === 'deviation') {
+      btnDev.className = "px-2.5 py-1 rounded bg-indigo-600 font-semibold text-white transition";
+      btnAbs.className = "px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition";
+    } else {
+      btnDev.className = "px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition";
+      btnAbs.className = "px-2.5 py-1 rounded bg-indigo-600 font-semibold text-white transition";
+    }
+  }
+
+  const titleEl = document.getElementById("sppoma-multiyear-title");
+  const subEl = document.getElementById("sppoma-multiyear-subtitle");
+  if (titleEl && subEl) {
+    if (mode === 'deviation') {
+      titleEl.textContent = "Multi-Year Survey Deviation vs MPOB Actual Benchmark (2010 – 2026)";
+      subEl.textContent = "Tracking deviation (% points): SPPOMA & MPOA Survey Estimates minus Official MPOB Final Outcome (0.00% = Exact Match)";
+    } else {
+      titleEl.textContent = "Multi-Year Intra-Month Estimate vs MPOB Final Benchmark (2010 – 2026)";
+      subEl.textContent = "Compare historical SPPOMA and MPOA monthly rate of change against final official MPOB outcome";
+    }
+  }
+
+  renderSppomaHistoryChart();
+}
+
+function renderSppomaHistoryChart(interval = 'full_month') {
+  const ctx = document.getElementById("chartSppomaMultiYear");
+  if (!ctx || !sppomaData) return;
+
+  const sel = document.getElementById("sppoma-chart-interval");
+  if (sel) {
+    interval = sel.value;
+  }
+
+  const slice = sppomaData.filter(r => r.year >= 2010);
+  const labels = slice.map(r => r.period);
+
+  if (sppomaChartMode === 'deviation') {
+    // -------------------------------------------------------------
+    // Deviation Mode: (Survey Estimate - MPOB Actual) in % points
+    // -------------------------------------------------------------
+    const sppomaDevVals = slice.map(r => {
+      const sp = r.sppoma[interval];
+      const act = r.mpob_actual ? r.mpob_actual.cpo_mom_pct : null;
+      if (sp && sp.cpo_prod_mom_pct !== null && act !== null) {
+        return Number((sp.cpo_prod_mom_pct - act).toFixed(2));
+      }
+      return null;
+    });
+
+    const mpoaDevVals = slice.map(r => {
+      const act = r.mpob_actual ? r.mpob_actual.cpo_mom_pct : null;
+      if (act === null) return null;
+      let mVal = null;
+      if (interval === '1-20' && r.mpoa['1-20']) {
+        mVal = r.mpoa['1-20'].total_malaysia_mom_pct;
+      } else if (interval === 'full_month' && r.mpoa['full_month']) {
+        mVal = r.mpoa['full_month'].total_malaysia_mom_pct;
+      } else {
+        mVal = null; // MPOA only provides 1-20 and full month
+      }
+      if (mVal !== null) {
+        return Number((mVal - act).toFixed(2));
+      }
+      return null;
+    });
+
+    const baselineVals = slice.map(() => 0.0);
+
+    // Dynamic stats computation across realized historical periods
+    const validSppDev = sppomaDevVals.filter(v => v !== null);
+    const validMpoaDev = mpoaDevVals.filter(v => v !== null);
+
+    const sppMAE = validSppDev.length ? (validSppDev.reduce((a, b) => a + Math.abs(b), 0) / validSppDev.length).toFixed(2) : '--';
+    const mpoaMAE = validMpoaDev.length ? (validMpoaDev.reduce((a, b) => a + Math.abs(b), 0) / validMpoaDev.length).toFixed(2) : '--';
+    const sppBias = validSppDev.length ? (validSppDev.reduce((a, b) => a + b, 0) / validSppDev.length).toFixed(2) : '--';
+    const mpoaWithin2 = validMpoaDev.length ? ((validMpoaDev.filter(v => Math.abs(v) <= 2.0).length / validMpoaDev.length) * 100).toFixed(1) : '--';
+    const sppWithin2 = validSppDev.length ? ((validSppDev.filter(v => Math.abs(v) <= 2.0).length / validSppDev.length) * 100).toFixed(1) : '--';
+
+    const statsBar = document.getElementById("sppoma-dev-stats-bar");
+    if (statsBar) {
+      statsBar.style.display = 'grid';
+      statsBar.innerHTML = `
+        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
+          <div class="text-[11px] text-slate-400 font-medium">SPPOMA MAE (${interval.toUpperCase()})</div>
+          <div class="text-base font-bold text-indigo-400 font-mono">&plusmn;${sppMAE}% pts</div>
+          <div class="text-[10px] text-slate-400">Mean Abs Deviation vs MPOB</div>
+        </div>
+        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
+          <div class="text-[11px] text-slate-400 font-medium">MPOA MAE (${interval === '1-20' ? '1-20' : 'Full Month'})</div>
+          <div class="text-base font-bold text-cyan-400 font-mono">${validMpoaDev.length ? `&plusmn;${mpoaMAE}% pts` : 'N/A for Interval'}</div>
+          <div class="text-[10px] text-slate-400">${validMpoaDev.length ? 'National estate error margin' : 'MPOA only reports 1-20 & Full'}</div>
+        </div>
+        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
+          <div class="text-[11px] text-slate-400 font-medium">Within &plusmn;2.0% Tolerance</div>
+          <div class="text-base font-bold text-emerald-400 font-mono">SPP: ${sppWithin2}% &bull; MPOA: ${mpoaWithin2}%</div>
+          <div class="text-[10px] text-slate-400">Low tracking error rate</div>
+        </div>
+        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
+          <div class="text-[11px] text-slate-400 font-medium">SPPOMA Net Bias</div>
+          <div class="text-base font-bold text-amber-400 font-mono">${Number(sppBias) >= 0 ? '+' : ''}${sppBias}% pts</div>
+          <div class="text-[10px] text-slate-400">${Number(sppBias) >= 0 ? 'Slight Southern Overestimation' : 'Underestimating'}</div>
+        </div>
+      `;
+    }
+
+    if (chartSppomaMultiYear) {
+      chartSppomaMultiYear.destroy();
+    }
+
+    const datasets = [
+      {
+        label: `SPPOMA (${interval === 'full_month' ? 'Final %' : interval.toUpperCase()}) − MPOB % Change (% pts)`,
+        data: sppomaDevVals,
+        borderColor: '#818cf8',
+        backgroundColor: 'rgba(129, 140, 248, 0.08)',
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        tension: 0.15,
+        fill: false
+      }
+    ];
+
+    if (validMpoaDev.length > 0) {
+      datasets.push({
+        label: `MPOA (${interval === 'full_month' ? 'Final %' : 'Day 1-20'}) − MPOB % Change (% pts)`,
+        data: mpoaDevVals,
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6, 182, 212, 0.08)',
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        tension: 0.15,
+        fill: false
+      });
+    }
+
+    chartSppomaMultiYear = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            labels: { color: '#e2e8f0', font: { size: 11 } }
+          },
+          tooltip: {
+            backgroundColor: '#0f172a',
+            borderColor: '#334155',
+            borderWidth: 1,
+            callbacks: {
+              label: (ctx) => {
+                const idx = ctx.dataIndex;
+                const rec = slice[idx];
+                const act = rec.mpob_actual ? rec.mpob_actual.cpo_mom_pct : null;
+                const val = ctx.parsed.y;
+                if (val === null || val === undefined) return `${ctx.dataset.label}: --`;
+                const sign = val >= 0 ? '+' : '';
+                if (ctx.dataset.label.includes('SPPOMA')) {
+                  const spVal = rec.sppoma[interval] ? rec.sppoma[interval].cpo_prod_mom_pct : null;
+                  return `SPPOMA Deviation: ${sign}${val.toFixed(2)}% pts (SPP: ${spVal !== null ? (spVal >= 0 ? '+' : '') + spVal + '%' : '--'}, MPOB: ${act !== null ? (act >= 0 ? '+' : '') + act + '%' : '--'})`;
+                } else if (ctx.dataset.label.includes('MPOA')) {
+                  const mpVal = interval === '1-20' ? (rec.mpoa['1-20'] ? rec.mpoa['1-20'].total_malaysia_mom_pct : null) : (rec.mpoa['full_month'] ? rec.mpoa['full_month'].total_malaysia_mom_pct : null);
+                  return `MPOA Deviation: ${sign}${val.toFixed(2)}% pts (MPOA: ${mpVal !== null ? (mpVal >= 0 ? '+' : '') + mpVal + '%' : '--'}, MPOB: ${act !== null ? (act >= 0 ? '+' : '') + act + '%' : '--'})`;
+                }
+                return `${ctx.dataset.label}: ${sign}${val.toFixed(2)}% pts`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 20 },
+            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+          },
+          y: {
+            ticks: {
+              color: '#cbd5e1',
+              font: { size: 10 },
+              callback: v => (v > 0 ? '+' : '') + v.toFixed(1) + '% pts'
+            },
+            grid: {
+              color: (context) => (context.tick && context.tick.value === 0 ? 'rgba(16, 185, 129, 0.5)' : 'rgba(51, 65, 85, 0.25)'),
+              lineWidth: (context) => (context.tick && context.tick.value === 0 ? 2 : 1)
+            },
+            title: { display: true, text: 'Tracking Deviation vs MPOB Actual (% points)', color: '#94a3b8', font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+  } else {
+    // -------------------------------------------------------------
+    // Absolute Mode: Raw MoM % Comparison
+    // -------------------------------------------------------------
+    const statsBar = document.getElementById("sppoma-dev-stats-bar");
+    if (statsBar) statsBar.style.display = 'none';
+
+    const sppomaVals = slice.map(r => {
+      const sp = r.sppoma[interval];
+      return sp ? sp.cpo_prod_mom_pct : null;
+    });
+
+    const mpoaVals = slice.map(r => {
+      if (interval === '1-20') return r.mpoa['1-20'].total_malaysia_mom_pct;
+      return r.mpoa['full_month'] ? r.mpoa['full_month'].total_malaysia_mom_pct : null;
+    });
+
+    const mpobVals = slice.map(r => r.mpob_actual ? r.mpob_actual.cpo_mom_pct : null);
+
+    if (chartSppomaMultiYear) {
+      chartSppomaMultiYear.destroy();
+    }
+
+    chartSppomaMultiYear = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: `SPPOMA (${interval.toUpperCase()}) CPO MoM %`,
+            data: sppomaVals,
+            borderColor: '#818cf8',
+            borderWidth: 1.8,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            tension: 0.1
+          },
+          {
+            label: `MPOA (${interval === '1-20' ? '1-20' : 'Full Month'}) Total MoM %`,
+            data: mpoaVals,
+            borderColor: '#06b6d4',
+            borderWidth: 1.8,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            tension: 0.1
+          },
+          {
+            label: 'Official MPOB Final MoM %',
+            data: mpobVals,
+            borderColor: '#10b981',
+            borderWidth: 2.2,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            tension: 0.1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            labels: { color: '#e2e8f0', font: { size: 11 } }
+          },
+          tooltip: {
+            backgroundColor: '#0f172a',
+            borderColor: '#334155',
+            borderWidth: 1,
+            callbacks: {
+              label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y !== null ? (ctx.parsed.y >= 0 ? '+' : '') + ctx.parsed.y.toFixed(2) + '%' : '--'}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 20 },
+            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+          },
+          y: {
+            ticks: {
+              color: '#cbd5e1',
+              font: { size: 10 },
+              callback: v => (v >= 0 ? '+' : '') + v + '%'
+            },
+            grid: { color: 'rgba(51, 65, 85, 0.25)' },
+            title: { display: true, text: 'MoM % Change', color: '#94a3b8', font: { size: 11 } }
+          }
+        }
+      }
+    });
+  }
+}
+
+function toggleSppomaTableSort() {
+  sppomaTableSortOrder = sppomaTableSortOrder === 'desc' ? 'asc' : 'desc';
+  const icon = document.getElementById("sppoma-sort-icon");
+  if (icon) icon.textContent = sppomaTableSortOrder === 'desc' ? '▼' : '▲';
+  filterSppomaTable();
+}
+
+function renderSppomaTable(filterQuery = "") {
+  const tbody = document.getElementById("sppoma-table-body");
+  if (!tbody || !sppomaData) return;
+
+  const q = filterQuery.toLowerCase().trim();
+  let filtered = sppomaData.filter(r => {
+    if (!q) return true;
+    return r.period.includes(q) || r.month_name.toLowerCase().includes(q) || String(r.year).includes(q);
+  });
+
+  // Sort by period: default 'desc' (most recent dates at the top)
+  filtered.sort((a, b) => {
+    return sppomaTableSortOrder === 'desc'
+      ? b.period.localeCompare(a.period)
+      : a.period.localeCompare(b.period);
+  });
+
+  const fmt = (v) => {
+    if (v === null || v === undefined) return '--';
+    const cls = v >= 0 ? 'text-emerald-400' : 'text-rose-400';
+    return `<span class="${cls}">${v >= 0 ? '+' : ''}${v.toFixed(2)}%</span>`;
+  };
+
+  tbody.innerHTML = filtered.map(r => {
+    const sp = r.sppoma;
+    const mp = r.mpoa;
+    const act = r.mpob_actual;
+    const an = r.analytics;
+
+    const err = an.sppoma_full_month_error_pct;
+    const errStr = err !== null && err !== undefined
+      ? `<span class="${Math.abs(err) <= 2.0 ? 'text-slate-300' : 'text-amber-400'} font-mono">${err >= 0 ? '+' : ''}${err.toFixed(2)}%</span>`
+      : '<span class="text-slate-500 italic text-[11px]">-- (Pending)</span>';
+
+    const cpoTonnes = act.cpo_production_tonnes ? formatNumber(act.cpo_production_tonnes) : '<span class="text-slate-500 italic text-[11px]">Pending</span>';
+    const mpoaFullStr = mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
+      ? fmt(mp['full_month'].total_malaysia_mom_pct)
+      : '<span class="text-amber-400/80 text-[11px] font-sans italic">Pending (~Oct 7)</span>';
+    const mpobMomStr = act.cpo_mom_pct !== null && act.cpo_mom_pct !== undefined
+      ? fmt(act.cpo_mom_pct)
+      : '<span class="text-amber-400/80 text-[11px] font-sans italic">Pending (Oct 10)</span>';
+
+    return `
+      <tr class="hover:bg-slate-800/40 transition">
+        <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
+        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-5'].cpo_prod_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-10'].cpo_prod_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-15'].cpo_prod_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono font-bold">${fmt(sp['1-20'].cpo_prod_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-25'].cpo_prod_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/60">${fmt(sp['full_month'].cpo_prod_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono text-slate-400">${sp['full_month'].oer_diff_pts !== null ? (sp['full_month'].oer_diff_pts >= 0 ? '+' : '') + sp['full_month'].oer_diff_pts.toFixed(2) : '--'}</td>
+        <td class="py-2 px-2 text-right font-mono font-bold">${fmt(mp['1-20'].total_malaysia_mom_pct)}</td>
+        <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/60">${mpoaFullStr}</td>
+        <td class="py-2 px-2 text-right font-mono font-bold">${mpobMomStr}</td>
+        <td class="py-2 px-3 text-right font-mono text-slate-200">${cpoTonnes}</td>
+        <td class="py-2 px-2 text-right font-mono">${errStr}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function filterSppomaTable() {
+  const input = document.getElementById("sppoma-table-search");
+  if (input) {
+    renderSppomaTable(input.value);
+  }
+}
+
+

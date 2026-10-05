@@ -74,11 +74,11 @@
         <div class="h-6 w-px bg-slate-800 hidden md:block"></div>
 
         <div class="flex items-center space-x-2">
-          <a href="/api/download/csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm">
+          <a href="mpob_monthly_master.csv" download="mpob_monthly_master.csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm">
             <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
             <span>Export CSV</span>
           </a>
-          <a href="/api/download/json" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm">
+          <a href="api_data.json" download="mpob_monthly_master.json" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition shadow-sm">
             <i data-lucide="file-code" class="w-3.5 h-3.5 text-amber-400"></i>
             <span>Export JSON</span>
           </a>
@@ -96,10 +96,10 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div class="flex items-center space-x-2">
           <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-300">Latest Fundamental Release: <span id="latest-period-badge" class="text-emerald-400 font-bold">Loading...</span></h2>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-300">Latest Fundamental Release: <span id="latest-period-badge" class="text-emerald-400 font-bold">August 2026</span></h2>
         </div>
         <div class="text-xs text-slate-400">
-          Historical Span: <span class="font-medium text-slate-200" id="hist-span-badge">259 Months (Jan 2005 – Jul 2026)</span>
+          Historical Span: <span class="font-medium text-slate-200" id="hist-span-badge">260 Months (Jan 2005 – Aug 2026)</span>
         </div>
       </div>
 
@@ -240,6 +240,16 @@
           <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
           <span>Sep–Dec 2026 Forecast & 2027 Outlook</span>
           <span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold uppercase tracking-wider">Updated Today</span>
+        </button>
+        <button onclick="switchTab('workdays')" id="tab-btn-workdays" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-cyan-400 hover:text-cyan-300 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="calendar-check" class="w-4 h-4 text-cyan-400"></i>
+          <span>Harvesting Workdays</span>
+          <span class="px-1.5 py-0.5 rounded text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-semibold uppercase tracking-wider">Labor Model</span>
+        </button>
+        <button onclick="switchTab('sppoma')" id="tab-btn-sppoma" class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-indigo-400 hover:text-indigo-300 flex items-center space-x-2 whitespace-nowrap">
+          <i data-lucide="activity" class="w-4 h-4 text-indigo-400"></i>
+          <span>SPPOMA & MPOA Intra-Month Tracker</span>
+          <span class="px-1.5 py-0.5 rounded text-[10px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold uppercase tracking-wider">1-5 to Full Mth</span>
         </button>
       </nav>
 
@@ -658,12 +668,12 @@
       <!-- Export KPI Cards -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-          <span class="text-xs font-medium text-slate-400">Total Palm Oil Exported (Jul 2026)</span>
+          <span class="text-xs font-medium text-slate-400">Total Palm Oil Exported (Aug 2026)</span>
           <div class="mt-1 text-xl font-bold text-white tracking-tight" id="exp-kpi-total-vol">--</div>
           <div class="text-[11px] text-emerald-400 mt-0.5" id="exp-kpi-total-vol-sub">--</div>
         </div>
         <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-          <span class="text-xs font-medium text-slate-400">Total Export Revenue (Jul 2026)</span>
+          <span class="text-xs font-medium text-slate-400">Total Export Revenue (Aug 2026)</span>
           <div class="mt-1 text-xl font-bold text-emerald-400 tracking-tight" id="exp-kpi-total-rm">--</div>
           <div class="text-[11px] text-slate-400 mt-0.5" id="exp-kpi-total-rm-sub">--</div>
         </div>
@@ -973,7 +983,7 @@
               <tr>
                 <th class="py-2.5 px-3 text-left">Balance Sheet Line</th>
                 <th class="py-2.5 px-3 text-right text-emerald-400 bg-slate-900">Aug 2026 (Actual)</th>
-                <th class="py-2.5 px-3 text-right">Sep 2026 (Proj)</th>
+                <th class="py-2.5 px-3 text-right text-amber-400 bg-amber-950/20 font-bold">Sep 2026 (Record Proj)</th>
                 <th class="py-2.5 px-3 text-right bg-emerald-950/30 text-emerald-300 font-bold">Oct 2026 (Peak)</th>
                 <th class="py-2.5 px-3 text-right">Nov 2026 (Proj)</th>
                 <th class="py-2.5 px-3 text-right text-amber-300">Dec 2026 (Proj)</th>
@@ -985,102 +995,102 @@
               <tr>
                 <td class="py-2 px-3 font-sans font-medium text-white">Beginning Stocks</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50">2,627,899</td>
-                <td class="py-2 px-3 text-right">2,824,488</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20">2,934,488</td>
-                <td class="py-2 px-3 text-right">3,129,488</td>
-                <td class="py-2 px-3 text-right text-amber-300">3,267,488</td>
+                <td class="py-2 px-3 text-right text-amber-300">2,824,488</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">3,345,124</td>
+                <td class="py-2 px-3 text-right">3,685,124</td>
+                <td class="py-2 px-3 text-right text-amber-300">3,805,124</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50 font-bold">2,814,199 (Jan 1)</td>
                 <td class="py-2 px-3 text-right text-slate-400">2,019,252</td>
               </tr>
               <tr>
                 <td class="py-2 px-3 font-sans font-medium text-emerald-400">(+) CPO Production</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50 text-emerald-400 font-bold">1,817,499</td>
-                <td class="py-2 px-3 text-right text-emerald-300">1,845,000</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20 text-emerald-400 font-bold">1,920,000</td>
-                <td class="py-2 px-3 text-right">1,780,000</td>
-                <td class="py-2 px-3 text-right">1,660,000</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-emerald-400">19,835,600</td>
+                <td class="py-2 px-3 text-right text-emerald-300 font-bold">1,935,636</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20 text-emerald-400 font-bold">1,980,000</td>
+                <td class="py-2 px-3 text-right">1,820,000</td>
+                <td class="py-2 px-3 text-right">1,670,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-emerald-400">19,936,236</td>
                 <td class="py-2 px-3 text-right text-slate-400">20,283,475</td>
               </tr>
               <tr>
                 <td class="py-2 px-3 font-sans font-medium text-slate-400">(+) Palm Oil Imports</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50">49,524</td>
-                <td class="py-2 px-3 text-right">50,000</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20">55,000</td>
-                <td class="py-2 px-3 text-right">48,000</td>
                 <td class="py-2 px-3 text-right">45,000</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50">700,166</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">45,000</td>
+                <td class="py-2 px-3 text-right">40,000</td>
+                <td class="py-2 px-3 text-right">35,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50">667,166</td>
                 <td class="py-2 px-3 text-right text-slate-400">624,342</td>
               </tr>
               <tr class="bg-slate-800/40 font-semibold text-white">
                 <td class="py-2 px-3 font-sans">(=) Total Supply</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50">4,494,922</td>
-                <td class="py-2 px-3 text-right">4,719,488</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/30 text-emerald-300">4,909,488</td>
-                <td class="py-2 px-3 text-right">4,957,488</td>
-                <td class="py-2 px-3 text-right">4,972,488</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-white">23,349,965</td>
+                <td class="py-2 px-3 text-right text-amber-300">4,805,124</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/30 text-emerald-300">5,370,124</td>
+                <td class="py-2 px-3 text-right">5,545,124</td>
+                <td class="py-2 px-3 text-right">5,510,124</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-white">23,417,601</td>
                 <td class="py-2 px-3 text-right text-slate-400">22,927,069</td>
               </tr>
               <tr>
                 <td class="py-2 px-3 font-sans font-medium text-blue-400">(-) Palm Oil Exports</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50 text-blue-400">1,294,664</td>
-                <td class="py-2 px-3 text-right text-blue-300 font-bold">1,420,000</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20 text-blue-300">1,410,000</td>
-                <td class="py-2 px-3 text-right">1,330,000</td>
-                <td class="py-2 px-3 text-right">1,280,000</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-blue-400">15,815,580</td>
+                <td class="py-2 px-3 text-right text-blue-300 font-bold">1,105,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20 text-blue-300">1,320,000</td>
+                <td class="py-2 px-3 text-right">1,380,000</td>
+                <td class="py-2 px-3 text-right">1,340,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-blue-400">15,520,580</td>
                 <td class="py-2 px-3 text-right text-slate-400">17,848,655</td>
               </tr>
               <tr>
                 <td class="py-2 px-3 font-sans font-medium text-purple-400">(-) Domestic Disappearance</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50 text-purple-400">375,770</td>
-                <td class="py-2 px-3 text-right">365,000</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20">370,000</td>
+                <td class="py-2 px-3 text-right">355,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">365,000</td>
                 <td class="py-2 px-3 text-right">360,000</td>
-                <td class="py-2 px-3 text-right">365,000</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-purple-400">4,443,845</td>
+                <td class="py-2 px-3 text-right">370,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-purple-400">4,433,845</td>
                 <td class="py-2 px-3 text-right text-slate-400">3,490,126</td>
               </tr>
               <tr class="bg-slate-800/40 font-semibold text-white">
                 <td class="py-2 px-3 font-sans">(=) Total Disappearance (Use)</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50">1,670,434</td>
-                <td class="py-2 px-3 text-right">1,785,000</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/30">1,780,000</td>
-                <td class="py-2 px-3 text-right">1,690,000</td>
-                <td class="py-2 px-3 text-right">1,645,000</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-white">20,259,425</td>
+                <td class="py-2 px-3 text-right">1,460,000</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/30">1,685,000</td>
+                <td class="py-2 px-3 text-right">1,740,000</td>
+                <td class="py-2 px-3 text-right">1,710,000</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-white">19,954,425</td>
                 <td class="py-2 px-3 text-right text-slate-400">21,338,781</td>
               </tr>
               <tr class="bg-slate-900/90 border-t-2 border-amber-500 font-bold">
                 <td class="py-3 px-3 font-sans text-sm text-amber-400">(=) ENDING STOCKS</td>
                 <td class="py-3 px-3 text-right bg-slate-900 text-sm text-amber-300 font-black">2,824,488</td>
-                <td class="py-3 px-3 text-right text-sm text-amber-300">2,934,488</td>
-                <td class="py-3 px-3 text-right bg-emerald-950/40 text-sm text-amber-300 font-black">3,129,488</td>
-                <td class="py-3 px-3 text-right text-sm text-amber-300">3,267,488</td>
-                <td class="py-3 px-3 text-right text-base text-amber-400 font-black bg-amber-500/10">3,327,488</td>
-                <td class="py-3 px-3 text-right bg-slate-900 font-black text-base text-amber-400">3,327,488</td>
+                <td class="py-3 px-3 text-right text-sm text-amber-300 font-black bg-amber-500/10">3,345,124</td>
+                <td class="py-3 px-3 text-right bg-emerald-950/40 text-sm text-amber-300 font-black">3,685,124</td>
+                <td class="py-3 px-3 text-right text-sm text-amber-300">3,805,124</td>
+                <td class="py-3 px-3 text-right text-base text-amber-400 font-black bg-amber-500/10">3,800,124</td>
+                <td class="py-3 px-3 text-right bg-slate-900 font-black text-base text-amber-400">3,800,124</td>
                 <td class="py-3 px-3 text-right text-slate-400">2,367,057</td>
               </tr>
               <tr class="text-[11px] text-slate-400">
                 <td class="py-2 px-3 font-sans">Stock-to-Use Ratio (%)</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-slate-200">169.1%</td>
-                <td class="py-2 px-3 text-right">164.4%</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20">175.8%</td>
-                <td class="py-2 px-3 text-right">193.3%</td>
-                <td class="py-2 px-3 text-right text-amber-300 font-bold">202.3%</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-amber-400">16.4% (Annual)</td>
+                <td class="py-2 px-3 text-right text-amber-300 font-bold">229.1%</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">218.7%</td>
+                <td class="py-2 px-3 text-right">218.7%</td>
+                <td class="py-2 px-3 text-right text-amber-300 font-bold">222.2%</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-amber-400">19.0% (Annual)</td>
                 <td class="py-2 px-3 text-right">11.1%</td>
               </tr>
               <tr class="text-[11px] text-slate-400">
                 <td class="py-2 px-3 font-sans">Days of Supply</td>
                 <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-cyan-400">51.6 Days</td>
-                <td class="py-2 px-3 text-right">50.1 Days</td>
-                <td class="py-2 px-3 text-right bg-emerald-950/20">53.6 Days</td>
-                <td class="py-2 px-3 text-right">59.0 Days</td>
-                <td class="py-2 px-3 text-right text-cyan-300 font-bold">61.7 Days</td>
-                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-cyan-400">60.0 Days</td>
-                <td class="py-2 px-3 text-right">40.5 Days</td>
+                <td class="py-2 px-3 text-right text-cyan-400 font-bold">69.9 Days</td>
+                <td class="py-2 px-3 text-right bg-emerald-950/20">66.7 Days</td>
+                <td class="py-2 px-3 text-right">66.7 Days</td>
+                <td class="py-2 px-3 text-right">67.8 Days</td>
+                <td class="py-2 px-3 text-right bg-slate-900/50 font-bold text-cyan-400">58.1 Days</td>
+                <td class="py-2 px-3 text-right">34.1 Days</td>
               </tr>
             </tbody>
           </table>
@@ -1289,16 +1299,16 @@
           <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
             <div class="flex justify-between items-center text-xs">
               <span class="text-slate-300 font-medium">September CPO Production Growth (MoM)</span>
-              <span id="slider-prod-pct-val" class="font-mono font-bold text-emerald-400">+1.51%</span>
+              <span id="slider-prod-pct-val" class="font-mono font-bold text-emerald-400">+6.50%</span>
             </div>
-            <input type="range" id="slider-prod-pct" min="-2.0" max="5.0" step="0.05" value="1.51" oninput="updateSensitivitySimulation()" class="w-full accent-emerald-500 cursor-pointer">
+            <input type="range" id="slider-prod-pct" min="-2.0" max="12.0" step="0.05" value="6.50" oninput="updateSensitivitySimulation()" class="w-full accent-emerald-500 cursor-pointer">
             <div class="flex justify-between text-[10px] text-slate-500 font-mono">
               <span>-2.0% (1.781M T)</span>
-              <span class="text-slate-400">Base: +1.51%</span>
-              <span>+5.0% (1.908M T)</span>
+              <span class="text-slate-400">Base: +6.50% (SPPOMA +18.7%)</span>
+              <span>+12.0% (2.035M T)</span>
             </div>
             <div class="text-[11px] text-slate-400 pt-1">
-              Implied Production: <span id="sim-prod-tonnes" class="text-white font-bold font-mono">1,845,000</span> Tonnes
+              Implied Production: <span id="sim-prod-tonnes" class="text-white font-bold font-mono">1,935,636</span> Tonnes
             </div>
           </div>
 
@@ -1306,16 +1316,16 @@
           <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
             <div class="flex justify-between items-center text-xs">
               <span class="text-slate-300 font-medium">September Palm Oil Exports Volume</span>
-              <span id="slider-exp-val" class="font-mono font-bold text-blue-400">1,420,000 T</span>
+              <span id="slider-exp-val" class="font-mono font-bold text-blue-400">1,105,000 T</span>
             </div>
-            <input type="range" id="slider-exp" min="1300000" max="1550000" step="5000" value="1420000" oninput="updateSensitivitySimulation()" class="w-full accent-blue-500 cursor-pointer">
+            <input type="range" id="slider-exp" min="950000" max="1350000" step="5000" value="1105000" oninput="updateSensitivitySimulation()" class="w-full accent-blue-500 cursor-pointer">
             <div class="flex justify-between text-[10px] text-slate-500 font-mono">
-              <span>1.300M T</span>
-              <span class="text-slate-400">Diwali Surge: 1.42M</span>
-              <span>1.550M T</span>
+              <span>0.950M T (AmSpec)</span>
+              <span class="text-slate-400">Surveyor Mean: 1.04M</span>
+              <span>1.350M T</span>
             </div>
             <div class="text-[11px] text-slate-400 pt-1">
-              MoM Change vs Aug: <span id="sim-exp-pct" class="text-white font-bold font-mono">+9.68%</span>
+              MoM Change vs Aug: <span id="sim-exp-pct" class="text-white font-bold font-mono">-14.65%</span>
             </div>
           </div>
 
@@ -1323,42 +1333,571 @@
           <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
             <div class="flex justify-between items-center text-xs">
               <span class="text-slate-300 font-medium">September Domestic Disappearance</span>
-              <span id="slider-dom-val" class="font-mono font-bold text-purple-400">365,000 T</span>
+              <span id="slider-dom-val" class="font-mono font-bold text-purple-400">355,000 T</span>
             </div>
-            <input type="range" id="slider-dom" min="300000" max="420000" step="5000" value="365000" oninput="updateSensitivitySimulation()" class="w-full accent-purple-500 cursor-pointer">
+            <input type="range" id="slider-dom" min="300000" max="420000" step="5000" value="355000" oninput="updateSensitivitySimulation()" class="w-full accent-purple-500 cursor-pointer">
             <div class="flex justify-between text-[10px] text-slate-500 font-mono">
               <span>300k T (Min)</span>
-              <span class="text-slate-400">Base: 365k</span>
+              <span class="text-slate-400">Base: 355k</span>
               <span>420k T (Max)</span>
             </div>
             <div class="text-[11px] text-slate-400 pt-1">
-              Imports Assumed: <span class="text-white font-bold font-mono">50,000</span> Tonnes
+              Imports Assumed: <span class="text-white font-bold font-mono">45,000</span> Tonnes
             </div>
           </div>
 
         </div>
 
         <!-- Simulated Output Result Card -->
-        <div class="bg-slate-950 border-2 border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="bg-slate-950 border-2 border-amber-500/50 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Your Simulated September Ending Stock:</span>
-            <div class="text-2xl font-black text-emerald-400 font-mono mt-0.5" id="sim-result-stock">2,934,488 Tonnes</div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Your Simulated September Ending Stock:</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">ALL-TIME RECORD</span>
+            </div>
+            <div class="text-2xl font-black text-amber-300 font-mono mt-0.5" id="sim-result-stock">3,345,124 Tonnes</div>
             <div class="text-xs text-slate-300 mt-1">
-              Stock Build vs August: <span id="sim-result-build" class="font-bold text-white font-mono">+110,000 T (+3.89% MoM)</span>
+              Stock Build vs August: <span id="sim-result-build" class="font-bold text-amber-400 font-mono">+520,636 T (+18.43% MoM)</span>
             </div>
           </div>
           <div class="flex items-center space-x-4 text-xs font-mono">
             <div class="text-right">
               <span class="text-slate-400 block text-[11px]">Stock-to-Use</span>
-              <span id="sim-result-stu" class="text-amber-400 font-bold text-base">164.4%</span>
+              <span id="sim-result-stu" class="text-amber-400 font-bold text-base">229.1%</span>
             </div>
             <div class="text-right border-l border-slate-800 pl-4">
               <span class="text-slate-400 block text-[11px]">Days of Supply</span>
-              <span id="sim-result-days" class="text-cyan-400 font-bold text-base">50.1 Days</span>
+              <span id="sim-result-days" class="text-cyan-400 font-bold text-base">69.9 Days</span>
             </div>
           </div>
         </div>
 
+      </div>
+
+    </div>
+
+    <!-- TAB 7: Harvesting Workdays & Productivity Engine -->
+    <div id="tab-workdays" class="tab-content hidden space-y-6">
+
+      <!-- Header & Agronomic Principle Notice -->
+      <div class="bg-gradient-to-r from-cyan-950/40 via-slate-900/80 to-blue-950/40 border border-cyan-500/30 rounded-xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 uppercase tracking-wide">Agronomic Labor Model</span>
+            <span class="text-xs text-slate-400">2005 – 2027 Calendar (276 Months)</span>
+          </div>
+          <h2 class="text-xl font-bold text-white mt-1">Harvesting Workdays & Production Run-Rate Analytics</h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-3xl">
+            Palm oil trees produce fruit bunches continuously, but output is governed by harvesting rounds. In Malaysian plantations, harvesters work a 6-day week with statutory Sunday rest, observe gazetted public holidays (with Sunday replacement leave), and halt for regional festivals (Kaamatan in Sabah & Gawai in Sarawak). Isolating available workdays reveals true biological productivity.
+          </p>
+        </div>
+        <div class="bg-slate-900/90 border border-cyan-500/40 rounded-xl p-3.5 text-center shrink-0">
+          <div class="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider">Workday Multiplier</div>
+          <div class="text-xl font-extrabold text-white">~75k T / Day</div>
+          <div class="text-[10px] text-slate-400">1 Extra Workday = +3.8% Output</div>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">Calibrated Workdays</div>
+          <div class="mt-1 text-2xl font-bold text-cyan-400 font-mono">20.3 Days</div>
+          <div class="text-xs text-slate-400 mt-1">Per month (Effective Harvesting)</div>
+          <div class="mt-1 text-[11px] text-slate-500">Range: 16.1 to 23.5 days</div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">February Harvesting Drag</div>
+          <div class="mt-1 text-2xl font-bold text-rose-400 font-mono">16.1 Days</div>
+          <div class="text-xs text-slate-400 mt-1">Short month + CNY lockout</div>
+          <div class="mt-1 text-[11px] text-rose-400/90 font-mono">-4.7 days vs Jan (-22.6% time)</div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">September 2026 Workdays</div>
+          <div class="mt-1 text-2xl font-bold text-amber-400 font-mono">21.0 Days</div>
+          <div class="text-xs text-slate-400 mt-1">+1.0 day vs Aug (20.0 days)</div>
+          <div class="mt-1 text-[11px] text-emerald-400 font-mono">Daily Rate: 92.1k T/day (+2.2%)</div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">October 2026 Potential</div>
+          <div class="mt-1 text-2xl font-bold text-emerald-400 font-mono">22.1 Days</div>
+          <div class="text-xs text-slate-400 mt-1">+1.1 workdays vs September</div>
+          <div class="mt-1 text-[11px] text-emerald-400/90 font-mono">+5.2% calendar lift to crop</div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: Interactive Labor Calendar & Non-Working Days Inspector -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-cyan-400"></i>
+              <span>Monthly Plantation Labor Calendar & Non-Working Days Inspector</span>
+            </h3>
+            <p class="text-xs text-slate-400">Select any year and month to inspect exactly which days harversters do NOT work in Malaysia</p>
+          </div>
+          
+          <!-- Month/Year Pickers -->
+          <div class="flex items-center space-x-2 text-xs">
+            <span class="text-slate-400 font-medium">Inspect:</span>
+            <select id="workday-year-select" onchange="onWorkdayMonthChange()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-white font-medium">
+            </select>
+            <select id="workday-month-select" onchange="onWorkdayMonthChange()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-white font-medium">
+            </select>
+          </div>
+        </div>
+
+        <!-- Month Breakdown Metrics Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs" id="workday-month-cards">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Non-working Days Detailed Breakdown List -->
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
+              <i data-lucide="ban" class="w-3.5 h-3.5 text-rose-400"></i>
+              <span>Non-Working Days Schedule for Selected Month</span>
+            </h4>
+            <span id="workday-nonworking-summary" class="text-xs font-mono text-cyan-400 font-bold"></span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <div id="workday-nonworking-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SECTION 2: Dual-Axis Chart: Monthly Production vs Daily Run-Rate -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="line-chart" class="w-4 h-4 text-emerald-400"></i>
+              <span>Monthly CPO Output vs Daily Harvesting Run-Rate (Tonnes / Workday)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Separates headline production volume from underlying daily extraction velocity</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono">Tonnes / Workday = CPO Prod &divide; Harvesting Days</span>
+        </div>
+
+        <div class="h-80 w-full relative">
+          <canvas id="chartWorkdayRunRate"></canvas>
+        </div>
+      </div>
+
+      <!-- SECTION 3: 23-Year Workday Heatmap Grid -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
+              <span>18-Year Monthly Harvesting Workdays Matrix (2010 – 2027)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Heatmap of standard harvesting workdays (Calendar Days minus Sundays & Public Holidays)</p>
+          </div>
+          
+          <div class="flex items-center space-x-2 text-[10px] text-slate-400 font-mono">
+            <span>Legend:</span>
+            <span class="px-2 py-0.5 rounded bg-rose-950/70 text-rose-300 border border-rose-800/40">&lt; 24 Days</span>
+            <span class="px-2 py-0.5 rounded bg-amber-950/70 text-amber-300 border border-amber-800/40">24–25 Days</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-950/70 text-emerald-300 border border-emerald-800/40">26 Days</span>
+            <span class="px-2 py-0.5 rounded bg-cyan-950/70 text-cyan-300 border border-cyan-800/40 font-bold">&ge; 27 Days</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <div id="workday-heatmap-grid" class="min-w-full">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Institutional Guide: Why & When Harvesters Do Not Work -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white flex items-center space-x-2">
+            <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+            <span>Institutional Guide: Non-Working Rules for Malaysian Palm Oil Harvesters</span>
+          </h3>
+          <p class="text-xs text-slate-400">Agronomic, legal, and cultural determinants of field labor downtime in Peninsular, Sabah, and Sarawak</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          <!-- Rule 1: Sunday Rest Day -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-mono">1</span>
+              <span>6-Day Work Week & Sunday Rest Day</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              Under <strong>Section 59 of the Employment Act 1955</strong> and the standard MAPA-NUPW plantation collective agreement, agricultural estate workers work Monday through Saturday with <strong>Sunday designated as the statutory rest day</strong>. Harvesters do not cut fruit on Sundays nationwide.
+            </p>
+          </div>
+
+          <!-- Rule 2: Chinese New Year Logistics Shutdown -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono">2</span>
+              <span>Chinese New Year Mill & Transport Halt</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              While field harvesters are largely foreign workers, <strong>FFB haulage lorry contractors and palm mill engineers</strong> are predominantly Malaysian Chinese. For 2 full days during CNY, mills pause intake and trucks do not run. Estates strictly forbid cutting bunches without evacuation, as uncollected FFB rapidly accumulates Free Fatty Acids (FFA) within 24 hours.
+            </p>
+          </div>
+
+          <!-- Rule 3: Hari Raya Foreign Worker Downtime -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px] font-mono">3</span>
+              <span>Hari Raya Aidilfitri / Puasa Impact</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              Over <strong>70% to 80% of Malaysian estate harvesters are Indonesian Muslim workers</strong> (from Lombok, Java, Sumatra). Beyond the 2 gazetted public holidays, estates experience a 3-to-5 day severe absenteeism wave ("Raya slowdown"). Aidilfitri months consistently exhibit marked drops in evacuated crop.
+            </p>
+          </div>
+
+          <!-- Rule 4: Sunday Replacement In-Lieu Rule -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-[10px] font-mono">4</span>
+              <span>Sunday Replacement Leave (In-Lieu)</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              Whenever a statutory public holiday falls on a Sunday (the harvester's weekly rest day), Malaysian labor law mandates that the <strong>following Monday becomes an official paid non-working day</strong> in lieu. This ensures workers receive full holiday entitlement without losing their weekly rest day.
+            </p>
+          </div>
+
+          <!-- Rule 5: Sabah Kaamatan & Sarawak Gawai -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-[10px] font-mono">5</span>
+              <span>Borneo Holidays: Kaamatan & Gawai</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              East Malaysia produces ~46% of national CPO. In Sabah, <strong>Pesta Kaamatan (May 30 & 31)</strong> is a 2-day shutdown. In Sarawak, <strong>Hari Gawai (June 1 & 2)</strong> is a 2-day shutdown. Kadazan-Dusun and Dayak field operators celebrate extensively, causing steep regional harvesting pauses at the end of May and beginning of June.
+            </p>
+          </div>
+
+          <!-- Rule 6: Monsoon Rain-Lost Days -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-[10px] font-mono">6</span>
+              <span>Monsoon Rain-Lost Days (Nov – Jan)</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              During the Northeast Monsoon (November to January), daily rainfall exceeding 15mm causes <strong>"rain-lost days"</strong>. Harvesters cannot operate on slippery slopes or lift 40-foot sickle poles in lightning storms. High water tables trap tractors in estate collection trenches, creating 2 to 5 lost working days per month.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Workday Historical Table & CSV Download -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="table" class="w-4 h-4 text-cyan-400"></i>
+              <span>Monthly Harvesting Workdays & Productivity Ledger (2010 – 2027)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Complete historical dataset with calendar days, Sundays, holidays, and CPO run-rate metrics (Sorted by most recent period first)</p>
+          </div>
+          
+          <div class="flex items-center space-x-3">
+            <input type="text" id="workday-table-search" placeholder="Search year or month..." oninput="filterWorkdayTable()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-xs text-slate-200 placeholder-slate-500">
+            <a href="/api/download/workdays-csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600/20 hover:bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 transition">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>Export Workdays CSV</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-800 rounded-lg max-h-96">
+          <table class="min-w-full divide-y divide-slate-800 text-xs">
+            <thead class="bg-slate-950 text-slate-300 font-semibold sticky top-0 z-10">
+              <tr>
+                <th class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleWorkdayTableSort()" title="Click to toggle Sort Order">
+                  <span class="inline-flex items-center space-x-1">
+                    <span>Period</span>
+                    <span id="workday-sort-icon" class="text-xs text-cyan-400 font-mono font-bold">▼</span>
+                  </span>
+                </th>
+                <th class="py-2.5 px-3 text-right">Calendar Days</th>
+                <th class="py-2.5 px-3 text-right text-slate-400">Sundays</th>
+                <th class="py-2.5 px-3 text-right text-rose-400">Public Holidays</th>
+                <th class="py-2.5 px-3 text-right text-cyan-400 font-bold bg-slate-900">National Workdays</th>
+                <th class="py-2.5 px-3 text-right text-slate-400">Sabah</th>
+                <th class="py-2.5 px-3 text-right text-slate-400">Sarawak</th>
+                <th class="py-2.5 px-3 text-right">MoM Diff</th>
+                <th class="py-2.5 px-3 text-right text-emerald-400 font-bold">CPO Output (T)</th>
+                <th class="py-2.5 px-3 text-right text-amber-300 font-bold bg-slate-900">CPO / Workday (T/Day)</th>
+                <th class="py-2.5 px-3 text-right text-slate-400">Daily Rate MoM %</th>
+              </tr>
+            </thead>
+            <tbody id="workday-table-body" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 8: SPPOMA & MPOA Intra-Month Survey Tracker -->
+    <div id="tab-sppoma" class="tab-content hidden space-y-6">
+      
+      <!-- Tab Header & Quick Highlights -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                High-Frequency Supply Indicators
+              </span>
+              <span class="text-xs text-slate-400 font-mono">2010 – 2026 Historical Archive</span>
+            </div>
+            <h2 class="text-lg font-bold text-white mt-1">SPPOMA & MPOA Intra-Month Production Survey Tracker</h2>
+            <p class="text-xs text-slate-300 max-w-3xl mt-0.5">
+              Comprehensive historical records across all intra-month reporting intervals (<strong>1–5, 1–10, 1–15, 1–20, 1–25, and Full Month</strong>) 
+              benchmarked against official Malaysian Palm Oil Board (MPOB) census releases.
+            </p>
+          </div>
+          
+          <div class="flex items-center space-x-2">
+            <a href="/api/download/sppoma-mpoa-csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/30 hover:bg-indigo-600/40 border border-indigo-500/40 text-indigo-200 transition shadow-sm">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>Download SPPOMA/MPOA CSV</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+        <!-- Latest SPPOMA Bulletin -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-indigo-500/40 transition">
+          <div class="text-xs text-slate-400 font-medium flex items-center justify-between">
+            <span>SPPOMA Sep 1–30 (Full Month)</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </div>
+          <div class="mt-1 text-2xl font-bold text-emerald-400 font-mono">+18.71%</div>
+          <div class="text-xs text-slate-300 mt-1 font-mono">FFB Yield: +16.76% &bull; OER: +0.37%</div>
+          <div class="mt-1 text-[11px] text-slate-500">Southern Peninsular Mills Output</div>
+        </div>
+
+        <!-- Latest MPOA Bulletin -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-indigo-500/40 transition">
+          <div class="text-xs text-slate-400 font-medium flex items-center justify-between">
+            <span>MPOA Sep 1–20 (National)</span>
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          </div>
+          <div class="mt-1 text-2xl font-bold text-cyan-400 font-mono">+18.91%</div>
+          <div class="text-xs text-slate-300 mt-1 font-mono">Sabah +33.8% &bull; Sarawak +23.7%</div>
+          <div class="mt-1 text-[11px] text-slate-500">Peninsular: +12.0% &bull; East M'sia: +30.5%</div>
+        </div>
+
+        <!-- Tracking Reliability -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-indigo-500/40 transition">
+          <div class="text-xs text-slate-400 font-medium">Tracking Correlation vs MPOB</div>
+          <div class="mt-1 text-2xl font-bold text-indigo-400 font-mono">99.9% / 93.0%</div>
+          <div class="text-xs text-slate-300 mt-1 font-mono">MPOA: r=0.999 &bull; SPPOMA: r=0.930</div>
+          <div class="mt-1 text-[11px] text-emerald-400 font-mono">Directional Hit Rate: 97.5%</div>
+        </div>
+
+        <!-- Coverage Stats -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 relative overflow-hidden group hover:border-indigo-500/40 transition">
+          <div class="text-xs text-slate-400 font-medium">Historical Database Scope</div>
+          <div class="mt-1 text-2xl font-bold text-amber-400 font-mono">201 Months</div>
+          <div class="text-xs text-slate-300 mt-1">Jan 2010 – Sep 2026 Archive</div>
+          <div class="mt-1 text-[11px] text-slate-500">All 6 Intervals: 1-5, 10, 15, 20, 25, 30</div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: Interactive Intra-Month Progression Visualizer -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="git-commit" class="w-4 h-4 text-indigo-400"></i>
+              <span>Intra-Month Trajectory Progression Visualizer</span>
+            </h3>
+            <p class="text-xs text-slate-400">Inspect how production forecasts evolved step-by-step from Day 5 to Day 30 and where official MPOB landed</p>
+          </div>
+          
+          <div class="flex items-center space-x-2 text-xs">
+            <span class="text-slate-400 font-medium">Select Month:</span>
+            <select id="sppoma-prog-year" onchange="onSppomaProgressionChange()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-white font-medium">
+            </select>
+            <select id="sppoma-prog-month" onchange="onSppomaProgressionChange()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-white font-medium">
+            </select>
+          </div>
+        </div>
+
+        <!-- 7-Stage Progression Flow Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-xs" id="sppoma-progression-cards">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Progression Trajectory Line Chart -->
+        <div class="h-64 w-full relative mt-2">
+          <canvas id="chartSppomaProgression"></canvas>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Multi-Year Survey vs MPOB Comparison Chart -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="line-chart" class="w-4 h-4 text-emerald-400"></i>
+              <span id="sppoma-multiyear-title">Multi-Year Survey Deviation vs MPOB Actual Benchmark (2010 – 2026)</span>
+            </h3>
+            <p class="text-xs text-slate-400" id="sppoma-multiyear-subtitle">Tracking deviation (% points): SPPOMA & MPOA Survey Estimates minus Official MPOB Final Outcome (0.00% = Exact Match)</p>
+          </div>
+
+          <div class="flex items-center flex-wrap gap-2 text-xs">
+            <!-- Mode Toggle: Deviation vs Absolute -->
+            <div class="inline-flex rounded-lg bg-slate-950 p-1 border border-slate-800 text-xs">
+              <button onclick="setSppomaChartMode('deviation')" id="btn-sppoma-mode-dev" class="px-2.5 py-1 rounded bg-indigo-600 font-semibold text-white transition">Deviation vs MPOB</button>
+              <button onclick="setSppomaChartMode('absolute')" id="btn-sppoma-mode-abs" class="px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition">Absolute Rates</button>
+            </div>
+
+            <div class="flex items-center space-x-1.5">
+              <span class="text-slate-400">Interval:</span>
+              <select id="sppoma-chart-interval" onchange="renderSppomaHistoryChart()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-slate-200 font-medium">
+                <option value="full_month">Full Month (1-30 Final Survey)</option>
+                <option value="1-20">Day 1-20 (Key Mid-Late Survey)</option>
+                <option value="1-25">Day 1-25 (Late-Month Survey)</option>
+                <option value="1-15">Day 1-15 (Mid-Month Survey)</option>
+                <option value="1-10">Day 1-10 (Early Trend)</option>
+                <option value="1-5">Day 1-5 (Flash Early Pulse)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Deviation Statistics Banner -->
+        <div id="sppoma-dev-stats-bar" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <!-- Dynamically Populated by JS -->
+        </div>
+
+        <div class="h-80 w-full relative">
+          <canvas id="chartSppomaMultiYear"></canvas>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Comprehensive Historical Survey Ledger & Search -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="database" class="w-4 h-4 text-indigo-400"></i>
+              <span>Historical SPPOMA & MPOA Survey Ledger (2010 – 2026)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Complete time-series ledger sorted by most recent period first, benchmarked against official MPOB census releases</p>
+          </div>
+          
+          <div class="flex items-center space-x-3">
+            <input type="text" id="sppoma-table-search" placeholder="Search year or month..." oninput="filterSppomaTable()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-xs text-slate-200 placeholder-slate-500">
+            <a href="/api/download/sppoma-mpoa-csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 transition">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>Export CSV</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-800 rounded-lg max-h-96">
+          <table class="min-w-full divide-y divide-slate-800 text-xs">
+            <thead class="bg-slate-950 text-slate-300 font-semibold sticky top-0 z-10">
+              <tr>
+                <th class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleSppomaTableSort()" title="Click to toggle Sort Order">
+                  <span class="inline-flex items-center space-x-1">
+                    <span>Period</span>
+                    <span id="sppoma-sort-icon" class="text-xs text-indigo-400 font-mono font-bold">▼</span>
+                  </span>
+                </th>
+                <th class="py-2.5 px-2 text-right text-indigo-400 font-mono">SPP 1-5</th>
+                <th class="py-2.5 px-2 text-right text-indigo-400 font-mono">SPP 1-10</th>
+                <th class="py-2.5 px-2 text-right text-indigo-400 font-mono">SPP 1-15</th>
+                <th class="py-2.5 px-2 text-right text-indigo-400 font-mono font-bold">SPP 1-20</th>
+                <th class="py-2.5 px-2 text-right text-indigo-400 font-mono">SPP 1-25</th>
+                <th class="py-2.5 px-2 text-right text-emerald-400 font-mono font-bold bg-slate-900">SPP Full Mth</th>
+                <th class="py-2.5 px-2 text-right text-slate-400 font-mono">SPP OER &plusmn;</th>
+                <th class="py-2.5 px-2 text-right text-cyan-400 font-mono font-bold">MPOA 1-20</th>
+                <th class="py-2.5 px-2 text-right text-cyan-300 font-mono bg-slate-900">MPOA Full</th>
+                <th class="py-2.5 px-2 text-right text-amber-300 font-mono font-bold">MPOB Actual MoM</th>
+                <th class="py-2.5 px-3 text-right text-white font-mono">MPOB Output (T)</th>
+                <th class="py-2.5 px-2 text-right text-slate-400 font-mono">Forecast Error</th>
+              </tr>
+            </thead>
+            <tbody id="sppoma-table-body" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Institutional Methodology Guide -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white flex items-center space-x-2">
+            <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+            <span>Institutional Guide: Understanding SPPOMA & MPOA Market Indicators</span>
+          </h3>
+          <p class="text-xs text-slate-400">How commodity trading desks, analysts, and plantation operators interpret high-frequency intra-month data</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <!-- Guide 1: SPPOMA Scope -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px] font-mono">1</span>
+              <span>SPPOMA Coverage Scope</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong>Southern Peninsular Palm Oil Millers' Association</strong> represents private palm oil mills in Johor, Melaka, and southern Pahang/Negeri Sembilan. Because Southern Peninsular estates have higher tree maturity and distinct rainfall cycles, SPPOMA reports can diverge from East Malaysia during monsoon periods.
+            </p>
+          </div>
+
+          <!-- Guide 2: MPOA Coverage -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-mono">2</span>
+              <span>MPOA National Scope</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong>Malaysian Palm Oil Association (MPOA)</strong> represents large organized plantation conglomerates (Sime Darby, KLK, IOI, FGV, United Plantations) covering <strong>~36% of national planted area</strong>. MPOA publishes Peninsular, Sabah, and Sarawak regional breakdowns, providing the highest statistical fidelity to final MPOB figures (r = 0.999).
+            </p>
+          </div>
+
+          <!-- Guide 3: Interval Volatility & Convergence -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px] font-mono">3</span>
+              <span>Intra-Month Convergence</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong>1–5 and 1–10 estimates</strong> exhibit high statistical volatility due to day-of-week calendar distribution and early-month rain stoppages. As the month progresses through <strong>1–15, 1–20, and 1–25</strong>, operational milling stabilizes and variances progressively tighten toward the final month-end run-rate.
+            </p>
+          </div>
+
+          <!-- Guide 4: Trading Impact -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-white font-bold">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono">4</span>
+              <span>FCPO Futures Market Impact</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              Bursa Malaysia Crude Palm Oil (FCPO) futures price in SPPOMA and MPOA estimates in real time. Mid-month surges (such as September's +18.9% MPOA 1-20) trigger immediate supply repricing, shaping market consensus well ahead of the official MPOB release on the 10th of the following month.
+            </p>
+          </div>
+        </div>
       </div>
 
     </div>

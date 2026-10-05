@@ -4,6 +4,7 @@
 
 let currentData = null;
 let currentMode = "monthly"; // 'monthly', 'daily', 'state_matrix', 'forecast_6mo'
+let currentFcstMetric = "absolute"; // 'absolute' or 'anomaly'
 let currentGroup = "all";
 let currentYear = 2026;
 let selectedStateId = "MY-09"; // default Perlis
@@ -220,10 +221,20 @@ function setMode(mode) {
     document.getElementById("region-filter-container").style.display = (mode === "state_matrix") ? "none" : "inline-flex";
     document.getElementById("state-select-container").style.display = "none";
     document.getElementById("matrix-filter-bar").style.display = (mode === "state_matrix") ? "flex" : "none";
+    const fcstToggle = document.getElementById("forecast-metric-toggle");
+    if (fcstToggle) fcstToggle.style.display = (mode === "forecast_6mo" || mode === "state_matrix") ? "inline-flex" : "none";
     
     if (mode === "state_matrix") {
         renderStatePills();
     }
+    renderTable();
+}
+
+function setFcstMetric(metric) {
+    currentFcstMetric = metric;
+    document.querySelectorAll("#forecast-metric-toggle .segmented-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.fcstMetric === metric);
+    });
     renderTable();
 }
 
@@ -304,14 +315,10 @@ function renderMonthlyTable(locations) {
                 yearSum += mData.total_mm;
                 yearDays += mData.days;
                 const c = getRainColor(avg);
-                const isFcst = mData.is_forecast || (currentYear === 2026 && m >= 10) || (currentYear === 2027 && m <= 3);
-                const tip = isFcst 
-                    ? `${monthNames[m-1]} ${currentYear} (ECMWF SEAS5 Forecast): ${avg.toFixed(1)} mm/day (${Math.round(mData.total_mm)}mm in ${mData.days} days)`
-                    : `${monthNames[m-1]} ${currentYear}: ${avg.toFixed(1)} mm/day (${Math.round(mData.total_mm)}mm in ${mData.days} days)`;
-                const badgeClass = isFcst ? "rain-badge forecast-badge" : "rain-badge";
+                const tip = `${monthNames[m-1]} ${currentYear}: ${avg.toFixed(1)} mm/day (${Math.round(mData.total_mm)} mm in ${mData.days} days)`;
                 rowHtml += `
                     <td class="rain-cell">
-                        <span class="${badgeClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
+                        <span class="rain-badge" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
                             ${avg.toFixed(1)}
                         </span>
                     </td>
@@ -435,11 +442,31 @@ function render6MonthForecastTable(locations) {
                 totalRain += (mInfo.total_mm || 0);
                 count++;
                 const c = getRainColor(avg);
-                const tip = `${fm.name}: ${avg.toFixed(1)} mm/day (${Math.round(mInfo.total_mm)} mm) • Normal: ${mInfo.baseline_mm_day} mm/d (Diff: ${mInfo.rain_anomaly_mm_day > 0 ? '+' : ''}${mInfo.rain_anomaly_mm_day} mm/d)`;
+                const tip = `${fm.name}: ${avg.toFixed(1)} mm/day (${Math.round(mInfo.total_mm)} mm) \u2014 Normal: ${mInfo.baseline_mm_day} mm/d (Diff: ${mInfo.rain_anomaly_mm_day > 0 ? "+" : ""}${mInfo.rain_anomaly_mm_day} mm/d)`;
+                
+                let displayVal = avg.toFixed(1);
+                let badgeClass = "rain-badge forecast-badge";
+                let style = `background-color: ${c.bg}; color: ${c.text};`;
+
+                if (currentFcstMetric === "anomaly") {
+                    const anom = mInfo.rain_anomaly_mm_day || 0;
+                    displayVal = (anom > 0 ? '+' : '') + anom.toFixed(1);
+                    if (anom > 0.5) {
+                        badgeClass = "anomaly-pill anomaly-surplus";
+                        style = "";
+                    } else if (anom < -0.5) {
+                        badgeClass = "anomaly-pill anomaly-deficit";
+                        style = "";
+                    } else {
+                        badgeClass = "anomaly-pill anomaly-normal";
+                        style = "";
+                    }
+                }
+
                 rowHtml += `
                     <td class="rain-cell">
-                        <span class="rain-badge forecast-badge" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
-                            ${avg.toFixed(1)}
+                        <span class="${badgeClass}" style="${style}" title="${tip}">
+                            ${displayVal}
                         </span>
                     </td>
                 `;
@@ -847,9 +874,10 @@ function renderWeeklyTable(locations) {
                 sum8 += avg;
                 count8++;
                 const c = getRainColor(avg);
+                const tip = `${wData.date_label}: ${avg.toFixed(1)} mm/day (${Math.round(wData.total_mm)} mm)`;
                 rowHtml += `
                     <td class="rain-cell">
-                        <span class="rain-badge" style="background-color: ${c.bg}; color: ${c.text};" title="${w}: ${avg.toFixed(1)} mm/day (${wData.total_mm}mm total)">
+                        <span class="rain-badge" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
                             ${avg.toFixed(1)}
                         </span>
                     </td>
@@ -1312,17 +1340,36 @@ function buildMatrixTableForLocation(loc, yearsToShow, activeMonths, monthNames)
                 rowSum += mInfo.total_mm;
                 rowDays += mInfo.days;
                 const c = getRainColor(avg);
-                const displayVal = avg.toFixed(1);
                 const isFcst = mInfo.is_forecast || (y === 2026 && m >= 10) || (y === 2027 && m <= 3);
                 const subLabel = isFcst ? "Forecast" : `${Math.round(mInfo.total_mm)}mm`;
                 const squareClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
-                const tooltip = isFcst
-                    ? `${monthNames[m-1]} ${y} (ECMWF SEAS5 Forecast): ${avg.toFixed(1)} mm/day (${Math.round(mInfo.total_mm)} mm in ${mInfo.days} days)`
-                    : `${monthNames[m-1]} ${y}: ${avg.toFixed(1)} mm/day (${mInfo.total_mm} mm in ${mInfo.days} days)`;
+                const tip = isFcst ? `${monthNames[m-1]} ${y} (ECMWF SEAS5 Forecast): ${avg.toFixed(1)} mm/day (${Math.round(mInfo.total_mm)} mm in ${mInfo.days} days)` : `${monthNames[m-1]} ${y}: ${avg.toFixed(1)} mm/day (${mInfo.total_mm} mm in ${mInfo.days} days)`;
+                
+                let displayVal = avg.toFixed(1);
+                let badgeClass = squareClass;
+                let style = `background-color: ${c.bg}; color: ${c.text};`;
+
+                if (currentFcstMetric === "anomaly") {
+                    const bVal = (currentData.baseline_monthly && currentData.baseline_monthly[loc.id] && currentData.baseline_monthly[loc.id][m]) || 0;
+                    if (bVal > 0) {
+                        const anom = avg - bVal;
+                        displayVal = (anom > 0 ? '+' : '') + anom.toFixed(1);
+                        if (anom > 0.5) {
+                            badgeClass = squareClass + " anomaly-surplus";
+                            style = "";
+                        } else if (anom < -0.5) {
+                            badgeClass = squareClass + " anomaly-deficit";
+                            style = "";
+                        } else {
+                            badgeClass = squareClass + " anomaly-normal";
+                            style = "";
+                        }
+                    }
+                }
 
                 rowHtml += `
                     <td>
-                        <div class="${squareClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tooltip}">
+                        <div class="${badgeClass}" style="${style}" title="${tip}">
                             <span>${displayVal}</span>
                             <span class="matrix-square-total">${subLabel}</span>
                         </div>
@@ -1456,19 +1503,14 @@ function buildCombinedMatrixTable(selectedLocs, yearsToShow, activeMonths, month
                 ySum += avg;
                 yCount++;
                 const c = getRainColor(avg);
-                const displayVal = avg.toFixed(1);
-
                 const isFcst = (y === 2026 && m >= 10) || (y === 2027 && m <= 3);
-                const squareClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
                 const subLabel = isFcst ? "Forecast" : "Comb";
-                const tooltip = isFcst
-                    ? `${monthNames[m-1]} ${y} (ECMWF SEAS5 Forecast): Combined ${displayVal} mm/day (${selectedLocs.length} states)`
-                    : `${monthNames[m-1]} ${y}: ${displayVal} mm/day (${selectedLocs.length} states combined)`;
-
+                const squareClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
+                const tip = isFcst ? `${monthNames[m-1]} ${y} (ECMWF SEAS5 Forecast): Combined ${avg.toFixed(1)} mm/day (${selectedLocs.length} states)` : `${monthNames[m-1]} ${y}: ${avg.toFixed(1)} mm/day (${selectedLocs.length} states combined)`;
                 rowHtml += `
                     <td>
-                        <div class="${squareClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tooltip}">
-                            <span>${displayVal}</span>
+                        <div class="${squareClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
+                            <span>${avg.toFixed(1)}</span>
                             <span class="matrix-square-total">${subLabel}</span>
                         </div>
                     </td>
