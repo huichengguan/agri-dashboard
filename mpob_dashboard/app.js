@@ -69,7 +69,7 @@ async function fetchJsonData(apiPath, staticFile) {
                        (window.location.hostname === "localhost" && window.location.pathname.includes("/dashboard/"));
   if (isStaticHost) {
     try {
-      const staticRes = await fetch(staticFile);
+      const staticRes = await fetch(staticFile, { cache: "no-cache" });
       if (staticRes.ok) return await staticRes.json();
     } catch (e) {
       console.warn("Static fetch fallback:", e);

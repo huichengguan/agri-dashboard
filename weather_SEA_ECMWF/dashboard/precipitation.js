@@ -1507,10 +1507,38 @@ function buildCombinedMatrixTable(selectedLocs, yearsToShow, activeMonths, month
                 const subLabel = isFcst ? "Forecast" : "Comb";
                 const squareClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
                 const tip = isFcst ? `${monthNames[m-1]} ${y} (ECMWF SEAS5 Forecast): Combined ${avg.toFixed(1)} mm/day (${selectedLocs.length} states)` : `${monthNames[m-1]} ${y}: ${avg.toFixed(1)} mm/day (${selectedLocs.length} states combined)`;
+                
+                let displayVal = avg.toFixed(1);
+                let badgeClass = squareClass;
+                let style = `background-color: ${c.bg}; color: ${c.text};`;
+
+                if (currentFcstMetric === "anomaly") {
+                    let bSum = 0; let bCount = 0;
+                    selectedLocs.forEach(l => {
+                        const bv = currentData.baseline_monthly && currentData.baseline_monthly[l.id] && currentData.baseline_monthly[l.id][m];
+                        if (bv !== undefined) { bSum += bv; bCount++; }
+                    });
+                    const bVal = bCount > 0 ? (bSum / bCount) : 0;
+                    if (bVal > 0) {
+                        const anom = avg - bVal;
+                        displayVal = (anom > 0 ? '+' : '') + anom.toFixed(1);
+                        if (anom > 0.5) {
+                            badgeClass = squareClass + " anomaly-surplus";
+                            style = "";
+                        } else if (anom < -0.5) {
+                            badgeClass = squareClass + " anomaly-deficit";
+                            style = "";
+                        } else {
+                            badgeClass = squareClass + " anomaly-normal";
+                            style = "";
+                        }
+                    }
+                }
+
                 rowHtml += `
                     <td>
-                        <div class="${squareClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
-                            <span>${avg.toFixed(1)}</span>
+                        <div class="${badgeClass}" style="${style}" title="${tip}">
+                            <span>${displayVal}</span>
                             <span class="matrix-square-total">${subLabel}</span>
                         </div>
                     </td>
