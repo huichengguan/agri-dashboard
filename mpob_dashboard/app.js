@@ -2373,6 +2373,7 @@ async function loadSppomaData() {
     renderSppomaProgression(2026, 9);
     renderSppomaHistoryChart();
     renderSppomaTable();
+    renderMpoaTable();
   } catch (err) {
     console.error("Failed to load SPPOMA & MPOA data:", err);
   }
@@ -2481,10 +2482,14 @@ function renderSppomaProgression(year, month) {
           <span class="font-bold text-indigo-200">Day 1–20</span>
           <span class="text-[9px] uppercase px-1 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">Anchor</span>
         </div>
-        <div class="text-base font-black">${fmtPct(sp['1-20'].cpo_prod_mom_pct)}</div>
+        <div class="text-base font-black">
+          ${fmtPct(sp['1-20'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-indigo-300 font-sans">SPP</span>
+          <span class="text-slate-600 mx-1">|</span>
+          <span class="text-cyan-300 font-mono font-bold">${fmtPct(mp['1-20'].total_malaysia_mom_pct)}</span> <span class="text-[10px] font-normal text-cyan-400 font-sans">MPOA</span>
+        </div>
         <div class="text-[10px] text-slate-300 leading-tight">
-          MPOA Tot: ${fmtPct(mp['1-20'].total_malaysia_mom_pct)}<br>
-          Pen: ${mp['1-20'].peninsular_mom_pct}% &bull; Sab: ${mp['1-20'].sabah_mom_pct}%
+          Pen: <span class="font-mono text-white">+${mp['1-20'].peninsular_mom_pct}%</span> &bull; Sab: <span class="font-mono text-white">+${mp['1-20'].sabah_mom_pct}%</span><br>
+          Sar: <span class="font-mono text-white">+${mp['1-20'].sarawak_mom_pct}%</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">+${mp['1-20'].east_malaysia_mom_pct}%</span>
         </div>
       </div>
 
@@ -2502,15 +2507,19 @@ function renderSppomaProgression(year, month) {
       </div>
 
       <!-- Step 6: Full Month Surveys -->
-      <div class="${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/20 border-cyan-500/40' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
+      <div class="${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/30 border-cyan-500/50' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
         <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-white">Full Month Est.</span>
-          <span class="text-[9px] uppercase px-1 rounded ${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/40' : 'bg-amber-950/80 text-amber-300 border border-amber-800/40'}">${mp['full_month'].total_malaysia_mom_pct !== null ? 'SPPOMA & MPOA' : 'Survey End'}</span>
+          <span class="font-bold text-white">Full Month Surveys</span>
+          <span class="text-[9px] uppercase px-1 rounded ${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/40' : 'bg-amber-950/80 text-amber-300 border border-amber-800/40'}">${mp['full_month'].total_malaysia_mom_pct !== null ? 'Both Released' : 'SPPOMA Only'}</span>
         </div>
-        <div class="text-base font-black">${fmtPct(sp['full_month'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-slate-400 font-sans">(SPP)</span></div>
+        <div class="text-base font-black">
+          ${fmtPct(sp['full_month'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-indigo-300 font-sans">SPP</span>
+          <span class="text-slate-600 mx-1">|</span>
+          <span class="text-cyan-300 font-mono font-bold">${fmtPct(mp['full_month'].total_malaysia_mom_pct)}</span> <span class="text-[10px] font-normal text-cyan-400 font-sans">MPOA</span>
+        </div>
         <div class="text-[10px] text-slate-300 leading-tight">
           ${mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
-            ? `<span class="text-cyan-400 font-bold">MPOA: ${fmtPct(mp['full_month'].total_malaysia_mom_pct)}</span><br><span class="text-slate-400 text-[9px]">Pen ${mp['full_month'].peninsular_mom_pct >= 0 ? '+' : ''}${mp['full_month'].peninsular_mom_pct}% &bull; Sab ${mp['full_month'].sabah_mom_pct >= 0 ? '+' : ''}${mp['full_month'].sabah_mom_pct}%</span>`
+            ? `Pen: <span class="font-mono text-white">+${mp['full_month'].peninsular_mom_pct}%</span> &bull; Sab: <span class="font-mono text-white">+${mp['full_month'].sabah_mom_pct}%</span><br>Sar: <span class="font-mono text-white">+${mp['full_month'].sarawak_mom_pct}%</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">+${mp['full_month'].east_malaysia_mom_pct}%</span>`
             : `MPOA Full: <span class="text-amber-400 font-semibold font-mono text-[10px]">Pending Release</span><br><span class="text-slate-500 text-[9px]">Awaiting Final Returns</span>`
           }
         </div>
@@ -3009,5 +3018,210 @@ function filterSppomaTable() {
     renderSppomaTable(input.value);
   }
 }
+
+// =========================================================================
+// TAB 8: Dedicated MPOA Regional Production Survey Ledger (Peninsular, Sabah, Sarawak & Borneo)
+// =========================================================================
+
+let mpoaTableInterval = 'full_month'; // 'full_month', '1-20', or 'combined'
+let mpoaTableSortOrder = 'desc'; // default 'desc' for most recent first
+
+function setMpoaTableInterval(interval) {
+  mpoaTableInterval = interval;
+  const btnFull = document.getElementById("btn-mpoa-tbl-full");
+  const btn20 = document.getElementById("btn-mpoa-tbl-20");
+  const btnComb = document.getElementById("btn-mpoa-tbl-comb");
+  [btnFull, btn20, btnComb].forEach(btn => {
+    if (btn) btn.className = "px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition";
+  });
+  if (interval === 'full_month' && btnFull) {
+    btnFull.className = "px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition";
+  } else if (interval === '1-20' && btn20) {
+    btn20.className = "px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition";
+  } else if (interval === 'combined' && btnComb) {
+    btnComb.className = "px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition";
+  }
+  filterMpoaTable();
+}
+
+function toggleMpoaTableSort() {
+  mpoaTableSortOrder = mpoaTableSortOrder === 'desc' ? 'asc' : 'desc';
+  const icon = document.getElementById("mpoa-sort-icon");
+  if (icon) icon.textContent = mpoaTableSortOrder === 'desc' ? '▼' : '▲';
+  filterMpoaTable();
+}
+
+function filterMpoaTable() {
+  const input = document.getElementById("mpoa-table-search");
+  renderMpoaTable(input ? input.value : "");
+}
+
+function renderMpoaTable(filterQuery = "") {
+  const thead = document.getElementById("mpoa-table-head");
+  const tbody = document.getElementById("mpoa-table-body");
+  if (!thead || !tbody || !sppomaData) return;
+
+  const q = filterQuery.toLowerCase().trim();
+  let filtered = sppomaData.filter(r => {
+    if (!q) return true;
+    return r.period.includes(q) || r.month_name.toLowerCase().includes(q) || String(r.year).includes(q);
+  });
+
+  filtered.sort((a, b) => {
+    return mpoaTableSortOrder === 'desc'
+      ? b.period.localeCompare(a.period)
+      : a.period.localeCompare(b.period);
+  });
+
+  const fmt = (v) => {
+    if (v === null || v === undefined) return '<span class="text-slate-500 italic">--</span>';
+    const cls = v >= 0 ? 'text-emerald-400' : 'text-rose-400';
+    return `<span class="${cls} font-mono font-semibold">${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}%</span>`;
+  };
+
+  const badge = (status, isBulletin) => {
+    if (isBulletin) {
+      return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 font-sans font-medium whitespace-nowrap">Official Bulletin</span>';
+    }
+    if (status && status.includes('Pending')) {
+      return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-950/80 text-amber-300 border border-amber-800/60 font-sans whitespace-nowrap">Pending Release</span>';
+    }
+    return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-400 font-sans whitespace-nowrap">Derived</span>';
+  };
+
+  const sortIcon = `<span id="mpoa-sort-icon" class="text-xs text-cyan-400 font-mono font-bold">${mpoaTableSortOrder === 'desc' ? '▼' : '▲'}</span>`;
+
+  if (mpoaTableInterval === 'full_month') {
+    thead.innerHTML = `
+      <tr>
+        <th class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleMpoaTableSort()" title="Click to toggle sort order">
+          <span class="inline-flex items-center space-x-1">
+            <span>Period</span>
+            ${sortIcon}
+          </span>
+        </th>
+        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Peninsular MoM</th>
+        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sabah MoM</th>
+        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sarawak MoM</th>
+        <th class="py-2.5 px-2 text-right text-cyan-400 font-mono font-bold bg-slate-900/60">Borneo State (East)</th>
+        <th class="py-2.5 px-2 text-right text-white font-mono font-bold bg-slate-900/90">Overall Malaysia</th>
+        <th class="py-2.5 px-2 text-right text-amber-300 font-mono font-bold">MPOB Actual</th>
+        <th class="py-2.5 px-2 text-center text-slate-400">Bulletin Verification</th>
+      </tr>
+    `;
+
+    tbody.innerHTML = filtered.map(r => {
+      const mp = r.mpoa.full_month;
+      const act = r.mpob_actual;
+      const mpobStr = act.cpo_mom_pct !== null && act.cpo_mom_pct !== undefined
+        ? fmt(act.cpo_mom_pct)
+        : '<span class="text-amber-400/80 text-[11px] font-sans italic">Pending (Oct 10)</span>';
+
+      return `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
+          <td class="py-2 px-2 text-right font-mono">${fmt(mp.peninsular_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sabah_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sarawak_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/50 text-cyan-300">${fmt(mp.east_malaysia_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/80 text-white">${fmt(mp.total_malaysia_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono font-bold">${mpobStr}</td>
+          <td class="py-2 px-2 text-center">${badge(mp.status, mp.is_verified_bulletin)}</td>
+        </tr>
+      `;
+    }).join("");
+
+  } else if (mpoaTableInterval === '1-20') {
+    thead.innerHTML = `
+      <tr>
+        <th class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleMpoaTableSort()" title="Click to toggle sort order">
+          <span class="inline-flex items-center space-x-1">
+            <span>Period</span>
+            ${sortIcon}
+          </span>
+        </th>
+        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Peninsular (1-20)</th>
+        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sabah (1-20)</th>
+        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sarawak (1-20)</th>
+        <th class="py-2.5 px-2 text-right text-cyan-400 font-mono font-bold bg-slate-900/60">Borneo State (1-20)</th>
+        <th class="py-2.5 px-2 text-right text-white font-mono font-bold bg-slate-900/90">Overall Malaysia (1-20)</th>
+        <th class="py-2.5 px-2 text-center text-slate-400">Bulletin Verification</th>
+      </tr>
+    `;
+
+    tbody.innerHTML = filtered.map(r => {
+      const mp = r.mpoa['1-20'];
+      return `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
+          <td class="py-2 px-2 text-right font-mono">${fmt(mp.peninsular_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sabah_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sarawak_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/50 text-cyan-300">${fmt(mp.east_malaysia_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/80 text-white">${fmt(mp.total_malaysia_mom_pct)}</td>
+          <td class="py-2 px-2 text-center">${badge(mp.status, mp.is_verified_bulletin)}</td>
+        </tr>
+      `;
+    }).join("");
+
+  } else {
+    // Combined / Side-by-Side view
+    thead.innerHTML = `
+      <tr>
+        <th rowspan="2" class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleMpoaTableSort()" title="Click to toggle sort order">
+          <span class="inline-flex items-center space-x-1">
+            <span>Period</span>
+            ${sortIcon}
+          </span>
+        </th>
+        <th colspan="2" class="py-1 px-2 text-center text-cyan-300 border-b border-slate-800">Peninsular</th>
+        <th colspan="2" class="py-1 px-2 text-center text-cyan-300 border-b border-slate-800">Sabah</th>
+        <th colspan="2" class="py-1 px-2 text-center text-cyan-300 border-b border-slate-800">Sarawak</th>
+        <th colspan="2" class="py-1 px-2 text-center text-cyan-400 font-bold bg-slate-900/60 border-b border-slate-800">Borneo State</th>
+        <th colspan="2" class="py-1 px-2 text-center text-white font-bold bg-slate-900/90 border-b border-slate-800">Overall Malaysia</th>
+        <th rowspan="2" class="py-2.5 px-2 text-right text-amber-300 font-mono font-bold">MPOB Actual</th>
+      </tr>
+      <tr>
+        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px]">1-20</th>
+        <th class="py-1.5 px-1.5 text-right text-cyan-300 font-mono text-[10px] font-bold">Full</th>
+        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px]">1-20</th>
+        <th class="py-1.5 px-1.5 text-right text-cyan-300 font-mono text-[10px] font-bold">Full</th>
+        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px]">1-20</th>
+        <th class="py-1.5 px-1.5 text-right text-cyan-300 font-mono text-[10px] font-bold">Full</th>
+        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px] bg-slate-900/60">1-20</th>
+        <th class="py-1.5 px-1.5 text-right text-cyan-400 font-mono text-[10px] font-bold bg-slate-900/60">Full</th>
+        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px] bg-slate-900/90">1-20</th>
+        <th class="py-1.5 px-1.5 text-right text-emerald-400 font-mono text-[10px] font-bold bg-slate-900/90">Full</th>
+      </tr>
+    `;
+
+    tbody.innerHTML = filtered.map(r => {
+      const m20 = r.mpoa['1-20'];
+      const mFull = r.mpoa.full_month;
+      const act = r.mpob_actual;
+      const mpobStr = act.cpo_mom_pct !== null && act.cpo_mom_pct !== undefined
+        ? fmt(act.cpo_mom_pct)
+        : '<span class="text-amber-400/80 text-[10px] font-sans italic">Pending (Oct 10)</span>';
+
+      return `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
+          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs">${fmt(m20.peninsular_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs">${fmt(mFull.peninsular_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs">${fmt(m20.sabah_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs">${fmt(mFull.sabah_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs">${fmt(m20.sarawak_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs">${fmt(mFull.sarawak_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs bg-slate-900/50">${fmt(m20.east_malaysia_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs bg-slate-900/50 text-cyan-300">${fmt(mFull.east_malaysia_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs bg-slate-900/80">${fmt(m20.total_malaysia_mom_pct)}</td>
+          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs bg-slate-900/80 text-white">${fmt(mFull.total_malaysia_mom_pct)}</td>
+          <td class="py-2 px-2 text-right font-mono font-bold">${mpobStr}</td>
+        </tr>
+      `;
+    }).join("");
+  }
+}
+
 
 

@@ -1843,7 +1843,40 @@
         </div>
       </div>
 
-      <!-- SECTION 4: Institutional Methodology Guide -->
+      <!-- SECTION 4: Dedicated MPOA Regional Production Survey Ledger (Peninsular, Sabah, Sarawak & Borneo) -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i>
+              <span>MPOA Regional Production Survey Ledger (2010 – 2026)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Granular regional MoM % growth rates across Peninsular Malaysia, Sabah, Sarawak, Borneo State (East Malaysia), and National Estates</p>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="inline-flex rounded-lg bg-slate-950 p-1 border border-slate-800 text-xs">
+              <button onclick="setMpoaTableInterval('full_month')" id="btn-mpoa-tbl-full" class="px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition">Full Month (1-30)</button>
+              <button onclick="setMpoaTableInterval('1-20')" id="btn-mpoa-tbl-20" class="px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition">Mid-Month (1-20)</button>
+              <button onclick="setMpoaTableInterval('combined')" id="btn-mpoa-tbl-comb" class="px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition">Side-by-Side</button>
+            </div>
+            <input type="text" id="mpoa-table-search" placeholder="Search year or month..." oninput="filterMpoaTable()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-xs text-slate-200 placeholder-slate-500">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-800 rounded-lg max-h-96">
+          <table class="min-w-full divide-y divide-slate-800 text-xs">
+            <thead id="mpoa-table-head" class="bg-slate-950 text-slate-300 font-semibold sticky top-0 z-10">
+              <!-- Dynamically Populated by JS -->
+            </thead>
+            <tbody id="mpoa-table-body" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Institutional Methodology Guide -->
       <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
         <div class="border-b border-slate-800 pb-3">
           <h3 class="text-base font-bold text-white flex items-center space-x-2">
@@ -1909,7 +1942,7 @@
     <p>Data Source: Economics and Industry Development Division, Malaysian Palm Oil Board (MPOB) & Prestasi Sawit &bull; 2005–2026 Historical Supply, Demand & Yield Model</p>
   </footer>
 
-  <script src="app.js?v=20261006142822"></script>
+  <script src="app.js?v=20261006143618"></script>
   <script>
     lucide.createIcons();
   </script>
