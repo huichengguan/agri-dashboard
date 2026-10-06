@@ -2502,16 +2502,16 @@ function renderSppomaProgression(year, month) {
       </div>
 
       <!-- Step 6: Full Month Surveys -->
-      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
+      <div class="${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/20 border-cyan-500/40' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
         <div class="flex items-center justify-between text-[11px] text-slate-400">
           <span class="font-bold text-white">Full Month Est.</span>
-          <span class="text-[9px] uppercase px-1 rounded bg-amber-950/80 text-amber-300 border border-amber-800/40">Survey End</span>
+          <span class="text-[9px] uppercase px-1 rounded ${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/40' : 'bg-amber-950/80 text-amber-300 border border-amber-800/40'}">${mp['full_month'].total_malaysia_mom_pct !== null ? 'SPPOMA & MPOA' : 'Survey End'}</span>
         </div>
-        <div class="text-base font-black">${fmtPct(sp['full_month'].cpo_prod_mom_pct)}</div>
+        <div class="text-base font-black">${fmtPct(sp['full_month'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-slate-400 font-sans">(SPP)</span></div>
         <div class="text-[10px] text-slate-300 leading-tight">
           ${mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
-            ? `MPOA Full: ${fmtPct(mp['full_month'].total_malaysia_mom_pct)}<br>Pen: ${mp['full_month'].peninsular_mom_pct}%`
-            : `MPOA Full: <span class="text-amber-400 font-semibold font-mono text-[10px]">Pending (~Oct 7)</span><br><span class="text-slate-500 text-[9px]">Awaiting Final Returns</span>`
+            ? `<span class="text-cyan-400 font-bold">MPOA: ${fmtPct(mp['full_month'].total_malaysia_mom_pct)}</span><br><span class="text-slate-400 text-[9px]">Pen ${mp['full_month'].peninsular_mom_pct >= 0 ? '+' : ''}${mp['full_month'].peninsular_mom_pct}% &bull; Sab ${mp['full_month'].sabah_mom_pct >= 0 ? '+' : ''}${mp['full_month'].sabah_mom_pct}%</span>`
+            : `MPOA Full: <span class="text-amber-400 font-semibold font-mono text-[10px]">Pending Release</span><br><span class="text-slate-500 text-[9px]">Awaiting Final Returns</span>`
           }
         </div>
       </div>
