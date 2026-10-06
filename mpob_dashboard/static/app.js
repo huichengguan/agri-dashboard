@@ -2431,9 +2431,14 @@ function renderSppomaProgression(year, month) {
   const cardsContainer = document.getElementById("sppoma-progression-cards");
   if (cardsContainer) {
     const fmtPct = (val) => {
-      if (val === null || val === undefined) return '--';
+      if (val === null || val === undefined) return '<span class="text-slate-500 font-normal">--</span>';
       const cls = val >= 0 ? 'text-emerald-400' : 'text-rose-400';
       return `<span class="${cls} font-mono font-bold">${val >= 0 ? '+' : ''}${val.toFixed(2)}%</span>`;
+    };
+
+    const fmtSub = (v, unit = '%') => {
+      if (v === null || v === undefined) return '<span class="text-slate-500">--</span>';
+      return `${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}${unit}`;
     };
 
     cardsContainer.innerHTML = `
@@ -2445,8 +2450,8 @@ function renderSppomaProgression(year, month) {
         </div>
         <div class="text-base font-black">${fmtPct(sp['1-5'].cpo_prod_mom_pct)}</div>
         <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${sp['1-5'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-5'].ffb_yield_mom_pct}%<br>
-          OER: ${sp['1-5'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-5'].oer_diff_pts}%
+          FFB: ${fmtSub(sp['1-5'].ffb_yield_mom_pct)}<br>
+          OER: ${fmtSub(sp['1-5'].oer_diff_pts, ' pts')}
         </div>
       </div>
 
@@ -2458,8 +2463,8 @@ function renderSppomaProgression(year, month) {
         </div>
         <div class="text-base font-black">${fmtPct(sp['1-10'].cpo_prod_mom_pct)}</div>
         <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${sp['1-10'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-10'].ffb_yield_mom_pct}%<br>
-          OER: ${sp['1-10'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-10'].oer_diff_pts}%
+          FFB: ${fmtSub(sp['1-10'].ffb_yield_mom_pct)}<br>
+          OER: ${fmtSub(sp['1-10'].oer_diff_pts, ' pts')}
         </div>
       </div>
 
@@ -2471,8 +2476,8 @@ function renderSppomaProgression(year, month) {
         </div>
         <div class="text-base font-black">${fmtPct(sp['1-15'].cpo_prod_mom_pct)}</div>
         <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${sp['1-15'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-15'].ffb_yield_mom_pct}%<br>
-          OER: ${sp['1-15'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-15'].oer_diff_pts}%
+          FFB: ${fmtSub(sp['1-15'].ffb_yield_mom_pct)}<br>
+          OER: ${fmtSub(sp['1-15'].oer_diff_pts, ' pts')}
         </div>
       </div>
 
@@ -2488,8 +2493,10 @@ function renderSppomaProgression(year, month) {
           <span class="text-cyan-300 font-mono font-bold">${fmtPct(mp['1-20'].total_malaysia_mom_pct)}</span> <span class="text-[10px] font-normal text-cyan-400 font-sans">MPOA</span>
         </div>
         <div class="text-[10px] text-slate-300 leading-tight">
-          Pen: <span class="font-mono text-white">+${mp['1-20'].peninsular_mom_pct}%</span> &bull; Sab: <span class="font-mono text-white">+${mp['1-20'].sabah_mom_pct}%</span><br>
-          Sar: <span class="font-mono text-white">+${mp['1-20'].sarawak_mom_pct}%</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">+${mp['1-20'].east_malaysia_mom_pct}%</span>
+          ${mp['1-20'].total_malaysia_mom_pct !== null && mp['1-20'].total_malaysia_mom_pct !== undefined ? `
+          Pen: <span class="font-mono text-white">${fmtSub(mp['1-20'].peninsular_mom_pct)}</span> &bull; Sab: <span class="font-mono text-white">${fmtSub(mp['1-20'].sabah_mom_pct)}</span><br>
+          Sar: <span class="font-mono text-white">${fmtSub(mp['1-20'].sarawak_mom_pct)}</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">${fmtSub(mp['1-20'].east_malaysia_mom_pct)}</span>
+          ` : `FFB: ${fmtSub(sp['1-20'].ffb_yield_mom_pct)} &bull; OER: ${fmtSub(sp['1-20'].oer_diff_pts, ' pts')}<br><span class="text-slate-500 text-[9px]">MPOA 1-20: Unverified</span>`}
         </div>
       </div>
 
@@ -2501,8 +2508,8 @@ function renderSppomaProgression(year, month) {
         </div>
         <div class="text-base font-black">${fmtPct(sp['1-25'].cpo_prod_mom_pct)}</div>
         <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${sp['1-25'].ffb_yield_mom_pct >= 0 ? '+' : ''}${sp['1-25'].ffb_yield_mom_pct}%<br>
-          OER: ${sp['1-25'].oer_diff_pts >= 0 ? '+' : ''}${sp['1-25'].oer_diff_pts}%
+          FFB: ${fmtSub(sp['1-25'].ffb_yield_mom_pct)}<br>
+          OER: ${fmtSub(sp['1-25'].oer_diff_pts, ' pts')}
         </div>
       </div>
 
@@ -2510,7 +2517,7 @@ function renderSppomaProgression(year, month) {
       <div class="${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/30 border-cyan-500/50' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
         <div class="flex items-center justify-between text-[11px] text-slate-400">
           <span class="font-bold text-white">Full Month Surveys</span>
-          <span class="text-[9px] uppercase px-1 rounded ${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/40' : 'bg-amber-950/80 text-amber-300 border border-amber-800/40'}">${mp['full_month'].total_malaysia_mom_pct !== null ? 'Both Released' : 'SPPOMA Only'}</span>
+          <span class="text-[9px] uppercase px-1 rounded ${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/40' : 'bg-indigo-950/80 text-indigo-300 border border-indigo-800/40'}">${mp['full_month'].total_malaysia_mom_pct !== null ? 'Both Released' : 'SPPOMA Bulletin'}</span>
         </div>
         <div class="text-base font-black">
           ${fmtPct(sp['full_month'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-indigo-300 font-sans">SPP</span>
@@ -2519,8 +2526,8 @@ function renderSppomaProgression(year, month) {
         </div>
         <div class="text-[10px] text-slate-300 leading-tight">
           ${mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
-            ? `Pen: <span class="font-mono text-white">+${mp['full_month'].peninsular_mom_pct}%</span> &bull; Sab: <span class="font-mono text-white">+${mp['full_month'].sabah_mom_pct}%</span><br>Sar: <span class="font-mono text-white">+${mp['full_month'].sarawak_mom_pct}%</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">+${mp['full_month'].east_malaysia_mom_pct}%</span>`
-            : `MPOA Full: <span class="text-amber-400 font-semibold font-mono text-[10px]">Pending Release</span><br><span class="text-slate-500 text-[9px]">Awaiting Final Returns</span>`
+            ? `Pen: <span class="font-mono text-white">${fmtSub(mp['full_month'].peninsular_mom_pct)}</span> &bull; Sab: <span class="font-mono text-white">${fmtSub(mp['full_month'].sabah_mom_pct)}</span><br>Sar: <span class="font-mono text-white">${fmtSub(mp['full_month'].sarawak_mom_pct)}</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">${fmtSub(mp['full_month'].east_malaysia_mom_pct)}</span>`
+            : (sp['full_month'].cpo_prod_mom_pct !== null ? `FFB: ${fmtSub(sp['full_month'].ffb_yield_mom_pct)} &bull; OER: ${fmtSub(sp['full_month'].oer_diff_pts, ' pts')}<br><span class="text-slate-500 text-[9px]">MPOA Full: Unverified</span>` : `<span class="text-slate-500 text-[9px]">Awaiting Survey Data</span>`)
           }
         </div>
       </div>
@@ -3086,7 +3093,7 @@ function renderMpoaTable(filterQuery = "") {
     if (status && status.includes('Pending')) {
       return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-950/80 text-amber-300 border border-amber-800/60 font-sans whitespace-nowrap">Pending Release</span>';
     }
-    return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-400 font-sans whitespace-nowrap">Derived</span>';
+    return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-500 font-sans whitespace-nowrap">Unverified</span>';
   };
 
   const sortIcon = `<span id="mpoa-sort-icon" class="text-xs text-cyan-400 font-mono font-bold">${mpoaTableSortOrder === 'desc' ? '▼' : '▲'}</span>`;
