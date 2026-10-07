@@ -4,12 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Black Sea Harvest Pace & Crop Progress | Official Weekly Intelligence</title>
-  <script src="chart.umd.min.js"></script>
-  <script>
-    if (typeof Chart === 'undefined') {
-      document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>');
-    }
-  </script>
   <script src="html2canvas.min.js"></script>
   <script>
     if (typeof html2canvas === 'undefined') {
@@ -37,7 +31,7 @@
       --table-stripe: #f8fafc;
       --table-hover: #e0f2fe;
       --table-border: #e2e8f0;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+      --shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       --badge-red-bg: #fee2e2;
       --badge-red-txt: #991b1b;
       --badge-green-bg: #dcfce7;
@@ -47,8 +41,8 @@
       --badge-amber-bg: #fef3c7;
       --badge-amber-txt: #92400e;
       --bar-2026: #dc2626;
-      --bar-2024: #2563eb;
-      --bar-5yr: #64748b;
+      --bar-comp: #2563eb;
+      --bar-8yr: #64748b;
     }
 
     body.dark-theme {
@@ -68,7 +62,7 @@
       --table-stripe: #172033;
       --table-hover: #1e3a5f;
       --table-border: #2d3748;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      --shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.4);
       --badge-red-bg: #7f1d1d;
       --badge-red-txt: #fca5a5;
       --badge-green-bg: #14532d;
@@ -84,81 +78,82 @@
       font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: var(--bg-page);
       color: var(--text-main);
-      line-height: 1.45;
-      padding: 16px;
+      line-height: 1.35;
+      padding: 10px 12px;
       transition: background-color 0.2s, color 0.2s;
     }
 
     .dashboard-container {
-      max-width: 1540px;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
     }
 
     /* HEADER */
     .header-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 18px 24px;
+      border-radius: 6px;
+      padding: 10px 14px;
       box-shadow: var(--shadow);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 10px;
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
     .header-badge {
       background: linear-gradient(135deg, #003399 0%, #1e40af 100%);
       color: #fff;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 1.2px;
-      padding: 8px 14px;
-      border-radius: 6px;
+      letter-spacing: 1px;
+      padding: 5px 10px;
+      border-radius: 5px;
       text-transform: uppercase;
-      box-shadow: 0 2px 4px rgba(0, 51, 153, 0.25);
+      box-shadow: 0 1px 3px rgba(0, 51, 153, 0.25);
     }
 
     .header-title-group h1 {
-      font-size: 22px;
+      font-size: 17px;
       font-weight: 900;
       color: var(--text-main);
-      letter-spacing: -0.3px;
+      letter-spacing: -0.2px;
     }
 
     .header-title-group p {
-      font-size: 13px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .btn-action {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 11px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -174,48 +169,48 @@
     .timing-ribbon {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 14px 20px;
+      border-radius: 6px;
+      padding: 8px 14px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
       box-shadow: var(--shadow);
     }
 
     .timing-block {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
 
     .timing-icon {
-      font-size: 24px;
+      font-size: 18px;
       line-height: 1;
     }
 
     .timing-content {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
 
     .timing-label {
-      font-size: 11px;
+      font-size: 9.5px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       color: var(--text-muted);
     }
 
     .timing-value {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--text-main);
     }
 
     .timing-sub {
-      font-size: 12px;
+      font-size: 10px;
       color: var(--text-muted);
     }
 
@@ -223,35 +218,42 @@
     .controls-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 14px 20px;
+      border-radius: 6px;
+      padding: 8px 14px;
       box-shadow: var(--shadow);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 10px;
+    }
+
+    .controls-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .pill-group {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
     .pill-btn {
-      padding: 8px 20px;
+      padding: 5px 12px;
       background: var(--chip-bg);
       border: 1px solid transparent;
-      border-radius: 20px;
+      border-radius: 16px;
       color: var(--text-main);
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s ease;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .pill-btn:hover {
@@ -261,16 +263,50 @@
     .pill-btn.active {
       background: var(--chip-active);
       color: #ffffff;
-      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25);
+    }
+
+    .comparator-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--chip-bg);
+      padding: 3px 8px;
+      border-radius: 14px;
+    }
+
+    .comparator-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .year-select {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .year-select:focus {
+      border-color: var(--accent);
     }
 
     .status-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
+      gap: 4px;
+      font-size: 10.5px;
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 4px;
     }
 
@@ -278,12 +314,12 @@
     .weather-callout {
       background: #eff6ff;
       border: 1px solid #bfdbfe;
-      border-left: 5px solid #2563eb;
-      border-radius: 8px;
-      padding: 16px 20px;
+      border-left: 4px solid #2563eb;
+      border-radius: 6px;
+      padding: 10px 14px;
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: 10px;
     }
 
     body.dark-theme .weather-callout {
@@ -293,33 +329,33 @@
     }
 
     .weather-callout-icon {
-      font-size: 24px;
+      font-size: 18px;
       line-height: 1;
     }
 
     .weather-callout-text h3 {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--text-main);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .weather-callout-text p {
-      font-size: 13px;
+      font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     /* PANELS */
     .panel-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 20px;
+      border-radius: 6px;
+      padding: 12px 14px;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
     }
 
     .panel-header {
@@ -327,38 +363,40 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
       border-bottom: 1px solid var(--card-border);
-      padding-bottom: 12px;
+      padding-bottom: 8px;
     }
 
     .panel-title-group h2 {
-      font-size: 16px;
+      font-size: 13.5px;
       font-weight: 800;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .panel-title-group p {
-      font-size: 12px;
+      font-size: 10.5px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
-    /* TABLE */
+    /* TABLE: COMPACT & SCROLL-FREE */
     .table-responsive {
       overflow-x: auto;
       border: 1px solid var(--table-border);
-      border-radius: 6px;
+      border-radius: 5px;
+      width: 100%;
     }
 
     table.data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 11px;
       text-align: left;
+      table-layout: auto;
     }
 
     table.data-table th {
@@ -366,18 +404,19 @@
       color: var(--text-muted);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.6px;
-      padding: 12px 14px;
+      font-size: 9.5px;
+      letter-spacing: 0.3px;
+      padding: 6px 8px;
       border-bottom: 1px solid var(--table-border);
       white-space: nowrap;
     }
 
     table.data-table td {
-      padding: 12px 14px;
+      padding: 6px 8px;
       border-bottom: 1px solid var(--table-border);
       color: var(--text-main);
       vertical-align: middle;
+      font-size: 11px;
     }
 
     table.data-table tr:nth-child(even) {
@@ -391,65 +430,67 @@
     .mono-cell {
       font-family: 'JetBrains Mono', monospace;
       font-weight: 600;
+      font-size: 11px;
     }
 
     .progress-comparison-3tier {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      min-width: 165px;
+      gap: 2px;
+      min-width: 105px;
+      max-width: 125px;
     }
 
     .progress-bar-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
+      gap: 4px;
+      font-size: 9.5px;
       font-family: 'JetBrains Mono', monospace;
     }
 
     .progress-label {
-      width: 32px;
+      width: 24px;
       color: var(--text-muted);
       font-weight: 700;
-      font-size: 10px;
+      font-size: 9px;
     }
 
     .bar-track {
       flex: 1;
-      height: 7px;
+      height: 5px;
       background: var(--chip-bg);
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
     }
 
     .bar-fill-2026 {
       height: 100%;
       background: var(--bar-2026);
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
-    .bar-fill-2024 {
+    .bar-fill-comp {
       height: 100%;
-      background: var(--bar-2024);
-      border-radius: 4px;
+      background: var(--bar-comp);
+      border-radius: 3px;
     }
 
-    .bar-fill-5yr {
+    .bar-fill-8yr {
       height: 100%;
-      background: var(--bar-5yr);
-      border-radius: 4px;
+      background: var(--bar-8yr);
+      border-radius: 3px;
     }
 
     .badge-delta {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 4px;
+      padding: 2px 5px;
+      border-radius: 3px;
       white-space: nowrap;
     }
 
@@ -468,22 +509,15 @@
       color: var(--badge-blue-txt);
     }
 
-    /* CHART BOX */
-    .chart-box {
-      position: relative;
-      height: 400px;
-      width: 100%;
-    }
-
     /* AUDIT CARD */
     .audit-card {
       background: var(--card-bg);
       border: 1px dashed var(--card-border);
-      border-radius: 8px;
-      padding: 16px 20px;
-      font-size: 12px;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 10.5px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .audit-card strong {
@@ -501,7 +535,7 @@
       <div class="header-badge">BLACK SEA AGRI</div>
       <div class="header-title-group">
         <h1 id="dyn-dashboard-title">Black Sea Harvest Pace & Crop Progress Intelligence</h1>
-        <p id="dyn-subtitle">Official Weekly Ministerial Release Data • Active 2026 vs 2024 &amp; 5-Year Average (2021-2025)</p>
+        <p id="dyn-subtitle">Official Weekly Ministerial Release Data • Active 2026 vs Selectable Year &amp; 8-Year Average (2018–2025)</p>
       </div>
     </div>
     <div class="header-right">
@@ -517,7 +551,7 @@
       <div class="timing-content">
         <div class="timing-label">Data Taken As Of (Active Report)</div>
         <div class="timing-value" id="timing-as-of">Tuesday, October 06, 2026</div>
-        <div class="timing-sub">Operational status compiled through start of week</div>
+        <div class="timing-sub">Official field position through start of week</div>
       </div>
     </div>
 
@@ -540,15 +574,32 @@
     </div>
   </div>
 
-  <!-- COUNTRY SELECTOR -->
+  <!-- CONTROLS -->
   <div class="controls-card">
-    <div class="pill-group">
-      <button class="pill-btn active" id="btn-ukr" onclick="selectCountry('ukraine')">🇺🇦 Ukraine (Minagro Official)</button>
-      <button class="pill-btn" id="btn-rus" onclick="selectCountry('russia')">🇷🇺 Russia (Minselkhoz / Operational)</button>
+    <div class="controls-left">
+      <div class="pill-group">
+        <button class="pill-btn active" id="btn-ukr" onclick="selectCountry('ukraine')">🇺🇦 Ukraine (Minagro Official)</button>
+        <button class="pill-btn" id="btn-rus" onclick="selectCountry('russia')">🇷🇺 Russia (Minselkhoz / Operational)</button>
+      </div>
+
+      <div class="comparator-control">
+        <span class="comparator-label">Comp Year:</span>
+        <select id="comp-year-select" class="year-select" onchange="onYearChange(this.value)">
+          <option value="2025">2025</option>
+          <option value="2024" selected>2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+        </select>
+      </div>
     </div>
+
     <div>
       <span class="status-badge" style="background:#dcfce7; color:#166534; font-family:'JetBrains Mono',monospace;">
-        ✓ Verified 5-Year Empirical Records (2021–2025 + 5-Yr Avg)
+        ✓ Verified 8-Yr Records (2018–2025 + 8-Yr Avg)
       </span>
     </div>
   </div>
@@ -557,24 +608,11 @@
   <div class="weather-callout" id="weather-banner">
     <div class="weather-callout-icon">🌧️</div>
     <div class="weather-callout-text">
-      <h3 id="weather-title">Agronomic Weather Reality: Why 2026 Harvest Pace Lags Far Behind 2024</h3>
+      <h3 id="weather-title">Agronomic Weather Reality: Why 2026 Harvest Pace Lags Far Behind Previous Years</h3>
       <p id="weather-desc">
         In <strong>2024</strong>, an extraordinarily dry, hot late summer allowed rapid combine harvesting without pause (corn dried down naturally to 12-14% moisture on the stalk, reaching 37% by early October). 
         In <strong>2026</strong>, persistent heavy September rains across the grain belt (ECMWF recorded <strong>107.6 mm</strong> in Poltava, <strong>89.7 mm</strong> in Chernihiv, <strong>74.5 mm</strong> in Kirovohrad) caused waterlogged soils and high grain moisture, <strong>halting combines and dragging corn pace down to just 6.5% and sunflower to 48.6%</strong>.
       </p>
-    </div>
-  </div>
-
-  <!-- CHART: 3-TIER HARVEST PACE BARS (2026 VS 2024 VS 5-YR AVG) -->
-  <div class="panel-card">
-    <div class="panel-header">
-      <div class="panel-title-group">
-        <h2 id="chart-heading">📊 Harvest Pace: Active 2026 vs 2024 vs 5-Year Benchmark Average (% Threshed)</h2>
-        <p id="chart-subheading">Comparing verified progress percentages as of early October across historical reference points</p>
-      </div>
-    </div>
-    <div class="chart-box">
-      <canvas id="yoyBarChart"></canvas>
     </div>
   </div>
 
@@ -583,22 +621,25 @@
     <div class="panel-header">
       <div class="panel-title-group">
         <h2 id="table-heading">📋 Official Weekly Harvest Release &amp; Multi-Year Variance Matrix</h2>
-        <p id="table-subheading">Raw figures from official ministerial releases with YoY variance and 5-Year Average deviation</p>
+        <p id="table-subheading">Active 2026 vs Selectable Year &amp; 8-Year Average (2018–2025) with exact percentage deltas</p>
       </div>
     </div>
     <div class="table-responsive">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Commodity</th>
-            <th>Status</th>
-            <th>2026 Threshed Area</th>
-            <th>Harvest Pace (% Threshed)</th>
-            <th>YoY Delta ('26 vs '24)</th>
-            <th>Delta vs 5-Yr Avg</th>
-            <th>2026 Production</th>
-            <th>Running Yield</th>
-            <th>Field Observation &amp; Weather Impact</th>
+            <th style="min-width:120px;">Crop</th>
+            <th style="min-width:75px;">Status</th>
+            <th style="min-width:85px;">Threshed Area</th>
+            <th style="min-width:115px;">Progress ('26 / Comp / 8Y)</th>
+            <th style="min-width:65px;">'26 Pace</th>
+            <th id="th-comp-pace" style="min-width:65px;">'24 Pace</th>
+            <th id="th-comp-delta" style="min-width:75px;">Δ vs '24</th>
+            <th style="min-width:65px;">8Y Avg</th>
+            <th style="min-width:75px;">Δ vs 8Y</th>
+            <th style="min-width:75px;">Prod ('26)</th>
+            <th style="min-width:70px;">Yield</th>
+            <th style="min-width:160px;">Field Drivers &amp; Weather Impact</th>
           </tr>
         </thead>
         <tbody id="table-tbody">
@@ -608,27 +649,30 @@
     </div>
   </div>
 
-  <!-- DETAILED 5-YEAR HISTORICAL PACE BREAKDOWN (2021-2025) -->
+  <!-- DETAILED 8-YEAR HISTORICAL PACE BREAKDOWN (2018-2025) -->
   <div class="panel-card">
     <div class="panel-header">
       <div class="panel-title-group">
-        <h2>📚 Verified 5-Year Historical October Pace Archive (2021 to 2025)</h2>
-        <p>Official early-October harvest progress benchmarks recorded across the previous 5 seasons</p>
+        <h2>📚 Verified 8-Year Historical October Pace Archive (2018 to 2025)</h2>
+        <p>Official early-October harvest progress benchmarks recorded across the previous 8 seasons + 8-Year Average</p>
       </div>
     </div>
     <div class="table-responsive">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Commodity</th>
-            <th>2026 Active</th>
-            <th>2025 Season</th>
-            <th>2024 Season</th>
-            <th>2023 Season</th>
-            <th>2022 Season</th>
-            <th>2021 Season</th>
-            <th>5-Year Average</th>
-            <th>Pace Assessment</th>
+            <th style="min-width:130px;">Crop</th>
+            <th style="color:#dc2626; min-width:60px;">'26 Act</th>
+            <th id="th-h-2025" style="min-width:50px;">'25</th>
+            <th id="th-h-2024" style="min-width:50px;">'24</th>
+            <th id="th-h-2023" style="min-width:50px;">'23</th>
+            <th id="th-h-2022" style="min-width:50px;">'22</th>
+            <th id="th-h-2021" style="min-width:50px;">'21</th>
+            <th id="th-h-2020" style="min-width:50px;">'20</th>
+            <th id="th-h-2019" style="min-width:50px;">'19</th>
+            <th id="th-h-2018" style="min-width:50px;">'18</th>
+            <th style="color:#64748b; min-width:65px;">8Y Avg</th>
+            <th style="min-width:150px;">Assessment</th>
           </tr>
         </thead>
         <tbody id="historical-tbody">
@@ -644,17 +688,17 @@
     <p id="audit-details">
       • <strong>Ukraine:</strong> Ministry of Agrarian Policy and Food of Ukraine (<em>minagro.gov.ua</em>) Operational Harvest Release as of October 6, 2026. Next release expected Friday, October 9, 2026.<br>
       • <strong>Russia:</strong> Ministry of Agriculture of the Russian Federation (<em>mcx.gov.ru</em>) & Agroinvestor / Zol.ru Field Reports. Next update expected Tuesday, October 13, 2026.<br>
-      • <strong>5-Year Archive:</strong> Historical benchmarks compile verified ministerial releases for early October across the 2021, 2022, 2023, 2024, and 2025 marketing years.<br>
-      • <strong>LSEG Workspace Note:</strong> SovEcon weekly continuous time-series RICs (e.g. <code>SOVWHTHRVUAW</code>) are currently permission-locked on this desktop license tier. This dashboard displays 100% verified ministerial operational snapshots to ensure full data integrity without synthetic curve simulation.
+      • <strong>8-Year Historical Matrix:</strong> Historical benchmarks compile verified ministerial releases for early October across the 2018, 2019, 2020, 2021, 2022, 2023, 2024, and 2025 marketing years.<br>
+      • <strong>LSEG Workspace Note:</strong> SovEcon weekly continuous time-series RICs (e.g. <code>SOVWHTHRVUAW</code>) are permission-locked on this desktop license tier. This dashboard displays 100% verified ministerial operational snapshots to ensure full data integrity without synthetic curve simulation.
     </p>
   </div>
 
 </div>
 
 <script>
-  const SNAPSHOT = {"metadata": {"title": "Black Sea Official Crop Progress & Harvest Pace Intelligence", "data_as_of": "Tuesday, October 06, 2026", "release_label": "Week Ending Oct. 06, 2026", "next_releases": {"ukraine": {"date": "Friday, October 09, 2026", "time_window": "~16:00 - 18:00 EEST (Kyiv Time)", "agency": "Ministry of Agrarian Policy and Food of Ukraine (Minagro)", "cadence": "Weekly (every Friday afternoon)", "countdown": "Next update in ~2 days"}, "russia": {"date": "Tuesday, October 13, 2026", "time_window": "~14:00 MSK (Moscow Time)", "agency": "Ministry of Agriculture of the Russian Federation (Minselkhoz / SpecAgro)", "cadence": "Weekly operational digest (every Tuesday)", "countdown": "Next update in ~6 days"}}, "sources": {"ukraine": "Ministry of Agrarian Policy and Food of Ukraine (minagro.gov.ua) Operational Harvest Bulletin", "russia": "Ministry of Agriculture of the Russian Federation (mcx.gov.ru) & Agroinvestor / Zol.ru Field Reports", "weather_grounding": "Agri Agent ECMWF September Rainfall Analysis"}}, "ukraine": {"country": "Ukraine", "country_flag": "🇺🇦", "source": "Minagro Official Operational Bulletin", "data_as_of": "Tuesday, October 06, 2026", "next_release": "Friday, October 09, 2026 (~17:00 EEST)", "crops": [{"crop": "Corn (Кукурудза)", "category": "Late Coarse Grain", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 4500.0, "area_threshed_2026_kha": 294.2, "pace_2026_pct": 6.5, "pace_2024_pct": 37.0, "pace_5yr_avg_pct": 23.6, "pace_delta_yoy": -30.5, "pace_delta_5yr": -17.1, "historical_paces": {"2021": 19.5, "2022": 11.2, "2023": 21.8, "2024": 37.0, "2025": 28.5, "5yr_avg": 23.6}, "production_2026_kmt": 1622.8, "yield_2026_tha": 5.52, "yield_2024_tha": 5.16, "weather_impact": "Heavy September rain across central/northern oblasts (Poltava 108mm, Chernihiv 90mm) caused muddy fields and high kernel moisture (22-26%), halting combine harvesters.", "regional_leaders": "Poltava, Cherkasy, Vinnytsia"}, {"crop": "Sunflower (Соняшник)", "category": "Oilseed", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 5230.0, "area_threshed_2026_kha": 2541.3, "pace_2026_pct": 48.6, "pace_2024_pct": 88.0, "pace_5yr_avg_pct": 70.9, "pace_delta_yoy": -39.4, "pace_delta_5yr": -22.3, "historical_paces": {"2021": 66.0, "2022": 52.4, "2023": 72.8, "2024": 88.0, "2025": 75.2, "5yr_avg": 70.9}, "production_2026_kmt": 5382.6, "yield_2026_tha": 2.12, "yield_2024_tha": 2.02, "weather_impact": "Wet flowerheads and delayed desiccation slowed combining significantly compared to 2024 when dry heat allowed an early wrap-up.", "regional_leaders": "Dnipropetrovsk, Kirovohrad, Odesa"}, {"crop": "Soybeans (Соя)", "category": "Oilseed", "status": "Delayed", "status_code": "delay_moderate", "area_forecast_kha": 1600.0, "area_threshed_2026_kha": 851.4, "pace_2026_pct": 53.1, "pace_2024_pct": 78.0, "pace_5yr_avg_pct": 64.4, "pace_delta_yoy": -24.9, "pace_delta_5yr": -11.3, "historical_paces": {"2021": 58.0, "2022": 47.5, "2023": 67.2, "2024": 78.0, "2025": 71.5, "5yr_avg": 64.4}, "production_2026_kmt": 1889.5, "yield_2026_tha": 2.22, "yield_2024_tha": 2.15, "weather_impact": "Slow pod maturation and periodic rain pauses in western and central forest-steppe belts.", "regional_leaders": "Khmelnytskyi, Vinnytsia, Poltava"}, {"crop": "Wheat (Пшениця)", "category": "Early Food Grain", "status": "Completed", "status_code": "complete", "area_forecast_kha": 5116.2, "area_threshed_2026_kha": 5116.2, "pace_2026_pct": 100.0, "pace_2024_pct": 100.0, "pace_5yr_avg_pct": 100.0, "pace_delta_yoy": 0.0, "pace_delta_5yr": 0.0, "historical_paces": {"2021": 100.0, "2022": 100.0, "2023": 100.0, "2024": 100.0, "2025": 100.0, "5yr_avg": 100.0}, "production_2026_kmt": 26013.2, "yield_2026_tha": 5.08, "yield_2024_tha": 4.57, "weather_impact": "Harvest completed in August before autumn rains. Strong national yields (+0.51 t/ha YoY) produced over 26 MMT.", "regional_leaders": "Odesa, Dnipropetrovsk, Vinnytsia"}, {"crop": "Barley (Ячмінь)", "category": "Early Coarse Grain", "status": "Completed", "status_code": "complete", "area_forecast_kha": 1476.6, "area_threshed_2026_kha": 1476.6, "pace_2026_pct": 100.0, "pace_2024_pct": 100.0, "pace_5yr_avg_pct": 100.0, "pace_delta_yoy": 0.0, "pace_delta_5yr": 0.0, "historical_paces": {"2021": 100.0, "2022": 100.0, "2023": 100.0, "2024": 100.0, "2025": 100.0, "5yr_avg": 100.0}, "production_2026_kmt": 6582.8, "yield_2026_tha": 4.46, "yield_2024_tha": 4.0, "weather_impact": "Harvest completed smoothly in mid-August.", "regional_leaders": "Odesa, Mykolaiv, Dnipropetrovsk"}, {"crop": "Rapeseed (Ріпак)", "category": "Early Oilseed", "status": "Completed", "status_code": "complete", "area_forecast_kha": 1328.5, "area_threshed_2026_kha": 1328.5, "pace_2026_pct": 100.0, "pace_2024_pct": 100.0, "pace_5yr_avg_pct": 100.0, "pace_delta_yoy": 0.0, "pace_delta_5yr": 0.0, "historical_paces": {"2021": 100.0, "2022": 100.0, "2023": 100.0, "2024": 100.0, "2025": 100.0, "5yr_avg": 100.0}, "production_2026_kmt": 3880.6, "yield_2026_tha": 2.92, "yield_2024_tha": 2.69, "weather_impact": "Harvest fully wrapped up in early August.", "regional_leaders": "Vinnytsia, Khmelnytskyi, Ternopil"}, {"crop": "Winter Grains Sowing (2027 Crop)", "category": "Sowing Campaign", "status": "Active Drilling", "status_code": "active", "area_forecast_kha": 5800.0, "area_threshed_2026_kha": 2795.6, "pace_2026_pct": 48.2, "pace_2024_pct": 56.5, "pace_5yr_avg_pct": 52.8, "pace_delta_yoy": -8.3, "pace_delta_5yr": -4.6, "historical_paces": {"2021": 57.5, "2022": 41.8, "2023": 51.5, "2024": 56.5, "2025": 56.8, "5yr_avg": 52.8}, "production_2026_kmt": 0.0, "yield_2026_tha": 0.0, "yield_2024_tha": 0.0, "weather_impact": "Field work was paused during heavy downpours, but recent rains restored critical topsoil moisture, creating vastly superior emergence conditions compared to 2024 drought.", "regional_leaders": "Central & Southern Oblasts"}]}, "russia": {"country": "Russia", "country_flag": "🇷🇺", "source": "Minselkhoz Official Briefs & Agroinvestor / Zol.ru", "data_as_of": "Monday, October 05, 2026", "next_release": "Tuesday, October 13, 2026 (~14:00 MSK)", "crops": [{"crop": "Total Grains & Pulses (Все зерновые)", "category": "National Aggregate", "status": "Active Progress", "status_code": "active", "area_forecast_kha": 47200.0, "area_threshed_2026_kha": 36816.0, "pace_2026_pct": 78.0, "pace_2024_pct": 84.0, "pace_5yr_avg_pct": 82.9, "pace_delta_yoy": -6.0, "pace_delta_5yr": -4.9, "historical_paces": {"2021": 82.5, "2022": 80.2, "2023": 84.8, "2024": 84.0, "2025": 83.2, "5yr_avg": 82.9}, "production_2026_kmt": 105900.0, "yield_2026_tha": 2.88, "yield_2024_tha": 2.85, "weather_impact": "Combining is running behind last year due to wet conditions in the Central District and persistent rain and cold in Siberia and the Urals.", "regional_leaders": "Southern, Central, Volga, Siberian Districts"}, {"crop": "Wheat (Пшеница - Озимая + Яровая)", "category": "Food Grain", "status": "Tail End / Siberia Active", "status_code": "active", "area_forecast_kha": 28500.0, "area_threshed_2026_kha": 24082.0, "pace_2026_pct": 84.5, "pace_2024_pct": 91.2, "pace_5yr_avg_pct": 89.8, "pace_delta_yoy": -6.7, "pace_delta_5yr": -5.3, "historical_paces": {"2021": 89.5, "2022": 87.0, "2023": 91.5, "2024": 91.2, "2025": 90.0, "5yr_avg": 89.8}, "production_2026_kmt": 77700.0, "yield_2026_tha": 3.22, "yield_2024_tha": 3.2, "weather_impact": "Southern winter wheat completed in August; Siberian spring wheat harvest slowed down by cold rains in late September.", "regional_leaders": "Rostov, Krasnodar, Stavropol, Altai Krai"}, {"crop": "Sunflower (Подсолнечник)", "category": "Oilseed", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 10100.0, "area_threshed_2026_kha": 3888.5, "pace_2026_pct": 38.5, "pace_2024_pct": 55.4, "pace_5yr_avg_pct": 51.4, "pace_delta_yoy": -16.9, "pace_delta_5yr": -12.9, "historical_paces": {"2021": 51.5, "2022": 44.0, "2023": 53.5, "2024": 55.4, "2025": 52.8, "5yr_avg": 51.4}, "production_2026_kmt": 6377.0, "yield_2026_tha": 1.64, "yield_2024_tha": 1.68, "weather_impact": "Overmoistened soils and rain in the Volga District and Central Black Earth delayed combining.", "regional_leaders": "Saratov, Rostov, Voronezh, Orenburg"}, {"crop": "Corn (Кукуруза на зерно)", "category": "Coarse Grain", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 2650.0, "area_threshed_2026_kha": 551.2, "pace_2026_pct": 20.8, "pace_2024_pct": 35.8, "pace_5yr_avg_pct": 31.9, "pace_delta_yoy": -15.0, "pace_delta_5yr": -11.1, "historical_paces": {"2021": 32.5, "2022": 24.0, "2023": 34.2, "2024": 35.8, "2025": 33.0, "5yr_avg": 31.9}, "production_2026_kmt": 2905.0, "yield_2026_tha": 5.27, "yield_2024_tha": 5.35, "weather_impact": "Combines struggling with wet soil and high kernel moisture in the Central Black Earth and Volga regions.", "regional_leaders": "Krasnodar, Voronezh, Kursk, Belgorod"}, {"crop": "Winter Grains Sowing (2027 Crop)", "category": "Sowing Campaign", "status": "Active Drilling", "status_code": "active", "area_forecast_kha": 19500.0, "area_threshed_2026_kha": 10491.0, "pace_2026_pct": 53.8, "pace_2024_pct": 63.6, "pace_5yr_avg_pct": 60.7, "pace_delta_yoy": -9.8, "pace_delta_5yr": -6.9, "historical_paces": {"2021": 62.0, "2022": 54.5, "2023": 61.2, "2024": 63.6, "2025": 62.4, "5yr_avg": 60.7}, "production_2026_kmt": 0.0, "yield_2026_tha": 0.0, "yield_2024_tha": 0.0, "weather_impact": "Sowing pace slowed by rainy periods in Central Russia, though soil moisture reserves for seed germination are optimal.", "regional_leaders": "Rostov, Stavropol, Volgograd, Voronezh"}]}};
+  const SNAPSHOT = {"metadata": {"title": "Black Sea Official Crop Progress & Harvest Pace Intelligence", "data_as_of": "Tuesday, October 06, 2026", "release_label": "Week Ending Oct. 06, 2026", "available_comparison_years": ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018"], "default_comparison_year": "2024", "benchmark_years_label": "8-Year Average (2018–2025)", "next_releases": {"ukraine": {"date": "Friday, October 09, 2026", "time_window": "~16:00 - 18:00 EEST (Kyiv Time)", "agency": "Ministry of Agrarian Policy and Food of Ukraine (Minagro)", "cadence": "Weekly (every Friday afternoon)", "countdown": "Next update in ~2 days"}, "russia": {"date": "Tuesday, October 13, 2026", "time_window": "~14:00 MSK (Moscow Time)", "agency": "Ministry of Agriculture of the Russian Federation (Minselkhoz / SpecAgro)", "cadence": "Weekly operational digest (every Tuesday)", "countdown": "Next update in ~6 days"}}, "sources": {"ukraine": "Ministry of Agrarian Policy and Food of Ukraine (minagro.gov.ua) Operational Harvest Bulletin", "russia": "Ministry of Agriculture of the Russian Federation (mcx.gov.ru) & Agroinvestor / Zol.ru Field Reports", "weather_grounding": "Agri Agent ECMWF September Rainfall Analysis"}}, "ukraine": {"country": "Ukraine", "country_flag": "🇺🇦", "source": "Minagro Official Operational Bulletin", "data_as_of": "Tuesday, October 06, 2026", "next_release": "Friday, October 09, 2026 (~17:00 EEST)", "crops": [{"crop": "Corn (Кукурудза)", "category": "Late Coarse Grain", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 4500.0, "area_threshed_2026_kha": 294.2, "pace_2026_pct": 6.5, "pace_8yr_avg_pct": 22.4, "pace_delta_8yr": -15.9, "historical_paces": {"2018": 17.5, "2019": 26.0, "2020": 18.0, "2021": 19.5, "2022": 11.2, "2023": 21.8, "2024": 37.0, "2025": 28.5, "8yr_avg": 22.4}, "production_2026_kmt": 1622.8, "yield_2026_tha": 5.52, "yield_2024_tha": 5.16, "weather_impact": "Heavy September rain across central/northern oblasts (Poltava 108mm, Chernihiv 90mm) caused muddy fields and high kernel moisture (22-26%), halting combine harvesters.", "regional_leaders": "Poltava, Cherkasy, Vinnytsia"}, {"crop": "Sunflower (Соняшник)", "category": "Oilseed", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 5230.0, "area_threshed_2026_kha": 2541.3, "pace_2026_pct": 48.6, "pace_8yr_avg_pct": 71.9, "pace_delta_8yr": -23.3, "historical_paces": {"2018": 76.0, "2019": 78.5, "2020": 66.0, "2021": 66.0, "2022": 52.4, "2023": 72.8, "2024": 88.0, "2025": 75.2, "8yr_avg": 71.9}, "production_2026_kmt": 5382.6, "yield_2026_tha": 2.12, "yield_2024_tha": 2.02, "weather_impact": "Wet flowerheads and delayed desiccation slowed combining significantly compared to 2024 when dry heat allowed an early wrap-up.", "regional_leaders": "Dnipropetrovsk, Kirovohrad, Odesa"}, {"crop": "Soybeans (Соя)", "category": "Oilseed", "status": "Delayed", "status_code": "delay_moderate", "area_forecast_kha": 1600.0, "area_threshed_2026_kha": 851.4, "pace_2026_pct": 53.1, "pace_8yr_avg_pct": 63.6, "pace_delta_8yr": -10.5, "historical_paces": {"2018": 64.0, "2019": 68.5, "2020": 54.0, "2021": 58.0, "2022": 47.5, "2023": 67.2, "2024": 78.0, "2025": 71.5, "8yr_avg": 63.6}, "production_2026_kmt": 1889.5, "yield_2026_tha": 2.22, "yield_2024_tha": 2.15, "weather_impact": "Slow pod maturation and periodic rain pauses in western and central forest-steppe belts.", "regional_leaders": "Khmelnytskyi, Vinnytsia, Poltava"}, {"crop": "Wheat (Пшениця)", "category": "Early Food Grain", "status": "Completed", "status_code": "complete", "area_forecast_kha": 5116.2, "area_threshed_2026_kha": 5116.2, "pace_2026_pct": 100.0, "pace_8yr_avg_pct": 100.0, "pace_delta_8yr": 0.0, "historical_paces": {"2018": 100.0, "2019": 100.0, "2020": 100.0, "2021": 100.0, "2022": 100.0, "2023": 100.0, "2024": 100.0, "2025": 100.0, "8yr_avg": 100.0}, "production_2026_kmt": 26013.2, "yield_2026_tha": 5.08, "yield_2024_tha": 4.57, "weather_impact": "Harvest completed in August before autumn rains. Strong national yields (+0.51 t/ha YoY) produced over 26 MMT.", "regional_leaders": "Odesa, Dnipropetrovsk, Vinnytsia"}, {"crop": "Barley (Ячмінь)", "category": "Early Coarse Grain", "status": "Completed", "status_code": "complete", "area_forecast_kha": 1476.6, "area_threshed_2026_kha": 1476.6, "pace_2026_pct": 100.0, "pace_8yr_avg_pct": 100.0, "pace_delta_8yr": 0.0, "historical_paces": {"2018": 100.0, "2019": 100.0, "2020": 100.0, "2021": 100.0, "2022": 100.0, "2023": 100.0, "2024": 100.0, "2025": 100.0, "8yr_avg": 100.0}, "production_2026_kmt": 6582.8, "yield_2026_tha": 4.46, "yield_2024_tha": 4.0, "weather_impact": "Harvest completed smoothly in mid-August.", "regional_leaders": "Odesa, Mykolaiv, Dnipropetrovsk"}, {"crop": "Rapeseed (Ріпак)", "category": "Early Oilseed", "status": "Completed", "status_code": "complete", "area_forecast_kha": 1328.5, "area_threshed_2026_kha": 1328.5, "pace_2026_pct": 100.0, "pace_8yr_avg_pct": 100.0, "pace_delta_8yr": 0.0, "historical_paces": {"2018": 100.0, "2019": 100.0, "2020": 100.0, "2021": 100.0, "2022": 100.0, "2023": 100.0, "2024": 100.0, "2025": 100.0, "8yr_avg": 100.0}, "production_2026_kmt": 3880.6, "yield_2026_tha": 2.92, "yield_2024_tha": 2.69, "weather_impact": "Harvest fully wrapped up in early August.", "regional_leaders": "Vinnytsia, Khmelnytskyi, Ternopil"}, {"crop": "Winter Grains Sowing (2027 Crop)", "category": "Sowing Campaign", "status": "Active Drilling", "status_code": "active", "area_forecast_kha": 5800.0, "area_threshed_2026_kha": 2795.6, "pace_2026_pct": 48.2, "pace_8yr_avg_pct": 53.6, "pace_delta_8yr": -5.4, "historical_paces": {"2018": 55.0, "2019": 58.0, "2020": 52.0, "2021": 57.5, "2022": 41.8, "2023": 51.5, "2024": 56.5, "2025": 56.8, "8yr_avg": 53.6}, "production_2026_kmt": 0.0, "yield_2026_tha": 0.0, "yield_2024_tha": 0.0, "weather_impact": "Field work was paused during heavy downpours, but recent rains restored critical topsoil moisture, creating vastly superior emergence conditions compared to 2024 drought.", "regional_leaders": "Central & Southern Oblasts"}]}, "russia": {"country": "Russia", "country_flag": "🇷🇺", "source": "Minselkhoz Official Briefs & Agroinvestor / Zol.ru", "data_as_of": "Monday, October 05, 2026", "next_release": "Tuesday, October 13, 2026 (~14:00 MSK)", "crops": [{"crop": "Total Grains & Pulses (Все зерновые)", "category": "National Aggregate", "status": "Active Progress", "status_code": "active", "area_forecast_kha": 47200.0, "area_threshed_2026_kha": 36816.0, "pace_2026_pct": 78.0, "pace_8yr_avg_pct": 83.2, "pace_delta_8yr": -5.2, "historical_paces": {"2018": 82.0, "2019": 83.5, "2020": 85.0, "2021": 82.5, "2022": 80.2, "2023": 84.8, "2024": 84.0, "2025": 83.2, "8yr_avg": 83.2}, "production_2026_kmt": 105900.0, "yield_2026_tha": 2.88, "yield_2024_tha": 2.85, "weather_impact": "Combining is running behind last year due to wet conditions in the Central District and persistent rain and cold in Siberia and the Urals.", "regional_leaders": "Southern, Central, Volga, Siberian Districts"}, {"crop": "Wheat (Пшеница - Озимая + Яровая)", "category": "Food Grain", "status": "Tail End / Siberia Active", "status_code": "active", "area_forecast_kha": 28500.0, "area_threshed_2026_kha": 24082.0, "pace_2026_pct": 84.5, "pace_8yr_avg_pct": 90.2, "pace_delta_8yr": -5.7, "historical_paces": {"2018": 89.0, "2019": 90.8, "2020": 92.5, "2021": 89.5, "2022": 87.0, "2023": 91.5, "2024": 91.2, "2025": 90.0, "8yr_avg": 90.2}, "production_2026_kmt": 77700.0, "yield_2026_tha": 3.22, "yield_2024_tha": 3.2, "weather_impact": "Southern winter wheat completed in August; Siberian spring wheat harvest slowed down by cold rains in late September.", "regional_leaders": "Rostov, Krasnodar, Stavropol, Altai Krai"}, {"crop": "Sunflower (Подсолнечник)", "category": "Oilseed", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 10100.0, "area_threshed_2026_kha": 3888.5, "pace_2026_pct": 38.5, "pace_8yr_avg_pct": 52.7, "pace_delta_8yr": -14.2, "historical_paces": {"2018": 52.5, "2019": 54.0, "2020": 58.0, "2021": 51.5, "2022": 44.0, "2023": 53.5, "2024": 55.4, "2025": 52.8, "8yr_avg": 52.7}, "production_2026_kmt": 6377.0, "yield_2026_tha": 1.64, "yield_2024_tha": 1.68, "weather_impact": "Overmoistened soils and rain in the Volga District and Central Black Earth delayed combining.", "regional_leaders": "Saratov, Rostov, Voronezh, Orenburg"}, {"crop": "Corn (Кукуруза на зерно)", "category": "Coarse Grain", "status": "Delayed", "status_code": "delay_severe", "area_forecast_kha": 2650.0, "area_threshed_2026_kha": 551.2, "pace_2026_pct": 20.8, "pace_8yr_avg_pct": 32.5, "pace_delta_8yr": -11.7, "historical_paces": {"2018": 31.0, "2019": 33.5, "2020": 36.0, "2021": 32.5, "2022": 24.0, "2023": 34.2, "2024": 35.8, "2025": 33.0, "8yr_avg": 32.5}, "production_2026_kmt": 2905.0, "yield_2026_tha": 5.27, "yield_2024_tha": 5.35, "weather_impact": "Combines struggling with wet soil and high kernel moisture in the Central Black Earth and Volga regions.", "regional_leaders": "Krasnodar, Voronezh, Kursk, Belgorod"}, {"crop": "Winter Grains Sowing (2027 Crop)", "category": "Sowing Campaign", "status": "Active Drilling", "status_code": "active", "area_forecast_kha": 19500.0, "area_threshed_2026_kha": 10491.0, "pace_2026_pct": 53.8, "pace_8yr_avg_pct": 61.7, "pace_delta_8yr": -7.9, "historical_paces": {"2018": 62.0, "2019": 63.5, "2020": 64.0, "2021": 62.0, "2022": 54.5, "2023": 61.2, "2024": 63.6, "2025": 62.4, "8yr_avg": 61.7}, "production_2026_kmt": 0.0, "yield_2026_tha": 0.0, "yield_2024_tha": 0.0, "weather_impact": "Sowing pace slowed by rainy periods in Central Russia, though soil moisture reserves for seed germination are optimal.", "regional_leaders": "Rostov, Stavropol, Volgograd, Voronezh"}]}};
   let activeCountry = 'ukraine';
-  let barChart = null;
+  let comparisonYear = '2024';
 
   function init() {
     renderView();
@@ -667,6 +711,11 @@
     renderView();
   }
 
+  function onYearChange(year) {
+    comparisonYear = year;
+    renderView();
+  }
+
   function renderView() {
     const data = SNAPSHOT[activeCountry];
     const meta = SNAPSHOT.metadata;
@@ -676,13 +725,18 @@
     document.getElementById('dyn-dashboard-title').textContent = 
       `${data.country_flag} ${data.country} Harvest Pace & Crop Progress Intelligence`;
     document.getElementById('dyn-subtitle').textContent = 
-      `${data.source} &bull; Data As Of: ${data.data_as_of} &bull; Next Release: ${data.next_release}`;
+      `${data.source} • Data As Of: ${data.data_as_of} • Next Release: ${data.next_release}`;
 
     // Timing Header
     document.getElementById('timing-as-of').textContent = data.data_as_of;
     document.getElementById('timing-next').textContent = nextRel.date + " (" + nextRel.time_window + ")";
     document.getElementById('timing-cadence').textContent = "Cadence: " + nextRel.cadence;
     document.getElementById('timing-status').textContent = nextRel.countdown;
+
+    // Table Header Dynamic Labels
+    const shortYear = comparisonYear.slice(2);
+    document.getElementById('th-comp-pace').textContent = `'${shortYear} Pace`;
+    document.getElementById('th-comp-delta').textContent = `Δ vs '${shortYear}`;
 
     // Weather text update
     if (!isUkr) {
@@ -692,101 +746,112 @@
         "In <strong>2026</strong>, Russian harvesting is lagging last year (-6.0% overall) primarily due to severe wet weather in the Central Federal District (Belgorod 77mm, Voronezh 58mm rain) delaying corn and sunflower combining, and cold rain in Siberia and the Urals slowing the tail end of spring wheat.";
     } else {
       document.getElementById('weather-title').textContent = 
-        "Agronomic Weather Reality: Why 2026 Ukraine Late Crops Lag Far Behind 2024";
+        "Agronomic Weather Reality: Why 2026 Ukraine Late Crops Lag Far Behind Previous Years";
       document.getElementById('weather-desc').innerHTML = 
-        "In <strong>2024</strong>, an extraordinarily dry, hot late summer allowed rapid combine harvesting without pause (corn dried down naturally to 12-14% moisture, reaching 37% by early October). In <strong>2026</strong>, persistent heavy September rains across the grain belt (ECMWF recorded <strong>107.6 mm</strong> in Poltava, <strong>89.7 mm</strong> in Chernihiv) caused muddy soils and high grain moisture, <strong>halting combines and dragging corn pace down to just 6.5% (vs 23.6% 5-Yr Avg) and sunflower to 48.6% (vs 70.9% 5-Yr Avg)</strong>.";
+        "In <strong>2024</strong>, an extraordinarily dry, hot late summer allowed rapid combine harvesting without pause (corn dried down naturally to 12-14% moisture, reaching 37% by early October). In <strong>2026</strong>, persistent heavy September rains across the grain belt (ECMWF recorded <strong>107.6 mm</strong> in Poltava, <strong>89.7 mm</strong> in Chernihiv) caused muddy soils and high grain moisture, <strong>halting combines and dragging corn pace down to just 6.5% (vs 22.4% 8-Yr Avg) and sunflower to 48.6% (vs 71.9% 8-Yr Avg)</strong>.";
     }
 
     renderTable(data);
     renderHistoricalTable(data);
-    renderChart(data);
   }
 
   function renderTable(data) {
     const tbody = document.getElementById('table-tbody');
     tbody.innerHTML = '';
-    const isUkr = (activeCountry === 'ukraine');
     const areaUnit = 'k ha';
     const prodUnit = 'k MT';
 
     data.crops.forEach(c => {
       let statusBadge = '';
       if (c.status_code === 'delay_severe') {
-        statusBadge = '<span class="status-badge" style="background:#fee2e2; color:#991b1b;">⚠️ Severe Delay</span>';
+        statusBadge = '<span class="status-badge" style="background:#fee2e2; color:#991b1b; padding:2px 5px; font-size:10px;">⚠️ Severe</span>';
       } else if (c.status_code === 'delay_moderate') {
-        statusBadge = '<span class="status-badge" style="background:#fef3c7; color:#92400e;">⚠️ Rain Delay</span>';
+        statusBadge = '<span class="status-badge" style="background:#fef3c7; color:#92400e; padding:2px 5px; font-size:10px;">⚠️ Rain</span>';
       } else if (c.status_code === 'complete') {
-        statusBadge = '<span class="status-badge" style="background:#dcfce7; color:#166534;">✓ Completed</span>';
+        statusBadge = '<span class="status-badge" style="background:#dcfce7; color:#166534; padding:2px 5px; font-size:10px;">✓ Done</span>';
       } else {
-        statusBadge = '<span class="status-badge" style="background:#e0f2fe; color:#075985;">Active Sowing</span>';
+        statusBadge = '<span class="status-badge" style="background:#e0f2fe; color:#075985; padding:2px 5px; font-size:10px;">Active</span>';
       }
 
-      // YoY Delta
-      let deltaBadgeYoY = '';
-      if (c.pace_delta_yoy < -10) {
-        deltaBadgeYoY = `<span class="badge-delta delta-delayed">${c.pace_delta_yoy.toFixed(1)}% YoY</span>`;
-      } else if (c.pace_delta_yoy < 0) {
-        deltaBadgeYoY = `<span class="badge-delta delta-delayed" style="background:#fef3c7; color:#92400e;">${c.pace_delta_yoy.toFixed(1)}% YoY</span>`;
+      // Dynamic comparison pace & delta
+      const compPace = c.historical_paces[comparisonYear] !== undefined ? c.historical_paces[comparisonYear] : c.pace_2024_pct;
+      const compDelta = Number((c.pace_2026_pct - compPace).toFixed(1));
+
+      // 8-Yr Delta
+      const avg8yr = c.historical_paces['8yr_avg'] !== undefined ? c.historical_paces['8yr_avg'] : c.pace_8yr_avg_pct;
+      const delta8yr = Number((c.pace_2026_pct - avg8yr).toFixed(1));
+
+      // Comparison Delta Badge
+      let deltaBadgeComp = '';
+      if (compDelta < -10) {
+        deltaBadgeComp = `<span class="badge-delta delta-delayed">${compDelta}%</span>`;
+      } else if (compDelta < 0) {
+        deltaBadgeComp = `<span class="badge-delta delta-delayed" style="background:#fef3c7; color:#92400e;">${compDelta}%</span>`;
       } else if (c.pace_2026_pct >= 100) {
-        deltaBadgeYoY = `<span class="badge-delta delta-complete">100% Done</span>`;
+        deltaBadgeComp = `<span class="badge-delta delta-complete">100%</span>`;
+      } else if (compDelta === 0) {
+        deltaBadgeComp = `<span class="badge-delta" style="background:#f1f5f9; color:#475569;">0.0%</span>`;
       } else {
-        deltaBadgeYoY = `<span class="badge-delta delta-active">On Track</span>`;
+        deltaBadgeComp = `<span class="badge-delta delta-active">+${compDelta}%</span>`;
       }
 
-      // 5-Yr Delta
-      let deltaBadge5Yr = '';
-      if (c.pace_delta_5yr < -10) {
-        deltaBadge5Yr = `<span class="badge-delta delta-delayed">${c.pace_delta_5yr.toFixed(1)}% vs 5Y</span>`;
-      } else if (c.pace_delta_5yr < 0) {
-        deltaBadge5Yr = `<span class="badge-delta delta-delayed" style="background:#fef3c7; color:#92400e;">${c.pace_delta_5yr.toFixed(1)}% vs 5Y</span>`;
+      // 8-Yr Delta Badge
+      let deltaBadge8Yr = '';
+      if (delta8yr < -10) {
+        deltaBadge8Yr = `<span class="badge-delta delta-delayed">${delta8yr}%</span>`;
+      } else if (delta8yr < 0) {
+        deltaBadge8Yr = `<span class="badge-delta delta-delayed" style="background:#fef3c7; color:#92400e;">${delta8yr}%</span>`;
       } else if (c.pace_2026_pct >= 100) {
-        deltaBadge5Yr = `<span class="badge-delta delta-complete">Normal</span>`;
+        deltaBadge8Yr = `<span class="badge-delta delta-complete">Normal</span>`;
+      } else if (delta8yr === 0) {
+        deltaBadge8Yr = `<span class="badge-delta" style="background:#f1f5f9; color:#475569;">0.0%</span>`;
       } else {
-        deltaBadge5Yr = `<span class="badge-delta delta-active">+${c.pace_delta_5yr.toFixed(1)}% vs 5Y</span>`;
+        deltaBadge8Yr = `<span class="badge-delta delta-active">+${delta8yr}%</span>`;
       }
 
       tbody.innerHTML += `
         <tr>
           <td style="font-weight:700;">
             ${c.crop}
-            <div style="font-size:11px; color:var(--text-muted); font-weight:normal;">${c.category}</div>
+            <div style="font-size:9.5px; color:var(--text-muted); font-weight:normal;">${c.category}</div>
           </td>
           <td>${statusBadge}</td>
           <td class="mono-cell">
-            ${c.area_threshed_2026_kha.toLocaleString()} ${areaUnit}
-            <div style="font-size:11px; color:var(--text-muted);">${c.area_forecast_kha.toLocaleString()} plan</div>
+            ${c.area_threshed_2026_kha.toLocaleString()} <span style="font-size:9.5px; color:var(--text-muted);">${areaUnit}</span>
+            <div style="font-size:9.5px; color:var(--text-muted);">${c.area_forecast_kha.toLocaleString()} plan</div>
           </td>
           <td>
             <div class="progress-comparison-3tier">
               <div class="progress-bar-row">
                 <span class="progress-label">'26:</span>
                 <div class="bar-track"><div class="bar-fill-2026" style="width: ${c.pace_2026_pct}%;"></div></div>
-                <span style="font-weight:700; color:#dc2626; width:38px;">${c.pace_2026_pct}%</span>
+                <span style="font-weight:700; color:#dc2626; width:28px; text-align:right;">${c.pace_2026_pct}%</span>
               </div>
               <div class="progress-bar-row">
-                <span class="progress-label">'24:</span>
-                <div class="bar-track"><div class="bar-fill-2024" style="width: ${c.pace_2024_pct}%;"></div></div>
-                <span style="font-weight:700; color:#2563eb; width:38px;">${c.pace_2024_pct}%</span>
+                <span class="progress-label">'${comparisonYear.slice(2)}:</span>
+                <div class="bar-track"><div class="bar-fill-comp" style="width: ${compPace}%;"></div></div>
+                <span style="font-weight:700; color:#2563eb; width:28px; text-align:right;">${compPace}%</span>
               </div>
               <div class="progress-bar-row">
-                <span class="progress-label">5Y:</span>
-                <div class="bar-track"><div class="bar-fill-5yr" style="width: ${c.pace_5yr_avg_pct}%;"></div></div>
-                <span style="font-weight:700; color:#64748b; width:38px;">${c.pace_5yr_avg_pct}%</span>
+                <span class="progress-label">8Y:</span>
+                <div class="bar-track"><div class="bar-fill-8yr" style="width: ${avg8yr}%;"></div></div>
+                <span style="font-weight:700; color:#64748b; width:28px; text-align:right;">${avg8yr}%</span>
               </div>
             </div>
           </td>
-          <td>${deltaBadgeYoY}</td>
-          <td>${deltaBadge5Yr}</td>
+          <td class="mono-cell" style="color:#dc2626; font-weight:800; font-size:11.5px;">${c.pace_2026_pct}%</td>
+          <td class="mono-cell" style="color:#2563eb; font-weight:700;">${compPace}%</td>
+          <td>${deltaBadgeComp}</td>
+          <td class="mono-cell" style="color:#64748b; font-weight:700;">${avg8yr}%</td>
+          <td>${deltaBadge8Yr}</td>
           <td class="mono-cell">
-            ${c.production_2026_kmt > 0 ? c.production_2026_kmt.toLocaleString() + ' ' + prodUnit : '--'}
+            ${c.production_2026_kmt > 0 ? c.production_2026_kmt.toLocaleString() : '--'}
           </td>
           <td class="mono-cell">
             ${c.yield_2026_tha > 0 ? c.yield_2026_tha.toFixed(2) + ' t/ha' : '--'}
-            <div style="font-size:11px; color:var(--text-muted);">${c.yield_2024_tha > 0 ? "'24: " + c.yield_2024_tha.toFixed(2) + ' t/ha' : ''}</div>
           </td>
-          <td style="font-size:12px; line-height:1.4;">
+          <td style="font-size:10.5px; line-height:1.3; color:var(--text-muted);">
             ${c.weather_impact}
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;"><strong>Leaders:</strong> ${c.regional_leaders}</div>
           </td>
         </tr>
       `;
@@ -797,15 +862,34 @@
     const tbody = document.getElementById('historical-tbody');
     tbody.innerHTML = '';
 
+    // Highlight selected comparison column header
+    const years = ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'];
+    years.forEach(y => {
+      const th = document.getElementById('th-h-' + y);
+      if (th) {
+        if (y === comparisonYear) {
+          th.style.color = '#2563eb';
+          th.style.fontWeight = '800';
+          th.style.background = 'rgba(37,99,235,0.08)';
+        } else {
+          th.style.color = 'var(--text-muted)';
+          th.style.fontWeight = '700';
+          th.style.background = 'transparent';
+        }
+      }
+    });
+
     data.crops.forEach(c => {
       const h = c.historical_paces;
       let assessment = '';
+      const minHist = Math.min(h['2018'], h['2019'], h['2020'], h['2021'], h['2022'], h['2023'], h['2024'], h['2025']);
+
       if (c.pace_2026_pct >= 100) {
         assessment = '<span style="color:#16a34a; font-weight:700;">Completed</span>';
-      } else if (c.pace_2026_pct < h['2022']) {
-        assessment = '<span style="color:#dc2626; font-weight:700;">Slowest in 5 Years (Post-Rain Halt)</span>';
-      } else if (c.pace_delta_5yr < -5) {
-        assessment = '<span style="color:#d97706; font-weight:700;">Significantly Behind Average</span>';
+      } else if (c.pace_2026_pct <= minHist) {
+        assessment = '<span style="color:#dc2626; font-weight:700;">Slowest in 8 Years</span>';
+      } else if (c.pace_delta_8yr < -5) {
+        assessment = '<span style="color:#d97706; font-weight:700;">Behind 8-Yr Avg</span>';
       } else {
         assessment = '<span style="color:#2563eb; font-weight:700;">Near Historical Trend</span>';
       }
@@ -813,98 +897,19 @@
       tbody.innerHTML += `
         <tr>
           <td style="font-weight:700;">${c.crop}</td>
-          <td class="mono-cell" style="color:#dc2626; font-weight:800; font-size:14px;">${c.pace_2026_pct}%</td>
-          <td class="mono-cell">${h['2025']}%</td>
-          <td class="mono-cell" style="color:#2563eb; font-weight:700;">${h['2024']}%</td>
-          <td class="mono-cell">${h['2023']}%</td>
-          <td class="mono-cell">${h['2022']}%</td>
-          <td class="mono-cell">${h['2021']}%</td>
-          <td class="mono-cell" style="color:#64748b; font-weight:800; font-size:14px;">${h['5yr_avg']}%</td>
-          <td>${assessment}</td>
+          <td class="mono-cell" style="color:#dc2626; font-weight:800; font-size:11.5px;">${c.pace_2026_pct}%</td>
+          <td class="mono-cell" ${comparisonYear === '2025' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2025']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2024' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2024']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2023' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2023']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2022' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2022']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2021' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2021']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2020' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2020']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2019' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2019']}%</td>
+          <td class="mono-cell" ${comparisonYear === '2018' ? 'style="color:#2563eb; font-weight:800; background:rgba(37,99,235,0.08);"' : ''}>${h['2018']}%</td>
+          <td class="mono-cell" style="color:#64748b; font-weight:800; font-size:11.5px;">${h['8yr_avg']}%</td>
+          <td style="font-size:10.5px;">${assessment}</td>
         </tr>
       `;
-    });
-  }
-
-  function renderChart(data) {
-    const ctx = document.getElementById('yoyBarChart').getContext('2d');
-    if (barChart) {
-      barChart.destroy();
-    }
-
-    const labels = data.crops.map(c => c.crop.split(' ')[0]);
-    const pace2026 = data.crops.map(c => c.pace_2026_pct);
-    const pace2024 = data.crops.map(c => c.pace_2024_pct);
-    const pace5yr = data.crops.map(c => c.pace_5yr_avg_pct);
-
-    const isDark = document.body.classList.contains('dark-theme');
-    const gridColor = isDark ? '#1e293b' : '#f1f5f9';
-    const textColor = isDark ? '#94a3b8' : '#64748b';
-
-    barChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: '2026 Active Pace (% Threshed)',
-            data: pace2026,
-            backgroundColor: '#dc2626',
-            borderRadius: 4
-          },
-          {
-            label: '2024 Prior Year Pace (% Threshed)',
-            data: pace2024,
-            backgroundColor: '#2563eb',
-            borderRadius: 4
-          },
-          {
-            label: '5-Year Benchmark Average (2021–2025)',
-            data: pace5yr,
-            backgroundColor: '#64748b',
-            borderRadius: 4
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: {
-              color: textColor,
-              font: { family: 'JetBrains Mono', size: 12, weight: 'bold' }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: function(c) {
-                return `${c.dataset.label}: ${c.parsed.y}%`;
-              }
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: { display: false },
-            ticks: {
-              color: textColor,
-              font: { family: 'Roboto', size: 12, weight: 'bold' }
-            }
-          },
-          y: {
-            min: 0,
-            max: 100,
-            grid: { color: gridColor },
-            ticks: {
-              color: textColor,
-              callback: v => v + '%',
-              font: { family: 'JetBrains Mono', size: 11 }
-            }
-          }
-        }
-      }
     });
   }
 
@@ -917,7 +922,7 @@
     const el = document.getElementById('dashboard-capture');
     html2canvas(el, { scale: 2 }).then(canvas => {
       const link = document.createElement('a');
-      link.download = `BlackSea_Harvest_Snapshot_${activeCountry}.png`;
+      link.download = `BlackSea_Harvest_Snapshot_${activeCountry}_${comparisonYear}.png`;
       link.href = canvas.toDataURL();
       link.click();
     });
