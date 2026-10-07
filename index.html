@@ -7,26 +7,25 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2'><path d='M7 20h10'/><path d='M10 20c5.5-2.5.8-6.4 3-10'/><path d='M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z'/><path d='M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z'/></svg>">
     <style>
         :root {
-            --bg-base: #080c14;
-            --bg-card: #0f172a;
-            --bg-card-hover: #131c31;
-            --border: #1e293b;
+            --bg-base: #060a12;
+            --bg-card: #0b111e;
+            --bg-card-hover: #111a2d;
+            --border: #162238;
             --border-hover: #38bdf8;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
+            --text-main: #f1f5f9;
+            --text-sub: #8292a6;
             --accent-green: #10b981;
             --accent-blue: #38bdf8;
-            --accent-amber: #f59e0b;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body {
             background-color: var(--bg-base);
             color: var(--text-main);
-            padding: 30px 24px 60px;
+            padding: 16px 20px 40px;
             min-height: 100vh;
         }
         .portal-wrapper {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
         header.portal-header {
@@ -34,126 +33,129 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 24px;
-            margin-bottom: 24px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 12px;
         }
         .brand-zone {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 10px;
         }
         .brand-icon {
-            width: 52px;
-            height: 52px;
+            width: 34px;
+            height: 34px;
             background: linear-gradient(135deg, #10b981, #0284c7);
-            border-radius: 14px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
-            box-shadow: 0 4px 18px rgba(16, 185, 129, 0.3);
+            font-size: 18px;
+            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
         }
         .brand-text h1 {
-            font-size: 26px;
+            font-size: 18px;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.4px;
             background: linear-gradient(to right, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .brand-text p {
-            font-size: 14px;
+            font-size: 11.5px;
             color: var(--text-sub);
-            margin-top: 3px;
+            margin-top: 1px;
         }
         .header-stats {
             display: flex;
-            gap: 14px;
+            gap: 10px;
         }
         .stat-pill {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 8px 18px;
-            border-radius: 10px;
-            text-align: right;
+            padding: 4px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .stat-pill .num {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: 800;
             color: var(--accent-blue);
         }
         .stat-pill .lbl {
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--text-sub);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
         .live-banner {
-            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(2, 132, 199, 0.08));
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            border-radius: 10px;
-            padding: 12px 18px;
-            margin-bottom: 24px;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.08), rgba(2, 132, 199, 0.06));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
-            color: #e2e8f0;
+            font-size: 11.5px;
+            color: #cbd5e1;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
         .controls-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 32px;
+            gap: 12px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
         }
         .filter-pills {
             display: flex;
-            gap: 8px;
+            gap: 5px;
             flex-wrap: wrap;
         }
         .filter-pill {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-sub);
-            padding: 7px 15px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
         }
         .filter-pill:hover {
-            background: var(--bg-hover);
+            background: #141f36;
             color: var(--text-main);
-            border-color: #334155;
+            border-color: #2a3b5c;
         }
         .filter-pill.active {
             background: var(--accent-blue);
-            color: #080c14;
+            color: #040811;
             border-color: var(--accent-blue);
             font-weight: 700;
         }
         .search-box {
             flex-grow: 1;
-            max-width: 360px;
+            max-width: 300px;
             position: relative;
         }
         .search-box input {
             width: 100%;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 9px 14px 9px 36px;
+            border-radius: 6px;
+            padding: 5px 10px 5px 28px;
             color: var(--text-main);
-            font-size: 13.5px;
+            font-size: 12px;
             outline: none;
-            transition: border-color 0.2s;
+            height: 28px;
+            transition: border-color 0.15s;
         }
         .search-box input:focus {
             border-color: var(--accent-blue);
@@ -161,136 +163,158 @@
         .search-box::before {
             content: "🔍";
             position: absolute;
-            left: 12px;
+            left: 9px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 13px;
+            font-size: 11px;
             opacity: 0.6;
         }
 
         .category-section {
-            margin-bottom: 36px;
-            transition: opacity 0.2s ease;
+            margin-bottom: 18px;
+            transition: opacity 0.15s ease;
         }
         .category-heading {
-            font-size: 18.5px;
+            font-size: 12.5px;
             font-weight: 700;
-            color: #cbd5e1;
-            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: #94a3b8;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
-        .category-heading::before {
+        .category-heading::after {
             content: "";
-            display: inline-block;
-            width: 4px;
-            height: 18px;
-            background: var(--accent-green);
-            border-radius: 2px;
+            flex: 1;
+            height: 1px;
+            background: #141f33;
+            margin-left: 8px;
         }
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+            gap: 10px;
         }
         .suite-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px;
+            border-radius: 8px;
+            padding: 10px 12px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.25s ease;
+            transition: all 0.15s ease;
             cursor: pointer;
-            position: relative;
+            min-height: 112px;
         }
         .suite-card:hover {
             border-color: var(--accent-blue);
             background: var(--bg-card-hover);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+            transform: translateY(-1px);
         }
-        .suite-card-top {
+        .card-main {
             display: flex;
             flex-direction: column;
         }
-        .suite-meta {
+        .card-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
         }
-        .suite-folder-tag {
+        .folder-tag {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 11px;
-            color: #94a3b8;
-            background: #090e1a;
-            padding: 3px 8px;
-            border-radius: 6px;
-            border: 1px solid #1e293b;
+            font-size: 9.5px;
+            color: #64748b;
+            background: #060a12;
+            padding: 1px 6px;
+            border-radius: 4px;
+            border: 1px solid #141c2c;
         }
-        .live-tag {
-            font-size: 11px;
-            font-weight: 700;
-            color: #10b981;
-            background: rgba(16, 185, 129, 0.12);
-            padding: 2px 7px;
-            border-radius: 6px;
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+            display: inline-block;
         }
-        .suite-title {
-            color: #f8fafc;
-            font-size: 16.5px;
+        .card-title {
+            color: #f1f5f9;
+            font-size: 13px;
             font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 8px;
+            line-height: 1.25;
+            margin-bottom: 3px;
             transition: color 0.15s;
         }
-        .suite-card:hover .suite-title {
+        .suite-card:hover .card-title {
             color: var(--accent-blue);
         }
-        .suite-desc {
-            font-size: 12.8px;
+        .card-desc {
+            font-size: 11px;
             color: var(--text-sub);
-            line-height: 1.45;
-            margin-bottom: 20px;
+            line-height: 1.35;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
-        .suite-card-bottom {
+        .card-actions {
+            display: flex;
+            gap: 5px;
+            padding-top: 6px;
+            border-top: 1px solid #141d2e;
             margin-top: auto;
-            padding-top: 14px;
-            border-top: 1px solid #1e293b;
         }
-        .enter-btn {
+        .act-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 4px;
             width: 100%;
-            padding: 10px 16px;
+            padding: 4px 8px;
             background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            border-radius: 5px;
             color: var(--accent-blue);
-            font-size: 13.5px;
+            font-size: 11px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s ease;
+            height: 25px;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.15s ease;
         }
-        .enter-btn:hover {
+        .act-btn:hover {
             background: var(--accent-blue);
-            color: #080c14;
+            color: #040811;
             border-color: var(--accent-blue);
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+        }
+        .act-btn.secondary {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.22);
+            color: #34d399;
+        }
+        .act-btn.secondary:hover {
+            background: #10b981;
+            color: #040811;
+            border-color: #10b981;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
         }
         footer.portal-footer {
-            margin-top: 40px;
+            margin-top: 24px;
             border-top: 1px solid var(--border);
-            padding-top: 24px;
+            padding-top: 14px;
             text-align: center;
-            color: #64748b;
-            font-size: 13px;
+            color: #475569;
+            font-size: 11px;
             width: 100%;
         }
     </style>
@@ -307,24 +331,24 @@
             </div>
             <div class="header-stats">
                 <div class="stat-pill">
-                    <div class="num">23</div>
-                    <div class="lbl">Agent Suites</div>
+                    <span class="num">22</span>
+                    <span class="lbl">Suites</span>
                 </div>
             </div>
         </header>
 
         <div class="live-banner">
             <div>
-                ⚡ <strong>100% Real-Time Live Linked</strong>: All suites compiled into a unified, serverless executive deployment.
+                ⚡ <strong>Production Deployment Hub</strong>: Standalone serverless distribution hosted on GitHub Pages.
             </div>
             <div>
-                🔄 Fully automated daily pipeline updates running with <strong>0 AI tokens</strong>.
+                🔄 Automated daily pipeline runs &bull; 0 AI tokens.
             </div>
         </div>
 
         <div class="controls-bar">
             <div class="filter-pills">
-                <button class="filter-pill active" onclick="filterCategory('all', this)">All Categories</button>
+                <button class="filter-pill active" onclick="filterCategory('all', this)">All</button>
                 <button class="filter-pill" onclick="filterCategory('weather', this)">🌦️ Weather</button>
                 <button class="filter-pill" onclick="filterCategory('cropprogress', this)">🌱 Crop Progress</button>
                 <button class="filter-pill" onclick="filterCategory('farmerselling', this)">🚜 Farmer Selling</button>
@@ -333,7 +357,7 @@
                 <button class="filter-pill" onclick="filterCategory('technical', this)">📊 Basis &amp; Technical</button>
             </div>
             <div class="search-box">
-                <input type="text" id="portal-search" placeholder="Search suites, crops, regions..." oninput="handleSearch()">
+                <input type="text" id="portal-search" placeholder="Search glossary, crops, regions..." oninput="handleSearch()">
             </div>
         </div>
 
@@ -343,104 +367,102 @@
             <div class="category-grid">
                 
             <div class="suite-card" data-category="weather" data-search="us corn belt & ag weather suite operational 28-day forecasts, soil drought and 17-year continuous season matrix for us corn belt & plains (noaa gfs 0.25°). weather_us_gfs" onclick="window.open('weather_US_GFS/US_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">weather_US_GFS</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">weather_US_GFS</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">US Corn Belt & Ag Weather Suite</h3>
-                    <p class="suite-desc">Operational 28-day forecasts, soil drought and 17-year continuous season matrix for US Corn Belt & Plains (NOAA GFS 0.25°).</p>
+                    <h3 class="card-title">US Corn Belt & Ag Weather Suite</h3>
+                    <p class="card-desc">Operational 28-day forecasts, soil drought and 17-year continuous season matrix for US Corn Belt & Plains (NOAA GFS 0.25°).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="weather_US_GFS/US_Crop_2_Week_Outlook.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="weather_US_GFS/US_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="weather" data-search="south america crop weather suite 2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for brazil & argentina (ecmwf ifs 0.25°). weather_southamerica_ecmwf" onclick="window.open('weather_SouthAmerica_ECMWF/SA_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">weather_SouthAmerica_ECMWF</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">weather_SouthAmerica_ECMWF</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">South America Crop Weather Suite</h3>
-                    <p class="suite-desc">2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for Brazil & Argentina (ECMWF IFS 0.25°).</p>
+                    <h3 class="card-title">South America Crop Weather Suite</h3>
+                    <p class="card-desc">2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for Brazil & Argentina (ECMWF IFS 0.25°).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="weather_SouthAmerica_ECMWF/SA_Crop_2_Week_Outlook.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="weather_SouthAmerica_ECMWF/SA_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="weather" data-search="black sea crop weather suite operational 15-day forecasts, chernozem soil moisture & 17-season matrix for ukraine & russia (wheat, corn, sunflower, rapeseed). weather_blacksea_ecmwf" onclick="window.open('weather_BlackSea_ECMWF/BlackSea_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">weather_BlackSea_ECMWF</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">weather_BlackSea_ECMWF</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Black Sea Crop Weather Suite</h3>
-                    <p class="suite-desc">Operational 15-day forecasts, Chernozem soil moisture & 17-season matrix for Ukraine & Russia (Wheat, Corn, Sunflower, Rapeseed).</p>
+                    <h3 class="card-title">Black Sea Crop Weather Suite</h3>
+                    <p class="card-desc">Operational 15-day forecasts, Chernozem soil moisture & 17-season matrix for Ukraine & Russia (Wheat, Corn, Sunflower, Rapeseed).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="weather_BlackSea_ECMWF/BlackSea_Crop_2_Week_Outlook.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="weather_BlackSea_ECMWF/BlackSea_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="weather" data-search="european crop weather suite operational forecasts, multi-layer soil moisture & 17-year matrix for rapeseed, corn, wheat & barley (ecmwf ifs 0.25°). weather_eu_ecmwf" onclick="window.open('weather_EU_ECMWF/EU_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">weather_EU_ECMWF</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">weather_EU_ECMWF</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">European Crop Weather Suite</h3>
-                    <p class="suite-desc">Operational forecasts, multi-layer soil moisture & 17-year matrix for Rapeseed, Corn, Wheat & Barley (ECMWF IFS 0.25°).</p>
+                    <h3 class="card-title">European Crop Weather Suite</h3>
+                    <p class="card-desc">Operational forecasts, multi-layer soil moisture & 17-year matrix for Rapeseed, Corn, Wheat & Barley (ECMWF IFS 0.25°).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="weather_EU_ECMWF/EU_Crop_2_Week_Outlook.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="weather_EU_ECMWF/EU_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="southeast asia oil palm climate suite malaysia & indonesia daily precipitation, temperature, soil moisture & production impact across 41 oil palm clusters (ecmwf ifs). weather_sea_ecmwf" onclick="window.open('weather_SEA_ECMWF/dashboard/index.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">weather_SEA_ECMWF</span>
-                        <span class="live-tag">● Live Linked</span>
+            <div class="suite-card" data-category="weather" data-search="southeast asia oil palm climate suite malaysia & indonesia daily rainfall, temperature, soil moisture, cluster impact & ecmwf multi-stress yield matrix. weather_sea_ecmwf" onclick="window.open('weather_SEA_ECMWF/dashboard/index.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">weather_SEA_ECMWF</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Southeast Asia Oil Palm Climate Suite</h3>
-                    <p class="suite-desc">Malaysia & Indonesia daily precipitation, temperature, soil moisture & production impact across 41 oil palm clusters (ECMWF IFS).</p>
+                    <h3 class="card-title">Southeast Asia Oil Palm Climate Suite</h3>
+                    <p class="card-desc">Malaysia & Indonesia daily rainfall, temperature, soil moisture, cluster impact & ECMWF multi-stress yield matrix.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="weather_SEA_ECMWF/dashboard/index.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="weather" data-search="sea oil palm multi-stress production matrix ecmwf operational multi-stress agro-climatic assessment analyzing cumulative moisture deficit, heat stress & palm yield impacts. ecmwf_weather_outlook" onclick="window.open('ecmwf_weather_outlook/Southeast_Asia_Production_MultiStress_Matrix.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">ecmwf_weather_outlook</span>
-                        <span class="live-tag">● Live Linked</span>
-                    </div>
-                    <h3 class="suite-title">SEA Oil Palm Multi-Stress Production Matrix</h3>
-                    <p class="suite-desc">ECMWF operational multi-stress agro-climatic assessment analyzing cumulative moisture deficit, heat stress & palm yield impacts.</p>
-                </div>
-                <div class="suite-card-bottom">
-                    <a href="ecmwf_weather_outlook/Southeast_Asia_Production_MultiStress_Matrix.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="weather_SEA_ECMWF/dashboard/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Climate Monitor</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                <a href="ecmwf_weather_outlook/Southeast_Asia_Production_MultiStress_Matrix.html" class="act-btn secondary" target="_blank" onclick="event.stopPropagation()">
+                    <span>Multi-Stress Matrix</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
@@ -451,88 +473,98 @@
             <h2 class="category-heading">🌱 Crop Progress & Condition Intelligence</h2>
             <div class="category-grid">
                 
-            <div class="suite-card" data-category="cropprogress" data-search="usa crop progress & condition intelligence weekly phenology s-curves, multi-year condition comparison & interactive stonex choropleth map for us corn, soybeans, wheat & cotton (usda nass). cropprogress_usa" onclick="window.open('cropprogress_USA/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">cropprogress_USA</span>
-                        <span class="live-tag">● Live Linked</span>
+            <div class="suite-card" data-category="cropprogress" data-search="usa crop progress & condition intelligence weekly phenology s-curves, multi-year condition comparison & stonex choropleth map for us corn, soybeans, wheat & cotton (usda nass). cropprogress_usa" onclick="window.open('cropprogress_USA/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">cropprogress_USA</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">USA Crop Progress & Condition Intelligence</h3>
-                    <p class="suite-desc">Weekly phenology S-curves, multi-year condition comparison & interactive StoneX choropleth map for US Corn, Soybeans, Wheat & Cotton (USDA NASS).</p>
+                    <h3 class="card-title">USA Crop Progress & Condition Intelligence</h3>
+                    <p class="card-desc">Weekly phenology S-curves, multi-year condition comparison & StoneX choropleth map for US Corn, Soybeans, Wheat & Cotton (USDA NASS).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="cropprogress_USA/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="cropprogress_USA/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="cropprogress" data-search="south america crop progress & condition planting, harvesting progress and crop condition analytics for brazil (conab/imea/deral) & argentina (sagyp). cropprogress_south america" onclick="window.open('cropprogress_South America/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">cropprogress_South America</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">cropprogress_South America</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">South America Crop Progress & Condition</h3>
-                    <p class="suite-desc">Planting, harvesting progress and crop condition analytics for Brazil (CONAB/IMEA/DERAL) & Argentina (SAGyP).</p>
+                    <h3 class="card-title">South America Crop Progress & Condition</h3>
+                    <p class="card-desc">Planting, harvesting progress and crop condition analytics for Brazil (CONAB/IMEA/DERAL) & Argentina (SAGyP).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="cropprogress_South America/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="cropprogress_South America/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="cropprogress" data-search="black sea crop progress & harvest pace harvest pace, multi-year developmental s-curves and winter sowing monitoring for ukraine (minagro) and russia (minselkhoz / specagro). cropprogress_blacksea" onclick="window.open('cropprogress_BlackSea/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">cropprogress_BlackSea</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">cropprogress_BlackSea</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Black Sea Crop Progress & Harvest Pace</h3>
-                    <p class="suite-desc">Harvest pace, multi-year developmental S-curves and winter sowing monitoring for Ukraine (Minagro) and Russia (Minselkhoz / SpecAgro).</p>
+                    <h3 class="card-title">Black Sea Crop Progress & Harvest Pace</h3>
+                    <p class="card-desc">Harvest pace, multi-year developmental S-curves and winter sowing monitoring for Ukraine (Minagro) and Russia (Minselkhoz / SpecAgro).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="cropprogress_BlackSea/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="cropprogress_BlackSea/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="cropprogress" data-search="canadian prairies crop progress & harvest pace weekly harvest progress, multi-year developmental curves & crop conditions across alberta, saskatchewan & manitoba (canola, spring wheat, durum, barley, peas). cropprogress_canada" onclick="window.open('cropprogress_Canada/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">cropprogress_Canada</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">cropprogress_Canada</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Canadian Prairies Crop Progress & Harvest Pace</h3>
-                    <p class="suite-desc">Weekly harvest progress, multi-year developmental curves & crop conditions across Alberta, Saskatchewan & Manitoba (Canola, Spring Wheat, Durum, Barley, Peas).</p>
+                    <h3 class="card-title">Canadian Prairies Crop Progress & Harvest Pace</h3>
+                    <p class="card-desc">Weekly harvest progress, multi-year developmental curves & crop conditions across Alberta, Saskatchewan & Manitoba (Canola, Spring Wheat, Durum, Barley, Peas).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="cropprogress_Canada/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="cropprogress_Canada/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="cropprogress" data-search="global agricultural crop calendar matrix interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide. crop_calendar" onclick="window.open('Crop_Calendar/index.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">Crop_Calendar</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">Crop_Calendar</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Global Agricultural Crop Calendar Matrix</h3>
-                    <p class="suite-desc">Interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide.</p>
+                    <h3 class="card-title">Global Agricultural Crop Calendar Matrix</h3>
+                    <p class="card-desc">Interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="Crop_Calendar/index.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="Crop_Calendar/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
@@ -544,36 +576,40 @@
             <div class="category-grid">
                 
             <div class="suite-card" data-category="farmerselling" data-search="usa farmer selling intelligence multi-year historical sales pace across us corn, soybeans & all wheat benchmarks (2016-2027). farmer_selling_usa" onclick="window.open('farmer_selling_USA/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">farmer_selling_USA</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">farmer_selling_USA</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">USA Farmer Selling Intelligence</h3>
-                    <p class="suite-desc">Multi-year historical sales pace across US Corn, Soybeans & All Wheat benchmarks (2016-2027).</p>
+                    <h3 class="card-title">USA Farmer Selling Intelligence</h3>
+                    <p class="card-desc">Multi-year historical sales pace across US Corn, Soybeans & All Wheat benchmarks (2016-2027).</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="farmer_selling_USA/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="farmer_selling_USA/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="farmerselling" data-search="south america farmer selling intelligence historical commercialization benchmarks for brazil & argentine corn & soybeans across 11 crop years. farmer_selling_southamerica" onclick="window.open('farmer_selling_SouthAmerica/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">farmer_selling_SouthAmerica</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">farmer_selling_SouthAmerica</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">South America Farmer Selling Intelligence</h3>
-                    <p class="suite-desc">Historical commercialization benchmarks for Brazil & Argentine Corn & Soybeans across 11 crop years.</p>
+                    <h3 class="card-title">South America Farmer Selling Intelligence</h3>
+                    <p class="card-desc">Historical commercialization benchmarks for Brazil & Argentine Corn & Soybeans across 11 crop years.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="farmer_selling_SouthAmerica/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="farmer_selling_SouthAmerica/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
@@ -585,19 +621,21 @@
             <div class="category-grid">
                 
             <div class="suite-card" data-category="positioning" data-search="cftc & commodity cot positioning intelligence 31 benchmark commodities & financials (cftc disaggregated, ice & matif) with managed money dry powder and percentile ranks. cftc_drypowder" onclick="window.open('CFTC_drypowder/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">CFTC_drypowder</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">CFTC_drypowder</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">CFTC & Commodity COT Positioning Intelligence</h3>
-                    <p class="suite-desc">31 Benchmark Commodities & Financials (CFTC Disaggregated, ICE & MATIF) with Managed Money dry powder and percentile ranks.</p>
+                    <h3 class="card-title">CFTC & Commodity COT Positioning Intelligence</h3>
+                    <p class="card-desc">31 Benchmark Commodities & Financials (CFTC Disaggregated, ICE & MATIF) with Managed Money dry powder and percentile ranks.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="CFTC_drypowder/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="CFTC_drypowder/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
@@ -609,104 +647,116 @@
             <div class="category-grid">
                 
             <div class="suite-card" data-category="tradedemand" data-search="mpob palm oil intelligence terminal malaysian palm oil board historical supply, demand, stocks & yield model (2005-2026) with regional breakdown. mpob_dashboard" onclick="window.open('mpob_dashboard/index.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">mpob_dashboard</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">mpob_dashboard</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">MPOB Palm Oil Intelligence Terminal</h3>
-                    <p class="suite-desc">Malaysian Palm Oil Board Historical Supply, Demand, Stocks & Yield Model (2005-2026) with regional breakdown.</p>
+                    <h3 class="card-title">MPOB Palm Oil Intelligence Terminal</h3>
+                    <p class="card-desc">Malaysian Palm Oil Board Historical Supply, Demand, Stocks & Yield Model (2005-2026) with regional breakdown.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="mpob_dashboard/index.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="mpob_dashboard/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="tradedemand" data-search="usda weekly export sales intelligence multi-commodity weekly export commitments, shipments & outstanding sales monitor. usda_export_sales" onclick="window.open('usda_export_sales/index.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">usda_export_sales</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">usda_export_sales</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">USDA Weekly Export Sales Intelligence</h3>
-                    <p class="suite-desc">Multi-commodity weekly export commitments, shipments & outstanding sales monitor.</p>
+                    <h3 class="card-title">USDA Weekly Export Sales Intelligence</h3>
+                    <p class="card-desc">Multi-commodity weekly export commitments, shipments & outstanding sales monitor.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="usda_export_sales/index.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="usda_export_sales/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="tradedemand" data-search="farmdoc daily market intelligence university of illinois agricultural economic commentary, marketing strategy & daily analysis digest. farmdoc_agent" onclick="window.open('farmdoc_agent/preview_email_sep_01.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">farmdoc_agent</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">farmdoc_agent</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">FarmDoc Daily Market Intelligence</h3>
-                    <p class="suite-desc">University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.</p>
+                    <h3 class="card-title">FarmDoc Daily Market Intelligence</h3>
+                    <p class="card-desc">University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="farmdoc_agent/preview_email_sep_01.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="farmdoc_agent/preview_email_sep_01.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="tradedemand" data-search="us imports dashboard (us customs) us imports intelligence tracking commodity flows, origin countries, and trade volume trends. fund_customs_us" onclick="window.open('fund_Customs_US/US_Imports_Dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">fund_Customs_US</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_Customs_US</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">US Imports Dashboard (US Customs)</h3>
-                    <p class="suite-desc">US imports intelligence tracking commodity flows, origin countries, and trade volume trends.</p>
+                    <h3 class="card-title">US Imports Dashboard (US Customs)</h3>
+                    <p class="card-desc">US imports intelligence tracking commodity flows, origin countries, and trade volume trends.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="fund_Customs_US/US_Imports_Dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="fund_Customs_US/US_Imports_Dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="tradedemand" data-search="advanced biofuels intelligence (eia) us biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol. fund_eia_biofuel" onclick="window.open('fund_EIA_Biofuel/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">fund_EIA_Biofuel</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_EIA_Biofuel</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Advanced Biofuels Intelligence (EIA)</h3>
-                    <p class="suite-desc">US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.</p>
+                    <h3 class="card-title">Advanced Biofuels Intelligence (EIA)</h3>
+                    <p class="card-desc">US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="fund_EIA_Biofuel/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="fund_EIA_Biofuel/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="tradedemand" data-search="eia energy market intelligence us energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets. fund_eia_energy" onclick="window.open('fund_EIA_Energy/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">fund_EIA_Energy</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_EIA_Energy</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">EIA Energy Market Intelligence</h3>
-                    <p class="suite-desc">US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.</p>
+                    <h3 class="card-title">EIA Energy Market Intelligence</h3>
+                    <p class="card-desc">US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="fund_EIA_Energy/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="fund_EIA_Energy/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
@@ -718,53 +768,59 @@
             <div class="category-grid">
                 
             <div class="suite-card" data-category="technical" data-search="us corn & soybeans seasonal basis analytics historical seasonal basis curves and multi-year cash vs futures basis comparisons across us grain elevators and river terminals. tech_price_basis_usa" onclick="window.open('tech_Price_Basis_USA/seasonal_basis_dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">tech_Price_Basis_USA</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">tech_Price_Basis_USA</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">US Corn & Soybeans Seasonal Basis Analytics</h3>
-                    <p class="suite-desc">Historical seasonal basis curves and multi-year cash vs futures basis comparisons across US grain elevators and river terminals.</p>
+                    <h3 class="card-title">US Corn & Soybeans Seasonal Basis Analytics</h3>
+                    <p class="card-desc">Historical seasonal basis curves and multi-year cash vs futures basis comparisons across US grain elevators and river terminals.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="tech_Price_Basis_USA/seasonal_basis_dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="tech_Price_Basis_USA/seasonal_basis_dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="technical" data-search="usda historical spot basis terminal interactive spot cash basis monitor powered by usda ams market reports across regions and agricultural commodities. tech_price_usdabasis" onclick="window.open('tech_Price_USDABasis/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">tech_Price_USDABasis</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">tech_Price_USDABasis</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">USDA Historical Spot Basis Terminal</h3>
-                    <p class="suite-desc">Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.</p>
+                    <h3 class="card-title">USDA Historical Spot Basis Terminal</h3>
+                    <p class="card-desc">Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="tech_Price_USDABasis/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="tech_Price_USDABasis/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
             <div class="suite-card" data-category="technical" data-search="agri-commodities & macro technical desk multi-timeframe technical structure, neely wave counts, trend momentum and volatility analysis across fcpo, grains, energy & macro assets. tech_desk" onclick="window.open('tech_Desk/dashboard.html', '_blank')">
-                <div class="suite-card-top">
-                    <div class="suite-meta">
-                        <span class="suite-folder-tag">tech_Desk</span>
-                        <span class="live-tag">● Live Linked</span>
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">tech_Desk</span>
+                        <span class="live-dot" title="Live Linked"></span>
                     </div>
-                    <h3 class="suite-title">Agri-Commodities & Macro Technical Desk</h3>
-                    <p class="suite-desc">Multi-timeframe technical structure, Neely wave counts, trend momentum and volatility analysis across FCPO, Grains, Energy & Macro assets.</p>
+                    <h3 class="card-title">Agri-Commodities & Macro Technical Desk</h3>
+                    <p class="card-desc">Multi-timeframe technical structure, Neely wave counts, trend momentum and volatility analysis across FCPO, Grains, Energy & Macro assets.</p>
                 </div>
-                <div class="suite-card-bottom">
-                    <a href="tech_Desk/dashboard.html" class="enter-btn" target="_blank" onclick="event.stopPropagation()">
-                        <span>Enter Dashboard</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
+                <div class="card-actions">
+                    
+                <a href="tech_Desk/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
                 </div>
             </div>
             
@@ -773,7 +829,7 @@
         
 
         <footer class="portal-footer">
-            <p>Agri Agent Platform &bull; Published Online Production Suite &bull; All 23 modules synchronized</p>
+            <p>Agri Agent Platform &bull; Published Online Production Suite &bull; All 22 suites synchronized</p>
         </footer>
     </div>
 
