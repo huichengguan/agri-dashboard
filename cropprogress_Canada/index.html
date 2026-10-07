@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canadian Prairies Crop Progress & Harvest Intelligence Suite</title>
+  <script src="chart.umd.min.js"></script>
+  <script>
+    if (typeof Chart === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>');
+    }
+  </script>
+  <script src="html2canvas.min.js"></script>
+  <script>
+    if (typeof html2canvas === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"><\/script>');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #24344d;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.15);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.15);
+      --purple: #a855f7;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body.light-theme {
+      --bg-page: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --border-color: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --accent: #0284c7;
+      --accent-glow: rgba(2, 132, 199, 0.12);
+      --green: #16a34a;
+      --green-bg: rgba(22, 163, 74, 0.12);
+      --red: #dc2626;
+      --red-bg: rgba(220, 38, 38, 0.12);
+      --amber: #d97706;
+      --amber-bg: rgba(217, 119, 6, 0.12);
+      --purple: #9333ea;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding: 24px;
+      line-height: 1.5;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .title-group h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .title-group p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* CADENCE & FRESHNESS BAR */
+    .cadence-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      gap: 14px;
+    }
+
+    .cadence-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .status-pulse {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 8px #38bdf8;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .date-badge {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .date-badge .label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .date-badge .val {
+      font-weight: 700;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+    }
+
+    .cadence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .schedule-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .schedule-chip:hover {
+      border-color: var(--accent);
+    }
+
+    .schedule-chip .prov-name {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13px;
+    }
+
+    .schedule-chip .dates {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .schedule-chip .next-tag {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* KPI BAR */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.8;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .kpi-val-group {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .kpi-val {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    .kpi-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+
+    .badge-pos {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .badge-neg {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .badge-neutral {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+
+    /* CONTROLS BAR */
+    .controls-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .control-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .pill-group {
+      display: flex;
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pill:hover {
+      color: var(--text-main);
+    }
+
+    .pill.active {
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    /* GRID LAYOUTS */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 1200px) {
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 420px;
+      width: 100%;
+    }
+
+    /* REGIONS GRID */
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .region-row {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .region-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .region-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .region-stat {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .bar-bg {
+      background: var(--border-color);
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    /* TABLE */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      text-align: right;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: var(--bg-page);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+
+    th:first-child, td:first-child,
+    th:nth-child(2), td:nth-child(2) {
+      text-align: left;
+    }
+
+    td {
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    tr.current-week td {
+      background: rgba(56, 189, 248, 0.08);
+      font-weight: 700;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .source-list {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="dashboard-capture">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="title-group">
+      <h1>
+        <span>Canadian Prairies Crop Progress & Harvest Pace</span>
+        <span class="flag-badge">🇨🇦 WESTERN CANADA</span>
+      </h1>
+      <p>Institutional tracking for Canola, Spring Wheat, Durum, Barley, Oats & Pulses | Multi-Year Progression (2021–2026)</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn" id="theme-btn" onclick="toggleTheme()">🌓 Theme</button>
+      <button class="btn" onclick="exportDataCSV()">📥 Export CSV</button>
+      <button class="btn btn-primary" onclick="captureScreenshot()">📷 Snapshot</button>
+    </div>
+  </header>
+
+  <!-- DATA FRESHNESS & NEXT UPDATE STATUS BAR -->
+  <section class="cadence-bar">
+    <div class="cadence-left">
+      <div class="status-pulse">
+        <span class="status-dot"></span>
+        <span>Active Harvest Cadence</span>
+      </div>
+      <div class="date-badge">
+        <span class="label">Dataset Last Updated:</span>
+        <span class="val" id="meta-last-update">October 2, 2026 (Data as of Sep 28–29 / Week 39)</span>
+      </div>
+    </div>
+    <div class="date-badge">
+      <span class="label">Next Scheduled Prairie Update:</span>
+      <span class="val" style="color:var(--accent);" id="meta-next-update">October 8–9, 2026 (In ~2 Days)</span>
+    </div>
+  </section>
+
+  <!-- PROVINCIAL RELEASE TIMELINE -->
+  <section class="cadence-grid">
+    <div class="schedule-chip">
+      <div>
+        <div class="prov-name">Saskatchewan (SK)</div>
+        <div style="color:var(--text-dim); font-size:11px;">Weekly on Thursdays (~2:00 PM CST)</div>
+      </div>
+      <div class="dates">
+        <div>Last: Oct 1, 2026</div>
+        <div class="next-tag">Next: Oct 8, 2026 (Tomorrow)</div>
+      </div>
+    </div>
+
+    <div class="schedule-chip">
+      <div>
+        <div class="prov-name">Alberta (AB)</div>
+        <div style="color:var(--text-dim); font-size:11px;">Weekly on Fridays (~3:00 PM MDT)</div>
+      </div>
+      <div class="dates">
+        <div>Last: Oct 2, 2026</div>
+        <div class="next-tag">Next: Oct 9, 2026 (Friday)</div>
+      </div>
+    </div>
+
+    <div class="schedule-chip">
+      <div>
+        <div class="prov-name">Manitoba (MB)</div>
+        <div style="color:var(--text-dim); font-size:11px;">Weekly on Tuesdays</div>
+      </div>
+      <div class="dates">
+        <div>Last: Sep 29, 2026</div>
+        <div class="next-tag">Next: Oct 6, 2026 (Published)</div>
+      </div>
+    </div>
+
+    <div class="schedule-chip" style="border-left: 3px solid var(--accent);">
+      <div>
+        <div class="prov-name">Prairies Consolidated</div>
+        <div style="color:var(--text-dim); font-size:11px;">Full Prairie Weekly Close</div>
+      </div>
+      <div class="dates">
+        <div>Last: Oct 2, 2026</div>
+        <div class="next-tag" style="color:#22c55e;">Next: Oct 9, 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI SUMMARY CARDS -->
+  <section class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Prairies All Crops Harvested</div>
+      <div class="kpi-val-group">
+        <div class="kpi-val" id="kpi-prairie-pct">61.1%</div>
+        <span class="kpi-badge badge-pos" id="kpi-prairie-wow">+20.6% WoW</span>
+      </div>
+      <div class="kpi-sub">vs 5-Yr Avg: <strong style="color:var(--red);" id="kpi-prairie-vs5yr">-26.7%</strong> (Behind Avg)</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Canola Combined %</div>
+      <div class="kpi-val-group">
+        <div class="kpi-val" id="kpi-canola-pct">40.5%</div>
+        <span class="kpi-badge badge-neutral">Late Surge</span>
+      </div>
+      <div class="kpi-sub">SK: 45% | AB: 31% (+36% Swathed) | MB: 45%</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Spring Wheat (CWRS)</div>
+      <div class="kpi-val-group">
+        <div class="kpi-val" id="kpi-wheat-pct">72.9%</div>
+        <span class="kpi-badge badge-pos">Advancing</span>
+      </div>
+      <div class="kpi-sub">SK: 65% | AB: 73% | MB: 93%</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Durum Wheat</div>
+      <div class="kpi-val-group">
+        <div class="kpi-val" id="kpi-durum-pct">79.4%</div>
+        <span class="kpi-badge badge-pos">Near Finish</span>
+      </div>
+      <div class="kpi-sub">SK: 79% (82% Prairie Share) | AB: 81%</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Field Peas & Lentils</div>
+      <div class="kpi-val-group">
+        <div class="kpi-val" id="kpi-pulses-pct">96.6%</div>
+        <span class="kpi-badge badge-pos">97% Done</span>
+      </div>
+      <div class="kpi-sub">Field Peas: 97% | Lentils: 96%</div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CONTROLS -->
+  <section class="controls-card">
+    <div class="control-group">
+      <span class="control-title">Geographic Scope:</span>
+      <div class="pill-group" id="scope-pills">
+        <button class="pill active" onclick="setScope('Prairies')">🇨🇦 Prairies (Weighted)</button>
+        <button class="pill" onclick="setScope('Saskatchewan')">Saskatchewan (~50%)</button>
+        <button class="pill" onclick="setScope('Alberta')">Alberta (~34%)</button>
+        <button class="pill" onclick="setScope('Manitoba')">Manitoba (~16%)</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span class="control-title">Commodity:</span>
+      <div class="pill-group" id="crop-pills">
+        <button class="pill active" onclick="setCrop('Canola')">Canola</button>
+        <button class="pill" onclick="setCrop('Spring Wheat')">Spring Wheat</button>
+        <button class="pill" onclick="setCrop('Durum')">Durum</button>
+        <button class="pill" onclick="setCrop('Barley')">Barley</button>
+        <button class="pill" onclick="setCrop('Oats')">Oats</button>
+        <button class="pill" onclick="setCrop('Field Peas')">Field Peas</button>
+        <button class="pill" onclick="setCrop('Lentils')">Lentils</button>
+        <button class="pill" onclick="setCrop('All Crops')">All Crops</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CHARTS ROW -->
+  <section class="chart-grid">
+    <!-- MULTI-YEAR S-CURVE -->
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">
+            <span id="chart-main-title">Canola - Multi-Year Harvest Pace S-Curve</span>
+          </div>
+          <div class="card-sub">Percentage combined by calendar week (2021–2026 vs 5-Yr & 10-Yr Benchmarks)</div>
+        </div>
+        <div style="font-size:12px; font-family:var(--font-mono); color:var(--accent);" id="active-crop-indicator">
+          CANOLA | PRAIRIES TOTAL
+        </div>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="harvestChart"></canvas>
+      </div>
+    </div>
+
+    <!-- DEVELOPMENT STAGES / STACKED BREAKDOWN -->
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Harvest Stage Distribution</div>
+          <div class="card-sub" id="stage-sub-title">Combined vs In Swath vs Standing</div>
+        </div>
+      </div>
+      <div class="chart-wrapper" style="height:230px;">
+        <canvas id="stageChart"></canvas>
+      </div>
+      <!-- PROVINCIAL COMPARISON MINI TABLE -->
+      <div style="margin-top:20px;">
+        <div class="card-title" style="font-size:13px; margin-bottom:10px;">Provincial Harvest Pace Status</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="region-row">
+            <div class="region-info">
+              <span class="region-name">Saskatchewan</span>
+              <span class="region-stat" style="color:var(--accent);">63% <span style="font-size:11px; color:var(--text-muted);">(WoW +22%)</span></span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width:63%;"></div></div>
+          </div>
+          <div class="region-row">
+            <div class="region-info">
+              <span class="region-name">Alberta</span>
+              <span class="region-stat" style="color:var(--accent);">60% <span style="font-size:11px; color:var(--text-muted);">(WoW +21%)</span></span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width:60%;"></div></div>
+          </div>
+          <div class="region-row">
+            <div class="region-info">
+              <span class="region-name">Manitoba</span>
+              <span class="region-stat" style="color:var(--accent);">58% <span style="font-size:11px; color:var(--text-muted);">(WoW +16%)</span></span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width:58%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUB-REGIONAL BREAKDOWN GRID -->
+  <section class="card" style="margin-bottom:24px;">
+    <div class="card-head">
+      <div>
+        <div class="card-title" id="regional-grid-title">Sub-Regional Harvest Completion (16 Agricultural Districts)</div>
+        <div class="card-sub">Current completion rate, WoW progression, and comparison to regional benchmarks</div>
+      </div>
+    </div>
+    <div class="regions-grid" id="regions-container">
+      <!-- Populated dynamically via JS -->
+    </div>
+  </section>
+
+  <!-- MULTI-YEAR DATA MATRIX TABLE -->
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <div class="card-title">Multi-Year Weekly Harvest Data Matrix</div>
+        <div class="card-sub">Exact percentage completed by calendar week for selected commodity</div>
+      </div>
+    </div>
+    <div class="table-container">
+      <table id="matrix-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Approx Date</th>
+            <th>2026</th>
+            <th>2025</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>2022</th>
+            <th>2021 (Drought)</th>
+            <th>5-Yr Avg</th>
+            <th>10-Yr Avg</th>
+            <th>2026 vs 5-Yr</th>
+          </tr>
+        </thead>
+        <tbody id="matrix-body">
+          <!-- Populated via JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="source-list">
+      <span><strong>Primary Data Sources:</strong></span>
+      <span>• Saskatchewan Ministry of Agriculture (Weekly Crop Reports)</span>
+      <span>• AFSC & Alberta Agriculture & Forestry</span>
+      <span>• Manitoba Agriculture (Seasonal Reports)</span>
+      <span>• Statistics Canada (Principal Field Crops Weights)</span>
+    </div>
+    <div style="text-align:right; font-family:var(--font-mono); font-size:11.5px; line-height:1.4;">
+      <div>Last Update: <strong>October 2, 2026</strong> (Data as of Sep 28–29 / W39)</div>
+      <div style="color:var(--accent);">Next Update: <strong>October 8–9, 2026</strong> (Weekly Cadence)</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Injected master dataset
+  const MASTER_DATA = {"metadata": {"generated_at": "2026-10-07T15:26:26.748919", "as_of_week": 39, "as_of_period": "September 22 to 29, 2026", "last_dataset_update": "October 2, 2026", "next_dataset_update": "October 8\u20139, 2026", "update_cadence": "Weekly during growing season (May to late October)", "coverage": "Western Canadian Prairies (Saskatchewan, Alberta, Manitoba)", "provincial_schedules": {"Saskatchewan": {"release_day": "Thursday", "last_release": "October 1, 2026", "next_release": "October 8, 2026", "reporting_period": "Week ending September 28, 2026"}, "Alberta": {"release_day": "Friday afternoon", "last_release": "October 2, 2026", "next_release": "October 9, 2026", "reporting_period": "Week ending September 29, 2026"}, "Manitoba": {"release_day": "Tuesday", "last_release": "September 29, 2026", "next_release": "October 6, 2026", "reporting_period": "Week ending September 27, 2026"}, "Prairies_Consolidation": {"release_day": "Friday (Weekly Close)", "last_release": "October 2, 2026", "next_release": "October 9, 2026"}}, "sources": ["Saskatchewan Ministry of Agriculture (Crop Report)", "AFSC & Alberta Agriculture and Irrigation (Alberta Crop Report)", "Manitoba Agriculture (Seasonal Reports)", "Statistics Canada (Production Weights - Table 32-10-0359-01)"]}, "prairies_summary": {"current_harvested_pct": 61.1, "last_week_pct": 40.5, "wow_delta": 20.6, "five_yr_avg_pct": 87.8, "vs_five_yr_avg": -26.7, "crops": {"Canola": {"prairie_combined": 40.5, "SK": 45, "AB": 31, "MB": 45}, "Spring Wheat": {"prairie_combined": 72.9, "SK": 65, "AB": 73, "MB": 93}, "Durum": {"prairie_combined": 79.4, "SK": 79, "AB": 81, "MB": 0}, "Barley": {"prairie_combined": 79.8, "SK": 79, "AB": 79, "MB": 89}, "Oats": {"prairie_combined": 63.5, "SK": 56, "AB": 52, "MB": 84}, "Field Peas": {"prairie_combined": 97.2, "SK": 97, "AB": 97, "MB": 100}, "Lentils": {"prairie_combined": 95.9, "SK": 96, "AB": 95, "MB": 0}}}, "weeks": [{"week": 31, "label": "Aug W1", "date_approx": "08-05"}, {"week": 32, "label": "Aug W2", "date_approx": "08-12"}, {"week": 33, "label": "Aug W3", "date_approx": "08-19"}, {"week": 34, "label": "Aug W4", "date_approx": "08-26"}, {"week": 35, "label": "Sep W1", "date_approx": "09-02"}, {"week": 36, "label": "Sep W2", "date_approx": "09-09"}, {"week": 37, "label": "Sep W3", "date_approx": "09-16"}, {"week": 38, "label": "Sep W4", "date_approx": "09-23"}, {"week": 39, "label": "Sep W5", "date_approx": "09-30"}, {"week": 40, "label": "Oct W1", "date_approx": "10-07"}, {"week": 41, "label": "Oct W2", "date_approx": "10-14"}, {"week": 42, "label": "Oct W3", "date_approx": "10-21"}, {"week": 43, "label": "Oct W4", "date_approx": "10-28"}, {"week": 44, "label": "Nov W1", "date_approx": "11-04"}], "multi_year_timeseries": {"2021": {"Canola": [1, 4, 11, 24, 42, 63, 79, 88, 94, 98, 99, 100, 100, 100], "Spring Wheat": [2, 8, 20, 39, 61, 78, 88, 94, 97, 99, 100, 100, 100, 100], "Durum": [4, 12, 29, 52, 74, 88, 95, 98, 99, 100, 100, 100, 100, 100], "Barley": [5, 14, 31, 55, 75, 89, 95, 98, 99, 100, 100, 100, 100, 100], "Oats": [3, 9, 22, 43, 66, 82, 91, 96, 98, 99, 100, 100, 100, 100], "Field Peas": [8, 26, 52, 78, 91, 97, 99, 100, 100, 100, 100, 100, 100, 100], "Lentils": [9, 29, 57, 81, 93, 98, 100, 100, 100, 100, 100, 100, 100, 100], "All Crops": [4, 12, 27, 48, 68, 82, 91, 95, 98, 99, 100, 100, 100, 100]}, "2022": {"Canola": [0, 0, 1, 3, 8, 17, 32, 52, 70, 83, 91, 96, 98, 100], "Spring Wheat": [0, 1, 3, 8, 18, 35, 54, 73, 86, 93, 97, 99, 100, 100], "Durum": [0, 2, 6, 14, 28, 48, 68, 84, 93, 97, 99, 100, 100, 100], "Barley": [1, 3, 8, 17, 33, 53, 72, 86, 93, 97, 99, 100, 100, 100], "Oats": [0, 1, 4, 10, 22, 41, 62, 79, 89, 95, 98, 100, 100, 100], "Field Peas": [2, 7, 19, 41, 67, 85, 94, 98, 99, 100, 100, 100, 100, 100], "Lentils": [3, 9, 24, 48, 73, 89, 96, 99, 100, 100, 100, 100, 100, 100], "All Crops": [1, 2, 6, 14, 29, 47, 65, 80, 89, 95, 98, 99, 100, 100]}, "2023": {"Canola": [0, 1, 3, 9, 21, 38, 56, 71, 82, 89, 94, 97, 99, 100], "Spring Wheat": [1, 3, 9, 22, 42, 63, 79, 89, 94, 97, 99, 100, 100, 100], "Durum": [2, 6, 17, 38, 63, 81, 91, 96, 98, 99, 100, 100, 100, 100], "Barley": [2, 7, 18, 39, 62, 80, 90, 96, 98, 99, 100, 100, 100, 100], "Oats": [1, 4, 11, 26, 48, 69, 83, 92, 96, 98, 99, 100, 100, 100], "Field Peas": [5, 17, 42, 69, 87, 95, 98, 100, 100, 100, 100, 100, 100, 100], "Lentils": [6, 21, 48, 74, 90, 97, 99, 100, 100, 100, 100, 100, 100, 100], "All Crops": [2, 5, 14, 30, 51, 69, 82, 90, 95, 98, 99, 100, 100, 100]}, "2024": {"Canola": [0, 1, 2, 6, 15, 30, 48, 64, 76, 85, 91, 95, 98, 100], "Spring Wheat": [1, 2, 7, 16, 34, 53, 71, 83, 91, 95, 98, 99, 100, 100], "Durum": [1, 4, 12, 27, 49, 70, 84, 92, 96, 98, 99, 100, 100, 100], "Barley": [1, 4, 13, 28, 50, 71, 85, 93, 97, 99, 100, 100, 100, 100], "Oats": [0, 2, 7, 18, 36, 56, 73, 85, 92, 96, 98, 100, 100, 100], "Field Peas": [4, 14, 35, 61, 81, 91, 96, 99, 100, 100, 100, 100, 100, 100], "Lentils": [5, 17, 40, 67, 85, 94, 98, 99, 100, 100, 100, 100, 100, 100], "All Crops": [1, 3, 10, 22, 42, 60, 75, 85, 92, 96, 98, 99, 100, 100]}, "2025": {"Canola": [0, 1, 2, 7, 17, 32, 49, 66, 78, 87, 93, 97, 99, 100], "Spring Wheat": [1, 3, 8, 18, 37, 57, 74, 85, 92, 96, 98, 100, 100, 100], "Durum": [2, 5, 14, 30, 53, 73, 86, 94, 97, 99, 100, 100, 100, 100], "Barley": [2, 5, 15, 31, 54, 74, 87, 94, 98, 99, 100, 100, 100, 100], "Oats": [1, 2, 8, 19, 39, 59, 76, 87, 93, 97, 99, 100, 100, 100], "Field Peas": [4, 15, 38, 65, 84, 93, 97, 99, 100, 100, 100, 100, 100, 100], "Lentils": [5, 18, 43, 70, 88, 95, 98, 100, 100, 100, 100, 100, 100, 100], "All Crops": [1, 4, 11, 24, 45, 63, 78, 87, 93, 97, 99, 100, 100, 100]}, "2026": {"Canola": [0, 1, 2, 4, 10, 19, 29, 40, null, null, null, null, null, null], "Spring Wheat": [0, 1, 4, 11, 23, 39, 52, 68, null, null, null, null, null, null], "Durum": [1, 3, 8, 19, 38, 56, 68, 79, null, null, null, null, null, null], "Barley": [1, 3, 9, 21, 40, 58, 69, 79, null, null, null, null, null, null], "Oats": [0, 1, 4, 10, 22, 38, 49, 55, null, null, null, null, null, null], "Field Peas": [3, 10, 27, 51, 74, 88, 94, 97, null, null, null, null, null, null], "Lentils": [4, 12, 32, 57, 79, 91, 95, 96, null, null, null, null, null, null], "All Crops": [1, 2, 6, 14, 28, 44, 55, 61, null, null, null, null, null, null]}, "5_Yr_Avg": {"Canola": [0, 1, 4, 10, 21, 38, 55, 70, 82, 90, 95, 98, 99, 100], "Spring Wheat": [1, 3, 9, 21, 38, 59, 75, 87, 93, 97, 99, 100, 100, 100], "Durum": [2, 6, 16, 32, 54, 74, 87, 95, 98, 99, 100, 100, 100, 100], "Barley": [2, 7, 17, 34, 55, 75, 88, 95, 98, 99, 100, 100, 100, 100], "Oats": [1, 3, 9, 21, 40, 60, 77, 88, 94, 98, 99, 100, 100, 100], "Field Peas": [5, 16, 38, 64, 84, 93, 97, 99, 100, 100, 100, 100, 100, 100], "Lentils": [5, 18, 42, 69, 87, 95, 98, 100, 100, 100, 100, 100, 100, 100], "All Crops": [2, 5, 14, 28, 47, 66, 80, 89, 95, 98, 99, 100, 100, 100]}, "10_Yr_Avg": {"Canola": [0, 1, 3, 8, 17, 32, 48, 63, 76, 85, 91, 95, 98, 100], "Spring Wheat": [1, 3, 7, 17, 34, 53, 69, 81, 89, 94, 97, 99, 100, 100], "Durum": [1, 4, 12, 26, 47, 67, 81, 90, 95, 98, 99, 100, 100, 100], "Barley": [1, 5, 13, 27, 48, 68, 82, 91, 95, 98, 99, 100, 100, 100], "Oats": [1, 2, 7, 17, 34, 53, 70, 82, 89, 94, 97, 99, 100, 100], "Field Peas": [4, 13, 33, 57, 78, 89, 95, 98, 99, 100, 100, 100, 100, 100], "Lentils": [4, 15, 36, 62, 81, 92, 96, 99, 100, 100, 100, 100, 100, 100], "All Crops": [1, 4, 11, 23, 41, 59, 73, 83, 90, 95, 97, 99, 100, 100]}}, "provinces": {"Saskatchewan": {"overall_harvested": 63, "last_week": 41, "wow_change": 22, "five_yr_avg": 91, "ten_yr_avg": 82, "crops": {"Canola": {"combined": 45, "swathed": 17, "standing": 13, "straight_ready": 25}, "Spring Wheat": {"combined": 65, "swathed": 4, "standing": 10, "straight_ready": 21}, "Durum": {"combined": 79, "swathed": 0, "standing": 7, "straight_ready": 14}, "Barley": {"combined": 79, "swathed": 5, "standing": 7, "straight_ready": 9}, "Oats": {"combined": 56, "swathed": 9, "standing": 18, "straight_ready": 16}, "Lentils": {"combined": 96, "swathed": 0, "standing": 1, "straight_ready": 2}, "Field Peas": {"combined": 97, "swathed": 0, "standing": 1, "straight_ready": 2}, "Mustard": {"combined": 84, "swathed": 0, "standing": 5, "straight_ready": 11}, "Soybeans": {"combined": 17, "swathed": 0, "standing": 65, "straight_ready": 18}, "Flax": {"combined": 24, "swathed": 1, "standing": 43, "straight_ready": 32}}, "regions": {"Southwest": {"harvested": 84, "last_week": 65, "five_yr_avg": 95}, "West-Central": {"harvested": 69, "last_week": 48, "five_yr_avg": 92}, "Southeast": {"harvested": 57, "last_week": 37, "five_yr_avg": 91}, "Northwest": {"harvested": 53, "last_week": 31, "five_yr_avg": 85}, "East-Central": {"harvested": 52, "last_week": 32, "five_yr_avg": 88}, "Northeast": {"harvested": 49, "last_week": 28, "five_yr_avg": 86}}}, "Alberta": {"overall_harvested": 60, "last_week": 39, "wow_change": 21, "five_yr_avg": 86, "ten_yr_avg": 68, "crops": {"Canola": {"combined": 31, "swathed": 36, "standing": 33, "straight_ready": 0}, "Spring Wheat": {"combined": 73, "swathed": 3, "standing": 24, "straight_ready": 0}, "Durum": {"combined": 81, "swathed": 1, "standing": 18, "straight_ready": 0}, "Barley": {"combined": 79, "swathed": 4, "standing": 17, "straight_ready": 0}, "Oats": {"combined": 52, "swathed": 8, "standing": 40, "straight_ready": 0}, "Field Peas": {"combined": 97, "swathed": 0, "standing": 3, "straight_ready": 0}, "Lentils": {"combined": 95, "swathed": 0, "standing": 5, "straight_ready": 0}}, "regions": {"South": {"harvested": 77, "last_week": 58, "five_yr_avg": 93}, "Central": {"harvested": 68, "last_week": 47, "five_yr_avg": 88}, "North East": {"harvested": 53, "last_week": 32, "five_yr_avg": 82}, "North West": {"harvested": 46, "last_week": 26, "five_yr_avg": 79}, "Peace": {"harvested": 45, "last_week": 24, "five_yr_avg": 78}}}, "Manitoba": {"overall_harvested": 58, "last_week": 42, "wow_change": 16, "five_yr_avg": 82, "ten_yr_avg": 75, "crops": {"Canola": {"combined": 45, "swathed": 28, "standing": 27, "straight_ready": 0}, "Spring Wheat": {"combined": 93, "swathed": 1, "standing": 6, "straight_ready": 0}, "Barley": {"combined": 89, "swathed": 2, "standing": 9, "straight_ready": 0}, "Oats": {"combined": 84, "swathed": 3, "standing": 13, "straight_ready": 0}, "Field Peas": {"combined": 100, "swathed": 0, "standing": 0, "straight_ready": 0}, "Soybeans": {"combined": 8, "swathed": 0, "standing": 92, "straight_ready": 0}, "Silage Corn": {"combined": 18, "swathed": 0, "standing": 82, "straight_ready": 0}}, "regions": {"Interlake": {"harvested": 72, "last_week": 55, "five_yr_avg": 85}, "Central": {"harvested": 69, "last_week": 52, "five_yr_avg": 86}, "Eastern": {"harvested": 67, "last_week": 50, "five_yr_avg": 84}, "Southwest": {"harvested": 48, "last_week": 33, "five_yr_avg": 79}, "Northwest": {"harvested": 46, "last_week": 31, "five_yr_avg": 77}}}}, "weights": {"Canola": {"Saskatchewan": 0.52, "Alberta": 0.32, "Manitoba": 0.16}, "Spring Wheat": {"Saskatchewan": 0.46, "Alberta": 0.36, "Manitoba": 0.18}, "Durum": {"Saskatchewan": 0.82, "Alberta": 0.18, "Manitoba": 0.0}, "Barley": {"Saskatchewan": 0.42, "Alberta": 0.5, "Manitoba": 0.08}, "Oats": {"Saskatchewan": 0.48, "Alberta": 0.22, "Manitoba": 0.3}, "Field Peas": {"Saskatchewan": 0.52, "Alberta": 0.41, "Manitoba": 0.07}, "Lentils": {"Saskatchewan": 0.9, "Alberta": 0.1, "Manitoba": 0.0}, "Soybeans": {"Saskatchewan": 0.02, "Alberta": 0.0, "Manitoba": 0.98}, "All Crops": {"Saskatchewan": 0.49, "Alberta": 0.34, "Manitoba": 0.17}}};
+
+  let currentScope = 'Prairies';
+  let currentCrop = 'Canola';
+  let harvestChart = null;
+  let stageChart = null;
+
+  function initDashboard() {
+    renderMainChart();
+    renderStageChart();
+    renderRegionalGrid();
+    renderMatrixTable();
+  }
+
+  function setScope(scope) {
+    currentScope = scope;
+    document.querySelectorAll('#scope-pills .pill').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.includes(scope));
+    });
+    updateDashboard();
+  }
+
+  function setCrop(crop) {
+    currentCrop = crop;
+    document.querySelectorAll('#crop-pills .pill').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.trim() === crop);
+    });
+    updateDashboard();
+  }
+
+  function updateDashboard() {
+    document.getElementById('chart-main-title').textContent = `${currentCrop} - Multi-Year Harvest Pace S-Curve (${currentScope})`;
+    document.getElementById('active-crop-indicator').textContent = `${currentCrop.toUpperCase()} | ${currentScope.toUpperCase()}`;
+    renderMainChart();
+    renderStageChart();
+    renderRegionalGrid();
+    renderMatrixTable();
+  }
+
+  function renderMainChart() {
+    const ctx = document.getElementById('harvestChart').getContext('2d');
+    const weeks = MASTER_DATA.weeks.map(w => w.label);
+    const ts = MASTER_DATA.multi_year_timeseries;
+
+    const datasets = [
+      {
+        label: '2026 (Current)',
+        data: ts['2026'][currentCrop] || [],
+        borderColor: '#38bdf8',
+        backgroundColor: '#38bdf8',
+        borderWidth: 3.5,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.25,
+        order: 1
+      },
+      {
+        label: '5-Yr Average',
+        data: ts['5_Yr_Avg'][currentCrop] || [],
+        borderColor: '#94a3b8',
+        borderWidth: 2,
+        borderDash: [5, 4],
+        pointRadius: 0,
+        tension: 0.25,
+        order: 2
+      },
+      {
+        label: '10-Yr Average',
+        data: ts['10_Yr_Avg'][currentCrop] || [],
+        borderColor: '#64748b',
+        borderWidth: 1.5,
+        borderDash: [2, 3],
+        pointRadius: 0,
+        tension: 0.25,
+        order: 3
+      },
+      {
+        label: '2025',
+        data: ts['2025'][currentCrop] || [],
+        borderColor: '#22c55e',
+        borderWidth: 1.8,
+        pointRadius: 2,
+        tension: 0.25,
+        order: 4
+      },
+      {
+        label: '2024',
+        data: ts['2024'][currentCrop] || [],
+        borderColor: '#f59e0b',
+        borderWidth: 1.8,
+        pointRadius: 2,
+        tension: 0.25,
+        order: 5
+      },
+      {
+        label: '2023',
+        data: ts['2023'][currentCrop] || [],
+        borderColor: '#a855f7',
+        borderWidth: 1.8,
+        pointRadius: 2,
+        tension: 0.25,
+        order: 6
+      },
+      {
+        label: '2022',
+        data: ts['2022'][currentCrop] || [],
+        borderColor: '#ec4899',
+        borderWidth: 1.8,
+        pointRadius: 2,
+        tension: 0.25,
+        order: 7
+      },
+      {
+        label: '2021 (Drought)',
+        data: ts['2021'][currentCrop] || [],
+        borderColor: '#ef4444',
+        borderWidth: 2,
+        borderDash: [3, 2],
+        pointRadius: 2,
+        tension: 0.25,
+        order: 8
+      }
+    ];
+
+    if (harvestChart) {
+      harvestChart.destroy();
+    }
+
+    const isLight = document.body.classList.contains('light-theme');
+    const gridColor = isLight ? '#e2e8f0' : '#334155';
+    const textColor = isLight ? '#475569' : '#94a3b8';
+
+    harvestChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: weeks,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: textColor,
+              boxWidth: 12,
+              font: { family: 'Inter', size: 11.5, weight: '600' }
+            }
+          },
+          tooltip: {
+            backgroundColor: isLight ? '#ffffff' : '#0f172a',
+            titleColor: isLight ? '#0f172a' : '#f8fafc',
+            bodyColor: isLight ? '#334155' : '#cbd5e1',
+            borderColor: isLight ? '#cbd5e1' : '#334155',
+            borderWidth: 1,
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                let val = context.parsed.y;
+                return `${context.dataset.label}: ${val !== null ? val + '%' : 'N/A'}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: gridColor, drawBorder: false },
+            ticks: { color: textColor, font: { family: 'Inter', size: 11 } }
+          },
+          y: {
+            min: 0,
+            max: 100,
+            grid: { color: gridColor, drawBorder: false },
+            ticks: {
+              color: textColor,
+              callback: value => value + '%',
+              font: { family: 'JetBrains Mono', size: 11 }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function renderStageChart() {
+    const ctx = document.getElementById('stageChart').getContext('2d');
+    
+    // Stage breakdown for current selection
+    let combined = 45;
+    let swathed = 17;
+    let straight_ready = 25;
+    let standing = 13;
+
+    if (currentCrop === 'Canola') {
+      combined = 40.5;
+      swathed = 24.0;
+      straight_ready = 15.0;
+      standing = 20.5;
+    } else if (currentCrop === 'Spring Wheat') {
+      combined = 72.9;
+      swathed = 3.0;
+      straight_ready = 11.0;
+      standing = 13.1;
+    } else if (currentCrop === 'Durum') {
+      combined = 79.4;
+      swathed = 0.5;
+      straight_ready = 9.0;
+      standing = 11.1;
+    } else if (currentCrop === 'Field Peas' || currentCrop === 'Lentils') {
+      combined = 96.6;
+      swathed = 0.0;
+      straight_ready = 1.4;
+      standing = 2.0;
+    } else {
+      combined = 61.1;
+      swathed = 12.0;
+      straight_ready = 11.0;
+      standing = 15.9;
+    }
+
+    if (stageChart) {
+      stageChart.destroy();
+    }
+
+    stageChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Combined', 'In Swath / Cut', 'Ready Straight Cut', 'Standing / Immature'],
+        datasets: [{
+          data: [combined, swathed, straight_ready, standing],
+          backgroundColor: ['#22c55e', '#f59e0b', '#38bdf8', '#64748b'],
+          borderWidth: 2,
+          borderColor: document.body.classList.contains('light-theme') ? '#ffffff' : '#1e293b'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              boxWidth: 12,
+              font: { size: 11 },
+              color: document.body.classList.contains('light-theme') ? '#475569' : '#cbd5e1'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function renderRegionalGrid() {
+    const container = document.getElementById('regions-container');
+    container.innerHTML = '';
+    
+    let regions = [];
+    if (currentScope === 'Prairies') {
+      // Display top key regions across all 3 provinces
+      const sk = MASTER_DATA.provinces.Saskatchewan.regions;
+      const ab = MASTER_DATA.provinces.Alberta.regions;
+      const mb = MASTER_DATA.provinces.Manitoba.regions;
+
+      for (let r in sk) regions.push({ name: `SK - ${r}`, ...sk[r] });
+      for (let r in ab) regions.push({ name: `AB - ${r}`, ...ab[r] });
+      for (let r in mb) regions.push({ name: `MB - ${r}`, ...mb[r] });
+    } else {
+      const pData = MASTER_DATA.provinces[currentScope].regions;
+      for (let r in pData) {
+        regions.push({ name: `${currentScope} - ${r}`, ...pData[r] });
+      }
+    }
+
+    // Sort by completion percentage descending
+    regions.sort((a, b) => b.harvested - a.harvested);
+
+    regions.forEach(reg => {
+      const wow = reg.harvested - reg.last_week;
+      const diff5yr = reg.harvested - reg.five_yr_avg;
+      const card = document.createElement('div');
+      card.className = 'region-row';
+      card.innerHTML = `
+        <div class="region-info">
+          <span class="region-name">${reg.name}</span>
+          <span class="region-stat">${reg.harvested}%</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width: ${reg.harvested}%;"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim); margin-top:2px;">
+          <span>WoW: <strong style="color:var(--green);">+${wow}%</strong></span>
+          <span>vs 5-Yr Avg: <strong style="color:${diff5yr >= 0 ? 'var(--green)' : 'var(--red)'};">${diff5yr >= 0 ? '+' : ''}${diff5yr}%</strong></span>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function renderMatrixTable() {
+    const tbody = document.getElementById('matrix-body');
+    tbody.innerHTML = '';
+    
+    const weeks = MASTER_DATA.weeks;
+    const ts = MASTER_DATA.multi_year_timeseries;
+
+    weeks.forEach((w, idx) => {
+      const v26 = ts['2026'][currentCrop] ? ts['2026'][currentCrop][idx] : null;
+      const v25 = ts['2025'][currentCrop] ? ts['2025'][currentCrop][idx] : null;
+      const v24 = ts['2024'][currentCrop] ? ts['2024'][currentCrop][idx] : null;
+      const v23 = ts['2023'][currentCrop] ? ts['2023'][currentCrop][idx] : null;
+      const v22 = ts['2022'][currentCrop] ? ts['2022'][currentCrop][idx] : null;
+      const v21 = ts['2021'][currentCrop] ? ts['2021'][currentCrop][idx] : null;
+      const v5avg = ts['5_Yr_Avg'][currentCrop] ? ts['5_Yr_Avg'][currentCrop][idx] : null;
+      const v10avg = ts['10_Yr_Avg'][currentCrop] ? ts['10_Yr_Avg'][currentCrop][idx] : null;
+
+      const isCurrentWeek = (idx === 7); // Week 38 / Late Sep is current report
+      const tr = document.createElement('tr');
+      if (isCurrentWeek) tr.className = 'current-week';
+
+      const diff = (v26 !== null && v5avg !== null) ? (v26 - v5avg) : null;
+      const diffStr = diff !== null ? `${diff >= 0 ? '+' : ''}${diff}%` : '—';
+      const diffColor = diff !== null ? (diff >= 0 ? 'var(--green)' : 'var(--red)') : 'var(--text-dim)';
+
+      tr.innerHTML = `
+        <td><strong>${w.label}</strong></td>
+        <td>${w.date_approx}</td>
+        <td><strong style="color:var(--accent);">${v26 !== null ? v26 + '%' : '—'}</strong></td>
+        <td>${v25 !== null ? v25 + '%' : '—'}</td>
+        <td>${v24 !== null ? v24 + '%' : '—'}</td>
+        <td>${v23 !== null ? v23 + '%' : '—'}</td>
+        <td>${v22 !== null ? v22 + '%' : '—'}</td>
+        <td>${v21 !== null ? v21 + '%' : '—'}</td>
+        <td>${v5avg !== null ? v5avg + '%' : '—'}</td>
+        <td>${v10avg !== null ? v10avg + '%' : '—'}</td>
+        <td style="color:${diffColor}; font-weight:700;">${diffStr}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+    updateDashboard();
+  }
+
+  function exportDataCSV() {
+    const weeks = MASTER_DATA.weeks;
+    const ts = MASTER_DATA.multi_year_timeseries;
+    let csv = "Week,ApproxDate,2026,2025,2024,2023,2022,2021_Drought,5YrAvg,10YrAvg\n";
+
+    weeks.forEach((w, idx) => {
+      const v26 = ts['2026'][currentCrop] ? ts['2026'][currentCrop][idx] : '';
+      const v25 = ts['2025'][currentCrop] ? ts['2025'][currentCrop][idx] : '';
+      const v24 = ts['2024'][currentCrop] ? ts['2024'][currentCrop][idx] : '';
+      const v23 = ts['2023'][currentCrop] ? ts['2023'][currentCrop][idx] : '';
+      const v22 = ts['2022'][currentCrop] ? ts['2022'][currentCrop][idx] : '';
+      const v21 = ts['2021'][currentCrop] ? ts['2021'][currentCrop][idx] : '';
+      const v5 = ts['5_Yr_Avg'][currentCrop] ? ts['5_Yr_Avg'][currentCrop][idx] : '';
+      const v10 = ts['10_Yr_Avg'][currentCrop] ? ts['10_Yr_Avg'][currentCrop][idx] : '';
+      csv += `${w.label},${w.date_approx},${v26},${v25},${v24},${v23},${v22},${v21},${v5},${v10}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Canada_Harvest_Pace_${currentCrop}_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+  }
+
+  function captureScreenshot() {
+    const el = document.getElementById('dashboard-capture');
+    html2canvas(el, { scale: 2 }).then(canvas => {
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = `Canada_Crop_Progress_Dashboard_${new Date().toISOString().slice(0,10)}.png`;
+      a.click();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initDashboard);
+</script>
+</body>
+</html>

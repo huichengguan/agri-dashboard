@@ -1241,5 +1241,197 @@ body {
     filter: brightness(0.96);
 }
 
+/* ============================================================= */
+/* 28-DAY TIMELINE SLIDER & GFS-STYLE NAVIGATION BAR            */
+/* ============================================================= */
+.timeline-nav-bar {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.timeline-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-right: 4px;
+}
+
+.time-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    padding: 5px 11px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.time-btn:hover {
+    background: #334155;
+    color: #ffffff;
+    border-color: #38bdf8;
+}
+
+.time-btn.active {
+    background: #0284c7;
+    border-color: #38bdf8;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(2, 132, 199, 0.4);
+}
+
+.timeline-slider-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin: 0 6px;
+}
+
+#daily-timeline-slider {
+    width: 100%;
+    cursor: pointer;
+    accent-color: #0284c7;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5px;
+    color: #94a3b8;
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+.timeline-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.window-badge {
+    background: #172554;
+    border: 1px solid #3b82f6;
+    color: #93c5fd;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.preset-select {
+    background: #1e293b;
+    border: 1px solid #475569;
+    color: #f8fafc;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.preset-select:focus {
+    border-color: #38bdf8;
+}
+
+.today-tag {
+    display: inline-block;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+}
+
+.fcst-tag {
+    display: inline-block;
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+}
+
+.fcst28-tag {
+    display: inline-block;
+    background: #6366f1;
+    color: #ffffff;
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+}
+
+.obs-tag {
+    display: inline-block;
+    background: #64748b;
+    color: #ffffff;
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+}
+
+.day-head {
+    text-align: center;
+    font-size: 9.5px;
+    padding: 2px 1px;
+    min-width: 32px;
+}
+
+.day-head .day-name {
+    font-size: 8px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.day-head .day-date {
+    font-weight: 700;
+    line-height: 1.1;
+    color: #0f172a;
+}
+
+.split-border-right {
+    border-right: 3px solid #0284c7 !important;
+}
+
+
 
 

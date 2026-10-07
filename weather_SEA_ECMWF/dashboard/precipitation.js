@@ -18,10 +18,63 @@ let matrixSelectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 let multiStateViewMode = "combined"; // 'combined' or 'breakdown'
 let matrixDensity = "compact"; // 'compact', 'dense', 'standard'
 let isStatePickerCollapsed = false;
-let currentDailySubView = "all"; // 'all' (28 days: 14D Obs + 14D Fcst), 'obs' (past 14 days), 'fcst' (next 14 days)
+let currentDailySubView = "all"; // 'all' (28-day sliding window), 'fcst28' (next 28 days forward forecast), 'obs' (past 14 days), 'fcst' (next 14 days)
+let dailyTimelineStartIndex = null;
+
+function shiftDailyWindowTo(idx) {
+    if (!currentData) return;
+    const obsDates = currentData.recent_daily_dates || [];
+    const fcDates = currentData.forecast_daily_dates || [];
+    const allDates = [...obsDates, ...fcDates];
+    const totalDays = allDates.length;
+    if (totalDays < 28) return;
+    
+    idx = parseInt(idx, 10);
+    const maxIdx = totalDays - 28;
+    if (isNaN(idx)) idx = Math.max(0, obsDates.length - 14);
+    idx = Math.max(0, Math.min(maxIdx, idx));
+    dailyTimelineStartIndex = idx;
+    
+    if (currentMode === "daily") {
+        renderDailyTable(getFilteredLocations());
+    }
+}
+
+function shiftDailyWindowDays(days) {
+    if (!currentData) return;
+    const obsDates = currentData.recent_daily_dates || [];
+    const fcDates = currentData.forecast_daily_dates || [];
+    const allDates = [...obsDates, ...fcDates];
+    const totalDays = allDates.length;
+    const maxIdx = totalDays - 28;
+    
+    if (dailyTimelineStartIndex === null) {
+        dailyTimelineStartIndex = Math.max(0, obsDates.length - 14);
+    }
+    shiftDailyWindowTo(dailyTimelineStartIndex + days);
+}
+
+function onDailySliderChange(val) {
+    shiftDailyWindowTo(val);
+}
+
+function onDailyPresetSelect(val) {
+    shiftDailyWindowTo(val);
+}
 
 function setDailySubView(subView) {
     currentDailySubView = subView;
+    if (!currentData) return;
+    const obsDates = currentData.recent_daily_dates || [];
+    const fcDates = currentData.forecast_daily_dates || [];
+    const allDates = [...obsDates, ...fcDates];
+    
+    if (subView === "fcst28") {
+        dailyTimelineStartIndex = Math.max(0, allDates.length - 28);
+    } else if (subView === "all") {
+        dailyTimelineStartIndex = Math.max(0, obsDates.length - 14);
+    }
+    
     if (currentMode === "daily") {
         renderTable();
     }
@@ -531,85 +584,232 @@ function render6MonthForecastTable(locations) {
 }
 
 // -------------------------------------------------------------
-// 2. DAILY MATRIX VIEW (OBSERVED 14 DAYS + 14-DAY FORECAST)
+// 2. DAILY MATRIX VIEW (28-DAY TIMELINE SLIDER + EXTENDED ECMWF FORECAST)
 // -------------------------------------------------------------
 function renderDailyTable(locations) {
-    const dates = currentData.recent_daily_dates || [];
-    const last14ObsDates = dates.slice(-14);
-    const forecastDates = currentData.forecast_daily_dates || [];
-    const hasForecast = forecastDates.length > 0;
-    const subView = hasForecast ? currentDailySubView : 'obs';
+    const obsDates = (currentData && currentData.recent_daily_dates) || [];
+    const fcDates = (currentData && currentData.forecast_daily_dates) || [];
+    const allDates = [...obsDates, ...fcDates];
+    const totalDays = allDates.length;
+    
+    if (totalDays === 0) {
+        document.getElementById("table-container").innerHTML = `<div style="padding:20px; text-align:center;">No daily rainfall data available.</div>`;
+        return;
+    }
 
-    const obsRangeStr = last14ObsDates.length > 0 
-        ? `${formatShortDate(last14ObsDates[0])} – ${formatShortDate(last14ObsDates[last14ObsDates.length - 1])} 2026` 
-        : "Past 14 Days";
-    const fcstRangeStr = forecastDates.length > 0 
-        ? `${formatShortDate(forecastDates[0])} – ${formatShortDate(forecastDates[forecastDates.length - 1])} 2026` 
-        : "Next 14 Days";
+    const todayDate = obsDates.length > 0 ? obsDates[obsDates.length - 1] : "";
+    const todayIdx = allDates.indexOf(todayDate);
+    const forecastStartDate = fcDates.length > 0 ? fcDates[0] : "";
+    
+    const defaultLiveIndex = Math.max(0, obsDates.length - 14);
+    const maxForwardIndex = Math.max(0, totalDays - 28);
 
-    // Build Toolbar
-    let toolbarHtml = `
-        <div class="daily-matrix-toolbar" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; background:linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); border:1px solid #e2e8f0; border-radius:8px; padding:8px 14px; box-shadow:0 1px 2px rgba(0,0,0,0.02);">
-            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                <span style="font-size:11.5px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.5px;">Matrix Scope:</span>
-                <button class="pill-btn ${subView === 'all' ? 'active' : ''}" onclick="setDailySubView('all')" style="${subView === 'all' ? 'background:#0f172a; color:#fff; font-weight:700; border-color:#0f172a;' : 'background:#fff; color:#334155; border-color:#cbd5e1; font-weight:600;'}">
-                    📅 All 28 Days (14D Obs + 14D Forecast)
-                </button>
-                <button class="pill-btn ${subView === 'obs' ? 'active' : ''}" onclick="setDailySubView('obs')" style="${subView === 'obs' ? 'background:#0f172a; color:#fff; font-weight:700; border-color:#0f172a;' : 'background:#fff; color:#334155; border-color:#cbd5e1; font-weight:600;'}">
-                    🌧️ Observed (Past 14 Days)
-                </button>
-                <button class="pill-btn ${subView === 'fcst' ? 'active' : ''}" onclick="setDailySubView('fcst')" style="${subView === 'fcst' ? 'background:#1e1b4b; color:#38bdf8; font-weight:700; border-color:#6366f1;' : 'background:#fff; color:#334155; border-color:#cbd5e1; font-weight:600;'}">
-                    🔮 Forecast (Next 14 Days ECMWF)
-                </button>
+    if (dailyTimelineStartIndex === null) {
+        dailyTimelineStartIndex = defaultLiveIndex;
+    }
+    dailyTimelineStartIndex = Math.max(0, Math.min(maxForwardIndex, dailyTimelineStartIndex));
+
+    const subView = currentDailySubView;
+    const isTimelineView = (subView === "all" || subView === "fcst28" || subView === "slider");
+
+    // Compute active 28 days for the sliding window
+    const activeDates = allDates.slice(dailyTimelineStartIndex, dailyTimelineStartIndex + 28);
+    const dateStart = activeDates[0] || "";
+    const dateMid = activeDates[13] || "";
+    const dateSeg2Start = activeDates[14] || "";
+    const dateEnd = activeDates[27] || "";
+
+    const windowStartFormatted = formatShortDate(dateStart);
+    const windowEndFormatted = formatShortDate(dateEnd);
+
+    const isCurrentLive = (dailyTimelineStartIndex === defaultLiveIndex);
+    const isFullForward = (dailyTimelineStartIndex === maxForwardIndex);
+
+    // Determine window description tag
+    let windowTypeLabel = "28 Days • Observed + ECMWF Forecast";
+    if (dateStart >= forecastStartDate) {
+        windowTypeLabel = "28 Days • Forward ECMWF Forecast (Days 1–28)";
+    } else if (dateEnd < forecastStartDate) {
+        windowTypeLabel = "28 Days • Observed Ag-Reanalysis";
+    }
+
+    // Presets list for dropdown (matching GFS North America Dashboard standard)
+    const presets = [
+        { label: `🔮 Next 28 Days Forward Forecast (${formatShortDate(fcDates[0])} – ${formatShortDate(fcDates[27] || fcDates[fcDates.length - 1])})`, value: maxForwardIndex },
+        { label: `⚡ Current Live Window (14D Obs + 14D ECMWF) (${formatShortDate(allDates[defaultLiveIndex])} – ${formatShortDate(allDates[defaultLiveIndex + 27])})`, value: defaultLiveIndex },
+        { label: `🌧️ Trailing 28 Days Observed Actuals (${formatShortDate(allDates[Math.max(0, obsDates.length - 28)])} – ${formatShortDate(todayDate)})`, value: Math.max(0, obsDates.length - 28) }
+    ];
+    if (obsDates.length >= 40) {
+        presets.push({ label: `📅 September 2026 Window (Aug 27 – Sep 23)`, value: Math.max(0, obsDates.length - 42) });
+    }
+    if (obsDates.length >= 70) {
+        presets.push({ label: `📅 August 2026 Window (Jul 28 – Aug 24)`, value: Math.max(0, obsDates.length - 72) });
+    }
+    if (obsDates.length >= 100) {
+        presets.push({ label: `📅 July 2026 Window (Jun 28 – Jul 25)`, value: Math.max(0, obsDates.length - 102) });
+    }
+    presets.push({ label: `⏮ Season Start (June 2026)`, value: 0 });
+
+    // 1. Interactive Season Timeline Navigation Bar (Reference: GFS North America Dashboard)
+    let navBarHtml = `
+        <div class="timeline-nav-bar">
+            <div class="timeline-nav-left">
+                <span class="timeline-title">⏱️ Season Timeline:</span>
+                <button class="time-btn" onclick="shiftDailyWindowTo(0)" title="Jump to Season Onset (June 2026)">⏮ Jun (Onset)</button>
+                <button class="time-btn" onclick="shiftDailyWindowDays(-14)" title="Step back 14 days">◀◀ -14D</button>
+                <button class="time-btn" onclick="shiftDailyWindowDays(-7)" title="Step back 7 days">◀ -7D</button>
+                
+                <div class="timeline-slider-wrap">
+                    <input type="range" id="daily-timeline-slider" min="0" max="${maxForwardIndex}" step="1" value="${dailyTimelineStartIndex}" oninput="onDailySliderChange(this.value)">
+                    <div class="slider-ticks">
+                        <span>Jun</span>
+                        <span>Jul</span>
+                        <span>Aug</span>
+                        <span>Sep</span>
+                        <span style="color:#38bdf8; font-weight:800;">Oct (Today)</span>
+                        <span style="color:#a78bfa; font-weight:800;">Nov (28D Fcst)</span>
+                    </div>
+                </div>
+                
+                <button class="time-btn" onclick="shiftDailyWindowDays(7)" title="Step forward 7 days">+7D ▶</button>
+                <button class="time-btn" onclick="shiftDailyWindowDays(14)" title="Step forward 14 days">+14D ▶▶</button>
+                <button class="time-btn ${isCurrentLive ? 'active' : ''}" onclick="shiftDailyWindowTo(${defaultLiveIndex})" title="Jump to current window (14D Obs + 14D ECMWF Forecast)">⚡ Current (14D+14D)</button>
+                <button class="time-btn ${isFullForward ? 'active' : ''}" onclick="shiftDailyWindowTo(${maxForwardIndex})" style="${isFullForward ? 'background:#6366f1; border-color:#818cf8; color:#fff;' : 'background:#1e1b4b; border-color:#4338ca; color:#a5b4fc;'}" title="Jump forward up to full 28-day ECMWF forecast">🔮 Forward 28D Fcst</button>
             </div>
-            <div style="display:flex; align-items:center; gap:10px; font-size:11.5px; flex-wrap:wrap;">
-                <span style="background:#f1f5f9; padding:4px 8px; border-radius:4px; border:1px solid #e2e8f0; color:#334155; font-weight:600;">
-                    Observed: <strong>${obsRangeStr}</strong>
+            
+            <div class="timeline-nav-right">
+                <span class="window-badge" id="active-window-badge">
+                    ${windowStartFormatted} – ${windowEndFormatted}, 2026 (${windowTypeLabel})
                 </span>
-                ${hasForecast ? `
-                <span style="background:#eff6ff; padding:4px 8px; border-radius:4px; border:1px solid #bfdbfe; color:#1d4ed8; font-weight:600;">
-                    Forecast: <strong>${fcstRangeStr} (ECMWF)</strong>
-                </span>` : ''}
+                <select class="preset-select" id="daily-preset-select" onchange="onDailyPresetSelect(this.value)">
+    `;
+    presets.forEach(p => {
+        const isSel = (p.value === dailyTimelineStartIndex);
+        navBarHtml += `<option value="${p.value}" ${isSel ? 'selected' : ''}>${p.label}</option>`;
+    });
+    navBarHtml += `
+                </select>
             </div>
         </div>
     `;
 
-    // Build Table Header
+    // 2. Sub-scope Pills Toolbar
+    let scopeToolbarHtml = `
+        <div class="daily-matrix-toolbar" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:8px 14px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span style="font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.5px;">Matrix View:</span>
+                <button class="pill-btn ${isTimelineView && !isFullForward ? 'active' : ''}" onclick="setDailySubView('all')" style="${isTimelineView && !isFullForward ? 'background:#0f172a; color:#fff; font-weight:700; border-color:#0f172a;' : 'background:#fff; color:#334155; border-color:#cbd5e1; font-weight:600;'}">
+                    📅 28-Day Sliding Window
+                </button>
+                <button class="pill-btn ${subView === 'fcst28' || (isTimelineView && isFullForward) ? 'active' : ''}" onclick="setDailySubView('fcst28')" style="${subView === 'fcst28' || (isTimelineView && isFullForward) ? 'background:#4338ca; color:#fff; font-weight:700; border-color:#4338ca;' : 'background:#f5f3ff; color:#6366f1; border-color:#c4b5fd; font-weight:600;'}">
+                    🔮 Full 28-Day Forward Forecast (Next 4 Weeks)
+                </button>
+                <button class="pill-btn ${subView === 'obs' ? 'active' : ''}" onclick="setDailySubView('obs')" style="${subView === 'obs' ? 'background:#0f172a; color:#fff; font-weight:700; border-color:#0f172a;' : 'background:#fff; color:#334155; border-color:#cbd5e1; font-weight:600;'}">
+                    🌧️ Observed (Past 14 Days)
+                </button>
+                <button class="pill-btn ${subView === 'fcst' ? 'active' : ''}" onclick="setDailySubView('fcst')" style="${subView === 'fcst' ? 'background:#0284c7; color:#fff; font-weight:700; border-color:#0284c7;' : 'background:#fff; color:#334155; border-color:#cbd5e1; font-weight:600;'}">
+                    ⚡ Forecast (Next 14 Days ECMWF)
+                </button>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; font-size:11px; flex-wrap:wrap;">
+                <span style="background:#f1f5f9; padding:3px 8px; border-radius:4px; border:1px solid #e2e8f0; color:#334155; font-weight:600;">
+                    Observed: <strong>${formatShortDate(obsDates[0])} – ${formatShortDate(todayDate)}</strong>
+                </span>
+                <span style="background:#eff6ff; padding:3px 8px; border-radius:4px; border:1px solid #bfdbfe; color:#1d4ed8; font-weight:600;">
+                    Forecast Horizon: <strong>${formatShortDate(fcDates[0])} – ${formatShortDate(fcDates[fcDates.length - 1])} (${fcDates.length} Days)</strong>
+                </span>
+            </div>
+        </div>
+    `;
+
+    const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    // 3. Build Table Headers
     let thead = "";
-    if (subView === "all") {
+    if (isTimelineView) {
+        const seg1Title = (dateMid < forecastStartDate)
+            ? `🌧️ 1ST 14 DAYS (OBSERVED ECMWF IFS/ERA5) • ${formatShortDate(dateStart)} – ${formatShortDate(dateMid)}`
+            : `🔮 1ST 14 DAYS (ECMWF OPERATIONAL FORECAST) • ${formatShortDate(dateStart)} – ${formatShortDate(dateMid)}`;
+        
+        const seg2Title = (dateSeg2Start >= forecastStartDate)
+            ? ((dateSeg2Start > (fcDates[13] || "")) ? `🔮 2ND 14 DAYS (ECMWF 51-MEMBER ENSEMBLE FORECAST) • ${formatShortDate(dateSeg2Start)} – ${formatShortDate(dateEnd)}` : `🔮 2ND 14 DAYS (ECMWF OPERATIONAL FORECAST) • ${formatShortDate(dateSeg2Start)} – ${formatShortDate(dateEnd)}`)
+            : `🌧️ 2ND 14 DAYS (OBSERVED ECMWF IFS/ERA5) • ${formatShortDate(dateSeg2Start)} – ${formatShortDate(dateEnd)}`;
+
         thead = `
             <tr>
                 <th rowspan="2" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; min-width:65px;">Country</th>
                 <th rowspan="2" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; min-width:95px;">Region / Island</th>
                 <th rowspan="2" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; min-width:120px; border-right:2px solid #cbd5e1;">State / Province</th>
-                <th colspan="${last14ObsDates.length + 1}" style="text-align:center; background:#0f172a; color:#f8fafc; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:5px 3px;">
-                    🌧️ PAST 14 DAYS (OBSERVED ECMWF IFS/ERA5)
+                <th colspan="15" style="text-align:center; background:#0f172a; color:#f8fafc; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:6px 4px;">
+                    ${seg1Title}
                 </th>
-                <th colspan="${forecastDates.length + 1}" style="text-align:center; background:#1e1b4b; color:#38bdf8; font-size:10.5px; font-weight:700; letter-spacing:0.5px; padding:5px 3px;">
-                    🔮 NEXT 14 DAYS (ECMWF OPERATIONAL FORECAST)
+                <th colspan="15" style="text-align:center; background:#1e1b4b; color:#38bdf8; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:6px 4px;">
+                    ${seg2Title}
+                </th>
+                <th colspan="2" style="text-align:center; background:#064e3b; color:#a7f3d0; font-size:10.5px; font-weight:700; letter-spacing:0.5px; padding:6px 4px;">
+                    📊 28D WINDOW TOTAL
                 </th>
             </tr>
             <tr>
         `;
-        last14ObsDates.forEach(d => {
-            const parts = d.split("-");
-            thead += `<th style="text-align:center; font-size:9.5px; padding:2px 1px; min-width:33px;" title="Observed: ${d}">${parts[2]}/${parts[1]}</th>`;
-        });
-        thead += `<th style="text-align:center; font-size:10px; font-weight:800; background:#f1f5f9; color:#0f172a; border-right:3px solid #0284c7; min-width:48px;" title="14-Day Observed Daily Average (mm/day)">14D Obs Avg</th>`;
 
-        forecastDates.forEach(d => {
+        // 1st 14 days headers
+        activeDates.slice(0, 14).forEach((d, i) => {
             const parts = d.split("-");
+            const dObj = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+            const dayOfWeek = dayNames[dObj.getDay()];
+            let tag = '<span class="obs-tag">OBS</span>';
+            let colBg = '';
+            if (d === todayDate) {
+                tag = '<span class="today-tag">TODAY</span>';
+                colBg = 'background:#f0fdf4;';
+            } else if (d >= forecastStartDate) {
+                tag = (d <= (fcDates[13] || "")) ? '<span class="fcst-tag">HRES</span>' : '<span class="fcst28-tag">ENS 51</span>';
+                colBg = 'background:#f0f9ff;';
+            }
             thead += `
-                <th style="text-align:center; font-size:9.5px; padding:2px 1px; min-width:33px; background:#f0fdf4;" title="ECMWF Forecast: ${d}">
-                    <div style="font-weight:700; color:#0f172a; line-height:1.1;">${parts[2]}/${parts[1]}</div>
-                    <div style="font-size:7.5px; color:#0284c7; font-weight:800; line-height:1; letter-spacing:0.2px;">FCST</div>
+                <th class="day-head" style="${colBg}" title="${d} (${d < forecastStartDate ? 'Observed' : 'Forecast'})">
+                    <div class="day-name">${dayOfWeek}</div>
+                    <div class="day-date">${parts[2]}/${parts[1]}</div>
+                    ${tag}
                 </th>
             `;
         });
-        thead += `<th style="text-align:center; font-size:10px; font-weight:800; background:#e0f2fe; color:#0369a1; min-width:48px;" title="14-Day ECMWF Forecast Daily Average (mm/day)">14D Fcst Avg</th>`;
-        thead += `</tr>`;
+        thead += `<th style="text-align:center; font-size:10px; font-weight:800; background:#f1f5f9; color:#0f172a; border-right:3px solid #0284c7; min-width:50px;" title="1st 14-Day Average (mm/day)">1st 14D Avg</th>`;
+
+        // 2nd 14 days headers
+        activeDates.slice(14, 28).forEach((d, i) => {
+            const parts = d.split("-");
+            const dObj = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+            const dayOfWeek = dayNames[dObj.getDay()];
+            let tag = '<span class="obs-tag">OBS</span>';
+            let colBg = '';
+            if (d === todayDate) {
+                tag = '<span class="today-tag">TODAY</span>';
+                colBg = 'background:#f0fdf4;';
+            } else if (d >= forecastStartDate) {
+                tag = (d <= (fcDates[13] || "")) ? '<span class="fcst-tag">HRES</span>' : '<span class="fcst28-tag">ENS 51</span>';
+                colBg = (d <= (fcDates[13] || "")) ? 'background:#f0f9ff;' : 'background:#faf5ff;';
+            }
+            thead += `
+                <th class="day-head" style="${colBg}" title="${d} (${d < forecastStartDate ? 'Observed' : 'Forecast'})">
+                    <div class="day-name">${dayOfWeek}</div>
+                    <div class="day-date">${parts[2]}/${parts[1]}</div>
+                    ${tag}
+                </th>
+            `;
+        });
+        thead += `<th style="text-align:center; font-size:10px; font-weight:800; background:#e0f2fe; color:#0369a1; border-right:3px solid #0284c7; min-width:50px;" title="2nd 14-Day Average (mm/day)">2nd 14D Avg</th>`;
+
+        // 28D Full Summary Headers
+        thead += `
+            <th style="text-align:center; font-size:10px; font-weight:800; background:#ecfdf5; color:#047857; min-width:52px;" title="28-Day Window Daily Average (mm/day)">28D Avg</th>
+            <th style="text-align:center; font-size:10px; font-weight:800; background:#d1fae5; color:#065f46; min-width:56px;" title="28-Day Window Cumulative Total (mm)">28D Total</th>
+            </tr>
+        `;
 
     } else if (subView === "obs") {
+        const last14ObsDates = obsDates.slice(-14);
         thead = `
             <tr>
                 <th style="min-width:80px;">Country</th>
@@ -626,13 +826,14 @@ function renderDailyTable(locations) {
         </tr>`;
 
     } else if (subView === "fcst") {
+        const first14FcDates = fcDates.slice(0, 14);
         thead = `
             <tr>
                 <th style="min-width:80px;">Country</th>
                 <th style="min-width:105px;">Region / Island</th>
                 <th style="min-width:140px;">State / Province</th>
         `;
-        forecastDates.forEach(d => {
+        first14FcDates.forEach(d => {
             const parts = d.split("-");
             thead += `
                 <th style="text-align:center; font-size:10px; padding:4px 3px; min-width:42px; background:#f0fdf4;" title="ECMWF Forecast: ${d}">
@@ -649,7 +850,7 @@ function renderDailyTable(locations) {
         </tr>`;
     }
 
-    // Build Table Body
+    // 4. Build Table Body
     let tbody = "";
     locations.forEach(loc => {
         const lid = loc.id;
@@ -661,22 +862,24 @@ function renderDailyTable(locations) {
             <tr>
                 <td><strong>${loc.country}</strong></td>
                 <td><span class="group-badge">${loc.major_group}</span></td>
-                <td class="col-state" onclick="viewStateInMatrix('${lid}')" title="Click to view full 2010-2026 Year x Month Matrix" style="${subView === 'all' ? 'border-right:2px solid #cbd5e1;' : ''}">${loc.name}</td>
+                <td class="col-state" onclick="viewStateInMatrix('${lid}')" title="Click to view full 2010-2026 Year x Month Matrix" style="${isTimelineView ? 'border-right:2px solid #cbd5e1;' : ''}">${loc.name}</td>
         `;
 
-        if (subView === "all") {
-            // 1. Observed cells
-            let sumObs = 0;
-            let countObs = 0;
-            last14ObsDates.forEach(d => {
-                const val = dailyDict[d];
+        if (isTimelineView) {
+            // Segment 1 (Days 0..13)
+            let sumSeg1 = 0;
+            let countSeg1 = 0;
+            activeDates.slice(0, 14).forEach(d => {
+                const val = (d < forecastStartDate) ? dailyDict[d] : forecastDict[d];
                 if (val !== undefined && val !== null) {
-                    sumObs += val;
-                    countObs++;
+                    sumSeg1 += val;
+                    countSeg1++;
                     const c = getRainColor(val);
+                    const tip = (d < forecastStartDate) ? `Observed ${d}: ${val.toFixed(1)} mm` : `🔮 Forecast ${d}: ${val.toFixed(1)} mm`;
+                    const badgeClass = (d >= forecastStartDate) ? "rain-badge forecast-badge" : "rain-badge";
                     rowHtml += `
                         <td class="rain-cell">
-                            <span class="rain-badge" style="background-color: ${c.bg}; color: ${c.text};" title="Observed ${d}: ${val.toFixed(1)} mm">
+                            <span class="${badgeClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
                                 ${val.toFixed(1)}
                             </span>
                         </td>
@@ -686,14 +889,13 @@ function renderDailyTable(locations) {
                 }
             });
 
-            // 2. Observed Avg
-            const avgObs = countObs > 0 ? (sumObs / countObs) : null;
-            if (avgObs !== null) {
-                const ac = getRainColor(avgObs);
+            const avgSeg1 = countSeg1 > 0 ? (sumSeg1 / countSeg1) : null;
+            if (avgSeg1 !== null) {
+                const ac1 = getRainColor(avgSeg1);
                 rowHtml += `
                     <td class="rain-cell" style="border-right:3px solid #0284c7; background:#f8fafc;">
-                        <span class="rain-badge" style="background-color: ${ac.bg}; color: ${ac.text}; font-weight:800;" title="14D Observed Total: ${sumObs.toFixed(1)} mm | Avg: ${avgObs.toFixed(1)} mm/day">
-                            ${avgObs.toFixed(1)}
+                        <span class="rain-badge" style="background-color: ${ac1.bg}; color: ${ac1.text}; font-weight:800;" title="1st 14D Total: ${sumSeg1.toFixed(1)} mm | Avg: ${avgSeg1.toFixed(1)} mm/day">
+                            ${avgSeg1.toFixed(1)}
                         </span>
                     </td>
                 `;
@@ -701,19 +903,22 @@ function renderDailyTable(locations) {
                 rowHtml += `<td class="rain-cell" style="border-right:3px solid #0284c7;">-</td>`;
             }
 
-            // 3. Forecast cells
-            let sumFcst = 0;
-            let countFcst = 0;
-            forecastDates.forEach(d => {
-                const fval = forecastDict[d];
-                if (fval !== undefined && fval !== null) {
-                    sumFcst += fval;
-                    countFcst++;
-                    const c = getRainColor(fval);
+            // Segment 2 (Days 14..27)
+            let sumSeg2 = 0;
+            let countSeg2 = 0;
+            activeDates.slice(14, 28).forEach(d => {
+                const val = (d < forecastStartDate) ? dailyDict[d] : forecastDict[d];
+                if (val !== undefined && val !== null) {
+                    sumSeg2 += val;
+                    countSeg2++;
+                    const c = getRainColor(val);
+                    const isEns = (d > (fcDates[13] || ""));
+                    const tip = (d < forecastStartDate) ? `Observed ${d}: ${val.toFixed(1)} mm` : (isEns ? `🔮 SEAS5 Ensemble ${d}: ${val.toFixed(1)} mm` : `🔮 HRES Forecast ${d}: ${val.toFixed(1)} mm`);
+                    const badgeClass = (d >= forecastStartDate) ? "rain-badge forecast-badge" : "rain-badge";
                     rowHtml += `
                         <td class="rain-cell">
-                            <span class="rain-badge forecast-badge" style="background-color: ${c.bg}; color: ${c.text};" title="🔮 Forecast ${d}: ${fval.toFixed(1)} mm">
-                                ${fval.toFixed(1)}
+                            <span class="${badgeClass}" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
+                                ${val.toFixed(1)}
                             </span>
                         </td>
                     `;
@@ -722,23 +927,42 @@ function renderDailyTable(locations) {
                 }
             });
 
-            // 4. Forecast Avg
-            const avgFcst = fcstSummary ? fcstSummary.avg_mm_day : (countFcst > 0 ? (sumFcst / countFcst) : null);
-            const totFcst = fcstSummary ? fcstSummary.total_mm : sumFcst;
-            if (avgFcst !== null) {
-                const afc = getRainColor(avgFcst);
+            const avgSeg2 = countSeg2 > 0 ? (sumSeg2 / countSeg2) : null;
+            if (avgSeg2 !== null) {
+                const ac2 = getRainColor(avgSeg2);
                 rowHtml += `
-                    <td class="rain-cell" style="background:#eff6ff;">
-                        <span class="rain-badge" style="background-color: ${afc.bg}; color: ${afc.text}; font-weight:800;" title="14D Forecast Total: ${totFcst.toFixed(1)} mm | Avg: ${avgFcst.toFixed(1)} mm/day">
-                            ${avgFcst.toFixed(1)}
+                    <td class="rain-cell" style="border-right:3px solid #0284c7; background:#eff6ff;">
+                        <span class="rain-badge" style="background-color: ${ac2.bg}; color: ${ac2.text}; font-weight:800;" title="2nd 14D Total: ${sumSeg2.toFixed(1)} mm | Avg: ${avgSeg2.toFixed(1)} mm/day">
+                            ${avgSeg2.toFixed(1)}
                         </span>
                     </td>
                 `;
             } else {
-                rowHtml += `<td class="rain-cell">-</td>`;
+                rowHtml += `<td class="rain-cell" style="border-right:3px solid #0284c7;">-</td>`;
+            }
+
+            // Full 28D Window Summary
+            const tot28 = sumSeg1 + sumSeg2;
+            const count28 = countSeg1 + countSeg2;
+            const avg28 = count28 > 0 ? (tot28 / count28) : null;
+            if (avg28 !== null) {
+                const acTot = getRainColor(avg28);
+                rowHtml += `
+                    <td class="rain-cell" style="background:#ecfdf5;">
+                        <span class="rain-badge" style="background-color: ${acTot.bg}; color: ${acTot.text}; font-weight:900;" title="28-Day Window Avg: ${avg28.toFixed(1)} mm/day">
+                            ${avg28.toFixed(1)}
+                        </span>
+                    </td>
+                    <td class="rain-cell" style="background:#f0fdf4; font-weight:800; color:#065f46; font-size:11.5px;" title="28-Day Window Cumulative Total: ${tot28.toFixed(1)} mm">
+                        ${Math.round(tot28)}mm
+                    </td>
+                `;
+            } else {
+                rowHtml += `<td class="rain-cell">-</td><td class="rain-cell">-</td>`;
             }
 
         } else if (subView === "obs") {
+            const last14ObsDates = obsDates.slice(-14);
             let sumObs = 0;
             let countObs = 0;
             last14ObsDates.forEach(d => {
@@ -774,9 +998,10 @@ function renderDailyTable(locations) {
             }
 
         } else if (subView === "fcst") {
+            const first14FcDates = fcDates.slice(0, 14);
             let sumFcst = 0;
             let countFcst = 0;
-            forecastDates.forEach(d => {
+            first14FcDates.forEach(d => {
                 const fval = forecastDict[d];
                 if (fval !== undefined && fval !== null) {
                     sumFcst += fval;
@@ -826,7 +1051,8 @@ function renderDailyTable(locations) {
 
     document.getElementById("table-container").innerHTML = `
         <div style="padding: 10px 14px 2px 14px;">
-            ${toolbarHtml}
+            ${navBarHtml}
+            ${scopeToolbarHtml}
         </div>
         <table class="rainfall-table daily-matrix-table" id="exportable-table">
             <thead>${thead}</thead>
