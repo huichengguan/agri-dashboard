@@ -8,54 +8,54 @@
     <style>
         :root {
             --bg-base: #060a12;
-            --bg-card: #0b111e;
-            --bg-card-hover: #111a2d;
-            --border: #162238;
+            --bg-card: #0c1220;
+            --bg-card-hover: #131d33;
+            --border: #1a273f;
             --border-hover: #38bdf8;
-            --text-main: #f1f5f9;
-            --text-sub: #8292a6;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
             --accent-green: #10b981;
             --accent-blue: #38bdf8;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
         body {
             background-color: var(--bg-base);
             color: var(--text-main);
-            padding: 16px 20px 40px;
+            padding: 20px 24px 50px;
             min-height: 100vh;
         }
         .portal-wrapper {
-            max-width: 1600px;
+            max-width: 1680px;
             margin: 0 auto;
         }
         header.portal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
+            border-bottom: 2px solid #22334d;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
         }
         .brand-zone {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .brand-icon {
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #10b981, #0284c7);
-            border-radius: 8px;
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
+            font-size: 21px;
+            box-shadow: 0 2px 12px rgba(16, 185, 129, 0.25);
         }
         .brand-text h1 {
-            font-size: 18px;
+            font-size: 21px;
             font-weight: 800;
             letter-spacing: -0.4px;
             background: linear-gradient(to right, #ffffff, #cbd5e1);
@@ -63,9 +63,9 @@
             -webkit-text-fill-color: transparent;
         }
         .brand-text p {
-            font-size: 11.5px;
+            font-size: 13px;
             color: var(--text-sub);
-            margin-top: 1px;
+            margin-top: 2px;
         }
         .header-stats {
             display: flex;
@@ -74,33 +74,34 @@
         .stat-pill {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 4px 12px;
-            border-radius: 6px;
+            padding: 6px 14px;
+            border-radius: 7px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
         }
         .stat-pill .num {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 800;
             color: var(--accent-blue);
         }
         .stat-pill .lbl {
-            font-size: 10.5px;
+            font-size: 11.5px;
             color: var(--text-sub);
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
         .live-banner {
             background: linear-gradient(90deg, rgba(16, 185, 129, 0.08), rgba(2, 132, 199, 0.06));
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 6px;
-            padding: 6px 12px;
-            margin-bottom: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 7px;
+            padding: 8px 14px;
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 11.5px;
+            font-size: 12.5px;
             color: #cbd5e1;
             flex-wrap: wrap;
             gap: 8px;
@@ -109,30 +110,30 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 14px;
+            margin-bottom: 22px;
             flex-wrap: wrap;
         }
         .filter-pills {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .filter-pill {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-sub);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11.5px;
-            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.15s;
         }
         .filter-pill:hover {
             background: #141f36;
             color: var(--text-main);
-            border-color: #2a3b5c;
+            border-color: #334668;
         }
         .filter-pill.active {
             background: var(--accent-blue);
@@ -142,19 +143,19 @@
         }
         .search-box {
             flex-grow: 1;
-            max-width: 300px;
+            max-width: 330px;
             position: relative;
         }
         .search-box input {
             width: 100%;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 5px 10px 5px 28px;
+            border-radius: 7px;
+            padding: 7px 12px 7px 34px;
             color: var(--text-main);
-            font-size: 12px;
+            font-size: 13px;
             outline: none;
-            height: 28px;
+            height: 34px;
             transition: border-color 0.15s;
         }
         .search-box input:focus {
@@ -163,56 +164,85 @@
         .search-box::before {
             content: "🔍";
             position: absolute;
-            left: 9px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 11px;
+            font-size: 12px;
             opacity: 0.6;
         }
 
+        /* Category Section and Distinct Visible Divider Line */
         .category-section {
-            margin-bottom: 18px;
+            margin-bottom: 34px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #1a273f;
             transition: opacity 0.15s ease;
         }
+        .category-section:last-child {
+            border-bottom: none;
+            margin-bottom: 12px;
+            padding-bottom: 0;
+        }
         .category-heading {
-            font-size: 12.5px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            color: #94a3b8;
-            margin-bottom: 8px;
+            letter-spacing: 0.8px;
+            color: #f8fafc;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
+            width: 100%;
         }
+        .category-heading-icon {
+            font-size: 18px;
+        }
+        .category-heading-title {
+            color: #f8fafc;
+            white-space: nowrap;
+        }
+        .category-heading-count {
+            font-size: 12px;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        /* Prominent Horizontal Split Line spanning across the page */
         .category-heading::after {
             content: "";
             flex: 1;
-            height: 1px;
-            background: #141f33;
-            margin-left: 8px;
+            height: 2px;
+            background: linear-gradient(90deg, #38bdf8 0%, #64748b 25%, #475569 70%, #334155 100%);
+            margin-left: 14px;
+            border-radius: 2px;
         }
+
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+            gap: 14px;
         }
         .suite-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 9px;
+            padding: 14px 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.15s ease;
             cursor: pointer;
-            min-height: 112px;
+            min-height: 124px;
         }
         .suite-card:hover {
             border-color: var(--accent-blue);
             background: var(--bg-card-hover);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
             transform: translateY(-1px);
         }
         .card-main {
@@ -223,41 +253,41 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
         .folder-tag {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 9.5px;
-            color: #64748b;
+            font-size: 10.5px;
+            color: #718096;
             background: #060a12;
-            padding: 1px 6px;
-            border-radius: 4px;
-            border: 1px solid #141c2c;
+            padding: 2px 8px;
+            border-radius: 5px;
+            border: 1px solid #141d2f;
         }
         .live-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: #10b981;
-            box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+            box-shadow: 0 0 7px rgba(16, 185, 129, 0.7);
             display: inline-block;
         }
         .card-title {
-            color: #f1f5f9;
-            font-size: 13px;
+            color: #ffffff;
+            font-size: 15px;
             font-weight: 700;
-            line-height: 1.25;
-            margin-bottom: 3px;
+            line-height: 1.35;
+            margin-bottom: 5px;
             transition: color 0.15s;
         }
         .suite-card:hover .card-title {
             color: var(--accent-blue);
         }
         .card-desc {
-            font-size: 11px;
+            font-size: 12.5px;
             color: var(--text-sub);
-            line-height: 1.35;
-            margin-bottom: 8px;
+            line-height: 1.45;
+            margin-bottom: 12px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -265,26 +295,26 @@
         }
         .card-actions {
             display: flex;
-            gap: 5px;
-            padding-top: 6px;
-            border-top: 1px solid #141d2e;
+            gap: 7px;
+            padding-top: 10px;
+            border-top: 1px solid #182438;
             margin-top: auto;
         }
         .act-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 5px;
             width: 100%;
-            padding: 4px 8px;
+            padding: 6px 12px;
             background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.22);
-            border-radius: 5px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 6px;
             color: var(--accent-blue);
-            font-size: 11px;
+            font-size: 12.5px;
             font-weight: 600;
             text-decoration: none;
-            height: 25px;
+            height: 30px;
             flex: 1;
             white-space: nowrap;
             overflow: hidden;
@@ -295,26 +325,26 @@
             background: var(--accent-blue);
             color: #040811;
             border-color: var(--accent-blue);
-            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.35);
         }
         .act-btn.secondary {
             background: rgba(16, 185, 129, 0.08);
-            border-color: rgba(16, 185, 129, 0.22);
+            border-color: rgba(16, 185, 129, 0.25);
             color: #34d399;
         }
         .act-btn.secondary:hover {
             background: #10b981;
             color: #040811;
             border-color: #10b981;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
         }
         footer.portal-footer {
-            margin-top: 24px;
-            border-top: 1px solid var(--border);
-            padding-top: 14px;
+            margin-top: 30px;
+            border-top: 2px solid #22334d;
+            padding-top: 18px;
             text-align: center;
-            color: #475569;
-            font-size: 11px;
+            color: #64748b;
+            font-size: 12px;
             width: 100%;
         }
     </style>
@@ -363,7 +393,11 @@
 
         
         <section class="category-section" id="cat-sec-weather" data-cat="weather">
-            <h2 class="category-heading">🌦️ Global Weather & Agro-Climatic Intelligence</h2>
+            <h2 class="category-heading">
+                <span class="category-heading-icon">🌦️</span>
+                <span class="category-heading-title">Global Weather & Agro-Climatic Intelligence</span>
+                <span class="category-heading-count">(5)</span>
+            </h2>
             <div class="category-grid">
                 
             <div class="suite-card" data-category="weather" data-search="us corn belt & ag weather suite operational 28-day forecasts, soil drought and 17-year continuous season matrix for us corn belt & plains (noaa gfs 0.25°). weather_us_gfs" onclick="window.open('weather_US_GFS/US_Crop_2_Week_Outlook.html', '_blank')">
@@ -470,7 +504,11 @@
         </section>
         
         <section class="category-section" id="cat-sec-cropprogress" data-cat="cropprogress">
-            <h2 class="category-heading">🌱 Crop Progress & Condition Intelligence</h2>
+            <h2 class="category-heading">
+                <span class="category-heading-icon">🌱</span>
+                <span class="category-heading-title">Crop Progress & Condition Intelligence</span>
+                <span class="category-heading-count">(5)</span>
+            </h2>
             <div class="category-grid">
                 
             <div class="suite-card" data-category="cropprogress" data-search="usa crop progress & condition intelligence weekly phenology s-curves, multi-year condition comparison & stonex choropleth map for us corn, soybeans, wheat & cotton (usda nass). cropprogress_usa" onclick="window.open('cropprogress_USA/dashboard.html', '_blank')">
@@ -572,7 +610,11 @@
         </section>
         
         <section class="category-section" id="cat-sec-farmerselling" data-cat="farmerselling">
-            <h2 class="category-heading">🚜 Farmer Commercialization & Selling Pace</h2>
+            <h2 class="category-heading">
+                <span class="category-heading-icon">🚜</span>
+                <span class="category-heading-title">Farmer Commercialization & Selling Pace</span>
+                <span class="category-heading-count">(2)</span>
+            </h2>
             <div class="category-grid">
                 
             <div class="suite-card" data-category="farmerselling" data-search="usa farmer selling intelligence multi-year historical sales pace across us corn, soybeans & all wheat benchmarks (2016-2027). farmer_selling_usa" onclick="window.open('farmer_selling_USA/dashboard.html', '_blank')">
@@ -617,7 +659,11 @@
         </section>
         
         <section class="category-section" id="cat-sec-positioning" data-cat="positioning">
-            <h2 class="category-heading">📈 Positioning & Speculative Flows</h2>
+            <h2 class="category-heading">
+                <span class="category-heading-icon">📈</span>
+                <span class="category-heading-title">Positioning & Speculative Flows</span>
+                <span class="category-heading-count">(1)</span>
+            </h2>
             <div class="category-grid">
                 
             <div class="suite-card" data-category="positioning" data-search="cftc & commodity cot positioning intelligence 31 benchmark commodities & financials (cftc disaggregated, ice & matif) with managed money dry powder and percentile ranks. cftc_drypowder" onclick="window.open('CFTC_drypowder/dashboard.html', '_blank')">
@@ -643,7 +689,11 @@
         </section>
         
         <section class="category-section" id="cat-sec-tradedemand" data-cat="tradedemand">
-            <h2 class="category-heading">🚢 Supply, Demand, Trade & Fundamentals</h2>
+            <h2 class="category-heading">
+                <span class="category-heading-icon">🚢</span>
+                <span class="category-heading-title">Supply, Demand, Trade & Fundamentals</span>
+                <span class="category-heading-count">(6)</span>
+            </h2>
             <div class="category-grid">
                 
             <div class="suite-card" data-category="tradedemand" data-search="mpob palm oil intelligence terminal malaysian palm oil board historical supply, demand, stocks & yield model (2005-2026) with regional breakdown. mpob_dashboard" onclick="window.open('mpob_dashboard/index.html', '_blank')">
@@ -764,7 +814,11 @@
         </section>
         
         <section class="category-section" id="cat-sec-technical" data-cat="technical">
-            <h2 class="category-heading">📊 Cash Basis & Technical Analysis</h2>
+            <h2 class="category-heading">
+                <span class="category-heading-icon">📊</span>
+                <span class="category-heading-title">Cash Basis & Technical Analysis</span>
+                <span class="category-heading-count">(3)</span>
+            </h2>
             <div class="category-grid">
                 
             <div class="suite-card" data-category="technical" data-search="us corn & soybeans seasonal basis analytics historical seasonal basis curves and multi-year cash vs futures basis comparisons across us grain elevators and river terminals. tech_price_basis_usa" onclick="window.open('tech_Price_Basis_USA/seasonal_basis_dashboard.html', '_blank')">
