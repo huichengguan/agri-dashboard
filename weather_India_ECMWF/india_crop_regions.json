@@ -1,0 +1,461 @@
+{
+  "Central India - Malwa Plateau & Vindhyan Heartland (Madhya Pradesh)": {
+    "region_id": "in_central_heartland",
+    "description": "India's premier soybean heartland and leading central oilseed basin spanning the deep black cotton soils (Vertisols) of the Malwa plateau, Narmada valley, and the northern Chambal mustard belt.",
+    "states": [
+      {
+        "name": "West Madhya Pradesh (Malwa Core)",
+        "code": "MP-WEST",
+        "country": "India",
+        "district": "Malwa Plateau (Indore / Ujjain / Dewas / Dhar)",
+        "lat": 22.97,
+        "lon": 76.05,
+        "commodities": [
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 5.20,
+            "yield_tha": 1.15,
+            "share_pct": 42.0,
+            "status": "Late Pod Fill / Maturation & Harvest Sowing"
+          },
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.35,
+            "yield_tha": 1.40,
+            "share_pct": 4.5,
+            "status": "Pod Maturation / Early Digging"
+          }
+        ]
+      },
+      {
+        "name": "Central MP & Narmada Basin",
+        "code": "MP-CENTRAL",
+        "country": "India",
+        "district": "Vindhyan Basin (Sagar / Sehore / Hoshangabad / Vidisha)",
+        "lat": 23.35,
+        "lon": 77.85,
+        "commodities": [
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 3.00,
+            "yield_tha": 1.20,
+            "share_pct": 24.0,
+            "status": "Pod Filling / Seedbed Drydown"
+          },
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 0.65,
+            "yield_tha": 1.45,
+            "share_pct": 5.0,
+            "status": "Pre-Sowing Field Preparation"
+          }
+        ]
+      },
+      {
+        "name": "North MP Chambal Mustard Belt",
+        "code": "MP-NORTH",
+        "country": "India",
+        "district": "Chambal Division (Morena / Bhind / Gwalior / Sheopur)",
+        "lat": 26.50,
+        "lon": 78.00,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 1.85,
+            "yield_tha": 1.70,
+            "share_pct": 14.5,
+            "status": "Pre-Sowing Seedbed Preparation"
+          },
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 0.40,
+            "yield_tha": 1.10,
+            "share_pct": 3.2,
+            "status": "Maturity / Harvest Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Western India - Deccan Lava Plateau & Vidarbha (Maharashtra)": {
+    "region_id": "in_maharashtra_deccan",
+    "description": "Maharashtra's extensive rainfed and semi-arid black soil soybean and groundnut basins, accounting for over 40% of national soybean production across Vidarbha, Marathwada, and Khandesh.",
+    "states": [
+      {
+        "name": "Vidarbha Oilseed Heartland",
+        "code": "MH-VID",
+        "country": "India",
+        "district": "Eastern Maharashtra (Nagpur / Amravati / Akola / Yavatmal)",
+        "lat": 20.93,
+        "lon": 77.75,
+        "commodities": [
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 2.85,
+            "yield_tha": 1.10,
+            "share_pct": 23.0,
+            "status": "Pod Maturation / Active Harvest Window"
+          },
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.25,
+            "yield_tha": 1.25,
+            "share_pct": 3.2,
+            "status": "Maturity / Pod Development"
+          }
+        ]
+      },
+      {
+        "name": "Marathwada Agri Basin",
+        "code": "MH-MAR",
+        "country": "India",
+        "district": "South-Central Maharashtra (Latur / Nanded / Hingoli / Jalna)",
+        "lat": 18.40,
+        "lon": 76.58,
+        "commodities": [
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 2.10,
+            "yield_tha": 1.05,
+            "share_pct": 17.0,
+            "status": "Maturity & Active Threshing"
+          },
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.20,
+            "yield_tha": 1.20,
+            "share_pct": 2.5,
+            "status": "Pod Maturation"
+          }
+        ]
+      },
+      {
+        "name": "Khandesh & Western Plains",
+        "code": "MH-WEST",
+        "country": "India",
+        "district": "North-West Maharashtra (Dhule / Jalgaon / Kolhapur)",
+        "lat": 20.90,
+        "lon": 75.25,
+        "commodities": [
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.45,
+            "yield_tha": 1.35,
+            "share_pct": 5.8,
+            "status": "Late Pod Fill / Harvest Window"
+          },
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 0.60,
+            "yield_tha": 1.20,
+            "share_pct": 4.8,
+            "status": "Maturity / Combining"
+          }
+        ]
+      }
+    ]
+  },
+  "Northwestern India - Thar Margin & Mustard Heartland (Rajasthan & Haryana)": {
+    "region_id": "in_northwest_mustard",
+    "description": "India's highest-concentration rapeseed-mustard production belt (producing ~60% of national mustard) complemented by Southeast Rajasthan Kharif soybeans and irrigated Bikaner peanuts.",
+    "states": [
+      {
+        "name": "East Rajasthan Mustard Belt",
+        "code": "RJ-EAST",
+        "country": "India",
+        "district": "Northeast Plain (Alwar / Bharatpur / Jaipur / Tonk)",
+        "lat": 27.20,
+        "lon": 77.00,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 3.60,
+            "yield_tha": 1.80,
+            "share_pct": 28.0,
+            "status": "Pre-Sowing Irrigation & Early Sowing"
+          },
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.30,
+            "yield_tha": 1.60,
+            "share_pct": 3.8,
+            "status": "Harvest Window"
+          }
+        ]
+      },
+      {
+        "name": "Southeast Rajasthan (Hadoti Basin)",
+        "code": "RJ-HAD",
+        "country": "India",
+        "district": "Hadoti Plateau (Kota / Baran / Jhalawar)",
+        "lat": 25.18,
+        "lon": 75.85,
+        "commodities": [
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 1.15,
+            "yield_tha": 1.25,
+            "share_pct": 9.2,
+            "status": "Maturation / Harvest Window"
+          },
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 0.85,
+            "yield_tha": 1.65,
+            "share_pct": 6.6,
+            "status": "Post-Soybean Seedbed Preparation"
+          }
+        ]
+      },
+      {
+        "name": "North Rajasthan Canal Colony",
+        "code": "RJ-NORTH",
+        "country": "India",
+        "district": "IGNP Canal Belt (Bikaner / Sri Ganganagar / Hanumangarh)",
+        "lat": 28.02,
+        "lon": 73.31,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 1.55,
+            "yield_tha": 1.75,
+            "share_pct": 12.0,
+            "status": "Early Autumn Sowing Window"
+          },
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.85,
+            "yield_tha": 2.20,
+            "share_pct": 11.0,
+            "status": "Active Digging & Sun Drying"
+          }
+        ]
+      },
+      {
+        "name": "South Haryana Mustard Belt",
+        "code": "HR-SOUTH",
+        "country": "India",
+        "district": "Southern Semi-Arid (Bhiwani / Hisar / Mahendragarh / Rewari)",
+        "lat": 28.60,
+        "lon": 76.15,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 1.45,
+            "yield_tha": 1.95,
+            "share_pct": 11.2,
+            "status": "Pre-Sowing Seedbed Preparation"
+          }
+        ]
+      }
+    ]
+  },
+  "Gangetic Plain & Eastern India (Uttar Pradesh & West Bengal)": {
+    "region_id": "in_gangetic_east",
+    "description": "High-yield alluvial alluvial plains along the Yamuna and Ganga river basins, serving as major producers of winter rapeseed-mustard and eastern yellow sarson (toria).",
+    "states": [
+      {
+        "name": "West Uttar Pradesh & Braj",
+        "code": "UP-WEST",
+        "country": "India",
+        "district": "Yamuna Alluvial Plain (Agra / Mathura / Aligarh / Hathras)",
+        "lat": 27.50,
+        "lon": 77.70,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 1.25,
+            "yield_tha": 1.65,
+            "share_pct": 9.7,
+            "status": "Pre-Sowing Irrigation / Early Sowing"
+          }
+        ]
+      },
+      {
+        "name": "Central UP & Bundelkhand",
+        "code": "UP-CENTRAL",
+        "country": "India",
+        "district": "Southern UP Alluvium (Kanpur Dehat / Jhansi / Jalaun)",
+        "lat": 25.45,
+        "lon": 78.58,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 0.90,
+            "yield_tha": 1.50,
+            "share_pct": 7.0,
+            "status": "Seedbed Preparation Window"
+          },
+          {
+            "crop": "Soybean (Kharif)",
+            "production_mmt": 0.25,
+            "yield_tha": 1.05,
+            "share_pct": 2.0,
+            "status": "Maturity / Harvest"
+          }
+        ]
+      },
+      {
+        "name": "West Bengal Deltaic Plain",
+        "code": "WB-DELTA",
+        "country": "India",
+        "district": "Gangetic Delta (Nadia / Murshidabad / North 24 Parganas)",
+        "lat": 23.47,
+        "lon": 88.55,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 0.82,
+            "yield_tha": 1.40,
+            "share_pct": 6.4,
+            "status": "Post-Paddy Toria Sowing Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Western Coastal Plain & Saurashtra Peninsula (Gujarat)": {
+    "region_id": "in_gujarat_saurashtra",
+    "description": "India's peanut capital, where the peninsular black-red medium soils of Saurashtra produce over 40% of national Kharif groundnut, complemented by north Gujarat mustard.",
+    "states": [
+      {
+        "name": "Saurashtra Peanut Heartland",
+        "code": "GJ-SAU",
+        "country": "India",
+        "district": "Peninsular Saurashtra (Rajkot / Junagadh / Amreli / Jamnagar)",
+        "lat": 21.90,
+        "lon": 70.80,
+        "commodities": [
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 3.30,
+            "yield_tha": 1.95,
+            "share_pct": 42.5,
+            "status": "Pod Maturity / Active Harvesting & Inversion"
+          }
+        ]
+      },
+      {
+        "name": "North Gujarat Semi-Arid Basin",
+        "code": "GJ-NORTH",
+        "country": "India",
+        "district": "North Gujarat Basin (Banaskantha / Sabarkantha / Mehsana)",
+        "lat": 24.17,
+        "lon": 72.43,
+        "commodities": [
+          {
+            "crop": "Rapeseed-Mustard (Rabi)",
+            "production_mmt": 0.55,
+            "yield_tha": 1.75,
+            "share_pct": 4.3,
+            "status": "Pre-Sowing Preparation"
+          },
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.65,
+            "yield_tha": 1.80,
+            "share_pct": 8.4,
+            "status": "Harvest Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Peninsular South India - Krishna Basin & Rayalaseema (Andhra Pradesh & Telangana)": {
+    "region_id": "in_south_ap_telangana",
+    "description": "Southern oilseed production corridor comprising Andhra Pradesh's rainfed Rayalaseema Kharif groundnut core and Telangana's high-yielding irrigated Rabi/summer peanut basins.",
+    "states": [
+      {
+        "name": "Rayalaseema Groundnut Basin",
+        "code": "AP-RAY",
+        "country": "India",
+        "district": "Red Soil Semi-Arid Basin (Anantapur / Kurnool / Kadapa / Chittoor)",
+        "lat": 14.68,
+        "lon": 77.60,
+        "commodities": [
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.85,
+            "yield_tha": 0.95,
+            "share_pct": 11.0,
+            "status": "Pod Development / Late Maturation"
+          }
+        ]
+      },
+      {
+        "name": "Coastal Andhra Delta",
+        "code": "AP-COAST",
+        "country": "India",
+        "district": "Krishna-Godavari Coastal Plain (Prakasam / Guntur / Nellore)",
+        "lat": 15.50,
+        "lon": 80.05,
+        "commodities": [
+          {
+            "crop": "Groundnut (Rabi/Summer)",
+            "production_mmt": 0.38,
+            "yield_tha": 2.10,
+            "share_pct": 21.0,
+            "status": "Pre-Sowing Field Preparation (Nov-Dec Sowing)"
+          }
+        ]
+      },
+      {
+        "name": "Telangana Southern Plateau",
+        "code": "TG-SOUTH",
+        "country": "India",
+        "district": "Southern Telangana (Mahabubnagar / Wanaparthy / Gadwal)",
+        "lat": 16.74,
+        "lon": 77.98,
+        "commodities": [
+          {
+            "crop": "Groundnut (Rabi/Summer)",
+            "production_mmt": 0.32,
+            "yield_tha": 2.05,
+            "share_pct": 17.5,
+            "status": "Land Preparation / Pre-Rabi Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Southern Coromandel & Cauvery Basin (Tamil Nadu)": {
+    "region_id": "in_tamil_nadu",
+    "description": "Tamil Nadu's dual-season groundnut belt, benefiting from both Southwest and Northeast Monsoons across northern rainfed plains and irrigated Cauvery delta tracts.",
+    "states": [
+      {
+        "name": "North Tamil Nadu Rainfed Belt",
+        "code": "TN-NORTH",
+        "country": "India",
+        "district": "Northern Red Loam Basin (Tiruvannamalai / Vellore / Villupuram)",
+        "lat": 12.23,
+        "lon": 79.07,
+        "commodities": [
+          {
+            "crop": "Groundnut (Kharif)",
+            "production_mmt": 0.78,
+            "yield_tha": 1.85,
+            "share_pct": 10.0,
+            "status": "Pod Maturity / Active Harvesting"
+          }
+        ]
+      },
+      {
+        "name": "Cauvery Delta & Southern Plains",
+        "code": "TN-CAUVERY",
+        "country": "India",
+        "district": "Cauvery Basin (Cuddalore / Namakkal / Thanjavur / Madurai)",
+        "lat": 11.20,
+        "lon": 79.25,
+        "commodities": [
+          {
+            "crop": "Groundnut (Rabi/Summer)",
+            "production_mmt": 0.42,
+            "yield_tha": 2.30,
+            "share_pct": 23.0,
+            "status": "Pre-Sowing Field Prep (Thai Pattam Season)"
+          }
+        ]
+      }
+    ]
+  }
+}

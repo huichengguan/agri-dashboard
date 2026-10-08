@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Oilseed Crop Planting Calendar &amp; Multi-Crop Gantt | ECMWF Suite</title>
+    <style>
+        :root {
+            --bg-primary: #0b1120;
+            --bg-card: #0f172a;
+            --border: #1e293b;
+            --border-highlight: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #f59e0b;
+            --accent-green: #10b981;
+            --accent-blue: #38bdf8;
+            --accent-purple: #8b5cf6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text);
+            line-height: 1.4;
+            padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Suite Nav */
+        .suite-nav-bar {
+            background: #090e1a;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        .suite-nav-links { display: flex; gap: 8px; }
+        .nav-tab {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-muted);
+            background: #131c2e;
+            border: 1px solid var(--border);
+            transition: all 0.15s ease;
+        }
+        .nav-tab:hover { color: #ffffff; background: #1e293b; border-color: var(--accent); }
+        .nav-tab.active { color: #ffffff; background: #d97706; border-color: var(--accent); box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+
+        /* Header */
+        .header-card {
+            padding: 20px 32px 16px 32px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, #131d33 0%, var(--bg-card) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+        .header-badge {
+            background: #d97706;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .header-title { font-size: 22px; font-weight: 800; color: #ffffff; }
+        .header-subtitle { font-size: 13px; color: var(--text-muted); }
+
+        /* Controls */
+        .controls-card {
+            padding: 12px 32px;
+            background-color: #0b1120;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .ctrl-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .ctrl-btn {
+            background: #1e293b;
+            color: var(--text-muted);
+            border: 1px solid var(--border-highlight);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .ctrl-btn:hover { background: #334155; color: #ffffff; }
+        .ctrl-btn.active { background: #d97706; color: #ffffff; border-color: var(--accent); }
+        .search-box {
+            background: #1e293b;
+            border: 1px solid var(--border-highlight);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            width: 220px;
+            outline: none;
+        }
+
+        /* Table & Gantt */
+        .table-wrap { overflow-x: auto; width: 100%; }
+        table.calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        thead th {
+            background: #090e1a;
+            color: var(--text-muted);
+            font-weight: 700;
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid #1e293b;
+            white-space: nowrap;
+        }
+        th.col-info { width: 220px; min-width: 220px; text-align: left; padding-left: 14px; position: sticky; left: 0; background: #090e1a; z-index: 5; border-right: 2px solid #334155 !important; }
+        th.col-stats { width: 150px; min-width: 150px; text-align: left; padding-left: 10px; border-right: 2px solid #334155 !important; }
+        th.col-window { width: 130px; min-width: 130px; }
+        th.col-month { width: 48px; min-width: 48px; }
+
+        /* Today Marker on Header */
+        th.month-today {
+            background: #272213 !important;
+            color: #fde047 !important;
+            border-left: 2px solid var(--accent) !important;
+            border-right: 2px solid var(--accent) !important;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s ease;
+        }
+        tbody tr:hover { background: #162035; }
+
+        td { padding: 6px 8px; vertical-align: middle; border-right: 1px solid #1e293b; }
+        td.cell-info { position: sticky; left: 0; background: var(--bg-card); z-index: 4; border-right: 2px solid #334155 !important; }
+        tbody tr:hover td.cell-info { background: #162035; }
+        td.cell-stats { border-right: 2px solid #334155 !important; }
+
+        .center-name { font-size: 12px; font-weight: 700; color: #ffffff; }
+        .center-code { font-size: 9.5px; color: var(--accent); background: rgba(245,158,11,0.15); padding: 1px 4px; border-radius: 3px; margin-left: 4px; }
+        .center-sub { font-size: 9.5px; color: #64748b; margin-top: 2px; }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .status-harvest { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .status-early { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .status-active { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+        .status-await { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid #334155; }
+
+        /* Timeline Cells */
+        td.timeline-cell { padding: 3px 2px; text-align: center; }
+        td.cell-today {
+            border-left: 2px solid var(--accent) !important;
+            border-right: 2px solid var(--accent) !important;
+            background: rgba(245, 158, 11, 0.05);
+        }
+        .bar-cell {
+            height: 20px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .bar-early { background: #065f46; color: #a7f3d0; }
+        .bar-peak { background: #059669; color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+        .bar-late { background: #0284c7; color: #e0f2fe; }
+        .bar-harvest { background: #d97706; color: #ffffff; }
+        .bar-empty { background: transparent; }
+
+        /* Legend */
+        .legend-bar {
+            padding: 10px 32px;
+            background: #090e1a;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .legend-items { display: flex; align-items: center; gap: 12px; }
+        .legend-box { display: inline-block; width: 14px; height: 12px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Suite Cross-Navigation -->
+    <div class="suite-nav-bar">
+        <div class="suite-brand">🌾 India Oilseed Weather Suite &bull; ECMWF IFS 0.25°</div>
+        <div class="suite-nav-links">
+            <a href="index.html" class="nav-tab">&larr; Suite Hub</a>
+            <a href="India_Crop_2_Week_Outlook.html" class="nav-tab">🌧️ 2-Week Precipitation</a>
+            <a href="India_Crop_Soil_Moisture_Outlook.html" class="nav-tab">🌱 Soil Moisture</a>
+            <a href="India_Crop_Temperature_Outlook.html" class="nav-tab">🌡️ Temperature Outlook</a>
+            <a href="India_Crop_Weather_Matrix.html" class="nav-tab">📊 17-Season Matrix</a>
+            <a href="India_Crop_Planting_Calendar.html" class="nav-tab active">📋 Planting Calendar</a>
+            <a href="../dashboard/index.html" class="nav-tab" style="color: #38bdf8;">Master Portal &rarr;</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div>
+            <div class="header-title-row">
+                <span class="header-badge">Crop Phenology &amp; Sowing</span>
+                <span class="header-badge" style="background:#059669;">Multi-Commodity Gantt</span>
+                <h1 class="header-title">India Oilseed Planting Calendar &amp; Phenological Windows</h1>
+            </div>
+            <p class="header-subtitle">
+                Comprehensive operational sowing, peak development, and harvest windows across India's premier oilseed hubs:
+                <strong>Kharif Soybeans</strong>, <strong>Kharif Groundnut</strong>, <strong>Rabi Rapeseed-Mustard</strong>, and <strong>Rabi Groundnut</strong>.
+            </p>
+        </div>
+        <div style="text-align: right; font-size: 12px; color: #64748b;">
+            <div>Calendar Year: <strong>2026/27 Crop Cycle</strong></div>
+            <div>Active Window: <strong style="color:#f59e0b;">October 2026 (Kharif Harvest / Rabi Sowing Surge)</strong></div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-card">
+        <div class="ctrl-group">
+            <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">Commodity:</span>
+            <button class="ctrl-btn active" data-crop="soybeans">🌱 Kharif Soybeans</button>
+            <button class="ctrl-btn" data-crop="groundnut_kharif">🥜 Kharif Groundnut</button>
+            <button class="ctrl-btn" data-crop="mustard_rabi">🌾 Rabi Rapeseed-Mustard</button>
+            <button class="ctrl-btn" data-crop="groundnut_rabi">🥜 Rabi Groundnut</button>
+        </div>
+        <div class="ctrl-group">
+            <input type="text" id="searchInput" class="search-box" placeholder="Filter center, state, district...">
+        </div>
+    </div>
+
+    <!-- Table Wrap -->
+    <div class="table-wrap">
+        <table class="calendar-table" id="calendarTable">
+            <thead>
+                <tr>
+                    <th class="col-info">Agricultural Center</th>
+                    <th class="col-stats">Output Portfolio</th>
+                    <th class="col-window">Planting Window</th>
+                    <th class="col-window">Harvest Window</th>
+                    <th class="col-window">Current Status</th>
+                    <!-- 12 Calendar Months (Jun to May Crop Year) -->
+                    <th class="col-month">Jun</th>
+                    <th class="col-month">Jul</th>
+                    <th class="col-month">Aug</th>
+                    <th class="col-month">Sep</th>
+                    <th class="col-month month-today">Oct ⭐</th>
+                    <th class="col-month">Nov</th>
+                    <th class="col-month">Dec</th>
+                    <th class="col-month">Jan</th>
+                    <th class="col-month">Feb</th>
+                    <th class="col-month">Mar</th>
+                    <th class="col-month">Apr</th>
+                    <th class="col-month">May</th>
+                </tr>
+            </thead>
+            <tbody id="calendarTableBody">
+                <!-- Dynamically rendered by JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend-bar">
+        <div class="legend-items">
+            <span><span class="legend-box" style="background:#065f46;"></span> Early Field Sowing</span>
+            <span><span class="legend-box" style="background:#059669;"></span> Peak Sowing Window</span>
+            <span><span class="legend-box" style="background:#0284c7;"></span> Vegetative / Pod Fill</span>
+            <span><span class="legend-box" style="background:#d97706;"></span> Active Harvest / Windrow Drying</span>
+            <span><span class="legend-box" style="border:1px solid #f59e0b; background:#272213;"></span> Active Current Month (October)</span>
+        </div>
+        <div>Calibrated to ICAR, Directorate of Rapeseed-Mustard Research (DRMR) &amp; SOPA baselines.</div>
+    </div>
+
+</div>
+
+<script>
+window.CALENDAR_DATA = {"soybeans": [{"code": "MP-WEST", "name": "West Madhya Pradesh (Malwa Core)", "country": "India", "macro_region": "Central India (Madhya Pradesh)", "district": "Malwa Plateau (Indore / Ujjain / Dewas / Dhar)", "prod_mmt": 5.2, "yield_tha": 1.15, "share_pct": 42.0, "field_start": "Jun 20", "peak_start": "Jul 01", "peak_end": "Jul 20", "harvest_window": "Sep 25 \u2013 Oct 25", "current_status": "Maturity / Active Harvest", "status_class": "status-harvest", "crop_role": "India #1 Soybean Belt", "driver": "Black Vertisols require 75-100mm monsoon onset rain for drilling; harvest drydown critical before post-monsoon dew.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "late", "late", "harvest", "harvest", "empty"]}, {"code": "MP-CENTRAL", "name": "Central MP & Narmada Basin", "country": "India", "macro_region": "Central India (Madhya Pradesh)", "district": "Vindhyan Basin (Sagar / Sehore / Hoshangabad / Vidisha)", "prod_mmt": 3.0, "yield_tha": 1.2, "share_pct": 24.0, "field_start": "Jun 25", "peak_start": "Jul 05", "peak_end": "Jul 25", "harvest_window": "Oct 05 \u2013 Nov 05", "current_status": "Late Pod Fill / Harvesting", "status_class": "status-harvest", "crop_role": "High-Yield Narmada Alluvium", "driver": "Deep soil moisture retention supports steady grain fill; prompt combining clears seedbeds for Rabi wheat and mustard.", "timeline": ["empty", "empty", "empty", "empty", "early", "early", "peak", "peak", "late", "late", "harvest", "empty"]}, {"code": "MH-VID", "name": "Vidarbha Oilseed Heartland", "country": "India", "macro_region": "Western India (Maharashtra)", "district": "Eastern Maharashtra (Nagpur / Amravati / Akola / Yavatmal)", "prod_mmt": 2.85, "yield_tha": 1.1, "share_pct": 23.0, "field_start": "Jun 25", "peak_start": "Jul 05", "peak_end": "Jul 25", "harvest_window": "Oct 01 \u2013 Nov 05", "current_status": "Harvest Window Active", "status_class": "status-harvest", "crop_role": "Primary Vidarbha Kharif Crop", "driver": "Dry spells during July/August can challenge vegetative growth; sunny October weather speeds field threshing.", "timeline": ["empty", "empty", "empty", "empty", "early", "early", "peak", "peak", "late", "late", "harvest", "empty"]}, {"code": "MH-MAR", "name": "Marathwada Agri Basin", "country": "India", "macro_region": "Western India (Maharashtra)", "district": "South-Central Maharashtra (Latur / Nanded / Hingoli / Jalna)", "prod_mmt": 2.1, "yield_tha": 1.05, "share_pct": 17.0, "field_start": "Jun 20", "peak_start": "Jul 01", "peak_end": "Jul 20", "harvest_window": "Sep 25 \u2013 Oct 25", "current_status": "Peak Combining Stage", "status_class": "status-harvest", "crop_role": "Latur Commercial Hub", "driver": "Latur mandi is India's price-discovery center for soybean; early harvesting captures initial processor demand premiums.", "timeline": ["empty", "empty", "empty", "empty", "early", "peak", "peak", "late", "late", "harvest", "harvest", "empty"]}, {"code": "RJ-HAD", "name": "Southeast Rajasthan (Hadoti Basin)", "country": "India", "macro_region": "Northwestern India (Rajasthan)", "district": "Hadoti Plateau (Kota / Baran / Jhalawar)", "prod_mmt": 1.15, "yield_tha": 1.25, "share_pct": 9.2, "field_start": "Jun 25", "peak_start": "Jul 05", "peak_end": "Jul 20", "harvest_window": "Oct 01 \u2013 Oct 31", "current_status": "Maturity / Harvest Window", "status_class": "status-harvest", "crop_role": "Chambal Canal Irrigated Soy", "driver": "Kota basin transitions directly from Kharif soybean into Rabi mustard and wheat.", "timeline": ["empty", "empty", "empty", "empty", "early", "early", "peak", "peak", "late", "harvest", "harvest", "empty"]}], "groundnut_kharif": [{"code": "GJ-SAU", "name": "Saurashtra Peanut Heartland", "country": "India", "macro_region": "Western Coastal (Gujarat)", "district": "Peninsular Saurashtra (Rajkot / Junagadh / Amreli / Jamnagar)", "prod_mmt": 3.3, "yield_tha": 1.95, "share_pct": 42.5, "field_start": "Jun 15", "peak_start": "Jun 25", "peak_end": "Jul 15", "harvest_window": "Oct 01 \u2013 Nov 10", "current_status": "Pod Lifting & Sun Inversion", "status_class": "status-harvest", "crop_role": "India's Peanut Capital", "driver": "Over 40% of national groundnut; dry post-monsoon weather crucial to prevent Aspergillus aflatoxin on drying windrows.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "late", "late", "late", "harvest", "harvest", "empty"]}, {"code": "RJ-NORTH", "name": "North Rajasthan Canal Colony", "country": "India", "macro_region": "Northwestern India (Rajasthan)", "district": "IGNP Canal Belt (Bikaner / Sri Ganganagar / Hanumangarh)", "prod_mmt": 0.85, "yield_tha": 2.2, "share_pct": 11.0, "field_start": "May 15", "peak_start": "Jun 01", "peak_end": "Jun 20", "harvest_window": "Sep 15 \u2013 Oct 25", "current_status": "Harvest Windrows Drying", "status_class": "status-harvest", "crop_role": "Irrigated Desert Sandy Peanut", "driver": "Canal-irrigated sandy loams deliver highest groundnut yields in India (>2.2 t/ha); early May sowing allows October harvest.", "timeline": ["empty", "empty", "early", "peak", "peak", "late", "late", "late", "harvest", "harvest", "empty", "empty"]}, {"code": "AP-RAY", "name": "Rayalaseema Groundnut Basin", "country": "India", "macro_region": "South Peninsular (Andhra Pradesh)", "district": "Red Soil Semi-Arid Basin (Anantapur / Kurnool / Kadapa)", "prod_mmt": 0.85, "yield_tha": 0.95, "share_pct": 11.0, "field_start": "Jul 01", "peak_start": "Jul 10", "peak_end": "Jul 31", "harvest_window": "Oct 15 \u2013 Nov 30", "current_status": "Late Pod Maturation", "status_class": "status-active", "crop_role": "Rainfed Red Soil Peanut", "driver": "Drought-prone red Alfisols reliant on late monsoon rains; pod development extends into late October.", "timeline": ["empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "late", "late", "harvest", "harvest"]}, {"code": "TN-NORTH", "name": "North Tamil Nadu Rainfed Belt", "country": "India", "macro_region": "Southern Coromandel (Tamil Nadu)", "district": "Northern Red Loam Basin (Tiruvannamalai / Vellore / Villupuram)", "prod_mmt": 0.78, "yield_tha": 1.85, "share_pct": 10.0, "field_start": "Jun 15", "peak_start": "Jul 01", "peak_end": "Jul 25", "harvest_window": "Oct 01 \u2013 Nov 15", "current_status": "Active Harvesting Window", "status_class": "status-harvest", "crop_role": "Early Kharif Peanut Belt", "driver": "Sown under Southwest Monsoon, harvested before peak heavy Northeast Monsoon storms arrive in November.", "timeline": ["empty", "empty", "empty", "early", "peak", "peak", "late", "late", "harvest", "harvest", "harvest", "empty"]}], "mustard_rabi": [{"code": "RJ-EAST", "name": "East Rajasthan Mustard Belt", "country": "India", "macro_region": "Northwestern India (Rajasthan)", "district": "Northeast Plain (Alwar / Bharatpur / Jaipur / Tonk)", "prod_mmt": 3.6, "yield_tha": 1.8, "share_pct": 28.0, "field_start": "Sep 25", "peak_start": "Oct 05", "peak_end": "Oct 25", "harvest_window": "Feb 10 \u2013 Mar 25", "current_status": "Pre-Sowing Palewa / Sowing Surge", "status_class": "status-early", "crop_role": "India #1 Mustard Heartland", "driver": "Produces ~28% of national mustard. Sowing window commences as night temperatures drop below 22\u00b0C; early sowing avoids aphids.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "late"]}, {"code": "MP-NORTH", "name": "North MP Chambal Mustard Belt", "country": "India", "macro_region": "Central India (Madhya Pradesh)", "district": "Chambal Division (Morena / Bhind / Gwalior / Sheopur)", "prod_mmt": 1.85, "yield_tha": 1.7, "share_pct": 14.5, "field_start": "Sep 25", "peak_start": "Oct 05", "peak_end": "Oct 25", "harvest_window": "Feb 15 \u2013 Mar 30", "current_status": "Seedbed Preparation & Drilling", "status_class": "status-early", "crop_role": "Chambal Oilseed Axis", "driver": "Alluvial ravine tracts utilize residual monsoon moisture for rapid seedbed establishment; peak combining in early March.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak", "late"]}, {"code": "HR-SOUTH", "name": "South Haryana Mustard Belt", "country": "India", "macro_region": "Northwestern India (Haryana)", "district": "Southern Semi-Arid (Bhiwani / Hisar / Mahendragarh / Rewari)", "prod_mmt": 1.45, "yield_tha": 1.95, "share_pct": 11.2, "field_start": "Oct 01", "peak_start": "Oct 10", "peak_end": "Oct 28", "harvest_window": "Feb 20 \u2013 Apr 05", "current_status": "Pre-Sowing Irrigation (Rauni)", "status_class": "status-early", "crop_role": "High-Yielding Tubewell Mustard", "driver": "Highest state mustard yields in India (nearly 2.0 t/ha); farmers apply pre-sowing Rauni watering for rapid germination.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "UP-WEST", "name": "West Uttar Pradesh & Braj", "country": "India", "macro_region": "Gangetic Plain (Uttar Pradesh)", "district": "Yamuna Alluvial Plain (Agra / Mathura / Aligarh / Hathras)", "prod_mmt": 1.25, "yield_tha": 1.65, "share_pct": 9.7, "field_start": "Oct 01", "peak_start": "Oct 10", "peak_end": "Oct 30", "harvest_window": "Feb 20 \u2013 Apr 05", "current_status": "Early Drilling Window", "status_class": "status-early", "crop_role": "Braj Mustard & Toria Core", "driver": "Intensive alluvial multi-cropping; early mustard varieties sown in early October ensure timely succession into summer crops.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak", "peak"]}, {"code": "WB-DELTA", "name": "West Bengal Deltaic Plain", "country": "India", "macro_region": "Eastern India (West Bengal)", "district": "Gangetic Delta (Nadia / Murshidabad / North 24 Parganas)", "prod_mmt": 0.82, "yield_tha": 1.4, "share_pct": 6.4, "field_start": "Oct 15", "peak_start": "Oct 25", "peak_end": "Nov 15", "harvest_window": "Jan 25 \u2013 Mar 10", "current_status": "Post-Aman Paddy Field Prep", "status_class": "status-await", "crop_role": "Short-Duration Toria / Yellow Sarson", "driver": "Short-duration yellow sarson (75-90 days) sown immediately after Aman rice harvest to fit into Boro rice rotation.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak"]}], "groundnut_rabi": [{"code": "TG-SOUTH", "name": "Telangana Southern Plateau", "country": "India", "macro_region": "Peninsular South (Telangana)", "district": "Southern Telangana (Mahabubnagar / Wanaparthy / Gadwal)", "prod_mmt": 0.32, "yield_tha": 2.05, "share_pct": 17.5, "field_start": "Oct 25", "peak_start": "Nov 10", "peak_end": "Dec 05", "harvest_window": "Feb 25 \u2013 Apr 15", "current_status": "Pre-Rabi Land Preparation", "status_class": "status-await", "crop_role": "Borewell / Lift-Irrigated Rabi Peanut", "driver": "Irrigated winter groundnut avoids Kharif pest pressures and achieves high pod quality (>2.0 t/ha).", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early", "peak"]}, {"code": "AP-COAST", "name": "Coastal Andhra Delta", "country": "India", "macro_region": "Peninsular South (Andhra Pradesh)", "district": "Krishna-Godavari Coastal Plain (Prakasam / Guntur / Nellore)", "prod_mmt": 0.38, "yield_tha": 2.1, "share_pct": 21.0, "field_start": "Nov 01", "peak_start": "Nov 15", "peak_end": "Dec 10", "harvest_window": "Mar 05 \u2013 Apr 25", "current_status": "Post-Monsoon Canal Field Prep", "status_class": "status-await", "crop_role": "Coastal Delta Rabi/Summer Peanut", "driver": "Grown in rice fallows with residual canal and tank moisture; high pod filling efficiency during bright sunny winter.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "early"]}, {"code": "TN-CAUVERY", "name": "Cauvery Delta & Southern Plains", "country": "India", "macro_region": "Southern Coromandel (Tamil Nadu)", "district": "Cauvery Basin (Cuddalore / Namakkal / Thanjavur / Madurai)", "prod_mmt": 0.42, "yield_tha": 2.3, "share_pct": 23.0, "field_start": "Dec 15", "peak_start": "Jan 01", "peak_end": "Jan 25", "harvest_window": "Apr 01 \u2013 May 15", "current_status": "Off-Season / Monsoon Drainage", "status_class": "status-await", "crop_role": "Thai Pattam Summer Peanut", "driver": "Famous 'Thai Pattam' season seeded in January as Northeast monsoon rains recede, harvested before peak summer heat.", "timeline": ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]}]};
+
+(function() {
+    const D = window.CALENDAR_DATA;
+    let curCrop = 'soybeans';
+
+    function renderRows() {
+        const items = D[curCrop] || [];
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const tbody = document.getElementById('calendarTableBody');
+        let html = '';
+
+        items.forEach(item => {
+            const name = item.name.toLowerCase();
+            const code = item.code.toLowerCase();
+            const dist = item.district.toLowerCase();
+            if (query && !name.includes(query) && !code.includes(query) && !dist.includes(query)) {
+                return;
+            }
+
+            const timeline = item.timeline || [];
+            let timelineCells = '';
+
+            timeline.forEach((stage, idx) => {
+                const isToday = (idx === 4); // Index 4 is October (Jun=0, Jul=1, Aug=2, Sep=3, Oct=4)
+                const todayCls = isToday ? ' cell-today' : '';
+                let barHtml = '<div class="bar-cell bar-empty"></div>';
+
+                if (stage === 'early') barHtml = '<div class="bar-cell bar-early">Sow</div>';
+                else if (stage === 'peak') barHtml = '<div class="bar-cell bar-peak">Peak</div>';
+                else if (stage === 'late') barHtml = '<div class="bar-cell bar-late">Fill</div>';
+                else if (stage === 'harvest') barHtml = '<div class="bar-cell bar-harvest">Harv</div>';
+
+                timelineCells += `<td class="timeline-cell${todayCls}">${barHtml}</td>`;
+            });
+
+            html += `
+            <tr>
+                <td class="cell-info">
+                    <div class="center-name">${item.name} <span class="center-code">${item.code}</span></div>
+                    <div class="center-sub">${item.district}</div>
+                    <div style="font-size:9px;color:#94a3b8;margin-top:2px;">${item.driver}</div>
+                </td>
+                <td class="cell-stats">
+                    <div style="font-weight:700;color:#ffffff;">${item.prod_mmt}M t <span style="font-size:9.5px;color:#94a3b8;">(${item.share_pct}%)</span></div>
+                    <div style="font-size:9.5px;color:#f59e0b;">Yield: ${item.yield_tha} t/ha</div>
+                </td>
+                <td style="font-size:10.5px;color:#cbd5e1;">${item.field_start} &ndash; ${item.peak_end}</td>
+                <td style="font-size:10.5px;color:#f59e0b;font-weight:600;">${item.harvest_window}</td>
+                <td><span class="status-badge ${item.status_class}">${item.current_status}</span></td>
+                ${timelineCells}
+            </tr>
+            `;
+        });
+
+        tbody.innerHTML = html;
+    }
+
+    // Crop Button switcher
+    document.querySelectorAll('button[data-crop]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('button[data-crop]').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            curCrop = this.getAttribute('data-crop');
+            renderRows();
+        });
+    });
+
+    // Search input
+    document.getElementById('searchInput').addEventListener('input', renderRows);
+
+    renderRows();
+})();
+</script>
+
+</body>
+</html>

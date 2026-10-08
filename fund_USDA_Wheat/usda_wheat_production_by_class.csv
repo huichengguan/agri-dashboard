@@ -1,0 +1,2401 @@
+marketing_year,wheat_class,attribute,unit,amount
+1866/67,All Wheat,Weighted-average farm price,Dollars per bushel,2.06
+1866/67,All Wheat,Harvested acreage,Million acres,15.408
+1866/67,All Wheat,Production,Million bushels,169.703
+1866/67,All Wheat,Yield,Bushels per acre,11.0
+1867/68,All Wheat,Weighted-average farm price,Dollars per bushel,2.01
+1867/68,All Wheat,Harvested acreage,Million acres,16.738
+1867/68,All Wheat,Production,Million bushels,210.878
+1867/68,All Wheat,Yield,Bushels per acre,12.6
+1868/69,All Wheat,Weighted-average farm price,Dollars per bushel,1.46
+1868/69,All Wheat,Harvested acreage,Million acres,19.14
+1868/69,All Wheat,Production,Million bushels,246.272
+1868/69,All Wheat,Yield,Bushels per acre,12.9
+1869/70,All Wheat,Weighted-average farm price,Dollars per bushel,0.923
+1869/70,All Wheat,Harvested acreage,Million acres,21.194
+1869/70,All Wheat,Production,Million bushels,289.526
+1869/70,All Wheat,Yield,Bushels per acre,13.7
+1870/71,All Wheat,Weighted-average farm price,Dollars per bushel,1.04
+1870/71,All Wheat,Harvested acreage,Million acres,20.945
+1870/71,All Wheat,Production,Million bushels,254.429
+1870/71,All Wheat,Yield,Bushels per acre,12.1
+1871/72,All Wheat,Weighted-average farm price,Dollars per bushel,1.25
+1871/72,All Wheat,Harvested acreage,Million acres,22.23
+1871/72,All Wheat,Production,Million bushels,271.881
+1871/72,All Wheat,Yield,Bushels per acre,12.2
+1872/73,All Wheat,Weighted-average farm price,Dollars per bushel,1.24
+1872/73,All Wheat,Harvested acreage,Million acres,22.962
+1872/73,All Wheat,Production,Million bushels,271.482
+1872/73,All Wheat,Yield,Bushels per acre,11.8
+1873/74,All Wheat,Weighted-average farm price,Dollars per bushel,1.17
+1873/74,All Wheat,Harvested acreage,Million acres,24.866
+1873/74,All Wheat,Production,Million bushels,321.931
+1873/74,All Wheat,Yield,Bushels per acre,12.9
+1874/75,All Wheat,Weighted-average farm price,Dollars per bushel,0.948
+1874/75,All Wheat,Harvested acreage,Million acres,27.31
+1874/75,All Wheat,Production,Million bushels,356.115
+1874/75,All Wheat,Yield,Bushels per acre,13.0
+1875/76,All Wheat,Weighted-average farm price,Dollars per bushel,1.01
+1875/76,All Wheat,Harvested acreage,Million acres,28.382
+1875/76,All Wheat,Production,Million bushels,313.728
+1875/76,All Wheat,Yield,Bushels per acre,11.1
+1876/77,All Wheat,Weighted-average farm price,Dollars per bushel,1.04
+1876/77,All Wheat,Harvested acreage,Million acres,28.283
+1876/77,All Wheat,Production,Million bushels,309.116
+1876/77,All Wheat,Yield,Bushels per acre,10.9
+1877/78,All Wheat,Weighted-average farm price,Dollars per bushel,1.09
+1877/78,All Wheat,Harvested acreage,Million acres,27.963
+1877/78,All Wheat,Production,Million bushels,395.51
+1877/78,All Wheat,Yield,Bushels per acre,14.1
+1878/79,All Wheat,Weighted-average farm price,Dollars per bushel,0.772
+1878/79,All Wheat,Harvested acreage,Million acres,33.379
+1878/79,All Wheat,Production,Million bushels,449.175
+1878/79,All Wheat,Yield,Bushels per acre,13.5
+1879/80,All Wheat,Weighted-average farm price,Dollars per bushel,1.11
+1879/80,All Wheat,Harvested acreage,Million acres,35.347
+1879/80,All Wheat,Production,Million bushels,459.234
+1879/80,All Wheat,Yield,Bushels per acre,13.0
+1880/81,All Wheat,Weighted-average farm price,Dollars per bushel,0.952
+1880/81,All Wheat,Harvested acreage,Million acres,38.096
+1880/81,All Wheat,Production,Million bushels,502.257
+1880/81,All Wheat,Yield,Bushels per acre,13.2
+1881/82,All Wheat,Weighted-average farm price,Dollars per bushel,1.2
+1881/82,All Wheat,Harvested acreage,Million acres,36.795
+1881/82,All Wheat,Production,Million bushels,405.886
+1881/82,All Wheat,Yield,Bushels per acre,11.0
+1882/83,All Wheat,Weighted-average farm price,Dollars per bushel,0.888
+1882/83,All Wheat,Harvested acreage,Million acres,36.496
+1882/83,All Wheat,Production,Million bushels,552.207
+1882/83,All Wheat,Yield,Bushels per acre,15.1
+1883/84,All Wheat,Weighted-average farm price,Dollars per bushel,0.914
+1883/84,All Wheat,Harvested acreage,Million acres,35.587
+1883/84,All Wheat,Production,Million bushels,438.762
+1883/84,All Wheat,Yield,Bushels per acre,12.3
+1884/85,All Wheat,Weighted-average farm price,Dollars per bushel,0.645
+1884/85,All Wheat,Harvested acreage,Million acres,38.485
+1884/85,All Wheat,Production,Million bushels,571.292
+1884/85,All Wheat,Yield,Bushels per acre,14.8
+1885/86,All Wheat,Weighted-average farm price,Dollars per bushel,0.772
+1885/86,All Wheat,Harvested acreage,Million acres,35.095
+1885/86,All Wheat,Production,Million bushels,399.931
+1885/86,All Wheat,Yield,Bushels per acre,11.4
+1886/87,All Wheat,Weighted-average farm price,Dollars per bushel,0.687
+1886/87,All Wheat,Harvested acreage,Million acres,36.312
+1886/87,All Wheat,Production,Million bushels,513.54
+1886/87,All Wheat,Yield,Bushels per acre,14.1
+1887/88,All Wheat,Weighted-average farm price,Dollars per bushel,0.682
+1887/88,All Wheat,Harvested acreage,Million acres,36.873
+1887/88,All Wheat,Production,Million bushels,490.761
+1887/88,All Wheat,Yield,Bushels per acre,13.3
+1888/89,All Wheat,Weighted-average farm price,Dollars per bushel,0.927
+1888/89,All Wheat,Harvested acreage,Million acres,34.969
+1888/89,All Wheat,Production,Million bushels,423.867
+1888/89,All Wheat,Yield,Bushels per acre,12.1
+1889/90,All Wheat,Weighted-average farm price,Dollars per bushel,0.698
+1889/90,All Wheat,Harvested acreage,Million acres,36.098
+1889/90,All Wheat,Production,Million bushels,504.37
+1889/90,All Wheat,Yield,Bushels per acre,14.0
+1890/91,All Wheat,Weighted-average farm price,Dollars per bushel,0.837
+1890/91,All Wheat,Harvested acreage,Million acres,36.686
+1890/91,All Wheat,Production,Million bushels,449.042
+1890/91,All Wheat,Yield,Bushels per acre,12.2
+1891/92,All Wheat,Weighted-average farm price,Dollars per bushel,0.831
+1891/92,All Wheat,Harvested acreage,Million acres,41.09
+1891/92,All Wheat,Production,Million bushels,677.543
+1891/92,All Wheat,Yield,Bushels per acre,16.5
+1892/93,All Wheat,Weighted-average farm price,Dollars per bushel,0.624
+1892/93,All Wheat,Harvested acreage,Million acres,42.979
+1892/93,All Wheat,Production,Million bushels,611.854
+1892/93,All Wheat,Yield,Bushels per acre,14.2
+1893/94,All Wheat,Weighted-average farm price,Dollars per bushel,0.534
+1893/94,All Wheat,Harvested acreage,Million acres,40.79
+1893/94,All Wheat,Production,Million bushels,505.795
+1893/94,All Wheat,Yield,Bushels per acre,12.4
+1894/95,All Wheat,Weighted-average farm price,Dollars per bushel,0.489
+1894/95,All Wheat,Harvested acreage,Million acres,40.167
+1894/95,All Wheat,Production,Million bushels,541.873
+1894/95,All Wheat,Yield,Bushels per acre,13.5
+1895/96,All Wheat,Weighted-average farm price,Dollars per bushel,0.505
+1895/96,All Wheat,Harvested acreage,Million acres,38.998
+1895/96,All Wheat,Production,Million bushels,542.119
+1895/96,All Wheat,Yield,Bushels per acre,13.9
+1896/97,All Wheat,Weighted-average farm price,Dollars per bushel,0.721
+1896/97,All Wheat,Harvested acreage,Million acres,40.828
+1896/97,All Wheat,Production,Million bushels,522.963
+1896/97,All Wheat,Yield,Bushels per acre,12.8
+1897/98,All Wheat,Weighted-average farm price,Dollars per bushel,0.809
+1897/98,All Wheat,Harvested acreage,Million acres,43.413
+1897/98,All Wheat,Production,Million bushels,606.202
+1897/98,All Wheat,Yield,Bushels per acre,14.0
+1898/99,All Wheat,Weighted-average farm price,Dollars per bushel,0.579
+1898/99,All Wheat,Harvested acreage,Million acres,50.506
+1898/99,All Wheat,Production,Million bushels,768.148
+1898/99,All Wheat,Yield,Bushels per acre,15.2
+1899/00,All Wheat,Weighted-average farm price,Dollars per bushel,0.588
+1899/00,All Wheat,Harvested acreage,Million acres,52.342
+1899/00,All Wheat,Production,Million bushels,655.143
+1899/00,All Wheat,Yield,Bushels per acre,12.5
+1900/01,All Wheat,Weighted-average farm price,Dollars per bushel,0.621
+1900/01,All Wheat,Harvested acreage,Million acres,49.203
+1900/01,All Wheat,Production,Million bushels,599.315
+1900/01,All Wheat,Yield,Bushels per acre,12.2
+1901/02,All Wheat,Weighted-average farm price,Dollars per bushel,0.631
+1901/02,All Wheat,Harvested acreage,Million acres,50.847
+1901/02,All Wheat,Production,Million bushels,762.546
+1901/02,All Wheat,Yield,Bushels per acre,15.0
+1902/03,All Wheat,Weighted-average farm price,Dollars per bushel,0.63
+1902/03,All Wheat,Harvested acreage,Million acres,46.244
+1902/03,All Wheat,Production,Million bushels,686.959
+1902/03,All Wheat,Yield,Bushels per acre,14.9
+1903/04,All Wheat,Weighted-average farm price,Dollars per bushel,0.693
+1903/04,All Wheat,Harvested acreage,Million acres,48.456
+1903/04,All Wheat,Production,Million bushels,663.115
+1903/04,All Wheat,Yield,Bushels per acre,13.7
+1904/05,All Wheat,Weighted-average farm price,Dollars per bushel,0.926
+1904/05,All Wheat,Harvested acreage,Million acres,43.155
+1904/05,All Wheat,Production,Million bushels,555.571
+1904/05,All Wheat,Yield,Bushels per acre,12.9
+1905/06,All Wheat,Weighted-average farm price,Dollars per bushel,0.747
+1905/06,All Wheat,Harvested acreage,Million acres,46.306
+1905/06,All Wheat,Production,Million bushels,706.026
+1905/06,All Wheat,Yield,Bushels per acre,15.2
+1906/07,All Wheat,Weighted-average farm price,Dollars per bushel,0.66
+1906/07,All Wheat,Harvested acreage,Million acres,46.23
+1906/07,All Wheat,Production,Million bushels,740.509
+1906/07,All Wheat,Yield,Bushels per acre,16.0
+1907/08,All Wheat,Weighted-average farm price,Dollars per bushel,0.866
+1907/08,All Wheat,Harvested acreage,Million acres,44.139
+1907/08,All Wheat,Production,Million bushels,628.764
+1907/08,All Wheat,Yield,Bushels per acre,14.2
+1907/08,White,Weighted-average farm price,Dollars per bushel,0.922
+1908/09,All Wheat,Weighted-average farm price,Dollars per bushel,0.967
+1908/09,All Wheat,Harvested acreage,Million acres,45.102
+1908/09,All Wheat,Production,Million bushels,642.818
+1908/09,All Wheat,Yield,Bushels per acre,14.3
+1908/09,White,Weighted-average farm price,Dollars per bushel,0.8492
+1909/10,All Wheat,Weighted-average farm price,Dollars per bushel,0.986
+1909/10,All Wheat,Harvested acreage,Million acres,44.262
+1909/10,All Wheat,Production,Million bushels,683.927
+1909/10,All Wheat,Yield,Bushels per acre,15.5
+1909/10,White,Weighted-average farm price,Dollars per bushel,0.8033
+1910/11,All Wheat,Weighted-average farm price,Dollars per bushel,0.906
+1910/11,All Wheat,Harvested acreage,Million acres,45.793
+1910/11,All Wheat,Production,Million bushels,625.476
+1910/11,All Wheat,Yield,Bushels per acre,13.7
+1910/11,White,Weighted-average farm price,Dollars per bushel,0.7608
+1911/12,All Wheat,Weighted-average farm price,Dollars per bushel,0.865
+1911/12,All Wheat,Harvested acreage,Million acres,49.894
+1911/12,All Wheat,Production,Million bushels,618.166
+1911/12,All Wheat,Yield,Bushels per acre,12.4
+1911/12,White,Weighted-average farm price,Dollars per bushel,0.6917
+1912/13,All Wheat,Weighted-average farm price,Dollars per bushel,0.798
+1912/13,All Wheat,Harvested acreage,Million acres,48.413
+1912/13,All Wheat,Production,Million bushels,730.011
+1912/13,All Wheat,Yield,Bushels per acre,15.1
+1912/13,White,Weighted-average farm price,Dollars per bushel,0.6833
+1913/14,All Wheat,Weighted-average farm price,Dollars per bushel,0.789
+1913/14,All Wheat,Harvested acreage,Million acres,52.012
+1913/14,All Wheat,Production,Million bushels,751.101
+1913/14,All Wheat,Yield,Bushels per acre,14.4
+1913/14,White,Weighted-average farm price,Dollars per bushel,0.8458
+1914/15,All Wheat,Weighted-average farm price,Dollars per bushel,0.971
+1914/15,All Wheat,Harvested acreage,Million acres,55.613
+1914/15,All Wheat,Production,Million bushels,897.487
+1914/15,All Wheat,Yield,Bushels per acre,16.1
+1914/15,White,Weighted-average farm price,Dollars per bushel,0.815
+1915/16,All Wheat,Weighted-average farm price,Dollars per bushel,0.956
+1915/16,All Wheat,Harvested acreage,Million acres,60.303
+1915/16,All Wheat,Production,Million bushels,1008.637
+1915/16,All Wheat,Yield,Bushels per acre,16.7
+1915/16,White,Weighted-average farm price,Dollars per bushel,1.1733
+1916/17,All Wheat,Weighted-average farm price,Dollars per bushel,1.43
+1916/17,All Wheat,Harvested acreage,Million acres,53.51
+1916/17,All Wheat,Production,Million bushels,634.572
+1916/17,All Wheat,Yield,Bushels per acre,11.9
+1916/17,White,Weighted-average farm price,Dollars per bushel,1.5475
+1917/18,All Wheat,Weighted-average farm price,Dollars per bushel,2.04
+1917/18,All Wheat,Harvested acreage,Million acres,46.787
+1917/18,All Wheat,Production,Million bushels,619.79
+1917/18,All Wheat,Yield,Bushels per acre,13.2
+1917/18,White,Weighted-average farm price,Dollars per bushel,1.915
+1918/19,All Wheat,Weighted-average farm price,Dollars per bushel,2.05
+1918/19,All Wheat,Harvested acreage,Million acres,61.068
+1918/19,All Wheat,Production,Million bushels,904.13
+1918/19,All Wheat,Yield,Bushels per acre,14.8
+1918/19,White,Weighted-average farm price,Dollars per bushel,2.1292
+1919/20,All Wheat,Weighted-average farm price,Dollars per bushel,2.16
+1919/20,All Wheat,Harvested acreage,Million acres,73.7
+1919/20,All Wheat,Planted acreage,Million acres,77.44
+1919/20,All Wheat,Production,Million bushels,952.097
+1919/20,All Wheat,Yield,Bushels per acre,12.9
+1919/20,Durum,Harvested acreage,Million acres,3.684
+1919/20,Durum,Production,Million bushels,27.384
+1919/20,Durum,Yield,Bushels per acre,7.4
+1919/20,Hard Red Spring,Production,Million bushels,141.263
+1919/20,Hard Red Winter,Production,Million bushels,330.828
+1919/20,Soft Red Winter,Production,Million bushels,356.925
+1919/20,White,Weighted-average farm price,Dollars per bushel,1.72
+1920/21,All Wheat,Weighted-average farm price,Dollars per bushel,1.82
+1920/21,All Wheat,Harvested acreage,Million acres,62.358
+1920/21,All Wheat,Planted acreage,Million acres,67.977
+1920/21,All Wheat,Production,Million bushels,843.277
+1920/21,All Wheat,Yield,Bushels per acre,13.5
+1920/21,Durum,Harvested acreage,Million acres,4.032
+1920/21,Durum,Production,Million bushels,39.318
+1920/21,Durum,Yield,Bushels per acre,9.8
+1920/21,Hard Red Spring,Production,Million bushels,151.518
+1920/21,Hard Red Winter,Production,Million bushels,320.937
+1920/21,Soft Red Winter,Production,Million bushels,239.649
+1920/21,White,Weighted-average farm price,Dollars per bushel,1.4125
+1921/22,All Wheat,Weighted-average farm price,Dollars per bushel,1.03
+1921/22,All Wheat,Harvested acreage,Million acres,64.566
+1921/22,All Wheat,Planted acreage,Million acres,67.681
+1921/22,All Wheat,Production,Million bushels,818.964
+1921/22,All Wheat,Yield,Bushels per acre,12.7
+1921/22,Durum,Harvested acreage,Million acres,5.629
+1921/22,Durum,Production,Million bushels,49.956
+1921/22,Durum,Yield,Bushels per acre,8.9
+1921/22,Hard Red Spring,Production,Million bushels,131.587
+1921/22,Hard Red Winter,Production,Million bushels,323.465
+1921/22,Soft Red Winter,Production,Million bushels,222.381
+1921/22,White,Weighted-average farm price,Dollars per bushel,0.8942
+1922/23,All Wheat,Weighted-average farm price,Dollars per bushel,0.961
+1922/23,All Wheat,Harvested acreage,Million acres,61.397
+1922/23,All Wheat,Planted acreage,Million acres,67.163
+1922/23,All Wheat,Production,Million bushels,846.649
+1922/23,All Wheat,Yield,Bushels per acre,13.8
+1922/23,Durum,Harvested acreage,Million acres,5.38
+1922/23,Durum,Production,Million bushels,78.144
+1922/23,Durum,Yield,Bushels per acre,14.5
+1922/23,Hard Red Spring,Production,Million bushels,169.809
+1922/23,Hard Red Winter,Production,Million bushels,298.935
+1922/23,Soft Red Winter,Production,Million bushels,221.432
+1922/23,White,Weighted-average farm price,Dollars per bushel,0.8333
+1923/24,All Wheat,Weighted-average farm price,Dollars per bushel,0.923
+1923/24,All Wheat,Harvested acreage,Million acres,56.92
+1923/24,All Wheat,Planted acreage,Million acres,64.59
+1923/24,All Wheat,Production,Million bushels,759.482
+1923/24,All Wheat,Yield,Bushels per acre,13.3
+1923/24,Durum,Harvested acreage,Million acres,3.936
+1923/24,Durum,Production,Million bushels,37.655
+1923/24,Durum,Yield,Bushels per acre,9.6
+1923/24,Hard Red Spring,Production,Million bushels,132.293
+1923/24,Hard Red Winter,Production,Million bushels,258.817
+1923/24,Soft Red Winter,Production,Million bushels,237.248
+1923/24,White,Weighted-average farm price,Dollars per bushel,1.1392
+1924/25,All Wheat,Weighted-average farm price,Dollars per bushel,1.24
+1924/25,All Wheat,Harvested acreage,Million acres,52.463
+1924/25,All Wheat,Planted acreage,Million acres,55.706
+1924/25,All Wheat,Production,Million bushels,841.617
+1924/25,All Wheat,Yield,Bushels per acre,16.0
+1924/25,Durum,Harvested acreage,Million acres,3.596
+1924/25,Durum,Production,Million bushels,57.71
+1924/25,Durum,Yield,Bushels per acre,16.0
+1924/25,Hard Red Spring,Production,Million bushels,193.235
+1924/25,Hard Red Winter,Production,Million bushels,352.362
+1924/25,Soft Red Winter,Production,Million bushels,185.927
+1924/25,White,Weighted-average farm price,Dollars per bushel,1.2592
+1925/26,All Wheat,Weighted-average farm price,Dollars per bushel,1.43
+1925/26,All Wheat,Harvested acreage,Million acres,52.443
+1925/26,All Wheat,Planted acreage,Million acres,61.738
+1925/26,All Wheat,Production,Million bushels,668.7
+1925/26,All Wheat,Yield,Bushels per acre,12.8
+1925/26,Durum,Harvested acreage,Million acres,4.094
+1925/26,Durum,Production,Million bushels,57.37
+1925/26,Durum,Yield,Bushels per acre,14.0
+1925/26,Hard Red Spring,Production,Million bushels,165.78
+1925/26,Hard Red Winter,Production,Million bushels,204.171
+1925/26,Soft Red Winter,Production,Million bushels,162.962
+1925/26,White,Weighted-average farm price,Dollars per bushel,1.2058
+1926/27,All Wheat,Weighted-average farm price,Dollars per bushel,1.21
+1926/27,All Wheat,Harvested acreage,Million acres,56.616
+1926/27,All Wheat,Planted acreage,Million acres,60.712
+1926/27,All Wheat,Production,Million bushels,832.213
+1926/27,All Wheat,Yield,Bushels per acre,14.7
+1926/27,Durum,Harvested acreage,Million acres,4.563
+1926/27,Durum,Planted acreage,Million acres,4.868
+1926/27,Durum,Production,Million bushels,42.349
+1926/27,Durum,Yield,Bushels per acre,9.3
+1926/27,Hard Red Spring,Production,Million bushels,123.282
+1926/27,Hard Red Winter,Production,Million bushels,371.178
+1926/27,Soft Red Winter,Production,Million bushels,215.709
+1926/27,White,Weighted-average farm price,Dollars per bushel,1.13
+1927/28,All Wheat,Weighted-average farm price,Dollars per bushel,1.18
+1927/28,All Wheat,Harvested acreage,Million acres,59.628
+1927/28,All Wheat,Planted acreage,Million acres,65.661
+1927/28,All Wheat,Production,Million bushels,875.059
+1927/28,All Wheat,Yield,Bushels per acre,14.7
+1927/28,Durum,Harvested acreage,Million acres,5.43
+1927/28,Durum,Planted acreage,Million acres,5.463
+1927/28,Durum,Production,Million bushels,78.059
+1927/28,Durum,Yield,Bushels per acre,14.4
+1927/28,Hard Red Spring,Production,Million bushels,206.679
+1927/28,Hard Red Winter,Production,Million bushels,322.322
+1927/28,Soft Red Winter,Production,Million bushels,166.592
+1927/28,White,Weighted-average farm price,Dollars per bushel,1.0217
+1928/29,All Wheat,Weighted-average farm price,Dollars per bushel,0.988
+1928/29,All Wheat,Harvested acreage,Million acres,59.226
+1928/29,All Wheat,Planted acreage,Million acres,71.152
+1928/29,All Wheat,Production,Million bushels,914.373
+1928/29,All Wheat,Yield,Bushels per acre,15.4
+1928/29,Durum,Harvested acreage,Million acres,6.775
+1928/29,Durum,Planted acreage,Million acres,6.855
+1928/29,Durum,Production,Million bushels,95.266
+1928/29,Durum,Yield,Bushels per acre,14.1
+1928/29,Hard Red Spring,Production,Million bushels,202.803
+1928/29,Hard Red Winter,Production,Million bushels,394.11
+1928/29,Soft Red Winter,Production,Million bushels,127.393
+1928/29,White,Weighted-average farm price,Dollars per bushel,0.9242
+1929/30,All Wheat,Weighted-average farm price,Dollars per bushel,1.03
+1929/30,All Wheat,Harvested acreage,Million acres,63.392
+1929/30,All Wheat,Planted acreage,Million acres,67.177
+1929/30,All Wheat,Production,Million bushels,824.183
+1929/30,All Wheat,Yield,Bushels per acre,13.0
+1929/30,Durum,Weighted-average farm price,Dollars per bushel,0.912
+1929/30,Durum,Harvested acreage,Million acres,5.539
+1929/30,Durum,Planted acreage,Million acres,5.738
+1929/30,Durum,Production,Million bushels,54.442
+1929/30,Durum,Yield,Bushels per acre,9.8
+1929/30,Hard Red Spring,Production,Million bushels,145.555
+1929/30,Hard Red Winter,Production,Million bushels,372.788
+1929/30,Soft Red Winter,Production,Million bushels,165.252
+1929/30,White,Weighted-average farm price,Dollars per bushel,0.7375
+1930/31,All Wheat,Weighted-average farm price,Dollars per bushel,0.663
+1930/31,All Wheat,Harvested acreage,Million acres,62.637
+1930/31,All Wheat,Planted acreage,Million acres,67.559
+1930/31,All Wheat,Production,Million bushels,886.522
+1930/31,All Wheat,Yield,Bushels per acre,14.2
+1930/31,Durum,Weighted-average farm price,Dollars per bushel,0.532
+1930/31,Durum,Harvested acreage,Million acres,4.669
+1930/31,Durum,Planted acreage,Million acres,4.745
+1930/31,Durum,Production,Million bushels,57.132
+1930/31,Durum,Yield,Bushels per acre,12.2
+1930/31,Hard Red Spring,Production,Million bushels,156.979
+1930/31,Hard Red Winter,Production,Million bushels,404.372
+1930/31,Soft Red Winter,Production,Million bushels,180.484
+1930/31,White,Weighted-average farm price,Dollars per bushel,0.5125
+1931/32,All Wheat,Weighted-average farm price,Dollars per bushel,0.382
+1931/32,All Wheat,Harvested acreage,Million acres,57.704
+1931/32,All Wheat,Planted acreage,Million acres,66.463
+1931/32,All Wheat,Production,Million bushels,941.54
+1931/32,All Wheat,Yield,Bushels per acre,16.3
+1931/32,Durum,Weighted-average farm price,Dollars per bushel,0.396
+1931/32,Durum,Harvested acreage,Million acres,2.943
+1931/32,Durum,Planted acreage,Million acres,3.959
+1931/32,Durum,Production,Million bushels,21.055
+1931/32,Durum,Yield,Bushels per acre,7.2
+1931/32,Hard Red Spring,Production,Million bushels,72.411
+1931/32,Hard Red Winter,Production,Million bushels,514.332
+1931/32,Soft Red Winter,Production,Million bushels,262.435
+1931/32,White,Weighted-average farm price,Dollars per bushel,0.3483
+1932/33,All Wheat,Weighted-average farm price,Dollars per bushel,0.375
+1932/33,All Wheat,Harvested acreage,Million acres,57.851
+1932/33,All Wheat,Planted acreage,Million acres,66.281
+1932/33,All Wheat,Production,Million bushels,756.307
+1932/33,All Wheat,Yield,Bushels per acre,13.1
+1932/33,Durum,Weighted-average farm price,Dollars per bushel,0.303
+1932/33,Durum,Harvested acreage,Million acres,3.943
+1932/33,Durum,Planted acreage,Million acres,4.184
+1932/33,Durum,Production,Million bushels,40.45
+1932/33,Durum,Yield,Bushels per acre,10.3
+1932/33,Hard Red Spring,Production,Million bushels,190.435
+1932/33,Hard Red Winter,Production,Million bushels,279.427
+1932/33,Soft Red Winter,Production,Million bushels,159.625
+1932/33,White,Weighted-average farm price,Dollars per bushel,0.4075
+1933/34,All Wheat,Weighted-average farm price,Dollars per bushel,0.736
+1933/34,All Wheat,Harvested acreage,Million acres,49.424
+1933/34,All Wheat,Planted acreage,Million acres,69.009
+1933/34,All Wheat,Production,Million bushels,552.215
+1933/34,All Wheat,Yield,Bushels per acre,11.2
+1933/34,Durum,Weighted-average farm price,Dollars per bushel,0.682
+1933/34,Durum,Harvested acreage,Million acres,2.262
+1933/34,Durum,Planted acreage,Million acres,3.07
+1933/34,Durum,Production,Million bushels,16.403
+1933/34,Durum,Yield,Bushels per acre,7.3
+1933/34,Hard Red Spring,Production,Million bushels,106.714
+1933/34,Hard Red Winter,Production,Million bushels,177.069
+1933/34,Soft Red Winter,Production,Million bushels,162.344
+1933/34,White,Weighted-average farm price,Dollars per bushel,0.6108
+1934/35,All Wheat,Weighted-average farm price,Dollars per bushel,0.839
+1934/35,All Wheat,Harvested acreage,Million acres,43.347
+1934/35,All Wheat,Planted acreage,Million acres,64.064
+1934/35,All Wheat,Production,Million bushels,526.052
+1934/35,All Wheat,Yield,Bushels per acre,12.1
+1934/35,Durum,Weighted-average farm price,Dollars per bushel,1.02
+1934/35,Durum,Harvested acreage,Million acres,0.845
+1934/35,Durum,Planted acreage,Million acres,1.923
+1934/35,Durum,Production,Million bushels,6.235
+1934/35,Durum,Yield,Bushels per acre,7.4
+1934/35,Hard Red Spring,Production,Million bushels,53.095
+1934/35,Hard Red Winter,Production,Million bushels,207.544
+1934/35,Soft Red Winter,Production,Million bushels,188.061
+1934/35,White,Weighted-average farm price,Dollars per bushel,0.7
+1935/36,All Wheat,Weighted-average farm price,Dollars per bushel,0.827
+1935/36,All Wheat,Harvested acreage,Million acres,51.305
+1935/36,All Wheat,Planted acreage,Million acres,69.611
+1935/36,All Wheat,Production,Million bushels,628.227
+1935/36,All Wheat,Yield,Bushels per acre,12.2
+1935/36,Durum,Weighted-average farm price,Dollars per bushel,0.756
+1935/36,Durum,Harvested acreage,Million acres,2.228
+1935/36,Durum,Planted acreage,Million acres,2.428
+1935/36,Durum,Production,Million bushels,23.426
+1935/36,Durum,Yield,Bushels per acre,10.5
+1935/36,Hard Red Spring,Production,Million bushels,107.018
+1935/36,Hard Red Winter,Production,Million bushels,205.617
+1935/36,Soft Red Winter,Production,Million bushels,202.22
+1935/36,White,Weighted-average farm price,Dollars per bushel,0.8283
+1936/37,All Wheat,Weighted-average farm price,Dollars per bushel,1.02
+1936/37,All Wheat,Harvested acreage,Million acres,49.125
+1936/37,All Wheat,Planted acreage,Million acres,73.97
+1936/37,All Wheat,Production,Million bushels,629.88
+1936/37,All Wheat,Yield,Bushels per acre,12.8
+1936/37,Durum,Weighted-average farm price,Dollars per bushel,1.14
+1936/37,Durum,Harvested acreage,Million acres,1.543
+1936/37,Durum,Planted acreage,Million acres,3.555
+1936/37,Durum,Production,Million bushels,8.113
+1936/37,Durum,Yield,Bushels per acre,5.3
+1936/37,Hard Red Spring,Production,Million bushels,51.438
+1936/37,Hard Red Winter,Production,Million bushels,264.035
+1936/37,Soft Red Winter,Production,Million bushels,204.324
+1936/37,White,Weighted-average farm price,Dollars per bushel,0.775
+1937/38,All Wheat,Weighted-average farm price,Dollars per bushel,0.959
+1937/38,All Wheat,Harvested acreage,Million acres,64.169
+1937/38,All Wheat,Planted acreage,Million acres,80.814
+1937/38,All Wheat,Production,Million bushels,873.914
+1937/38,All Wheat,Yield,Bushels per acre,13.6
+1937/38,Durum,Weighted-average farm price,Dollars per bushel,0.85
+1937/38,Durum,Harvested acreage,Million acres,2.785
+1937/38,Durum,Planted acreage,Million acres,3.214
+1937/38,Durum,Production,Million bushels,27.957
+1937/38,Durum,Yield,Bushels per acre,10.0
+1937/38,Hard Red Spring,Production,Million bushels,100.962
+1937/38,Hard Red Winter,Production,Million bushels,381.662
+1937/38,Soft Red Winter,Production,Million bushels,249.769
+1937/38,White,Weighted-average farm price,Dollars per bushel,0.6158
+1938/39,All Wheat,Weighted-average farm price,Dollars per bushel,0.556
+1938/39,All Wheat,Harvested acreage,Million acres,69.197
+1938/39,All Wheat,Planted acreage,Million acres,78.981
+1938/39,All Wheat,Production,Million bushels,919.913
+1938/39,All Wheat,Yield,Bushels per acre,13.3
+1938/39,Durum,Weighted-average farm price,Dollars per bushel,0.491
+1938/39,Durum,Harvested acreage,Million acres,3.484
+1938/39,Durum,Planted acreage,Million acres,3.793
+1938/39,Durum,Production,Million bushels,39.715
+1938/39,Durum,Yield,Bushels per acre,11.4
+1938/39,Hard Red Spring,Production,Million bushels,154.669
+1938/39,Hard Red Winter,Production,Million bushels,396.046
+1938/39,Soft Red Winter,Production,Million bushels,226.053
+1938/39,White,Weighted-average farm price,Dollars per bushel,0.5283
+1939/40,All Wheat,Weighted-average farm price,Dollars per bushel,0.686
+1939/40,All Wheat,Harvested acreage,Million acres,52.669
+1939/40,All Wheat,Planted acreage,Million acres,62.802
+1939/40,All Wheat,Production,Million bushels,741.21
+1939/40,All Wheat,Yield,Bushels per acre,14.1
+1939/40,Durum,Weighted-average farm price,Dollars per bushel,0.662
+1939/40,Durum,Harvested acreage,Million acres,2.965
+1939/40,Durum,Planted acreage,Million acres,3.128
+1939/40,Durum,Production,Million bushels,32.486
+1939/40,Durum,Yield,Bushels per acre,11.0
+1939/40,Hard Red Spring,Production,Million bushels,116.441
+1939/40,Hard Red Winter,Production,Million bushels,315.089
+1939/40,Soft Red Winter,Production,Million bushels,194.91
+1939/40,White,Weighted-average farm price,Dollars per bushel,0.5867
+1940/41,All Wheat,Weighted-average farm price,Dollars per bushel,0.674
+1940/41,All Wheat,Harvested acreage,Million acres,53.273
+1940/41,All Wheat,Planted acreage,Million acres,61.82
+1940/41,All Wheat,Production,Million bushels,814.646
+1940/41,All Wheat,Yield,Bushels per acre,15.3
+1940/41,Durum,Weighted-average farm price,Dollars per bushel,0.638
+1940/41,Durum,Harvested acreage,Million acres,3.029
+1940/41,Durum,Planted acreage,Million acres,3.371
+1940/41,Durum,Production,Million bushels,32.294
+1940/41,Durum,Yield,Bushels per acre,10.7
+1940/41,Hard Red Spring,Production,Million bushels,157.438
+1940/41,Hard Red Winter,Production,Million bushels,323.956
+1940/41,Soft Red Winter,Production,Million bushels,207.405
+1940/41,White,Weighted-average farm price,Dollars per bushel,0.7042
+1941/42,All Wheat,Weighted-average farm price,Dollars per bushel,0.939
+1941/42,All Wheat,Harvested acreage,Million acres,55.935
+1941/42,All Wheat,Planted acreage,Million acres,62.707
+1941/42,All Wheat,Production,Million bushels,941.97
+1941/42,All Wheat,Yield,Bushels per acre,16.8
+1941/42,Durum,Weighted-average farm price,Dollars per bushel,0.891
+1941/42,Durum,Harvested acreage,Million acres,2.524
+1941/42,Durum,Planted acreage,Million acres,2.598
+1941/42,Durum,Production,Million bushels,40.658
+1941/42,Durum,Yield,Bushels per acre,16.1
+1941/42,Hard Red Spring,Production,Million bushels,202.129
+1941/42,Hard Red Winter,Production,Million bushels,395.509
+1941/42,Soft Red Winter,Production,Million bushels,204.031
+1941/42,White,Weighted-average farm price,Dollars per bushel,0.93
+1942/43,All Wheat,Weighted-average farm price,Dollars per bushel,1.09
+1942/43,All Wheat,Harvested acreage,Million acres,49.773
+1942/43,All Wheat,Planted acreage,Million acres,53.0
+1942/43,All Wheat,Production,Million bushels,969.381
+1942/43,All Wheat,Yield,Bushels per acre,19.5
+1942/43,Durum,Weighted-average farm price,Dollars per bushel,1.06
+1942/43,Durum,Harvested acreage,Million acres,2.109
+1942/43,Durum,Planted acreage,Million acres,2.155
+1942/43,Durum,Production,Million bushels,41.236
+1942/43,Durum,Yield,Bushels per acre,19.6
+1942/43,Hard Red Spring,Production,Million bushels,206.081
+1942/43,Hard Red Winter,Production,Million bushels,486.031
+1942/43,Soft Red Winter,Production,Million bushels,148.723
+1942/43,White,Weighted-average farm price,Dollars per bushel,1.1308
+1943/44,All Wheat,Weighted-average farm price,Dollars per bushel,1.35
+1943/44,All Wheat,Harvested acreage,Million acres,51.355
+1943/44,All Wheat,Planted acreage,Million acres,55.984
+1943/44,All Wheat,Production,Million bushels,843.813
+1943/44,All Wheat,Yield,Bushels per acre,16.4
+1943/44,Durum,Weighted-average farm price,Dollars per bushel,1.33
+1943/44,Durum,Harvested acreage,Million acres,2.078
+1943/44,Durum,Planted acreage,Million acres,2.136
+1943/44,Durum,Production,Million bushels,33.505
+1943/44,Durum,Yield,Bushels per acre,16.1
+1943/44,Hard Red Spring,Production,Million bushels,226.363
+1943/44,Hard Red Winter,Production,Million bushels,363.838
+1943/44,Soft Red Winter,Production,Million bushels,125.216
+1943/44,White,Weighted-average farm price,Dollars per bushel,1.2917
+1944/45,All Wheat,Weighted-average farm price,Dollars per bushel,1.41
+1944/45,All Wheat,Harvested acreage,Million acres,59.749
+1944/45,All Wheat,Planted acreage,Million acres,66.19
+1944/45,All Wheat,Production,Million bushels,1060.111
+1944/45,All Wheat,Yield,Bushels per acre,17.7
+1944/45,Durum,Weighted-average farm price,Dollars per bushel,1.42
+1944/45,Durum,Harvested acreage,Million acres,2.057
+1944/45,Durum,Planted acreage,Million acres,2.099
+1944/45,Durum,Production,Million bushels,29.666
+1944/45,Durum,Yield,Bushels per acre,14.4
+1944/45,Hard Red Spring,Production,Million bushels,235.772
+1944/45,Hard Red Winter,Production,Million bushels,467.778
+1944/45,Soft Red Winter,Production,Million bushels,202.85
+1944/45,White,Weighted-average farm price,Dollars per bushel,1.3108
+1945/46,All Wheat,Weighted-average farm price,Dollars per bushel,1.49
+1945/46,All Wheat,Harvested acreage,Million acres,65.167
+1945/46,All Wheat,Planted acreage,Million acres,69.192
+1945/46,All Wheat,Production,Million bushels,1107.623
+1945/46,All Wheat,Yield,Bushels per acre,17.0
+1945/46,Durum,Weighted-average farm price,Dollars per bushel,1.57
+1945/46,Durum,Harvested acreage,Million acres,2.004
+1945/46,Durum,Planted acreage,Million acres,2.026
+1945/46,Durum,Production,Million bushels,32.84
+1945/46,Durum,Yield,Bushels per acre,16.4
+1945/46,Hard Red Spring,Production,Million bushels,220.982
+1945/46,Hard Red Winter,Production,Million bushels,520.743
+1945/46,Soft Red Winter,Production,Million bushels,207.921
+1945/46,White,Weighted-average farm price,Dollars per bushel,1.38
+1946/47,All Wheat,Weighted-average farm price,Dollars per bushel,1.9
+1946/47,All Wheat,Harvested acreage,Million acres,67.105
+1946/47,All Wheat,Planted acreage,Million acres,71.578
+1946/47,All Wheat,Production,Million bushels,1152.118
+1946/47,All Wheat,Yield,Bushels per acre,17.2
+1946/47,Durum,Weighted-average farm price,Dollars per bushel,2.01
+1946/47,Durum,Harvested acreage,Million acres,2.453
+1946/47,Durum,Planted acreage,Million acres,2.493
+1946/47,Durum,Production,Million bushels,35.836
+1946/47,Durum,Yield,Bushels per acre,14.6
+1946/47,Hard Red Spring,Production,Million bushels,215.213
+1946/47,Hard Red Winter,Production,Million bushels,581.398
+1946/47,Soft Red Winter,Production,Million bushels,183.061
+1946/47,White,Weighted-average farm price,Dollars per bushel,1.8008
+1947/48,All Wheat,Weighted-average farm price,Dollars per bushel,2.29
+1947/48,All Wheat,Harvested acreage,Million acres,74.519
+1947/48,All Wheat,Planted acreage,Million acres,78.314
+1947/48,All Wheat,Production,Million bushels,1358.911
+1947/48,All Wheat,Yield,Bushels per acre,18.2
+1947/48,Durum,Weighted-average farm price,Dollars per bushel,2.54
+1947/48,Durum,Harvested acreage,Million acres,2.948
+1947/48,Durum,Planted acreage,Million acres,2.975
+1947/48,Durum,Production,Million bushels,44.328
+1947/48,Durum,Yield,Bushels per acre,15.0
+1947/48,Hard Red Spring,Production,Million bushels,220.313
+1947/48,Hard Red Winter,Production,Million bushels,744.093
+1947/48,Soft Red Winter,Production,Million bushels,209.843
+1947/48,White,Weighted-average farm price,Dollars per bushel,2.1825
+1948/49,All Wheat,Weighted-average farm price,Dollars per bushel,1.98
+1948/49,All Wheat,Harvested acreage,Million acres,72.418
+1948/49,All Wheat,Planted acreage,Million acres,78.345
+1948/49,All Wheat,Production,Million bushels,1294.911
+1948/49,All Wheat,Yield,Bushels per acre,17.9
+1948/49,Durum,Weighted-average farm price,Dollars per bushel,2.0
+1948/49,Durum,Harvested acreage,Million acres,3.22
+1948/49,Durum,Planted acreage,Million acres,3.278
+1948/49,Durum,Production,Million bushels,45.142
+1948/49,Durum,Yield,Bushels per acre,14.0
+1948/49,Hard Red Spring,Production,Million bushels,225.634
+1948/49,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.9872
+1948/49,Hard Red Winter,Production,Million bushels,648.177
+1948/49,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.0635
+1948/49,Soft Red Winter,Production,Million bushels,211.445
+1948/49,White,Weighted-average farm price,Dollars per bushel,1.885
+1949/50,All Wheat,Weighted-average farm price,Dollars per bushel,1.88
+1949/50,All Wheat,Harvested acreage,Million acres,75.91
+1949/50,All Wheat,Planted acreage,Million acres,83.905
+1949/50,All Wheat,Production,Million bushels,1098.415
+1949/50,All Wheat,Yield,Bushels per acre,14.5
+1949/50,Durum,Weighted-average farm price,Dollars per bushel,1.95
+1949/50,Durum,Harvested acreage,Million acres,3.57
+1949/50,Durum,Planted acreage,Million acres,3.767
+1949/50,Durum,Production,Million bushels,39.072
+1949/50,Durum,Yield,Bushels per acre,10.9
+1949/50,Hard Red Spring,Production,Million bushels,169.244
+1949/50,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.91
+1949/50,Hard Red Winter,Production,Million bushels,541.514
+1949/50,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.8967
+1949/50,Soft Red Winter,Production,Million bushels,202.72
+1949/50,White,Weighted-average farm price,Dollars per bushel,1.895
+1950/51,All Wheat,Weighted-average farm price,Dollars per bushel,2.0
+1950/51,All Wheat,Harvested acreage,Million acres,61.6
+1950/51,All Wheat,Planted acreage,Million acres,71.3
+1950/51,All Wheat,Production,Million bushels,1019.0
+1950/51,All Wheat,Yield,Bushels per acre,16.5
+1950/51,Durum,Weighted-average farm price,Dollars per bushel,2.07
+1950/51,Durum,Harvested acreage,Million acres,2.829
+1950/51,Durum,Planted acreage,Million acres,2.918
+1950/51,Durum,Production,Million bushels,37.212
+1950/51,Durum,Yield,Bushels per acre,13.2
+1950/51,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.0527
+1950/51,Hard Red Winter,Production,Million bushels,458.901
+1950/51,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.0858
+1950/51,White,Weighted-average farm price,Dollars per bushel,1.9478
+1951/52,All Wheat,Weighted-average farm price,Dollars per bushel,2.11
+1951/52,All Wheat,Harvested acreage,Million acres,61.9
+1951/52,All Wheat,Planted acreage,Million acres,78.5
+1951/52,All Wheat,Production,Million bushels,988.0
+1951/52,All Wheat,Yield,Bushels per acre,16.0
+1951/52,Durum,Weighted-average farm price,Dollars per bushel,2.11
+1951/52,Durum,Harvested acreage,Million acres,2.518
+1951/52,Durum,Planted acreage,Million acres,2.586
+1951/52,Durum,Production,Million bushels,34.762
+1951/52,Durum,Yield,Bushels per acre,13.8
+1951/52,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.1878
+1951/52,Hard Red Winter,Production,Million bushels,382.272
+1951/52,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.2423
+1951/52,White,Weighted-average farm price,Dollars per bushel,2.0867
+1952/53,All Wheat,Weighted-average farm price,Dollars per bushel,2.09
+1952/53,All Wheat,Harvested acreage,Million acres,71.1
+1952/53,All Wheat,Planted acreage,Million acres,78.6
+1952/53,All Wheat,Production,Million bushels,1306.0
+1952/53,All Wheat,Yield,Bushels per acre,18.4
+1952/53,Durum,Weighted-average farm price,Dollars per bushel,2.44
+1952/53,Durum,Harvested acreage,Million acres,2.174
+1952/53,Durum,Planted acreage,Million acres,2.328
+1952/53,Durum,Production,Million bushels,22.493
+1952/53,Durum,Yield,Bushels per acre,10.3
+1952/53,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.1
+1952/53,Hard Red Winter,Production,Million bushels,722.939
+1952/53,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.0527
+1952/53,White,Weighted-average farm price,Dollars per bushel,2.0672
+1953/54,All Wheat,Weighted-average farm price,Dollars per bushel,2.04
+1953/54,All Wheat,Harvested acreage,Million acres,67.8
+1953/54,All Wheat,Planted acreage,Million acres,78.9
+1953/54,All Wheat,Production,Million bushels,1173.0
+1953/54,All Wheat,Yield,Bushels per acre,17.3
+1953/54,Durum,Weighted-average farm price,Dollars per bushel,2.84
+1953/54,Durum,Harvested acreage,Million acres,1.865
+1953/54,Durum,Planted acreage,Million acres,2.103
+1953/54,Durum,Production,Million bushels,12.967
+1953/54,Durum,Yield,Bushels per acre,7.0
+1953/54,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.0172
+1953/54,Hard Red Winter,Production,Million bushels,504.406
+1953/54,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.8642
+1953/54,White,Weighted-average farm price,Dollars per bushel,1.9953
+1954/55,All Wheat,Weighted-average farm price,Dollars per bushel,2.12
+1954/55,All Wheat,Harvested acreage,Million acres,54.4
+1954/55,All Wheat,Planted acreage,Million acres,62.5
+1954/55,All Wheat,Production,Million bushels,984.0
+1954/55,All Wheat,Yield,Bushels per acre,18.088
+1954/55,Durum,Weighted-average farm price,Dollars per bushel,3.09
+1954/55,Durum,Harvested acreage,Million acres,1.309
+1954/55,Durum,Planted acreage,Million acres,1.637
+1954/55,Durum,Production,Million bushels,4.982
+1954/55,Durum,Yield,Bushels per acre,3.8
+1954/55,Hard Red Spring,Production,Million bushels,145.265
+1954/55,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.0913
+1954/55,Hard Red Winter,Production,Million bushels,488.854
+1954/55,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.979
+1954/55,Soft Red Winter,Production,Million bushels,184.533
+1954/55,White,Weighted-average farm price,Dollars per bushel,2.0317
+1955/56,All Wheat,Weighted-average farm price,Dollars per bushel,1.98
+1955/56,All Wheat,Harvested acreage,Million acres,47.3
+1955/56,All Wheat,Planted acreage,Million acres,58.2
+1955/56,All Wheat,Production,Million bushels,937.0
+1955/56,All Wheat,Yield,Bushels per acre,19.8
+1955/56,Durum,Weighted-average farm price,Dollars per bushel,2.43
+1955/56,Durum,Harvested acreage,Million acres,1.348
+1955/56,Durum,Planted acreage,Million acres,1.385
+1955/56,Durum,Production,Million bushels,19.58
+1955/56,Durum,Yield,Bushels per acre,14.5
+1955/56,Hard Red Spring,Production,Million bushels,184.035
+1955/56,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.9698
+1955/56,Hard Red Winter,Production,Million bushels,415.365
+1955/56,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.9033
+1955/56,Soft Red Winter,Production,Million bushels,174.859
+1955/56,White,Weighted-average farm price,Dollars per bushel,1.9111
+1956/57,All Wheat,Weighted-average farm price,Dollars per bushel,1.97
+1956/57,All Wheat,Harvested acreage,Million acres,49.8
+1956/57,All Wheat,Planted acreage,Million acres,60.7
+1956/57,All Wheat,Production,Million bushels,1005.0
+1956/57,All Wheat,Yield,Bushels per acre,20.2
+1956/57,Durum,Weighted-average farm price,Dollars per bushel,2.12
+1956/57,Durum,Harvested acreage,Million acres,2.318
+1956/57,Durum,Planted acreage,Million acres,2.489
+1956/57,Durum,Production,Million bushels,38.791
+1956/57,Durum,Yield,Bushels per acre,16.7
+1956/57,Hard Red Spring,Production,Million bushels,177.734
+1956/57,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.9965
+1956/57,Hard Red Winter,Production,Million bushels,446.039
+1956/57,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.0377
+1956/57,Soft Red Winter,Production,Million bushels,187.733
+1956/57,White,Weighted-average farm price,Dollars per bushel,1.9997
+1957/58,All Wheat,Weighted-average farm price,Dollars per bushel,1.93
+1957/58,All Wheat,Harvested acreage,Million acres,43.8
+1957/58,All Wheat,Planted acreage,Million acres,49.8
+1957/58,All Wheat,Production,Million bushels,956.0
+1957/58,All Wheat,Yield,Bushels per acre,21.826
+1957/58,Durum,Weighted-average farm price,Dollars per bushel,1.97
+1957/58,Durum,Harvested acreage,Million acres,2.286
+1957/58,Durum,Planted acreage,Million acres,2.37
+1957/58,Durum,Production,Million bushels,39.935
+1957/58,Durum,Yield,Bushels per acre,17.5
+1957/58,Hard Red Spring,Production,Million bushels,168.638
+1957/58,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.9048
+1957/58,Hard Red Winter,Production,Million bushels,429.263
+1957/58,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.9683
+1957/58,Soft Red Winter,Production,Million bushels,154.615
+1957/58,White,Weighted-average farm price,Dollars per bushel,1.9311
+1958/59,All Wheat,Weighted-average farm price,Dollars per bushel,1.75
+1958/59,All Wheat,Harvested acreage,Million acres,53.0
+1958/59,All Wheat,Planted acreage,Million acres,56.0
+1958/59,All Wheat,Production,Million bushels,1457.0
+1958/59,All Wheat,Yield,Bushels per acre,27.5
+1958/59,Durum,Weighted-average farm price,Dollars per bushel,1.98
+1958/59,Durum,Harvested acreage,Million acres,0.906
+1958/59,Durum,Planted acreage,Million acres,0.938
+1958/59,Durum,Production,Million bushels,21.669
+1958/59,Durum,Yield,Bushels per acre,23.9
+1958/59,Hard Red Spring,Production,Million bushels,232.791
+1958/59,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.7362
+1958/59,Hard Red Winter,Production,Million bushels,836.372
+1958/59,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.7065
+1958/59,Soft Red Winter,Production,Million bushels,192.186
+1958/59,White,Weighted-average farm price,Dollars per bushel,1.7311
+1959/60,All Wheat,Weighted-average farm price,Dollars per bushel,1.76
+1959/60,All Wheat,Harvested acreage,Million acres,51.7
+1959/60,All Wheat,Planted acreage,Million acres,56.7
+1959/60,All Wheat,Production,Million bushels,1118.0
+1959/60,All Wheat,Yield,Bushels per acre,21.6
+1959/60,Durum,Weighted-average farm price,Dollars per bushel,2.08
+1959/60,Durum,Harvested acreage,Million acres,1.141
+1959/60,Durum,Planted acreage,Million acres,1.217
+1959/60,Durum,Production,Million bushels,20.192
+1959/60,Durum,Yield,Bushels per acre,17.7
+1959/60,Hard Red Spring,Production,Million bushels,150.464
+1959/60,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.7777
+1959/60,Hard Red Winter,Production,Million bushels,619.395
+1959/60,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.8021
+1959/60,Soft Red Winter,Production,Million bushels,156.294
+1959/60,White,Weighted-average farm price,Dollars per bushel,1.7244
+1960/61,All Wheat,Weighted-average farm price,Dollars per bushel,1.74
+1960/61,All Wheat,Harvested acreage,Million acres,51.9
+1960/61,All Wheat,Planted acreage,Million acres,54.9
+1960/61,All Wheat,Production,Million bushels,1354.7
+1960/61,All Wheat,Yield,Bushels per acre,26.1
+1960/61,Durum,Weighted-average farm price,Dollars per bushel,1.92
+1960/61,Durum,Harvested acreage,Million acres,1.65
+1960/61,Durum,Planted acreage,Million acres,1.681
+1960/61,Durum,Production,Million bushels,34.361
+1960/61,Durum,Yield,Bushels per acre,20.8
+1960/61,Hard Red Spring,Production,Million bushels,187.925
+1960/61,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.7464
+1960/61,Hard Red Winter,Production,Million bushels,794.386
+1960/61,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.7788
+1960/61,Soft Red Winter,Production,Million bushels,189.808
+1960/61,White,Weighted-average farm price,Dollars per bushel,1.7731
+1961/62,All Wheat,Weighted-average farm price,Dollars per bushel,1.83
+1961/62,All Wheat,Harvested acreage,Million acres,51.6
+1961/62,All Wheat,Planted acreage,Million acres,55.7
+1961/62,All Wheat,Production,Million bushels,1232.4
+1961/62,All Wheat,Yield,Bushels per acre,23.9
+1961/62,Durum,Weighted-average farm price,Dollars per bushel,2.93
+1961/62,Durum,Harvested acreage,Million acres,1.624
+1961/62,Durum,Planted acreage,Million acres,1.788
+1961/62,Durum,Production,Million bushels,21.339
+1961/62,Durum,Yield,Bushels per acre,13.1
+1961/62,Hard Red Spring,Production,Million bushels,116.535
+1961/62,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.8235
+1961/62,Hard Red Winter,Production,Million bushels,753.802
+1961/62,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.8408
+1961/62,Soft Red Winter,Production,Million bushels,201.522
+1961/62,White,Weighted-average farm price,Dollars per bushel,1.8394
+1962/63,All Wheat,Weighted-average farm price,Dollars per bushel,2.04
+1962/63,All Wheat,Harvested acreage,Million acres,43.7
+1962/63,All Wheat,Planted acreage,Million acres,49.3
+1962/63,All Wheat,Production,Million bushels,1092.0
+1962/63,All Wheat,Yield,Bushels per acre,25.0
+1962/63,Durum,Weighted-average farm price,Dollars per bushel,2.28
+1962/63,Durum,Harvested acreage,Million acres,2.367
+1962/63,Durum,Planted acreage,Million acres,2.434
+1962/63,Durum,Production,Million bushels,70.26
+1962/63,Durum,Yield,Bushels per acre,29.7
+1962/63,Hard Red Spring,Production,Million bushels,178.686
+1962/63,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.0061
+1962/63,Hard Red Winter,Production,Million bushels,535.16
+1962/63,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.9656
+1962/63,Soft Red Winter,Production,Million bushels,155.599
+1962/63,White,Weighted-average farm price,Dollars per bushel,1.9556
+1963/64,All Wheat,Weighted-average farm price,Dollars per bushel,1.85
+1963/64,All Wheat,Harvested acreage,Million acres,45.5
+1963/64,All Wheat,Planted acreage,Million acres,53.4
+1963/64,All Wheat,Production,Million bushels,1146.8
+1963/64,All Wheat,Yield,Bushels per acre,25.2
+1963/64,Durum,Weighted-average farm price,Dollars per bushel,1.96
+1963/64,Durum,Harvested acreage,Million acres,1.999
+1963/64,Durum,Planted acreage,Million acres,2.054
+1963/64,Durum,Production,Million bushels,51.427
+1963/64,Durum,Yield,Bushels per acre,25.7
+1963/64,Hard Red Spring,Production,Million bushels,167.923
+1963/64,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.9088
+1963/64,Hard Red Winter,Production,Million bushels,543.852
+1963/64,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.9044
+1963/64,Soft Red Winter,Production,Million bushels,218.293
+1963/64,White,Weighted-average farm price,Dollars per bushel,1.895
+1964/65,All Wheat,Weighted-average farm price,Dollars per bushel,1.37
+1964/65,All Wheat,Harvested acreage,Million acres,49.8
+1964/65,All Wheat,Planted acreage,Million acres,55.7
+1964/65,All Wheat,Production,Million bushels,1283.4
+1964/65,All Wheat,Yield,Bushels per acre,25.8
+1964/65,Durum,Weighted-average farm price,Dollars per bushel,1.41
+1964/65,Durum,Harvested acreage,Million acres,2.467
+1964/65,Durum,Planted acreage,Million acres,2.519
+1964/65,Durum,Production,Million bushels,68.146
+1964/65,Durum,Yield,Bushels per acre,27.6
+1964/65,Hard Red Spring,Production,Million bushels,179.819
+1964/65,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.3967
+1964/65,Hard Red Winter,Production,Million bushels,634.755
+1964/65,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.3678
+1964/65,Soft Red Winter,Production,Million bushels,222.423
+1964/65,White,Weighted-average farm price,Dollars per bushel,1.3286
+1965/66,All Wheat,Weighted-average farm price,Dollars per bushel,1.35
+1965/66,All Wheat,Harvested acreage,Million acres,49.6
+1965/66,All Wheat,Planted acreage,Million acres,57.4
+1965/66,All Wheat,Production,Million bushels,1315.6
+1965/66,All Wheat,Yield,Bushels per acre,26.5
+1965/66,Durum,Weighted-average farm price,Dollars per bushel,1.32
+1965/66,Durum,Harvested acreage,Million acres,2.296
+1965/66,Durum,Planted acreage,Million acres,2.361
+1965/66,Durum,Production,Million bushels,69.866
+1965/66,Durum,Yield,Bushels per acre,30.4
+1965/66,Hard Red Spring,Production,Million bushels,209.113
+1965/66,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.3946
+1965/66,Hard Red Winter,Production,Million bushels,673.896
+1965/66,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.4403
+1965/66,Soft Red Winter,Production,Million bushels,183.22
+1965/66,White,Weighted-average farm price,Dollars per bushel,1.3278
+1966/67,All Wheat,Weighted-average farm price,Dollars per bushel,1.63
+1966/67,All Wheat,Harvested acreage,Million acres,49.6
+1966/67,All Wheat,Planted acreage,Million acres,54.1
+1966/67,All Wheat,Production,Million bushels,1304.9
+1966/67,All Wheat,Yield,Bushels per acre,26.3
+1966/67,Durum,Weighted-average farm price,Dollars per bushel,1.68
+1966/67,Durum,Harvested acreage,Million acres,2.423
+1966/67,Durum,Planted acreage,Million acres,2.491
+1966/67,Durum,Production,Million bushels,62.638
+1966/67,Durum,Yield,Bushels per acre,25.9
+1966/67,Hard Red Spring,Production,Million bushels,174.738
+1966/67,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.6381
+1966/67,Hard Red Winter,Production,Million bushels,677.004
+1966/67,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.6298
+1966/67,Soft Red Winter,Production,Million bushels,215.003
+1966/67,White,Weighted-average farm price,Dollars per bushel,1.5378
+1967/68,All Wheat,Weighted-average farm price,Dollars per bushel,1.39
+1967/68,All Wheat,Harvested acreage,Million acres,49.6
+1967/68,All Wheat,Planted acreage,Million acres,54.1
+1967/68,All Wheat,Production,Million bushels,1507.6
+1967/68,All Wheat,Yield,Bushels per acre,26.3
+1967/68,Durum,Weighted-average farm price,Dollars per bushel,1.69
+1967/68,Durum,Harvested acreage,Million acres,2.754
+1967/68,Durum,Planted acreage,Million acres,2.826
+1967/68,Durum,Production,Million bushels,66.443
+1967/68,Durum,Yield,Bushels per acre,24.1
+1967/68,Hard Red Spring,Production,Million bushels,230.013
+1967/68,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.3789
+1967/68,Hard Red Winter,Production,Million bushels,703.378
+1967/68,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.336
+1967/68,Soft Red Winter,Production,Million bushels,270.197
+1967/68,White,Weighted-average farm price,Dollars per bushel,1.4117
+1968/69,All Wheat,Weighted-average farm price,Dollars per bushel,1.24
+1968/69,All Wheat,Harvested acreage,Million acres,54.8
+1968/69,All Wheat,Planted acreage,Million acres,61.9
+1968/69,All Wheat,Production,Million bushels,1556.6
+1968/69,All Wheat,Yield,Bushels per acre,28.4
+1968/69,Durum,Weighted-average farm price,Dollars per bushel,1.49
+1968/69,Durum,Harvested acreage,Million acres,3.621
+1968/69,Durum,Planted acreage,Million acres,3.715
+1968/69,Durum,Production,Million bushels,99.644
+1968/69,Durum,Yield,Bushels per acre,27.5
+1968/69,Hard Red Spring,Production,Million bushels,228.871
+1968/69,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.2082
+1968/69,Hard Red Winter,Production,Million bushels,801.746
+1968/69,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.1642
+1968/69,Soft Red Winter,Production,Million bushels,218.102
+1968/69,White,Weighted-average farm price,Dollars per bushel,1.2642
+1969/70,All Wheat,Weighted-average farm price,Dollars per bushel,1.25
+1969/70,All Wheat,Harvested acreage,Million acres,47.1
+1969/70,All Wheat,Planted acreage,Million acres,53.5
+1969/70,All Wheat,Production,Million bushels,1442.7
+1969/70,All Wheat,Yield,Bushels per acre,30.6
+1969/70,Durum,Weighted-average farm price,Dollars per bushel,1.31
+1969/70,Durum,Harvested acreage,Million acres,3.42
+1969/70,Durum,Planted acreage,Million acres,3.466
+1969/70,Durum,Production,Million bushels,108.403
+1969/70,Durum,Yield,Bushels per acre,31.7
+1969/70,Hard Red Spring,Production,Million bushels,189.718
+1969/70,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.2173
+1969/70,Hard Red Winter,Production,Million bushels,788.595
+1969/70,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.2415
+1969/70,Soft Red Winter,Production,Million bushels,185.151
+1969/70,White,Weighted-average farm price,Dollars per bushel,1.2956
+1970/71,All Wheat,Weighted-average farm price,Dollars per bushel,1.33
+1970/71,All Wheat,Harvested acreage,Million acres,43.6
+1970/71,All Wheat,Planted acreage,Million acres,48.7
+1970/71,All Wheat,Production,Million bushels,1351.6
+1970/71,All Wheat,Yield,Bushels per acre,31.0
+1970/71,Durum,Weighted-average farm price,Dollars per bushel,1.38
+1970/71,Durum,Harvested acreage,Million acres,2.105
+1970/71,Durum,Planted acreage,Million acres,2.167
+1970/71,Durum,Production,Million bushels,52.771
+1970/71,Durum,Yield,Bushels per acre,25.1
+1970/71,Hard Red Spring,Production,Million bushels,197.746
+1970/71,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.3248
+1970/71,Hard Red Winter,Production,Million bushels,755.13
+1970/71,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.4425
+1970/71,Soft Red Winter,Production,Million bushels,174.169
+1970/71,White,Weighted-average farm price,Dollars per bushel,1.4581
+1971/72,All Wheat,Weighted-average farm price,Dollars per bushel,1.34
+1971/72,All Wheat,Harvested acreage,Million acres,47.7
+1971/72,All Wheat,Planted acreage,Million acres,53.8
+1971/72,All Wheat,Production,Million bushels,1618.6
+1971/72,All Wheat,Yield,Bushels per acre,33.9
+1971/72,Durum,Weighted-average farm price,Dollars per bushel,1.31
+1971/72,Durum,Harvested acreage,Million acres,2.864
+1971/72,Durum,Planted acreage,Million acres,2.943
+1971/72,Durum,Production,Million bushels,91.805
+1971/72,Durum,Yield,Bushels per acre,32.1
+1971/72,Hard Red Spring,Production,Million bushels,366.447
+1971/72,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.3608
+1971/72,Hard Red Winter,Production,Million bushels,747.786
+1971/72,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.3806
+1971/72,Soft Red Winter,Production,Million bushels,211.876
+1971/72,White,Weighted-average farm price,Dollars per bushel,1.4008
+1972/73,All Wheat,Weighted-average farm price,Dollars per bushel,1.76
+1972/73,All Wheat,Harvested acreage,Million acres,47.3
+1972/73,All Wheat,Planted acreage,Million acres,54.9
+1972/73,All Wheat,Production,Million bushels,1546.2
+1972/73,All Wheat,Yield,Bushels per acre,32.7
+1972/73,Durum,Weighted-average farm price,Dollars per bushel,1.93
+1972/73,Durum,Harvested acreage,Million acres,2.55
+1972/73,Durum,Planted acreage,Million acres,2.592
+1972/73,Durum,Production,Million bushels,72.912
+1972/73,Durum,Yield,Bushels per acre,28.6
+1972/73,Hard Red Spring,Production,Million bushels,275.919
+1972/73,Hard Red Winter,Weighted-average farm price,Dollars per bushel,1.9121
+1972/73,Hard Red Winter,Production,Million bushels,761.663
+1972/73,Soft Red Winter,Weighted-average farm price,Dollars per bushel,1.9342
+1972/73,Soft Red Winter,Production,Million bushels,226.384
+1972/73,White,Weighted-average farm price,Dollars per bushel,2.0822
+1973/74,All Wheat,Weighted-average farm price,Dollars per bushel,3.95
+1973/74,All Wheat,Harvested acreage,Million acres,54.1
+1973/74,All Wheat,Planted acreage,Million acres,59.3
+1973/74,All Wheat,Production,Million bushels,1710.8
+1973/74,All Wheat,Yield,Bushels per acre,31.6
+1973/74,Durum,Weighted-average farm price,Dollars per bushel,6.16
+1973/74,Durum,Harvested acreage,Million acres,2.884
+1973/74,Durum,Planted acreage,Million acres,2.952
+1973/74,Durum,Production,Million bushels,78.455
+1973/74,Durum,Yield,Bushels per acre,27.2
+1973/74,Hard Red Spring,Production,Million bushels,328.253
+1973/74,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.0435
+1973/74,Hard Red Winter,Production,Million bushels,961.167
+1973/74,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.3194
+1973/74,Soft Red Winter,Production,Million bushels,161.364
+1973/74,White,Weighted-average farm price,Dollars per bushel,4.4094
+1974/75,All Wheat,Weighted-average farm price,Dollars per bushel,4.09
+1974/75,All Wheat,Harvested acreage,Million acres,65.4
+1974/75,All Wheat,Planted acreage,Million acres,71.0
+1974/75,All Wheat,Production,Million bushels,1781.9
+1974/75,All Wheat,Yield,Bushels per acre,27.3
+1974/75,Durum,Weighted-average farm price,Dollars per bushel,5.96
+1974/75,Durum,Harvested acreage,Million acres,4.099
+1974/75,Durum,Planted acreage,Million acres,4.174
+1974/75,Durum,Production,Million bushels,81.245
+1974/75,Durum,Yield,Bushels per acre,19.8
+1974/75,Hard Red Spring,Production,Million bushels,293.108
+1974/75,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.8489
+1974/75,Hard Red Winter,Production,Million bushels,882.577
+1974/75,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.8152
+1974/75,Soft Red Winter,Production,Million bushels,272.667
+1974/75,White,Weighted-average farm price,Dollars per bushel,4.0922
+1974/75,White,Production,Million bushels,252.321
+1975/76,All Wheat,Weighted-average farm price,Dollars per bushel,3.55
+1975/76,All Wheat,Harvested acreage,Million acres,69.5
+1975/76,All Wheat,Planted acreage,Million acres,74.9
+1975/76,All Wheat,Production,Million bushels,2126.927
+1975/76,All Wheat,Yield,Bushels per acre,30.6
+1975/76,Durum,Weighted-average farm price,Dollars per bushel,4.66
+1975/76,Durum,Harvested acreage,Million acres,4.68
+1975/76,Durum,Planted acreage,Million acres,4.83
+1975/76,Durum,Production,Million bushels,123.362
+1975/76,Durum,Yield,Bushels per acre,26.4
+1975/76,Hard Red Spring,Production,Million bushels,327.272
+1975/76,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.4127
+1975/76,Hard Red Winter,Production,Million bushels,1054.792
+1975/76,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.2496
+1975/76,Soft Red Winter,Production,Million bushels,330.867
+1975/76,White,Weighted-average farm price,Dollars per bushel,3.5497
+1975/76,White,Production,Million bushels,290.634
+1976/77,All Wheat,Weighted-average farm price,Dollars per bushel,2.73
+1976/77,All Wheat,Harvested acreage,Million acres,70.9
+1976/77,All Wheat,Planted acreage,Million acres,80.4
+1976/77,All Wheat,Production,Million bushels,2148.78
+1976/77,All Wheat,Yield,Bushels per acre,30.3
+1976/77,Durum,Weighted-average farm price,Dollars per bushel,2.96
+1976/77,Durum,Harvested acreage,Million acres,4.584
+1976/77,Durum,Planted acreage,Million acres,4.748
+1976/77,Durum,Production,Million bushels,134.914
+1976/77,Durum,Yield,Bushels per acre,29.4
+1976/77,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.57
+1976/77,Hard Red Spring,Production,Million bushels,411.866
+1976/77,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.5515
+1976/77,Hard Red Winter,Production,Million bushels,977.366
+1976/77,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.5642
+1976/77,Soft Red Winter,Production,Million bushels,337.389
+1976/77,White,Weighted-average farm price,Dollars per bushel,2.7792
+1976/77,White,Production,Million bushels,287.245
+1977/78,All Wheat,Weighted-average farm price,Dollars per bushel,2.33
+1977/78,All Wheat,Harvested acreage,Million acres,66.7
+1977/78,All Wheat,Planted acreage,Million acres,75.4
+1977/78,All Wheat,Production,Million bushels,2045.527
+1977/78,All Wheat,Yield,Bushels per acre,30.7
+1977/78,Durum,Weighted-average farm price,Dollars per bushel,2.69
+1977/78,Durum,Harvested acreage,Million acres,3.025
+1977/78,Durum,Planted acreage,Million acres,3.183
+1977/78,Durum,Production,Million bushels,79.964
+1977/78,Durum,Yield,Bushels per acre,26.4
+1977/78,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.4567
+1977/78,Hard Red Spring,Production,Million bushels,398.983
+1977/78,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.3288
+1977/78,Hard Red Winter,Production,Million bushels,996.432
+1977/78,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.3223
+1977/78,Soft Red Winter,Production,Million bushels,349.109
+1977/78,White,Weighted-average farm price,Dollars per bushel,2.7219
+1977/78,White,Production,Million bushels,221.039
+1978/79,All Wheat,Weighted-average farm price,Dollars per bushel,2.97
+1978/79,All Wheat,Harvested acreage,Million acres,56.5
+1978/79,All Wheat,Planted acreage,Million acres,66.0
+1978/79,All Wheat,Production,Million bushels,1775.524
+1978/79,All Wheat,Yield,Bushels per acre,31.4
+1978/79,Durum,Weighted-average farm price,Dollars per bushel,2.93
+1978/79,Durum,Harvested acreage,Million acres,4.024
+1978/79,Durum,Planted acreage,Million acres,4.11
+1978/79,Durum,Production,Million bushels,133.328
+1978/79,Durum,Yield,Bushels per acre,33.1
+1978/79,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.83
+1978/79,Hard Red Spring,Production,Million bushels,379.694
+1978/79,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.9599
+1978/79,Hard Red Winter,Production,Million bushels,829.908
+1978/79,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.2538
+1978/79,Soft Red Winter,Production,Million bushels,188.92
+1978/79,White,Weighted-average farm price,Dollars per bushel,3.3025
+1978/79,White,Production,Million bushels,243.674
+1979/80,All Wheat,Weighted-average farm price,Dollars per bushel,3.78
+1979/80,All Wheat,Harvested acreage,Million acres,62.5
+1979/80,All Wheat,Planted acreage,Million acres,71.4
+1979/80,All Wheat,Production,Million bushels,2134.06
+1979/80,All Wheat,Yield,Bushels per acre,34.1
+1979/80,Durum,Weighted-average farm price,Dollars per bushel,4.35
+1979/80,Durum,Harvested acreage,Million acres,3.932
+1979/80,Durum,Planted acreage,Million acres,4.042
+1979/80,Durum,Production,Million bushels,106.654
+1979/80,Durum,Yield,Bushels per acre,27.1
+1979/80,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.6058
+1979/80,Hard Red Spring,Production,Million bushels,368.782
+1979/80,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.7694
+1979/80,Hard Red Winter,Production,Million bushels,1091.573
+1979/80,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.8906
+1979/80,Soft Red Winter,Production,Million bushels,309.637
+1979/80,White,Weighted-average farm price,Dollars per bushel,3.8144
+1979/80,White,Production,Million bushels,257.414
+1980/81,All Wheat,Weighted-average farm price,Dollars per bushel,3.91
+1980/81,All Wheat,Harvested acreage,Million acres,71.1
+1980/81,All Wheat,Planted acreage,Million acres,80.8
+1980/81,All Wheat,Production,Million bushels,2380.934
+1980/81,All Wheat,Yield,Bushels per acre,33.5
+1980/81,Durum,Weighted-average farm price,Dollars per bushel,5.07
+1980/81,Durum,Harvested acreage,Million acres,4.84
+1980/81,Durum,Planted acreage,Million acres,5.525
+1980/81,Durum,Production,Million bushels,108.395
+1980/81,Durum,Yield,Bushels per acre,22.4
+1980/81,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.1167
+1980/81,Hard Red Spring,Production,Million bushels,311.448
+1980/81,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.9248
+1980/81,Hard Red Winter,Production,Million bushels,1181.314
+1980/81,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.1231
+1980/81,Soft Red Winter,Production,Million bushels,441.787
+1980/81,White,Weighted-average farm price,Dollars per bushel,3.9131
+1980/81,White,Production,Million bushels,337.99
+1981/82,All Wheat,Weighted-average farm price,Dollars per bushel,3.66
+1981/82,All Wheat,Harvested acreage,Million acres,80.6
+1981/82,All Wheat,Planted acreage,Million acres,88.3
+1981/82,All Wheat,Production,Million bushels,2785.357
+1981/82,All Wheat,Yield,Bushels per acre,34.6
+1981/82,Durum,Weighted-average farm price,Dollars per bushel,3.72
+1981/82,Durum,Harvested acreage,Million acres,5.655
+1981/82,Durum,Planted acreage,Million acres,5.776
+1981/82,Durum,Production,Million bushels,183.04
+1981/82,Durum,Yield,Bushels per acre,32.4
+1981/82,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.7325
+1981/82,Hard Red Spring,Production,Million bushels,463.726
+1981/82,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.6917
+1981/82,Hard Red Winter,Production,Million bushels,1112.085
+1981/82,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.4783
+1981/82,Soft Red Winter,Production,Million bushels,678.017
+1981/82,White,Weighted-average farm price,Dollars per bushel,3.8275
+1981/82,White,Production,Million bushels,348.489
+1982/83,All Wheat,Weighted-average farm price,Dollars per bushel,3.55
+1982/83,All Wheat,Harvested acreage,Million acres,77.9
+1982/83,All Wheat,Planted acreage,Million acres,86.2
+1982/83,All Wheat,Production,Million bushels,2764.967
+1982/83,All Wheat,Yield,Bushels per acre,35.5
+1982/83,Durum,Weighted-average farm price,Dollars per bushel,3.4
+1982/83,Durum,Harvested acreage,Million acres,4.177
+1982/83,Durum,Planted acreage,Million acres,4.29
+1982/83,Durum,Production,Million bushels,145.863
+1982/83,Durum,Yield,Bushels per acre,34.9
+1982/83,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.5517
+1982/83,Hard Red Spring,Production,Million bushels,492.673
+1982/83,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.3787
+1982/83,Hard Red Winter,Production,Million bushels,1243.598
+1982/83,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.1083
+1982/83,Soft Red Winter,Production,Million bushels,588.869
+1982/83,White,Weighted-average farm price,Dollars per bushel,3.9292
+1982/83,White,Production,Million bushels,293.964
+1983/84,All Wheat,Weighted-average farm price,Dollars per bushel,3.53
+1983/84,All Wheat,Harvested acreage,Million acres,61.4
+1983/84,All Wheat,Planted acreage,Million acres,76.4
+1983/84,All Wheat,Production,Million bushels,2419.824
+1983/84,All Wheat,Yield,Bushels per acre,39.4
+1983/84,Durum,Weighted-average farm price,Dollars per bushel,3.98
+1983/84,Durum,Harvested acreage,Million acres,2.492
+1983/84,Durum,Planted acreage,Million acres,2.565
+1983/84,Durum,Production,Million bushels,72.979
+1983/84,Durum,Yield,Bushels per acre,29.3
+1983/84,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.7125
+1983/84,Hard Red Spring,Production,Million bushels,322.728
+1983/84,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.402
+1983/84,Hard Red Winter,Production,Million bushels,1197.893
+1983/84,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.3942
+1983/84,Soft Red Winter,Production,Million bushels,504.175
+1983/84,White,Weighted-average farm price,Dollars per bushel,3.5817
+1983/84,White,Production,Million bushels,322.049
+1984/85,All Wheat,Weighted-average farm price,Dollars per bushel,3.39
+1984/85,All Wheat,Harvested acreage,Million acres,66.928
+1984/85,All Wheat,Planted acreage,Million acres,79.213
+1984/85,All Wheat,Production,Million bushels,2594.777
+1984/85,All Wheat,Yield,Bushels per acre,38.77
+1984/85,Durum,Production,Million bushels,103.439
+1984/85,Durum,Weighted-average farm price,Dollars per bushel,3.75
+1984/85,Durum,Harvested acreage,Million acres,3.219
+1984/85,Durum,Planted acreage,Million acres,3.277
+1984/85,Durum,Yield,Bushels per acre,32.1
+1984/85,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.5358
+1984/85,Hard Red Spring,Production,Million bushels,408.801
+1984/85,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.3157
+1984/85,Hard Red Winter,Production,Million bushels,1250.597
+1984/85,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.3375
+1984/85,Soft Red Winter,Production,Million bushels,531.37
+1984/85,White,Weighted-average farm price,Dollars per bushel,3.4358
+1984/85,White,Production,Million bushels,300.57
+1985/86,All Wheat,Weighted-average farm price,Dollars per bushel,3.08
+1985/86,All Wheat,Harvested acreage,Million acres,64.704
+1985/86,All Wheat,Planted acreage,Million acres,75.535
+1985/86,All Wheat,Production,Million bushels,2424.115
+1985/86,All Wheat,Yield,Bushels per acre,37.465
+1985/86,Durum,Production,Million bushels,112.51
+1985/86,Durum,Weighted-average farm price,Dollars per bushel,3.22
+1985/86,Durum,Harvested acreage,Million acres,3.094
+1985/86,Durum,Planted acreage,Million acres,3.207
+1985/86,Durum,Yield,Bushels per acre,36.4
+1985/86,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.4167
+1985/86,Hard Red Spring,Production,Million bushels,460.205
+1985/86,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.9175
+1985/86,Hard Red Winter,Production,Million bushels,1230.075
+1985/86,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.0433
+1985/86,Soft Red Winter,Production,Million bushels,367.427
+1985/86,White,Weighted-average farm price,Dollars per bushel,3.3392
+1985/86,White,Production,Million bushels,253.898
+1986/87,All Wheat,Weighted-average farm price,Dollars per bushel,2.42
+1986/87,All Wheat,Harvested acreage,Million acres,60.688
+1986/87,All Wheat,Planted acreage,Million acres,71.998
+1986/87,All Wheat,Production,Million bushels,2090.57
+1986/87,All Wheat,Yield,Bushels per acre,34.448
+1986/87,Durum,Production,Million bushels,97.907
+1986/87,Durum,Weighted-average farm price,Dollars per bushel,2.7
+1986/87,Durum,Harvested acreage,Million acres,2.877
+1986/87,Durum,Planted acreage,Million acres,2.994
+1986/87,Durum,Yield,Bushels per acre,34.0
+1986/87,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.555
+1986/87,Hard Red Spring,Production,Million bushels,451.417
+1986/87,Hard Red Spring,Planted acreage,Million acres,13.3
+1986/87,Hard Red Spring,Harvested acreage,Million acres,13.0
+1986/87,Hard Red Spring,Yield,Bushels per acre,34.7244
+1986/87,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.3243
+1986/87,Hard Red Winter,Production,Million bushels,1017.231
+1986/87,Hard Red Winter,Planted acreage,Million acres,36.3
+1986/87,Hard Red Winter,Harvested acreage,Million acres,28.6
+1986/87,Hard Red Winter,Yield,Bushels per acre,35.5675
+1986/87,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.5775
+1986/87,Soft Red Winter,Production,Million bushels,291.985
+1986/87,Soft Red Winter,Planted acreage,Million acres,9.0
+1986/87,Soft Red Winter,Harvested acreage,Million acres,7.6
+1986/87,Soft Red Winter,Yield,Bushels per acre,38.4191
+1986/87,White,Weighted-average farm price,Dollars per bushel,2.585
+1986/87,White,Production,Million bushels,232.03
+1987/88,All Wheat,Weighted-average farm price,Dollars per bushel,2.57
+1987/88,All Wheat,Harvested acreage,Million acres,55.945
+1987/88,All Wheat,Planted acreage,Million acres,65.829
+1987/88,All Wheat,Production,Million bushels,2107.685
+1987/88,All Wheat,Yield,Bushels per acre,37.674
+1987/88,Durum,Production,Million bushels,92.617
+1987/88,Durum,Weighted-average farm price,Dollars per bushel,3.18
+1987/88,Durum,Harvested acreage,Million acres,3.279
+1987/88,Durum,Planted acreage,Million acres,3.341
+1987/88,Durum,Yield,Bushels per acre,28.2
+1987/88,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.6483
+1987/88,Hard Red Spring,Production,Million bushels,430.578
+1987/88,Hard Red Spring,Planted acreage,Million acres,14.6
+1987/88,Hard Red Spring,Harvested acreage,Million acres,14.15
+1987/88,Hard Red Spring,Yield,Bushels per acre,30.4295
+1987/88,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.5372
+1987/88,Hard Red Winter,Production,Million bushels,1019.204
+1987/88,Hard Red Winter,Planted acreage,Million acres,39.4
+1987/88,Hard Red Winter,Harvested acreage,Million acres,31.5
+1987/88,Hard Red Winter,Yield,Bushels per acre,32.3557
+1987/88,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.745
+1987/88,Soft Red Winter,Production,Million bushels,349.453
+1987/88,Soft Red Winter,Planted acreage,Million acres,10.1
+1987/88,Soft Red Winter,Harvested acreage,Million acres,7.7
+1987/88,Soft Red Winter,Yield,Bushels per acre,45.3835
+1987/88,White,Weighted-average farm price,Dollars per bushel,2.7358
+1987/88,White,Production,Million bushels,215.833
+1988/89,All Wheat,Weighted-average farm price,Dollars per bushel,3.72
+1988/89,All Wheat,Harvested acreage,Million acres,53.189
+1988/89,All Wheat,Planted acreage,Million acres,65.529
+1988/89,All Wheat,Production,Million bushels,1812.201
+1988/89,All Wheat,Yield,Bushels per acre,34.071
+1988/89,Durum,Production,Million bushels,44.831
+1988/89,Durum,Weighted-average farm price,Dollars per bushel,4.7
+1988/89,Durum,Harvested acreage,Million acres,2.847
+1988/89,Durum,Planted acreage,Million acres,3.336
+1988/89,Durum,Yield,Bushels per acre,15.7
+1988/89,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.7933
+1988/89,Hard Red Spring,Production,Million bushels,181.202
+1988/89,Hard Red Spring,Planted acreage,Million acres,13.0
+1988/89,Hard Red Spring,Harvested acreage,Million acres,10.15
+1988/89,Hard Red Spring,Yield,Bushels per acre,17.8524
+1988/89,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.75
+1988/89,Hard Red Winter,Production,Million bushels,881.883
+1988/89,Hard Red Winter,Planted acreage,Million acres,34.4
+1988/89,Hard Red Winter,Harvested acreage,Million acres,26.8
+1988/89,Hard Red Winter,Yield,Bushels per acre,32.9061
+1988/89,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.8192
+1988/89,Soft Red Winter,Production,Million bushels,472.662
+1988/89,Soft Red Winter,Planted acreage,Million acres,10.9
+1988/89,Soft Red Winter,Harvested acreage,Million acres,9.6
+1988/89,Soft Red Winter,Yield,Bushels per acre,49.2356
+1988/89,White,Weighted-average farm price,Dollars per bushel,4.1292
+1988/89,White,Production,Million bushels,231.623
+1989/90,All Wheat,Weighted-average farm price,Dollars per bushel,3.72
+1989/90,All Wheat,Harvested acreage,Million acres,62.189
+1989/90,All Wheat,Planted acreage,Million acres,76.615
+1989/90,All Wheat,Production,Million bushels,2036.618
+1989/90,All Wheat,Yield,Bushels per acre,32.749
+1989/90,Durum,Production,Million bushels,92.229
+1989/90,Durum,Weighted-average farm price,Dollars per bushel,3.46
+1989/90,Durum,Harvested acreage,Million acres,3.673
+1989/90,Durum,Planted acreage,Million acres,3.791
+1989/90,Durum,Yield,Bushels per acre,25.1
+1989/90,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.6067
+1989/90,Hard Red Spring,Production,Million bushels,433.455
+1989/90,Hard Red Spring,Planted acreage,Million acres,16.5
+1989/90,Hard Red Spring,Harvested acreage,Million acres,15.9
+1989/90,Hard Red Spring,Yield,Bushels per acre,27.2613
+1989/90,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.6895
+1989/90,Hard Red Winter,Production,Million bushels,711.04
+1989/90,Hard Red Winter,Planted acreage,Million acres,37.5
+1989/90,Hard Red Winter,Harvested acreage,Million acres,26.1
+1989/90,Hard Red Winter,Yield,Bushels per acre,27.2429
+1989/90,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.7558
+1989/90,Soft Red Winter,Production,Million bushels,548.919
+1989/90,Soft Red Winter,Planted acreage,Million acres,13.4
+1989/90,Soft Red Winter,Harvested acreage,Million acres,12.0
+1989/90,Soft Red Winter,Yield,Bushels per acre,45.7433
+1989/90,White,Weighted-average farm price,Dollars per bushel,3.8233
+1989/90,White,Production,Million bushels,250.975
+1990/91,All Wheat,Weighted-average farm price,Dollars per bushel,2.61
+1990/91,All Wheat,Harvested acreage,Million acres,69.103
+1990/91,All Wheat,Planted acreage,Million acres,77.041
+1990/91,All Wheat,Production,Million bushels,2729.778
+1990/91,All Wheat,Yield,Bushels per acre,39.503
+1990/91,Durum,Production,Million bushels,122.43
+1990/91,Durum,Weighted-average farm price,Dollars per bushel,2.63
+1990/91,Durum,Harvested acreage,Million acres,3.507
+1990/91,Durum,Planted acreage,Million acres,3.57
+1990/91,Durum,Yield,Bushels per acre,34.9
+1990/91,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.605
+1990/91,Hard Red Spring,Production,Million bushels,554.678
+1990/91,Hard Red Spring,Planted acreage,Million acres,16.2
+1990/91,Hard Red Spring,Harvested acreage,Million acres,15.4
+1990/91,Hard Red Spring,Yield,Bushels per acre,36.0181
+1990/91,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.5245
+1990/91,Hard Red Winter,Production,Million bushels,1195.582
+1990/91,Hard Red Winter,Planted acreage,Million acres,38.0
+1990/91,Hard Red Winter,Harvested acreage,Million acres,32.6
+1990/91,Hard Red Winter,Yield,Bushels per acre,36.6743
+1990/91,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.5642
+1990/91,Soft Red Winter,Production,Million bushels,543.676
+1990/91,Soft Red Winter,Planted acreage,Million acres,14.2
+1990/91,Soft Red Winter,Harvested acreage,Million acres,12.8
+1990/91,Soft Red Winter,Yield,Bushels per acre,42.4747
+1990/91,White,Weighted-average farm price,Dollars per bushel,2.6917
+1990/91,White,Production,Million bushels,313.412
+1991/92,All Wheat,Weighted-average farm price,Dollars per bushel,3.0
+1991/92,All Wheat,Harvested acreage,Million acres,57.803
+1991/92,All Wheat,Planted acreage,Million acres,69.881
+1991/92,All Wheat,Production,Million bushels,1980.139
+1991/92,All Wheat,Yield,Bushels per acre,34.257
+1991/92,Durum,Production,Million bushels,103.957
+1991/92,Durum,Weighted-average farm price,Dollars per bushel,2.82
+1991/92,Durum,Harvested acreage,Million acres,3.197
+1991/92,Durum,Planted acreage,Million acres,3.253
+1991/92,Durum,Yield,Bushels per acre,32.5
+1991/92,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.2475
+1991/92,Hard Red Spring,Production,Million bushels,431.223
+1991/92,Hard Red Spring,Planted acreage,Million acres,14.0
+1991/92,Hard Red Spring,Harvested acreage,Million acres,13.54
+1991/92,Hard Red Spring,Yield,Bushels per acre,31.8481
+1991/92,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.263
+1991/92,Hard Red Winter,Production,Million bushels,900.791
+1991/92,Hard Red Winter,Planted acreage,Million acres,35.5
+1991/92,Hard Red Winter,Harvested acreage,Million acres,27.41
+1991/92,Hard Red Winter,Yield,Bushels per acre,32.8636
+1991/92,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.1508
+1991/92,Soft Red Winter,Production,Million bushels,325.151
+1991/92,Soft Red Winter,Planted acreage,Million acres,11.4
+1991/92,Soft Red Winter,Harvested acreage,Million acres,9.5
+1991/92,Soft Red Winter,Yield,Bushels per acre,34.2264
+1991/92,White,Weighted-average farm price,Dollars per bushel,3.6083
+1991/92,White,Production,Million bushels,219.017
+1992/93,All Wheat,Weighted-average farm price,Dollars per bushel,3.24
+1992/93,All Wheat,Harvested acreage,Million acres,62.761
+1992/93,All Wheat,Planted acreage,Million acres,72.219
+1992/93,All Wheat,Production,Million bushels,2466.798
+1992/93,All Wheat,Yield,Bushels per acre,39.305
+1992/93,Durum,Production,Million bushels,99.906
+1992/93,Durum,Weighted-average farm price,Dollars per bushel,3.05
+1992/93,Durum,Harvested acreage,Million acres,2.519
+1992/93,Durum,Planted acreage,Million acres,2.547
+1992/93,Durum,Yield,Bushels per acre,39.7
+1992/93,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.325
+1992/93,Hard Red Spring,Production,Million bushels,706.71
+1992/93,Hard Red Spring,Planted acreage,Million acres,17.8
+1992/93,Hard Red Spring,Harvested acreage,Million acres,17.2
+1992/93,Hard Red Spring,Yield,Bushels per acre,41.0878
+1992/93,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.2328
+1992/93,Hard Red Winter,Production,Million bushels,967.22
+1992/93,Hard Red Winter,Planted acreage,Million acres,36.2
+1992/93,Hard Red Winter,Harvested acreage,Million acres,29.5
+1992/93,Hard Red Winter,Yield,Bushels per acre,32.7871
+1992/93,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.2667
+1992/93,Soft Red Winter,Production,Million bushels,426.655
+1992/93,Soft Red Winter,Planted acreage,Million acres,10.5
+1992/93,Soft Red Winter,Harvested acreage,Million acres,8.6
+1992/93,Soft Red Winter,Yield,Bushels per acre,49.611
+1992/93,White,Weighted-average farm price,Dollars per bushel,3.5933
+1992/93,White,Production,Million bushels,266.307
+1993/94,All Wheat,Weighted-average farm price,Dollars per bushel,3.26
+1993/94,All Wheat,Harvested acreage,Million acres,62.712
+1993/94,All Wheat,Planted acreage,Million acres,72.168
+1993/94,All Wheat,Production,Million bushels,2396.44
+1993/94,All Wheat,Yield,Bushels per acre,38.2
+1993/94,Durum,Production,Million bushels,70.476
+1993/94,Durum,Weighted-average farm price,Dollars per bushel,4.48
+1993/94,Durum,Harvested acreage,Million acres,2.1
+1993/94,Durum,Planted acreage,Million acres,2.241
+1993/94,Durum,Yield,Bushels per acre,33.6
+1993/94,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.57
+1993/94,Hard Red Spring,Production,Million bushels,511.814
+1993/94,Hard Red Spring,Planted acreage,Million acres,17.5
+1993/94,Hard Red Spring,Harvested acreage,Million acres,16.0
+1993/94,Hard Red Spring,Yield,Bushels per acre,31.9884
+1993/94,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.1295
+1993/94,Hard Red Winter,Production,Million bushels,1065.941
+1993/94,Hard Red Winter,Planted acreage,Million acres,36.3
+1993/94,Hard Red Winter,Harvested acreage,Million acres,30.1
+1993/94,Hard Red Winter,Yield,Bushels per acre,35.4133
+1993/94,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.0242
+1993/94,Soft Red Winter,Production,Million bushels,401.326
+1993/94,Soft Red Winter,Planted acreage,Million acres,10.7
+1993/94,Soft Red Winter,Harvested acreage,Million acres,9.3
+1993/94,Soft Red Winter,Yield,Bushels per acre,43.1533
+1993/94,White,Weighted-average farm price,Dollars per bushel,3.09
+1993/94,White,Production,Million bushels,346.883
+1994/95,All Wheat,Weighted-average farm price,Dollars per bushel,3.45
+1994/95,All Wheat,Harvested acreage,Million acres,61.77
+1994/95,All Wheat,Planted acreage,Million acres,70.349
+1994/95,All Wheat,Production,Million bushels,2320.981
+1994/95,All Wheat,Yield,Bushels per acre,37.6
+1994/95,Durum,Production,Million bushels,96.747
+1994/95,Durum,Weighted-average farm price,Dollars per bushel,4.62
+1994/95,Durum,Harvested acreage,Million acres,2.715
+1994/95,Durum,Planted acreage,Million acres,2.823
+1994/95,Durum,Yield,Bushels per acre,35.6
+1994/95,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.4258
+1994/95,Hard Red Spring,Production,Million bushels,515.315
+1994/95,Hard Red Spring,Planted acreage,Million acres,17.6
+1994/95,Hard Red Spring,Harvested acreage,Million acres,17.0
+1994/95,Hard Red Spring,Yield,Bushels per acre,30.3126
+1994/95,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.4773
+1994/95,Hard Red Winter,Production,Million bushels,971.161
+1994/95,Hard Red Winter,Planted acreage,Million acres,34.9
+1994/95,Hard Red Winter,Harvested acreage,Million acres,28.7
+1994/95,Hard Red Winter,Yield,Bushels per acre,33.8384
+1994/95,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.3683
+1994/95,Soft Red Winter,Production,Million bushels,438.204
+1994/95,Soft Red Winter,Planted acreage,Million acres,9.9
+1994/95,Soft Red Winter,Harvested acreage,Million acres,8.5
+1994/95,Soft Red Winter,Yield,Bushels per acre,51.5534
+1994/95,White,Weighted-average farm price,Dollars per bushel,3.645
+1994/95,White,Production,Million bushels,299.554
+1995/96,All Wheat,Weighted-average farm price,Dollars per bushel,4.55
+1995/96,All Wheat,Harvested acreage,Million acres,60.955
+1995/96,All Wheat,Planted acreage,Million acres,69.031
+1995/96,All Wheat,Production,Million bushels,2182.708
+1995/96,All Wheat,Yield,Bushels per acre,35.8085
+1995/96,Durum,Production,Million bushels,102.28
+1995/96,Durum,Weighted-average farm price,Dollars per bushel,5.65
+1995/96,Durum,Harvested acreage,Million acres,3.356
+1995/96,Durum,Planted acreage,Million acres,3.436
+1995/96,Durum,Yield,Bushels per acre,30.5
+1995/96,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.6275
+1995/96,Hard Red Spring,Production,Million bushels,474.795
+1995/96,Hard Red Spring,Planted acreage,Million acres,16.089
+1995/96,Hard Red Spring,Harvested acreage,Million acres,15.723
+1995/96,Hard Red Spring,Yield,Bushels per acre,30.1975
+1995/96,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.804
+1995/96,Hard Red Winter,Production,Million bushels,825.011
+1995/96,Hard Red Winter,Planted acreage,Million acres,33.757
+1995/96,Hard Red Winter,Harvested acreage,Million acres,27.694
+1995/96,Hard Red Winter,Yield,Bushels per acre,29.7902
+1995/96,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.415
+1995/96,Soft Red Winter,Production,Million bushels,455.568
+1995/96,Soft Red Winter,Planted acreage,Million acres,10.606
+1995/96,Soft Red Winter,Harvested acreage,Million acres,9.301
+1995/96,Soft Red Winter,Yield,Bushels per acre,48.9805
+1995/96,White,Weighted-average farm price,Dollars per bushel,4.68
+1995/96,White,Production,Million bushels,325.054
+1996/97,All Wheat,Weighted-average farm price,Dollars per bushel,4.3
+1996/97,All Wheat,Harvested acreage,Million acres,62.819
+1996/97,All Wheat,Planted acreage,Million acres,75.105
+1996/97,All Wheat,Production,Million bushels,2277.388
+1996/97,All Wheat,Yield,Bushels per acre,36.2532
+1996/97,Durum,Production,Million bushels,116.09
+1996/97,Durum,Weighted-average farm price,Dollars per bushel,4.67
+1996/97,Durum,Harvested acreage,Million acres,3.556
+1996/97,Durum,Planted acreage,Million acres,3.63
+1996/97,Durum,Yield,Bushels per acre,32.6
+1996/97,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.3117
+1996/97,Hard Red Spring,Production,Million bushels,630.65
+1996/97,Hard Red Spring,Planted acreage,Million acres,19.081
+1996/97,Hard Red Spring,Harvested acreage,Million acres,18.764
+1996/97,Hard Red Spring,Yield,Bushels per acre,33.6096
+1996/97,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.2827
+1996/97,Hard Red Winter,Production,Million bushels,759.324
+1996/97,Hard Red Winter,Planted acreage,Million acres,35.409
+1996/97,Hard Red Winter,Harvested acreage,Million acres,25.726
+1996/97,Hard Red Winter,Yield,Bushels per acre,29.5158
+1996/97,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.9017
+1996/97,Soft Red Winter,Production,Million bushels,419.757
+1996/97,Soft Red Winter,Planted acreage,Million acres,11.701
+1996/97,Soft Red Winter,Harvested acreage,Million acres,9.673
+1996/97,Soft Red Winter,Yield,Bushels per acre,43.3947
+1996/97,White,Weighted-average farm price,Dollars per bushel,4.1542
+1996/97,White,Production,Million bushels,351.567
+1997/98,All Wheat,Weighted-average farm price,Dollars per bushel,3.38
+1997/98,All Wheat,Harvested acreage,Million acres,62.84
+1997/98,All Wheat,Planted acreage,Million acres,70.412
+1997/98,All Wheat,Production,Million bushels,2481.466
+1997/98,All Wheat,Yield,Bushels per acre,39.4886
+1997/98,Durum,Production,Million bushels,87.783
+1997/98,Durum,Weighted-average farm price,Dollars per bushel,4.92
+1997/98,Durum,Harvested acreage,Million acres,3.177
+1997/98,Durum,Planted acreage,Million acres,3.31
+1997/98,Durum,Yield,Bushels per acre,27.6
+1997/98,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.5192
+1997/98,Hard Red Spring,Production,Million bushels,491.324
+1997/98,Hard Red Spring,Planted acreage,Million acres,18.273
+1997/98,Hard Red Spring,Harvested acreage,Million acres,17.506
+1997/98,Hard Red Spring,Yield,Bushels per acre,28.066
+1997/98,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.1992
+1997/98,Hard Red Winter,Production,Million bushels,1098.303
+1997/98,Hard Red Winter,Planted acreage,Million acres,34.021
+1997/98,Hard Red Winter,Harvested acreage,Million acres,28.714
+1997/98,Hard Red Winter,Yield,Bushels per acre,38.2497
+1997/98,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.16
+1997/98,Soft Red Winter,Production,Million bushels,471.987
+1997/98,Soft Red Winter,Planted acreage,Million acres,9.876
+1997/98,Soft Red Winter,Harvested acreage,Million acres,8.712
+1997/98,Soft Red Winter,Yield,Bushels per acre,54.1767
+1997/98,White,Weighted-average farm price,Dollars per bushel,3.3267
+1997/98,White,Production,Million bushels,332.069
+1998/99,All Wheat,Weighted-average farm price,Dollars per bushel,2.65
+1998/99,All Wheat,Harvested acreage,Million acres,59.002
+1998/99,All Wheat,Planted acreage,Million acres,65.821
+1998/99,All Wheat,Production,Million bushels,2547.321
+1998/99,All Wheat,Yield,Bushels per acre,43.1735
+1998/99,Durum,Production,Million bushels,138.119
+1998/99,Durum,Weighted-average farm price,Dollars per bushel,3.15
+1998/99,Durum,Harvested acreage,Million acres,3.728
+1998/99,Durum,Planted acreage,Million acres,3.805
+1998/99,Durum,Yield,Bushels per acre,37.0
+1998/99,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.1217
+1998/99,Hard Red Spring,Production,Million bushels,486.37
+1998/99,Hard Red Spring,Planted acreage,Million acres,14.8
+1998/99,Hard Red Spring,Harvested acreage,Million acres,14.402
+1998/99,Hard Red Spring,Yield,Bushels per acre,33.771
+1998/99,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.56
+1998/99,Hard Red Winter,Production,Million bushels,1179.452
+1998/99,Hard Red Winter,Planted acreage,Million acres,32.34
+1998/99,Hard Red Winter,Harvested acreage,Million acres,27.324
+1998/99,Hard Red Winter,Yield,Bushels per acre,43.1654
+1998/99,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.3033
+1998/99,Soft Red Winter,Production,Million bushels,442.677
+1998/99,Soft Red Winter,Planted acreage,Million acres,10.183
+1998/99,Soft Red Winter,Harvested acreage,Million acres,9.059
+1998/99,Soft Red Winter,Yield,Bushels per acre,48.866
+1998/99,White,Weighted-average farm price,Dollars per bushel,2.5367
+1998/99,White,Production,Million bushels,300.703
+1999/00,All Wheat,Weighted-average farm price,Dollars per bushel,2.48
+1999/00,All Wheat,Harvested acreage,Million acres,53.773
+1999/00,All Wheat,Planted acreage,Million acres,62.664
+1999/00,All Wheat,Production,Million bushels,2295.56
+1999/00,All Wheat,Yield,Bushels per acre,42.6898
+1999/00,Durum,Production,Million bushels,99.322
+1999/00,Durum,Weighted-average farm price,Dollars per bushel,2.73
+1999/00,Durum,Harvested acreage,Million acres,3.569
+1999/00,Durum,Planted acreage,Million acres,4.035
+1999/00,Durum,Yield,Bushels per acre,27.8
+1999/00,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.91
+1999/00,Hard Red Spring,Production,Million bushels,447.908
+1999/00,Hard Red Spring,Planted acreage,Million acres,14.343
+1999/00,Hard Red Spring,Harvested acreage,Million acres,13.786
+1999/00,Hard Red Spring,Yield,Bushels per acre,32.4901
+1999/00,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.3083
+1999/00,Hard Red Winter,Production,Million bushels,1050.643
+1999/00,Hard Red Winter,Planted acreage,Million acres,30.752
+1999/00,Hard Red Winter,Harvested acreage,Million acres,24.36
+1999/00,Hard Red Winter,Yield,Bushels per acre,43.1298
+1999/00,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.1692
+1999/00,Soft Red Winter,Production,Million bushels,452.26
+1999/00,Soft Red Winter,Planted acreage,Million acres,9.131
+1999/00,Soft Red Winter,Harvested acreage,Million acres,8.022
+1999/00,Soft Red Winter,Yield,Bushels per acre,56.3775
+1999/00,White,Weighted-average farm price,Dollars per bushel,2.6092
+1999/00,White,Production,Million bushels,245.427
+2000/01,All Wheat,Weighted-average farm price,Dollars per bushel,2.62
+2000/01,All Wheat,Harvested acreage,Million acres,53.063
+2000/01,All Wheat,Planted acreage,Million acres,62.549
+2000/01,All Wheat,Production,Million bushels,2228.16
+2000/01,All Wheat,Yield,Bushels per acre,41.9908
+2000/01,Durum,Production,Million bushels,109.805
+2000/01,Durum,Weighted-average farm price,Dollars per bushel,2.66
+2000/01,Durum,Harvested acreage,Million acres,3.572
+2000/01,Durum,Planted acreage,Million acres,3.937
+2000/01,Durum,Yield,Bushels per acre,30.7
+2000/01,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.9383
+2000/01,Hard Red Spring,Production,Million bushels,502.318
+2000/01,Hard Red Spring,Planted acreage,Million acres,14.378
+2000/01,Hard Red Spring,Harvested acreage,Million acres,13.59
+2000/01,Hard Red Spring,Yield,Bushels per acre,36.9623
+2000/01,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.7308
+2000/01,Hard Red Winter,Production,Million bushels,846.036
+2000/01,Hard Red Winter,Planted acreage,Million acres,30.402
+2000/01,Hard Red Winter,Harvested acreage,Million acres,23.589
+2000/01,Hard Red Winter,Yield,Bushels per acre,35.8657
+2000/01,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.2283
+2000/01,Soft Red Winter,Production,Million bushels,468.856
+2000/01,Soft Red Winter,Planted acreage,Million acres,9.468
+2000/01,Soft Red Winter,Harvested acreage,Million acres,8.1
+2000/01,Soft Red Winter,Yield,Bushels per acre,57.8835
+2000/01,White,Weighted-average farm price,Dollars per bushel,2.5692
+2000/01,White,Production,Million bushels,301.145
+2001/02,All Wheat,Weighted-average farm price,Dollars per bushel,2.78
+2001/02,All Wheat,Harvested acreage,Million acres,48.473
+2001/02,All Wheat,Planted acreage,Million acres,59.432
+2001/02,All Wheat,Production,Million bushels,1947.453
+2001/02,All Wheat,Yield,Bushels per acre,40.176
+2001/02,Durum,Production,Million bushels,83.556
+2001/02,Durum,Weighted-average farm price,Dollars per bushel,3.08
+2001/02,Durum,Harvested acreage,Million acres,2.789
+2001/02,Durum,Planted acreage,Million acres,2.91
+2001/02,Durum,Yield,Bushels per acre,30.0
+2001/02,Hard Red Spring,Weighted-average farm price,Dollars per bushel,2.8825
+2001/02,Hard Red Spring,Production,Million bushels,475.085
+2001/02,Hard Red Spring,Planted acreage,Million acres,14.759
+2001/02,Hard Red Spring,Harvested acreage,Million acres,13.736
+2001/02,Hard Red Spring,Yield,Bushels per acre,34.5869
+2001/02,Hard Red Winter,Weighted-average farm price,Dollars per bushel,2.71
+2001/02,Hard Red Winter,Production,Million bushels,765.898
+2001/02,Hard Red Winter,Planted acreage,Million acres,28.943
+2001/02,Hard Red Winter,Harvested acreage,Million acres,20.855
+2001/02,Hard Red Winter,Yield,Bushels per acre,36.7249
+2001/02,Soft Red Winter,Weighted-average farm price,Dollars per bushel,2.5883
+2001/02,Soft Red Winter,Production,Million bushels,397.098
+2001/02,Soft Red Winter,Planted acreage,Million acres,8.606
+2001/02,Soft Red Winter,Harvested acreage,Million acres,7.122
+2001/02,Soft Red Winter,Yield,Bushels per acre,55.7565
+2001/02,White,Weighted-average farm price,Dollars per bushel,3.1108
+2001/02,White,Production,Million bushels,225.816
+2002/03,All Wheat,Weighted-average farm price,Dollars per bushel,3.56
+2002/03,All Wheat,Harvested acreage,Million acres,45.824
+2002/03,All Wheat,Planted acreage,Million acres,60.318
+2002/03,All Wheat,Production,Million bushels,1605.878
+2002/03,All Wheat,Yield,Bushels per acre,35.0445
+2002/03,Durum,Production,Million bushels,79.96
+2002/03,Durum,Weighted-average farm price,Dollars per bushel,4.05
+2002/03,Durum,Harvested acreage,Million acres,2.709
+2002/03,Durum,Planted acreage,Million acres,2.913
+2002/03,Durum,Yield,Bushels per acre,29.5
+2002/03,Hard Red Spring,Production,Million bushels,351.439
+2002/03,Hard Red Spring,Planted acreage,Million acres,14.805
+2002/03,Hard Red Spring,Harvested acreage,Million acres,12.579
+2002/03,Hard Red Spring,Yield,Bushels per acre,27.9385
+2002/03,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.83
+2002/03,Hard Red Winter,Production,Million bushels,620.328
+2002/03,Hard Red Winter,Planted acreage,Million acres,30.061
+2002/03,Hard Red Winter,Harvested acreage,Million acres,19.928
+2002/03,Hard Red Winter,Yield,Bushels per acre,31.1285
+2002/03,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.43
+2002/03,Soft Red Winter,Production,Million bushels,320.968
+2002/03,Soft Red Winter,Planted acreage,Million acres,8.141
+2002/03,Soft Red Winter,Harvested acreage,Million acres,6.477
+2002/03,Soft Red Winter,Yield,Bushels per acre,49.555
+2002/03,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.08
+2002/03,White,Production,Million bushels,233.183
+2002/03,White,Weighted-average farm price,Dollars per bushel,3.68
+2003/04,All Wheat,Weighted-average farm price,Dollars per bushel,3.4
+2003/04,All Wheat,Harvested acreage,Million acres,53.063
+2003/04,All Wheat,Planted acreage,Million acres,62.141
+2003/04,All Wheat,Production,Million bushels,2344.415
+2003/04,All Wheat,Yield,Bushels per acre,44.1817
+2003/04,Durum,Production,Million bushels,96.637
+2003/04,Durum,Weighted-average farm price,Dollars per bushel,3.97
+2003/04,Durum,Harvested acreage,Million acres,2.869
+2003/04,Durum,Planted acreage,Million acres,2.915
+2003/04,Durum,Yield,Bushels per acre,33.7
+2003/04,Hard Red Spring,Production,Million bushels,499.674
+2003/04,Hard Red Spring,Planted acreage,Million acres,13.127
+2003/04,Hard Red Spring,Harvested acreage,Million acres,12.747
+2003/04,Hard Red Spring,Yield,Bushels per acre,39.1993
+2003/04,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.63
+2003/04,Hard Red Winter,Production,Million bushels,1071.156
+2003/04,Hard Red Winter,Planted acreage,Million acres,32.583
+2003/04,Hard Red Winter,Harvested acreage,Million acres,25.629
+2003/04,Hard Red Winter,Yield,Bushels per acre,41.7947
+2003/04,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.23
+2003/04,Soft Red Winter,Production,Million bushels,379.93
+2003/04,Soft Red Winter,Planted acreage,Million acres,8.295
+2003/04,Soft Red Winter,Harvested acreage,Million acres,6.829
+2003/04,Soft Red Winter,Yield,Bushels per acre,55.6348
+2003/04,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.17
+2003/04,White,Production,Million bushels,297.018
+2003/04,White,Weighted-average farm price,Dollars per bushel,3.54
+2004/05,All Wheat,Weighted-average farm price,Dollars per bushel,3.4
+2004/05,All Wheat,Harvested acreage,Million acres,49.969
+2004/05,All Wheat,Planted acreage,Million acres,59.644
+2004/05,All Wheat,Production,Million bushels,2156.79
+2004/05,All Wheat,Yield,Bushels per acre,43.1626
+2004/05,Durum,Production,Million bushels,89.893
+2004/05,Durum,Weighted-average farm price,Dollars per bushel,3.85
+2004/05,Durum,Harvested acreage,Million acres,2.363
+2004/05,Durum,Planted acreage,Million acres,2.561
+2004/05,Durum,Yield,Bushels per acre,38.0
+2004/05,Hard Red Spring,Production,Million bushels,525.467
+2004/05,Hard Red Spring,Planted acreage,Million acres,13.033
+2004/05,Hard Red Spring,Harvested acreage,Million acres,12.46
+2004/05,Hard Red Spring,Yield,Bushels per acre,42.1723
+2004/05,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.51
+2004/05,Hard Red Winter,Production,Million bushels,856.55
+2004/05,Hard Red Winter,Planted acreage,Million acres,30.778
+2004/05,Hard Red Winter,Harvested acreage,Million acres,23.405
+2004/05,Hard Red Winter,Yield,Bushels per acre,36.5969
+2004/05,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.29
+2004/05,Soft Red Winter,Production,Million bushels,380.305
+2004/05,Soft Red Winter,Planted acreage,Million acres,8.227
+2004/05,Soft Red Winter,Harvested acreage,Million acres,7.02
+2004/05,Soft Red Winter,Yield,Bushels per acre,54.1745
+2004/05,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.21
+2004/05,White,Production,Million bushels,304.575
+2004/05,White,Weighted-average farm price,Dollars per bushel,3.52
+2005/06,All Wheat,Weighted-average farm price,Dollars per bushel,3.42
+2005/06,All Wheat,Harvested acreage,Million acres,50.104
+2005/06,All Wheat,Planted acreage,Million acres,57.214
+2005/06,All Wheat,Production,Million bushels,2103.325
+2005/06,All Wheat,Yield,Bushels per acre,41.9792
+2005/06,Durum,Production,Million bushels,101.105
+2005/06,Durum,Weighted-average farm price,Dollars per bushel,3.46
+2005/06,Durum,Harvested acreage,Million acres,2.716
+2005/06,Durum,Planted acreage,Million acres,2.76
+2005/06,Durum,Yield,Bushels per acre,37.2
+2005/06,Hard Red Spring,Production,Million bushels,466.587
+2005/06,Hard Red Spring,Planted acreage,Million acres,13.344
+2005/06,Hard Red Spring,Harvested acreage,Million acres,12.946
+2005/06,Hard Red Spring,Yield,Bushels per acre,36.041
+2005/06,Hard Red Spring,Weighted-average farm price,Dollars per bushel,3.7
+2005/06,Hard Red Winter,Production,Million bushels,930.015
+2005/06,Hard Red Winter,Planted acreage,Million acres,30.047
+2005/06,Hard Red Winter,Harvested acreage,Million acres,24.625
+2005/06,Hard Red Winter,Yield,Bushels per acre,37.7671
+2005/06,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.38
+2005/06,Soft Red Winter,Production,Million bushels,308.348
+2005/06,Soft Red Winter,Planted acreage,Million acres,6.134
+2005/06,Soft Red Winter,Harvested acreage,Million acres,5.147
+2005/06,Soft Red Winter,Yield,Bushels per acre,59.9083
+2005/06,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.19
+2005/06,White,Production,Million bushels,297.27
+2005/06,White,Weighted-average farm price,Dollars per bushel,3.13
+2006/07,All Wheat,Weighted-average farm price,Dollars per bushel,4.26
+2006/07,All Wheat,Harvested acreage,Million acres,46.8
+2006/07,All Wheat,Planted acreage,Million acres,57.334
+2006/07,All Wheat,Production,Million bushels,1808.416
+2006/07,All Wheat,Yield,Bushels per acre,38.6414
+2006/07,Durum,Production,Million bushels,53.475
+2006/07,Durum,Weighted-average farm price,Dollars per bushel,4.43
+2006/07,Durum,Harvested acreage,Million acres,1.815
+2006/07,Durum,Planted acreage,Million acres,1.87
+2006/07,Durum,Yield,Bushels per acre,29.5
+2006/07,Hard Red Spring,Production,Million bushels,432.339
+2006/07,Hard Red Spring,Planted acreage,Million acres,14.421
+2006/07,Hard Red Spring,Harvested acreage,Million acres,13.418
+2006/07,Hard Red Spring,Yield,Bushels per acre,32.2208
+2006/07,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.48
+2006/07,Hard Red Winter,Production,Million bushels,681.921
+2006/07,Hard Red Winter,Planted acreage,Million acres,29.34
+2006/07,Hard Red Winter,Harvested acreage,Million acres,21.319
+2006/07,Hard Red Winter,Yield,Bushels per acre,31.9865
+2006/07,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.53
+2006/07,Soft Red Winter,Production,Million bushels,389.535
+2006/07,Soft Red Winter,Planted acreage,Million acres,7.385
+2006/07,Soft Red Winter,Harvested acreage,Million acres,6.162
+2006/07,Soft Red Winter,Yield,Bushels per acre,63.2157
+2006/07,Soft Red Winter,Weighted-average farm price,Dollars per bushel,3.38
+2006/07,White,Production,Million bushels,251.146
+2006/07,White,Planted acreage,Million acres,4.318
+2006/07,White,Harvested acreage,Million acres,4.086
+2006/07,White,Yield,Bushels per acre,61.465
+2006/07,White,Weighted-average farm price,Dollars per bushel,4.14
+2007/08,All Wheat,Weighted-average farm price,Dollars per bushel,6.48
+2007/08,All Wheat,Harvested acreage,Million acres,50.999
+2007/08,All Wheat,Planted acreage,Million acres,60.46
+2007/08,All Wheat,Production,Million bushels,2051.088
+2007/08,All Wheat,Yield,Bushels per acre,40.2182
+2007/08,Durum,Production,Million bushels,72.224
+2007/08,Durum,Weighted-average farm price,Dollars per bushel,9.92
+2007/08,Durum,Harvested acreage,Million acres,2.119
+2007/08,Durum,Planted acreage,Million acres,2.156
+2007/08,Durum,Yield,Bushels per acre,34.1
+2007/08,Hard Red Spring,Production,Million bushels,450.07
+2007/08,Hard Red Spring,Planted acreage,Million acres,12.714
+2007/08,Hard Red Spring,Harvested acreage,Million acres,12.385
+2007/08,Hard Red Spring,Yield,Bushels per acre,36.3399
+2007/08,Hard Red Spring,Weighted-average farm price,Dollars per bushel,7.16
+2007/08,Hard Red Winter,Production,Million bushels,955.555
+2007/08,Hard Red Winter,Planted acreage,Million acres,32.981
+2007/08,Hard Red Winter,Harvested acreage,Million acres,25.718
+2007/08,Hard Red Winter,Yield,Bushels per acre,37.1551
+2007/08,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.15
+2007/08,Soft Red Winter,Production,Million bushels,352.026
+2007/08,Soft Red Winter,Planted acreage,Million acres,8.639
+2007/08,Soft Red Winter,Harvested acreage,Million acres,7.037
+2007/08,Soft Red Winter,Yield,Bushels per acre,50.025
+2007/08,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.2
+2007/08,White,Production,Million bushels,221.213
+2007/08,White,Planted acreage,Million acres,3.971
+2007/08,White,Harvested acreage,Million acres,3.74
+2007/08,White,Yield,Bushels per acre,59.1479
+2007/08,White,Weighted-average farm price,Dollars per bushel,7.23
+2008/09,All Wheat,Weighted-average farm price,Dollars per bushel,6.78
+2008/09,All Wheat,Harvested acreage,Million acres,56.036
+2008/09,All Wheat,Planted acreage,Million acres,63.617
+2008/09,All Wheat,Production,Million bushels,2511.896
+2008/09,All Wheat,Yield,Bushels per acre,44.8265
+2008/09,Durum,Production,Million bushels,80.467
+2008/09,Durum,Weighted-average farm price,Dollars per bushel,9.26
+2008/09,Durum,Harvested acreage,Million acres,2.574
+2008/09,Durum,Planted acreage,Million acres,2.721
+2008/09,Durum,Yield,Bushels per acre,31.3
+2008/09,Hard Red Spring,Production,Million bushels,510.134
+2008/09,Hard Red Spring,Planted acreage,Million acres,13.404
+2008/09,Hard Red Spring,Harvested acreage,Million acres,12.78
+2008/09,Hard Red Spring,Yield,Bushels per acre,39.9166
+2008/09,Hard Red Spring,Weighted-average farm price,Dollars per bushel,7.39
+2008/09,Hard Red Winter,Production,Million bushels,1045.622
+2008/09,Hard Red Winter,Planted acreage,Million acres,31.58
+2008/09,Hard Red Winter,Harvested acreage,Million acres,26.138
+2008/09,Hard Red Winter,Yield,Bushels per acre,40.0039
+2008/09,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.9
+2008/09,Soft Red Winter,Production,Million bushels,618.067
+2008/09,Soft Red Winter,Planted acreage,Million acres,11.363
+2008/09,Soft Red Winter,Harvested acreage,Million acres,10.208
+2008/09,Soft Red Winter,Yield,Bushels per acre,60.5473
+2008/09,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.78
+2008/09,White,Production,Million bushels,257.606
+2008/09,White,Planted acreage,Million acres,4.549
+2008/09,White,Harvested acreage,Million acres,4.337
+2008/09,White,Yield,Bushels per acre,59.3973
+2008/09,White,Weighted-average farm price,Dollars per bushel,6.01
+2009/10,All Wheat,Weighted-average farm price,Dollars per bushel,4.87
+2009/10,All Wheat,Harvested acreage,Million acres,49.841
+2009/10,All Wheat,Planted acreage,Million acres,59.017
+2009/10,All Wheat,Production,Million bushels,2208.918
+2009/10,All Wheat,Yield,Bushels per acre,44.3193
+2009/10,Durum,Production,Million bushels,104.93
+2009/10,Durum,Weighted-average farm price,Dollars per bushel,5.47
+2009/10,Durum,Harvested acreage,Million acres,2.386
+2009/10,Durum,Planted acreage,Million acres,2.512
+2009/10,Durum,Yield,Bushels per acre,44.0
+2009/10,Hard Red Spring,Production,Million bushels,546.433
+2009/10,Hard Red Spring,Planted acreage,Million acres,12.564
+2009/10,Hard Red Spring,Harvested acreage,Million acres,12.268
+2009/10,Hard Red Spring,Yield,Bushels per acre,44.5413
+2009/10,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.26
+2009/10,Hard Red Winter,Production,Million bushels,925.761
+2009/10,Hard Red Winter,Planted acreage,Million acres,31.666
+2009/10,Hard Red Winter,Harvested acreage,Million acres,24.297
+2009/10,Hard Red Winter,Yield,Bushels per acre,38.1019
+2009/10,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.84
+2009/10,Soft Red Winter,Production,Million bushels,390.82
+2009/10,Soft Red Winter,Planted acreage,Million acres,8.162
+2009/10,Soft Red Winter,Harvested acreage,Million acres,6.998
+2009/10,Soft Red Winter,Yield,Bushels per acre,55.8474
+2009/10,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.35
+2009/10,White,Production,Million bushels,240.974
+2009/10,White,Planted acreage,Million acres,4.114
+2009/10,White,Harvested acreage,Million acres,3.892
+2009/10,White,Yield,Bushels per acre,61.9152
+2009/10,White,Weighted-average farm price,Dollars per bushel,4.52
+2010/11,All Wheat,Weighted-average farm price,Dollars per bushel,5.7
+2010/11,All Wheat,Harvested acreage,Million acres,46.883
+2010/11,All Wheat,Planted acreage,Million acres,52.62
+2010/11,All Wheat,Production,Million bushels,2163.023
+2010/11,All Wheat,Yield,Bushels per acre,46.1366
+2010/11,Durum,Production,Million bushels,101.482
+2010/11,Durum,Weighted-average farm price,Dollars per bushel,5.98
+2010/11,Durum,Harvested acreage,Million acres,2.462
+2010/11,Durum,Planted acreage,Million acres,2.503
+2010/11,Durum,Yield,Bushels per acre,41.2
+2010/11,Hard Red Spring,Production,Million bushels,564.035
+2010/11,Hard Red Spring,Planted acreage,Million acres,12.831
+2010/11,Hard Red Spring,Harvested acreage,Million acres,12.507
+2010/11,Hard Red Spring,Yield,Bushels per acre,45.0975
+2010/11,Hard Red Spring,Weighted-average farm price,Dollars per bushel,6.54
+2010/11,Hard Red Winter,Production,Million bushels,1006.079
+2010/11,Hard Red Winter,Planted acreage,Million acres,28.241
+2010/11,Hard Red Winter,Harvested acreage,Million acres,23.903
+2010/11,Hard Red Winter,Yield,Bushels per acre,42.0901
+2010/11,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.49
+2010/11,Soft Red Winter,Production,Million bushels,219.209
+2010/11,Soft Red Winter,Planted acreage,Million acres,4.857
+2010/11,Soft Red Winter,Harvested acreage,Million acres,4.011
+2010/11,Soft Red Winter,Yield,Bushels per acre,54.652
+2010/11,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.16
+2010/11,White,Production,Million bushels,272.218
+2010/11,White,Planted acreage,Million acres,4.188
+2010/11,White,Harvested acreage,Million acres,4.0
+2010/11,White,Yield,Bushels per acre,68.0545
+2010/11,White,Weighted-average farm price,Dollars per bushel,5.88
+2011/12,All Wheat,Weighted-average farm price,Dollars per bushel,7.24
+2011/12,All Wheat,Harvested acreage,Million acres,45.687
+2011/12,All Wheat,Planted acreage,Million acres,54.277
+2011/12,All Wheat,Production,Million bushels,1993.111
+2011/12,All Wheat,Yield,Bushels per acre,43.6253
+2011/12,Durum,Production,Million bushels,47.043
+2011/12,Durum,Weighted-average farm price,Dollars per bushel,9.68
+2011/12,Durum,Harvested acreage,Million acres,1.28
+2011/12,Durum,Planted acreage,Million acres,1.337
+2011/12,Durum,Yield,Bushels per acre,36.8
+2011/12,Hard Red Spring,Production,Million bushels,396.175
+2011/12,Hard Red Spring,Planted acreage,Million acres,11.55
+2011/12,Hard Red Spring,Harvested acreage,Million acres,11.256
+2011/12,Hard Red Spring,Yield,Bushels per acre,35.1968
+2011/12,Hard Red Spring,Weighted-average farm price,Dollars per bushel,8.38
+2011/12,Hard Red Winter,Production,Million bushels,782.859
+2011/12,Hard Red Winter,Planted acreage,Million acres,28.469
+2011/12,Hard Red Winter,Harvested acreage,Million acres,21.529
+2011/12,Hard Red Winter,Yield,Bushels per acre,36.363
+2011/12,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.92
+2011/12,Soft Red Winter,Production,Million bushels,452.738
+2011/12,Soft Red Winter,Planted acreage,Million acres,8.496
+2011/12,Soft Red Winter,Harvested acreage,Million acres,7.367
+2011/12,Soft Red Winter,Yield,Bushels per acre,61.4549
+2011/12,Soft Red Winter,Weighted-average farm price,Dollars per bushel,6.78
+2011/12,White,Production,Million bushels,314.296
+2011/12,White,Planted acreage,Million acres,4.425
+2011/12,White,Harvested acreage,Million acres,4.255
+2011/12,White,Yield,Bushels per acre,73.8651
+2011/12,White,Weighted-average farm price,Dollars per bushel,6.42
+2012/13,All Wheat,Weighted-average farm price,Dollars per bushel,7.77
+2012/13,All Wheat,Harvested acreage,Million acres,48.758
+2012/13,All Wheat,Planted acreage,Million acres,55.294
+2012/13,All Wheat,Production,Million bushels,2252.307
+2012/13,All Wheat,Yield,Bushels per acre,46.1936
+2012/13,Durum,Production,Million bushels,81.501
+2012/13,Durum,Weighted-average farm price,Dollars per bushel,8.18
+2012/13,Durum,Harvested acreage,Million acres,2.122
+2012/13,Durum,Planted acreage,Million acres,2.138
+2012/13,Durum,Yield,Bushels per acre,38.4
+2012/13,Hard Red Spring,Production,Million bushels,503.464
+2012/13,Hard Red Spring,Planted acreage,Million acres,11.674
+2012/13,Hard Red Spring,Harvested acreage,Million acres,11.459
+2012/13,Hard Red Spring,Yield,Bushels per acre,43.9361
+2012/13,Hard Red Spring,Weighted-average farm price,Dollars per bushel,8.27
+2012/13,Hard Red Winter,Production,Million bushels,997.948
+2012/13,Hard Red Winter,Planted acreage,Million acres,29.612
+2012/13,Hard Red Winter,Harvested acreage,Million acres,24.595
+2012/13,Hard Red Winter,Yield,Bushels per acre,40.5752
+2012/13,Hard Red Winter,Weighted-average farm price,Dollars per bushel,7.56
+2012/13,Soft Red Winter,Production,Million bushels,412.729
+2012/13,Soft Red Winter,Planted acreage,Million acres,7.956
+2012/13,Soft Red Winter,Harvested acreage,Million acres,6.822
+2012/13,Soft Red Winter,Yield,Bushels per acre,60.4997
+2012/13,Soft Red Winter,Weighted-average farm price,Dollars per bushel,7.26
+2012/13,White,Production,Million bushels,256.665
+2012/13,White,Planted acreage,Million acres,3.914
+2012/13,White,Harvested acreage,Million acres,3.76
+2012/13,White,Yield,Bushels per acre,68.262
+2012/13,White,Weighted-average farm price,Dollars per bushel,7.88
+2013/14,All Wheat,Weighted-average farm price,Dollars per bushel,6.87
+2013/14,All Wheat,Harvested acreage,Million acres,45.332
+2013/14,All Wheat,Planted acreage,Million acres,56.236
+2013/14,All Wheat,Production,Million bushels,2134.979
+2013/14,All Wheat,Yield,Bushels per acre,47.0965
+2013/14,Durum,Production,Million bushels,57.976
+2013/14,Durum,Weighted-average farm price,Dollars per bushel,7.46
+2013/14,Durum,Harvested acreage,Million acres,1.338
+2013/14,Durum,Planted acreage,Million acres,1.4
+2013/14,Durum,Yield,Bushels per acre,43.3
+2013/14,Hard Red Spring,Production,Million bushels,490.629
+2013/14,Hard Red Spring,Planted acreage,Million acres,10.942
+2013/14,Hard Red Spring,Harvested acreage,Million acres,10.703
+2013/14,Hard Red Spring,Yield,Bushels per acre,45.8403
+2013/14,Hard Red Spring,Weighted-average farm price,Dollars per bushel,6.73
+2013/14,Hard Red Winter,Production,Million bushels,747.373
+2013/14,Hard Red Winter,Planted acreage,Million acres,29.67
+2013/14,Hard Red Winter,Harvested acreage,Million acres,20.394
+2013/14,Hard Red Winter,Yield,Bushels per acre,36.6467
+2013/14,Hard Red Winter,Weighted-average farm price,Dollars per bushel,7.03
+2013/14,Soft Red Winter,Production,Million bushels,568.481
+2013/14,Soft Red Winter,Planted acreage,Million acres,10.044
+2013/14,Soft Red Winter,Harvested acreage,Million acres,8.921
+2013/14,Soft Red Winter,Yield,Bushels per acre,63.7239
+2013/14,Soft Red Winter,Weighted-average farm price,Dollars per bushel,6.53
+2013/14,White,Production,Million bushels,270.52
+2013/14,White,Planted acreage,Million acres,4.18
+2013/14,White,Harvested acreage,Million acres,3.976
+2013/14,White,Yield,Bushels per acre,68.0382
+2013/14,White,Weighted-average farm price,Dollars per bushel,6.85
+2014/15,All Wheat,Weighted-average farm price,Dollars per bushel,5.99
+2014/15,All Wheat,Harvested acreage,Million acres,46.385
+2014/15,All Wheat,Planted acreage,Million acres,56.841
+2014/15,All Wheat,Production,Million bushels,2026.31
+2014/15,All Wheat,Yield,Bushels per acre,43.6846
+2014/15,Durum,Production,Million bushels,54.056
+2014/15,Durum,Weighted-average farm price,Dollars per bushel,8.81
+2014/15,Durum,Harvested acreage,Million acres,1.346
+2014/15,Durum,Planted acreage,Million acres,1.407
+2014/15,Durum,Yield,Bushels per acre,40.2
+2014/15,Hard Red Spring,Production,Million bushels,555.543
+2014/15,Hard Red Spring,Planted acreage,Million acres,12.247
+2014/15,Hard Red Spring,Harvested acreage,Million acres,11.992
+2014/15,Hard Red Spring,Yield,Bushels per acre,46.3261
+2014/15,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.73
+2014/15,Hard Red Winter,Production,Million bushels,738.65
+2014/15,Hard Red Winter,Planted acreage,Million acres,30.498
+2014/15,Hard Red Winter,Harvested acreage,Million acres,21.923
+2014/15,Hard Red Winter,Yield,Bushels per acre,33.6929
+2014/15,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.02
+2014/15,Soft Red Winter,Production,Million bushels,454.531
+2014/15,Soft Red Winter,Planted acreage,Million acres,8.484
+2014/15,Soft Red Winter,Harvested acreage,Million acres,7.158
+2014/15,Soft Red Winter,Yield,Bushels per acre,63.4997
+2014/15,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.34
+2014/15,White,Production,Million bushels,223.53
+2014/15,White,Planted acreage,Million acres,4.205
+2014/15,White,Harvested acreage,Million acres,3.97
+2014/15,White,Yield,Bushels per acre,56.3048
+2014/15,White,Weighted-average farm price,Dollars per bushel,6.37
+2015/16,All Wheat,Weighted-average farm price,Dollars per bushel,4.89
+2015/16,All Wheat,Harvested acreage,Million acres,47.318
+2015/16,All Wheat,Planted acreage,Million acres,54.999
+2015/16,All Wheat,Production,Million bushels,2061.939
+2015/16,All Wheat,Yield,Bushels per acre,43.5762
+2015/16,Durum,Production,Million bushels,84.009
+2015/16,Durum,Weighted-average farm price,Dollars per bushel,7.36
+2015/16,Durum,Harvested acreage,Million acres,1.911
+2015/16,Durum,Planted acreage,Million acres,1.951
+2015/16,Durum,Yield,Bushels per acre,44.0
+2015/16,Hard Red Spring,Production,Million bushels,567.637
+2015/16,Hard Red Spring,Planted acreage,Million acres,12.621
+2015/16,Hard Red Spring,Harvested acreage,Million acres,12.331
+2015/16,Hard Red Spring,Yield,Bushels per acre,46.0333
+2015/16,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.75
+2015/16,Hard Red Winter,Production,Million bushels,830.446
+2015/16,Hard Red Winter,Planted acreage,Million acres,29.173
+2015/16,Hard Red Winter,Harvested acreage,Million acres,23.217
+2015/16,Hard Red Winter,Yield,Bushels per acre,35.7689
+2015/16,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.68
+2015/16,Soft Red Winter,Production,Million bushels,359.054
+2015/16,Soft Red Winter,Planted acreage,Million acres,7.094
+2015/16,Soft Red Winter,Harvested acreage,Million acres,5.894
+2015/16,Soft Red Winter,Yield,Bushels per acre,60.9186
+2015/16,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.66
+2015/16,White,Production,Million bushels,220.793
+2015/16,White,Planted acreage,Million acres,4.16
+2015/16,White,Harvested acreage,Million acres,3.965
+2015/16,White,Yield,Bushels per acre,55.6855
+2015/16,White,Weighted-average farm price,Dollars per bushel,5.38
+2016/17,All Wheat,Weighted-average farm price,Dollars per bushel,3.89
+2016/17,All Wheat,Harvested acreage,Million acres,43.848
+2016/17,All Wheat,Planted acreage,Million acres,50.116
+2016/17,All Wheat,Production,Million bushels,2308.663
+2016/17,All Wheat,Yield,Bushels per acre,52.6515
+2016/17,Durum,Production,Million bushels,103.914
+2016/17,Durum,Weighted-average farm price,Dollars per bushel,6.01
+2016/17,Durum,Harvested acreage,Million acres,2.36
+2016/17,Durum,Planted acreage,Million acres,2.412
+2016/17,Durum,Yield,Bushels per acre,44.0
+2016/17,Hard Red Spring,Production,Million bushels,491.325
+2016/17,Hard Red Spring,Planted acreage,Million acres,10.898
+2016/17,Hard Red Spring,Harvested acreage,Million acres,10.616
+2016/17,Hard Red Spring,Yield,Bushels per acre,46.2816
+2016/17,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.6
+2016/17,Hard Red Winter,Production,Million bushels,1082.004
+2016/17,Hard Red Winter,Planted acreage,Million acres,26.593
+2016/17,Hard Red Winter,Harvested acreage,Million acres,21.87
+2016/17,Hard Red Winter,Yield,Bushels per acre,49.4743
+2016/17,Hard Red Winter,Weighted-average farm price,Dollars per bushel,3.37
+2016/17,Soft Red Winter,Production,Million bushels,345.172
+2016/17,Soft Red Winter,Planted acreage,Million acres,6.017
+2016/17,Soft Red Winter,Harvested acreage,Million acres,4.975
+2016/17,Soft Red Winter,Yield,Bushels per acre,69.3813
+2016/17,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.13
+2016/17,White,Production,Million bushels,286.248
+2016/17,White,Planted acreage,Million acres,4.196
+2016/17,White,Harvested acreage,Million acres,4.027
+2016/17,White,Yield,Bushels per acre,71.0822
+2016/17,White,Weighted-average farm price,Dollars per bushel,4.1
+2017/18,All Wheat,Weighted-average farm price,Dollars per bushel,4.72
+2017/18,All Wheat,Harvested acreage,Million acres,37.555
+2017/18,All Wheat,Planted acreage,Million acres,46.052
+2017/18,All Wheat,Production,Million bushels,1740.91
+2017/18,All Wheat,Yield,Bushels per acre,46.3563
+2017/18,Durum,Production,Million bushels,54.777
+2017/18,Durum,Weighted-average farm price,Dollars per bushel,6.35
+2017/18,Durum,Harvested acreage,Million acres,2.106
+2017/18,Durum,Planted acreage,Million acres,2.307
+2017/18,Durum,Yield,Bushels per acre,26.0
+2017/18,Hard Red Spring,Production,Million bushels,384.193
+2017/18,Hard Red Spring,Planted acreage,Million acres,10.505
+2017/18,Hard Red Spring,Harvested acreage,Million acres,9.652
+2017/18,Hard Red Spring,Yield,Bushels per acre,39.8045
+2017/18,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.83
+2017/18,Hard Red Winter,Production,Million bushels,750.132
+2017/18,Hard Red Winter,Planted acreage,Million acres,23.426
+2017/18,Hard Red Winter,Harvested acreage,Million acres,17.637
+2017/18,Hard Red Winter,Yield,Bushels per acre,42.5317
+2017/18,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.18
+2017/18,Soft Red Winter,Production,Million bushels,293.222
+2017/18,Soft Red Winter,Planted acreage,Million acres,5.763
+2017/18,Soft Red Winter,Harvested acreage,Million acres,4.331
+2017/18,Soft Red Winter,Yield,Bushels per acre,67.7031
+2017/18,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.65
+2017/18,White,Production,Million bushels,258.586
+2017/18,White,Planted acreage,Million acres,4.051
+2017/18,White,Harvested acreage,Million acres,3.829
+2017/18,White,Yield,Bushels per acre,67.5336
+2017/18,White,Weighted-average farm price,Dollars per bushel,4.6
+2018/19,All Wheat,Weighted-average farm price,Dollars per bushel,5.16
+2018/19,All Wheat,Harvested acreage,Million acres,39.615
+2018/19,All Wheat,Planted acreage,Million acres,47.82
+2018/19,All Wheat,Production,Million bushels,1885.361
+2018/19,All Wheat,Yield,Bushels per acre,47.5921
+2018/19,Durum,Production,Million bushels,78.19
+2018/19,Durum,Weighted-average farm price,Dollars per bushel,5.33
+2018/19,Durum,Harvested acreage,Million acres,1.977
+2018/19,Durum,Planted acreage,Million acres,2.078
+2018/19,Durum,Yield,Bushels per acre,39.5
+2018/19,Hard Red Spring,Production,Million bushels,587.007
+2018/19,Hard Red Spring,Planted acreage,Million acres,12.686
+2018/19,Hard Red Spring,Harvested acreage,Million acres,12.403
+2018/19,Hard Red Spring,Yield,Bushels per acre,47.3278
+2018/19,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.32
+2018/19,Hard Red Winter,Production,Million bushels,662.249
+2018/19,Hard Red Winter,Planted acreage,Million acres,22.93
+2018/19,Hard Red Winter,Harvested acreage,Million acres,16.947
+2018/19,Hard Red Winter,Yield,Bushels per acre,39.0777
+2018/19,Hard Red Winter,Weighted-average farm price,Dollars per bushel,5.01
+2018/19,Soft Red Winter,Production,Million bushels,285.558
+2018/19,Soft Red Winter,Planted acreage,Million acres,6.076
+2018/19,Soft Red Winter,Harvested acreage,Million acres,4.469
+2018/19,Soft Red Winter,Yield,Bushels per acre,63.8975
+2018/19,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.9
+2018/19,White,Production,Million bushels,272.357
+2018/19,White,Planted acreage,Million acres,4.05
+2018/19,White,Harvested acreage,Million acres,3.819
+2018/19,White,Yield,Bushels per acre,71.3163
+2018/19,White,Weighted-average farm price,Dollars per bushel,5.35
+2019/20,All Wheat,Weighted-average farm price,Dollars per bushel,4.58
+2019/20,All Wheat,Harvested acreage,Million acres,37.394
+2019/20,All Wheat,Planted acreage,Million acres,45.485
+2019/20,All Wheat,Production,Million bushels,1932.017
+2019/20,All Wheat,Yield,Bushels per acre,51.6665
+2019/20,Durum,Production,Million bushels,53.959
+2019/20,Durum,Weighted-average farm price,Dollars per bushel,4.9
+2019/20,Durum,Harvested acreage,Million acres,1.177
+2019/20,Durum,Planted acreage,Million acres,1.341
+2019/20,Durum,Yield,Bushels per acre,45.8
+2019/20,Hard Red Spring,Production,Million bushels,519.929
+2019/20,Hard Red Spring,Planted acreage,Million acres,12.014
+2019/20,Hard Red Spring,Harvested acreage,Million acres,10.985
+2019/20,Hard Red Spring,Yield,Bushels per acre,47.3308
+2019/20,Hard Red Spring,Weighted-average farm price,Dollars per bushel,4.62
+2019/20,Hard Red Winter,Production,Million bushels,844.947
+2019/20,Hard Red Winter,Planted acreage,Million acres,22.751
+2019/20,Hard Red Winter,Harvested acreage,Million acres,17.538
+2019/20,Hard Red Winter,Yield,Bushels per acre,48.1781
+2019/20,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.24
+2019/20,Soft Red Winter,Production,Million bushels,239.771
+2019/20,Soft Red Winter,Planted acreage,Million acres,5.213
+2019/20,Soft Red Winter,Harvested acreage,Million acres,3.743
+2019/20,Soft Red Winter,Yield,Bushels per acre,64.0585
+2019/20,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.14
+2019/20,White,Production,Million bushels,273.411
+2019/20,White,Planted acreage,Million acres,4.166
+2019/20,White,Harvested acreage,Million acres,3.951
+2019/20,White,Yield,Bushels per acre,69.2005
+2019/20,White,Weighted-average farm price,Dollars per bushel,5.39
+2020/21,All Wheat,Weighted-average farm price,Dollars per bushel,5.05
+2020/21,All Wheat,Harvested acreage,Million acres,36.609
+2020/21,All Wheat,Planted acreage,Million acres,44.45
+2020/21,All Wheat,Production,Million bushels,1819.673
+2020/21,All Wheat,Yield,Bushels per acre,49.7056
+2020/21,Durum,Production,Million bushels,69.141
+2020/21,Durum,Weighted-average farm price,Dollars per bushel,6.02
+2020/21,Durum,Harvested acreage,Million acres,1.665
+2020/21,Durum,Planted acreage,Million acres,1.69
+2020/21,Durum,Yield,Bushels per acre,41.5
+2020/21,Hard Red Spring,Production,Million bushels,531.179
+2020/21,Hard Red Spring,Planted acreage,Million acres,11.533
+2020/21,Hard Red Spring,Harvested acreage,Million acres,11.332
+2020/21,Hard Red Spring,Yield,Bushels per acre,46.8742
+2020/21,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.07
+2020/21,Hard Red Winter,Production,Million bushels,653.551
+2020/21,Hard Red Winter,Planted acreage,Million acres,21.394
+2020/21,Hard Red Winter,Harvested acreage,Million acres,15.471
+2020/21,Hard Red Winter,Yield,Bushels per acre,42.2436
+2020/21,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.75
+2020/21,Soft Red Winter,Production,Million bushels,264.221
+2020/21,Soft Red Winter,Planted acreage,Million acres,5.565
+2020/21,Soft Red Winter,Harvested acreage,Million acres,4.082
+2020/21,Soft Red Winter,Yield,Bushels per acre,64.7283
+2020/21,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.26
+2020/21,White,Production,Million bushels,301.581
+2020/21,White,Planted acreage,Million acres,4.268
+2020/21,White,Harvested acreage,Million acres,4.059
+2020/21,White,Yield,Bushels per acre,74.2993
+2020/21,White,Weighted-average farm price,Dollars per bushel,5.53
+2021/22,All Wheat,Weighted-average farm price,Dollars per bushel,7.63
+2021/22,All Wheat,Harvested acreage,Million acres,37.145
+2021/22,All Wheat,Planted acreage,Million acres,46.74
+2021/22,All Wheat,Production,Million bushels,1646.254
+2021/22,All Wheat,Yield,Bushels per acre,44.3197
+2021/22,Durum,Production,Million bushels,37.649
+2021/22,Durum,Weighted-average farm price,Dollars per bushel,12.1
+2021/22,Durum,Harvested acreage,Million acres,1.526
+2021/22,Durum,Planted acreage,Million acres,1.642
+2021/22,Durum,Yield,Bushels per acre,24.7
+2021/22,Hard Red Spring,Production,Million bushels,297.076
+2021/22,Hard Red Spring,Planted acreage,Million acres,10.596
+2021/22,Hard Red Spring,Harvested acreage,Million acres,9.381
+2021/22,Hard Red Spring,Yield,Bushels per acre,31.6678
+2021/22,Hard Red Spring,Weighted-average farm price,Dollars per bushel,8.59
+2021/22,Hard Red Winter,Production,Million bushels,749.878
+2021/22,Hard Red Winter,Planted acreage,Million acres,23.522
+2021/22,Hard Red Winter,Harvested acreage,Million acres,17.19
+2021/22,Hard Red Winter,Yield,Bushels per acre,43.6229
+2021/22,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.89
+2021/22,Soft Red Winter,Production,Million bushels,360.697
+2021/22,Soft Red Winter,Planted acreage,Million acres,6.648
+2021/22,Soft Red Winter,Harvested acreage,Million acres,4.968
+2021/22,Soft Red Winter,Yield,Bushels per acre,72.6041
+2021/22,Soft Red Winter,Weighted-average farm price,Dollars per bushel,6.54
+2021/22,White,Production,Million bushels,200.954
+2021/22,White,Planted acreage,Million acres,4.332
+2021/22,White,Harvested acreage,Million acres,4.08
+2021/22,White,Yield,Bushels per acre,49.2534
+2021/22,White,Weighted-average farm price,Dollars per bushel,7.94
+2022/23,All Wheat,Weighted-average farm price,Dollars per bushel,8.83
+2022/23,All Wheat,Harvested acreage,Million acres,35.485
+2022/23,All Wheat,Planted acreage,Million acres,45.769
+2022/23,All Wheat,Production,Million bushels,1649.713
+2022/23,All Wheat,Yield,Bushels per acre,46.4904
+2022/23,Durum,Production,Million bushels,63.981
+2022/23,Durum,Weighted-average farm price,Dollars per bushel,10.9
+2022/23,Durum,Harvested acreage,Million acres,1.581
+2022/23,Durum,Planted acreage,Million acres,1.633
+2022/23,Durum,Yield,Bushels per acre,40.5
+2022/23,Hard Red Spring,Production,Million bushels,446.495
+2022/23,Hard Red Spring,Planted acreage,Million acres,10.227
+2022/23,Hard Red Spring,Harvested acreage,Million acres,9.839
+2022/23,Hard Red Spring,Yield,Bushels per acre,45.3801
+2022/23,Hard Red Spring,Weighted-average farm price,Dollars per bushel,9.05
+2022/23,Hard Red Winter,Production,Million bushels,530.966
+2022/23,Hard Red Winter,Planted acreage,Million acres,23.098
+2022/23,Hard Red Winter,Harvested acreage,Million acres,15.253
+2022/23,Hard Red Winter,Yield,Bushels per acre,34.8106
+2022/23,Hard Red Winter,Weighted-average farm price,Dollars per bushel,8.8
+2022/23,Soft Red Winter,Production,Million bushels,336.146
+2022/23,Soft Red Winter,Planted acreage,Million acres,6.565
+2022/23,Soft Red Winter,Harvested acreage,Million acres,4.789
+2022/23,Soft Red Winter,Yield,Bushels per acre,70.1913
+2022/23,Soft Red Winter,Weighted-average farm price,Dollars per bushel,8.14
+2022/23,White,Production,Million bushels,272.125
+2022/23,White,Planted acreage,Million acres,4.246
+2022/23,White,Harvested acreage,Million acres,4.023
+2022/23,White,Yield,Bushels per acre,67.6423
+2022/23,White,Weighted-average farm price,Dollars per bushel,8.25
+2023/24,All Wheat,Weighted-average farm price,Dollars per bushel,6.96
+2023/24,All Wheat,Harvested acreage,Million acres,37.077
+2023/24,All Wheat,Planted acreage,Million acres,49.575
+2023/24,All Wheat,Production,Million bushels,1803.942
+2023/24,All Wheat,Yield,Bushels per acre,48.6539
+2023/24,Durum,Production,Million bushels,59.329
+2023/24,Durum,Weighted-average farm price,Dollars per bushel,9.7
+2023/24,Durum,Harvested acreage,Million acres,1.604
+2023/24,Durum,Planted acreage,Million acres,1.676
+2023/24,Durum,Yield,Bushels per acre,37.0
+2023/24,Hard Red Spring,Production,Million bushels,465.413
+2023/24,Hard Red Spring,Planted acreage,Million acres,10.514
+2023/24,Hard Red Spring,Harvested acreage,Million acres,10.247
+2023/24,Hard Red Spring,Yield,Bushels per acre,45.4194
+2023/24,Hard Red Spring,Weighted-average farm price,Dollars per bushel,7.19
+2023/24,Hard Red Winter,Production,Million bushels,596.047
+2023/24,Hard Red Winter,Planted acreage,Million acres,25.695
+2023/24,Hard Red Winter,Harvested acreage,Million acres,15.451
+2023/24,Hard Red Winter,Yield,Bushels per acre,38.5766
+2023/24,Hard Red Winter,Weighted-average farm price,Dollars per bushel,6.86
+2023/24,Soft Red Winter,Production,Million bushels,449.017
+2023/24,Soft Red Winter,Planted acreage,Million acres,7.36
+2023/24,Soft Red Winter,Harvested acreage,Million acres,5.791
+2023/24,Soft Red Winter,Yield,Bushels per acre,77.537
+2023/24,Soft Red Winter,Weighted-average farm price,Dollars per bushel,6.41
+2023/24,White,Production,Million bushels,234.136
+2023/24,White,Planted acreage,Million acres,4.33
+2023/24,White,Harvested acreage,Million acres,3.984
+2023/24,White,Yield,Bushels per acre,58.7691
+2023/24,White,Weighted-average farm price,Dollars per bushel,6.31
+2024/25,All Wheat,Weighted-average farm price,Dollars per bushel,5.52
+2024/25,All Wheat,Harvested acreage,Million acres,38.633
+2024/25,All Wheat,Planted acreage,Million acres,46.274
+2024/25,All Wheat,Production,Million bushels,1978.697
+2024/25,All Wheat,Yield,Bushels per acre,51.2178
+2024/25,Durum,Production,Million bushels,80.051
+2024/25,Durum,Weighted-average farm price,Dollars per bushel,6.93
+2024/25,Durum,Harvested acreage,Million acres,2.036
+2024/25,Durum,Planted acreage,Million acres,2.064
+2024/25,Durum,Yield,Bushels per acre,39.3
+2024/25,Hard Red Spring,Production,Million bushels,504.757
+2024/25,Hard Red Spring,Planted acreage,Million acres,10.024
+2024/25,Hard Red Spring,Harvested acreage,Million acres,9.752
+2024/25,Hard Red Spring,Yield,Bushels per acre,51.7593
+2024/25,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.71
+2024/25,Hard Red Winter,Production,Million bushels,773.433
+2024/25,Hard Red Winter,Planted acreage,Million acres,23.882
+2024/25,Hard Red Winter,Harvested acreage,Million acres,18.18
+2024/25,Hard Red Winter,Yield,Bushels per acre,42.5431
+2024/25,Hard Red Winter,Weighted-average farm price,Dollars per bushel,5.38
+2024/25,Soft Red Winter,Production,Million bushels,344.445
+2024/25,Soft Red Winter,Planted acreage,Million acres,6.097
+2024/25,Soft Red Winter,Harvested acreage,Million acres,4.648
+2024/25,Soft Red Winter,Yield,Bushels per acre,74.1061
+2024/25,Soft Red Winter,Weighted-average farm price,Dollars per bushel,5.51
+2024/25,White,Production,Million bushels,276.011
+2024/25,White,Planted acreage,Million acres,4.207
+2024/25,White,Harvested acreage,Million acres,4.017
+2024/25,White,Yield,Bushels per acre,68.7107
+2024/25,White,Weighted-average farm price,Dollars per bushel,5.35
+2025/26,All Wheat,Weighted-average farm price,Dollars per bushel,5.06
+2025/26,All Wheat,Harvested acreage,Million acres,37.241
+2025/26,All Wheat,Planted acreage,Million acres,45.328
+2025/26,All Wheat,Production,Million bushels,1984.537
+2025/26,All Wheat,Yield,Bushels per acre,53.289
+2025/26,Durum,Production,Million bushels,86.223
+2025/26,Durum,Weighted-average farm price,Dollars per bushel,6.25
+2025/26,Durum,Harvested acreage,Million acres,2.123
+2025/26,Durum,Planted acreage,Million acres,2.185
+2025/26,Durum,Yield,Bushels per acre,40.6
+2025/26,Hard Red Spring,Production,Million bushels,458.347
+2025/26,Hard Red Spring,Planted acreage,Million acres,9.326
+2025/26,Hard Red Spring,Harvested acreage,Million acres,8.96
+2025/26,Hard Red Spring,Yield,Bushels per acre,51.1548
+2025/26,Hard Red Spring,Weighted-average farm price,Dollars per bushel,5.39
+2025/26,Hard Red Winter,Production,Million bushels,804.443
+2025/26,Hard Red Winter,Planted acreage,Million acres,23.489
+2025/26,Hard Red Winter,Harvested acreage,Million acres,17.56
+2025/26,Hard Red Winter,Yield,Bushels per acre,45.8111
+2025/26,Hard Red Winter,Weighted-average farm price,Dollars per bushel,4.85
+2025/26,Soft Red Winter,Production,Million bushels,352.916
+2025/26,Soft Red Winter,Planted acreage,Million acres,6.136
+2025/26,Soft Red Winter,Harvested acreage,Million acres,4.597
+2025/26,Soft Red Winter,Yield,Bushels per acre,76.7709
+2025/26,Soft Red Winter,Weighted-average farm price,Dollars per bushel,4.85
+2025/26,White,Production,Million bushels,282.608
+2025/26,White,Planted acreage,Million acres,4.192
+2025/26,White,Harvested acreage,Million acres,4.001
+2025/26,White,Yield,Bushels per acre,70.6343
+2025/26,White,Weighted-average farm price,Dollars per bushel,5.3
+2026/27,All Wheat,Weighted-average farm price,Dollars per bushel,6.4
+2026/27,All Wheat,Harvested acreage,Million acres,32.053
+2026/27,All Wheat,Planted acreage,Million acres,42.65
+2026/27,All Wheat,Production,Million bushels,1530.598
+2026/27,All Wheat,Yield,Bushels per acre,47.7521
+2026/27,Durum,Production,Million bushels,66.408
+2026/27,Durum,Harvested acreage,Million acres,1.728
+2026/27,Durum,Planted acreage,Million acres,1.78
+2026/27,Durum,Yield,Bushels per acre,38.4
+2026/27,Hard Red Spring,Production,Million bushels,433.881
+2026/27,Hard Red Spring,Planted acreage,Million acres,8.987
+2026/27,Hard Red Spring,Harvested acreage,Million acres,8.679
+2026/27,Hard Red Spring,Yield,Bushels per acre,49.992
+2026/27,Hard Red Winter,Production,Million bushels,462.679
+2026/27,Hard Red Winter,Planted acreage,Million acres,22.177
+2026/27,Hard Red Winter,Harvested acreage,Million acres,13.797
+2026/27,Hard Red Winter,Yield,Bushels per acre,33.5348
+2026/27,Soft Red Winter,Production,Million bushels,287.185
+2026/27,Soft Red Winter,Planted acreage,Million acres,5.491
+2026/27,Soft Red Winter,Harvested acreage,Million acres,3.899
+2026/27,Soft Red Winter,Yield,Bushels per acre,73.6561
+2026/27,White,Production,Million bushels,280.445
+2026/27,White,Planted acreage,Million acres,4.215
+2026/27,White,Harvested acreage,Million acres,3.95
+2026/27,White,Yield,Bushels per acre,70.9987

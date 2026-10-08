@@ -19,6 +19,7 @@ const cropData = [
     { region: "Paraguay", commodity: "Soybeans", subtitle: "Main", estSize: "10 MMT", stages: { Jan: ["r","ph"], Feb: ["ph","ph"], Mar: ["h",""], Apr: ["",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["p","pp"], Oct: ["pp","v"], Nov: ["v","r"], Dec: ["r","r"] } },
     { region: "Uruguay", commodity: "Soybeans", subtitle: "Main", estSize: "3 MMT", stages: { Jan: ["v","r"], Feb: ["r","r"], Mar: ["r","h"], Apr: ["ph","ph"], May: ["ph","h"], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["",""], Oct: ["","p"], Nov: ["pp","pp"], Dec: ["v","v"] } },
     { region: "China", commodity: "Soybeans", subtitle: "Main", estSize: "20 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
+    { region: "India", commodity: "Soybeans", subtitle: "Kharif", estSize: "12 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["",""], May: ["",""], Jun: ["","p"], Jul: ["pp","pp"], Aug: ["v","v"], Sep: ["r","r"], Oct: ["ph","ph"], Nov: ["h",""], Dec: ["",""] } },
 
     // Corn
     { region: "USA", commodity: "Corn", subtitle: "Main", estSize: "389 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","r"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["h","ph"], Oct: ["ph","h"], Nov: ["h",""], Dec: ["",""] } },
@@ -71,7 +72,19 @@ const cropData = [
     { region: "EU", commodity: "Sunflower", subtitle: "Hungary", estSize: "1.7 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
     { region: "EU", commodity: "Sunflower", subtitle: "Other (Total: 10M)", estSize: "1.5 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
     { region: "Argentina", commodity: "Sunflower", subtitle: "Main", estSize: "4 MMT", stages: { Jan: ["r","r"], Feb: ["r","h"], Mar: ["ph","ph"], Apr: ["h",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["",""], Oct: ["p","pp"], Nov: ["pp","v"], Dec: ["v","r"] } },
-    { region: "China", commodity: "Sunflower", subtitle: "Main", estSize: "2 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } }
+    { region: "China", commodity: "Sunflower", subtitle: "Main", estSize: "2 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
+    
+    // Groundnut
+    { region: "China", commodity: "Groundnut", subtitle: "Main", estSize: "18 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
+    { region: "India", commodity: "Groundnut", subtitle: "Kharif", estSize: "6.5 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["",""], May: ["",""], Jun: ["p","pp"], Jul: ["pp","v"], Aug: ["v","r"], Sep: ["r","r"], Oct: ["ph","ph"], Nov: ["h",""], Dec: ["",""] } },
+    { region: "USA", commodity: "Groundnut", subtitle: "Main", estSize: "3.2 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
+    { region: "Argentina", commodity: "Groundnut", subtitle: "Main", estSize: "1.3 MMT", stages: { Jan: ["v","r"], Feb: ["r","r"], Mar: ["r","h"], Apr: ["ph","ph"], May: ["h",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["",""], Oct: ["",""], Nov: ["p","pp"], Dec: ["pp","v"] } },
+
+    // Cottonseed
+    { region: "China", commodity: "Cottonseed", subtitle: "Main", estSize: "10 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","h"], Nov: ["h",""], Dec: ["",""] } },
+    { region: "India", commodity: "Cottonseed", subtitle: "Kharif", estSize: "11 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["",""], May: ["","p"], Jun: ["pp","pp"], Jul: ["v","v"], Aug: ["v","r"], Sep: ["r","r"], Oct: ["h","ph"], Nov: ["ph","h"], Dec: ["h",""] } },
+    { region: "USA", commodity: "Cottonseed", subtitle: "Main", estSize: "4 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","ph"], Nov: ["h","h"], Dec: ["h",""] } },
+    { region: "Brazil", commodity: "Cottonseed", subtitle: "Safrinha", estSize: "5 MMT", stages: { Jan: ["p","pp"], Feb: ["pp","pp"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["h","ph"], Jul: ["ph","ph"], Aug: ["h","h"], Sep: ["",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } }
 ];
 
 const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

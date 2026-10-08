@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Grain &amp; Oilseed Weather Suite | ECMWF IFS 0.25°</title>
+    <style>
+        :root { --bg: #0b0f19; --card-bg: #151d2f; --border: #23314d; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 40px 20px; display: flex; justify-content: center; }
+        .container { max-width: 900px; width: 100%; }
+        .back-link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 24px; display: inline-block; }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+        p.sub { color: var(--muted); font-size: 14px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .dash-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: var(--text); transition: all 0.2s ease; display: flex; flex-direction: column; gap: 12px; }
+        .dash-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .badge { align-self: flex-start; background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; }
+        h3 { font-size: 18px; font-weight: 700; }
+        p { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../dashboard/index.html" class="back-link">&larr; Return to Master Portal</a>
+        <header>
+            <h1>China Grain &amp; Oilseed Weather Intelligence Suite</h1>
+            <p class="sub">ECMWF IFS 0.25° Operational Forecasts &amp; 17-Year Climatology for Corn (玉米), Wheat (小麦), and Soybeans (大豆)</p>
+        </header>
+        <div class="grid">
+            <a href="China_Crop_2_Week_Outlook.html" class="dash-card">
+                <div class="badge">2-Week Outlook</div>
+                <h3>🌧️ 2-Week Crop Weather Outlook</h3>
+                <p>14-day rainfall &amp; temperature anomaly matrix across 19 production centers with sliding 28-day timeline &rarr;</p>
+            </a>
+            <a href="China_Crop_Precipitation_Forecast.html" class="dash-card">
+                <div class="badge">Precipitation</div>
+                <h3>🌦️ Precipitation Forecast &amp; Ranks</h3>
+                <p>High-resolution ECMWF rainfall timeline with full season navigation &rarr;</p>
+            </a>
+            <a href="China_Crop_Soil_Moisture_Outlook.html" class="dash-card">
+                <div class="badge">Soil Moisture</div>
+                <h3>🌱 Soil Moisture &amp; Drought Outlook</h3>
+                <p>Tri-layer soil moisture (0-7cm seedbed, 7-28cm rootzone, 28-100cm deep subsoil) calibrated for China's soils &rarr;</p>
+            </a>
+            <a href="China_Crop_Temperature_Outlook.html" class="dash-card">
+                <div class="badge">Temperature</div>
+                <h3>🌡️ Temperature &amp; Thermal Stress Outlook</h3>
+                <p>Dual Tmax/Tmin tracking, frost watch (&le;0°C), and winter wheat autumn drilling comfort &rarr;</p>
+            </a>
+            <a href="China_Crop_Weather_Matrix.html" class="dash-card">
+                <div class="badge">Matrix</div>
+                <h3>📊 17-Year Weather Matrix</h3>
+                <p>Complete 2010–2026 multi-metric seasonal climatology with anomaly departure and ranking &rarr;</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Crop Soil Moisture &amp; Drought Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 18px 24px;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            margin: 0 auto;
+            background-color: #0f172a;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+        }
+        
+        /* Universal Navigation Header */
+        .suite-nav-bar {
+            background: #090e1a;
+            border-bottom: 1px solid #1e293b;
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+        }
+        .suite-nav-links {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-tab {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            transition: all 0.15s ease;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: #1e293b;
+            border-color: #38bdf8;
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #0369a1;
+            border-color: #38bdf8;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Header Card */
+        .header-card {
+            padding: 20px 32px 14px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #1e293b;
+            background: linear-gradient(180deg, #131d33 0%, #0f172a 100%);
+        }
+        .header-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+        .header-badge {
+            background: #0284c7;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        .header-badge-soil {
+            background: #15803d;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        .header-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: #f8fafc;
+            letter-spacing: -0.5px;
+        }
+        .header-subtitle {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .header-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* KPI Banner */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            padding: 14px 32px;
+            background: #0c1424;
+            border-bottom: 1px solid #1e293b;
+        }
+        .kpi-card {
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .kpi-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #94a3b8;
+        }
+        .kpi-val-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .kpi-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        .kpi-sub {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* Filter Toolbar */
+        .toolbar {
+            padding: 10px 32px;
+            background: #0d1527;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            color: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            width: 240px;
+            outline: none;
+        }
+        .search-box:focus {
+            border-color: #38bdf8;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-btn {
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .filter-btn.active {
+            background: #1e293b;
+            color: #38bdf8;
+            border-color: #38bdf8;
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+        table.soil-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11.5px;
+        }
+        th {
+            background: #0c1424;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 10px 8px;
+            border-bottom: 2px solid #1e293b;
+            border-right: 1px solid #172033;
+            text-align: center;
+        }
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        th.sortable:hover {
+            color: #38bdf8;
+        }
+        .state-col-th {
+            width: 200px;
+            text-align: left !important;
+            padding-left: 16px !important;
+        }
+        .commodities-col-th {
+            width: 280px;
+            text-align: left !important;
+            padding-left: 10px !important;
+        }
+        .val-col-th {
+            width: 140px;
+        }
+        .status-col-th {
+            width: 170px;
+        }
+        .comment-col-th {
+            text-align: left !important;
+            padding-left: 14px !important;
+        }
+
+        .state-col {
+            padding: 10px 16px;
+            border-right: 1px solid #1e293b;
+            background: #0f172a;
+        }
+        .state-name-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .state-name {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 12.5px;
+        }
+        .state-code {
+            font-size: 10px;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .district-name {
+            font-size: 10.5px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .commodities-col {
+            padding: 8px 10px;
+            border-right: 1px solid #1e293b;
+        }
+        .crop-badge-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .crop-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        .badge-corn {
+            background: rgba(234, 179, 8, 0.12);
+            color: #fef08a;
+            border-left: 2px solid #eab308;
+        }
+        .badge-wheat {
+            background: rgba(249, 115, 22, 0.12);
+            color: #fed7aa;
+            border-left: 2px solid #f97316;
+        }
+        .badge-soy {
+            background: rgba(34, 197, 94, 0.12);
+            color: #bbf7d0;
+            border-left: 2px solid #22c55e;
+        }
+        .badge-other {
+            background: rgba(148, 163, 184, 0.12);
+            color: #cbd5e1;
+            border-left: 2px solid #94a3b8;
+        }
+
+        .val-col {
+            padding: 8px 10px;
+            border-right: 1px solid #1e293b;
+        }
+        .center {
+            text-align: center;
+        }
+        .val-num {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 12px;
+        }
+        .val-unit {
+            font-size: 9.5px;
+            color: #64748b;
+            margin-left: 2px;
+        }
+
+        .soil-bar-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100px;
+            margin: 0 auto;
+        }
+        .soil-bar-val {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .soil-bar-track {
+            width: 100%;
+            height: 5px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .soil-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .status-cell-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .trend-badge {
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .trend-up {
+            color: #86efac;
+        }
+        .trend-down {
+            color: #fca5a5;
+        }
+        .trend-steady {
+            color: #94a3b8;
+        }
+
+        .comment-col {
+            padding: 8px 14px;
+        }
+        .ag-comment-text {
+            font-size: 11px;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        /* Region Header Row */
+        .region-header-row td {
+            background: #090f1d;
+            padding: 6px 14px;
+            border-top: 2px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+        }
+        .reg-banner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .reg-banner-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .reg-banner-count {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 9.5px;
+        }
+
+        tbody tr.state-data-row {
+            border-bottom: 1px solid #172033;
+        }
+        tbody tr.state-data-row:hover {
+            background-color: #141e33;
+        }
+
+        /* Footer */
+        .report-footer {
+            padding: 14px 32px;
+            background: #0b1120;
+            border-top: 1px solid #1e293b;
+            font-size: 11px;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Universal Cross-Dashboard Navigation -->
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127793; CHINA CROP AG-WEATHER INTELLIGENCE</span>
+        </div>
+        <div class="suite-nav-links">
+            <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="China_Crop_Soil_Moisture_Outlook.html" class="nav-tab active">&#127793; Soil Moisture Outlook</a>
+            <a href="China_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="China_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010–2026)</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="header-left">
+            <div class="header-title-row">
+                <span class="header-badge">ECMWF IFS 0.25° Operational</span>
+                <span class="header-badge-soil">TRI-LAYER SOIL MOISTURE TRACKER</span>
+                <h1 class="header-title">China Crop Soil Moisture &amp; Drought Outlook</h1>
+            </div>
+            <div class="header-subtitle">
+                High-resolution monitoring of topsoil (0-7cm seedbed), root zone (7-28cm), and deep subsoil (28-100cm) calibrated for China's major grain production soils.
+            </div>
+        </div>
+        <div class="header-meta">
+            <div>Atmospheric Model: <strong>ECMWF IFS 0.25° &amp; ERA5 Ag-Reanalysis</strong></div>
+            <div>Generated: <strong>2026-10-08 18:27:07 UTC</strong></div>
+            <div>Crop Soil Focus: <strong>Corn, Wheat &amp; Soybeans</strong></div>
+        </div>
+    </div>
+
+    <!-- KPI Summary Row -->
+    <div class="kpi-row">
+        <div class="kpi-card">
+            <span class="kpi-label">Avg Topsoil (0-7cm)</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val">0.206</span>
+                <span class="kpi-sub">m³/m³</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Avg Rootzone (7-28cm)</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val">0.255</span>
+                <span class="kpi-sub">m³/m³</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Optimal Moisture Nodes</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val" style="color:#86efac;">8 / 19</span>
+                <span class="kpi-sub">Prime Sowing Tilth</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Active Recharge Nodes</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val" style="color:#38bdf8;">7</span>
+                <span class="kpi-sub">+0.015+ m³/m³</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Drydown / Harvest Tilth</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val">8</span>
+                <span class="kpi-sub">Combine Speed High</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="filter-group">
+            <input type="text" class="search-box" id="search-input" placeholder="Search province, district, code...">
+        </div>
+        <div class="filter-group">
+            <span style="font-size:11px; color:#94a3b8; font-weight:700;">FILTER BY STATUS:</span>
+            <button class="filter-btn active" data-status="all">All</button>
+            <button class="filter-btn" data-status="optimal">&#9989; Optimal</button>
+            <button class="filter-btn" data-status="adequate">&#128308; Adequate</button>
+            <button class="filter-btn" data-status="deficit">&#128167; Deficit</button>
+            <button class="filter-btn" data-status="saturated">&#127754; Saturated</button>
+        </div>
+    </div>
+
+    <!-- Main Table Container -->
+    <div class="table-wrap">
+        <table class="soil-table" id="soil-table">
+            <thead>
+                <tr>
+                    <th class="state-col-th sortable" data-sort="name">Province / Station</th>
+                    <th class="commodities-col-th">Commodity Portfolio</th>
+                    <th class="val-col-th sortable" data-sort="topsoil">Topsoil (0-7cm)</th>
+                    <th class="val-col-th">Rootzone (7-28cm)</th>
+                    <th class="val-col-th">Deep (28-100cm)</th>
+                    <th class="status-col-th sortable" data-sort="delta">Hydrologic Status &amp; Trend</th>
+                    <th class="comment-col-th">Agronomic Moisture Commentary &amp; Operational Impact</th>
+                </tr>
+            </thead>
+            <tbody id="soil-tbody">
+                
+        <tr class="region-header-row" data-region="Northeast China - Songliao Plain Grain & Oilseed Heartland">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northeast China - Songliao Plain Grain & Oilseed Heartland</span>
+                    <span class="reg-banner-count">5 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="heilongjiang central-south" 
+                data-code="hlj-cs" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-status="severe stress"
+                data-topsoil="0.1"
+                data-delta="0.051"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Heilongjiang Central-South</span>
+                        <span class="state-code">HLJ-CS</span>
+                    </div>
+                    <div class="district-name">Songnen Plain (Harbin / Suihua / Daqing)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 31.5M t <span class="yield-tag">(14.8%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 5.1M t <span class="yield-tag">(25.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.100</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 20%; background: #991b1b;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.229</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 45%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.284</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #991b1b; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.051 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture actively recharged (+0.05 m³/m³). Dry seedbed conditions (0.100 m³/m³); accelerating mechanical grain harvest and silo intake. Chilly morning temperatures (0.9°C); signaling late autumn transition.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="heilongjiang northern granary" 
+                data-code="hlj-north" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-status="deficit"
+                data-topsoil="0.2"
+                data-delta="0.025"
+                data-crops="soybeans (spring) corn (spring) spring wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Heilongjiang Northern Granary</span>
+                        <span class="state-code">HLJ-NORTH</span>
+                    </div>
+                    <div class="district-name">Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 5.2M t <span class="yield-tag">(25.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 9.6M t <span class="yield-tag">(4.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 0.35M t <span class="yield-tag">(1.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.200</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 40%; background: #f97316;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.239</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 47%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.236</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.025 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture actively recharged (+0.03 m³/m³). Adequate moisture status (底墒充足, 0.200 m³/m³); prime conditions for high-quality winter wheat autumn drilling. Night temperatures falling below freezing (-2.7°C); terminates lingering vegetative growth and aids rapid natural drydown of corn kernels.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="jilin central golden corn belt" 
+                data-code="jl-central" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-status="severe stress"
+                data-topsoil="0.153"
+                data-delta="0.047"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Jilin Central Golden Corn Belt</span>
+                        <span class="state-code">JL-CENTRAL</span>
+                    </div>
+                    <div class="district-name">Songliao Plain (Changchun / Songyuan / Siping)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 29.8M t <span class="yield-tag">(10.2%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 0.65M t <span class="yield-tag">(3.2%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.153</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 30%; background: #991b1b;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.223</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 44%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.254</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #991b1b; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.047 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture actively recharged (+0.05 m³/m³). Dry seedbed conditions (0.153 m³/m³); accelerating mechanical grain harvest and silo intake. Chilly morning temperatures (0.5°C); signaling late autumn transition.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="liaoning central grain plain" 
+                data-code="ln-central" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-status="optimal"
+                data-topsoil="0.322"
+                data-delta="-0.016"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Liaoning Central Grain Plain</span>
+                        <span class="state-code">LN-CENTRAL</span>
+                    </div>
+                    <div class="district-name">Liaohe River Basin (Shenyang / Tieling / Jinzhou)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 18.2M t <span class="yield-tag">(6.3%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 0.35M t <span class="yield-tag">(1.7%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.322</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 64%; background: #15803d;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.339</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 67%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.289</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #15803d; color: #ffffff;">
+                            Optimal
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.016 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Favorable dry-field window (0.322 m³/m³); ideal for high-speed corn combining and soybean harvesting. Dry, clear forecast window (<1.0 mm) maximizes golden autumn harvest pace and sun-drying. Chilly morning temperatures (2.2°C); signaling late autumn transition.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="inner mongolia eastern agro-pastoral belt" 
+                data-code="im-east" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-status="severe stress"
+                data-topsoil="0.159"
+                data-delta="-0.036"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Inner Mongolia Eastern Agro-Pastoral Belt</span>
+                        <span class="state-code">IM-EAST</span>
+                    </div>
+                    <div class="district-name">West Liao River Plain (Tongliao / Chifeng / Hinggan)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 28.1M t <span class="yield-tag">(9.6%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 3.1M t <span class="yield-tag">(15.2%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.159</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 31%; background: #991b1b;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.149</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 29%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.146</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #991b1b; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.036 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.04 m³/m³). Dry seedbed conditions (0.159 m³/m³); accelerating mechanical grain harvest and silo intake. Dry, clear forecast window (<0.2 mm) maximizes golden autumn harvest pace and sun-drying. Chilly morning temperatures (2.2°C); signaling late autumn transition.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Huang-Huai-Hai Plain - Intensive Double-Cropping Granary">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</span>
+                    <span class="reg-banner-count">7 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="henan north-central" 
+                data-code="ha-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="deficit"
+                data-topsoil="0.153"
+                data-delta="-0.021"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Henan North-Central</span>
+                        <span class="state-code">HA-NORTH</span>
+                    </div>
+                    <div class="district-name">Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 20.5M t <span class="yield-tag">(14.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 12.6M t <span class="yield-tag">(4.3%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.153</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 30%; background: #f97316;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.187</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 37%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.213</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.021 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.02 m³/m³). Topsoil moisture deficit (0.153 m³/m³); winter wheat drilling requires pre-sowing irrigation (造墒播种) for even seedling emergence. Dry, clear forecast window (<0.0 mm) maximizes golden autumn harvest pace and sun-drying. Warm daytime temperatures (30.4°C) accelerate post-harvest moisture evaporation.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="henan south-central" 
+                data-code="ha-south" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="optimal"
+                data-topsoil="0.307"
+                data-delta="-0.009"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Henan South-Central</span>
+                        <span class="state-code">HA-SOUTH</span>
+                    </div>
+                    <div class="district-name">Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 20.5M t <span class="yield-tag">(14.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 12.5M t <span class="yield-tag">(4.3%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 1.0M t <span class="yield-tag">(4.8%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.307</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 61%; background: #15803d;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.343</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 68%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.349</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #15803d; color: #ffffff;">
+                            Optimal
+                        </span>
+                        <span class="trend-badge trend-steady">&bull; -0.009 Stable</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Adequate moisture status (底墒充足, 0.307 m³/m³); prime conditions for high-quality winter wheat autumn drilling. Dry, clear forecast window (<1.1 mm) maximizes golden autumn harvest pace and sun-drying.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shandong northwest plain" 
+                data-code="sd-nw" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="severe stress"
+                data-topsoil="0.087"
+                data-delta="0.011"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shandong Northwest Plain</span>
+                        <span class="state-code">SD-NW</span>
+                    </div>
+                    <div class="district-name">Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 13.2M t <span class="yield-tag">(9.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 13.1M t <span class="yield-tag">(4.5%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.087</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 17%; background: #991b1b;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.139</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 27%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.136</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #991b1b; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                        <span class="trend-badge trend-steady">&bull; +0.011 Stable</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture deficit (0.087 m³/m³); winter wheat drilling requires pre-sowing irrigation (造墒播种) for even seedling emergence. Warm daytime temperatures (30.1°C) accelerate post-harvest moisture evaporation.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shandong southwest plain" 
+                data-code="sd-sw" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="severe stress"
+                data-topsoil="0.113"
+                data-delta="0.003"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shandong Southwest Plain</span>
+                        <span class="state-code">SD-SW</span>
+                    </div>
+                    <div class="district-name">Lu-Southwest Grain Basin (Heze / Jining / Tai'an)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 12.8M t <span class="yield-tag">(8.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 12.2M t <span class="yield-tag">(4.2%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 0.85M t <span class="yield-tag">(4.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.113</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 22%; background: #991b1b;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.253</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 50%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.294</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #991b1b; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                        <span class="trend-badge trend-steady">&bull; +0.003 Stable</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture deficit (0.113 m³/m³); winter wheat drilling requires pre-sowing irrigation (造墒播种) for even seedling emergence. Dry, clear forecast window (<0.0 mm) maximizes golden autumn harvest pace and sun-drying.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="hebei central-south plain" 
+                data-code="he-south" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="deficit"
+                data-topsoil="0.15"
+                data-delta="-0.03"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Hebei Central-South Plain</span>
+                        <span class="state-code">HE-SOUTH</span>
+                    </div>
+                    <div class="district-name">Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 15.0M t <span class="yield-tag">(10.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 22.5M t <span class="yield-tag">(7.7%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 0.48M t <span class="yield-tag">(2.3%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.150</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 30%; background: #f97316;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.200</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 40%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.196</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.030 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.03 m³/m³). Topsoil moisture deficit (0.150 m³/m³); winter wheat drilling requires pre-sowing irrigation (造墒播种) for even seedling emergence. Dry, clear forecast window (<1.9 mm) maximizes golden autumn harvest pace and sun-drying.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="anhui northern huaihe basin" 
+                data-code="ah-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="saturated"
+                data-topsoil="0.419"
+                data-delta="-0.021"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Anhui Northern Huaihe Basin</span>
+                        <span class="state-code">AH-NORTH</span>
+                    </div>
+                    <div class="district-name">Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 17.5M t <span class="yield-tag">(12.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 7.8M t <span class="yield-tag">(2.7%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 1.25M t <span class="yield-tag">(6.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.419</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 83%; background: #581c87;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.448</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 89%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.479</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #581c87; color: #ffffff;">
+                            Saturated
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.021 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.02 m³/m³). Soil moisture saturated (0.419 m³/m³); muddy conditions may impede combine harvesters and prolong grain drying. Dry, clear forecast window (<0.5 mm) maximizes golden autumn harvest pace and sun-drying.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="jiangsu northern plain" 
+                data-code="js-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-status="adequate"
+                data-topsoil="0.206"
+                data-delta="-0.048"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Jiangsu Northern Plain</span>
+                        <span class="state-code">JS-NORTH</span>
+                    </div>
+                    <div class="district-name">Su-North Plain (Xuzhou / Suqian / Yancheng)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 14.0M t <span class="yield-tag">(9.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 5.2M t <span class="yield-tag">(1.8%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 0.55M t <span class="yield-tag">(2.6%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.206</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 41%; background: #84cc16;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.298</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 59%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.325</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.048 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.05 m³/m³). Adequate moisture status (底墒充足, 0.206 m³/m³); prime conditions for high-quality winter wheat autumn drilling. Dry, clear forecast window (<0.5 mm) maximizes golden autumn harvest pace and sun-drying.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</span>
+                    <span class="reg-banner-count">4 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="shaanxi guanzhong plain" 
+                data-code="sn-guanzhong" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-status="adequate"
+                data-topsoil="0.204"
+                data-delta="0.09"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shaanxi Guanzhong Plain</span>
+                        <span class="state-code">SN-GUANZHONG</span>
+                    </div>
+                    <div class="district-name">Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 4.2M t <span class="yield-tag">(3.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 8.1M t <span class="yield-tag">(2.8%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.204</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 40%; background: #84cc16;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.267</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 53%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.211</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.090 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture actively recharged (+0.09 m³/m³). Agronomic moisture balanced (0.204 m³/m³); supporting routine field operations. Moderate forward showers (25.1 mm) provide welcome soil recharge for newly sown wheat.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shanxi fenhe & southern basin" 
+                data-code="sx-south" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-status="adequate"
+                data-topsoil="0.151"
+                data-delta="0.068"
+                data-crops="corn (spring/summer) winter wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shanxi Fenhe & Southern Basin</span>
+                        <span class="state-code">SX-SOUTH</span>
+                    </div>
+                    <div class="district-name">Fenhe Valley (Yuncheng / Linfen / Jinzhong)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 12.0M t <span class="yield-tag">(4.1%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 2.4M t <span class="yield-tag">(1.7%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.151</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 30%; background: #84cc16;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.231</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 46%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.228</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.068 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture actively recharged (+0.07 m³/m³). Topsoil moisture deficit (0.151 m³/m³); winter wheat drilling requires pre-sowing irrigation (造墒播种) for even seedling emergence. Moderate forward showers (27.8 mm) provide welcome soil recharge for newly sown wheat.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="xinjiang oasis grain heartland" 
+                data-code="xj-oasis" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-status="deficit"
+                data-topsoil="0.11"
+                data-delta="-0.008"
+                data-crops="corn (grain & seed) winter & spring wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Xinjiang Oasis Grain Heartland</span>
+                        <span class="state-code">XJ-OASIS</span>
+                    </div>
+                    <div class="district-name">Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 10.2M t <span class="yield-tag">(3.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 7.2M t <span class="yield-tag">(5.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.110</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 22%; background: #f97316;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.139</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 27%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.148</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                        <span class="trend-badge trend-steady">&bull; -0.008 Stable</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture deficit (0.110 m³/m³); winter wheat drilling requires pre-sowing irrigation (造墒播种) for even seedling emergence. Dry, clear forecast window (<0.0 mm) maximizes golden autumn harvest pace and sun-drying. Chilly morning temperatures (0.1°C); signaling late autumn transition.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="gansu hexi corridor & longdong" 
+                data-code="gs-corridor" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-status="adequate"
+                data-topsoil="0.177"
+                data-delta="-0.035"
+                data-crops="corn (seed & grain) wheat (spring/winter)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Gansu Hexi Corridor & Longdong</span>
+                        <span class="state-code">GS-CORRIDOR</span>
+                    </div>
+                    <div class="district-name">Hexi National Seed Base (Zhangye / Wuwei / Pingliang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 7.3M t <span class="yield-tag">(2.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 2.8M t <span class="yield-tag">(2.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.177</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 35%; background: #84cc16;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.185</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 37%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.154</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.035 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.04 m³/m³). Adequate moisture status (底墒充足, 0.177 m³/m³); prime conditions for high-quality winter wheat autumn drilling. Chilly morning temperatures (2.1°C); signaling late autumn transition.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Southwest & Yangtze Basin - Hilly & Mixed Grain Zone">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Southwest & Yangtze Basin - Hilly & Mixed Grain Zone</span>
+                    <span class="reg-banner-count">3 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="sichuan basin & hilly plain" 
+                data-code="sc-basin" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone" 
+                data-status="adequate"
+                data-topsoil="0.217"
+                data-delta="-0.078"
+                data-crops="corn (spring/summer) winter wheat soybeans (intercropped)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Sichuan Basin & Hilly Plain</span>
+                        <span class="state-code">SC-BASIN</span>
+                    </div>
+                    <div class="district-name">Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 12.3M t <span class="yield-tag">(4.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 2.7M t <span class="yield-tag">(1.9%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybeans</strong>: 0.45M t <span class="yield-tag">(2.2%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.217</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 43%; background: #84cc16;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.273</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 54%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.288</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                        <span class="trend-badge trend-down">&#8595; -0.078 Drying</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture drying down steadily (-0.08 m³/m³). Adequate moisture status (底墒充足, 0.217 m³/m³); prime conditions for high-quality winter wheat autumn drilling. Moderate forward showers (14.5 mm) provide welcome soil recharge for newly sown wheat.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="hubei northern xiang-jing plain" 
+                data-code="hb-north" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone" 
+                data-status="optimal"
+                data-topsoil="0.337"
+                data-delta="0.018"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Hubei Northern Xiang-Jing Plain</span>
+                        <span class="state-code">HB-NORTH</span>
+                    </div>
+                    <div class="district-name">Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong>: 4.5M t <span class="yield-tag">(3.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 5.3M t <span class="yield-tag">(1.8%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.337</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 67%; background: #15803d;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.358</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 71%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.394</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #15803d; color: #ffffff;">
+                            Optimal
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.018 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Adequate moisture status (底墒充足, 0.337 m³/m³); prime conditions for high-quality winter wheat autumn drilling.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="yunnan central-eastern plateau" 
+                data-code="yn-plateau" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone" 
+                data-status="optimal"
+                data-topsoil="0.347"
+                data-delta="0.099"
+                data-crops="corn (plateau)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Yunnan Central-Eastern Plateau</span>
+                        <span class="state-code">YN-PLATEAU</span>
+                    </div>
+                    <div class="district-name">Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 12.6M t <span class="yield-tag">(4.3%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.347</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 69%; background: #15803d;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="soil-bar-wrap">
+                        <div class="soil-bar-val">
+                            <span class="val-num">0.339</span>
+                            <span class="val-unit">m³/m³</span>
+                        </div>
+                        <div class="soil-bar-track">
+                            <div class="soil-bar-fill" style="width: 67%; background: #0284c7;"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <td class="val-col center">
+                    <span class="val-num">0.350</span>
+                </td>
+                
+                <td class="val-col center">
+                    <div class="status-cell-wrap">
+                        <span class="status-badge" style="background: #15803d; color: #ffffff;">
+                            Optimal
+                        </span>
+                        <span class="trend-badge trend-up">&#8593; +0.099 Recharge</span>
+                    </div>
+                </td>
+                
+                <td class="comment-col">
+                    <div class="ag-comment-text">Topsoil moisture actively recharged (+0.10 m³/m³). Agronomic moisture balanced (0.347 m³/m³); supporting routine field operations. Moderate forward showers (26.5 mm) provide welcome soil recharge for newly sown wheat.</div>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="report-footer">
+        <div>Feeds: <strong>ECMWF IFS 0.25° Operational Forecast &amp; ERA5 Ag-Reanalysis</strong> &bull; Generated: 2026-10-08 18:27:07 UTC</div>
+        <div>Agri Agent &bull; Weather China Suite &bull; Zero-Token Local Pipeline</div>
+    </div>
+
+</div>
+
+<script>
+    const searchInput = document.getElementById("search-input");
+    let currentStatus = "all";
+
+    function applyFilters() {
+        const q = searchInput.value.toLowerCase().trim();
+
+        document.querySelectorAll(".state-data-row").forEach(row => {
+            const name = row.getAttribute("data-name");
+            const code = row.getAttribute("data-code");
+            const st = row.getAttribute("data-status");
+
+            let matchSearch = !q || name.includes(q) || code.includes(q);
+            let matchStatus = (currentStatus === "all") || (st === currentStatus);
+
+            if (matchSearch && matchStatus) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        document.querySelectorAll(".region-header-row").forEach(header => {
+            let hasVisible = false;
+            let sibling = header.nextElementSibling;
+            while (sibling && !sibling.classList.contains("region-header-row")) {
+                if (sibling.style.display !== "none") hasVisible = true;
+                sibling = sibling.nextElementSibling;
+            }
+            header.style.display = hasVisible ? "" : "none";
+        });
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentStatus = btn.getAttribute("data-status");
+            applyFilters();
+        });
+    });
+
+    // Sorting
+    let sortDir = 1;
+    document.querySelectorAll("th.sortable").forEach(th => {
+        th.addEventListener("click", () => {
+            const sortKey = th.getAttribute("data-sort");
+            sortDir = -sortDir;
+            const tbody = document.getElementById("soil-tbody");
+            const rows = Array.from(tbody.querySelectorAll(".state-data-row"));
+
+            rows.sort((a, b) => {
+                if (sortKey === "name") {
+                    return sortDir * a.getAttribute("data-name").localeCompare(b.getAttribute("data-name"));
+                } else {
+                    const valA = parseFloat(a.getAttribute(`data-${sortKey}`)) || 0;
+                    const valB = parseFloat(b.getAttribute(`data-${sortKey}`)) || 0;
+                    return sortDir * (valA - valB);
+                }
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        });
+    });
+</script>
+
+</body>
+</html>

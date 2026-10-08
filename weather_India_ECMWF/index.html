@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Oilseed Weather Suite | ECMWF IFS 0.25°</title>
+    <style>
+        :root { --bg: #0b0f19; --card-bg: #151d2f; --border: #23314d; --text: #f8fafc; --muted: #94a3b8; --accent: #f59e0b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 40px 20px; display: flex; justify-content: center; }
+        .container { max-width: 960px; width: 100%; }
+        .back-link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 24px; display: inline-block; transition: opacity 0.15s ease; }
+        .back-link:hover { opacity: 0.8; }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; color: #ffffff; }
+        p.sub { color: var(--muted); font-size: 14px; line-height: 1.5; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .dash-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: var(--text); transition: all 0.2s ease; display: flex; flex-direction: column; gap: 12px; }
+        .dash-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .badge { align-self: flex-start; background: rgba(245, 158, 11, 0.15); color: var(--accent); padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; }
+        h3 { font-size: 18px; font-weight: 700; color: #ffffff; }
+        p { color: var(--muted); font-size: 13px; line-height: 1.45; }
+        .scope-banner {
+            background: #111a2e;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .scope-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.06);
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../dashboard/index.html" class="back-link">&larr; Return to Master Portal</a>
+        <header>
+            <h1>India Oilseed Crop Weather Intelligence Suite</h1>
+            <p class="sub">ECMWF IFS 0.25° Operational Forecasts &amp; ERA5 Climatological Reanalysis for India's Main Edible Oilseed Basins</p>
+        </header>
+
+        <div class="scope-banner">
+            <div class="scope-tag">🌱 <strong>Kharif Soybean:</strong> Madhya Pradesh, Maharashtra, Rajasthan</div>
+            <div class="scope-tag">🥜 <strong>Kharif Groundnut:</strong> Gujarat, Rajasthan, Andhra Pradesh, Tamil Nadu</div>
+            <div class="scope-tag">🌾 <strong>Rabi Rapeseed-Mustard:</strong> Rajasthan, Haryana, Uttar Pradesh, MP, West Bengal</div>
+            <div class="scope-tag">🥜 <strong>Rabi Groundnut:</strong> Telangana, Andhra Pradesh, Tamil Nadu</div>
+        </div>
+
+        <div class="grid">
+            <a href="India_Crop_2_Week_Outlook.html" class="dash-card">
+                <div class="badge">Precipitation &amp; Matrix</div>
+                <h3>🌧️ 2-Week Precipitation Outlook</h3>
+                <p>28-day seamless matrix (14D Observed ERA5 + 14D ECMWF IFS 0.25°), 5-in-1 metric toggling &amp; full season slider &rarr;</p>
+            </a>
+            <a href="India_Crop_Soil_Moisture_Outlook.html" class="dash-card">
+                <div class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Soil Moisture</div>
+                <h3>🌱 Tri-Layer Soil Moisture Outlook</h3>
+                <p>Topsoil (0–7cm), Rootzone (7–28cm) &amp; Deep Subsoil (28–100cm) moisture trends, Vertisol saturation vs Alfisol deficit diagnosis &rarr;</p>
+            </a>
+            <a href="India_Crop_Temperature_Outlook.html" class="dash-card">
+                <div class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171;">Temperature</div>
+                <h3>🌡️ Temperature Outlook</h3>
+                <p>Daytime T-Max, nighttime T-Min, heat stress days (≥35°C), night respiration &amp; winter comfort tracking &rarr;</p>
+            </a>
+            <a href="India_Crop_Weather_Matrix.html" class="dash-card">
+                <div class="badge">17-Season Climatology</div>
+                <h3>📊 Full Season Weather Matrix</h3>
+                <p>17-year continuous agricultural matrix (2010–2026), 16-year baseline normals, SVG chart &amp; anomaly mode &rarr;</p>
+            </a>
+            <a href="India_Crop_Planting_Calendar.html" class="dash-card">
+                <div class="badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">Planting &amp; Phenology</div>
+                <h3>📋 Planting Windows &amp; Multi-Crop Gantt</h3>
+                <p>Interactive sowing calendars, peak windows &amp; crop progress for Kharif Soy, Groundnut, and Rabi Rapeseed-Mustard &rarr;</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China Crop Weather Matrix | 17-Year Climatology (2010–2026)</title>
+<style>
+    :root {
+        --bg-main: #0b1120;
+        --card-bg: #0f172a;
+        --border-color: #1e293b;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent: #38bdf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        padding: 18px 24px;
+        line-height: 1.4;
+    }
+
+    .dashboard-container {
+        max-width: 1780px;
+        margin: 0 auto;
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+    }
+
+    /* Universal Suite Navigation Bar */
+    .suite-nav-bar {
+        background: #090e1a;
+        border-bottom: 1px solid #1e293b;
+        padding: 10px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .suite-brand {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        color: #38bdf8;
+        text-transform: uppercase;
+    }
+    .suite-nav-links {
+        display: flex;
+        gap: 8px;
+    }
+    .nav-tab {
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #94a3b8;
+        background: #131c2e;
+        border: 1px solid #1e293b;
+        transition: all 0.15s ease;
+    }
+    .nav-tab:hover {
+        color: #f8fafc;
+        background: #1e293b;
+        border-color: #38bdf8;
+    }
+    .nav-tab.active {
+        color: #ffffff;
+        background: #0369a1;
+        border-color: #38bdf8;
+        box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Header */
+    .header-card {
+        padding: 20px 32px 14px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid #1e293b;
+        background: linear-gradient(180deg, #131d33 0%, #0f172a 100%);
+    }
+    .header-title-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
+    }
+    .header-badge {
+        background: #0284c7;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+    }
+    .header-badge-matrix {
+        background: #7c3aed;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+    }
+    .header-title {
+        font-size: 21px;
+        font-weight: 800;
+        color: #f8fafc;
+        letter-spacing: -0.5px;
+    }
+    .header-subtitle {
+        font-size: 12px;
+        color: #94a3b8;
+    }
+    .header-meta {
+        text-align: right;
+        font-size: 11px;
+        color: #64748b;
+        line-height: 1.5;
+    }
+
+    /* Toolbar Controls */
+    .toolbar {
+        padding: 12px 32px;
+        background: #0c1424;
+        border-bottom: 1px solid #1e293b;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+    .controls-left, .controls-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .select-box {
+        background: #131c2e;
+        border: 1px solid #1e293b;
+        color: #f1f5f9;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        outline: none;
+    }
+    .toggle-group {
+        display: flex;
+        background: #131c2e;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .toggle-btn {
+        padding: 5px 12px;
+        background: transparent;
+        color: #94a3b8;
+        border: none;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .toggle-btn.active {
+        background: #0284c7;
+        color: #ffffff;
+    }
+
+    /* Chart Section */
+    .chart-card {
+        padding: 16px 32px;
+        background: #0b1120;
+        border-bottom: 1px solid #1e293b;
+    }
+    .chart-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .chart-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #38bdf8;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+    .chart-legend {
+        display: flex;
+        gap: 14px;
+        font-size: 11px;
+        color: #94a3b8;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+    }
+
+    /* Table Section */
+    .table-wrap {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    table.matrix-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+    th {
+        background: #0c1424;
+        color: #94a3b8;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 9px 5px;
+        border-bottom: 2px solid #1e293b;
+        border-right: 1px solid #172033;
+        text-align: center;
+    }
+    .state-col-th {
+        width: 190px;
+        text-align: left !important;
+        padding-left: 16px !important;
+    }
+    .commodities-col-th {
+        width: 240px;
+        text-align: left !important;
+        padding-left: 10px !important;
+    }
+    .norm-col-th, .cur-col-th {
+        width: 75px;
+    }
+    .year-th {
+        width: 52px;
+    }
+
+    .state-col {
+        padding: 8px 16px;
+        border-right: 1px solid #1e293b;
+        background: #0f172a;
+    }
+    .state-name-wrap {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+    }
+    .state-name {
+        font-weight: 700;
+        color: #f8fafc;
+        font-size: 12px;
+    }
+    .state-code {
+        font-size: 10px;
+        color: #64748b;
+        font-weight: 600;
+    }
+    .district-name {
+        font-size: 10px;
+        color: #94a3b8;
+        margin-top: 2px;
+    }
+
+    .commodities-col {
+        padding: 6px 10px;
+        border-right: 1px solid #1e293b;
+    }
+    .crop-badge-container {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+    .crop-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+    .badge-corn { background: rgba(234, 179, 8, 0.12); color: #fef08a; }
+    .badge-wheat { background: rgba(249, 115, 22, 0.12); color: #fed7aa; }
+    .badge-soy { background: rgba(34, 197, 94, 0.12); color: #bbf7d0; }
+    .badge-other { background: rgba(148, 163, 184, 0.12); color: #cbd5e1; }
+
+    .norm-col, .cur-col {
+        padding: 6px 4px;
+        font-weight: 700;
+        border-right: 1px solid #334155;
+    }
+    .norm-col {
+        background: #131d33;
+        color: #93c5fd;
+    }
+    .cur-col {
+        background: #0c2540;
+        color: #38bdf8;
+    }
+
+    .matrix-cell {
+        padding: 6px 3px;
+        font-size: 10.5px;
+        border-right: 1px solid rgba(30, 41, 59, 0.6);
+        transition: transform 0.1s;
+    }
+    .matrix-cell:hover {
+        transform: scale(1.15);
+        z-index: 5;
+        position: relative;
+        box-shadow: 0 0 8px rgba(0,0,0,0.8);
+        outline: 1px solid #38bdf8;
+    }
+    .center { text-align: center; }
+
+    .region-header-row td {
+        background: #090f1d;
+        padding: 6px 14px;
+        border-top: 2px solid #1e293b;
+        border-bottom: 1px solid #1e293b;
+    }
+    .reg-banner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .reg-banner-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: #38bdf8;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+    .reg-banner-count {
+        background: #1e293b;
+        color: #94a3b8;
+        padding: 1px 6px;
+        border-radius: 10px;
+        font-size: 9.5px;
+    }
+
+    tbody tr.state-data-row {
+        border-bottom: 1px solid #172033;
+    }
+    tbody tr.state-data-row:hover {
+        background-color: #141e33;
+    }
+
+    /* Footer */
+    .report-footer {
+        padding: 14px 32px;
+        background: #0b1120;
+        border-top: 1px solid #1e293b;
+        font-size: 11px;
+        color: #64748b;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Universal Suite Navigation Bar -->
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127793; CHINA CROP AG-WEATHER INTELLIGENCE</span>
+        </div>
+        <div class="suite-nav-links">
+            <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="China_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="China_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="China_Crop_Weather_Matrix.html" class="nav-tab active">&#128202; 17-Year Historical Matrix (2010–2026)</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="header-left">
+            <div class="header-title-row">
+                <span class="header-badge">ECMWF ERA5 &amp; IFS 0.25°</span>
+                <span class="header-badge-matrix">17-YEAR CLIMATOLOGY MATRIX</span>
+                <h1 class="header-title">China Crop 17-Year Weather &amp; Climatology Matrix</h1>
+            </div>
+            <div class="header-subtitle">
+                Comprehensive seasonal matrix across 17 consecutive crop seasons (2010–2026) with historical analog benchmarks, anomaly ranking, and climate baselines.
+            </div>
+        </div>
+        <div class="header-meta">
+            <div>Atmospheric Archive: <strong>ECMWF ERA5 Ag-Reanalysis (2010–2025)</strong></div>
+            <div>Operational Model: <strong>ECMWF IFS 0.25° (2026 Live)</strong></div>
+            <div>Generated: <strong>2026-10-08 18:27:11 UTC</strong></div>
+        </div>
+    </div>
+
+    <!-- Toolbar Controls -->
+    <div class="toolbar">
+        <div class="controls-left">
+            <select class="select-box" id="metric-select">
+                <option value="precip">Precipitation (Growing Season Total mm)</option>
+                <option value="tmax">Daytime High (T-Max Avg °C)</option>
+                <option value="tmean">24-Hr Mean (T-Mean Avg °C)</option>
+                <option value="tmin">Nighttime Low (T-Min Avg °C)</option>
+                <option value="topsoil">Topsoil Moisture (0-7cm m³/m³)</option>
+                <option value="gdd">Growing Degree Days (GDD Base 10°C)</option>
+            </select>
+
+            <select class="select-box" id="chart-station-select">
+                <option value="HLJ-CS">Heilongjiang Central-South (HLJ-CS) &ndash; Northeast China - Songliao Plain Grain & Oilseed Heartland</option>
+<option value="HLJ-NORTH">Heilongjiang Northern Granary (HLJ-NORTH) &ndash; Northeast China - Songliao Plain Grain & Oilseed Heartland</option>
+<option value="JL-CENTRAL">Jilin Central Golden Corn Belt (JL-CENTRAL) &ndash; Northeast China - Songliao Plain Grain & Oilseed Heartland</option>
+<option value="LN-CENTRAL">Liaoning Central Grain Plain (LN-CENTRAL) &ndash; Northeast China - Songliao Plain Grain & Oilseed Heartland</option>
+<option value="IM-EAST">Inner Mongolia Eastern Agro-Pastoral Belt (IM-EAST) &ndash; Northeast China - Songliao Plain Grain & Oilseed Heartland</option>
+<option value="HA-NORTH">Henan North-Central (HA-NORTH) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="HA-SOUTH">Henan South-Central (HA-SOUTH) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="SD-NW">Shandong Northwest Plain (SD-NW) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="SD-SW">Shandong Southwest Plain (SD-SW) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="HE-SOUTH">Hebei Central-South Plain (HE-SOUTH) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="AH-NORTH">Anhui Northern Huaihe Basin (AH-NORTH) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="JS-NORTH">Jiangsu Northern Plain (JS-NORTH) &ndash; Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</option>
+<option value="SN-GUANZHONG">Shaanxi Guanzhong Plain (SN-GUANZHONG) &ndash; Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</option>
+<option value="SX-SOUTH">Shanxi Fenhe & Southern Basin (SX-SOUTH) &ndash; Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</option>
+<option value="XJ-OASIS">Xinjiang Oasis Grain Heartland (XJ-OASIS) &ndash; Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</option>
+<option value="GS-CORRIDOR">Gansu Hexi Corridor & Longdong (GS-CORRIDOR) &ndash; Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</option>
+<option value="SC-BASIN">Sichuan Basin & Hilly Plain (SC-BASIN) &ndash; Southwest & Yangtze Basin - Hilly & Mixed Grain Zone</option>
+<option value="HB-NORTH">Hubei Northern Xiang-Jing Plain (HB-NORTH) &ndash; Southwest & Yangtze Basin - Hilly & Mixed Grain Zone</option>
+<option value="YN-PLATEAU">Yunnan Central-Eastern Plateau (YN-PLATEAU) &ndash; Southwest & Yangtze Basin - Hilly & Mixed Grain Zone</option>
+
+            </select>
+        </div>
+
+        <div class="controls-right">
+            <div class="toggle-group" id="mode-group">
+                <button class="toggle-btn active" data-mode="abs">Absolute Values</button>
+                <button class="toggle-btn" data-mode="anom">Anomaly (+/-)</button>
+                <button class="toggle-btn" data-mode="rank">Rank / Percentile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historical Progression SVG Chart -->
+    <div class="chart-card">
+        <div class="chart-title-row">
+            <span class="chart-title" id="chart-header-title">17-Year Historical Progression Chart</span>
+            <div class="chart-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div><span>Historical Value</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#94a3b8;"></div><span>16-Yr Normal</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#22c55e;"></div><span>2026 Live</span></div>
+            </div>
+        </div>
+        <div id="svg-chart-container" style="width:100%; height:130px;">
+            <!-- Injected via JS -->
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-wrap">
+        <table class="matrix-table" id="matrix-table">
+            <thead>
+                <tr>
+                    <th class="state-col-th">Province / Station</th>
+                    <th class="commodities-col-th">Commodities</th>
+                    <th class="norm-col-th center">16Y Norm</th>
+                    <th class="cur-col-th center">2026 Live</th>
+                    <th class="year-th center" data-year="2010">2010</th><th class="year-th center" data-year="2011">2011</th><th class="year-th center" data-year="2012">2012</th><th class="year-th center" data-year="2013">2013</th><th class="year-th center" data-year="2014">2014</th><th class="year-th center" data-year="2015">2015</th><th class="year-th center" data-year="2016">2016</th><th class="year-th center" data-year="2017">2017</th><th class="year-th center" data-year="2018">2018</th><th class="year-th center" data-year="2019">2019</th><th class="year-th center" data-year="2020">2020</th><th class="year-th center" data-year="2021">2021</th><th class="year-th center" data-year="2022">2022</th><th class="year-th center" data-year="2023">2023</th><th class="year-th center" data-year="2024">2024</th><th class="year-th center" data-year="2025">2025</th><th class="year-th center" data-year="2026">2026*</th>
+                </tr>
+            </thead>
+            <tbody id="matrix-tbody">
+                
+        <tr class="region-header-row" data-region="Northeast China - Songliao Plain Grain & Oilseed Heartland">
+            <td colspan="21">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northeast China - Songliao Plain Grain & Oilseed Heartland</span>
+                    <span class="reg-banner-count">5 Stations</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="heilongjiang central-south" 
+                data-code="hlj-cs" 
+                data-region="northeast china - songliao plain grain & oilseed heartland"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Heilongjiang Central-South</span>
+                        <span class="state-code">HLJ-CS</span>
+                    </div>
+                    <div class="district-name">Songnen Plain (Harbin / Suihua / Daqing)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Spring) (14.8%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Spring) (25.0%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="HLJ-CS" data-year="2010"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2011"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2012"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2013"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2014"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2015"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2016"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2017"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2018"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2019"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2020"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2021"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2022"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2023"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2024"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2025"></td><td class="matrix-cell center" data-code="HLJ-CS" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="heilongjiang northern granary" 
+                data-code="hlj-north" 
+                data-region="northeast china - songliao plain grain & oilseed heartland"
+                data-crops="soybeans (spring) corn (spring) spring wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Heilongjiang Northern Granary</span>
+                        <span class="state-code">HLJ-NORTH</span>
+                    </div>
+                    <div class="district-name">Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-soy">🌱 Soybeans (Spring) (25.5%)</span><span class="crop-badge badge-corn">🌽 Corn (Spring) (4.5%)</span><span class="crop-badge badge-wheat">🌾 Spring Wheat (1.0%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2010"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2011"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2012"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2013"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2014"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2015"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2016"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2017"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2018"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2019"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2020"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2021"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2022"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2023"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2024"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2025"></td><td class="matrix-cell center" data-code="HLJ-NORTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="jilin central golden corn belt" 
+                data-code="jl-central" 
+                data-region="northeast china - songliao plain grain & oilseed heartland"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Jilin Central Golden Corn Belt</span>
+                        <span class="state-code">JL-CENTRAL</span>
+                    </div>
+                    <div class="district-name">Songliao Plain (Changchun / Songyuan / Siping)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Spring) (10.2%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Spring) (3.2%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2010"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2011"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2012"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2013"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2014"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2015"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2016"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2017"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2018"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2019"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2020"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2021"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2022"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2023"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2024"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2025"></td><td class="matrix-cell center" data-code="JL-CENTRAL" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="liaoning central grain plain" 
+                data-code="ln-central" 
+                data-region="northeast china - songliao plain grain & oilseed heartland"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Liaoning Central Grain Plain</span>
+                        <span class="state-code">LN-CENTRAL</span>
+                    </div>
+                    <div class="district-name">Liaohe River Basin (Shenyang / Tieling / Jinzhou)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Spring) (6.3%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Spring) (1.7%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2010"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2011"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2012"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2013"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2014"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2015"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2016"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2017"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2018"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2019"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2020"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2021"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2022"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2023"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2024"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2025"></td><td class="matrix-cell center" data-code="LN-CENTRAL" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="inner mongolia eastern agro-pastoral belt" 
+                data-code="im-east" 
+                data-region="northeast china - songliao plain grain & oilseed heartland"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Inner Mongolia Eastern Agro-Pastoral Belt</span>
+                        <span class="state-code">IM-EAST</span>
+                    </div>
+                    <div class="district-name">West Liao River Plain (Tongliao / Chifeng / Hinggan)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Spring) (9.6%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Spring) (15.2%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="IM-EAST" data-year="2010"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2011"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2012"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2013"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2014"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2015"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2016"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2017"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2018"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2019"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2020"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2021"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2022"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2023"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2024"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2025"></td><td class="matrix-cell center" data-code="IM-EAST" data-year="2026"></td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Huang-Huai-Hai Plain - Intensive Double-Cropping Granary">
+            <td colspan="21">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</span>
+                    <span class="reg-banner-count">7 Stations</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="henan north-central" 
+                data-code="ha-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Henan North-Central</span>
+                        <span class="state-code">HA-NORTH</span>
+                    </div>
+                    <div class="district-name">Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (14.0%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (4.3%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="HA-NORTH" data-year="2010"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2011"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2012"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2013"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2014"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2015"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2016"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2017"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2018"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2019"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2020"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2021"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2022"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2023"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2024"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2025"></td><td class="matrix-cell center" data-code="HA-NORTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="henan south-central" 
+                data-code="ha-south" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Henan South-Central</span>
+                        <span class="state-code">HA-SOUTH</span>
+                    </div>
+                    <div class="district-name">Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (14.0%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (4.3%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Summer) (4.8%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="HA-SOUTH" data-year="2010"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2011"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2012"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2013"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2014"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2015"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2016"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2017"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2018"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2019"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2020"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2021"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2022"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2023"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2024"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2025"></td><td class="matrix-cell center" data-code="HA-SOUTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shandong northwest plain" 
+                data-code="sd-nw" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shandong Northwest Plain</span>
+                        <span class="state-code">SD-NW</span>
+                    </div>
+                    <div class="district-name">Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (9.0%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (4.5%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="SD-NW" data-year="2010"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2011"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2012"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2013"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2014"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2015"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2016"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2017"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2018"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2019"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2020"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2021"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2022"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2023"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2024"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2025"></td><td class="matrix-cell center" data-code="SD-NW" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shandong southwest plain" 
+                data-code="sd-sw" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shandong Southwest Plain</span>
+                        <span class="state-code">SD-SW</span>
+                    </div>
+                    <div class="district-name">Lu-Southwest Grain Basin (Heze / Jining / Tai'an)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (8.5%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (4.2%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Summer) (4.0%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="SD-SW" data-year="2010"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2011"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2012"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2013"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2014"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2015"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2016"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2017"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2018"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2019"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2020"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2021"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2022"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2023"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2024"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2025"></td><td class="matrix-cell center" data-code="SD-SW" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="hebei central-south plain" 
+                data-code="he-south" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Hebei Central-South Plain</span>
+                        <span class="state-code">HE-SOUTH</span>
+                    </div>
+                    <div class="district-name">Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (10.5%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (7.7%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Summer) (2.3%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="HE-SOUTH" data-year="2010"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2011"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2012"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2013"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2014"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2015"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2016"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2017"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2018"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2019"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2020"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2021"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2022"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2023"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2024"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2025"></td><td class="matrix-cell center" data-code="HE-SOUTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="anhui northern huaihe basin" 
+                data-code="ah-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Anhui Northern Huaihe Basin</span>
+                        <span class="state-code">AH-NORTH</span>
+                    </div>
+                    <div class="district-name">Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (12.8%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (2.7%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Summer) (6.0%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="AH-NORTH" data-year="2010"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2011"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2012"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2013"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2014"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2015"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2016"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2017"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2018"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2019"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2020"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2021"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2022"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2023"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2024"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2025"></td><td class="matrix-cell center" data-code="AH-NORTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="jiangsu northern plain" 
+                data-code="js-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Jiangsu Northern Plain</span>
+                        <span class="state-code">JS-NORTH</span>
+                    </div>
+                    <div class="district-name">Su-North Plain (Xuzhou / Suqian / Yancheng)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (9.8%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (1.8%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Summer) (2.6%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="JS-NORTH" data-year="2010"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2011"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2012"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2013"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2014"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2015"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2016"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2017"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2018"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2019"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2020"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2021"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2022"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2023"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2024"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2025"></td><td class="matrix-cell center" data-code="JS-NORTH" data-year="2026"></td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland">
+            <td colspan="21">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</span>
+                    <span class="reg-banner-count">4 Stations</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="shaanxi guanzhong plain" 
+                data-code="sn-guanzhong" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shaanxi Guanzhong Plain</span>
+                        <span class="state-code">SN-GUANZHONG</span>
+                    </div>
+                    <div class="district-name">Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (3.0%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (2.8%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2010"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2011"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2012"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2013"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2014"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2015"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2016"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2017"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2018"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2019"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2020"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2021"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2022"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2023"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2024"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2025"></td><td class="matrix-cell center" data-code="SN-GUANZHONG" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shanxi fenhe & southern basin" 
+                data-code="sx-south" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland"
+                data-crops="corn (spring/summer) winter wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shanxi Fenhe & Southern Basin</span>
+                        <span class="state-code">SX-SOUTH</span>
+                    </div>
+                    <div class="district-name">Fenhe Valley (Yuncheng / Linfen / Jinzhong)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Spring/Summer) (4.1%)</span><span class="crop-badge badge-wheat">🌾 Winter Wheat (1.7%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="SX-SOUTH" data-year="2010"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2011"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2012"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2013"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2014"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2015"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2016"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2017"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2018"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2019"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2020"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2021"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2022"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2023"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2024"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2025"></td><td class="matrix-cell center" data-code="SX-SOUTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="xinjiang oasis grain heartland" 
+                data-code="xj-oasis" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland"
+                data-crops="corn (grain & seed) winter & spring wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Xinjiang Oasis Grain Heartland</span>
+                        <span class="state-code">XJ-OASIS</span>
+                    </div>
+                    <div class="district-name">Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Grain & Seed) (3.5%)</span><span class="crop-badge badge-wheat">🌾 Winter & Spring Wheat (5.0%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="XJ-OASIS" data-year="2010"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2011"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2012"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2013"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2014"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2015"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2016"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2017"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2018"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2019"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2020"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2021"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2022"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2023"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2024"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2025"></td><td class="matrix-cell center" data-code="XJ-OASIS" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="gansu hexi corridor & longdong" 
+                data-code="gs-corridor" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland"
+                data-crops="corn (seed & grain) wheat (spring/winter)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Gansu Hexi Corridor & Longdong</span>
+                        <span class="state-code">GS-CORRIDOR</span>
+                    </div>
+                    <div class="district-name">Hexi National Seed Base (Zhangye / Wuwei / Pingliang)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Seed & Grain) (2.5%)</span><span class="crop-badge badge-wheat">🌾 Wheat (Spring/Winter) (2.0%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2010"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2011"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2012"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2013"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2014"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2015"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2016"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2017"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2018"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2019"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2020"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2021"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2022"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2023"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2024"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2025"></td><td class="matrix-cell center" data-code="GS-CORRIDOR" data-year="2026"></td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Southwest & Yangtze Basin - Hilly & Mixed Grain Zone">
+            <td colspan="21">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Southwest & Yangtze Basin - Hilly & Mixed Grain Zone</span>
+                    <span class="reg-banner-count">3 Stations</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="sichuan basin & hilly plain" 
+                data-code="sc-basin" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone"
+                data-crops="corn (spring/summer) winter wheat soybeans (intercropped)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Sichuan Basin & Hilly Plain</span>
+                        <span class="state-code">SC-BASIN</span>
+                    </div>
+                    <div class="district-name">Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Spring/Summer) (4.2%)</span><span class="crop-badge badge-wheat">🌾 Winter Wheat (1.9%)</span><span class="crop-badge badge-soy">🌱 Soybeans (Intercropped) (2.2%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="SC-BASIN" data-year="2010"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2011"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2012"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2013"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2014"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2015"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2016"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2017"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2018"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2019"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2020"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2021"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2022"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2023"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2024"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2025"></td><td class="matrix-cell center" data-code="SC-BASIN" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="hubei northern xiang-jing plain" 
+                data-code="hb-north" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Hubei Northern Xiang-Jing Plain</span>
+                        <span class="state-code">HB-NORTH</span>
+                    </div>
+                    <div class="district-name">Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-wheat">🌾 Winter Wheat (3.5%)</span><span class="crop-badge badge-corn">🌽 Corn (Summer) (1.8%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="HB-NORTH" data-year="2010"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2011"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2012"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2013"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2014"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2015"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2016"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2017"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2018"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2019"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2020"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2021"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2022"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2023"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2024"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2025"></td><td class="matrix-cell center" data-code="HB-NORTH" data-year="2026"></td>
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="yunnan central-eastern plateau" 
+                data-code="yn-plateau" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone"
+                data-crops="corn (plateau)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Yunnan Central-Eastern Plateau</span>
+                        <span class="state-code">YN-PLATEAU</span>
+                    </div>
+                    <div class="district-name">Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container"><span class="crop-badge badge-corn">🌽 Corn (Plateau) (4.3%)</span></div>
+                </td>
+                <td class="norm-col center" data-field="norm">-</td>
+                <td class="cur-col center" data-field="cur">-</td>
+                <td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2010"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2011"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2012"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2013"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2014"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2015"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2016"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2017"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2018"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2019"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2020"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2021"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2022"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2023"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2024"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2025"></td><td class="matrix-cell center" data-code="YN-PLATEAU" data-year="2026"></td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="report-footer">
+        <div>Data: <strong>ECMWF ERA5 Ag-Reanalysis (2010–2025) &amp; ECMWF IFS 0.25° (2026)</strong></div>
+        <div>Agri Agent &bull; Weather China Suite &bull; Zero-Token Local Pipeline</div>
+    </div>
+
+</div>
+
+<script>
+    const matrixData = {"title": "China Crop 17-Year Weather & Ag Climatology Matrix (2010-2026)", "generated_at": "2026-10-08 18:27:11 UTC", "years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026], "regions": {"HLJ-CS": {"name": "Heilongjiang Central-South", "code": "HLJ-CS", "macro_region": "Northeast China - Songliao Plain Grain & Oilseed Heartland", "region_id": "cn_northeast_heartland", "district": "Songnen Plain (Harbin / Suihua / Daqing)", "commodities": [{"crop": "Corn (Spring)", "production_mmt": 31.5, "yield_tha": 6.85, "share_pct": 14.8, "status": "Physiological Maturity / Active Autumn Harvest"}, {"crop": "Soybeans (Spring)", "production_mmt": 5.1, "yield_tha": 1.95, "share_pct": 25.0, "status": "Pod Maturity / Combining & Stubble Clearing"}], "years": {"2010": {"year": 2010, "season_precip_mm": 475.9, "temp_mean_c": 16.2, "temp_max_c": 22.3, "temp_min_c": 10.7, "topsoil_moisture": 0.303, "rootzone_moisture": 0.327, "gdd_corn_soy": 1124.8, "is_live": false, "precip_rank": 5, "temp_rank": 4, "precip_percentile": 25.0, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 531.1, "temp_mean_c": 16.3, "temp_max_c": 22.4, "temp_min_c": 10.8, "topsoil_moisture": 0.303, "rootzone_moisture": 0.327, "gdd_corn_soy": 1138.2, "is_live": false, "precip_rank": 7, "temp_rank": 5, "precip_percentile": 37.5, "temp_percentile": 25.0}, "2012": {"year": 2012, "season_precip_mm": 560.8, "temp_mean_c": 15.9, "temp_max_c": 22.0, "temp_min_c": 10.3, "topsoil_moisture": 0.303, "rootzone_moisture": 0.327, "gdd_corn_soy": 1058.9, "is_live": false, "precip_rank": 10, "temp_rank": 3, "precip_percentile": 56.2, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 512.9, "temp_mean_c": 15.6, "temp_max_c": 21.6, "temp_min_c": 10.0, "topsoil_moisture": 0.303, "rootzone_moisture": 0.327, "gdd_corn_soy": 1002.9, "is_live": false, "precip_rank": 6, "temp_rank": 1, "precip_percentile": 31.2, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 417.5, "temp_mean_c": 16.8, "temp_max_c": 22.8, "temp_min_c": 11.2, "topsoil_moisture": 0.26, "rootzone_moisture": 0.281, "gdd_corn_soy": 1218.9, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 580.1, "temp_mean_c": 16.3, "temp_max_c": 22.4, "temp_min_c": 10.8, "topsoil_moisture": 0.303, "rootzone_moisture": 0.327, "gdd_corn_soy": 1134.8, "is_live": false, "precip_rank": 12, "temp_rank": 5, "precip_percentile": 68.8, "temp_percentile": 25.0}, "2016": {"year": 2016, "season_precip_mm": 622.9, "temp_mean_c": 16.5, "temp_max_c": 22.5, "temp_min_c": 10.9, "topsoil_moisture": 0.348, "rootzone_moisture": 0.376, "gdd_corn_soy": 1164.9, "is_live": false, "precip_rank": 14, "temp_rank": 9, "precip_percentile": 81.2, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 469.2, "temp_mean_c": 15.8, "temp_max_c": 21.9, "temp_min_c": 10.3, "topsoil_moisture": 0.303, "rootzone_moisture": 0.327, "gdd_corn_soy": 1044.1, "is_live": false, "precip_rank": 3, "temp_rank": 2, "precip_percentile": 12.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 469.6, "temp_mean_c": 17.5, "temp_max_c": 23.5, "temp_min_c": 11.9, "topsoil_moisture": 0.267, "rootzone_moisture": 0.288, "gdd_corn_soy": 1344.9, "is_live": false, "precip_rank": 4, "temp_rank": 16, "precip_percentile": 18.8, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 543.9, "temp_mean_c": 16.4, "temp_max_c": 22.4, "temp_min_c": 10.8, "topsoil_moisture": 0.309, "rootzone_moisture": 0.334, "gdd_corn_soy": 1146.9, "is_live": false, "precip_rank": 8, "temp_rank": 8, "precip_percentile": 43.8, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 639.3, "temp_mean_c": 16.3, "temp_max_c": 22.3, "temp_min_c": 10.7, "topsoil_moisture": 0.357, "rootzone_moisture": 0.386, "gdd_corn_soy": 1128.9, "is_live": false, "precip_rank": 15, "temp_rank": 5, "precip_percentile": 87.5, "temp_percentile": 25.0}, "2021": {"year": 2021, "season_precip_mm": 651.5, "temp_mean_c": 16.6, "temp_max_c": 22.6, "temp_min_c": 11.0, "topsoil_moisture": 0.369, "rootzone_moisture": 0.399, "gdd_corn_soy": 1182.9, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 409.2, "temp_mean_c": 18.1, "temp_max_c": 24.1, "temp_min_c": 12.5, "topsoil_moisture": 0.23, "rootzone_moisture": 0.249, "gdd_corn_soy": 1452.9, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 602.0, "temp_mean_c": 16.9, "temp_max_c": 22.9, "temp_min_c": 11.3, "topsoil_moisture": 0.321, "rootzone_moisture": 0.347, "gdd_corn_soy": 1236.9, "is_live": false, "precip_rank": 13, "temp_rank": 14, "precip_percentile": 75.0, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 563.1, "temp_mean_c": 16.6, "temp_max_c": 22.6, "temp_min_c": 11.0, "topsoil_moisture": 0.312, "rootzone_moisture": 0.337, "gdd_corn_soy": 1182.9, "is_live": false, "precip_rank": 11, "temp_rank": 11, "precip_percentile": 62.5, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 548.6, "temp_mean_c": 16.5, "temp_max_c": 22.5, "temp_min_c": 10.9, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1164.9, "is_live": false, "precip_rank": 9, "temp_rank": 9, "precip_percentile": 50.0, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 667.5, "temp_mean_c": 17.1, "temp_max_c": 21.7, "temp_min_c": 12.5, "topsoil_moisture": 0.1, "rootzone_moisture": 0.229, "gdd_corn_soy": 1590.7, "is_live": true, "precip_rank": 17, "temp_rank": 15, "precip_percentile": 100.0, "temp_percentile": 87.5}}}, "HLJ-NORTH": {"name": "Heilongjiang Northern Granary", "code": "HLJ-NORTH", "macro_region": "Northeast China - Songliao Plain Grain & Oilseed Heartland", "region_id": "cn_northeast_heartland", "district": "Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)", "commodities": [{"crop": "Soybeans (Spring)", "production_mmt": 5.2, "yield_tha": 1.92, "share_pct": 25.5, "status": "Full Maturity / Harvest Operations Wrapping Up"}, {"crop": "Corn (Spring)", "production_mmt": 9.6, "yield_tha": 6.45, "share_pct": 4.5, "status": "Maturation / Frost-Assisted Drydown"}, {"crop": "Spring Wheat", "production_mmt": 0.35, "yield_tha": 4.1, "share_pct": 1.0, "status": "Post-Harvest Land Fallow"}], "years": {"2010": {"year": 2010, "season_precip_mm": 459.2, "temp_mean_c": 13.3, "temp_max_c": 19.9, "temp_min_c": 7.4, "topsoil_moisture": 0.313, "rootzone_moisture": 0.337, "gdd_corn_soy": 600.2, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 524.4, "temp_mean_c": 13.4, "temp_max_c": 20.0, "temp_min_c": 7.5, "topsoil_moisture": 0.313, "rootzone_moisture": 0.337, "gdd_corn_soy": 613.6, "is_live": false, "precip_rank": 13, "temp_rank": 5, "precip_percentile": 75.0, "temp_percentile": 25.0}, "2012": {"year": 2012, "season_precip_mm": 524.0, "temp_mean_c": 13.0, "temp_max_c": 19.6, "temp_min_c": 7.1, "topsoil_moisture": 0.313, "rootzone_moisture": 0.337, "gdd_corn_soy": 534.3, "is_live": false, "precip_rank": 12, "temp_rank": 3, "precip_percentile": 68.8, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 440.6, "temp_mean_c": 12.7, "temp_max_c": 19.3, "temp_min_c": 6.8, "topsoil_moisture": 0.313, "rootzone_moisture": 0.337, "gdd_corn_soy": 478.4, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 400.9, "temp_mean_c": 13.9, "temp_max_c": 20.5, "temp_min_c": 8.0, "topsoil_moisture": 0.269, "rootzone_moisture": 0.29, "gdd_corn_soy": 694.3, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 533.6, "temp_mean_c": 13.4, "temp_max_c": 20.0, "temp_min_c": 7.5, "topsoil_moisture": 0.313, "rootzone_moisture": 0.337, "gdd_corn_soy": 610.2, "is_live": false, "precip_rank": 14, "temp_rank": 5, "precip_percentile": 81.2, "temp_percentile": 25.0}, "2016": {"year": 2016, "season_precip_mm": 610.3, "temp_mean_c": 13.6, "temp_max_c": 20.2, "temp_min_c": 7.7, "topsoil_moisture": 0.36, "rootzone_moisture": 0.388, "gdd_corn_soy": 640.3, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 425.5, "temp_mean_c": 12.9, "temp_max_c": 19.5, "temp_min_c": 7.0, "topsoil_moisture": 0.313, "rootzone_moisture": 0.337, "gdd_corn_soy": 519.6, "is_live": false, "precip_rank": 4, "temp_rank": 2, "precip_percentile": 18.8, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 421.4, "temp_mean_c": 14.6, "temp_max_c": 21.2, "temp_min_c": 8.7, "topsoil_moisture": 0.275, "rootzone_moisture": 0.297, "gdd_corn_soy": 820.3, "is_live": false, "precip_rank": 3, "temp_rank": 16, "precip_percentile": 12.5, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 493.8, "temp_mean_c": 13.5, "temp_max_c": 20.1, "temp_min_c": 7.6, "topsoil_moisture": 0.319, "rootzone_moisture": 0.344, "gdd_corn_soy": 622.3, "is_live": false, "precip_rank": 10, "temp_rank": 8, "precip_percentile": 56.2, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 624.1, "temp_mean_c": 13.4, "temp_max_c": 20.0, "temp_min_c": 7.5, "topsoil_moisture": 0.369, "rootzone_moisture": 0.398, "gdd_corn_soy": 604.3, "is_live": false, "precip_rank": 16, "temp_rank": 5, "precip_percentile": 93.8, "temp_percentile": 25.0}, "2021": {"year": 2021, "season_precip_mm": 636.6, "temp_mean_c": 13.7, "temp_max_c": 20.3, "temp_min_c": 7.8, "topsoil_moisture": 0.382, "rootzone_moisture": 0.411, "gdd_corn_soy": 658.3, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 360.4, "temp_mean_c": 15.2, "temp_max_c": 21.8, "temp_min_c": 9.3, "topsoil_moisture": 0.238, "rootzone_moisture": 0.256, "gdd_corn_soy": 928.3, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 523.0, "temp_mean_c": 14.0, "temp_max_c": 20.6, "temp_min_c": 8.1, "topsoil_moisture": 0.332, "rootzone_moisture": 0.357, "gdd_corn_soy": 712.3, "is_live": false, "precip_rank": 11, "temp_rank": 14, "precip_percentile": 62.5, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 481.1, "temp_mean_c": 13.7, "temp_max_c": 20.3, "temp_min_c": 7.8, "topsoil_moisture": 0.322, "rootzone_moisture": 0.347, "gdd_corn_soy": 658.3, "is_live": false, "precip_rank": 9, "temp_rank": 11, "precip_percentile": 50.0, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 472.0, "temp_mean_c": 13.6, "temp_max_c": 20.2, "temp_min_c": 7.7, "topsoil_moisture": 0.316, "rootzone_moisture": 0.341, "gdd_corn_soy": 640.3, "is_live": false, "precip_rank": 7, "temp_rank": 9, "precip_percentile": 37.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 474.0, "temp_mean_c": 14.4, "temp_max_c": 19.4, "temp_min_c": 9.4, "topsoil_moisture": 0.2, "rootzone_moisture": 0.239, "gdd_corn_soy": 1206.8, "is_live": true, "precip_rank": 8, "temp_rank": 15, "precip_percentile": 43.8, "temp_percentile": 87.5}}}, "JL-CENTRAL": {"name": "Jilin Central Golden Corn Belt", "code": "JL-CENTRAL", "macro_region": "Northeast China - Songliao Plain Grain & Oilseed Heartland", "region_id": "cn_northeast_heartland", "district": "Songliao Plain (Changchun / Songyuan / Siping)", "commodities": [{"crop": "Corn (Spring)", "production_mmt": 29.8, "yield_tha": 7.35, "share_pct": 10.2, "status": "Kernel Hardening / Active Harvest Combining"}, {"crop": "Soybeans (Spring)", "production_mmt": 0.65, "yield_tha": 2.05, "share_pct": 3.2, "status": "Mature / Harvesting & Grain Drying"}], "years": {"2010": {"year": 2010, "season_precip_mm": 564.2, "temp_mean_c": 17.1, "temp_max_c": 23.1, "temp_min_c": 11.8, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1279.0, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 629.0, "temp_mean_c": 17.2, "temp_max_c": 23.2, "temp_min_c": 11.8, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1292.5, "is_live": false, "precip_rank": 10, "temp_rank": 6, "precip_percentile": 56.2, "temp_percentile": 31.2}, "2012": {"year": 2012, "season_precip_mm": 634.3, "temp_mean_c": 16.7, "temp_max_c": 22.8, "temp_min_c": 11.4, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1213.1, "is_live": false, "precip_rank": 12, "temp_rank": 2, "precip_percentile": 68.8, "temp_percentile": 6.2}, "2013": {"year": 2013, "season_precip_mm": 540.6, "temp_mean_c": 16.4, "temp_max_c": 22.4, "temp_min_c": 11.1, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1157.2, "is_live": false, "precip_rank": 4, "temp_rank": 1, "precip_percentile": 18.8, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 463.2, "temp_mean_c": 17.6, "temp_max_c": 23.6, "temp_min_c": 12.3, "topsoil_moisture": 0.263, "rootzone_moisture": 0.284, "gdd_corn_soy": 1373.1, "is_live": false, "precip_rank": 1, "temp_rank": 13, "precip_percentile": 0.0, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 633.7, "temp_mean_c": 17.2, "temp_max_c": 23.2, "temp_min_c": 11.8, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1289.0, "is_live": false, "precip_rank": 11, "temp_rank": 6, "precip_percentile": 62.5, "temp_percentile": 31.2}, "2016": {"year": 2016, "season_precip_mm": 692.0, "temp_mean_c": 17.3, "temp_max_c": 23.3, "temp_min_c": 12.0, "topsoil_moisture": 0.352, "rootzone_moisture": 0.379, "gdd_corn_soy": 1319.1, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 516.1, "temp_mean_c": 16.7, "temp_max_c": 22.7, "temp_min_c": 11.3, "topsoil_moisture": 0.306, "rootzone_moisture": 0.33, "gdd_corn_soy": 1198.4, "is_live": false, "precip_rank": 3, "temp_rank": 2, "precip_percentile": 12.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 545.7, "temp_mean_c": 18.3, "temp_max_c": 24.3, "temp_min_c": 13.0, "topsoil_moisture": 0.269, "rootzone_moisture": 0.29, "gdd_corn_soy": 1499.1, "is_live": false, "precip_rank": 5, "temp_rank": 15, "precip_percentile": 25.0, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 602.3, "temp_mean_c": 17.2, "temp_max_c": 23.2, "temp_min_c": 11.9, "topsoil_moisture": 0.312, "rootzone_moisture": 0.337, "gdd_corn_soy": 1301.1, "is_live": false, "precip_rank": 8, "temp_rank": 6, "precip_percentile": 43.8, "temp_percentile": 31.2}, "2020": {"year": 2020, "season_precip_mm": 704.8, "temp_mean_c": 17.1, "temp_max_c": 23.1, "temp_min_c": 11.8, "topsoil_moisture": 0.361, "rootzone_moisture": 0.389, "gdd_corn_soy": 1283.1, "is_live": false, "precip_rank": 16, "temp_rank": 4, "precip_percentile": 93.8, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 734.7, "temp_mean_c": 17.4, "temp_max_c": 23.4, "temp_min_c": 12.1, "topsoil_moisture": 0.373, "rootzone_moisture": 0.403, "gdd_corn_soy": 1337.1, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 469.8, "temp_mean_c": 18.9, "temp_max_c": 24.9, "temp_min_c": 13.6, "topsoil_moisture": 0.232, "rootzone_moisture": 0.251, "gdd_corn_soy": 1607.1, "is_live": false, "precip_rank": 2, "temp_rank": 17, "precip_percentile": 6.2, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 654.9, "temp_mean_c": 17.7, "temp_max_c": 23.7, "temp_min_c": 12.4, "topsoil_moisture": 0.324, "rootzone_moisture": 0.35, "gdd_corn_soy": 1391.1, "is_live": false, "precip_rank": 13, "temp_rank": 14, "precip_percentile": 75.0, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 610.4, "temp_mean_c": 17.4, "temp_max_c": 23.4, "temp_min_c": 12.1, "topsoil_moisture": 0.315, "rootzone_moisture": 0.34, "gdd_corn_soy": 1337.1, "is_live": false, "precip_rank": 9, "temp_rank": 11, "precip_percentile": 50.0, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 574.3, "temp_mean_c": 17.3, "temp_max_c": 23.3, "temp_min_c": 12.0, "topsoil_moisture": 0.309, "rootzone_moisture": 0.333, "gdd_corn_soy": 1319.1, "is_live": false, "precip_rank": 7, "temp_rank": 9, "precip_percentile": 37.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 677.8, "temp_mean_c": 18.3, "temp_max_c": 22.9, "temp_min_c": 13.7, "topsoil_moisture": 0.153, "rootzone_moisture": 0.223, "gdd_corn_soy": 1789.2, "is_live": true, "precip_rank": 14, "temp_rank": 15, "precip_percentile": 81.2, "temp_percentile": 87.5}}}, "LN-CENTRAL": {"name": "Liaoning Central Grain Plain", "code": "LN-CENTRAL", "macro_region": "Northeast China - Songliao Plain Grain & Oilseed Heartland", "region_id": "cn_northeast_heartland", "district": "Liaohe River Basin (Shenyang / Tieling / Jinzhou)", "commodities": [{"crop": "Corn (Spring)", "production_mmt": 18.2, "yield_tha": 6.9, "share_pct": 6.3, "status": "Maturity / Combining & Silo Storage"}, {"crop": "Soybeans (Spring)", "production_mmt": 0.35, "yield_tha": 1.98, "share_pct": 1.7, "status": "Harvest Completed / Field Prep"}], "years": {"2010": {"year": 2010, "season_precip_mm": 570.0, "temp_mean_c": 18.7, "temp_max_c": 24.6, "temp_min_c": 13.6, "topsoil_moisture": 0.3, "rootzone_moisture": 0.324, "gdd_corn_soy": 1574.8, "is_live": false, "precip_rank": 4, "temp_rank": 4, "precip_percentile": 18.8, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 678.2, "temp_mean_c": 18.8, "temp_max_c": 24.7, "temp_min_c": 13.7, "topsoil_moisture": 0.3, "rootzone_moisture": 0.324, "gdd_corn_soy": 1588.2, "is_live": false, "precip_rank": 11, "temp_rank": 5, "precip_percentile": 62.5, "temp_percentile": 25.0}, "2012": {"year": 2012, "season_precip_mm": 694.4, "temp_mean_c": 18.4, "temp_max_c": 24.3, "temp_min_c": 13.2, "topsoil_moisture": 0.3, "rootzone_moisture": 0.324, "gdd_corn_soy": 1508.9, "is_live": false, "precip_rank": 12, "temp_rank": 3, "precip_percentile": 68.8, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 581.3, "temp_mean_c": 18.1, "temp_max_c": 24.0, "temp_min_c": 12.9, "topsoil_moisture": 0.3, "rootzone_moisture": 0.324, "gdd_corn_soy": 1452.9, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 499.8, "temp_mean_c": 19.3, "temp_max_c": 25.2, "temp_min_c": 14.1, "topsoil_moisture": 0.258, "rootzone_moisture": 0.279, "gdd_corn_soy": 1668.9, "is_live": false, "precip_rank": 2, "temp_rank": 14, "precip_percentile": 6.2, "temp_percentile": 81.2}, "2015": {"year": 2015, "season_precip_mm": 666.4, "temp_mean_c": 18.8, "temp_max_c": 24.7, "temp_min_c": 13.6, "topsoil_moisture": 0.3, "rootzone_moisture": 0.324, "gdd_corn_soy": 1584.8, "is_live": false, "precip_rank": 10, "temp_rank": 5, "precip_percentile": 56.2, "temp_percentile": 25.0}, "2016": {"year": 2016, "season_precip_mm": 803.9, "temp_mean_c": 19.0, "temp_max_c": 24.9, "temp_min_c": 13.8, "topsoil_moisture": 0.345, "rootzone_moisture": 0.373, "gdd_corn_soy": 1614.9, "is_live": false, "precip_rank": 16, "temp_rank": 9, "precip_percentile": 93.8, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 560.5, "temp_mean_c": 18.3, "temp_max_c": 24.2, "temp_min_c": 13.1, "topsoil_moisture": 0.3, "rootzone_moisture": 0.324, "gdd_corn_soy": 1494.1, "is_live": false, "precip_rank": 3, "temp_rank": 2, "precip_percentile": 12.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 593.2, "temp_mean_c": 20.0, "temp_max_c": 25.9, "temp_min_c": 14.8, "topsoil_moisture": 0.264, "rootzone_moisture": 0.285, "gdd_corn_soy": 1794.9, "is_live": false, "precip_rank": 6, "temp_rank": 16, "precip_percentile": 31.2, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 661.0, "temp_mean_c": 18.9, "temp_max_c": 24.8, "temp_min_c": 13.7, "topsoil_moisture": 0.306, "rootzone_moisture": 0.331, "gdd_corn_soy": 1596.9, "is_live": false, "precip_rank": 9, "temp_rank": 8, "precip_percentile": 50.0, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 784.2, "temp_mean_c": 18.8, "temp_max_c": 24.7, "temp_min_c": 13.6, "topsoil_moisture": 0.354, "rootzone_moisture": 0.383, "gdd_corn_soy": 1578.9, "is_live": false, "precip_rank": 15, "temp_rank": 5, "precip_percentile": 87.5, "temp_percentile": 25.0}, "2021": {"year": 2021, "season_precip_mm": 779.5, "temp_mean_c": 19.1, "temp_max_c": 25.0, "temp_min_c": 13.9, "topsoil_moisture": 0.366, "rootzone_moisture": 0.396, "gdd_corn_soy": 1632.9, "is_live": false, "precip_rank": 14, "temp_rank": 11, "precip_percentile": 81.2, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 482.1, "temp_mean_c": 20.6, "temp_max_c": 26.5, "temp_min_c": 15.4, "topsoil_moisture": 0.228, "rootzone_moisture": 0.246, "gdd_corn_soy": 1902.9, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 711.7, "temp_mean_c": 19.4, "temp_max_c": 25.3, "temp_min_c": 14.2, "topsoil_moisture": 0.318, "rootzone_moisture": 0.344, "gdd_corn_soy": 1686.9, "is_live": false, "precip_rank": 13, "temp_rank": 15, "precip_percentile": 75.0, "temp_percentile": 87.5}, "2024": {"year": 2024, "season_precip_mm": 641.9, "temp_mean_c": 19.1, "temp_max_c": 25.0, "temp_min_c": 13.9, "topsoil_moisture": 0.309, "rootzone_moisture": 0.334, "gdd_corn_soy": 1632.9, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 626.5, "temp_mean_c": 19.0, "temp_max_c": 24.9, "temp_min_c": 13.8, "topsoil_moisture": 0.303, "rootzone_moisture": 0.328, "gdd_corn_soy": 1614.9, "is_live": false, "precip_rank": 7, "temp_rank": 9, "precip_percentile": 37.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 925.3, "temp_mean_c": 19.1, "temp_max_c": 24.1, "temp_min_c": 14.2, "topsoil_moisture": 0.322, "rootzone_moisture": 0.339, "gdd_corn_soy": 1917.8, "is_live": true, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}}}, "IM-EAST": {"name": "Inner Mongolia Eastern Agro-Pastoral Belt", "code": "IM-EAST", "macro_region": "Northeast China - Songliao Plain Grain & Oilseed Heartland", "region_id": "cn_northeast_heartland", "district": "West Liao River Plain (Tongliao / Chifeng / Hinggan)", "commodities": [{"crop": "Corn (Spring)", "production_mmt": 28.1, "yield_tha": 6.95, "share_pct": 9.6, "status": "Maturity / High-Speed Mechanical Harvest"}, {"crop": "Soybeans (Spring)", "production_mmt": 3.1, "yield_tha": 1.9, "share_pct": 15.2, "status": "Harvest Peak / Elevator Intake"}], "years": {"2010": {"year": 2010, "season_precip_mm": 386.8, "temp_mean_c": 17.6, "temp_max_c": 24.2, "temp_min_c": 11.6, "topsoil_moisture": 0.26, "rootzone_moisture": 0.289, "gdd_corn_soy": 1371.6, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 423.9, "temp_mean_c": 17.7, "temp_max_c": 24.3, "temp_min_c": 11.7, "topsoil_moisture": 0.26, "rootzone_moisture": 0.289, "gdd_corn_soy": 1385.1, "is_live": false, "precip_rank": 9, "temp_rank": 6, "precip_percentile": 50.0, "temp_percentile": 31.2}, "2012": {"year": 2012, "season_precip_mm": 449.1, "temp_mean_c": 17.3, "temp_max_c": 23.9, "temp_min_c": 11.2, "topsoil_moisture": 0.26, "rootzone_moisture": 0.289, "gdd_corn_soy": 1305.7, "is_live": false, "precip_rank": 13, "temp_rank": 3, "precip_percentile": 75.0, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 385.6, "temp_mean_c": 16.9, "temp_max_c": 23.5, "temp_min_c": 10.9, "topsoil_moisture": 0.26, "rootzone_moisture": 0.289, "gdd_corn_soy": 1249.8, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 347.6, "temp_mean_c": 18.1, "temp_max_c": 24.7, "temp_min_c": 12.1, "topsoil_moisture": 0.224, "rootzone_moisture": 0.248, "gdd_corn_soy": 1465.7, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 436.0, "temp_mean_c": 17.7, "temp_max_c": 24.3, "temp_min_c": 11.7, "topsoil_moisture": 0.26, "rootzone_moisture": 0.289, "gdd_corn_soy": 1381.6, "is_live": false, "precip_rank": 12, "temp_rank": 6, "precip_percentile": 68.8, "temp_percentile": 31.2}, "2016": {"year": 2016, "season_precip_mm": 512.0, "temp_mean_c": 17.8, "temp_max_c": 24.4, "temp_min_c": 11.8, "topsoil_moisture": 0.299, "rootzone_moisture": 0.332, "gdd_corn_soy": 1411.7, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 364.1, "temp_mean_c": 17.2, "temp_max_c": 23.8, "temp_min_c": 11.2, "topsoil_moisture": 0.26, "rootzone_moisture": 0.289, "gdd_corn_soy": 1291.0, "is_live": false, "precip_rank": 4, "temp_rank": 2, "precip_percentile": 18.8, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 356.8, "temp_mean_c": 18.8, "temp_max_c": 25.4, "temp_min_c": 12.8, "topsoil_moisture": 0.229, "rootzone_moisture": 0.254, "gdd_corn_soy": 1591.7, "is_live": false, "precip_rank": 3, "temp_rank": 15, "precip_percentile": 12.5, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 414.8, "temp_mean_c": 17.7, "temp_max_c": 24.3, "temp_min_c": 11.7, "topsoil_moisture": 0.265, "rootzone_moisture": 0.294, "gdd_corn_soy": 1393.7, "is_live": false, "precip_rank": 8, "temp_rank": 6, "precip_percentile": 43.8, "temp_percentile": 31.2}, "2020": {"year": 2020, "season_precip_mm": 513.8, "temp_mean_c": 17.6, "temp_max_c": 24.2, "temp_min_c": 11.6, "topsoil_moisture": 0.307, "rootzone_moisture": 0.341, "gdd_corn_soy": 1375.7, "is_live": false, "precip_rank": 16, "temp_rank": 4, "precip_percentile": 93.8, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 536.9, "temp_mean_c": 17.9, "temp_max_c": 24.5, "temp_min_c": 11.9, "topsoil_moisture": 0.317, "rootzone_moisture": 0.352, "gdd_corn_soy": 1429.7, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 310.6, "temp_mean_c": 19.4, "temp_max_c": 26.0, "temp_min_c": 13.4, "topsoil_moisture": 0.198, "rootzone_moisture": 0.219, "gdd_corn_soy": 1699.7, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 450.5, "temp_mean_c": 18.2, "temp_max_c": 24.8, "temp_min_c": 12.2, "topsoil_moisture": 0.276, "rootzone_moisture": 0.306, "gdd_corn_soy": 1483.7, "is_live": false, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 434.1, "temp_mean_c": 17.9, "temp_max_c": 24.5, "temp_min_c": 11.9, "topsoil_moisture": 0.268, "rootzone_moisture": 0.297, "gdd_corn_soy": 1429.7, "is_live": false, "precip_rank": 11, "temp_rank": 11, "precip_percentile": 62.5, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 431.4, "temp_mean_c": 17.8, "temp_max_c": 24.4, "temp_min_c": 11.8, "topsoil_moisture": 0.263, "rootzone_moisture": 0.291, "gdd_corn_soy": 1411.7, "is_live": false, "precip_rank": 10, "temp_rank": 9, "precip_percentile": 56.2, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 408.0, "temp_mean_c": 19.2, "temp_max_c": 24.5, "temp_min_c": 13.9, "topsoil_moisture": 0.159, "rootzone_moisture": 0.149, "gdd_corn_soy": 1951.2, "is_live": true, "precip_rank": 7, "temp_rank": 16, "precip_percentile": 37.5, "temp_percentile": 93.8}}}, "HA-NORTH": {"name": "Henan North-Central", "code": "HA-NORTH", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 20.5, "yield_tha": 6.45, "share_pct": 14.0, "status": "Autumn Drilling Window / Pre-Sowing Seedbed Tillage"}, {"crop": "Corn (Summer)", "production_mmt": 12.6, "yield_tha": 6.2, "share_pct": 4.3, "status": "Harvest Finalized / Stalk Chopping & Incorporation"}], "years": {"2010": {"year": 2010, "season_precip_mm": 512.9, "temp_mean_c": 22.5, "temp_max_c": 28.4, "temp_min_c": 17.4, "topsoil_moisture": 0.267, "rootzone_moisture": 0.297, "gdd_corn_soy": 2256.2, "is_live": false, "precip_rank": 4, "temp_rank": 4, "precip_percentile": 18.8, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 613.8, "temp_mean_c": 22.6, "temp_max_c": 28.5, "temp_min_c": 17.5, "topsoil_moisture": 0.267, "rootzone_moisture": 0.297, "gdd_corn_soy": 2269.6, "is_live": false, "precip_rank": 12, "temp_rank": 5, "precip_percentile": 68.8, "temp_percentile": 25.0}, "2012": {"year": 2012, "season_precip_mm": 610.3, "temp_mean_c": 22.2, "temp_max_c": 28.1, "temp_min_c": 17.0, "topsoil_moisture": 0.267, "rootzone_moisture": 0.297, "gdd_corn_soy": 2190.3, "is_live": false, "precip_rank": 11, "temp_rank": 3, "precip_percentile": 62.5, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 513.3, "temp_mean_c": 21.9, "temp_max_c": 27.7, "temp_min_c": 16.7, "topsoil_moisture": 0.267, "rootzone_moisture": 0.297, "gdd_corn_soy": 2134.4, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 463.6, "temp_mean_c": 23.1, "temp_max_c": 28.9, "temp_min_c": 17.9, "topsoil_moisture": 0.23, "rootzone_moisture": 0.256, "gdd_corn_soy": 2350.3, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 617.7, "temp_mean_c": 22.6, "temp_max_c": 28.5, "temp_min_c": 17.5, "topsoil_moisture": 0.267, "rootzone_moisture": 0.297, "gdd_corn_soy": 2266.2, "is_live": false, "precip_rank": 14, "temp_rank": 5, "precip_percentile": 81.2, "temp_percentile": 25.0}, "2016": {"year": 2016, "season_precip_mm": 660.5, "temp_mean_c": 22.8, "temp_max_c": 28.6, "temp_min_c": 17.6, "topsoil_moisture": 0.307, "rootzone_moisture": 0.342, "gdd_corn_soy": 2296.3, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 531.7, "temp_mean_c": 22.1, "temp_max_c": 28.0, "temp_min_c": 17.0, "topsoil_moisture": 0.267, "rootzone_moisture": 0.297, "gdd_corn_soy": 2175.6, "is_live": false, "precip_rank": 6, "temp_rank": 2, "precip_percentile": 31.2, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 491.1, "temp_mean_c": 23.8, "temp_max_c": 29.6, "temp_min_c": 18.6, "topsoil_moisture": 0.235, "rootzone_moisture": 0.261, "gdd_corn_soy": 2476.3, "is_live": false, "precip_rank": 3, "temp_rank": 15, "precip_percentile": 12.5, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 614.8, "temp_mean_c": 22.7, "temp_max_c": 28.5, "temp_min_c": 17.5, "topsoil_moisture": 0.272, "rootzone_moisture": 0.303, "gdd_corn_soy": 2278.3, "is_live": false, "precip_rank": 13, "temp_rank": 8, "precip_percentile": 75.0, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 688.4, "temp_mean_c": 22.6, "temp_max_c": 28.4, "temp_min_c": 17.4, "topsoil_moisture": 0.315, "rootzone_moisture": 0.351, "gdd_corn_soy": 2260.3, "is_live": false, "precip_rank": 16, "temp_rank": 5, "precip_percentile": 93.8, "temp_percentile": 25.0}, "2021": {"year": 2021, "season_precip_mm": 702.1, "temp_mean_c": 22.9, "temp_max_c": 28.7, "temp_min_c": 17.7, "topsoil_moisture": 0.326, "rootzone_moisture": 0.363, "gdd_corn_soy": 2314.3, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 441.3, "temp_mean_c": 24.4, "temp_max_c": 30.2, "temp_min_c": 19.2, "topsoil_moisture": 0.203, "rootzone_moisture": 0.226, "gdd_corn_soy": 2584.3, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 602.5, "temp_mean_c": 23.2, "temp_max_c": 29.0, "temp_min_c": 18.0, "topsoil_moisture": 0.283, "rootzone_moisture": 0.315, "gdd_corn_soy": 2368.3, "is_live": false, "precip_rank": 10, "temp_rank": 14, "precip_percentile": 56.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 600.4, "temp_mean_c": 22.9, "temp_max_c": 28.7, "temp_min_c": 17.7, "topsoil_moisture": 0.275, "rootzone_moisture": 0.306, "gdd_corn_soy": 2314.3, "is_live": false, "precip_rank": 9, "temp_rank": 11, "precip_percentile": 50.0, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 553.6, "temp_mean_c": 22.8, "temp_max_c": 28.6, "temp_min_c": 17.6, "topsoil_moisture": 0.27, "rootzone_moisture": 0.3, "gdd_corn_soy": 2296.3, "is_live": false, "precip_rank": 7, "temp_rank": 9, "precip_percentile": 37.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 588.3, "temp_mean_c": 24.2, "temp_max_c": 28.9, "temp_min_c": 19.5, "topsoil_moisture": 0.153, "rootzone_moisture": 0.187, "gdd_corn_soy": 2930.6, "is_live": true, "precip_rank": 8, "temp_rank": 16, "precip_percentile": 43.8, "temp_percentile": 93.8}}}, "HA-SOUTH": {"name": "Henan South-Central", "code": "HA-SOUTH", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 20.5, "yield_tha": 6.4, "share_pct": 14.0, "status": "Pre-Planting Soil Prep / Early Wheat Sowing"}, {"crop": "Corn (Summer)", "production_mmt": 12.5, "yield_tha": 6.15, "share_pct": 4.3, "status": "Harvest Wrapping Up / Stubble Mulching"}, {"crop": "Soybeans (Summer)", "production_mmt": 1.0, "yield_tha": 2.1, "share_pct": 4.8, "status": "Late Maturation / Harvesting In Progress"}], "years": {"2010": {"year": 2010, "season_precip_mm": 642.1, "temp_mean_c": 23.1, "temp_max_c": 28.7, "temp_min_c": 18.5, "topsoil_moisture": 0.29, "rootzone_moisture": 0.316, "gdd_corn_soy": 2351.3, "is_live": false, "precip_rank": 4, "temp_rank": 4, "precip_percentile": 18.8, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 780.6, "temp_mean_c": 23.1, "temp_max_c": 28.8, "temp_min_c": 18.6, "topsoil_moisture": 0.29, "rootzone_moisture": 0.316, "gdd_corn_soy": 2364.8, "is_live": false, "precip_rank": 13, "temp_rank": 4, "precip_percentile": 75.0, "temp_percentile": 18.8}, "2012": {"year": 2012, "season_precip_mm": 768.9, "temp_mean_c": 22.7, "temp_max_c": 28.3, "temp_min_c": 18.1, "topsoil_moisture": 0.29, "rootzone_moisture": 0.316, "gdd_corn_soy": 2285.4, "is_live": false, "precip_rank": 11, "temp_rank": 3, "precip_percentile": 62.5, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 652.8, "temp_mean_c": 22.4, "temp_max_c": 28.0, "temp_min_c": 17.8, "topsoil_moisture": 0.29, "rootzone_moisture": 0.316, "gdd_corn_soy": 2229.5, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 586.5, "temp_mean_c": 23.6, "temp_max_c": 29.2, "temp_min_c": 19.0, "topsoil_moisture": 0.249, "rootzone_moisture": 0.272, "gdd_corn_soy": 2445.4, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 776.4, "temp_mean_c": 23.1, "temp_max_c": 28.8, "temp_min_c": 18.5, "topsoil_moisture": 0.29, "rootzone_moisture": 0.316, "gdd_corn_soy": 2361.3, "is_live": false, "precip_rank": 12, "temp_rank": 4, "precip_percentile": 68.8, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 849.9, "temp_mean_c": 23.3, "temp_max_c": 28.9, "temp_min_c": 18.7, "topsoil_moisture": 0.334, "rootzone_moisture": 0.363, "gdd_corn_soy": 2391.4, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 681.4, "temp_mean_c": 22.6, "temp_max_c": 28.3, "temp_min_c": 18.0, "topsoil_moisture": 0.29, "rootzone_moisture": 0.316, "gdd_corn_soy": 2270.7, "is_live": false, "precip_rank": 6, "temp_rank": 2, "precip_percentile": 31.2, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 621.3, "temp_mean_c": 24.3, "temp_max_c": 29.9, "temp_min_c": 19.7, "topsoil_moisture": 0.255, "rootzone_moisture": 0.278, "gdd_corn_soy": 2571.4, "is_live": false, "precip_rank": 3, "temp_rank": 15, "precip_percentile": 12.5, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 721.7, "temp_mean_c": 23.2, "temp_max_c": 28.8, "temp_min_c": 18.6, "topsoil_moisture": 0.296, "rootzone_moisture": 0.322, "gdd_corn_soy": 2373.4, "is_live": false, "precip_rank": 9, "temp_rank": 8, "precip_percentile": 50.0, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 868.5, "temp_mean_c": 23.1, "temp_max_c": 28.7, "temp_min_c": 18.5, "topsoil_moisture": 0.342, "rootzone_moisture": 0.373, "gdd_corn_soy": 2355.4, "is_live": false, "precip_rank": 16, "temp_rank": 4, "precip_percentile": 93.8, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 896.8, "temp_mean_c": 23.4, "temp_max_c": 29.0, "temp_min_c": 18.8, "topsoil_moisture": 0.354, "rootzone_moisture": 0.385, "gdd_corn_soy": 2409.4, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 573.0, "temp_mean_c": 24.9, "temp_max_c": 30.5, "temp_min_c": 20.3, "topsoil_moisture": 0.22, "rootzone_moisture": 0.24, "gdd_corn_soy": 2679.4, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 805.4, "temp_mean_c": 23.7, "temp_max_c": 29.3, "temp_min_c": 19.1, "topsoil_moisture": 0.307, "rootzone_moisture": 0.335, "gdd_corn_soy": 2463.4, "is_live": false, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 717.3, "temp_mean_c": 23.4, "temp_max_c": 29.0, "temp_min_c": 18.8, "topsoil_moisture": 0.299, "rootzone_moisture": 0.325, "gdd_corn_soy": 2409.4, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 725.7, "temp_mean_c": 23.3, "temp_max_c": 28.9, "temp_min_c": 18.7, "topsoil_moisture": 0.293, "rootzone_moisture": 0.319, "gdd_corn_soy": 2391.4, "is_live": false, "precip_rank": 10, "temp_rank": 9, "precip_percentile": 56.2, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 685.9, "temp_mean_c": 24.3, "temp_max_c": 28.8, "temp_min_c": 19.9, "topsoil_moisture": 0.307, "rootzone_moisture": 0.343, "gdd_corn_soy": 2954.4, "is_live": true, "precip_rank": 7, "temp_rank": 15, "precip_percentile": 37.5, "temp_percentile": 87.5}}}, "SD-NW": {"name": "Shandong Northwest Plain", "code": "SD-NW", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 13.2, "yield_tha": 6.55, "share_pct": 9.0, "status": "Active Sowing Window / Seedbed Emergence Watch"}, {"crop": "Corn (Summer)", "production_mmt": 13.1, "yield_tha": 6.4, "share_pct": 4.5, "status": "Harvest Concluded / Field Preparation"}], "years": {"2010": {"year": 2010, "season_precip_mm": 528.3, "temp_mean_c": 22.0, "temp_max_c": 28.0, "temp_min_c": 16.7, "topsoil_moisture": 0.269, "rootzone_moisture": 0.293, "gdd_corn_soy": 2153.3, "is_live": false, "precip_rank": 7, "temp_rank": 4, "precip_percentile": 37.5, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 594.1, "temp_mean_c": 22.0, "temp_max_c": 28.1, "temp_min_c": 16.8, "topsoil_moisture": 0.269, "rootzone_moisture": 0.293, "gdd_corn_soy": 2166.8, "is_live": false, "precip_rank": 11, "temp_rank": 4, "precip_percentile": 62.5, "temp_percentile": 18.8}, "2012": {"year": 2012, "season_precip_mm": 573.4, "temp_mean_c": 21.6, "temp_max_c": 27.6, "temp_min_c": 16.4, "topsoil_moisture": 0.269, "rootzone_moisture": 0.293, "gdd_corn_soy": 2087.4, "is_live": false, "precip_rank": 10, "temp_rank": 3, "precip_percentile": 56.2, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 508.1, "temp_mean_c": 21.3, "temp_max_c": 27.3, "temp_min_c": 16.1, "topsoil_moisture": 0.269, "rootzone_moisture": 0.293, "gdd_corn_soy": 2031.5, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 450.6, "temp_mean_c": 22.5, "temp_max_c": 28.5, "temp_min_c": 17.3, "topsoil_moisture": 0.231, "rootzone_moisture": 0.252, "gdd_corn_soy": 2247.4, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 627.5, "temp_mean_c": 22.0, "temp_max_c": 28.1, "temp_min_c": 16.8, "topsoil_moisture": 0.269, "rootzone_moisture": 0.293, "gdd_corn_soy": 2163.3, "is_live": false, "precip_rank": 13, "temp_rank": 4, "precip_percentile": 75.0, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 670.4, "temp_mean_c": 22.2, "temp_max_c": 28.2, "temp_min_c": 17.0, "topsoil_moisture": 0.309, "rootzone_moisture": 0.337, "gdd_corn_soy": 2193.4, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 502.1, "temp_mean_c": 21.5, "temp_max_c": 27.6, "temp_min_c": 16.3, "topsoil_moisture": 0.269, "rootzone_moisture": 0.293, "gdd_corn_soy": 2072.7, "is_live": false, "precip_rank": 4, "temp_rank": 2, "precip_percentile": 18.8, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 527.9, "temp_mean_c": 23.2, "temp_max_c": 29.2, "temp_min_c": 18.0, "topsoil_moisture": 0.236, "rootzone_moisture": 0.258, "gdd_corn_soy": 2373.4, "is_live": false, "precip_rank": 6, "temp_rank": 15, "precip_percentile": 31.2, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 607.8, "temp_mean_c": 22.1, "temp_max_c": 28.1, "temp_min_c": 16.9, "topsoil_moisture": 0.274, "rootzone_moisture": 0.299, "gdd_corn_soy": 2175.4, "is_live": false, "precip_rank": 12, "temp_rank": 8, "precip_percentile": 68.8, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 681.1, "temp_mean_c": 22.0, "temp_max_c": 28.0, "temp_min_c": 16.8, "topsoil_moisture": 0.317, "rootzone_moisture": 0.346, "gdd_corn_soy": 2157.4, "is_live": false, "precip_rank": 16, "temp_rank": 4, "precip_percentile": 93.8, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 693.0, "temp_mean_c": 22.3, "temp_max_c": 28.3, "temp_min_c": 17.1, "topsoil_moisture": 0.328, "rootzone_moisture": 0.357, "gdd_corn_soy": 2211.4, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 451.4, "temp_mean_c": 23.8, "temp_max_c": 29.8, "temp_min_c": 18.6, "topsoil_moisture": 0.204, "rootzone_moisture": 0.223, "gdd_corn_soy": 2481.4, "is_live": false, "precip_rank": 3, "temp_rank": 17, "precip_percentile": 12.5, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 641.2, "temp_mean_c": 22.6, "temp_max_c": 28.6, "temp_min_c": 17.4, "topsoil_moisture": 0.285, "rootzone_moisture": 0.31, "gdd_corn_soy": 2265.4, "is_live": false, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 563.2, "temp_mean_c": 22.3, "temp_max_c": 28.3, "temp_min_c": 17.1, "topsoil_moisture": 0.277, "rootzone_moisture": 0.302, "gdd_corn_soy": 2211.4, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 572.6, "temp_mean_c": 22.2, "temp_max_c": 28.2, "temp_min_c": 17.0, "topsoil_moisture": 0.271, "rootzone_moisture": 0.296, "gdd_corn_soy": 2193.4, "is_live": false, "precip_rank": 9, "temp_rank": 9, "precip_percentile": 50.0, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 420.0, "temp_mean_c": 23.7, "temp_max_c": 28.6, "temp_min_c": 18.7, "topsoil_moisture": 0.087, "rootzone_moisture": 0.139, "gdd_corn_soy": 2814.8, "is_live": true, "precip_rank": 1, "temp_rank": 16, "precip_percentile": 0.0, "temp_percentile": 93.8}}}, "SD-SW": {"name": "Shandong Southwest Plain", "code": "SD-SW", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Lu-Southwest Grain Basin (Heze / Jining / Tai'an)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 12.8, "yield_tha": 6.5, "share_pct": 8.5, "status": "Optimum Sowing Period / Rauni Pre-Irrigation"}, {"crop": "Corn (Summer)", "production_mmt": 12.2, "yield_tha": 6.35, "share_pct": 4.2, "status": "Harvest Completed / Grain Drying"}, {"crop": "Soybeans (Summer)", "production_mmt": 0.85, "yield_tha": 2.15, "share_pct": 4.0, "status": "Pod Harvest Underway / Threshing"}], "years": {"2010": {"year": 2010, "season_precip_mm": 556.7, "temp_mean_c": 22.3, "temp_max_c": 28.2, "temp_min_c": 17.2, "topsoil_moisture": 0.276, "rootzone_moisture": 0.303, "gdd_corn_soy": 2209.9, "is_live": false, "precip_rank": 7, "temp_rank": 4, "precip_percentile": 37.5, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 650.8, "temp_mean_c": 22.4, "temp_max_c": 28.3, "temp_min_c": 17.2, "topsoil_moisture": 0.276, "rootzone_moisture": 0.303, "gdd_corn_soy": 2223.4, "is_live": false, "precip_rank": 11, "temp_rank": 7, "precip_percentile": 62.5, "temp_percentile": 37.5}, "2012": {"year": 2012, "season_precip_mm": 643.8, "temp_mean_c": 21.9, "temp_max_c": 27.9, "temp_min_c": 16.8, "topsoil_moisture": 0.276, "rootzone_moisture": 0.303, "gdd_corn_soy": 2144.0, "is_live": false, "precip_rank": 10, "temp_rank": 3, "precip_percentile": 56.2, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 546.4, "temp_mean_c": 21.6, "temp_max_c": 27.6, "temp_min_c": 16.5, "topsoil_moisture": 0.276, "rootzone_moisture": 0.303, "gdd_corn_soy": 2088.1, "is_live": false, "precip_rank": 6, "temp_rank": 1, "precip_percentile": 31.2, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 481.2, "temp_mean_c": 22.8, "temp_max_c": 28.8, "temp_min_c": 17.7, "topsoil_moisture": 0.237, "rootzone_moisture": 0.26, "gdd_corn_soy": 2304.0, "is_live": false, "precip_rank": 3, "temp_rank": 13, "precip_percentile": 12.5, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 666.9, "temp_mean_c": 22.3, "temp_max_c": 28.3, "temp_min_c": 17.2, "topsoil_moisture": 0.276, "rootzone_moisture": 0.303, "gdd_corn_soy": 2219.9, "is_live": false, "precip_rank": 13, "temp_rank": 4, "precip_percentile": 75.0, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 767.3, "temp_mean_c": 22.5, "temp_max_c": 28.5, "temp_min_c": 17.4, "topsoil_moisture": 0.317, "rootzone_moisture": 0.348, "gdd_corn_soy": 2250.0, "is_live": false, "precip_rank": 17, "temp_rank": 9, "precip_percentile": 100.0, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 535.1, "temp_mean_c": 21.8, "temp_max_c": 27.8, "temp_min_c": 16.7, "topsoil_moisture": 0.276, "rootzone_moisture": 0.303, "gdd_corn_soy": 2129.3, "is_live": false, "precip_rank": 5, "temp_rank": 2, "precip_percentile": 25.0, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 523.0, "temp_mean_c": 23.5, "temp_max_c": 29.5, "temp_min_c": 18.4, "topsoil_moisture": 0.243, "rootzone_moisture": 0.267, "gdd_corn_soy": 2430.0, "is_live": false, "precip_rank": 4, "temp_rank": 15, "precip_percentile": 18.8, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 612.0, "temp_mean_c": 22.4, "temp_max_c": 28.4, "temp_min_c": 17.3, "topsoil_moisture": 0.281, "rootzone_moisture": 0.309, "gdd_corn_soy": 2232.0, "is_live": false, "precip_rank": 8, "temp_rank": 7, "precip_percentile": 43.8, "temp_percentile": 37.5}, "2020": {"year": 2020, "season_precip_mm": 727.2, "temp_mean_c": 22.3, "temp_max_c": 28.3, "temp_min_c": 17.2, "topsoil_moisture": 0.325, "rootzone_moisture": 0.357, "gdd_corn_soy": 2214.0, "is_live": false, "precip_rank": 15, "temp_rank": 4, "precip_percentile": 87.5, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 753.8, "temp_mean_c": 22.6, "temp_max_c": 28.6, "temp_min_c": 17.5, "topsoil_moisture": 0.336, "rootzone_moisture": 0.369, "gdd_corn_soy": 2268.0, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 453.0, "temp_mean_c": 24.1, "temp_max_c": 30.1, "temp_min_c": 19.0, "topsoil_moisture": 0.21, "rootzone_moisture": 0.23, "gdd_corn_soy": 2538.0, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 683.7, "temp_mean_c": 22.9, "temp_max_c": 28.9, "temp_min_c": 17.8, "topsoil_moisture": 0.292, "rootzone_moisture": 0.321, "gdd_corn_soy": 2322.0, "is_live": false, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 654.1, "temp_mean_c": 22.6, "temp_max_c": 28.6, "temp_min_c": 17.5, "topsoil_moisture": 0.284, "rootzone_moisture": 0.312, "gdd_corn_soy": 2268.0, "is_live": false, "precip_rank": 12, "temp_rank": 11, "precip_percentile": 68.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 641.8, "temp_mean_c": 22.5, "temp_max_c": 28.5, "temp_min_c": 17.4, "topsoil_moisture": 0.278, "rootzone_moisture": 0.306, "gdd_corn_soy": 2250.0, "is_live": false, "precip_rank": 9, "temp_rank": 9, "precip_percentile": 50.0, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 466.0, "temp_mean_c": 23.7, "temp_max_c": 28.2, "temp_min_c": 19.3, "topsoil_moisture": 0.113, "rootzone_moisture": 0.253, "gdd_corn_soy": 2832.4, "is_live": true, "precip_rank": 2, "temp_rank": 16, "precip_percentile": 6.2, "temp_percentile": 93.8}}}, "HE-SOUTH": {"name": "Hebei Central-South Plain", "code": "HE-SOUTH", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 15.0, "yield_tha": 6.35, "share_pct": 10.5, "status": "Autumn Sowing Kickoff / Soil Moisture Assessment"}, {"crop": "Corn (Summer)", "production_mmt": 22.5, "yield_tha": 6.25, "share_pct": 7.7, "status": "Mechanical Harvest Nearing End"}, {"crop": "Soybeans (Summer)", "production_mmt": 0.48, "yield_tha": 2.05, "share_pct": 2.3, "status": "Mature / Autumn Harvest Operations"}], "years": {"2010": {"year": 2010, "season_precip_mm": 450.0, "temp_mean_c": 22.0, "temp_max_c": 28.1, "temp_min_c": 16.8, "topsoil_moisture": 0.259, "rootzone_moisture": 0.289, "gdd_corn_soy": 2161.0, "is_live": false, "precip_rank": 4, "temp_rank": 4, "precip_percentile": 18.8, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 515.1, "temp_mean_c": 22.1, "temp_max_c": 28.2, "temp_min_c": 16.9, "topsoil_moisture": 0.259, "rootzone_moisture": 0.289, "gdd_corn_soy": 2174.5, "is_live": false, "precip_rank": 7, "temp_rank": 6, "precip_percentile": 37.5, "temp_percentile": 31.2}, "2012": {"year": 2012, "season_precip_mm": 549.0, "temp_mean_c": 21.6, "temp_max_c": 27.8, "temp_min_c": 16.4, "topsoil_moisture": 0.259, "rootzone_moisture": 0.289, "gdd_corn_soy": 2095.1, "is_live": false, "precip_rank": 12, "temp_rank": 2, "precip_percentile": 68.8, "temp_percentile": 6.2}, "2013": {"year": 2013, "season_precip_mm": 453.9, "temp_mean_c": 21.3, "temp_max_c": 27.4, "temp_min_c": 16.1, "topsoil_moisture": 0.259, "rootzone_moisture": 0.289, "gdd_corn_soy": 2039.2, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 395.0, "temp_mean_c": 22.5, "temp_max_c": 28.6, "temp_min_c": 17.3, "topsoil_moisture": 0.222, "rootzone_moisture": 0.248, "gdd_corn_soy": 2255.1, "is_live": false, "precip_rank": 1, "temp_rank": 13, "precip_percentile": 0.0, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 553.4, "temp_mean_c": 22.1, "temp_max_c": 28.2, "temp_min_c": 16.8, "topsoil_moisture": 0.259, "rootzone_moisture": 0.289, "gdd_corn_soy": 2171.0, "is_live": false, "precip_rank": 13, "temp_rank": 6, "precip_percentile": 75.0, "temp_percentile": 31.2}, "2016": {"year": 2016, "season_precip_mm": 632.4, "temp_mean_c": 22.2, "temp_max_c": 28.3, "temp_min_c": 17.0, "topsoil_moisture": 0.297, "rootzone_moisture": 0.332, "gdd_corn_soy": 2201.1, "is_live": false, "precip_rank": 17, "temp_rank": 9, "precip_percentile": 100.0, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 463.2, "temp_mean_c": 21.6, "temp_max_c": 27.7, "temp_min_c": 16.3, "topsoil_moisture": 0.259, "rootzone_moisture": 0.289, "gdd_corn_soy": 2080.4, "is_live": false, "precip_rank": 6, "temp_rank": 2, "precip_percentile": 31.2, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 432.1, "temp_mean_c": 23.2, "temp_max_c": 29.3, "temp_min_c": 18.0, "topsoil_moisture": 0.228, "rootzone_moisture": 0.254, "gdd_corn_soy": 2381.1, "is_live": false, "precip_rank": 3, "temp_rank": 16, "precip_percentile": 12.5, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 545.7, "temp_mean_c": 22.1, "temp_max_c": 28.2, "temp_min_c": 16.9, "topsoil_moisture": 0.264, "rootzone_moisture": 0.294, "gdd_corn_soy": 2183.1, "is_live": false, "precip_rank": 11, "temp_rank": 6, "precip_percentile": 62.5, "temp_percentile": 31.2}, "2020": {"year": 2020, "season_precip_mm": 608.4, "temp_mean_c": 22.0, "temp_max_c": 28.1, "temp_min_c": 16.8, "topsoil_moisture": 0.305, "rootzone_moisture": 0.341, "gdd_corn_soy": 2165.1, "is_live": false, "precip_rank": 15, "temp_rank": 4, "precip_percentile": 87.5, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 614.6, "temp_mean_c": 22.3, "temp_max_c": 28.4, "temp_min_c": 17.1, "topsoil_moisture": 0.315, "rootzone_moisture": 0.352, "gdd_corn_soy": 2219.1, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 402.9, "temp_mean_c": 23.8, "temp_max_c": 29.9, "temp_min_c": 18.6, "topsoil_moisture": 0.197, "rootzone_moisture": 0.219, "gdd_corn_soy": 2489.1, "is_live": false, "precip_rank": 2, "temp_rank": 17, "precip_percentile": 6.2, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 533.5, "temp_mean_c": 22.6, "temp_max_c": 28.7, "temp_min_c": 17.4, "topsoil_moisture": 0.274, "rootzone_moisture": 0.306, "gdd_corn_soy": 2273.1, "is_live": false, "precip_rank": 10, "temp_rank": 14, "precip_percentile": 56.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 528.7, "temp_mean_c": 22.3, "temp_max_c": 28.4, "temp_min_c": 17.1, "topsoil_moisture": 0.266, "rootzone_moisture": 0.297, "gdd_corn_soy": 2219.1, "is_live": false, "precip_rank": 9, "temp_rank": 11, "precip_percentile": 50.0, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 523.4, "temp_mean_c": 22.2, "temp_max_c": 28.3, "temp_min_c": 17.0, "topsoil_moisture": 0.261, "rootzone_moisture": 0.291, "gdd_corn_soy": 2201.1, "is_live": false, "precip_rank": 8, "temp_rank": 9, "precip_percentile": 43.8, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 574.7, "temp_mean_c": 22.9, "temp_max_c": 28.1, "temp_min_c": 17.8, "topsoil_moisture": 0.15, "rootzone_moisture": 0.2, "gdd_corn_soy": 2664.3, "is_live": true, "precip_rank": 14, "temp_rank": 15, "precip_percentile": 81.2, "temp_percentile": 87.5}}}, "AH-NORTH": {"name": "Anhui Northern Huaihe Basin", "code": "AH-NORTH", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 17.5, "yield_tha": 6.1, "share_pct": 12.8, "status": "Pre-Sowing Soil Prep / Seed Drilling Window"}, {"crop": "Corn (Summer)", "production_mmt": 7.8, "yield_tha": 5.95, "share_pct": 2.7, "status": "Grain Harvest Completed"}, {"crop": "Soybeans (Summer)", "production_mmt": 1.25, "yield_tha": 1.95, "share_pct": 6.0, "status": "Active Harvesting / Seed Cleaning"}], "years": {"2010": {"year": 2010, "season_precip_mm": 718.4, "temp_mean_c": 23.3, "temp_max_c": 28.9, "temp_min_c": 19.0, "topsoil_moisture": 0.3, "rootzone_moisture": 0.326, "gdd_corn_soy": 2395.0, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 852.0, "temp_mean_c": 23.4, "temp_max_c": 29.0, "temp_min_c": 19.1, "topsoil_moisture": 0.3, "rootzone_moisture": 0.326, "gdd_corn_soy": 2408.5, "is_live": false, "precip_rank": 10, "temp_rank": 6, "precip_percentile": 56.2, "temp_percentile": 31.2}, "2012": {"year": 2012, "season_precip_mm": 866.0, "temp_mean_c": 22.9, "temp_max_c": 28.6, "temp_min_c": 18.6, "topsoil_moisture": 0.3, "rootzone_moisture": 0.326, "gdd_corn_soy": 2329.1, "is_live": false, "precip_rank": 12, "temp_rank": 2, "precip_percentile": 68.8, "temp_percentile": 6.2}, "2013": {"year": 2013, "season_precip_mm": 716.8, "temp_mean_c": 22.6, "temp_max_c": 28.3, "temp_min_c": 18.3, "topsoil_moisture": 0.3, "rootzone_moisture": 0.326, "gdd_corn_soy": 2273.2, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 668.8, "temp_mean_c": 23.8, "temp_max_c": 29.5, "temp_min_c": 19.5, "topsoil_moisture": 0.258, "rootzone_moisture": 0.28, "gdd_corn_soy": 2489.1, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 867.7, "temp_mean_c": 23.4, "temp_max_c": 29.0, "temp_min_c": 19.1, "topsoil_moisture": 0.3, "rootzone_moisture": 0.326, "gdd_corn_soy": 2405.0, "is_live": false, "precip_rank": 13, "temp_rank": 6, "precip_percentile": 75.0, "temp_percentile": 31.2}, "2016": {"year": 2016, "season_precip_mm": 998.6, "temp_mean_c": 23.5, "temp_max_c": 29.2, "temp_min_c": 19.2, "topsoil_moisture": 0.345, "rootzone_moisture": 0.375, "gdd_corn_soy": 2435.1, "is_live": false, "precip_rank": 17, "temp_rank": 9, "precip_percentile": 100.0, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 711.0, "temp_mean_c": 22.9, "temp_max_c": 28.5, "temp_min_c": 18.6, "topsoil_moisture": 0.3, "rootzone_moisture": 0.326, "gdd_corn_soy": 2314.4, "is_live": false, "precip_rank": 4, "temp_rank": 2, "precip_percentile": 18.8, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 727.9, "temp_mean_c": 24.5, "temp_max_c": 30.2, "temp_min_c": 20.2, "topsoil_moisture": 0.264, "rootzone_moisture": 0.287, "gdd_corn_soy": 2615.1, "is_live": false, "precip_rank": 7, "temp_rank": 16, "precip_percentile": 37.5, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 852.8, "temp_mean_c": 23.4, "temp_max_c": 29.1, "temp_min_c": 19.1, "topsoil_moisture": 0.306, "rootzone_moisture": 0.332, "gdd_corn_soy": 2417.1, "is_live": false, "precip_rank": 11, "temp_rank": 6, "precip_percentile": 62.5, "temp_percentile": 31.2}, "2020": {"year": 2020, "season_precip_mm": 968.5, "temp_mean_c": 23.3, "temp_max_c": 29.0, "temp_min_c": 19.0, "topsoil_moisture": 0.354, "rootzone_moisture": 0.384, "gdd_corn_soy": 2399.1, "is_live": false, "precip_rank": 15, "temp_rank": 4, "precip_percentile": 87.5, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 995.8, "temp_mean_c": 23.6, "temp_max_c": 29.3, "temp_min_c": 19.3, "topsoil_moisture": 0.366, "rootzone_moisture": 0.397, "gdd_corn_soy": 2453.1, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 639.0, "temp_mean_c": 25.1, "temp_max_c": 30.8, "temp_min_c": 20.8, "topsoil_moisture": 0.228, "rootzone_moisture": 0.248, "gdd_corn_soy": 2723.1, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 901.2, "temp_mean_c": 23.9, "temp_max_c": 29.6, "temp_min_c": 19.6, "topsoil_moisture": 0.318, "rootzone_moisture": 0.345, "gdd_corn_soy": 2507.1, "is_live": false, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 809.0, "temp_mean_c": 23.6, "temp_max_c": 29.3, "temp_min_c": 19.3, "topsoil_moisture": 0.309, "rootzone_moisture": 0.335, "gdd_corn_soy": 2453.1, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 821.2, "temp_mean_c": 23.5, "temp_max_c": 29.2, "temp_min_c": 19.2, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2435.1, "is_live": false, "precip_rank": 9, "temp_rank": 9, "precip_percentile": 50.0, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 703.5, "temp_mean_c": 24.0, "temp_max_c": 28.0, "temp_min_c": 19.9, "topsoil_moisture": 0.419, "rootzone_moisture": 0.448, "gdd_corn_soy": 2881.0, "is_live": true, "precip_rank": 3, "temp_rank": 15, "precip_percentile": 12.5, "temp_percentile": 87.5}}}, "JS-NORTH": {"name": "Jiangsu Northern Plain", "code": "JS-NORTH", "macro_region": "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary", "region_id": "cn_huanghuaihai_granary", "district": "Su-North Plain (Xuzhou / Suqian / Yancheng)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 14.0, "yield_tha": 5.9, "share_pct": 9.8, "status": "Land Preparation / Sowing Imminent"}, {"crop": "Corn (Summer)", "production_mmt": 5.2, "yield_tha": 6.1, "share_pct": 1.8, "status": "Harvest Concluded"}, {"crop": "Soybeans (Summer)", "production_mmt": 0.55, "yield_tha": 2.1, "share_pct": 2.6, "status": "Harvest in Progress"}], "years": {"2010": {"year": 2010, "season_precip_mm": 746.4, "temp_mean_c": 23.1, "temp_max_c": 28.6, "temp_min_c": 18.7, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2351.3, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 832.3, "temp_mean_c": 23.1, "temp_max_c": 28.7, "temp_min_c": 18.8, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2364.8, "is_live": false, "precip_rank": 11, "temp_rank": 4, "precip_percentile": 62.5, "temp_percentile": 18.8}, "2012": {"year": 2012, "season_precip_mm": 805.9, "temp_mean_c": 22.7, "temp_max_c": 28.3, "temp_min_c": 18.3, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2285.4, "is_live": false, "precip_rank": 9, "temp_rank": 3, "precip_percentile": 50.0, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 740.7, "temp_mean_c": 22.4, "temp_max_c": 28.0, "temp_min_c": 18.0, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2229.5, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 668.0, "temp_mean_c": 23.6, "temp_max_c": 29.2, "temp_min_c": 19.2, "topsoil_moisture": 0.26, "rootzone_moisture": 0.283, "gdd_corn_soy": 2445.4, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 839.3, "temp_mean_c": 23.1, "temp_max_c": 28.7, "temp_min_c": 18.8, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2361.3, "is_live": false, "precip_rank": 12, "temp_rank": 4, "precip_percentile": 68.8, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 964.3, "temp_mean_c": 23.3, "temp_max_c": 28.9, "temp_min_c": 18.9, "topsoil_moisture": 0.348, "rootzone_moisture": 0.378, "gdd_corn_soy": 2391.4, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 716.2, "temp_mean_c": 22.6, "temp_max_c": 28.2, "temp_min_c": 18.3, "topsoil_moisture": 0.303, "rootzone_moisture": 0.329, "gdd_corn_soy": 2270.7, "is_live": false, "precip_rank": 4, "temp_rank": 2, "precip_percentile": 18.8, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 703.7, "temp_mean_c": 24.3, "temp_max_c": 29.9, "temp_min_c": 19.9, "topsoil_moisture": 0.267, "rootzone_moisture": 0.289, "gdd_corn_soy": 2571.4, "is_live": false, "precip_rank": 3, "temp_rank": 16, "precip_percentile": 12.5, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 849.5, "temp_mean_c": 23.2, "temp_max_c": 28.8, "temp_min_c": 18.8, "topsoil_moisture": 0.309, "rootzone_moisture": 0.335, "gdd_corn_soy": 2373.4, "is_live": false, "precip_rank": 14, "temp_rank": 8, "precip_percentile": 81.2, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 1015.0, "temp_mean_c": 23.1, "temp_max_c": 28.7, "temp_min_c": 18.7, "topsoil_moisture": 0.357, "rootzone_moisture": 0.388, "gdd_corn_soy": 2355.4, "is_live": false, "precip_rank": 17, "temp_rank": 4, "precip_percentile": 100.0, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 975.2, "temp_mean_c": 23.4, "temp_max_c": 29.0, "temp_min_c": 19.0, "topsoil_moisture": 0.369, "rootzone_moisture": 0.401, "gdd_corn_soy": 2409.4, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 635.2, "temp_mean_c": 24.9, "temp_max_c": 30.5, "temp_min_c": 20.5, "topsoil_moisture": 0.23, "rootzone_moisture": 0.25, "gdd_corn_soy": 2679.4, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 842.3, "temp_mean_c": 23.7, "temp_max_c": 29.3, "temp_min_c": 19.3, "topsoil_moisture": 0.321, "rootzone_moisture": 0.348, "gdd_corn_soy": 2463.4, "is_live": false, "precip_rank": 13, "temp_rank": 14, "precip_percentile": 75.0, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 813.7, "temp_mean_c": 23.4, "temp_max_c": 29.0, "temp_min_c": 19.0, "topsoil_moisture": 0.312, "rootzone_moisture": 0.338, "gdd_corn_soy": 2409.4, "is_live": false, "precip_rank": 10, "temp_rank": 11, "precip_percentile": 56.2, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 798.0, "temp_mean_c": 23.3, "temp_max_c": 28.9, "temp_min_c": 18.9, "topsoil_moisture": 0.306, "rootzone_moisture": 0.332, "gdd_corn_soy": 2391.4, "is_live": false, "precip_rank": 8, "temp_rank": 9, "precip_percentile": 43.8, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 755.9, "temp_mean_c": 24.1, "temp_max_c": 28.4, "temp_min_c": 19.8, "topsoil_moisture": 0.206, "rootzone_moisture": 0.298, "gdd_corn_soy": 2902.1, "is_live": true, "precip_rank": 7, "temp_rank": 15, "precip_percentile": 37.5, "temp_percentile": 87.5}}}, "SN-GUANZHONG": {"name": "Shaanxi Guanzhong Plain", "code": "SN-GUANZHONG", "macro_region": "Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland", "region_id": "cn_northwest_oasis", "district": "Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 4.2, "yield_tha": 5.2, "share_pct": 3.0, "status": "Optimal Sowing Window / Seed Emergence"}, {"crop": "Corn (Summer)", "production_mmt": 8.1, "yield_tha": 5.8, "share_pct": 2.8, "status": "Harvest Completed"}], "years": {"2010": {"year": 2010, "season_precip_mm": 437.9, "temp_mean_c": 22.1, "temp_max_c": 28.3, "temp_min_c": 17.3, "topsoil_moisture": 0.246, "rootzone_moisture": 0.276, "gdd_corn_soy": 2173.9, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 484.6, "temp_mean_c": 22.2, "temp_max_c": 28.4, "temp_min_c": 17.4, "topsoil_moisture": 0.246, "rootzone_moisture": 0.276, "gdd_corn_soy": 2187.4, "is_live": false, "precip_rank": 9, "temp_rank": 7, "precip_percentile": 50.0, "temp_percentile": 37.5}, "2012": {"year": 2012, "season_precip_mm": 525.2, "temp_mean_c": 21.7, "temp_max_c": 28.0, "temp_min_c": 16.9, "topsoil_moisture": 0.246, "rootzone_moisture": 0.276, "gdd_corn_soy": 2108.0, "is_live": false, "precip_rank": 13, "temp_rank": 3, "precip_percentile": 75.0, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 430.3, "temp_mean_c": 21.4, "temp_max_c": 27.6, "temp_min_c": 16.6, "topsoil_moisture": 0.246, "rootzone_moisture": 0.276, "gdd_corn_soy": 2052.1, "is_live": false, "precip_rank": 4, "temp_rank": 1, "precip_percentile": 18.8, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 398.2, "temp_mean_c": 22.6, "temp_max_c": 28.8, "temp_min_c": 17.8, "topsoil_moisture": 0.211, "rootzone_moisture": 0.237, "gdd_corn_soy": 2268.0, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 497.9, "temp_mean_c": 22.1, "temp_max_c": 28.4, "temp_min_c": 17.3, "topsoil_moisture": 0.246, "rootzone_moisture": 0.276, "gdd_corn_soy": 2183.9, "is_live": false, "precip_rank": 11, "temp_rank": 4, "precip_percentile": 62.5, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 560.9, "temp_mean_c": 22.3, "temp_max_c": 28.5, "temp_min_c": 17.5, "topsoil_moisture": 0.283, "rootzone_moisture": 0.317, "gdd_corn_soy": 2214.0, "is_live": false, "precip_rank": 14, "temp_rank": 9, "precip_percentile": 81.2, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 422.8, "temp_mean_c": 21.6, "temp_max_c": 27.9, "temp_min_c": 16.8, "topsoil_moisture": 0.246, "rootzone_moisture": 0.276, "gdd_corn_soy": 2093.3, "is_live": false, "precip_rank": 3, "temp_rank": 2, "precip_percentile": 12.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 437.0, "temp_mean_c": 23.3, "temp_max_c": 29.5, "temp_min_c": 18.5, "topsoil_moisture": 0.216, "rootzone_moisture": 0.243, "gdd_corn_soy": 2394.0, "is_live": false, "precip_rank": 5, "temp_rank": 16, "precip_percentile": 25.0, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 482.8, "temp_mean_c": 22.2, "temp_max_c": 28.4, "temp_min_c": 17.4, "topsoil_moisture": 0.251, "rootzone_moisture": 0.281, "gdd_corn_soy": 2196.0, "is_live": false, "precip_rank": 7, "temp_rank": 7, "precip_percentile": 37.5, "temp_percentile": 37.5}, "2020": {"year": 2020, "season_precip_mm": 617.5, "temp_mean_c": 22.1, "temp_max_c": 28.3, "temp_min_c": 17.3, "topsoil_moisture": 0.29, "rootzone_moisture": 0.325, "gdd_corn_soy": 2178.0, "is_live": false, "precip_rank": 17, "temp_rank": 4, "precip_percentile": 100.0, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 593.0, "temp_mean_c": 22.4, "temp_max_c": 28.6, "temp_min_c": 17.6, "topsoil_moisture": 0.3, "rootzone_moisture": 0.336, "gdd_corn_soy": 2232.0, "is_live": false, "precip_rank": 15, "temp_rank": 11, "precip_percentile": 87.5, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 385.2, "temp_mean_c": 23.9, "temp_max_c": 30.1, "temp_min_c": 19.1, "topsoil_moisture": 0.187, "rootzone_moisture": 0.21, "gdd_corn_soy": 2502.0, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 504.8, "temp_mean_c": 22.7, "temp_max_c": 28.9, "temp_min_c": 17.9, "topsoil_moisture": 0.26, "rootzone_moisture": 0.292, "gdd_corn_soy": 2286.0, "is_live": false, "precip_rank": 12, "temp_rank": 14, "precip_percentile": 68.8, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 486.0, "temp_mean_c": 22.4, "temp_max_c": 28.6, "temp_min_c": 17.6, "topsoil_moisture": 0.253, "rootzone_moisture": 0.284, "gdd_corn_soy": 2232.0, "is_live": false, "precip_rank": 10, "temp_rank": 11, "precip_percentile": 56.2, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 484.5, "temp_mean_c": 22.3, "temp_max_c": 28.5, "temp_min_c": 17.5, "topsoil_moisture": 0.248, "rootzone_moisture": 0.278, "gdd_corn_soy": 2214.0, "is_live": false, "precip_rank": 8, "temp_rank": 9, "precip_percentile": 43.8, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 608.4, "temp_mean_c": 22.8, "temp_max_c": 27.6, "temp_min_c": 18.0, "topsoil_moisture": 0.204, "rootzone_moisture": 0.267, "gdd_corn_soy": 2635.0, "is_live": true, "precip_rank": 16, "temp_rank": 15, "precip_percentile": 93.8, "temp_percentile": 87.5}}}, "SX-SOUTH": {"name": "Shanxi Fenhe & Southern Basin", "code": "SX-SOUTH", "macro_region": "Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland", "region_id": "cn_northwest_oasis", "district": "Fenhe Valley (Yuncheng / Linfen / Jinzhong)", "commodities": [{"crop": "Corn (Spring/Summer)", "production_mmt": 12.0, "yield_tha": 6.1, "share_pct": 4.1, "status": "Maturity / Mechanical Harvesting"}, {"crop": "Winter Wheat", "production_mmt": 2.4, "yield_tha": 4.85, "share_pct": 1.7, "status": "Autumn Drilling Underway"}], "years": {"2010": {"year": 2010, "season_precip_mm": 402.9, "temp_mean_c": 21.6, "temp_max_c": 28.1, "temp_min_c": 16.4, "topsoil_moisture": 0.243, "rootzone_moisture": 0.273, "gdd_corn_soy": 2083.9, "is_live": false, "precip_rank": 4, "temp_rank": 4, "precip_percentile": 18.8, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 448.1, "temp_mean_c": 21.7, "temp_max_c": 28.2, "temp_min_c": 16.5, "topsoil_moisture": 0.243, "rootzone_moisture": 0.273, "gdd_corn_soy": 2097.4, "is_live": false, "precip_rank": 8, "temp_rank": 8, "precip_percentile": 43.8, "temp_percentile": 43.8}, "2012": {"year": 2012, "season_precip_mm": 482.8, "temp_mean_c": 21.2, "temp_max_c": 27.7, "temp_min_c": 16.1, "topsoil_moisture": 0.243, "rootzone_moisture": 0.273, "gdd_corn_soy": 2018.0, "is_live": false, "precip_rank": 12, "temp_rank": 3, "precip_percentile": 68.8, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 425.6, "temp_mean_c": 20.9, "temp_max_c": 27.4, "temp_min_c": 15.7, "topsoil_moisture": 0.243, "rootzone_moisture": 0.273, "gdd_corn_soy": 1962.1, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 374.5, "temp_mean_c": 22.1, "temp_max_c": 28.6, "temp_min_c": 16.9, "topsoil_moisture": 0.209, "rootzone_moisture": 0.235, "gdd_corn_soy": 2178.0, "is_live": false, "precip_rank": 2, "temp_rank": 14, "precip_percentile": 6.2, "temp_percentile": 81.2}, "2015": {"year": 2015, "season_precip_mm": 485.7, "temp_mean_c": 21.6, "temp_max_c": 28.1, "temp_min_c": 16.5, "topsoil_moisture": 0.243, "rootzone_moisture": 0.273, "gdd_corn_soy": 2093.9, "is_live": false, "precip_rank": 13, "temp_rank": 4, "precip_percentile": 75.0, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 522.0, "temp_mean_c": 21.8, "temp_max_c": 28.3, "temp_min_c": 16.6, "topsoil_moisture": 0.279, "rootzone_moisture": 0.314, "gdd_corn_soy": 2124.0, "is_live": false, "precip_rank": 14, "temp_rank": 10, "precip_percentile": 81.2, "temp_percentile": 56.2}, "2017": {"year": 2017, "season_precip_mm": 426.1, "temp_mean_c": 21.1, "temp_max_c": 27.6, "temp_min_c": 16.0, "topsoil_moisture": 0.243, "rootzone_moisture": 0.273, "gdd_corn_soy": 2003.3, "is_live": false, "precip_rank": 6, "temp_rank": 2, "precip_percentile": 31.2, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 393.6, "temp_mean_c": 22.8, "temp_max_c": 29.3, "temp_min_c": 17.6, "topsoil_moisture": 0.214, "rootzone_moisture": 0.24, "gdd_corn_soy": 2304.0, "is_live": false, "precip_rank": 3, "temp_rank": 16, "precip_percentile": 12.5, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 479.5, "temp_mean_c": 21.7, "temp_max_c": 28.2, "temp_min_c": 16.5, "topsoil_moisture": 0.248, "rootzone_moisture": 0.278, "gdd_corn_soy": 2106.0, "is_live": false, "precip_rank": 11, "temp_rank": 8, "precip_percentile": 62.5, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 534.9, "temp_mean_c": 21.6, "temp_max_c": 28.1, "temp_min_c": 16.4, "topsoil_moisture": 0.287, "rootzone_moisture": 0.322, "gdd_corn_soy": 2088.0, "is_live": false, "precip_rank": 15, "temp_rank": 4, "precip_percentile": 87.5, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 565.6, "temp_mean_c": 21.9, "temp_max_c": 28.4, "temp_min_c": 16.7, "topsoil_moisture": 0.296, "rootzone_moisture": 0.333, "gdd_corn_soy": 2142.0, "is_live": false, "precip_rank": 17, "temp_rank": 12, "precip_percentile": 100.0, "temp_percentile": 68.8}, "2022": {"year": 2022, "season_precip_mm": 352.4, "temp_mean_c": 23.4, "temp_max_c": 29.9, "temp_min_c": 18.2, "topsoil_moisture": 0.185, "rootzone_moisture": 0.207, "gdd_corn_soy": 2412.0, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 470.1, "temp_mean_c": 22.2, "temp_max_c": 28.7, "temp_min_c": 17.0, "topsoil_moisture": 0.257, "rootzone_moisture": 0.289, "gdd_corn_soy": 2196.0, "is_live": false, "precip_rank": 9, "temp_rank": 15, "precip_percentile": 50.0, "temp_percentile": 87.5}, "2024": {"year": 2024, "season_precip_mm": 470.6, "temp_mean_c": 21.9, "temp_max_c": 28.4, "temp_min_c": 16.7, "topsoil_moisture": 0.25, "rootzone_moisture": 0.281, "gdd_corn_soy": 2142.0, "is_live": false, "precip_rank": 10, "temp_rank": 12, "precip_percentile": 56.2, "temp_percentile": 68.8}, "2025": {"year": 2025, "season_precip_mm": 435.8, "temp_mean_c": 21.8, "temp_max_c": 28.3, "temp_min_c": 16.6, "topsoil_moisture": 0.245, "rootzone_moisture": 0.276, "gdd_corn_soy": 2124.0, "is_live": false, "precip_rank": 7, "temp_rank": 10, "precip_percentile": 37.5, "temp_percentile": 56.2}, "2026": {"year": 2026, "season_precip_mm": 552.4, "temp_mean_c": 21.6, "temp_max_c": 26.6, "temp_min_c": 16.6, "topsoil_moisture": 0.151, "rootzone_moisture": 0.231, "gdd_corn_soy": 2384.2, "is_live": true, "precip_rank": 16, "temp_rank": 4, "precip_percentile": 93.8, "temp_percentile": 18.8}}}, "XJ-OASIS": {"name": "Xinjiang Oasis Grain Heartland", "code": "XJ-OASIS", "macro_region": "Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland", "region_id": "cn_northwest_oasis", "district": "Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)", "commodities": [{"crop": "Corn (Grain & Seed)", "production_mmt": 10.2, "yield_tha": 9.8, "share_pct": 3.5, "status": "Late Harvest / High-Yield Drip Irrigation Basins"}, {"crop": "Winter & Spring Wheat", "production_mmt": 7.2, "yield_tha": 6.8, "share_pct": 5.0, "status": "Winter Wheat Sowing / Emergence Prior to Freezup"}], "years": {"2010": {"year": 2010, "season_precip_mm": 174.8, "temp_mean_c": 20.3, "temp_max_c": 27.4, "temp_min_c": 14.0, "topsoil_moisture": 0.213, "rootzone_moisture": 0.239, "gdd_corn_soy": 1847.3, "is_live": false, "precip_rank": 6, "temp_rank": 4, "precip_percentile": 31.2, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 195.0, "temp_mean_c": 20.3, "temp_max_c": 27.5, "temp_min_c": 14.0, "topsoil_moisture": 0.213, "rootzone_moisture": 0.239, "gdd_corn_soy": 1860.8, "is_live": false, "precip_rank": 11, "temp_rank": 4, "precip_percentile": 62.5, "temp_percentile": 18.8}, "2012": {"year": 2012, "season_precip_mm": 196.7, "temp_mean_c": 19.9, "temp_max_c": 27.1, "temp_min_c": 13.6, "topsoil_moisture": 0.213, "rootzone_moisture": 0.239, "gdd_corn_soy": 1781.4, "is_live": false, "precip_rank": 12, "temp_rank": 3, "precip_percentile": 68.8, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 172.3, "temp_mean_c": 19.6, "temp_max_c": 26.8, "temp_min_c": 13.3, "topsoil_moisture": 0.213, "rootzone_moisture": 0.239, "gdd_corn_soy": 1725.5, "is_live": false, "precip_rank": 5, "temp_rank": 1, "precip_percentile": 25.0, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 153.1, "temp_mean_c": 20.8, "temp_max_c": 28.0, "temp_min_c": 14.5, "topsoil_moisture": 0.183, "rootzone_moisture": 0.205, "gdd_corn_soy": 1941.4, "is_live": false, "precip_rank": 3, "temp_rank": 13, "precip_percentile": 12.5, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 204.0, "temp_mean_c": 20.3, "temp_max_c": 27.5, "temp_min_c": 14.0, "topsoil_moisture": 0.213, "rootzone_moisture": 0.239, "gdd_corn_soy": 1857.3, "is_live": false, "precip_rank": 13, "temp_rank": 4, "precip_percentile": 75.0, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 215.6, "temp_mean_c": 20.5, "temp_max_c": 27.7, "temp_min_c": 14.2, "topsoil_moisture": 0.245, "rootzone_moisture": 0.274, "gdd_corn_soy": 1887.4, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 175.2, "temp_mean_c": 19.8, "temp_max_c": 27.0, "temp_min_c": 13.5, "topsoil_moisture": 0.213, "rootzone_moisture": 0.239, "gdd_corn_soy": 1766.7, "is_live": false, "precip_rank": 7, "temp_rank": 2, "precip_percentile": 37.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 160.6, "temp_mean_c": 21.5, "temp_max_c": 28.7, "temp_min_c": 15.2, "topsoil_moisture": 0.187, "rootzone_moisture": 0.21, "gdd_corn_soy": 2067.4, "is_live": false, "precip_rank": 4, "temp_rank": 15, "precip_percentile": 18.8, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 184.9, "temp_mean_c": 20.4, "temp_max_c": 27.6, "temp_min_c": 14.1, "topsoil_moisture": 0.217, "rootzone_moisture": 0.243, "gdd_corn_soy": 1869.4, "is_live": false, "precip_rank": 9, "temp_rank": 8, "precip_percentile": 50.0, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 232.2, "temp_mean_c": 20.3, "temp_max_c": 27.5, "temp_min_c": 14.0, "topsoil_moisture": 0.251, "rootzone_moisture": 0.282, "gdd_corn_soy": 1851.4, "is_live": false, "precip_rank": 17, "temp_rank": 4, "precip_percentile": 100.0, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 224.9, "temp_mean_c": 20.6, "temp_max_c": 27.8, "temp_min_c": 14.3, "topsoil_moisture": 0.26, "rootzone_moisture": 0.291, "gdd_corn_soy": 1905.4, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 139.5, "temp_mean_c": 22.1, "temp_max_c": 29.3, "temp_min_c": 15.8, "topsoil_moisture": 0.162, "rootzone_moisture": 0.181, "gdd_corn_soy": 2175.4, "is_live": false, "precip_rank": 2, "temp_rank": 16, "precip_percentile": 6.2, "temp_percentile": 93.8}, "2023": {"year": 2023, "season_precip_mm": 209.1, "temp_mean_c": 20.9, "temp_max_c": 28.1, "temp_min_c": 14.6, "topsoil_moisture": 0.226, "rootzone_moisture": 0.253, "gdd_corn_soy": 1959.4, "is_live": false, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 183.4, "temp_mean_c": 20.6, "temp_max_c": 27.8, "temp_min_c": 14.3, "topsoil_moisture": 0.219, "rootzone_moisture": 0.246, "gdd_corn_soy": 1905.4, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 193.5, "temp_mean_c": 20.5, "temp_max_c": 27.7, "temp_min_c": 14.2, "topsoil_moisture": 0.215, "rootzone_moisture": 0.241, "gdd_corn_soy": 1887.4, "is_live": false, "precip_rank": 10, "temp_rank": 9, "precip_percentile": 56.2, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 85.5, "temp_mean_c": 22.6, "temp_max_c": 29.2, "temp_min_c": 16.1, "topsoil_moisture": 0.11, "rootzone_moisture": 0.139, "gdd_corn_soy": 2611.7, "is_live": true, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}}}, "GS-CORRIDOR": {"name": "Gansu Hexi Corridor & Longdong", "code": "GS-CORRIDOR", "macro_region": "Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland", "region_id": "cn_northwest_oasis", "district": "Hexi National Seed Base (Zhangye / Wuwei / Pingliang)", "commodities": [{"crop": "Corn (Seed & Grain)", "production_mmt": 7.3, "yield_tha": 7.1, "share_pct": 2.5, "status": "Hybrid Seed Corn Harvest & Drying"}, {"crop": "Wheat (Spring/Winter)", "production_mmt": 2.8, "yield_tha": 4.4, "share_pct": 2.0, "status": "Winter Wheat Emergence / Field Prep"}], "years": {"2010": {"year": 2010, "season_precip_mm": 145.2, "temp_mean_c": 17.0, "temp_max_c": 25.0, "temp_min_c": 10.0, "topsoil_moisture": 0.206, "rootzone_moisture": 0.236, "gdd_corn_soy": 1258.5, "is_live": false, "precip_rank": 5, "temp_rank": 4, "precip_percentile": 25.0, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 170.0, "temp_mean_c": 17.1, "temp_max_c": 25.1, "temp_min_c": 10.0, "topsoil_moisture": 0.206, "rootzone_moisture": 0.236, "gdd_corn_soy": 1271.9, "is_live": false, "precip_rank": 13, "temp_rank": 7, "precip_percentile": 75.0, "temp_percentile": 37.5}, "2012": {"year": 2012, "season_precip_mm": 158.6, "temp_mean_c": 16.6, "temp_max_c": 24.7, "temp_min_c": 9.6, "topsoil_moisture": 0.206, "rootzone_moisture": 0.236, "gdd_corn_soy": 1192.6, "is_live": false, "precip_rank": 10, "temp_rank": 3, "precip_percentile": 56.2, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 146.9, "temp_mean_c": 16.3, "temp_max_c": 24.3, "temp_min_c": 9.3, "topsoil_moisture": 0.206, "rootzone_moisture": 0.236, "gdd_corn_soy": 1136.6, "is_live": false, "precip_rank": 6, "temp_rank": 1, "precip_percentile": 31.2, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 123.2, "temp_mean_c": 17.5, "temp_max_c": 25.5, "temp_min_c": 10.5, "topsoil_moisture": 0.177, "rootzone_moisture": 0.203, "gdd_corn_soy": 1352.6, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 164.9, "temp_mean_c": 17.0, "temp_max_c": 25.1, "temp_min_c": 10.0, "topsoil_moisture": 0.206, "rootzone_moisture": 0.236, "gdd_corn_soy": 1268.5, "is_live": false, "precip_rank": 11, "temp_rank": 4, "precip_percentile": 62.5, "temp_percentile": 18.8}, "2016": {"year": 2016, "season_precip_mm": 197.3, "temp_mean_c": 17.2, "temp_max_c": 25.2, "temp_min_c": 10.2, "topsoil_moisture": 0.237, "rootzone_moisture": 0.271, "gdd_corn_soy": 1298.6, "is_live": false, "precip_rank": 16, "temp_rank": 9, "precip_percentile": 93.8, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 148.5, "temp_mean_c": 16.5, "temp_max_c": 24.6, "temp_min_c": 9.5, "topsoil_moisture": 0.206, "rootzone_moisture": 0.236, "gdd_corn_soy": 1177.8, "is_live": false, "precip_rank": 7, "temp_rank": 2, "precip_percentile": 37.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 145.1, "temp_mean_c": 18.2, "temp_max_c": 26.2, "temp_min_c": 11.2, "topsoil_moisture": 0.181, "rootzone_moisture": 0.207, "gdd_corn_soy": 1478.6, "is_live": false, "precip_rank": 4, "temp_rank": 15, "precip_percentile": 18.8, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 170.1, "temp_mean_c": 17.1, "temp_max_c": 25.1, "temp_min_c": 10.1, "topsoil_moisture": 0.21, "rootzone_moisture": 0.24, "gdd_corn_soy": 1280.6, "is_live": false, "precip_rank": 14, "temp_rank": 7, "precip_percentile": 81.2, "temp_percentile": 37.5}, "2020": {"year": 2020, "season_precip_mm": 190.5, "temp_mean_c": 17.0, "temp_max_c": 25.0, "temp_min_c": 10.0, "topsoil_moisture": 0.243, "rootzone_moisture": 0.278, "gdd_corn_soy": 1262.6, "is_live": false, "precip_rank": 15, "temp_rank": 4, "precip_percentile": 87.5, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 206.4, "temp_mean_c": 17.3, "temp_max_c": 25.3, "temp_min_c": 10.3, "topsoil_moisture": 0.251, "rootzone_moisture": 0.288, "gdd_corn_soy": 1316.6, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 117.2, "temp_mean_c": 18.8, "temp_max_c": 26.8, "temp_min_c": 11.8, "topsoil_moisture": 0.156, "rootzone_moisture": 0.179, "gdd_corn_soy": 1586.6, "is_live": false, "precip_rank": 1, "temp_rank": 16, "precip_percentile": 0.0, "temp_percentile": 93.8}, "2023": {"year": 2023, "season_precip_mm": 166.0, "temp_mean_c": 17.6, "temp_max_c": 25.6, "temp_min_c": 10.6, "topsoil_moisture": 0.218, "rootzone_moisture": 0.25, "gdd_corn_soy": 1370.6, "is_live": false, "precip_rank": 12, "temp_rank": 14, "precip_percentile": 68.8, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 156.1, "temp_mean_c": 17.3, "temp_max_c": 25.3, "temp_min_c": 10.3, "topsoil_moisture": 0.212, "rootzone_moisture": 0.243, "gdd_corn_soy": 1316.6, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 158.1, "temp_mean_c": 17.2, "temp_max_c": 25.2, "temp_min_c": 10.2, "topsoil_moisture": 0.208, "rootzone_moisture": 0.238, "gdd_corn_soy": 1298.6, "is_live": false, "precip_rank": 9, "temp_rank": 9, "precip_percentile": 50.0, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 138.1, "temp_mean_c": 19.7, "temp_max_c": 27.0, "temp_min_c": 12.5, "topsoil_moisture": 0.177, "rootzone_moisture": 0.185, "gdd_corn_soy": 2009.3, "is_live": true, "precip_rank": 3, "temp_rank": 17, "precip_percentile": 12.5, "temp_percentile": 100.0}}}, "SC-BASIN": {"name": "Sichuan Basin & Hilly Plain", "code": "SC-BASIN", "macro_region": "Southwest & Yangtze Basin - Hilly & Mixed Grain Zone", "region_id": "cn_southwest_yangtze", "district": "Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)", "commodities": [{"crop": "Corn (Spring/Summer)", "production_mmt": 12.3, "yield_tha": 5.75, "share_pct": 4.2, "status": "Harvest Completed"}, {"crop": "Winter Wheat", "production_mmt": 2.7, "yield_tha": 4.6, "share_pct": 1.9, "status": "Pre-Sowing Soil Preparation"}, {"crop": "Soybeans (Intercropped)", "production_mmt": 0.45, "yield_tha": 1.85, "share_pct": 2.2, "status": "Strip-Crop Harvest Concluded"}], "years": {"2010": {"year": 2010, "season_precip_mm": 721.1, "temp_mean_c": 22.7, "temp_max_c": 27.5, "temp_min_c": 19.3, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2289.6, "is_live": false, "precip_rank": 4, "temp_rank": 4, "precip_percentile": 18.8, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 856.1, "temp_mean_c": 22.8, "temp_max_c": 27.6, "temp_min_c": 19.3, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2303.1, "is_live": false, "precip_rank": 14, "temp_rank": 6, "precip_percentile": 81.2, "temp_percentile": 31.2}, "2012": {"year": 2012, "season_precip_mm": 830.7, "temp_mean_c": 22.4, "temp_max_c": 27.2, "temp_min_c": 18.9, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2223.7, "is_live": false, "precip_rank": 10, "temp_rank": 3, "precip_percentile": 56.2, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 715.2, "temp_mean_c": 22.0, "temp_max_c": 26.8, "temp_min_c": 18.6, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2167.8, "is_live": false, "precip_rank": 3, "temp_rank": 1, "precip_percentile": 12.5, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 647.3, "temp_mean_c": 23.2, "temp_max_c": 28.0, "temp_min_c": 19.8, "topsoil_moisture": 0.259, "rootzone_moisture": 0.281, "gdd_corn_soy": 2383.7, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 835.6, "temp_mean_c": 22.8, "temp_max_c": 27.6, "temp_min_c": 19.3, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2299.6, "is_live": false, "precip_rank": 11, "temp_rank": 6, "precip_percentile": 62.5, "temp_percentile": 31.2}, "2016": {"year": 2016, "season_precip_mm": 986.8, "temp_mean_c": 22.9, "temp_max_c": 27.7, "temp_min_c": 19.5, "topsoil_moisture": 0.347, "rootzone_moisture": 0.376, "gdd_corn_soy": 2329.7, "is_live": false, "precip_rank": 16, "temp_rank": 9, "precip_percentile": 93.8, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 724.9, "temp_mean_c": 22.3, "temp_max_c": 27.1, "temp_min_c": 18.8, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2209.0, "is_live": false, "precip_rank": 6, "temp_rank": 2, "precip_percentile": 31.2, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 724.0, "temp_mean_c": 23.9, "temp_max_c": 28.7, "temp_min_c": 20.5, "topsoil_moisture": 0.265, "rootzone_moisture": 0.288, "gdd_corn_soy": 2509.7, "is_live": false, "precip_rank": 5, "temp_rank": 15, "precip_percentile": 25.0, "temp_percentile": 87.5}, "2019": {"year": 2019, "season_precip_mm": 839.5, "temp_mean_c": 22.8, "temp_max_c": 27.6, "temp_min_c": 19.4, "topsoil_moisture": 0.307, "rootzone_moisture": 0.334, "gdd_corn_soy": 2311.7, "is_live": false, "precip_rank": 12, "temp_rank": 6, "precip_percentile": 68.8, "temp_percentile": 31.2}, "2020": {"year": 2020, "season_precip_mm": 960.1, "temp_mean_c": 22.7, "temp_max_c": 27.5, "temp_min_c": 19.3, "topsoil_moisture": 0.356, "rootzone_moisture": 0.386, "gdd_corn_soy": 2293.7, "is_live": false, "precip_rank": 15, "temp_rank": 4, "precip_percentile": 87.5, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 1012.9, "temp_mean_c": 23.0, "temp_max_c": 27.8, "temp_min_c": 19.6, "topsoil_moisture": 0.368, "rootzone_moisture": 0.399, "gdd_corn_soy": 2347.7, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 644.7, "temp_mean_c": 24.5, "temp_max_c": 29.3, "temp_min_c": 21.1, "topsoil_moisture": 0.229, "rootzone_moisture": 0.249, "gdd_corn_soy": 2617.7, "is_live": false, "precip_rank": 1, "temp_rank": 16, "precip_percentile": 0.0, "temp_percentile": 93.8}, "2023": {"year": 2023, "season_precip_mm": 852.5, "temp_mean_c": 23.3, "temp_max_c": 28.1, "temp_min_c": 19.9, "topsoil_moisture": 0.32, "rootzone_moisture": 0.347, "gdd_corn_soy": 2401.7, "is_live": false, "precip_rank": 13, "temp_rank": 14, "precip_percentile": 75.0, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 793.7, "temp_mean_c": 23.0, "temp_max_c": 27.8, "temp_min_c": 19.6, "topsoil_moisture": 0.31, "rootzone_moisture": 0.337, "gdd_corn_soy": 2347.7, "is_live": false, "precip_rank": 8, "temp_rank": 11, "precip_percentile": 43.8, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 790.0, "temp_mean_c": 22.9, "temp_max_c": 27.7, "temp_min_c": 19.5, "topsoil_moisture": 0.304, "rootzone_moisture": 0.33, "gdd_corn_soy": 2329.7, "is_live": false, "precip_rank": 7, "temp_rank": 9, "precip_percentile": 37.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 813.0, "temp_mean_c": 24.5, "temp_max_c": 28.4, "temp_min_c": 20.6, "topsoil_moisture": 0.217, "rootzone_moisture": 0.273, "gdd_corn_soy": 2983.6, "is_live": true, "precip_rank": 9, "temp_rank": 16, "precip_percentile": 50.0, "temp_percentile": 93.8}}}, "HB-NORTH": {"name": "Hubei Northern Xiang-Jing Plain", "code": "HB-NORTH", "macro_region": "Southwest & Yangtze Basin - Hilly & Mixed Grain Zone", "region_id": "cn_southwest_yangtze", "district": "Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)", "commodities": [{"crop": "Winter Wheat", "production_mmt": 4.5, "yield_tha": 4.8, "share_pct": 3.5, "status": "Paddy/Dryland Transition & Wheat Sowing Prep"}, {"crop": "Corn (Summer)", "production_mmt": 5.3, "yield_tha": 5.85, "share_pct": 1.8, "status": "Harvest Completed"}], "years": {"2010": {"year": 2010, "season_precip_mm": 725.2, "temp_mean_c": 23.5, "temp_max_c": 29.0, "temp_min_c": 19.3, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2431.0, "is_live": false, "precip_rank": 5, "temp_rank": 4, "precip_percentile": 25.0, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 813.5, "temp_mean_c": 23.6, "temp_max_c": 29.1, "temp_min_c": 19.4, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2444.5, "is_live": false, "precip_rank": 8, "temp_rank": 6, "precip_percentile": 43.8, "temp_percentile": 31.2}, "2012": {"year": 2012, "season_precip_mm": 875.5, "temp_mean_c": 23.1, "temp_max_c": 28.7, "temp_min_c": 19.0, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2365.1, "is_live": false, "precip_rank": 13, "temp_rank": 2, "precip_percentile": 75.0, "temp_percentile": 6.2}, "2013": {"year": 2013, "season_precip_mm": 733.5, "temp_mean_c": 22.8, "temp_max_c": 28.3, "temp_min_c": 18.6, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2309.2, "is_live": false, "precip_rank": 6, "temp_rank": 1, "precip_percentile": 31.2, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 639.3, "temp_mean_c": 24.0, "temp_max_c": 29.5, "temp_min_c": 19.8, "topsoil_moisture": 0.259, "rootzone_moisture": 0.281, "gdd_corn_soy": 2525.1, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 846.9, "temp_mean_c": 23.6, "temp_max_c": 29.1, "temp_min_c": 19.4, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2441.0, "is_live": false, "precip_rank": 10, "temp_rank": 6, "precip_percentile": 56.2, "temp_percentile": 31.2}, "2016": {"year": 2016, "season_precip_mm": 953.8, "temp_mean_c": 23.7, "temp_max_c": 29.2, "temp_min_c": 19.5, "topsoil_moisture": 0.347, "rootzone_moisture": 0.376, "gdd_corn_soy": 2471.1, "is_live": false, "precip_rank": 15, "temp_rank": 9, "precip_percentile": 87.5, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 717.7, "temp_mean_c": 23.1, "temp_max_c": 28.6, "temp_min_c": 18.9, "topsoil_moisture": 0.301, "rootzone_moisture": 0.327, "gdd_corn_soy": 2350.4, "is_live": false, "precip_rank": 4, "temp_rank": 2, "precip_percentile": 18.8, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 697.3, "temp_mean_c": 24.7, "temp_max_c": 30.2, "temp_min_c": 20.5, "topsoil_moisture": 0.265, "rootzone_moisture": 0.288, "gdd_corn_soy": 2651.1, "is_live": false, "precip_rank": 3, "temp_rank": 16, "precip_percentile": 12.5, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 819.5, "temp_mean_c": 23.6, "temp_max_c": 29.1, "temp_min_c": 19.4, "topsoil_moisture": 0.307, "rootzone_moisture": 0.334, "gdd_corn_soy": 2453.1, "is_live": false, "precip_rank": 9, "temp_rank": 6, "precip_percentile": 50.0, "temp_percentile": 31.2}, "2020": {"year": 2020, "season_precip_mm": 968.7, "temp_mean_c": 23.5, "temp_max_c": 29.0, "temp_min_c": 19.3, "topsoil_moisture": 0.356, "rootzone_moisture": 0.386, "gdd_corn_soy": 2435.1, "is_live": false, "precip_rank": 16, "temp_rank": 4, "precip_percentile": 93.8, "temp_percentile": 18.8}, "2021": {"year": 2021, "season_precip_mm": 1034.4, "temp_mean_c": 23.8, "temp_max_c": 29.3, "temp_min_c": 19.6, "topsoil_moisture": 0.368, "rootzone_moisture": 0.399, "gdd_corn_soy": 2489.1, "is_live": false, "precip_rank": 17, "temp_rank": 11, "precip_percentile": 100.0, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 633.7, "temp_mean_c": 25.3, "temp_max_c": 30.8, "temp_min_c": 21.1, "topsoil_moisture": 0.229, "rootzone_moisture": 0.249, "gdd_corn_soy": 2759.1, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 867.3, "temp_mean_c": 24.1, "temp_max_c": 29.6, "temp_min_c": 19.9, "topsoil_moisture": 0.32, "rootzone_moisture": 0.347, "gdd_corn_soy": 2543.1, "is_live": false, "precip_rank": 12, "temp_rank": 14, "precip_percentile": 68.8, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 806.1, "temp_mean_c": 23.8, "temp_max_c": 29.3, "temp_min_c": 19.6, "topsoil_moisture": 0.31, "rootzone_moisture": 0.337, "gdd_corn_soy": 2489.1, "is_live": false, "precip_rank": 7, "temp_rank": 11, "precip_percentile": 37.5, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 850.8, "temp_mean_c": 23.7, "temp_max_c": 29.2, "temp_min_c": 19.5, "topsoil_moisture": 0.304, "rootzone_moisture": 0.33, "gdd_corn_soy": 2471.1, "is_live": false, "precip_rank": 11, "temp_rank": 9, "precip_percentile": 62.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 948.1, "temp_mean_c": 24.1, "temp_max_c": 27.7, "temp_min_c": 20.5, "topsoil_moisture": 0.337, "rootzone_moisture": 0.358, "gdd_corn_soy": 2904.8, "is_live": true, "precip_rank": 14, "temp_rank": 14, "precip_percentile": 81.2, "temp_percentile": 81.2}}}, "YN-PLATEAU": {"name": "Yunnan Central-Eastern Plateau", "code": "YN-PLATEAU", "macro_region": "Southwest & Yangtze Basin - Hilly & Mixed Grain Zone", "region_id": "cn_southwest_yangtze", "district": "Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)", "commodities": [{"crop": "Corn (Plateau)", "production_mmt": 12.6, "yield_tha": 5.4, "share_pct": 4.3, "status": "Highland Corn Ripening & Staggered Harvest"}], "years": {"2010": {"year": 2010, "season_precip_mm": 767.2, "temp_mean_c": 19.0, "temp_max_c": 24.5, "temp_min_c": 15.1, "topsoil_moisture": 0.263, "rootzone_moisture": 0.287, "gdd_corn_soy": 1626.2, "is_live": false, "precip_rank": 5, "temp_rank": 4, "precip_percentile": 25.0, "temp_percentile": 18.8}, "2011": {"year": 2011, "season_precip_mm": 805.7, "temp_mean_c": 19.1, "temp_max_c": 24.6, "temp_min_c": 15.2, "topsoil_moisture": 0.263, "rootzone_moisture": 0.287, "gdd_corn_soy": 1639.6, "is_live": false, "precip_rank": 8, "temp_rank": 5, "precip_percentile": 43.8, "temp_percentile": 25.0}, "2012": {"year": 2012, "season_precip_mm": 855.5, "temp_mean_c": 18.7, "temp_max_c": 24.2, "temp_min_c": 14.8, "topsoil_moisture": 0.263, "rootzone_moisture": 0.287, "gdd_corn_soy": 1560.3, "is_live": false, "precip_rank": 12, "temp_rank": 3, "precip_percentile": 68.8, "temp_percentile": 12.5}, "2013": {"year": 2013, "season_precip_mm": 769.9, "temp_mean_c": 18.4, "temp_max_c": 23.9, "temp_min_c": 14.4, "topsoil_moisture": 0.263, "rootzone_moisture": 0.287, "gdd_corn_soy": 1504.4, "is_live": false, "precip_rank": 6, "temp_rank": 1, "precip_percentile": 31.2, "temp_percentile": 0.0}, "2014": {"year": 2014, "season_precip_mm": 643.4, "temp_mean_c": 19.6, "temp_max_c": 25.1, "temp_min_c": 15.6, "topsoil_moisture": 0.226, "rootzone_moisture": 0.247, "gdd_corn_soy": 1720.3, "is_live": false, "precip_rank": 2, "temp_rank": 13, "precip_percentile": 6.2, "temp_percentile": 75.0}, "2015": {"year": 2015, "season_precip_mm": 832.2, "temp_mean_c": 19.1, "temp_max_c": 24.6, "temp_min_c": 15.2, "topsoil_moisture": 0.263, "rootzone_moisture": 0.287, "gdd_corn_soy": 1636.2, "is_live": false, "precip_rank": 10, "temp_rank": 5, "precip_percentile": 56.2, "temp_percentile": 25.0}, "2016": {"year": 2016, "season_precip_mm": 973.3, "temp_mean_c": 19.3, "temp_max_c": 24.8, "temp_min_c": 15.3, "topsoil_moisture": 0.302, "rootzone_moisture": 0.33, "gdd_corn_soy": 1666.3, "is_live": false, "precip_rank": 14, "temp_rank": 9, "precip_percentile": 81.2, "temp_percentile": 50.0}, "2017": {"year": 2017, "season_precip_mm": 717.3, "temp_mean_c": 18.6, "temp_max_c": 24.1, "temp_min_c": 14.7, "topsoil_moisture": 0.263, "rootzone_moisture": 0.287, "gdd_corn_soy": 1545.6, "is_live": false, "precip_rank": 3, "temp_rank": 2, "precip_percentile": 12.5, "temp_percentile": 6.2}, "2018": {"year": 2018, "season_precip_mm": 732.3, "temp_mean_c": 20.3, "temp_max_c": 25.8, "temp_min_c": 16.3, "topsoil_moisture": 0.231, "rootzone_moisture": 0.253, "gdd_corn_soy": 1846.3, "is_live": false, "precip_rank": 4, "temp_rank": 16, "precip_percentile": 18.8, "temp_percentile": 93.8}, "2019": {"year": 2019, "season_precip_mm": 851.0, "temp_mean_c": 19.2, "temp_max_c": 24.7, "temp_min_c": 15.2, "topsoil_moisture": 0.268, "rootzone_moisture": 0.293, "gdd_corn_soy": 1648.3, "is_live": false, "precip_rank": 11, "temp_rank": 8, "precip_percentile": 62.5, "temp_percentile": 43.8}, "2020": {"year": 2020, "season_precip_mm": 1006.9, "temp_mean_c": 19.1, "temp_max_c": 24.6, "temp_min_c": 15.1, "topsoil_moisture": 0.31, "rootzone_moisture": 0.339, "gdd_corn_soy": 1630.3, "is_live": false, "precip_rank": 15, "temp_rank": 5, "precip_percentile": 87.5, "temp_percentile": 25.0}, "2021": {"year": 2021, "season_precip_mm": 1037.4, "temp_mean_c": 19.4, "temp_max_c": 24.9, "temp_min_c": 15.4, "topsoil_moisture": 0.321, "rootzone_moisture": 0.35, "gdd_corn_soy": 1684.3, "is_live": false, "precip_rank": 16, "temp_rank": 11, "precip_percentile": 93.8, "temp_percentile": 62.5}, "2022": {"year": 2022, "season_precip_mm": 621.2, "temp_mean_c": 20.9, "temp_max_c": 26.4, "temp_min_c": 16.9, "topsoil_moisture": 0.2, "rootzone_moisture": 0.218, "gdd_corn_soy": 1954.3, "is_live": false, "precip_rank": 1, "temp_rank": 17, "precip_percentile": 0.0, "temp_percentile": 100.0}, "2023": {"year": 2023, "season_precip_mm": 895.7, "temp_mean_c": 19.7, "temp_max_c": 25.2, "temp_min_c": 15.7, "topsoil_moisture": 0.279, "rootzone_moisture": 0.304, "gdd_corn_soy": 1738.3, "is_live": false, "precip_rank": 13, "temp_rank": 14, "precip_percentile": 75.0, "temp_percentile": 81.2}, "2024": {"year": 2024, "season_precip_mm": 825.3, "temp_mean_c": 19.4, "temp_max_c": 24.9, "temp_min_c": 15.4, "topsoil_moisture": 0.271, "rootzone_moisture": 0.296, "gdd_corn_soy": 1684.3, "is_live": false, "precip_rank": 9, "temp_rank": 11, "precip_percentile": 50.0, "temp_percentile": 62.5}, "2025": {"year": 2025, "season_precip_mm": 787.0, "temp_mean_c": 19.3, "temp_max_c": 24.8, "temp_min_c": 15.3, "topsoil_moisture": 0.265, "rootzone_moisture": 0.29, "gdd_corn_soy": 1666.3, "is_live": false, "precip_rank": 7, "temp_rank": 9, "precip_percentile": 37.5, "temp_percentile": 50.0}, "2026": {"year": 2026, "season_precip_mm": 1039.4, "temp_mean_c": 19.8, "temp_max_c": 24.9, "temp_min_c": 14.7, "topsoil_moisture": 0.347, "rootzone_moisture": 0.339, "gdd_corn_soy": 2021.7, "is_live": true, "precip_rank": 17, "temp_rank": 15, "precip_percentile": 100.0, "temp_percentile": 87.5}}}}};
+    const years = matrixData.years;
+    let currentMetric = "precip";
+    let currentMode = "abs"; // abs | anom | rank
+    let selectedStation = "HLJ-CS";
+
+    function getPrecipColor(v, norm) {
+        if (currentMode === "anom") {
+            const diff = v - norm;
+            if (diff >= 100) return { bg: "#1e3a8a", text: "#ffffff" };
+            if (diff >= 30) return { bg: "#0284c7", text: "#ffffff" };
+            if (diff >= -30) return { bg: "#065f46", text: "#d1fae5" };
+            if (diff >= -100) return { bg: "#c2410c", text: "#ffedd5" };
+            return { bg: "#991b1b", text: "#ffffff" };
+        } else if (currentMode === "rank") {
+            return { bg: "#1e293b", text: "#38bdf8" };
+        } else {
+            if (v < 300) return { bg: "#7f1d1d", text: "#fca5a5" };
+            if (v < 450) return { bg: "#9a3412", text: "#fed7aa" };
+            if (v < 600) return { bg: "#065f46", text: "#d1fae5" };
+            if (v < 750) return { bg: "#0369a1", text: "#e0f2fe" };
+            return { bg: "#1e3a8a", text: "#ffffff" };
+        }
+    }
+
+    function getTempColor(v, norm) {
+        if (currentMode === "anom") {
+            const diff = v - norm;
+            if (diff >= 1.5) return { bg: "#991b1b", text: "#ffffff" };
+            if (diff >= 0.5) return { bg: "#ea580c", text: "#ffffff" };
+            if (diff >= -0.5) return { bg: "#065f46", text: "#d1fae5" };
+            if (diff >= -1.5) return { bg: "#0284c7", text: "#ffffff" };
+            return { bg: "#1e3a8a", text: "#ffffff" };
+        } else {
+            if (v < 15) return { bg: "#1e3a8a", text: "#ffffff" };
+            if (v < 20) return { bg: "#0284c7", text: "#ffffff" };
+            if (v < 24) return { bg: "#065f46", text: "#d1fae5" };
+            if (v < 27) return { bg: "#d97706", text: "#ffffff" };
+            return { bg: "#991b1b", text: "#ffffff" };
+        }
+    }
+
+    function formatVal(rawVal, normVal, rankVal, pctVal) {
+        if (currentMode === "rank") {
+            return `#${rankVal}`;
+        } else if (currentMode === "anom") {
+            const diff = rawVal - normVal;
+            const sign = diff >= 0 ? "+" : "";
+            if (currentMetric === "precip" || currentMetric === "gdd") return `${sign}${Math.round(diff)}`;
+            return `${sign}${diff.toFixed(1)}`;
+        } else {
+            if (currentMetric === "precip" || currentMetric === "gdd") return Math.round(rawVal);
+            if (currentMetric === "topsoil") return rawVal.toFixed(3);
+            return rawVal.toFixed(1);
+        }
+    }
+
+    function renderTable() {
+        document.querySelectorAll(".state-data-row").forEach(row => {
+            const code = row.getAttribute("data-code").toUpperCase();
+            const reg = matrixData.regions[code];
+            if (!reg) return;
+
+            // Calculate 16-year baseline normal
+            let histVals = [];
+            for (let y = 2010; y <= 2025; y++) {
+                const yData = reg.years[y];
+                if (currentMetric === "precip") histVals.push(yData.season_precip_mm);
+                else if (currentMetric === "tmax") histVals.push(yData.temp_max_c);
+                else if (currentMetric === "tmin") histVals.push(yData.temp_min_c);
+                else if (currentMetric === "tmean") histVals.push(yData.temp_mean_c);
+                else if (currentMetric === "topsoil") histVals.push(yData.topsoil_moisture);
+                else if (currentMetric === "gdd") histVals.push(yData.gdd_corn_soy);
+            }
+            const normVal = histVals.reduce((a, b) => a + b, 0) / histVals.length;
+
+            const y2026 = reg.years["2026"];
+            let cur2026Val = 0;
+            if (currentMetric === "precip") cur2026Val = y2026.season_precip_mm;
+            else if (currentMetric === "tmax") cur2026Val = y2026.temp_max_c;
+            else if (currentMetric === "tmin") cur2026Val = y2026.temp_min_c;
+            else if (currentMetric === "tmean") cur2026Val = y2026.temp_mean_c;
+            else if (currentMetric === "topsoil") cur2026Val = y2026.topsoil_moisture;
+            else if (currentMetric === "gdd") cur2026Val = y2026.gdd_corn_soy;
+
+            // Update Norm & Cur cells
+            const normCell = row.querySelector('[data-field="norm"]');
+            const curCell = row.querySelector('[data-field="cur"]');
+            if (currentMetric === "precip" || currentMetric === "gdd") {
+                normCell.innerText = Math.round(normVal);
+                curCell.innerText = Math.round(cur2026Val);
+            } else if (currentMetric === "topsoil") {
+                normCell.innerText = normVal.toFixed(3);
+                curCell.innerText = cur2026Val.toFixed(3);
+            } else {
+                normCell.innerText = normVal.toFixed(1) + "°";
+                curCell.innerText = cur2026Val.toFixed(1) + "°";
+            }
+
+            // Populate Year cells
+            years.forEach(y => {
+                const td = row.querySelector(`.matrix-cell[data-year="${y}"]`);
+                if (!td) return;
+                const yObj = reg.years[y];
+                let val = 0;
+                if (currentMetric === "precip") val = yObj.season_precip_mm;
+                else if (currentMetric === "tmax") val = yObj.temp_max_c;
+                else if (currentMetric === "tmin") val = yObj.temp_min_c;
+                else if (currentMetric === "tmean") val = yObj.temp_mean_c;
+                else if (currentMetric === "topsoil") val = yObj.topsoil_moisture;
+                else if (currentMetric === "gdd") val = yObj.gdd_corn_soy;
+
+                const rnk = yObj.precip_rank;
+                const pct = yObj.precip_percentile;
+
+                td.innerText = formatVal(val, normVal, rnk, pct);
+
+                let colScheme;
+                if (currentMetric === "precip") colScheme = getPrecipColor(val, normVal);
+                else colScheme = getTempColor(val, normVal);
+
+                td.style.backgroundColor = colScheme.bg;
+                td.style.color = colScheme.text;
+                td.title = `${reg.name} (${y}): ${val} (Norm: ${normVal.toFixed(1)})`;
+            });
+        });
+    }
+
+    function renderChart() {
+        const reg = matrixData.regions[selectedStation];
+        if (!reg) return;
+
+        let vals = [];
+        let histVals = [];
+        years.forEach(y => {
+            const yObj = reg.years[y];
+            let v = yObj.season_precip_mm;
+            if (currentMetric === "tmax") v = yObj.temp_max_c;
+            else if (currentMetric === "tmin") v = yObj.temp_min_c;
+            else if (currentMetric === "tmean") v = yObj.temp_mean_c;
+            else if (currentMetric === "topsoil") v = yObj.topsoil_moisture;
+            else if (currentMetric === "gdd") v = yObj.gdd_corn_soy;
+            vals.push(v);
+            if (y <= 2025) histVals.push(v);
+        });
+
+        const normVal = histVals.reduce((a, b) => a + b, 0) / histVals.length;
+        const minV = Math.min(...vals) * 0.9;
+        const maxV = Math.max(...vals) * 1.1;
+
+        const w = 1200;
+        const h = 120;
+        const padX = 50;
+        const padY = 20;
+
+        function getX(idx) { return padX + (idx / (years.length - 1)) * (w - 2 * padX); }
+        function getY(val) { return h - padY - ((val - minV) / (maxV - minV || 1)) * (h - 2 * padY); }
+
+        const normY = getY(normVal);
+
+        let points = vals.map((v, i) => `${getX(i)},${getY(v)}`).join(" ");
+
+        let dotsHtml = "";
+        vals.forEach((v, i) => {
+            const cx = getX(i);
+            const cy = getY(v);
+            const is2026 = (years[i] === 2026);
+            const color = is2026 ? "#22c55e" : "#38bdf8";
+            const r = is2026 ? 5 : 3.5;
+            dotsHtml += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" stroke="#0f172a" stroke-width="1.5"><title>${years[i]}: ${v.toFixed(1)}</title></circle>`;
+            dotsHtml += `<text x="${cx}" y="${h - 5}" fill="#64748b" font-size="9" text-anchor="middle">${years[i]}</text>`;
+        });
+
+        const svgHtml = `
+        <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:100%;">
+            <line x1="${padX}" y1="${normY}" x2="${w - padX}" y2="${normY}" stroke="#94a3b8" stroke-dasharray="4,4" stroke-width="1.5" />
+            <text x="${w - padX + 5}" y="${normY + 3}" fill="#94a3b8" font-size="9">Norm: ${normVal.toFixed(1)}</text>
+            <polyline fill="none" stroke="#0284c7" stroke-width="2.5" points="${points}" />
+            ${dotsHtml}
+        </svg>
+        `;
+
+        document.getElementById("svg-chart-container").innerHTML = svgHtml;
+        document.getElementById("chart-header-title").innerText = `${reg.name} &bull; 17-Year Historical Progression (${currentMetric.toUpperCase()})`;
+    }
+
+    document.getElementById("metric-select").addEventListener("change", (e) => {
+        currentMetric = e.target.value;
+        renderTable();
+        renderChart();
+    });
+
+    document.getElementById("chart-station-select").addEventListener("change", (e) => {
+        selectedStation = e.target.value;
+        renderChart();
+    });
+
+    document.querySelectorAll("#mode-group .toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll("#mode-group .toggle-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentMode = btn.getAttribute("data-mode");
+            renderTable();
+        });
+    });
+
+    // Initial Render
+    renderTable();
+    renderChart();
+</script>
+
+</body>
+</html>

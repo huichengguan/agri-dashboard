@@ -737,17 +737,17 @@ function renderDailyTable(locations) {
 
         thead = `
             <tr>
-                <th rowspan="2" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; min-width:65px;">Country</th>
-                <th rowspan="2" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; min-width:95px;">Region / Island</th>
-                <th rowspan="2" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; min-width:120px; border-right:2px solid #cbd5e1;">State / Province</th>
+                <th rowspan="2" class="col-country-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle;">Country</th>
+                <th rowspan="2" class="col-region-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle;">Region</th>
+                <th rowspan="2" class="col-state-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; border-right:2px solid #cbd5e1;">State / Province</th>
                 <th colspan="15" style="text-align:center; background:#0f172a; color:#f8fafc; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:6px 4px;">
                     ${seg1Title}
                 </th>
                 <th colspan="15" style="text-align:center; background:#1e1b4b; color:#38bdf8; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:6px 4px;">
                     ${seg2Title}
                 </th>
-                <th colspan="2" style="text-align:center; background:#064e3b; color:#a7f3d0; font-size:10.5px; font-weight:700; letter-spacing:0.5px; padding:6px 4px;">
-                    📊 28D WINDOW TOTAL
+                <th class="col-tot-superhead" title="28-Day Window Daily Average (mm/day)">
+                    28D
                 </th>
             </tr>
             <tr>
@@ -775,7 +775,7 @@ function renderDailyTable(locations) {
                 </th>
             `;
         });
-        thead += `<th style="text-align:center; font-size:10px; font-weight:800; background:#f1f5f9; color:#0f172a; border-right:3px solid #0284c7; min-width:50px;" title="1st 14-Day Average (mm/day)">1st 14D Avg</th>`;
+        thead += `<th class="col-avg-head" title="1st 14-Day Average (mm/day)">AVG</th>`;
 
         // 2nd 14 days headers
         activeDates.slice(14, 28).forEach((d, i) => {
@@ -799,12 +799,11 @@ function renderDailyTable(locations) {
                 </th>
             `;
         });
-        thead += `<th style="text-align:center; font-size:10px; font-weight:800; background:#e0f2fe; color:#0369a1; border-right:3px solid #0284c7; min-width:50px;" title="2nd 14-Day Average (mm/day)">2nd 14D Avg</th>`;
+        thead += `<th class="col-avg-head" title="2nd 14-Day Average (mm/day)">AVG</th>`;
 
-        // 28D Full Summary Headers
+        // 28D Summary Header (AVG only)
         thead += `
-            <th style="text-align:center; font-size:10px; font-weight:800; background:#ecfdf5; color:#047857; min-width:52px;" title="28-Day Window Daily Average (mm/day)">28D Avg</th>
-            <th style="text-align:center; font-size:10px; font-weight:800; background:#d1fae5; color:#065f46; min-width:56px;" title="28-Day Window Cumulative Total (mm)">28D Total</th>
+            <th class="col-tot-avg-head" title="28-Day Window Daily Average (mm/day)">AVG</th>
             </tr>
         `;
 
@@ -860,9 +859,9 @@ function renderDailyTable(locations) {
 
         let rowHtml = `
             <tr>
-                <td><strong>${loc.country}</strong></td>
-                <td><span class="group-badge">${loc.major_group}</span></td>
-                <td class="col-state" onclick="viewStateInMatrix('${lid}')" title="Click to view full 2010-2026 Year x Month Matrix" style="${isTimelineView ? 'border-right:2px solid #cbd5e1;' : ''}">${loc.name}</td>
+                <td class="col-country" title="${loc.country}"><strong>${loc.country}</strong></td>
+                <td class="col-region"><span class="group-badge" title="${loc.major_group}">${loc.major_group}</span></td>
+                <td class="col-state" onclick="viewStateInMatrix('${lid}')" title="Click to view full 2010-2026 Year x Month Matrix: ${loc.name}" style="${isTimelineView ? 'border-right:2px solid #cbd5e1;' : ''}">${loc.name}</td>
         `;
 
         if (isTimelineView) {
@@ -893,14 +892,14 @@ function renderDailyTable(locations) {
             if (avgSeg1 !== null) {
                 const ac1 = getRainColor(avgSeg1);
                 rowHtml += `
-                    <td class="rain-cell" style="border-right:3px solid #0284c7; background:#f8fafc;">
-                        <span class="rain-badge" style="background-color: ${ac1.bg}; color: ${ac1.text}; font-weight:800;" title="1st 14D Total: ${sumSeg1.toFixed(1)} mm | Avg: ${avgSeg1.toFixed(1)} mm/day">
+                    <td class="rain-cell col-avg-cell" style="background:#f8fafc;">
+                        <span class="rain-badge" style="background-color: ${ac1.bg}; color: ${ac1.text};" title="1st 14D Total: ${sumSeg1.toFixed(1)} mm | Avg: ${avgSeg1.toFixed(1)} mm/day">
                             ${avgSeg1.toFixed(1)}
                         </span>
                     </td>
                 `;
             } else {
-                rowHtml += `<td class="rain-cell" style="border-right:3px solid #0284c7;">-</td>`;
+                rowHtml += `<td class="rain-cell col-avg-cell">-</td>`;
             }
 
             // Segment 2 (Days 14..27)
@@ -931,34 +930,31 @@ function renderDailyTable(locations) {
             if (avgSeg2 !== null) {
                 const ac2 = getRainColor(avgSeg2);
                 rowHtml += `
-                    <td class="rain-cell" style="border-right:3px solid #0284c7; background:#eff6ff;">
-                        <span class="rain-badge" style="background-color: ${ac2.bg}; color: ${ac2.text}; font-weight:800;" title="2nd 14D Total: ${sumSeg2.toFixed(1)} mm | Avg: ${avgSeg2.toFixed(1)} mm/day">
+                    <td class="rain-cell col-avg-cell" style="background:#eff6ff;">
+                        <span class="rain-badge" style="background-color: ${ac2.bg}; color: ${ac2.text};" title="2nd 14D Total: ${sumSeg2.toFixed(1)} mm | Avg: ${avgSeg2.toFixed(1)} mm/day">
                             ${avgSeg2.toFixed(1)}
                         </span>
                     </td>
                 `;
             } else {
-                rowHtml += `<td class="rain-cell" style="border-right:3px solid #0284c7;">-</td>`;
+                rowHtml += `<td class="rain-cell col-avg-cell">-</td>`;
             }
 
-            // Full 28D Window Summary
+            // Full 28D Window Summary - 28D AVG Only (Same Display Style as Day Cells)
             const tot28 = sumSeg1 + sumSeg2;
             const count28 = countSeg1 + countSeg2;
             const avg28 = count28 > 0 ? (tot28 / count28) : null;
             if (avg28 !== null) {
                 const acTot = getRainColor(avg28);
                 rowHtml += `
-                    <td class="rain-cell" style="background:#ecfdf5;">
-                        <span class="rain-badge" style="background-color: ${acTot.bg}; color: ${acTot.text}; font-weight:900;" title="28-Day Window Avg: ${avg28.toFixed(1)} mm/day">
+                    <td class="rain-cell col-tot-avg-cell" style="background:#ecfdf5;">
+                        <span class="rain-badge" style="background-color: ${acTot.bg}; color: ${acTot.text};" title="28-Day Window Avg: ${avg28.toFixed(1)} mm/day | Cumulative Total: ${tot28.toFixed(1)} mm">
                             ${avg28.toFixed(1)}
                         </span>
                     </td>
-                    <td class="rain-cell" style="background:#f0fdf4; font-weight:800; color:#065f46; font-size:11.5px;" title="28-Day Window Cumulative Total: ${tot28.toFixed(1)} mm">
-                        ${Math.round(tot28)}mm
-                    </td>
                 `;
             } else {
-                rowHtml += `<td class="rain-cell">-</td><td class="rain-cell">-</td>`;
+                rowHtml += `<td class="rain-cell col-tot-avg-cell">-</td>`;
             }
 
         } else if (subView === "obs") {

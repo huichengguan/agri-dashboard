@@ -1,0 +1,3097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Crop Thermal Stress &amp; Temperature Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.35;
+            padding: 14px 18px;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            margin: 0 auto;
+            background-color: #0f172a;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+        }
+        
+        .suite-nav-bar {
+            background: #090e1a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+        }
+        .suite-nav-links { display: flex; gap: 6px; }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            transition: all 0.15s ease;
+        }
+        .nav-tab:hover { color: #f8fafc; background: #1e293b; border-color: #38bdf8; }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #0369a1;
+            border-color: #38bdf8;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+        }
+
+        .header-card {
+            padding: 14px 24px 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            background: linear-gradient(180deg, #131d33 0%, #0f172a 100%);
+        }
+        .header-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+        .header-badge {
+            background: #0284c7;
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 3px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+        .header-badge-temp {
+            background: #f97316;
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 3px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+        .header-badge-today {
+            background: #0ea5e9;
+            color: #0b1120;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+        }
+        .header-title { font-size: 18px; font-weight: 800; color: #f8fafc; letter-spacing: -0.3px; }
+        .header-subtitle { font-size: 11px; color: #94a3b8; }
+        .header-meta { text-align: right; font-size: 10.5px; color: #64748b; line-height: 1.4; }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px 24px;
+            background: #0c1424;
+            border-bottom: 1px solid #1e293b;
+        }
+        .kpi-card {
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .kpi-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: #94a3b8;
+        }
+        .kpi-val-row { display: flex; align-items: baseline; gap: 6px; }
+        .kpi-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: #f8fafc;
+            font-variant-numeric: tabular-nums;
+        }
+        .kpi-sub { font-size: 10px; color: #64748b; }
+
+        .toolbar {
+            padding: 7px 24px;
+            background: #0d1527;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            color: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            width: 200px;
+            outline: none;
+        }
+        .search-box:focus { border-color: #38bdf8; }
+        .controls-right { display: flex; align-items: center; gap: 10px; }
+        .toggle-group {
+            display: flex;
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .toggle-btn {
+            padding: 4px 10px;
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            font-size: 10.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .toggle-btn.active { background: #0284c7; color: #ffffff; }
+
+        .table-wrap { overflow-x: auto; max-width: 100%; }
+        table.temp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+        th {
+            background: #0c1424;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 6px 3px;
+            border-bottom: 1px solid #1e293b;
+            border-right: 1px solid #172033;
+            text-align: center;
+            user-select: none;
+        }
+        th.sortable { cursor: pointer; }
+        th.sortable:hover { color: #38bdf8; }
+        .today-head {
+            background: #10213d;
+            color: #38bdf8;
+            border-left: 2px solid #38bdf8;
+        }
+        .today-tag {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0b1120;
+            font-size: 7.5px;
+            font-weight: 900;
+            padding: 1px 3px;
+            border-radius: 2px;
+            margin-top: 1px;
+            line-height: 1;
+        }
+        .today-col {
+            border-left: 2px solid #38bdf8 !important;
+        }
+
+        .state-col-th {
+            width: 140px;
+            min-width: 140px;
+            max-width: 140px;
+            text-align: left !important;
+            padding-left: 10px !important;
+        }
+        .commodities-col-th {
+            width: 185px;
+            min-width: 185px;
+            max-width: 185px;
+            text-align: left !important;
+            padding-left: 6px !important;
+        }
+        .stat-col-th { width: 56px; }
+
+        .state-col {
+            width: 140px;
+            min-width: 140px;
+            max-width: 140px;
+            padding: 4px 8px !important;
+            border-right: 1px solid #1e293b;
+            background: #0f172a;
+            overflow: hidden;
+        }
+        .state-name-wrap { display: flex; align-items: center; gap: 5px; }
+        .state-name { font-weight: 700; color: #f8fafc; font-size: 11px; white-space: nowrap; }
+        .state-code {
+            font-size: 9px;
+            color: #94a3b8;
+            background: #1e293b;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+        .district-name {
+            font-size: 9.5px;
+            color: #64748b;
+            margin-top: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .commodities-col {
+            width: 185px;
+            min-width: 185px;
+            max-width: 185px;
+            padding: 3px 6px !important;
+            border-right: 1px solid #1e293b;
+        }
+        .crop-badge-container { display: flex; flex-direction: column; gap: 2px; }
+        .crop-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 9px;
+            padding: 1px 4px;
+            border-radius: 3px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+        .badge-corn { background: rgba(234, 179, 8, 0.12); color: #fef08a; border-left: 2px solid #eab308; }
+        .badge-wheat { background: rgba(249, 115, 22, 0.12); color: #fed7aa; border-left: 2px solid #f97316; }
+        .badge-soy { background: rgba(34, 197, 94, 0.12); color: #bbf7d0; border-left: 2px solid #22c55e; }
+        .badge-other { background: rgba(148, 163, 184, 0.12); color: #cbd5e1; border-left: 2px solid #94a3b8; }
+        .yield-tag { color: #94a3b8; font-size: 8.5px; }
+
+        .stat-col {
+            width: 56px;
+            min-width: 56px;
+            max-width: 56px;
+            padding: 4px 1px !important;
+            font-weight: 700;
+            border-right: 1px solid #334155;
+            font-size: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "SF Mono", Menlo, monospace;
+            font-variant-numeric: tabular-nums;
+            text-align: center;
+        }
+        .sum-col-1 { background-color: #1a162b; color: #fed7aa; }
+        .sum-col-2 { background-color: #131d33; color: #93c5fd; }
+        .sum-col-3 { background-color: #0c1424; color: #f8fafc; }
+
+        .temp-cell {
+            width: 36px;
+            min-width: 36px;
+            padding: 4px 1px !important;
+            font-size: 9.5px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "SF Mono", Menlo, monospace;
+            font-variant-numeric: tabular-nums;
+            border-right: 1px solid rgba(30, 41, 59, 0.6);
+            transition: transform 0.1s;
+        }
+        .temp-cell:hover {
+            transform: scale(1.18);
+            z-index: 5;
+            position: relative;
+            box-shadow: 0 0 8px rgba(0,0,0,0.8);
+            outline: 1px solid #38bdf8;
+        }
+        .center { text-align: center; }
+
+        .dual-val-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 1.05;
+        }
+        .val-hi { color: #fed7aa; }
+        .val-lo { color: #93c5fd; }
+
+        .region-header-row td {
+            background: #090f1d;
+            padding: 4px 10px;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+        }
+        .reg-banner { display: flex; align-items: center; gap: 8px; }
+        .reg-banner-title {
+            font-size: 10.5px;
+            font-weight: 800;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+        .reg-banner-count {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 1px 5px;
+            border-radius: 8px;
+            font-size: 9px;
+        }
+
+        tbody tr.state-data-row { border-bottom: 1px solid #172033; }
+        tbody tr.state-data-row:hover { background-color: #141e33; }
+
+        .report-footer {
+            padding: 10px 24px;
+            background: #0b1120;
+            border-top: 1px solid #1e293b;
+            font-size: 10.5px;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127793; CHINA CROP AG-WEATHER INTELLIGENCE</span>
+        </div>
+        <div class="suite-nav-links">
+            <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="China_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="China_Crop_Temperature_Outlook.html" class="nav-tab active">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="China_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010–2026)</a>
+        </div>
+    </div>
+
+    <div class="header-card">
+        <div class="header-left">
+            <div class="header-title-row">
+                <span class="header-badge">ECMWF IFS 0.25° Operational</span>
+                <span class="header-badge-temp">14-DAY THERMAL STRESS OUTLOOK</span>
+                <span class="header-badge-today">&#9679; LATEST RUN TODAY</span>
+                <h1 class="header-title">China Crop Temperature &amp; Thermal Stress Outlook</h1>
+            </div>
+            <div class="header-subtitle">
+                Operational 14-day temperature forecast with dual Tmax/Tmin tracking, frost watch (&le;0°C), and winter wheat autumn drilling comfort zones.
+            </div>
+        </div>
+        <div class="header-meta">
+            <div>Atmospheric Model: <strong>ECMWF IFS 0.25° Operational &amp; ERA5</strong></div>
+            <div>Generated: <strong>2026-10-08 18:27:07 UTC</strong></div>
+            <div>Commodity Focus: <strong>Corn, Wheat &amp; Soybeans</strong></div>
+        </div>
+    </div>
+
+    <div class="kpi-row">
+        <div class="kpi-card">
+            <span class="kpi-label">Avg 14D Daytime High</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val" id="kpi-tmax-val">21.2°C</span>
+                <span class="kpi-sub">National Grain Belt</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Avg 14D Nighttime Low</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val" id="kpi-tmin-val">11.3°C</span>
+                <span class="kpi-sub">National Grain Belt</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Frost / Sub-Zero Stations</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val" style="color:#60a5fa;">1 / 19</span>
+                <span class="kpi-sub">&le;0°C Night Frost Alert</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Wheat Drilling Comfort</span>
+            <div class="kpi-val-row">
+                <span class="kpi-val" style="color:#86efac;">Optimal</span>
+                <span class="kpi-sub">15&ndash;22°C Germination Band</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <div class="filter-group">
+            <input type="text" class="search-box" id="search-input" placeholder="Search province, district, code...">
+        </div>
+
+        <div class="controls-right">
+            <div class="toggle-group" id="view-mode-group">
+                <button class="toggle-btn active" data-view="dual">&#9681; Dual Hi/Lo</button>
+                <button class="toggle-btn" data-view="tmax">&#9728;&#65039; High (Tmax)</button>
+                <button class="toggle-btn" data-view="tmin">&#127769; Low (Tmin)</button>
+                <button class="toggle-btn" data-view="tmean">&#127777;&#65039; Mean</button>
+            </div>
+            <div class="toggle-group" id="unit-group">
+                <button class="toggle-btn active" data-unit="c">°C</button>
+                <button class="toggle-btn" data-unit="f">°F</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="temp-table" id="temp-table">
+            <thead>
+                <tr>
+                    <th class="state-col-th sortable" data-sort="name">Province / Station &#8645;</th>
+                    <th class="commodities-col-th">Portfolio &amp; Yield</th>
+                    <th class="stat-col-th sortable sum-col-1" data-sort="avg-max">Avg Tmax</th>
+                    <th class="stat-col-th sortable sum-col-2" data-sort="avg-min">Avg Tmin</th>
+                    <th class="stat-col-th sum-col-3">14D Range</th>
+                    <th class="daily-col-th center today-head">10/09<div class="today-tag">TODAY</div></th><th class="daily-col-th center">10/10</th><th class="daily-col-th center">10/11</th><th class="daily-col-th center">10/12</th><th class="daily-col-th center">10/13</th><th class="daily-col-th center">10/14</th><th class="daily-col-th center">10/15</th><th class="daily-col-th center">10/16</th><th class="daily-col-th center">10/17</th><th class="daily-col-th center">10/18</th><th class="daily-col-th center">10/19</th><th class="daily-col-th center">10/20</th><th class="daily-col-th center">10/21</th><th class="daily-col-th center">10/22</th>
+                </tr>
+            </thead>
+            <tbody id="temp-tbody">
+                
+        <tr class="region-header-row" data-region="Northeast China - Songliao Plain Grain & Oilseed Heartland">
+            <td colspan="19">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northeast China - Songliao Plain Grain & Oilseed Heartland</span>
+                    <span class="reg-banner-count">5 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="heilongjiang central-south" 
+                data-code="hlj-cs" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-avg-max="13.421428571428574"
+                data-avg-min="5.107142857142857"
+                data-peak-max="21.5"
+                data-trough-min="0.9"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Heilongjiang Central-South</span>
+                        <span class="state-code">HLJ-CS</span>
+                    </div>
+                    <div class="district-name" title="Songnen Plain (Harbin / Suihua / Daqing)">Songnen Plain (Harbin / Suihua / Daqing)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 31.5Mt <span class="yield-tag">(14.8%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 5.1Mt <span class="yield-tag">(25.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">13.4°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.1°</td>
+                <td class="stat-col center sum-col-3" data-field="range">1&ndash;22°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="15.5" 
+                    data-tmin="4.2" 
+                    data-tmean="8.7"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.7" 
+                    data-tmin="6.1" 
+                    data-tmean="8.4"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.2" 
+                    data-tmin="3.1" 
+                    data-tmean="9.9"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.5" 
+                    data-tmin="9.6" 
+                    data-tmean="15.2"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="13.8" 
+                    data-tmin="6.5" 
+                    data-tmean="9.8"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="10.4" 
+                    data-tmin="4.1" 
+                    data-tmean="7.4"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="9.1" 
+                    data-tmin="4.4" 
+                    data-tmean="7.0"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.1" 
+                    data-tmin="5.8" 
+                    data-tmean="7.9"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="8.7" 
+                    data-tmin="2.7" 
+                    data-tmean="6.1"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="9.1" 
+                    data-tmin="0.9" 
+                    data-tmean="4.2"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="12.4" 
+                    data-tmin="1.2" 
+                    data-tmean="6.0"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="16.1" 
+                    data-tmin="6.9" 
+                    data-tmean="10.6"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="16.5" 
+                    data-tmin="9.9" 
+                    data-tmean="12.6"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="14.8" 
+                    data-tmin="6.1" 
+                    data-tmean="11.5"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="heilongjiang northern granary" 
+                data-code="hlj-north" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-avg-max="9.47857142857143"
+                data-avg-min="0.38571428571428573"
+                data-peak-max="15.4"
+                data-trough-min="-2.7"
+                data-crops="soybeans (spring) corn (spring) spring wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Heilongjiang Northern Granary</span>
+                        <span class="state-code">HLJ-NORTH</span>
+                    </div>
+                    <div class="district-name" title="Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)">Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 5.2Mt <span class="yield-tag">(25.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 9.6Mt <span class="yield-tag">(4.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 0.35Mt <span class="yield-tag">(1.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">9.5°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">0.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-3&ndash;15°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="9.8" 
+                    data-tmin="-0.3" 
+                    data-tmean="4.4"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="10.3" 
+                    data-tmin="-1.1" 
+                    data-tmean="4.2"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.4" 
+                    data-tmin="1.3" 
+                    data-tmean="8.0"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="12.4" 
+                    data-tmin="4.7" 
+                    data-tmean="9.0"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="10.2" 
+                    data-tmin="3.2" 
+                    data-tmean="6.2"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="7.5" 
+                    data-tmin="-0.6" 
+                    data-tmean="3.6"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="9.8" 
+                    data-tmin="-1.3" 
+                    data-tmean="3.6"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="8.9" 
+                    data-tmin="0.6" 
+                    data-tmean="3.9"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="5.9" 
+                    data-tmin="-2.2" 
+                    data-tmean="1.4"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="7.2" 
+                    data-tmin="-2.7" 
+                    data-tmean="1.6"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="10.2" 
+                    data-tmin="-1.1" 
+                    data-tmean="3.7"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.2" 
+                    data-tmin="-0.7" 
+                    data-tmean="3.9"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="5.5" 
+                    data-tmin="1.2" 
+                    data-tmean="3.6"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="8.4" 
+                    data-tmin="4.4" 
+                    data-tmean="6.1"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="jilin central golden corn belt" 
+                data-code="jl-central" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-avg-max="15.62142857142857"
+                data-avg-min="5.421428571428571"
+                data-peak-max="22.6"
+                data-trough-min="0.5"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Jilin Central Golden Corn Belt</span>
+                        <span class="state-code">JL-CENTRAL</span>
+                    </div>
+                    <div class="district-name" title="Songliao Plain (Changchun / Songyuan / Siping)">Songliao Plain (Changchun / Songyuan / Siping)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 29.8Mt <span class="yield-tag">(10.2%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 0.65Mt <span class="yield-tag">(3.2%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">15.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">0&ndash;23°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="20.9" 
+                    data-tmin="6.7" 
+                    data-tmean="13.4"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.2" 
+                    data-tmin="7.3" 
+                    data-tmean="12.0"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.8" 
+                    data-tmin="4.9" 
+                    data-tmean="11.3"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.6" 
+                    data-tmin="9.7" 
+                    data-tmean="15.8"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="13.8" 
+                    data-tmin="4.9" 
+                    data-tmean="9.3"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.2" 
+                    data-tmin="3.0" 
+                    data-tmean="7.4"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.8" 
+                    data-tmin="6.3" 
+                    data-tmean="10.5"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.7" 
+                    data-tmin="4.6" 
+                    data-tmean="8.8"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="8.5" 
+                    data-tmin="1.3" 
+                    data-tmean="5.7"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="9.9" 
+                    data-tmin="0.5" 
+                    data-tmean="4.2"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.6" 
+                    data-tmin="1.3" 
+                    data-tmean="7.7"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.4" 
+                    data-tmin="9.7" 
+                    data-tmean="13.8"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.1" 
+                    data-tmin="10.8" 
+                    data-tmean="14.6"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="13.2" 
+                    data-tmin="4.9" 
+                    data-tmean="10.1"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="liaoning central grain plain" 
+                data-code="ln-central" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-avg-max="18.457142857142856"
+                data-avg-min="8.014285714285714"
+                data-peak-max="23.9"
+                data-trough-min="2.2"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Liaoning Central Grain Plain</span>
+                        <span class="state-code">LN-CENTRAL</span>
+                    </div>
+                    <div class="district-name" title="Liaohe River Basin (Shenyang / Tieling / Jinzhou)">Liaohe River Basin (Shenyang / Tieling / Jinzhou)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 18.2Mt <span class="yield-tag">(6.3%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 0.35Mt <span class="yield-tag">(1.7%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">18.5°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">8.0°</td>
+                <td class="stat-col center sum-col-3" data-field="range">2&ndash;24°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="23.9" 
+                    data-tmin="13.8" 
+                    data-tmean="17.8"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.7" 
+                    data-tmin="11.8" 
+                    data-tmean="16.6"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.3" 
+                    data-tmin="9.3" 
+                    data-tmean="14.3"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.2" 
+                    data-tmin="12.4" 
+                    data-tmean="16.7"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.9" 
+                    data-tmin="7.1" 
+                    data-tmean="11.9"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="14.0" 
+                    data-tmin="4.4" 
+                    data-tmean="9.2"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.0" 
+                    data-tmin="8.3" 
+                    data-tmean="13.0"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.1" 
+                    data-tmin="7.1" 
+                    data-tmean="11.6"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.2" 
+                    data-tmin="4.7" 
+                    data-tmean="11.6"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.8" 
+                    data-tmin="2.5" 
+                    data-tmean="6.0"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.5" 
+                    data-tmin="2.2" 
+                    data-tmean="9.7"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.8" 
+                    data-tmin="11.6" 
+                    data-tmean="16.5"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.5" 
+                    data-tmin="11.5" 
+                    data-tmean="15.9"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="14.5" 
+                    data-tmin="5.5" 
+                    data-tmean="10.4"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="inner mongolia eastern agro-pastoral belt" 
+                data-code="im-east" 
+                data-region="northeast china - songliao plain grain & oilseed heartland" 
+                data-avg-max="17.278571428571432"
+                data-avg-min="6.3500000000000005"
+                data-peak-max="26.1"
+                data-trough-min="2.2"
+                data-crops="corn (spring) soybeans (spring)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Inner Mongolia Eastern Agro-Pastoral Belt</span>
+                        <span class="state-code">IM-EAST</span>
+                    </div>
+                    <div class="district-name" title="West Liao River Plain (Tongliao / Chifeng / Hinggan)">West Liao River Plain (Tongliao / Chifeng / Hinggan)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 28.1Mt <span class="yield-tag">(9.6%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 3.1Mt <span class="yield-tag">(15.2%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">17.3°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">6.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">2&ndash;26°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="19.0" 
+                    data-tmin="6.1" 
+                    data-tmean="12.2"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="16.9" 
+                    data-tmin="8.4" 
+                    data-tmean="12.5"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.1" 
+                    data-tmin="5.8" 
+                    data-tmean="13.3"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.1" 
+                    data-tmin="10.6" 
+                    data-tmean="17.6"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.0" 
+                    data-tmin="6.1" 
+                    data-tmean="10.8"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.6" 
+                    data-tmin="3.6" 
+                    data-tmean="9.5"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="16.8" 
+                    data-tmin="7.8" 
+                    data-tmean="13.1"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.0" 
+                    data-tmin="5.7" 
+                    data-tmean="10.6"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.4" 
+                    data-tmin="3.7" 
+                    data-tmean="8.3"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.5" 
+                    data-tmin="2.2" 
+                    data-tmean="5.8"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.3" 
+                    data-tmin="4.7" 
+                    data-tmean="10.7"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.4" 
+                    data-tmin="11.7" 
+                    data-tmean="16.5"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.5" 
+                    data-tmin="7.9" 
+                    data-tmean="13.1"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="13.3" 
+                    data-tmin="4.6" 
+                    data-tmean="8.5"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+        <tr class="region-header-row" data-region="Huang-Huai-Hai Plain - Intensive Double-Cropping Granary">
+            <td colspan="19">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Huang-Huai-Hai Plain - Intensive Double-Cropping Granary</span>
+                    <span class="reg-banner-count">7 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="henan north-central" 
+                data-code="ha-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="25.642857142857142"
+                data-avg-min="14.892857142857142"
+                data-peak-max="30.4"
+                data-trough-min="12.4"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Henan North-Central</span>
+                        <span class="state-code">HA-NORTH</span>
+                    </div>
+                    <div class="district-name" title="Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)">Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 20.5Mt <span class="yield-tag">(14.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 12.6Mt <span class="yield-tag">(4.3%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">25.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">14.9°</td>
+                <td class="stat-col center sum-col-3" data-field="range">12&ndash;30°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="27.2" 
+                    data-tmin="14.1" 
+                    data-tmean="20.1"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="28.6" 
+                    data-tmin="15.4" 
+                    data-tmean="21.6"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.7" 
+                    data-tmin="16.0" 
+                    data-tmean="21.9"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.8" 
+                    data-tmin="19.7" 
+                    data-tmean="22.7"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="30.4" 
+                    data-tmin="15.7" 
+                    data-tmean="22.0"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.7" 
+                    data-tmin="14.3" 
+                    data-tmean="18.3"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.3" 
+                    data-tmin="16.2" 
+                    data-tmean="20.5"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.6" 
+                    data-tmin="16.4" 
+                    data-tmean="20.6"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.8" 
+                    data-tmin="13.8" 
+                    data-tmean="17.3"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.6" 
+                    data-tmin="12.8" 
+                    data-tmean="17.7"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.2" 
+                    data-tmin="13.7" 
+                    data-tmean="16.4"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.2" 
+                    data-tmin="13.1" 
+                    data-tmean="18.1"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="29.0" 
+                    data-tmin="14.9" 
+                    data-tmean="20.5"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.9" 
+                    data-tmin="12.4" 
+                    data-tmean="17.5"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="henan south-central" 
+                data-code="ha-south" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="25.271428571428572"
+                data-avg-min="15.450000000000001"
+                data-peak-max="27.7"
+                data-trough-min="13.2"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Henan South-Central</span>
+                        <span class="state-code">HA-SOUTH</span>
+                    </div>
+                    <div class="district-name" title="Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)">Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 20.5Mt <span class="yield-tag">(14.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 12.5Mt <span class="yield-tag">(4.3%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 1.0Mt <span class="yield-tag">(4.8%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">25.3°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">15.5°</td>
+                <td class="stat-col center sum-col-3" data-field="range">13&ndash;28°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="25.8" 
+                    data-tmin="13.2" 
+                    data-tmean="19.2"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.3" 
+                    data-tmin="14.2" 
+                    data-tmean="20.4"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.9" 
+                    data-tmin="16.0" 
+                    data-tmean="20.9"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.7" 
+                    data-tmin="16.8" 
+                    data-tmean="20.7"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.7" 
+                    data-tmin="16.1" 
+                    data-tmean="21.4"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.2" 
+                    data-tmin="14.8" 
+                    data-tmean="18.9"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.4" 
+                    data-tmin="15.7" 
+                    data-tmean="20.6"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.7" 
+                    data-tmin="16.6" 
+                    data-tmean="20.6"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.8" 
+                    data-tmin="15.1" 
+                    data-tmean="18.4"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.2" 
+                    data-tmin="13.9" 
+                    data-tmean="18.2"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.8" 
+                    data-tmin="17.2" 
+                    data-tmean="19.3"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="16.5" 
+                    data-tmean="19.1"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.9" 
+                    data-tmin="15.8" 
+                    data-tmean="19.8"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.1" 
+                    data-tmin="14.4" 
+                    data-tmean="18.4"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shandong northwest plain" 
+                data-code="sd-nw" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="25.357142857142854"
+                data-avg-min="15.078571428571431"
+                data-peak-max="30.1"
+                data-trough-min="9.3"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shandong Northwest Plain</span>
+                        <span class="state-code">SD-NW</span>
+                    </div>
+                    <div class="district-name" title="Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)">Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 13.2Mt <span class="yield-tag">(9.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 13.1Mt <span class="yield-tag">(4.5%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">25.4°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">15.1°</td>
+                <td class="stat-col center sum-col-3" data-field="range">9&ndash;30°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="27.6" 
+                    data-tmin="15.9" 
+                    data-tmean="21.6"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="29.2" 
+                    data-tmin="16.5" 
+                    data-tmean="22.6"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="30.1" 
+                    data-tmin="17.7" 
+                    data-tmean="23.6"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="17.3" 
+                    data-tmean="21.1"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.7" 
+                    data-tmin="14.0" 
+                    data-tmean="18.8"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="9.3" 
+                    data-tmean="16.5"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.4" 
+                    data-tmin="17.7" 
+                    data-tmean="21.3"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.3" 
+                    data-tmin="15.4" 
+                    data-tmean="18.6"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.8" 
+                    data-tmin="13.8" 
+                    data-tmean="18.2"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.3" 
+                    data-tmin="14.4" 
+                    data-tmean="19.2"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.2" 
+                    data-tmin="15.2" 
+                    data-tmean="18.8"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.4" 
+                    data-tmin="15.0" 
+                    data-tmean="19.3"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.4" 
+                    data-tmin="16.6" 
+                    data-tmean="20.3"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.0" 
+                    data-tmin="12.3" 
+                    data-tmean="17.0"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shandong southwest plain" 
+                data-code="sd-sw" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="24.928571428571427"
+                data-avg-min="15.4"
+                data-peak-max="28.2"
+                data-trough-min="12.7"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shandong Southwest Plain</span>
+                        <span class="state-code">SD-SW</span>
+                    </div>
+                    <div class="district-name" title="Lu-Southwest Grain Basin (Heze / Jining / Tai'an)">Lu-Southwest Grain Basin (Heze / Jining / Tai'an)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 12.8Mt <span class="yield-tag">(8.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 12.2Mt <span class="yield-tag">(4.2%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 0.85Mt <span class="yield-tag">(4.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">24.9°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">15.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">13&ndash;28°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="26.0" 
+                    data-tmin="14.0" 
+                    data-tmean="19.7"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.4" 
+                    data-tmin="15.3" 
+                    data-tmean="20.9"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.7" 
+                    data-tmin="16.6" 
+                    data-tmean="21.7"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.8" 
+                    data-tmin="18.6" 
+                    data-tmean="21.3"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="28.2" 
+                    data-tmin="16.5" 
+                    data-tmean="21.5"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.7" 
+                    data-tmin="12.7" 
+                    data-tmean="17.7"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.7" 
+                    data-tmin="17.0" 
+                    data-tmean="21.0"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.4" 
+                    data-tmin="16.2" 
+                    data-tmean="19.7"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.5" 
+                    data-tmin="14.0" 
+                    data-tmean="17.5"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.6" 
+                    data-tmin="13.7" 
+                    data-tmean="18.5"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.8" 
+                    data-tmin="16.4" 
+                    data-tmean="19.4"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.0" 
+                    data-tmin="14.4" 
+                    data-tmean="18.5"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.0" 
+                    data-tmin="16.1" 
+                    data-tmean="20.3"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.2" 
+                    data-tmin="14.1" 
+                    data-tmean="18.3"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="hebei central-south plain" 
+                data-code="he-south" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="24.099999999999998"
+                data-avg-min="13.235714285714284"
+                data-peak-max="27.5"
+                data-trough-min="9.8"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Hebei Central-South Plain</span>
+                        <span class="state-code">HE-SOUTH</span>
+                    </div>
+                    <div class="district-name" title="Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)">Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 15.0Mt <span class="yield-tag">(10.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 22.5Mt <span class="yield-tag">(7.7%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 0.48Mt <span class="yield-tag">(2.3%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">24.1°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">13.2°</td>
+                <td class="stat-col center sum-col-3" data-field="range">10&ndash;28°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="25.8" 
+                    data-tmin="14.6" 
+                    data-tmean="19.9"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.8" 
+                    data-tmin="14.4" 
+                    data-tmean="20.0"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.5" 
+                    data-tmin="14.9" 
+                    data-tmean="20.6"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.5" 
+                    data-tmin="16.2" 
+                    data-tmean="19.9"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="12.2" 
+                    data-tmean="17.4"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.2" 
+                    data-tmin="9.8" 
+                    data-tmean="16.1"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.1" 
+                    data-tmin="13.8" 
+                    data-tmean="19.0"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.4" 
+                    data-tmin="14.9" 
+                    data-tmean="17.8"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.5" 
+                    data-tmin="12.1" 
+                    data-tmean="18.1"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.8" 
+                    data-tmin="12.5" 
+                    data-tmean="16.2"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.5" 
+                    data-tmin="10.9" 
+                    data-tmean="15.1"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.1" 
+                    data-tmin="14.7" 
+                    data-tmean="18.8"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.9" 
+                    data-tmin="13.7" 
+                    data-tmean="18.6"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.0" 
+                    data-tmin="10.6" 
+                    data-tmean="15.1"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="anhui northern huaihe basin" 
+                data-code="ah-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="25.050000000000004"
+                data-avg-min="15.928571428571427"
+                data-peak-max="27.9"
+                data-trough-min="13.1"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Anhui Northern Huaihe Basin</span>
+                        <span class="state-code">AH-NORTH</span>
+                    </div>
+                    <div class="district-name" title="Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)">Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 17.5Mt <span class="yield-tag">(12.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 7.8Mt <span class="yield-tag">(2.7%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 1.25Mt <span class="yield-tag">(6.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">25.1°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">15.9°</td>
+                <td class="stat-col center sum-col-3" data-field="range">13&ndash;28°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="25.1" 
+                    data-tmin="13.1" 
+                    data-tmean="18.7"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.1" 
+                    data-tmin="13.4" 
+                    data-tmean="19.4"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.3" 
+                    data-tmin="14.2" 
+                    data-tmean="20.0"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.8" 
+                    data-tmin="14.6" 
+                    data-tmean="19.9"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.2" 
+                    data-tmin="15.8" 
+                    data-tmean="21.1"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.3" 
+                    data-tmin="15.8" 
+                    data-tmean="19.9"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.9" 
+                    data-tmin="16.7" 
+                    data-tmean="21.2"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.8" 
+                    data-tmin="18.2" 
+                    data-tmean="21.4"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.7" 
+                    data-tmin="16.4" 
+                    data-tmean="20.1"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.1" 
+                    data-tmin="18.2" 
+                    data-tmean="20.0"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.5" 
+                    data-tmin="17.5" 
+                    data-tmean="19.2"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.8" 
+                    data-tmin="17.2" 
+                    data-tmean="19.3"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.1" 
+                    data-tmin="17.9" 
+                    data-tmean="21.1"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.0" 
+                    data-tmin="14.0" 
+                    data-tmean="19.1"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="jiangsu northern plain" 
+                data-code="js-north" 
+                data-region="huang-huai-hai plain - intensive double-cropping granary" 
+                data-avg-max="24.46428571428572"
+                data-avg-min="15.828571428571433"
+                data-peak-max="26.8"
+                data-trough-min="14.3"
+                data-crops="winter wheat corn (summer) soybeans (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Jiangsu Northern Plain</span>
+                        <span class="state-code">JS-NORTH</span>
+                    </div>
+                    <div class="district-name" title="Su-North Plain (Xuzhou / Suqian / Yancheng)">Su-North Plain (Xuzhou / Suqian / Yancheng)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 14.0Mt <span class="yield-tag">(9.8%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 5.2Mt <span class="yield-tag">(1.8%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 0.55Mt <span class="yield-tag">(2.6%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">24.5°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">15.8°</td>
+                <td class="stat-col center sum-col-3" data-field="range">14&ndash;27°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="24.2" 
+                    data-tmin="14.4" 
+                    data-tmean="19.0"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.7" 
+                    data-tmin="14.3" 
+                    data-tmean="19.2"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.1" 
+                    data-tmin="15.1" 
+                    data-tmean="19.9"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.7" 
+                    data-tmin="15.0" 
+                    data-tmean="19.6"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.8" 
+                    data-tmin="16.3" 
+                    data-tmean="21.2"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.6" 
+                    data-tmin="14.3" 
+                    data-tmean="18.7"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.8" 
+                    data-tmin="16.5" 
+                    data-tmean="20.7"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.6" 
+                    data-tmin="18.3" 
+                    data-tmean="20.5"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.5" 
+                    data-tmin="16.4" 
+                    data-tmean="19.4"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.4" 
+                    data-tmin="16.4" 
+                    data-tmean="19.2"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.7" 
+                    data-tmin="16.0" 
+                    data-tmean="19.1"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.6" 
+                    data-tmin="15.3" 
+                    data-tmean="18.5"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.6" 
+                    data-tmin="18.0" 
+                    data-tmean="20.6"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.2" 
+                    data-tmin="15.3" 
+                    data-tmean="19.4"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+        <tr class="region-header-row" data-region="Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland">
+            <td colspan="19">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland</span>
+                    <span class="reg-banner-count">4 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="shaanxi guanzhong plain" 
+                data-code="sn-guanzhong" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-avg-max="23.21428571428572"
+                data-avg-min="13.492857142857146"
+                data-peak-max="26.7"
+                data-trough-min="10.7"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shaanxi Guanzhong Plain</span>
+                        <span class="state-code">SN-GUANZHONG</span>
+                    </div>
+                    <div class="district-name" title="Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)">Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 4.2Mt <span class="yield-tag">(3.0%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 8.1Mt <span class="yield-tag">(2.8%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">23.2°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">13.5°</td>
+                <td class="stat-col center sum-col-3" data-field="range">11&ndash;27°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="25.9" 
+                    data-tmin="13.8" 
+                    data-tmean="19.3"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.9" 
+                    data-tmin="15.5" 
+                    data-tmean="20.1"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.2" 
+                    data-tmin="17.2" 
+                    data-tmean="19.3"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.4" 
+                    data-tmin="14.8" 
+                    data-tmean="19.8"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.7" 
+                    data-tmin="13.7" 
+                    data-tmean="18.7"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.0" 
+                    data-tmin="10.7" 
+                    data-tmean="16.2"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.5" 
+                    data-tmin="13.5" 
+                    data-tmean="16.8"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.2" 
+                    data-tmin="13.1" 
+                    data-tmean="16.8"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.8" 
+                    data-tmin="12.3" 
+                    data-tmean="16.1"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.7" 
+                    data-tmin="12.3" 
+                    data-tmean="15.8"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.3" 
+                    data-tmin="12.0" 
+                    data-tmean="16.5"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.8" 
+                    data-tmin="13.9" 
+                    data-tmean="18.0"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="13.8" 
+                    data-tmean="18.0"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="12.3" 
+                    data-tmean="16.6"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="shanxi fenhe & southern basin" 
+                data-code="sx-south" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-avg-max="21.27142857142857"
+                data-avg-min="11.85"
+                data-peak-max="24.8"
+                data-trough-min="8.2"
+                data-crops="corn (spring/summer) winter wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Shanxi Fenhe & Southern Basin</span>
+                        <span class="state-code">SX-SOUTH</span>
+                    </div>
+                    <div class="district-name" title="Fenhe Valley (Yuncheng / Linfen / Jinzhong)">Fenhe Valley (Yuncheng / Linfen / Jinzhong)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 12.0Mt <span class="yield-tag">(4.1%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 2.4Mt <span class="yield-tag">(1.7%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">21.3°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">11.8°</td>
+                <td class="stat-col center sum-col-3" data-field="range">8&ndash;25°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="24.8" 
+                    data-tmin="12.0" 
+                    data-tmean="17.5"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.4" 
+                    data-tmin="13.7" 
+                    data-tmean="18.1"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.1" 
+                    data-tmin="13.9" 
+                    data-tmean="17.4"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.5" 
+                    data-tmin="13.7" 
+                    data-tmean="17.8"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="12.2" 
+                    data-tmean="16.6"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.9" 
+                    data-tmin="8.2" 
+                    data-tmean="13.9"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.2" 
+                    data-tmin="11.1" 
+                    data-tmean="15.1"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.3" 
+                    data-tmin="11.3" 
+                    data-tmean="14.7"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.7" 
+                    data-tmin="10.3" 
+                    data-tmean="13.7"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.0" 
+                    data-tmin="11.1" 
+                    data-tmean="14.5"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.7" 
+                    data-tmin="12.9" 
+                    data-tmean="15.3"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.4" 
+                    data-tmin="13.8" 
+                    data-tmean="16.3"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.5" 
+                    data-tmin="11.4" 
+                    data-tmean="15.2"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.0" 
+                    data-tmin="10.3" 
+                    data-tmean="13.9"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="xinjiang oasis grain heartland" 
+                data-code="xj-oasis" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-avg-max="18.42142857142857"
+                data-avg-min="5.928571428571428"
+                data-peak-max="24.5"
+                data-trough-min="0.1"
+                data-crops="corn (grain & seed) winter & spring wheat">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Xinjiang Oasis Grain Heartland</span>
+                        <span class="state-code">XJ-OASIS</span>
+                    </div>
+                    <div class="district-name" title="Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)">Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 10.2Mt <span class="yield-tag">(3.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 7.2Mt <span class="yield-tag">(5.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">18.4°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.9°</td>
+                <td class="stat-col center sum-col-3" data-field="range">0&ndash;24°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="24.5" 
+                    data-tmin="8.0" 
+                    data-tmean="15.8"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.3" 
+                    data-tmin="10.0" 
+                    data-tmean="15.3"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.2" 
+                    data-tmin="8.0" 
+                    data-tmean="13.3"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.8" 
+                    data-tmin="6.8" 
+                    data-tmean="13.1"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.4" 
+                    data-tmin="10.0" 
+                    data-tmean="14.8"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.4" 
+                    data-tmin="6.9" 
+                    data-tmean="13.8"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.2" 
+                    data-tmin="5.8" 
+                    data-tmean="12.8"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.1" 
+                    data-tmin="5.5" 
+                    data-tmean="13.0"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.0" 
+                    data-tmin="7.1" 
+                    data-tmean="13.7"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.7" 
+                    data-tmin="6.5" 
+                    data-tmean="13.1"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="7.7" 
+                    data-tmin="2.8" 
+                    data-tmean="5.9"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.9" 
+                    data-tmin="0.1" 
+                    data-tmean="5.2"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="14.2" 
+                    data-tmin="1.2" 
+                    data-tmean="7.1"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.5" 
+                    data-tmin="4.3" 
+                    data-tmean="9.4"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="gansu hexi corridor & longdong" 
+                data-code="gs-corridor" 
+                data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
+                data-avg-max="18.921428571428574"
+                data-avg-min="5.635714285714286"
+                data-peak-max="22.7"
+                data-trough-min="2.1"
+                data-crops="corn (seed & grain) wheat (spring/winter)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Gansu Hexi Corridor & Longdong</span>
+                        <span class="state-code">GS-CORRIDOR</span>
+                    </div>
+                    <div class="district-name" title="Hexi National Seed Base (Zhangye / Wuwei / Pingliang)">Hexi National Seed Base (Zhangye / Wuwei / Pingliang)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 7.3Mt <span class="yield-tag">(2.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 2.8Mt <span class="yield-tag">(2.0%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">18.9°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.6°</td>
+                <td class="stat-col center sum-col-3" data-field="range">2&ndash;23°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="18.3" 
+                    data-tmin="6.8" 
+                    data-tmean="12.0"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.7" 
+                    data-tmin="5.3" 
+                    data-tmean="13.2"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.6" 
+                    data-tmin="9.9" 
+                    data-tmean="13.1"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.6" 
+                    data-tmin="5.6" 
+                    data-tmean="12.4"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.1" 
+                    data-tmin="5.2" 
+                    data-tmean="12.6"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.2" 
+                    data-tmin="4.6" 
+                    data-tmean="11.0"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="16.0" 
+                    data-tmin="6.7" 
+                    data-tmean="10.7"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.8" 
+                    data-tmin="6.1" 
+                    data-tmean="11.8"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.9" 
+                    data-tmin="5.5" 
+                    data-tmean="11.7"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.6" 
+                    data-tmin="5.1" 
+                    data-tmean="12.5"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.3" 
+                    data-tmin="7.0" 
+                    data-tmean="12.4"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="12.0" 
+                    data-tmin="6.0" 
+                    data-tmean="9.1"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="16.9" 
+                    data-tmin="2.1" 
+                    data-tmean="8.3"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.9" 
+                    data-tmin="3.0" 
+                    data-tmean="10.5"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+        <tr class="region-header-row" data-region="Southwest & Yangtze Basin - Hilly & Mixed Grain Zone">
+            <td colspan="19">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Southwest & Yangtze Basin - Hilly & Mixed Grain Zone</span>
+                    <span class="reg-banner-count">3 Grain Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" 
+                data-name="sichuan basin & hilly plain" 
+                data-code="sc-basin" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone" 
+                data-avg-max="24.62142857142857"
+                data-avg-min="17.435714285714283"
+                data-peak-max="27.2"
+                data-trough-min="15.4"
+                data-crops="corn (spring/summer) winter wheat soybeans (intercropped)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Sichuan Basin & Hilly Plain</span>
+                        <span class="state-code">SC-BASIN</span>
+                    </div>
+                    <div class="district-name" title="Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)">Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 12.3Mt <span class="yield-tag">(4.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 2.7Mt <span class="yield-tag">(1.9%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soy</strong> 0.45Mt <span class="yield-tag">(2.2%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">24.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">17.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">15&ndash;27°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="22.7" 
+                    data-tmin="17.9" 
+                    data-tmean="19.9"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.8" 
+                    data-tmin="18.2" 
+                    data-tmean="20.3"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.2" 
+                    data-tmin="17.5" 
+                    data-tmean="20.8"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.2" 
+                    data-tmin="18.2" 
+                    data-tmean="21.9"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.9" 
+                    data-tmin="18.7" 
+                    data-tmean="21.4"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.1" 
+                    data-tmin="18.8" 
+                    data-tmean="22.2"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.3" 
+                    data-tmin="17.9" 
+                    data-tmean="20.6"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.8" 
+                    data-tmin="17.2" 
+                    data-tmean="20.1"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.2" 
+                    data-tmin="17.0" 
+                    data-tmean="19.3"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.6" 
+                    data-tmin="16.1" 
+                    data-tmean="20.0"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.8" 
+                    data-tmin="15.4" 
+                    data-tmean="18.9"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.0" 
+                    data-tmin="16.6" 
+                    data-tmean="20.2"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.3" 
+                    data-tmin="17.1" 
+                    data-tmean="20.6"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.8" 
+                    data-tmin="17.5" 
+                    data-tmean="20.5"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="hubei northern xiang-jing plain" 
+                data-code="hb-north" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone" 
+                data-avg-max="24.485714285714288"
+                data-avg-min="16.57857142857143"
+                data-peak-max="28.5"
+                data-trough-min="15.2"
+                data-crops="winter wheat corn (summer)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Hubei Northern Xiang-Jing Plain</span>
+                        <span class="state-code">HB-NORTH</span>
+                    </div>
+                    <div class="district-name" title="Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)">Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 Wheat</strong> 4.5Mt <span class="yield-tag">(3.5%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 5.3Mt <span class="yield-tag">(1.8%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">24.5°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">16.6°</td>
+                <td class="stat-col center sum-col-3" data-field="range">15&ndash;28°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="25.9" 
+                    data-tmin="15.2" 
+                    data-tmean="20.1"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.8" 
+                    data-tmin="15.9" 
+                    data-tmean="21.2"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="28.5" 
+                    data-tmin="17.4" 
+                    data-tmean="22.3"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.3" 
+                    data-tmin="17.7" 
+                    data-tmean="20.9"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="27.4" 
+                    data-tmin="18.6" 
+                    data-tmean="22.1"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.3" 
+                    data-tmin="16.7" 
+                    data-tmean="19.8"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.3" 
+                    data-tmin="15.7" 
+                    data-tmean="20.0"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.7" 
+                    data-tmin="17.5" 
+                    data-tmean="20.5"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.5" 
+                    data-tmin="16.3" 
+                    data-tmean="18.3"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="18.3" 
+                    data-tmin="15.8" 
+                    data-tmean="17.1"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.0" 
+                    data-tmin="16.2" 
+                    data-tmean="18.3"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.6" 
+                    data-tmin="16.5" 
+                    data-tmean="19.5"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.0" 
+                    data-tmin="16.3" 
+                    data-tmean="20.2"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="26.2" 
+                    data-tmin="16.3" 
+                    data-tmean="20.1"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            <tr class="state-data-row" 
+                data-name="yunnan central-eastern plateau" 
+                data-code="yn-plateau" 
+                data-region="southwest & yangtze basin - hilly & mixed grain zone" 
+                data-avg-max="23.37857142857143"
+                data-avg-min="13.307142857142859"
+                data-peak-max="25.4"
+                data-trough-min="10.9"
+                data-crops="corn (plateau)">
+                
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Yunnan Central-Eastern Plateau</span>
+                        <span class="state-code">YN-PLATEAU</span>
+                    </div>
+                    <div class="district-name" title="Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)">Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)</div>
+                </td>
+                
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong> 12.6Mt <span class="yield-tag">(4.3%)</span></span>
+                    </div>
+                </td>
+                
+                <td class="stat-col center sum-col-1" data-field="avg-max">23.4°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">13.3°</td>
+                <td class="stat-col center sum-col-3" data-field="range">11&ndash;25°</td>
+                
+                
+                <td class="temp-cell center today-col" 
+                    data-tmax="24.2" 
+                    data-tmin="10.9" 
+                    data-tmean="16.9"
+                    data-date="2026-10-09">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.4" 
+                    data-tmin="12.1" 
+                    data-tmean="16.7"
+                    data-date="2026-10-10">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="22.8" 
+                    data-tmin="12.2" 
+                    data-tmean="16.8"
+                    data-date="2026-10-11">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.2" 
+                    data-tmin="12.6" 
+                    data-tmean="18.1"
+                    data-date="2026-10-12">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.4" 
+                    data-tmin="13.4" 
+                    data-tmean="18.2"
+                    data-date="2026-10-13">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.2" 
+                    data-tmin="14.6" 
+                    data-tmean="17.7"
+                    data-date="2026-10-14">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.6" 
+                    data-tmin="13.2" 
+                    data-tmean="17.6"
+                    data-date="2026-10-15">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.7" 
+                    data-tmin="15.2" 
+                    data-tmean="16.8"
+                    data-date="2026-10-16">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="23.7" 
+                    data-tmin="14.7" 
+                    data-tmean="17.8"
+                    data-date="2026-10-17">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.1" 
+                    data-tmin="13.6" 
+                    data-tmean="17.5"
+                    data-date="2026-10-18">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="24.7" 
+                    data-tmin="13.8" 
+                    data-tmean="18.0"
+                    data-date="2026-10-19">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="25.0" 
+                    data-tmin="14.2" 
+                    data-tmean="17.9"
+                    data-date="2026-10-20">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="21.5" 
+                    data-tmin="13.3" 
+                    data-tmean="16.1"
+                    data-date="2026-10-21">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.8" 
+                    data-tmin="12.5" 
+                    data-tmean="14.9"
+                    data-date="2026-10-22">
+                </td>
+                
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <div class="report-footer">
+        <div>Feeds: <strong>ECMWF IFS 0.25° Operational Forecast &amp; ERA5 Ag-Reanalysis</strong> &bull; Generated: 2026-10-08 18:27:07 UTC</div>
+        <div>Agri Agent &bull; Weather China Suite &bull; Zero-Token Local Pipeline</div>
+    </div>
+
+</div>
+
+<script>
+    let currentView = "dual";
+    let currentUnit = "c";
+
+    function toUnit(vC) {
+        if (currentUnit === "f") return Math.round(vC * 9 / 5 + 32);
+        return Math.round(vC);
+    }
+
+    function getTmaxColor(vC) {
+        if (vC <= 5) return { bg: "#1e3a8a", text: "#ffffff" };
+        if (vC <= 15) return { bg: "#1e40af", text: "#bfdbfe" };
+        if (vC <= 24) return { bg: "#065f46", text: "#d1fae5" };
+        if (vC <= 30) return { bg: "#854d0e", text: "#fef08a" };
+        if (vC <= 35) return { bg: "#c2410c", text: "#ffedd5" };
+        return { bg: "#991b1b", text: "#ffffff" };
+    }
+
+    function getTminColor(vC) {
+        if (vC <= -5) return { bg: "#312e81", text: "#e0e7ff" };
+        if (vC <= 0) return { bg: "#1e3a8a", text: "#ffffff" };
+        if (vC <= 8) return { bg: "#0369a1", text: "#e0f2fe" };
+        if (vC <= 16) return { bg: "#065f46", text: "#d1fae5" };
+        if (vC <= 22) return { bg: "#166534", text: "#bbf7d0" };
+        return { bg: "#9a3412", text: "#ffedd5" };
+    }
+
+    function renderCells() {
+        document.querySelectorAll(".temp-cell").forEach(td => {
+            const tx = parseFloat(td.getAttribute("data-tmax"));
+            const tn = parseFloat(td.getAttribute("data-tmin"));
+            const tm = parseFloat(td.getAttribute("data-tmean"));
+
+            if (currentView === "dual") {
+                td.style.backgroundColor = "#0f172a";
+                td.innerHTML = `
+                    <div class="dual-val-wrap">
+                        <span class="val-hi">${toUnit(tx)}°</span>
+                        <span class="val-lo">${toUnit(tn)}°</span>
+                    </div>
+                `;
+            } else if (currentView === "tmax") {
+                const col = getTmaxColor(tx);
+                td.style.backgroundColor = col.bg;
+                td.style.color = col.text;
+                td.innerText = `${toUnit(tx)}°`;
+            } else if (currentView === "tmin") {
+                const col = getTminColor(tn);
+                td.style.backgroundColor = col.bg;
+                td.style.color = col.text;
+                td.innerText = `${toUnit(tn)}°`;
+            } else {
+                const col = getTmaxColor(tm);
+                td.style.backgroundColor = col.bg;
+                td.style.color = col.text;
+                td.innerText = `${toUnit(tm)}°`;
+            }
+        });
+
+        document.querySelectorAll(".state-data-row").forEach(row => {
+            const aMax = parseFloat(row.getAttribute("data-avg-max"));
+            const aMin = parseFloat(row.getAttribute("data-avg-min"));
+            const pMax = parseFloat(row.getAttribute("data-peak-max"));
+            const tMin = parseFloat(row.getAttribute("data-trough-min"));
+
+            row.querySelector('[data-field="avg-max"]').innerText = `${toUnit(aMax)}°`;
+            row.querySelector('[data-field="avg-min"]').innerText = `${toUnit(aMin)}°`;
+            row.querySelector('[data-field="range"]').innerText = `${toUnit(tMin)}&ndash;${toUnit(pMax)}°`;
+        });
+    }
+
+    document.querySelectorAll("#view-mode-group .toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll("#view-mode-group .toggle-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentView = btn.getAttribute("data-view");
+            renderCells();
+        });
+    });
+
+    document.querySelectorAll("#unit-group .toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll("#unit-group .toggle-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentUnit = btn.getAttribute("data-unit");
+            renderCells();
+        });
+    });
+
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener("input", () => {
+        const q = searchInput.value.toLowerCase().trim();
+        document.querySelectorAll(".state-data-row").forEach(row => {
+            const name = row.getAttribute("data-name");
+            const code = row.getAttribute("data-code");
+            if (!q || name.includes(q) || code.includes(q)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+
+    let sortDir = 1;
+    document.querySelectorAll("th.sortable").forEach(th => {
+        th.addEventListener("click", () => {
+            const sortKey = th.getAttribute("data-sort");
+            sortDir = -sortDir;
+            const tbody = document.getElementById("temp-tbody");
+            const rows = Array.from(tbody.querySelectorAll(".state-data-row"));
+
+            rows.sort((a, b) => {
+                if (sortKey === "name") {
+                    return sortDir * a.getAttribute("data-name").localeCompare(b.getAttribute("data-name"));
+                } else {
+                    const valA = parseFloat(a.getAttribute(`data-${sortKey}`)) || 0;
+                    const valB = parseFloat(b.getAttribute(`data-${sortKey}`)) || 0;
+                    return sortDir * (valA - valB);
+                }
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        });
+    });
+
+    renderCells();
+</script>
+
+</body>
+</html>

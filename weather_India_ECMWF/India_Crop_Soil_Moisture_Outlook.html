@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Oilseed Crop Soil Moisture Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-blue: #38bdf8;
+            --accent-purple: #8b5cf6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            margin: 0 auto;
+            background-color: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        /* Suite Nav */
+        .suite-nav-bar {
+            background: #090e1a;
+            border-bottom: 1px solid #1e293b;
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #f59e0b;
+            text-transform: uppercase;
+        }
+        .suite-nav-links { display: flex; gap: 8px; }
+        .nav-tab {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #131c2e;
+            border: 1px solid #1e293b;
+            transition: all 0.15s ease;
+        }
+        .nav-tab:hover { color: #f8fafc; background: #1e293b; border-color: #f59e0b; }
+        .nav-tab.active { color: #ffffff; background: #d97706; border-color: #f59e0b; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+
+        /* Header */
+        .header-card {
+            padding: 20px 32px 16px 32px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, #131d33 0%, var(--bg-primary) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+        .header-badge {
+            background: #d97706;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .header-title { font-size: 22px; font-weight: 800; color: #ffffff; }
+        .header-subtitle { font-size: 13px; color: var(--text-secondary); }
+        .header-meta { text-align: right; font-size: 12px; color: #64748b; }
+        .header-meta strong { color: #cbd5e1; }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            padding: 16px 32px;
+            background-color: #0c1424;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .kpi-card {
+            background: #131c2e;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+        .kpi-title { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; }
+        .kpi-val { font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 4px; }
+        .kpi-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+        /* Controls */
+        .controls-card {
+            padding: 12px 32px;
+            background-color: #0b1120;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .ctrl-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .ctrl-btn {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .ctrl-btn:hover { background: #334155; color: #ffffff; }
+        .ctrl-btn.active { background: #d97706; color: #ffffff; border-color: #f59e0b; }
+        .search-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            width: 200px;
+            outline: none;
+        }
+
+        /* Table */
+        .table-wrap { overflow-x: auto; width: 100%; }
+        table.soil-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11.5px;
+        }
+        thead th {
+            background: #0f172a;
+            color: #94a3b8;
+            font-weight: 700;
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid #1e293b;
+            white-space: nowrap;
+            user-select: none;
+        }
+        thead th.sortable { cursor: pointer; }
+        thead th.sortable:hover { color: #ffffff; background: #1e293b; }
+        
+        tr.region-header-row td {
+            background: #090e1a;
+            padding: 6px 14px;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .reg-banner { display: flex; justify-content: space-between; align-items: center; }
+        .reg-banner-title { font-size: 11px; font-weight: 800; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.8px; }
+        .reg-banner-count { font-size: 10px; color: #64748b; }
+
+        tr.data-row { border-bottom: 1px solid #1e293b; transition: background 0.15s ease; }
+        tr.data-row:hover { background: #162035; }
+
+        td { padding: 8px 12px; vertical-align: middle; border-right: 1px solid #1e293b; }
+        
+        .col-location { width: 220px; min-width: 220px; }
+        .loc-name { font-size: 12px; color: #ffffff; }
+        .loc-code { color: #f59e0b; font-size: 10px; background: rgba(245,158,11,0.15); padding: 1px 4px; border-radius: 3px; }
+        .loc-district { font-size: 10px; color: #64748b; margin-top: 2px; }
+
+        .col-commodities { width: 260px; min-width: 260px; }
+        .commodities-wrap { display: flex; flex-direction: column; gap: 3px; }
+        .crop-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        .badge-soy { background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+        .badge-peanut { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
+        .badge-mustard { background: rgba(234, 179, 8, 0.12); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.25); }
+        .yield-tag { color: #94a3b8; font-size: 9px; margin-left: 4px; }
+
+        .col-topsoil, .col-subsoil { width: 170px; min-width: 170px; }
+        .moist-pill {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: 0.3px;
+        }
+        .status-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            padding: 1px 5px;
+            border-radius: 3px;
+            background: rgba(0,0,0,0.25);
+        }
+        .moist-desc { font-size: 9.5px; color: #94a3b8; margin-top: 3px; }
+
+        .col-trend { width: 130px; min-width: 130px; text-align: center; }
+        .trend-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .trend-up { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .trend-down { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .trend-flat { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
+        .trend-sub { font-size: 9px; color: #64748b; margin-top: 2px; }
+
+        .col-comment { min-width: 320px; }
+        .ag-comment { font-size: 11px; color: #cbd5e1; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Suite Cross-Navigation -->
+    <div class="suite-nav-bar">
+        <div class="suite-brand">🌾 India Oilseed Weather Suite &bull; ECMWF IFS 0.25°</div>
+        <div class="suite-nav-links">
+            <a href="index.html" class="nav-tab">&larr; Suite Hub</a>
+            <a href="India_Crop_2_Week_Outlook.html" class="nav-tab">🌧️ 2-Week Precipitation</a>
+            <a href="India_Crop_Soil_Moisture_Outlook.html" class="nav-tab active">🌱 Soil Moisture</a>
+            <a href="India_Crop_Temperature_Outlook.html" class="nav-tab">🌡️ Temperature Outlook</a>
+            <a href="India_Crop_Weather_Matrix.html" class="nav-tab">📊 17-Season Matrix</a>
+            <a href="India_Crop_Planting_Calendar.html" class="nav-tab">📋 Planting Calendar</a>
+            <a href="../dashboard/index.html" class="nav-tab" style="color: #38bdf8;">Master Portal &rarr;</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div>
+            <div class="header-title-row">
+                <span class="header-badge">ECMWF IFS 0.25°</span>
+                <span class="header-badge" style="background:#059669;">Tri-Layer Profile</span>
+                <h1 class="header-title">India Oilseed Crop Soil Moisture Outlook</h1>
+            </div>
+            <p class="header-subtitle">
+                High-resolution monitoring of Topsoil (0–7cm), Rootzone (7–28cm), and Deep Subsoil (28–100cm)
+                calibrated for <strong>Vertisols (Black Cotton Soils)</strong> in MP &amp; Vidarbha,
+                <strong>Alfisols (Red Sandy Loams)</strong> in Rayalaseema &amp; Tamil Nadu, and
+                <strong>Alluvial Plains</strong> in Rajasthan, Haryana, UP &amp; West Bengal.
+            </p>
+        </div>
+        <div class="header-meta">
+            <div>Model: <strong>ECMWF IFS 0.25° Operational & Ag-Reanalysis</strong></div>
+            <div>Generated: <strong>2026-10-08 08:48:53 UTC</strong></div>
+            <div>Layers: <strong>0–7cm, 7–28cm, 28–100cm</strong></div>
+        </div>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">National Topsoil Moisture</div>
+            <div class="kpi-val">0.223 m³/m³</div>
+            <div class="kpi-sub">Basin-weighted average (0–7cm)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">National Rootzone Moisture</div>
+            <div class="kpi-val" style="color: #38bdf8;">0.313 m³/m³</div>
+            <div class="kpi-sub">Subsoil root zone (7–100cm)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Optimal Moisture Centers</div>
+            <div class="kpi-val" style="color: #10b981;">13 / 20</div>
+            <div class="kpi-sub">Favorable germination &amp; harvesting</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Active Recharge Centers</div>
+            <div class="kpi-val" style="color: #f59e0b;">0 Centers</div>
+            <div class="kpi-sub">+1.5% topsoil gain over 7 days</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Seedbed Drydown Centers</div>
+            <div class="kpi-val" style="color: #eab308;">11 Centers</div>
+            <div class="kpi-sub">Accelerating Kharif harvesting</div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-card">
+        <div class="ctrl-group">
+            <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">Unit:</span>
+            <button class="ctrl-btn active" id="unitM3Btn">m³/m³ (Volumetric)</button>
+            <button class="ctrl-btn" id="unitPctBtn">% Saturation Capacity</button>
+        </div>
+        <div class="ctrl-group">
+            <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">Status:</span>
+            <button class="ctrl-btn active" data-status="all">All</button>
+            <button class="ctrl-btn" data-status="Optimal">Optimal</button>
+            <button class="ctrl-btn" data-status="Adequate">Adequate</button>
+            <button class="ctrl-btn" data-status="Deficit">Deficit</button>
+            <button class="ctrl-btn" data-status="Saturated">Saturated</button>
+            <input type="text" id="searchInput" class="search-box" placeholder="Filter center, district...">
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+        <table class="soil-table" id="soilTable">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name">Agricultural Center ⬍</th>
+                    <th>Oilseed Portfolio</th>
+                    <th class="sortable" data-sort="top">Topsoil Moisture (0–7cm) ⬍</th>
+                    <th class="sortable" data-sort="sub">Rootzone Moisture (7–28cm) ⬍</th>
+                    <th class="sortable" data-sort="delta">7-Day Trend ⬍</th>
+                    <th>Agronomic Agronomic Diagnosis &amp; Field Outlook</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr class="region-header-row" data-region="Central India - Malwa Plateau & Vindhyan Heartland (Madhya Pradesh)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Central India - Malwa Plateau & Vindhyan Heartland (Madhya Pradesh)</span>
+                    <span class="reg-banner-count">3 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="West Madhya Pradesh (Malwa Core)" 
+                data-code="MP-WEST" 
+                data-country="India" 
+                data-top="0.240" 
+                data-sub="0.416" 
+                data-delta="-0.0014"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>West Madhya Pradesh (Malwa Core)</strong> <span class="loc-code">(MP-WEST)</span></div>
+                    <div class="loc-district">Malwa Plateau (Indore / Ujjain / Dewas / Dhar)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 5.20M t <span class="yield-tag">(1.15 t/ha, 42.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.35M t <span class="yield-tag">(1.40 t/ha, 4.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.240">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.240 m³/m³</span>
+                        <span class="val-pct" style="display:none;">53.4% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.416">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.416 m³/m³</span>
+                        <span class="val-pct" style="display:none;">92.4% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0014">
+                    <span class="trend-badge trend-flat">■ -0.1% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.240 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Central MP & Narmada Basin" 
+                data-code="MP-CENTRAL" 
+                data-country="India" 
+                data-top="0.254" 
+                data-sub="0.367" 
+                data-delta="-0.0440"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Central MP & Narmada Basin</strong> <span class="loc-code">(MP-CENTRAL)</span></div>
+                    <div class="loc-district">Vindhyan Basin (Sagar / Sehore / Hoshangabad / Vidisha)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 3.00M t <span class="yield-tag">(1.20 t/ha, 24.0%)</span></span><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.65M t <span class="yield-tag">(1.45 t/ha, 5.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.254">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.254 m³/m³</span>
+                        <span class="val-pct" style="display:none;">56.5% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.367">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.367 m³/m³</span>
+                        <span class="val-pct" style="display:none;">81.5% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0440">
+                    <span class="trend-badge trend-down">▼ -4.4% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.254 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="North MP Chambal Mustard Belt" 
+                data-code="MP-NORTH" 
+                data-country="India" 
+                data-top="0.168" 
+                data-sub="0.323" 
+                data-delta="-0.0237"
+                data-status="Severe Stress">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>North MP Chambal Mustard Belt</strong> <span class="loc-code">(MP-NORTH)</span></div>
+                    <div class="loc-district">Chambal Division (Morena / Bhind / Gwalior / Sheopur)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.85M t <span class="yield-tag">(1.70 t/ha, 14.5%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 0.40M t <span class="yield-tag">(1.10 t/ha, 3.2%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.168">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.168 m³/m³</span>
+                        <span class="val-pct" style="display:none;">37.4% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Severe Moisture Deficit / Subsoil Depletion</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.323">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.323 m³/m³</span>
+                        <span class="val-pct" style="display:none;">71.9% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0237">
+                    <span class="trend-badge trend-down">▼ -2.4% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.168 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Western India - Deccan Lava Plateau & Vidarbha (Maharashtra)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Western India - Deccan Lava Plateau & Vidarbha (Maharashtra)</span>
+                    <span class="reg-banner-count">3 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Vidarbha Oilseed Heartland" 
+                data-code="MH-VID" 
+                data-country="India" 
+                data-top="0.252" 
+                data-sub="0.344" 
+                data-delta="-0.0115"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Vidarbha Oilseed Heartland</strong> <span class="loc-code">(MH-VID)</span></div>
+                    <div class="loc-district">Eastern Maharashtra (Nagpur / Amravati / Akola / Yavatmal)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 2.85M t <span class="yield-tag">(1.10 t/ha, 23.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.25M t <span class="yield-tag">(1.25 t/ha, 3.2%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.252">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.252 m³/m³</span>
+                        <span class="val-pct" style="display:none;">56.0% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.344">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.344 m³/m³</span>
+                        <span class="val-pct" style="display:none;">76.5% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0115">
+                    <span class="trend-badge trend-flat">■ -1.2% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.252 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.2 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Marathwada Agri Basin" 
+                data-code="MH-MAR" 
+                data-country="India" 
+                data-top="0.300" 
+                data-sub="0.349" 
+                data-delta="-0.0449"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Marathwada Agri Basin</strong> <span class="loc-code">(MH-MAR)</span></div>
+                    <div class="loc-district">South-Central Maharashtra (Latur / Nanded / Hingoli / Jalna)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 2.10M t <span class="yield-tag">(1.05 t/ha, 17.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.20M t <span class="yield-tag">(1.20 t/ha, 2.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.300">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.300 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.6% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.349">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.349 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.5% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0449">
+                    <span class="trend-badge trend-down">▼ -4.5% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.300 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.1 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Khandesh & Western Plains" 
+                data-code="MH-WEST" 
+                data-country="India" 
+                data-top="0.298" 
+                data-sub="0.380" 
+                data-delta="-0.0392"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Khandesh & Western Plains</strong> <span class="loc-code">(MH-WEST)</span></div>
+                    <div class="loc-district">North-West Maharashtra (Dhule / Jalgaon / Kolhapur)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.45M t <span class="yield-tag">(1.35 t/ha, 5.8%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 0.60M t <span class="yield-tag">(1.20 t/ha, 4.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.298">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.298 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.2% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.380">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.380 m³/m³</span>
+                        <span class="val-pct" style="display:none;">84.4% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0392">
+                    <span class="trend-badge trend-down">▼ -3.9% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.298 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Northwestern India - Thar Margin & Mustard Heartland (Rajasthan & Haryana)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Northwestern India - Thar Margin & Mustard Heartland (Rajasthan & Haryana)</span>
+                    <span class="reg-banner-count">4 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="East Rajasthan Mustard Belt" 
+                data-code="RJ-EAST" 
+                data-country="India" 
+                data-top="0.177" 
+                data-sub="0.321" 
+                data-delta="-0.0163"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>East Rajasthan Mustard Belt</strong> <span class="loc-code">(RJ-EAST)</span></div>
+                    <div class="loc-district">Northeast Plain (Alwar / Bharatpur / Jaipur / Tonk)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 3.60M t <span class="yield-tag">(1.80 t/ha, 28.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.30M t <span class="yield-tag">(1.60 t/ha, 3.8%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.177">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.177 m³/m³</span>
+                        <span class="val-pct" style="display:none;">39.4% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Viable Seedbed</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.321">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.321 m³/m³</span>
+                        <span class="val-pct" style="display:none;">71.4% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0163">
+                    <span class="trend-badge trend-down">▼ -1.6% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.177 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.7 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Southeast Rajasthan (Hadoti Basin)" 
+                data-code="RJ-HAD" 
+                data-country="India" 
+                data-top="0.305" 
+                data-sub="0.428" 
+                data-delta="-0.0372"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Southeast Rajasthan (Hadoti Basin)</strong> <span class="loc-code">(RJ-HAD)</span></div>
+                    <div class="loc-district">Hadoti Plateau (Kota / Baran / Jhalawar)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 1.15M t <span class="yield-tag">(1.25 t/ha, 9.2%)</span></span><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.85M t <span class="yield-tag">(1.65 t/ha, 6.6%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.305">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.305 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.7% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.428">
+                    <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
+                        <span class="val-metric">0.428 m³/m³</span>
+                        <span class="val-pct" style="display:none;">95.2% Cap</span>
+                        <span class="status-label">Saturated</span>
+                    </div>
+                    <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0372">
+                    <span class="trend-badge trend-down">▼ -3.7% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.305 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="North Rajasthan Canal Colony" 
+                data-code="RJ-NORTH" 
+                data-country="India" 
+                data-top="0.099" 
+                data-sub="0.254" 
+                data-delta="-0.0017"
+                data-status="Deficit">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>North Rajasthan Canal Colony</strong> <span class="loc-code">(RJ-NORTH)</span></div>
+                    <div class="loc-district">IGNP Canal Belt (Bikaner / Sri Ganganagar / Hanumangarh)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.55M t <span class="yield-tag">(1.75 t/ha, 12.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.85M t <span class="yield-tag">(2.20 t/ha, 11.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.099">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.099 m³/m³</span>
+                        <span class="val-pct" style="display:none;">22.1% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Irrigation Needed</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.254">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.254 m³/m³</span>
+                        <span class="val-pct" style="display:none;">56.5% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Viable Seedbed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0017">
+                    <span class="trend-badge trend-flat">■ -0.2% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.099 m³/m³); farmers requiring pre-sowing irrigation (Rauni/Palewa) for upcoming Rabi mustard drilling. Dry, clear forecast window (<3.6 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="South Haryana Mustard Belt" 
+                data-code="HR-SOUTH" 
+                data-country="India" 
+                data-top="0.073" 
+                data-sub="0.183" 
+                data-delta="-0.0126"
+                data-status="Severe Stress">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>South Haryana Mustard Belt</strong> <span class="loc-code">(HR-SOUTH)</span></div>
+                    <div class="loc-district">Southern Semi-Arid (Bhiwani / Hisar / Mahendragarh / Rewari)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.45M t <span class="yield-tag">(1.95 t/ha, 11.2%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.073">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.073 m³/m³</span>
+                        <span class="val-pct" style="display:none;">16.3% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / High Risk for Germination</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.183">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.183 m³/m³</span>
+                        <span class="val-pct" style="display:none;">40.7% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Irrigation Needed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0126">
+                    <span class="trend-badge trend-flat">■ -1.3% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.073 m³/m³); farmers requiring pre-sowing irrigation (Rauni/Palewa) for upcoming Rabi mustard drilling. Dry, clear forecast window (<1.5 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Gangetic Plain & Eastern India (Uttar Pradesh & West Bengal)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Gangetic Plain & Eastern India (Uttar Pradesh & West Bengal)</span>
+                    <span class="reg-banner-count">3 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="West Uttar Pradesh & Braj" 
+                data-code="UP-WEST" 
+                data-country="India" 
+                data-top="0.130" 
+                data-sub="0.302" 
+                data-delta="-0.0019"
+                data-status="Severe Stress">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>West Uttar Pradesh & Braj</strong> <span class="loc-code">(UP-WEST)</span></div>
+                    <div class="loc-district">Yamuna Alluvial Plain (Agra / Mathura / Aligarh / Hathras)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.25M t <span class="yield-tag">(1.65 t/ha, 9.7%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.130">
+                    <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
+                        <span class="val-metric">0.130 m³/m³</span>
+                        <span class="val-pct" style="display:none;">28.8% Cap</span>
+                        <span class="status-label">Severe Stress</span>
+                    </div>
+                    <div class="moist-desc">Critical Dryness / Poor Seedbed Emergence</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.302">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.302 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.1% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0019">
+                    <span class="trend-badge trend-flat">■ -0.2% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.130 m³/m³); farmers requiring pre-sowing irrigation (Rauni/Palewa) for upcoming Rabi mustard drilling. Dry, clear forecast window (<0.7 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Central UP & Bundelkhand" 
+                data-code="UP-CENTRAL" 
+                data-country="India" 
+                data-top="0.257" 
+                data-sub="0.344" 
+                data-delta="-0.0501"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Central UP & Bundelkhand</strong> <span class="loc-code">(UP-CENTRAL)</span></div>
+                    <div class="loc-district">Southern UP Alluvium (Kanpur Dehat / Jhansi / Jalaun)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.90M t <span class="yield-tag">(1.50 t/ha, 7.0%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 0.25M t <span class="yield-tag">(1.05 t/ha, 2.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.257">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.257 m³/m³</span>
+                        <span class="val-pct" style="display:none;">57.1% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.344">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.344 m³/m³</span>
+                        <span class="val-pct" style="display:none;">76.5% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Well-Watered / Favorable Growth</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0501">
+                    <span class="trend-badge trend-down">▼ -5.0% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.257 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.1 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="West Bengal Deltaic Plain" 
+                data-code="WB-DELTA" 
+                data-country="India" 
+                data-top="0.262" 
+                data-sub="0.327" 
+                data-delta="-0.0174"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>West Bengal Deltaic Plain</strong> <span class="loc-code">(WB-DELTA)</span></div>
+                    <div class="loc-district">Gangetic Delta (Nadia / Murshidabad / North 24 Parganas)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.82M t <span class="yield-tag">(1.40 t/ha, 6.4%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.262">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.262 m³/m³</span>
+                        <span class="val-pct" style="display:none;">58.2% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Well-Watered / Favorable Growth</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.327">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.327 m³/m³</span>
+                        <span class="val-pct" style="display:none;">72.8% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0174">
+                    <span class="trend-badge trend-down">▼ -1.7% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.262 m³/m³); supporting ongoing field operations. Beneficial forward showers (17.3 mm) will recharge topsoil moisture for Rabi oilseed sowing.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Western Coastal Plain & Saurashtra Peninsula (Gujarat)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Western Coastal Plain & Saurashtra Peninsula (Gujarat)</span>
+                    <span class="reg-banner-count">2 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Saurashtra Peanut Heartland" 
+                data-code="GJ-SAU" 
+                data-country="India" 
+                data-top="0.247" 
+                data-sub="0.339" 
+                data-delta="-0.0063"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Saurashtra Peanut Heartland</strong> <span class="loc-code">(GJ-SAU)</span></div>
+                    <div class="loc-district">Peninsular Saurashtra (Rajkot / Junagadh / Amreli / Jamnagar)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 3.30M t <span class="yield-tag">(1.95 t/ha, 42.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.247">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.247 m³/m³</span>
+                        <span class="val-pct" style="display:none;">54.8% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.339">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.339 m³/m³</span>
+                        <span class="val-pct" style="display:none;">75.4% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Well-Watered / Favorable Growth</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0063">
+                    <span class="trend-badge trend-flat">■ -0.6% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.247 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="North Gujarat Semi-Arid Basin" 
+                data-code="GJ-NORTH" 
+                data-country="India" 
+                data-top="0.141" 
+                data-sub="0.216" 
+                data-delta="-0.0052"
+                data-status="Deficit">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>North Gujarat Semi-Arid Basin</strong> <span class="loc-code">(GJ-NORTH)</span></div>
+                    <div class="loc-district">North Gujarat Basin (Banaskantha / Sabarkantha / Mehsana)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.55M t <span class="yield-tag">(1.75 t/ha, 4.3%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.65M t <span class="yield-tag">(1.80 t/ha, 8.4%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.141">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.141 m³/m³</span>
+                        <span class="val-pct" style="display:none;">31.4% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Stress Alert</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.216">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.216 m³/m³</span>
+                        <span class="val-pct" style="display:none;">48.0% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Stress Alert</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0052">
+                    <span class="trend-badge trend-flat">■ -0.5% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.141 m³/m³); farmers requiring pre-sowing irrigation (Rauni/Palewa) for upcoming Rabi mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Peninsular South India - Krishna Basin & Rayalaseema (Andhra Pradesh & Telangana)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Peninsular South India - Krishna Basin & Rayalaseema (Andhra Pradesh & Telangana)</span>
+                    <span class="reg-banner-count">3 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="Rayalaseema Groundnut Basin" 
+                data-code="AP-RAY" 
+                data-country="India" 
+                data-top="0.317" 
+                data-sub="0.303" 
+                data-delta="-0.0586"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Rayalaseema Groundnut Basin</strong> <span class="loc-code">(AP-RAY)</span></div>
+                    <div class="loc-district">Red Soil Semi-Arid Basin (Anantapur / Kurnool / Kadapa / Chittoor)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.85M t <span class="yield-tag">(0.95 t/ha, 11.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.317">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.317 m³/m³</span>
+                        <span class="val-pct" style="display:none;">70.5% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.303">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.303 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.3% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0586">
+                    <span class="trend-badge trend-down">▼ -5.9% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.317 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.3 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Coastal Andhra Delta" 
+                data-code="AP-COAST" 
+                data-country="India" 
+                data-top="0.225" 
+                data-sub="0.263" 
+                data-delta="0.0005"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Coastal Andhra Delta</strong> <span class="loc-code">(AP-COAST)</span></div>
+                    <div class="loc-district">Krishna-Godavari Coastal Plain (Prakasam / Guntur / Nellore)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Rabi/Summer)</strong>: 0.38M t <span class="yield-tag">(2.10 t/ha, 21.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.225">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.225 m³/m³</span>
+                        <span class="val-pct" style="display:none;">50.0% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.263">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.263 m³/m³</span>
+                        <span class="val-pct" style="display:none;">58.5% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-trend" data-val="0.0005">
+                    <span class="trend-badge trend-flat">■ +0.0% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.225 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Telangana Southern Plateau" 
+                data-code="TG-SOUTH" 
+                data-country="India" 
+                data-top="0.124" 
+                data-sub="0.249" 
+                data-delta="-0.0092"
+                data-status="Deficit">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Telangana Southern Plateau</strong> <span class="loc-code">(TG-SOUTH)</span></div>
+                    <div class="loc-district">Southern Telangana (Mahabubnagar / Wanaparthy / Gadwal)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Rabi/Summer)</strong>: 0.32M t <span class="yield-tag">(2.05 t/ha, 17.5%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.124">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.124 m³/m³</span>
+                        <span class="val-pct" style="display:none;">27.5% Cap</span>
+                        <span class="status-label">Deficit</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Irrigation Needed</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.249">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.249 m³/m³</span>
+                        <span class="val-pct" style="display:none;">55.2% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Viable Seedbed</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0092">
+                    <span class="trend-badge trend-flat">■ -0.9% Steady</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.124 m³/m³); dry hard soil may hinder Kharif peanut lifting/digging without light wetting. Dry, clear forecast window (<0.3 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Southern Coromandel & Cauvery Basin (Tamil Nadu)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Southern Coromandel & Cauvery Basin (Tamil Nadu)</span>
+                    <span class="reg-banner-count">2 Oilseed Agricultural Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row" 
+                data-name="North Tamil Nadu Rainfed Belt" 
+                data-code="TN-NORTH" 
+                data-country="India" 
+                data-top="0.243" 
+                data-sub="0.245" 
+                data-delta="-0.0592"
+                data-status="Adequate">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>North Tamil Nadu Rainfed Belt</strong> <span class="loc-code">(TN-NORTH)</span></div>
+                    <div class="loc-district">Northern Red Loam Basin (Tiruvannamalai / Vellore / Villupuram)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.78M t <span class="yield-tag">(1.85 t/ha, 10.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.243">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.243 m³/m³</span>
+                        <span class="val-pct" style="display:none;">54.1% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.245">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.245 m³/m³</span>
+                        <span class="val-pct" style="display:none;">54.5% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0592">
+                    <span class="trend-badge trend-down">▼ -5.9% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.243 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Beneficial forward showers (15.9 mm) will recharge topsoil moisture for Rabi oilseed sowing.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row" 
+                data-name="Cauvery Delta & Southern Plains" 
+                data-code="TN-CAUVERY" 
+                data-country="India" 
+                data-top="0.354" 
+                data-sub="0.313" 
+                data-delta="-0.0542"
+                data-status="Optimal">
+                
+                <td class="col-location">
+                    <div class="loc-name"><strong>Cauvery Delta & Southern Plains</strong> <span class="loc-code">(TN-CAUVERY)</span></div>
+                    <div class="loc-district">Cauvery Basin (Cuddalore / Namakkal / Thanjavur / Madurai)</div>
+                </td>
+                
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Rabi/Summer)</strong>: 0.42M t <span class="yield-tag">(2.30 t/ha, 23.0%)</span></span></div>
+                </td>
+                
+                <td class="col-topsoil" data-val="0.354">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.354 m³/m³</span>
+                        <span class="val-pct" style="display:none;">78.7% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Well-Watered / Favorable Growth</div>
+                </td>
+                
+                <td class="col-subsoil" data-val="0.313">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.313 m³/m³</span>
+                        <span class="val-pct" style="display:none;">69.6% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Well-Watered / Favorable Growth</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0542">
+                    <span class="trend-badge trend-down">▼ -5.4% Drydown</span>
+                    <div class="trend-sub">7-Day Dynamic</div>
+                </td>
+                
+                <td class="col-comment">
+                    <div class="ag-comment">Favorable agronomic moisture status (0.354 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing.</div>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+(function() {
+    let unitMode = 'metric'; // 'metric' or 'pct'
+    let curStatus = 'all';
+
+    // Unit toggle
+    document.getElementById('unitM3Btn').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('unitPctBtn').classList.remove('active');
+        unitMode = 'metric';
+        document.querySelectorAll('.val-metric').forEach(el => el.style.display = '');
+        document.querySelectorAll('.val-pct').forEach(el => el.style.display = 'none');
+    });
+
+    document.getElementById('unitPctBtn').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('unitM3Btn').classList.remove('active');
+        unitMode = 'pct';
+        document.querySelectorAll('.val-metric').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.val-pct').forEach(el => el.style.display = '');
+    });
+
+    // Status filter
+    document.querySelectorAll('button[data-status]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('button[data-status]').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            curStatus = this.getAttribute('data-status');
+            applyFilters();
+        });
+    });
+
+    // Search filter
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+    function applyFilters() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const rows = document.querySelectorAll('tr.data-row');
+        const regHeaders = document.querySelectorAll('tr.region-header-row');
+        const visibleRegions = new Set();
+
+        rows.forEach(row => {
+            const name = row.getAttribute('data-name').toLowerCase();
+            const code = row.getAttribute('data-code').toLowerCase();
+            const status = row.getAttribute('data-status');
+            const reg = row.closest('tbody') ? '' : '';
+
+            let matchStatus = (curStatus === 'all') || (status === curStatus);
+            let matchText = !query || name.includes(query) || code.includes(query);
+
+            if (matchStatus && matchText) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Sorting
+    let sortDir = 1;
+    document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', function() {
+            const sortKey = this.getAttribute('data-sort');
+            sortDir = -sortDir;
+            const tbody = document.querySelector('table.soil-table tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr.data-row'));
+
+            rows.sort((a, b) => {
+                let valA = a.getAttribute('data-' + sortKey);
+                let valB = b.getAttribute('data-' + sortKey);
+                if (sortKey === 'top' || sortKey === 'sub' || sortKey === 'delta') {
+                    return (parseFloat(valA) - parseFloat(valB)) * sortDir;
+                }
+                return valA.localeCompare(valB) * sortDir;
+            });
+
+            // Detach and re-append
+            rows.forEach(r => tbody.appendChild(r));
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

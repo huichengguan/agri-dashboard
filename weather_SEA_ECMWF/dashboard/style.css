@@ -1184,48 +1184,174 @@ body {
     font-weight: 700;
 }
 
-/* Daily Matrix 28-Day Combined View */
+/* Daily Matrix 28-Day Combined View - Ultra-Compact & High-Visibility AVG */
 .daily-matrix-table {
     width: 100%;
     table-layout: auto;
 }
 
 .daily-matrix-table th {
-    padding: 3px 1px;
+    padding: 2px 0.5px;
     white-space: nowrap;
 }
 
 .daily-matrix-table td {
-    padding: 2px 4px;
+    padding: 1.5px 2px;
+}
+
+.daily-matrix-table th.col-country-head,
+.daily-matrix-table td.col-country {
+    max-width: 55px;
+    font-size: 10px;
+    padding: 1.5px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.daily-matrix-table th.col-region-head,
+.daily-matrix-table td.col-region {
+    max-width: 75px;
+    padding: 1.5px 2px;
+}
+
+.daily-matrix-table td.col-region .group-badge {
+    font-size: 8px;
+    padding: 1px 3px;
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.daily-matrix-table th.col-state-head {
+    min-width: 85px;
+    max-width: 105px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1.5px 4px;
+    white-space: nowrap;
+}
+
+.daily-matrix-table td.col-state {
+    max-width: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1.5px 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .daily-matrix-table td.rain-cell {
-    padding: 1.5px 1px !important;
+    padding: 1px 0.5px !important;
     text-align: center;
 }
 
 .daily-matrix-table .rain-badge {
-    width: 32px;
-    font-size: 9.5px;
-    padding: 1.5px 0;
+    width: 28px;
+    font-size: 8.5px;
+    padding: 1px 0;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.3px;
-    border-radius: 2.5px;
+    border-radius: 2px;
 }
 
-.daily-matrix-table .col-summary-avg {
-    min-width: 48px;
-    padding: 1.5px 2px !important;
+/* Thicker High-Contrast Left/Right Borders on AVG columns (values inside match normal cells) */
+.daily-matrix-table th.col-avg-head {
+    width: 30px;
+    min-width: 29px;
+    max-width: 32px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    text-align: center;
+    border-left: 2.5px solid #0f172a !important;
+    border-right: 2.5px solid #0f172a !important;
+    background: #e2e8f0;
+    color: #0f172a;
+    padding: 2px 0.5px;
 }
 
-.daily-matrix-table .col-summary-avg .rain-badge {
-    width: 44px;
-    font-size: 10px;
-    font-weight: 800;
+.daily-matrix-table td.col-avg-cell {
+    width: 30px;
+    min-width: 29px;
+    max-width: 32px;
+    padding: 1px 0.5px !important;
+    text-align: center;
+    border-left: 2.5px solid #0f172a !important;
+    border-right: 2.5px solid #0f172a !important;
+}
+
+/* 28D Window Summary Column (Single AVG Column) */
+.daily-matrix-table th.col-tot-superhead {
+    width: 30px;
+    min-width: 29px;
+    max-width: 32px;
+    text-align: center;
+    background: #064e3b;
+    color: #a7f3d0;
+    font-size: 8.5px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    padding: 3px 1px !important;
+    border-left: 2.5px solid #0f172a !important;
+    border-right: 2.5px solid #0f172a !important;
+    white-space: nowrap;
+}
+
+.daily-matrix-table th.col-tot-avg-head {
+    width: 30px;
+    min-width: 29px;
+    max-width: 32px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    text-align: center;
+    border-left: 2.5px solid #0f172a !important;
+    border-right: 2.5px solid #0f172a !important;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 2px 0.5px;
+}
+
+.daily-matrix-table td.col-tot-avg-cell {
+    width: 30px;
+    min-width: 29px;
+    max-width: 32px;
+    padding: 1px 0.5px !important;
+    text-align: center;
+    border-left: 2.5px solid #0f172a !important;
+    border-right: 2.5px solid #0f172a !important;
+}
+
+.daily-matrix-table .day-head {
+    min-width: 27px;
+    max-width: 31px;
+    padding: 1px 0.5px;
+}
+
+.daily-matrix-table .day-head .day-name {
+    font-size: 7.5px;
+    line-height: 1;
+}
+
+.daily-matrix-table .day-head .day-date {
+    font-size: 8.5px;
+    line-height: 1.1;
+}
+
+.daily-matrix-table .today-tag,
+.daily-matrix-table .fcst-tag,
+.daily-matrix-table .fcst28-tag,
+.daily-matrix-table .obs-tag {
+    font-size: 6.5px;
+    padding: 0.5px 2px;
+    line-height: 1;
 }
 
 .daily-matrix-table .rain-badge.forecast-badge {
-    border: 1.2px dashed #0284c7 !important;
+    border: 1px dashed #0284c7 !important;
     background-clip: padding-box;
 }
 

@@ -1,0 +1,524 @@
+{
+  "Northeast China - Songliao Plain Grain & Oilseed Heartland": {
+    "region_id": "cn_northeast_heartland",
+    "description": "China's premier single-season spring grain and oilseed powerhouse characterized by deep black mollisol soils (Chernozem/Phaeozem). Accounts for over 45% of national corn and ~70% of national soybean production.",
+    "states": [
+      {
+        "name": "Heilongjiang Central-South",
+        "code": "HLJ-CS",
+        "country": "China",
+        "district": "Songnen Plain (Harbin / Suihua / Daqing)",
+        "lat": 45.85,
+        "lon": 126.75,
+        "commodities": [
+          {
+            "crop": "Corn (Spring)",
+            "production_mmt": 31.5,
+            "yield_tha": 6.85,
+            "share_pct": 14.8,
+            "status": "Physiological Maturity / Active Autumn Harvest"
+          },
+          {
+            "crop": "Soybeans (Spring)",
+            "production_mmt": 5.1,
+            "yield_tha": 1.95,
+            "share_pct": 25.0,
+            "status": "Pod Maturity / Combining & Stubble Clearing"
+          }
+        ]
+      },
+      {
+        "name": "Heilongjiang Northern Granary",
+        "code": "HLJ-NORTH",
+        "country": "China",
+        "district": "Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)",
+        "lat": 49.18,
+        "lon": 125.22,
+        "commodities": [
+          {
+            "crop": "Soybeans (Spring)",
+            "production_mmt": 5.2,
+            "yield_tha": 1.92,
+            "share_pct": 25.5,
+            "status": "Full Maturity / Harvest Operations Wrapping Up"
+          },
+          {
+            "crop": "Corn (Spring)",
+            "production_mmt": 9.6,
+            "yield_tha": 6.45,
+            "share_pct": 4.5,
+            "status": "Maturation / Frost-Assisted Drydown"
+          },
+          {
+            "crop": "Spring Wheat",
+            "production_mmt": 0.35,
+            "yield_tha": 4.10,
+            "share_pct": 1.0,
+            "status": "Post-Harvest Land Fallow"
+          }
+        ]
+      },
+      {
+        "name": "Jilin Central Golden Corn Belt",
+        "code": "JL-CENTRAL",
+        "country": "China",
+        "district": "Songliao Plain (Changchun / Songyuan / Siping)",
+        "lat": 43.88,
+        "lon": 125.32,
+        "commodities": [
+          {
+            "crop": "Corn (Spring)",
+            "production_mmt": 29.8,
+            "yield_tha": 7.35,
+            "share_pct": 10.2,
+            "status": "Kernel Hardening / Active Harvest Combining"
+          },
+          {
+            "crop": "Soybeans (Spring)",
+            "production_mmt": 0.65,
+            "yield_tha": 2.05,
+            "share_pct": 3.2,
+            "status": "Mature / Harvesting & Grain Drying"
+          }
+        ]
+      },
+      {
+        "name": "Liaoning Central Grain Plain",
+        "code": "LN-CENTRAL",
+        "country": "China",
+        "district": "Liaohe River Basin (Shenyang / Tieling / Jinzhou)",
+        "lat": 42.15,
+        "lon": 123.75,
+        "commodities": [
+          {
+            "crop": "Corn (Spring)",
+            "production_mmt": 18.2,
+            "yield_tha": 6.90,
+            "share_pct": 6.3,
+            "status": "Maturity / Combining & Silo Storage"
+          },
+          {
+            "crop": "Soybeans (Spring)",
+            "production_mmt": 0.35,
+            "yield_tha": 1.98,
+            "share_pct": 1.7,
+            "status": "Harvest Completed / Field Prep"
+          }
+        ]
+      },
+      {
+        "name": "Inner Mongolia Eastern Agro-Pastoral Belt",
+        "code": "IM-EAST",
+        "country": "China",
+        "district": "West Liao River Plain (Tongliao / Chifeng / Hinggan)",
+        "lat": 43.62,
+        "lon": 122.27,
+        "commodities": [
+          {
+            "crop": "Corn (Spring)",
+            "production_mmt": 28.1,
+            "yield_tha": 6.95,
+            "share_pct": 9.6,
+            "status": "Maturity / High-Speed Mechanical Harvest"
+          },
+          {
+            "crop": "Soybeans (Spring)",
+            "production_mmt": 3.1,
+            "yield_tha": 1.90,
+            "share_pct": 15.2,
+            "status": "Harvest Peak / Elevator Intake"
+          }
+        ]
+      }
+    ]
+  },
+  "Huang-Huai-Hai Plain - Intensive Double-Cropping Granary": {
+    "region_id": "cn_huanghuaihai_granary",
+    "description": "China's premier winter wheat and summer corn/soybean intensive double-cropping system on high-fertility alluvial plains. Produces over 65% of China's wheat and ~30% of its corn.",
+    "states": [
+      {
+        "name": "Henan North-Central",
+        "code": "HA-NORTH",
+        "country": "China",
+        "district": "Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)",
+        "lat": 35.30,
+        "lon": 113.90,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 20.5,
+            "yield_tha": 6.45,
+            "share_pct": 14.0,
+            "status": "Autumn Drilling Window / Pre-Sowing Seedbed Tillage"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 12.6,
+            "yield_tha": 6.20,
+            "share_pct": 4.3,
+            "status": "Harvest Finalized / Stalk Chopping & Incorporation"
+          }
+        ]
+      },
+      {
+        "name": "Henan South-Central",
+        "code": "HA-SOUTH",
+        "country": "China",
+        "district": "Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)",
+        "lat": 33.63,
+        "lon": 114.65,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 20.5,
+            "yield_tha": 6.40,
+            "share_pct": 14.0,
+            "status": "Pre-Planting Soil Prep / Early Wheat Sowing"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 12.5,
+            "yield_tha": 6.15,
+            "share_pct": 4.3,
+            "status": "Harvest Wrapping Up / Stubble Mulching"
+          },
+          {
+            "crop": "Soybeans (Summer)",
+            "production_mmt": 1.0,
+            "yield_tha": 2.10,
+            "share_pct": 4.8,
+            "status": "Late Maturation / Harvesting In Progress"
+          }
+        ]
+      },
+      {
+        "name": "Shandong Northwest Plain",
+        "code": "SD-NW",
+        "country": "China",
+        "district": "Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)",
+        "lat": 36.85,
+        "lon": 116.10,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 13.2,
+            "yield_tha": 6.55,
+            "share_pct": 9.0,
+            "status": "Active Sowing Window / Seedbed Emergence Watch"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 13.1,
+            "yield_tha": 6.40,
+            "share_pct": 4.5,
+            "status": "Harvest Concluded / Field Preparation"
+          }
+        ]
+      },
+      {
+        "name": "Shandong Southwest Plain",
+        "code": "SD-SW",
+        "country": "China",
+        "district": "Lu-Southwest Grain Basin (Heze / Jining / Tai'an)",
+        "lat": 35.24,
+        "lon": 115.45,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 12.8,
+            "yield_tha": 6.50,
+            "share_pct": 8.5,
+            "status": "Optimum Sowing Period / Rauni Pre-Irrigation"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 12.2,
+            "yield_tha": 6.35,
+            "share_pct": 4.2,
+            "status": "Harvest Completed / Grain Drying"
+          },
+          {
+            "crop": "Soybeans (Summer)",
+            "production_mmt": 0.85,
+            "yield_tha": 2.15,
+            "share_pct": 4.0,
+            "status": "Pod Harvest Underway / Threshing"
+          }
+        ]
+      },
+      {
+        "name": "Hebei Central-South Plain",
+        "code": "HE-SOUTH",
+        "country": "China",
+        "district": "Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)",
+        "lat": 37.85,
+        "lon": 114.80,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 15.0,
+            "yield_tha": 6.35,
+            "share_pct": 10.5,
+            "status": "Autumn Sowing Kickoff / Soil Moisture Assessment"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 22.5,
+            "yield_tha": 6.25,
+            "share_pct": 7.7,
+            "status": "Mechanical Harvest Nearing End"
+          },
+          {
+            "crop": "Soybeans (Summer)",
+            "production_mmt": 0.48,
+            "yield_tha": 2.05,
+            "share_pct": 2.3,
+            "status": "Mature / Autumn Harvest Operations"
+          }
+        ]
+      },
+      {
+        "name": "Anhui Northern Huaihe Basin",
+        "code": "AH-NORTH",
+        "country": "China",
+        "district": "Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)",
+        "lat": 33.20,
+        "lon": 116.30,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 17.5,
+            "yield_tha": 6.10,
+            "share_pct": 12.8,
+            "status": "Pre-Sowing Soil Prep / Seed Drilling Window"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 7.8,
+            "yield_tha": 5.95,
+            "share_pct": 2.7,
+            "status": "Grain Harvest Completed"
+          },
+          {
+            "crop": "Soybeans (Summer)",
+            "production_mmt": 1.25,
+            "yield_tha": 1.95,
+            "share_pct": 6.0,
+            "status": "Active Harvesting / Seed Cleaning"
+          }
+        ]
+      },
+      {
+        "name": "Jiangsu Northern Plain",
+        "code": "JS-NORTH",
+        "country": "China",
+        "district": "Su-North Plain (Xuzhou / Suqian / Yancheng)",
+        "lat": 34.26,
+        "lon": 117.20,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 14.0,
+            "yield_tha": 5.90,
+            "share_pct": 9.8,
+            "status": "Land Preparation / Sowing Imminent"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 5.2,
+            "yield_tha": 6.10,
+            "share_pct": 1.8,
+            "status": "Harvest Concluded"
+          },
+          {
+            "crop": "Soybeans (Summer)",
+            "production_mmt": 0.55,
+            "yield_tha": 2.10,
+            "share_pct": 2.6,
+            "status": "Harvest in Progress"
+          }
+        ]
+      }
+    ]
+  },
+  "Northwest & Fen-Wei Basin - Dryland & Oasis Grain Heartland": {
+    "region_id": "cn_northwest_oasis",
+    "description": "Encompasses the Guanzhong alluvial basin, Fenhe Valley, Loess Plateau drylands, and the Xinjiang oasis agro-ecosystems. Known for exceptionally high solar radiation and record corn/wheat yields under controlled irrigation.",
+    "states": [
+      {
+        "name": "Shaanxi Guanzhong Plain",
+        "code": "SN-GUANZHONG",
+        "country": "China",
+        "district": "Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)",
+        "lat": 34.50,
+        "lon": 109.50,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 4.2,
+            "yield_tha": 5.20,
+            "share_pct": 3.0,
+            "status": "Optimal Sowing Window / Seed Emergence"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 8.1,
+            "yield_tha": 5.80,
+            "share_pct": 2.8,
+            "status": "Harvest Completed"
+          }
+        ]
+      },
+      {
+        "name": "Shanxi Fenhe & Southern Basin",
+        "code": "SX-SOUTH",
+        "country": "China",
+        "district": "Fenhe Valley (Yuncheng / Linfen / Jinzhong)",
+        "lat": 35.50,
+        "lon": 111.30,
+        "commodities": [
+          {
+            "crop": "Corn (Spring/Summer)",
+            "production_mmt": 12.0,
+            "yield_tha": 6.10,
+            "share_pct": 4.1,
+            "status": "Maturity / Mechanical Harvesting"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 2.4,
+            "yield_tha": 4.85,
+            "share_pct": 1.7,
+            "status": "Autumn Drilling Underway"
+          }
+        ]
+      },
+      {
+        "name": "Xinjiang Oasis Grain Heartland",
+        "code": "XJ-OASIS",
+        "country": "China",
+        "district": "Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)",
+        "lat": 44.02,
+        "lon": 87.30,
+        "commodities": [
+          {
+            "crop": "Corn (Grain & Seed)",
+            "production_mmt": 10.2,
+            "yield_tha": 9.80,
+            "share_pct": 3.5,
+            "status": "Late Harvest / High-Yield Drip Irrigation Basins"
+          },
+          {
+            "crop": "Winter & Spring Wheat",
+            "production_mmt": 7.2,
+            "yield_tha": 6.80,
+            "share_pct": 5.0,
+            "status": "Winter Wheat Sowing / Emergence Prior to Freezup"
+          }
+        ]
+      },
+      {
+        "name": "Gansu Hexi Corridor & Longdong",
+        "code": "GS-CORRIDOR",
+        "country": "China",
+        "district": "Hexi National Seed Base (Zhangye / Wuwei / Pingliang)",
+        "lat": 38.93,
+        "lon": 100.45,
+        "commodities": [
+          {
+            "crop": "Corn (Seed & Grain)",
+            "production_mmt": 7.3,
+            "yield_tha": 7.10,
+            "share_pct": 2.5,
+            "status": "Hybrid Seed Corn Harvest & Drying"
+          },
+          {
+            "crop": "Wheat (Spring/Winter)",
+            "production_mmt": 2.8,
+            "yield_tha": 4.40,
+            "share_pct": 2.0,
+            "status": "Winter Wheat Emergence / Field Prep"
+          }
+        ]
+      }
+    ]
+  },
+  "Southwest & Yangtze Basin - Hilly & Mixed Grain Zone": {
+    "region_id": "cn_southwest_yangtze",
+    "description": "Southwest and Yangtze river basin featuring year-round cropping, corn-soybean strip intercropping (大豆玉米带状复合种植), and temperate plateau grain production.",
+    "states": [
+      {
+        "name": "Sichuan Basin & Hilly Plain",
+        "code": "SC-BASIN",
+        "country": "China",
+        "district": "Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)",
+        "lat": 30.67,
+        "lon": 104.06,
+        "commodities": [
+          {
+            "crop": "Corn (Spring/Summer)",
+            "production_mmt": 12.3,
+            "yield_tha": 5.75,
+            "share_pct": 4.2,
+            "status": "Harvest Completed"
+          },
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 2.7,
+            "yield_tha": 4.60,
+            "share_pct": 1.9,
+            "status": "Pre-Sowing Soil Preparation"
+          },
+          {
+            "crop": "Soybeans (Intercropped)",
+            "production_mmt": 0.45,
+            "yield_tha": 1.85,
+            "share_pct": 2.2,
+            "status": "Strip-Crop Harvest Concluded"
+          }
+        ]
+      },
+      {
+        "name": "Hubei Northern Xiang-Jing Plain",
+        "code": "HB-NORTH",
+        "country": "China",
+        "district": "Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)",
+        "lat": 32.01,
+        "lon": 112.14,
+        "commodities": [
+          {
+            "crop": "Winter Wheat",
+            "production_mmt": 4.5,
+            "yield_tha": 4.80,
+            "share_pct": 3.5,
+            "status": "Paddy/Dryland Transition & Wheat Sowing Prep"
+          },
+          {
+            "crop": "Corn (Summer)",
+            "production_mmt": 5.3,
+            "yield_tha": 5.85,
+            "share_pct": 1.8,
+            "status": "Harvest Completed"
+          }
+        ]
+      },
+      {
+        "name": "Yunnan Central-Eastern Plateau",
+        "code": "YN-PLATEAU",
+        "country": "China",
+        "district": "Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)",
+        "lat": 25.50,
+        "lon": 103.80,
+        "commodities": [
+          {
+            "crop": "Corn (Plateau)",
+            "production_mmt": 12.6,
+            "yield_tha": 5.40,
+            "share_pct": 4.3,
+            "status": "Highland Corn Ripening & Staggered Harvest"
+          }
+        ]
+      }
+    ]
+  }
+}
