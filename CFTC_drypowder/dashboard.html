@@ -254,6 +254,270 @@
             width: 100%; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: opacity 0.2s;
         }
         .report-card img:hover { opacity: 0.9; }
+
+        /* Institutional Guide Styling */
+        .guide-wrapper {
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+        .guide-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            position: sticky;
+            top: 12px;
+            z-index: 90;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .guide-nav-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+        .guide-pill {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: var(--bg-sub);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .guide-pill:hover {
+            color: #fff;
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.15);
+        }
+        .guide-hero-card {
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.4), rgba(19, 27, 46, 0.95));
+            border: 1px solid #059669;
+            border-radius: 14px;
+            padding: 26px 30px;
+            margin-bottom: 26px;
+            box-shadow: 0 4px 24px rgba(16, 185, 129, 0.12);
+        }
+        .guide-hero-badge {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #34d399;
+            margin-bottom: 8px;
+        }
+        .guide-hero-card h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .guide-hero-card p {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .guide-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 26px;
+            scroll-margin-top: 80px;
+        }
+        .guide-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .sec-number {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--bg-sub);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .guide-card-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .sec-sub {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-top: 3px;
+        }
+        .guide-card p {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+        .guide-table-scroll {
+            overflow-x: auto;
+            margin: 16px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .guide-matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: var(--bg-card);
+        }
+        .guide-matrix-table th {
+            background: #0d1424;
+            color: var(--text-sub);
+            padding: 12px 14px;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .guide-matrix-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #1a253d;
+            color: #cbd5e1;
+            line-height: 1.6;
+            vertical-align: top;
+        }
+        .guide-matrix-table tr:hover td {
+            background: var(--bg-sub);
+        }
+        .badge-tag {
+            display: inline-block;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-top: 4px;
+            background: rgba(148, 163, 184, 0.15);
+            color: #94a3b8;
+        }
+        .player-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+            margin: 18px 0;
+        }
+        .player-card {
+            background: var(--bg-sub);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .player-card-top {
+            margin-bottom: 12px;
+        }
+        .player-role-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        .player-card-top h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .player-desc p {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .player-desc ul {
+            font-size: 12.5px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-left: 18px;
+        }
+        .player-desc li {
+            margin-bottom: 6px;
+        }
+        .guide-two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 18px;
+            margin: 18px 0;
+        }
+        .guide-box {
+            background: var(--bg-sub);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .guide-box h4 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .guide-box p {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .guide-box ol {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-left: 18px;
+        }
+        .guide-box li {
+            margin-bottom: 8px;
+        }
+        .callout {
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 18px 0;
+            font-size: 13.5px;
+            line-height: 1.7;
+        }
+        .callout-amber {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            color: #fef3c7;
+        }
+        .callout-emerald {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid #10b981;
+            color: #d1fae5;
+        }
+        .callout-sky {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid #38bdf8;
+            color: #e0f2fe;
+        }
+        .callout-purple {
+            background: rgba(168, 85, 247, 0.1);
+            border-left: 4px solid #a855f7;
+            color: #f3e8ff;
+        }
     </style>
 </head>
 <body>
@@ -277,40 +541,537 @@
             <button class="tab-btn" id="tab-prod" onclick="switchEdition('prod')">
                 🚜 Producer & Commercial Hedging (17 Markets)
             </button>
+            <button class="tab-btn" id="tab-guide" onclick="switchEdition('guide')">
+                📘 COT Market Playbook & Trader Guide (Interpretation, Personas & Signals)
+            </button>
         </div>
 
-        <!-- KPI Grid -->
-        <section class="kpi-grid">
-            <div class="kpi-card">
-                <div class="lbl">Markets Monitored</div>
-                <div class="val" style="color: var(--accent);" id="kpi-markets">-</div>
+        <!-- Data View (KPIs, Filters, Table) -->
+        <div id="dataViewContainer">
+            <!-- KPI Grid -->
+            <section class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="lbl">Markets Monitored</div>
+                    <div class="val" style="color: var(--accent);" id="kpi-markets">-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="lbl" id="kpi-label-crowd">Extreme Long Crowds (>=90th %ile)</div>
+                    <div class="val" style="color: var(--red);" id="kpi-crowd-long">-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="lbl" id="kpi-label-squeeze">Short Squeezes / Depleted (<=10th %ile)</div>
+                    <div class="val" style="color: var(--amber);" id="kpi-squeeze">-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="lbl" id="kpi-label-flow">Grains & Oilseeds Net Weekly Flow</div>
+                    <div class="val" style="color: var(--green);" id="kpi-grain-flow">-</div>
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <div class="controls">
+                <div class="sector-filters" id="sectorFilters"></div>
+                <input type="text" id="searchInput" class="search-box" placeholder="Search commodity..." oninput="handleSearch()">
             </div>
-            <div class="kpi-card">
-                <div class="lbl" id="kpi-label-crowd">Extreme Long Crowds (>=90th %ile)</div>
-                <div class="val" style="color: var(--red);" id="kpi-crowd-long">-</div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <table>
+                    <thead id="tableHead"></thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
             </div>
-            <div class="kpi-card">
-                <div class="lbl" id="kpi-label-squeeze">Short Squeezes / Depleted (<=10th %ile)</div>
-                <div class="val" style="color: var(--amber);" id="kpi-squeeze">-</div>
+        </div>
+
+        <!-- Institutional Interpretation Guide Container -->
+        <div id="guideContainer" style="display: none;">
+            
+    <div class="guide-wrapper">
+        <!-- Sub-Navigation Pills -->
+        <div class="guide-nav-bar">
+            <span class="guide-nav-title">Quick Jump:</span>
+            <a href="#arch-breakdown" class="guide-pill">🏛️ 1. Report Architectures</a>
+            <a href="#players-commodities" class="guide-pill">🌾 2. Commodity Players (Ags & Energy)</a>
+            <a href="#soybeans-deepdive" class="guide-pill">🌱 3. Soybeans & Crush Deep Dive</a>
+            <a href="#players-financials" class="guide-pill">📈 4. Financials: Equities & Bonds</a>
+            <a href="#basis-trade-mechanics" class="guide-pill">🏛️ 5. The Treasury Basis Trade</a>
+            <a href="#signals-playbook" class="guide-pill">⚡ 6. Signals & Dry Powder Playbook</a>
+        </div>
+
+        <!-- HERO INTRO CARD -->
+        <div class="guide-hero-card">
+            <div class="guide-hero-badge">TRADING DESK MANUAL &bull; FIRST RESOURCES QUANTITATIVE RESEARCH</div>
+            <h2>How to Read and Interpret Commitments of Traders (COT) Reports</h2>
+            <p>
+                The CFTC Commitments of Traders (COT) report is the single most authoritative positioning record in global derivatives markets. 
+                Released weekly on <strong>Friday at 3:30 PM Eastern Time</strong> (reflecting positions held as of the close of business on the preceding <strong>Tuesday</strong>), 
+                the COT report provides a transparent window into the balance sheet allocations of commercial hedgers, speculative hedge funds, and financial intermediaries.
+            </p>
+            <p style="margin-bottom:0;">
+                To use positioning effectively, a trader must answer three fundamental questions: 
+                <strong>(1) Who is in the market? (2) What is their underlying commercial or quantitative incentive? and (3) How much untapped capital ("Dry Powder") remains to sustain the trend?</strong>
+            </p>
+        </div>
+
+        <!-- SECTION 1: REPORT ARCHITECTURES -->
+        <section id="arch-breakdown" class="guide-card">
+            <div class="guide-card-header">
+                <span class="sec-number">01</span>
+                <div>
+                    <h3>The 3 Core CFTC Architectures: Legacy vs. Disaggregated vs. TFF</h3>
+                    <p class="sec-sub">Why the CFTC evolved from 3 broad categories to modern disaggregated and financial models.</p>
+                </div>
             </div>
-            <div class="kpi-card">
-                <div class="lbl" id="kpi-label-flow">Grains & Oilseeds Net Weekly Flow</div>
-                <div class="val" style="color: var(--green);" id="kpi-grain-flow">-</div>
+
+            <p>
+                Historically, the CFTC published a single <strong>Legacy Report</strong>. However, financial engineering and the explosion of commodity index investments in the 2000s broke the legacy model's assumptions. 
+                Today, the CFTC publishes three distinct report structures depending on the underlying asset class:
+            </p>
+
+            <div class="guide-table-scroll">
+                <table class="guide-matrix-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 18%;">Report Type</th>
+                            <th style="width: 20%;">Markets Covered</th>
+                            <th style="width: 32%;">Classifications</th>
+                            <th style="width: 30%;">Key Nuance & Practical Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Legacy COT</strong><br><span class="badge-tag">Since 1986</span></td>
+                            <td>All commodities, indices, rates, and currencies.</td>
+                            <td>
+                                &bull; <strong>Commercial</strong><br>
+                                &bull; <strong>Non-Commercial</strong> (Speculators)<br>
+                                &bull; <strong>Non-Reportable</strong> (Retail)
+                            </td>
+                            <td>
+                                <em>Advantage:</em> Longest continuous historical data (>35 years).<br>
+                                <em>Fatal Flaw:</em> Lumps Swap Dealers (banks hedging index swaps) into "Commercials", severely distorting the true physical hedging picture.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Disaggregated COT</strong><br><span class="badge-tag" style="background:#064e3b;color:#34d399;">Since 2009</span></td>
+                            <td>Physical Commodities: Agriculture (Grains, Softs, Livestock), Energy (Crude, Gas), Metals.</td>
+                            <td>
+                                &bull; <strong>Producer / Merchant / Processor / User (P/M/P/U)</strong><br>
+                                &bull; <strong>Swap Dealers</strong><br>
+                                &bull; <strong>Managed Money</strong><br>
+                                &bull; <strong>Other Reportables</strong><br>
+                                &bull; <strong>Non-Reportable</strong>
+                            </td>
+                            <td>
+                                <em>The Gold Standard for Commodities.</em> Successfully separates real physical hedgers (farmers, crushers, refiners) from bank swap desks and speculative trend followers (CTAs). Used in our Agri & Energy models.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Traders in Financial Futures (TFF)</strong><br><span class="badge-tag" style="background:#1e3a8a;color:#93c5fd;">Since 2010</span></td>
+                            <td>Financial Contracts: Equity Indices (S&P 500, Nasdaq), US Treasuries, SOFR, FX, VIX.</td>
+                            <td>
+                                &bull; <strong>Dealer / Intermediary</strong><br>
+                                &bull; <strong>Asset Manager / Institutional</strong><br>
+                                &bull; <strong>Leveraged Funds</strong><br>
+                                &bull; <strong>Other Reportables</strong><br>
+                                &bull; <strong>Non-Reportable</strong>
+                            </td>
+                            <td>
+                                Designed specifically for financial markets where there are no physical "producers". Distinguishes long-term real-money capital (Asset Managers) from levered hedge funds and liquidity-providing broker-dealers.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-amber">
+                <strong>💡 Why the Disaggregated Report Was Born: The "Index Swaps Loophole"</strong><br>
+                In the 2000s, pension funds poured hundreds of billions into commodity index benchmarks (Bloomberg Commodity Index, S&P GSCI). They bought over-the-counter (OTC) swaps from Wall Street banks (Goldman Sachs, Morgan Stanley). 
+                To hedge their short OTC exposure, these banks bought hundreds of thousands of CBOT corn, soybean, and NYMEX crude futures. Under the old Legacy rules, because the banks were "hedging OTC swaps", the CFTC labeled them <em>"Commercial Hedgers"</em> alongside grain elevators and farmers! 
+                This artificially disguised speculative index money as commercial hedging. The <strong>Disaggregated COT</strong> solved this by creating the separate <strong>Swap Dealers</strong> category.
             </div>
         </section>
 
-        <!-- Controls -->
-        <div class="controls">
-            <div class="sector-filters" id="sectorFilters"></div>
-            <input type="text" id="searchInput" class="search-box" placeholder="Search commodity..." oninput="handleSearch()">
-        </div>
+        <!-- SECTION 2: COMMODITY PARTICIPANTS -->
+        <section id="players-commodities" class="guide-card">
+            <div class="guide-card-header">
+                <span class="sec-number">02</span>
+                <div>
+                    <h3>Commodity Market Players & Personas: Who They Are & How They Trade</h3>
+                    <p class="sec-sub">Understanding the structural motives behind each category in Agriculture, Energy, and Metals.</p>
+                </div>
+            </div>
 
-        <!-- Table -->
-        <div class="table-container">
-            <table>
-                <thead id="tableHead"></thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+            <p>
+                In physical commodities, participants have drastically different risk appetites, time horizons, and mandate constraints. Here is how to profile each participant:
+            </p>
+
+            <div class="player-grid">
+                <!-- Managed Money -->
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4);">SPECULATIVE TREND FOLLOWERS</span>
+                        <h4>Managed Money (CTAs & Hedge Funds)</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Who They Are:</strong> Systematic Commodity Trading Advisors (CTAs like Aspect, Man AHL, Winton, Systematica), quantitative momentum funds, and discretionary macro hedge funds.</p>
+                        <p><strong>Core Motivation:</strong> Profit from directional price momentum. They hold <em>zero physical grain, oil, or cattle</em> and intend to close or roll 100% of contracts before delivery.</p>
+                        <p><strong>Behavioral Reaction Profile:</strong></p>
+                        <ul>
+                            <li><strong>Momentum Amplifiers:</strong> They do not initiate reversals; they jump onto trends after breakouts occur (e.g. crossing 20/50/200 DMA).</li>
+                            <li><strong>Stop Cascades:</strong> When key technical support levels break, automated algorithms liquidate en masse, causing rapid downward "air pockets".</li>
+                            <li><strong>Dry Powder Exhaustion:</strong> When their positioning hits the 95th–99th percentile net long, they have no remaining capital to buy. The market becomes extremely fragile to downside shocks.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- P/M/P/U -->
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:rgba(16,185,129,0.2);color:#34d399;border:1px solid rgba(16,185,129,0.4);">PHYSICAL COMMERCIAL HEDGERS</span>
+                        <h4>Producer / Merchant / Processor / User (P/M/P/U)</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Who They Are:</strong> The real physical supply chain: grain elevators, farmers, agribusiness giants (ADM, Bunge, Cargill, Louis Dreyfus - the "ABCDs"), soybean crushers, livestock feedlots, oil refineries, and plantation groups like First Resources.</p>
+                        <p><strong>Core Motivation:</strong> Balance sheet risk management. Protect margins against adverse cash market price swings. They produce, handle, or consume the physical commodity.</p>
+                        <p><strong>Behavioral Reaction Profile:</strong></p>
+                        <ul>
+                            <li><strong>Counter-Trend Mean-Reverters:</strong> They trade opposite to Managed Money. As prices rally, producers aggressively sell futures forward (locking in high margins). Producer net short increases.</li>
+                            <li><strong>Commercial Capitulation Floor:</strong> When prices drop below the marginal cost of production, farmers stop selling and end-users (feedlots, importers) step in to buy long hedges. Commercials become heavily net buyers, establishing a fundamental price floor.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Swap Dealers -->
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid rgba(56,189,248,0.4);">FINANCIAL CONDUITS</span>
+                        <h4>Swap Dealers</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Who They Are:</strong> Global investment banks (Goldman Sachs, Morgan Stanley, JPMorgan, Citi, Macquarie).</p>
+                        <p><strong>Core Motivation:</strong> Neutral market-making. They intermediate OTC commodity swaps for pension funds, sovereign wealth funds, and institutional index trackers (e.g. BCOM, S&P GSCI).</p>
+                        <p><strong>Behavioral Reaction Profile:</strong></p>
+                        <ul>
+                            <li><strong>Structurally Net Long:</strong> Because institutional index investors buy long commodity exposure as an inflation hedge, Swap Dealers hedge by holding net long futures.</li>
+                            <li><strong>The "Index Roll":</strong> Between the 5th and 9th business day of every month (the index roll window), swap dealers mechanically sell front-month contracts and buy deferred-month contracts, exerting structural spread pressure.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Other Reportables & Non-Reportable -->
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:rgba(148,163,184,0.2);color:#94a3b8;border:1px solid rgba(148,163,184,0.4);">SECONDARY PARTICIPANTS</span>
+                        <h4>Other Reportables & Non-Reportable</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Other Reportables:</strong> Large proprietary trading firms, energy utility trading desks, corporate treasuries, or family offices that trade sizes above reporting thresholds but do not meet the definitions of CTA or P/M/P/U.</p>
+                        <p><strong>Non-Reportable (Retail & Small Hedgers):</strong> Traders holding positions below the CFTC reporting threshold (e.g., <250 contracts in Soybeans). Represents retail sentiment and small commercial operators.</p>
+                        <p><strong>Behavioral Reaction Profile:</strong> Non-reportables are often late to trends and heavily susceptible to chasing tops or panic-selling bottoms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SOYBEANS & AGRI DEEP DIVE -->
+        <section id="soybeans-deepdive" class="guide-card">
+            <div class="guide-card-header">
+                <span class="sec-number">03</span>
+                <div>
+                    <h3>Deep Dive: Soybeans & The Grains Complex Dynamics</h3>
+                    <p class="sec-sub">Case study: How Managed Money, Commercial Crushers, and Exporters interact across the cycle.</p>
+                </div>
+            </div>
+
+            <p>
+                To understand the COT report in practice, consider the <strong>CBOT Soybean Complex (Soybeans, Soybean Meal, Soybean Oil)</strong>:
+            </p>
+
+            <div class="guide-two-col">
+                <div class="guide-box">
+                    <h4 style="color:#f87171;margin-bottom:8px;">🌪️ Scenario A: The Weather Rally & Managed Money Crowding</h4>
+                    <p>
+                        Suppose a severe drought hits the US Midwest in July/August or Brazil's Mato Grosso in December:
+                    </p>
+                    <ol>
+                        <li><strong>CTA Buy Trigger:</strong> Prices gap up on weather forecasts, breaking above the 50-day moving average. CTAs receive quantitative trend signals and rapidly switch from net short to +150,000 contracts net long.</li>
+                        <li><strong>Commercial Hedging Wall:</strong> As futures surge past $13.50/bu, commercial elevators and farmers lock in sales. P/M/P/U net short positioning surges to record highs (-250,000 contracts).</li>
+                        <li><strong>Dry Powder Depletion:</strong> Managed Money net long reaches the <strong>98th percentile</strong> (Dry Powder = 2%). All algorithmic trend followers are fully allocated ("all-in").</li>
+                        <li><strong>The Reversal Trigger:</strong> The weather forecast shifts to show weekend rains. Even though the drought caused physical crop damage, <em>there are no remaining buyers to bid futures higher</em>. CTAs hit stop-loss levels, triggering a 60-cent liquidation collapse in 72 hours.</li>
+                    </ol>
+                </div>
+
+                <div class="guide-box">
+                    <h4 style="color:#34d399;margin-bottom:8px;">🏭 Scenario B: The Soybean Crush & Commercial Floor</h4>
+                    <p>
+                        How processors (ADM, Bunge, Cargill) hedge the physical industrial processing margin:
+                    </p>
+                    <ol>
+                        <li><strong>Board Crush Margin:</strong> Processors buy raw Soybeans and produce two outputs: Soybean Meal (~80%) and Soybean Oil (~20%). They hedge by <strong>buying Soybean futures</strong> and <strong>selling Meal & Oil futures</strong>.</li>
+                        <li><strong>Crush Margin Widening:</strong> When meal and oil prices rise faster than raw beans, crush margins expand. Crushers ramp up bean buying, lifting Soybean commercial long positions.</li>
+                        <li><strong>Cost of Production Floor:</strong> If soybeans collapse to $9.50/bu (below farmer production costs), farmers shut bin doors and refuse to sell forward. Elevators stop shorting futures. Meanwhile, livestock feedlots and Chinese crushers aggressively buy cheap long futures.</li>
+                        <li><strong>COT Signal:</strong> Commercials turn heavily net long or reduce net short to near zero. This <strong>Commercial Accumulation</strong> establishes the cyclical floor.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="callout callout-emerald">
+                <strong>📈 First Resources Trading Takeaway:</strong><br>
+                For vegetable oil and palm oil desks, never buy into an agricultural commodity where <strong>Managed Money is already at the >95th percentile long</strong> while <strong>Producer selling is at record highs</strong>. 
+                The optimal entry point occurs when Managed Money is heavily net short (<10th percentile), funds have exhausted their selling dry powder, and Commercials are aggressively accumulating long hedges.
+            </div>
+        </section>
+
+        <!-- SECTION 4: FINANCIALS (EQUITIES & BONDS) -->
+        <section id="players-financials" class="guide-card">
+            <div class="guide-card-header">
+                <span class="sec-number">04</span>
+                <div>
+                    <h3>Financial Futures (TFF): Equity Indices & Cboe VIX Mechanics</h3>
+                    <p class="sec-sub">Why hedge funds are structurally short S&P 500 futures and how VIX contango drives volatility.</p>
+                </div>
+            </div>
+
+            <p>
+                In the <strong>Traders in Financial Futures (TFF)</strong> report, market classifications reflect financial balance sheets:
+            </p>
+
+            <div class="guide-table-scroll">
+                <table class="guide-matrix-table">
+                    <thead>
+                        <tr>
+                            <th>TFF Participant</th>
+                            <th>Real-World Entities</th>
+                            <th>Typical Positioning</th>
+                            <th>Interpretation & Trading Signals</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Asset Manager / Institutional</strong></td>
+                            <td>Vanguard, BlackRock, pension funds (CalPERS), endowment funds, life insurers.</td>
+                            <td><span class="badge-tag" style="background:#064e3b;color:#34d399;">Structurally Long</span></td>
+                            <td>
+                                Real-money investors holding passive equity beta for long-term compounding. Weekly fluctuations reflect macro asset allocation rotations (e.g. moving from cash to equities or rebalancing quarterly).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Leveraged Funds</strong></td>
+                            <td>Long/short equity hedge funds, statistical arbitrage desks, systematic CTAs.</td>
+                            <td><span class="badge-tag" style="background:#7f1d1d;color:#fca5a5;">Frequently Net Short</span></td>
+                            <td>
+                                <strong>The Great Misconception:</strong> Retail traders see hedge funds heavily net short S&P 500 or Nasdaq futures and assume they are "bearish on the economy". In reality, hedge funds hold billions in long individual single stocks (alpha) and use index futures to <em>hedge market beta</em>!
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dealer / Intermediary</strong></td>
+                            <td>Wall Street market-making desks (Goldman, Morgan Stanley, Citadel Securities).</td>
+                            <td><span class="badge-tag" style="background:#1e3a8a;color:#93c5fd;">Dynamic / Hedging</span></td>
+                            <td>
+                                Positioned opposite institutional client option and swap flows. Their futures positioning often mirrors gamma hedging requirements (buying futures as markets rise or selling as markets fall).
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="guide-two-col" style="margin-top:20px;">
+                <div class="guide-box">
+                    <h4 style="color:#38bdf8;margin-bottom:8px;">⚡ S&P 500 "Pain Trade" Short Squeezes</h4>
+                    <p>
+                        When Leveraged Funds reach <strong>extreme net short positioning (<=5th percentile)</strong> in E-mini S&P 500 or Nasdaq-100 futures:
+                    </p>
+                    <p style="font-size:13px;line-height:1.6;color:#cbd5e1;">
+                        The institutional market is fully insured. Cash allocations are high and downside protection is in place. 
+                        In this state, negative economic news fails to push the market lower because everyone who needed to hedge has already hedged. 
+                        If the market begins ticking upward, hedge funds are forced to buy back index futures to prevent underperformance, triggering a vicious <strong>"pain trade" rally</strong>.
+                    </p>
+                </div>
+
+                <div class="guide-box">
+                    <h4 style="color:#fbbf24;margin-bottom:8px;">🌪️ Cboe VIX Futures & Contango Roll Yield</h4>
+                    <p>
+                        In volatility markets, the term structure is normally in steep <strong>contango</strong> (deferred months trade higher than spot VIX):
+                    </p>
+                    <p style="font-size:13px;line-height:1.6;color:#cbd5e1;">
+                        Quantitative funds and volatility-harvesting strategies short VIX futures to capture the positive roll decay. 
+                        Consequently, Leveraged Funds are structurally net short VIX futures. 
+                        However, when VIX net short positioning reaches historical records (>95th percentile), the market becomes brittle: any unexpected geopolitical or financial shock forces a violent short squeeze on VIX futures ("Volmageddon" risk).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: US TREASURIES & THE BASIS TRADE -->
+        <section id="basis-trade-mechanics" class="guide-card">
+            <div class="guide-card-header">
+                <span class="sec-number">05</span>
+                <div>
+                    <h3>Bond & Interest Rate Markets: The US Treasury Basis Trade Demystified</h3>
+                    <p class="sec-sub">Why Leveraged Funds hold massive record short positions in 10-Year and 2-Year Treasury futures.</p>
+                </div>
+            </div>
+
+            <p>
+                In US Treasury futures (10-Year Ultra, 10-Year Note, 2-Year Note, 30-Year Bond), financial commentary frequently reports headlines like: 
+                <em>"Hedge funds hold record short bets against US government debt!"</em>. To an institutional trader, this is almost always a fundamental misunderstanding of the <strong>Treasury Basis Trade</strong>.
+            </p>
+
+            <div class="callout callout-sky">
+                <strong>🔍 The Treasury Cash-Futures Basis Trade Explained Step-by-Step:</strong>
+                <ol style="margin-top:8px;margin-bottom:0;">
+                    <li><strong>The Price Discrepancy:</strong> Due to structural demand from asset managers who prefer holding Treasury futures (for leverage and operational efficiency), Treasury futures frequently trade at a tiny premium relative to physical cash Treasuries.</li>
+                    <li><strong>The Arbitrage:</strong> Multi-strategy hedge funds (e.g. Citadel, Millennium, Balyasny) step in to harvest this risk-free basis:
+                        <ul style="margin-top:4px;">
+                            <li>They <strong>BUY the cash Treasury bond</strong> in the physical market.</li>
+                            <li>They <strong>SELL (SHORT) the Treasury futures contract</strong> against it.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Leverage via Repo:</strong> Because the profit margin is tiny (basis points), the hedge fund finances the cash Treasury purchase in the overnight repo market, borrowing 50x to 100x leverage.</li>
+                    <li><strong>The COT Footprint:</strong> In the CFTC report, the cash bond is invisible, but the short futures leg appears in full view under <strong>Leveraged Funds Short Positioning</strong>!</li>
+                </ol>
+            </div>
+
+            <div class="guide-two-col">
+                <div class="guide-box">
+                    <h4 style="color:#10b981;">✅ What It Means When Basis Trade Is Healthy</h4>
+                    <p style="font-size:13px;color:#cbd5e1;line-height:1.6;">
+                        Record net short positioning by Leveraged Funds in 10Y Treasuries does <strong>NOT</strong> indicate hedge funds are predicting surging bond yields. 
+                        It simply measures the colossal scale of the cash-futures arbitrage trade absorbing US government debt issuance.
+                    </p>
+                </div>
+                <div class="guide-box">
+                    <h4 style="color:#ef4444;">⚠️ The Systemic Unwind Risk (Squeeze Trigger)</h4>
+                    <p style="font-size:13px;color:#cbd5e1;line-height:1.6;">
+                        If repo financing rates suddenly spike (as in Sept 2019) or the CME raises futures margin requirements (as in March 2020), hedge funds are forced to rapidly unwind the trade by <strong>buying back Treasury futures</strong> and dumping cash bonds. 
+                        This triggers an abrupt, violent surge in Treasury futures prices (yields collapse).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: QUANTITATIVE PLAYBOOK & SIGNALS -->
+        <section id="signals-playbook" class="guide-card">
+            <div class="guide-card-header">
+                <span class="sec-number">06</span>
+                <div>
+                    <h3>Quantitative Signal Framework: Dry Powder, Percentiles & Action Matrix</h3>
+                    <p class="sec-sub">The mathematical methodology driving the First Resources Positioning Intelligence Dashboard.</p>
+                </div>
+            </div>
+
+            <p>
+                Raw contract counts are deceptive because market size expands over time. Our quantitative engine employs four rigorous mathematical transformations to generate reliable institutional signals:
+            </p>
+
+            <div class="player-grid">
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:#1e3a8a;color:#93c5fd;">METRIC 1</span>
+                        <h4>Net % of Open Interest (OI)</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Formula:</strong></p>
+                        <div style="background:#0b0f19;padding:8px 12px;border-radius:6px;font-family:monospace;color:#38bdf8;font-size:12px;margin-bottom:8px;">
+                            Net % OI = ((Longs - Shorts) / Total OI) &times; 100
+                        </div>
+                        <p style="font-size:12.5px;color:#cbd5e1;">Normalizes positioning relative to market depth. A 50,000 net long in 2004 (when OI was 200k = 25% of OI) is vastly different from 50,000 net long in 2026 (when OI is 1,500k = 3.3% of OI). Net % of OI allows true cross-decade comparisons.</p>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:#064e3b;color:#34d399;">METRIC 2</span>
+                        <h4>Multi-Year Percentile Ranking</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Lookback Horizons:</strong> 1-Year (tactical), 3-Year (medium cycle), 20-Year (all-time secular).</p>
+                        <p style="font-size:12.5px;color:#cbd5e1;">Evaluates whether current positioning is statistically stretched relative to history. Percentiles >= 90th signify historically extreme crowding; <= 10th signify extreme liquidation or short squeeze vulnerability.</p>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:#7f1d1d;color:#fca5a5;">METRIC 3</span>
+                        <h4>Speculative "Dry Powder"</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>Definition:</strong> The reserve capacity remaining for market participants to enter new positions:</p>
+                        <div style="background:#0b0f19;padding:8px 12px;border-radius:6px;font-family:monospace;color:#f87171;font-size:12px;margin-bottom:8px;">
+                            Long Dry Powder = 100% - Long %ile<br>
+                            Short Dry Powder = 100% - Short %ile
+                        </div>
+                        <p style="font-size:12.5px;color:#cbd5e1;">If Long %ile is 98%, Long Dry Powder is just 2%. Buying power is completely exhausted. Any marginal seller triggers an outsized collapse.</p>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <span class="player-role-badge" style="background:#78350f;color:#fde047;">METRIC 4</span>
+                        <h4>Smart Money Divergence</h4>
+                    </div>
+                    <div class="player-desc">
+                        <p><strong>The Core Edge:</strong> When Managed Money and Commercial Hedgers diverge to opposite extremes.</p>
+                        <p style="font-size:12.5px;color:#cbd5e1;">When funds are maximally net short (exhausted selling) while physical commercial producers are accumulating long hedges, this is the highest-probability cyclical bottom indicator in global commodities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTION MATRIX -->
+            <h4 style="font-size:17px;font-weight:700;margin-top:24px;margin-bottom:12px;color:#fff;">🎯 Institutional Trader Action Matrix</h4>
+            <div class="guide-table-scroll">
+                <table class="guide-matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Positioning Regime</th>
+                            <th>Speculator State</th>
+                            <th>Commercial State</th>
+                            <th>Risk Asymmetry</th>
+                            <th>Trading Desk Playbook</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color:#ef4444;">🚨 Peak Long Crowding</strong></td>
+                            <td>Net % OI &ge; 90th %ile<br>Long Dry Powder &le; 10%</td>
+                            <td>Heavy / Record Short<br>(Aggressive forward selling)</td>
+                            <td><span class="badge badge-crowd-long">Extremely Bearish</span></td>
+                            <td><strong>Do NOT chase breakout longs.</strong> Tighten stop losses. Commercial selling is absorbing speculative bids. High risk of sharp liquidation cascades.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#f59e0b;">⚡ Short Squeeze Setup</strong></td>
+                            <td>Net % OI &le; 10th %ile<br>Short Dry Powder &le; 10%</td>
+                            <td>Producer hedges depleted<br>Consumer buying active</td>
+                            <td><span class="badge badge-squeeze">Extremely Bullish</span></td>
+                            <td><strong>Prepare for explosive squeeze.</strong> Speculator selling capacity is exhausted. Any positive fundamental catalyst triggers a panicked rush to cover shorts.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#10b981;">📈 Momentum Expansion</strong></td>
+                            <td>Net % OI crossing 50th from below<br>Open Interest expanding</td>
+                            <td>Normal hedging flow</td>
+                            <td><span class="badge badge-long">Trend Following</span></td>
+                            <td><strong>Follow trend with CTAs.</strong> High remaining Long Dry Powder (&gt;50%). Algorithmic funds are actively adding capital, providing upward momentum.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#94a3b8;">⚖️ Sidelined / Uncommitted</strong></td>
+                            <td>Long %ile &le; 35% &amp;<br>Short %ile &le; 45%</td>
+                            <td>Balanced</td>
+                            <td><span class="badge badge-short">Neutral / Mean-Reverting</span></td>
+                            <td><strong>Range-bound trading.</strong> Both sides hold abundant dry powder. Market lacks conviction and awaits major fundamental or macro catalysts.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-purple" style="margin-top:20px;">
+                <strong>⏱️ Important Operational Timing Rule:</strong><br>
+                Remember that the COT data is captured on <strong>Tuesday close</strong> and published on <strong>Friday 3:30 PM EST</strong>. 
+                There is a mandatory <strong>3-day information lag</strong>. Always cross-reference extreme COT positioning with price action between Tuesday and Friday to determine whether an anticipated squeeze or liquidation has already commenced before executing orders.
+            </div>
+        </section>
+    </div>
+    
         </div>
 
         <!-- High-DPI Master Reports -->
@@ -361,12 +1122,27 @@
 
         function switchEdition(edition) {
             currentEdition = edition;
-            currentSector = 'All';
-            searchQuery = '';
-            document.getElementById('searchInput').value = '';
 
             document.getElementById('tab-mm').classList.toggle('active', edition === 'mm');
             document.getElementById('tab-prod').classList.toggle('active', edition === 'prod');
+            document.getElementById('tab-guide').classList.toggle('active', edition === 'guide');
+
+            const dataView = document.getElementById('dataViewContainer');
+            const guideView = document.getElementById('guideContainer');
+
+            if (edition === 'guide') {
+                dataView.style.display = 'none';
+                guideView.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            dataView.style.display = 'block';
+            guideView.style.display = 'none';
+
+            currentSector = 'All';
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
 
             renderSectorButtons();
             renderKPIs();

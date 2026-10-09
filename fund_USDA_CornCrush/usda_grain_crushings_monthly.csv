@@ -1,49 +1,4 @@
 table_type,category,item,unit,period,value
-consumed,,Beverage alcohol,"1,000 bushels",2014-10,4200.0
-consumed,,Beverage alcohol,"1,000 bushels",2014-11,2975.0
-consumed,,Beverage alcohol,"1,000 bushels",2014-12,2364.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-01,2087.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-02,2698.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-03,2455.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-04,3298.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-05,3234.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-06,2492.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-07,2645.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-08,3129.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-09,3478.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-10,2599.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-11,2970.0
-consumed,,Beverage alcohol,"1,000 bushels",2015-12,2807.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-01,3141.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-02,2462.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-03,2712.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-04,2689.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-05,2846.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-06,2600.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-07,2609.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-08,3132.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-09,2793.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-10,3184.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-11,3361.0
-consumed,,Beverage alcohol,"1,000 bushels",2016-12,2595.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-01,2424.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-02,3080.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-03,2662.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-04,2987.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-05,3077.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-06,2769.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-07,3073.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-08,3550.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-09,3543.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-10,2974.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-11,3447.0
-consumed,,Beverage alcohol,"1,000 bushels",2017-12,2249.0
-consumed,,Beverage alcohol,"1,000 bushels",2018-01,2933.0
-consumed,,Beverage alcohol,"1,000 bushels",2018-02,2364.0
-consumed,,Beverage alcohol,"1,000 bushels",2018-03,2717.0
-consumed,,Beverage alcohol,"1,000 bushels",2018-04,3096.0
-consumed,,Beverage alcohol,"1,000 bushels",2018-05,2924.0
-consumed,,Beverage alcohol,"1,000 bushels",2018-06,3123.0
 consumed,,Beverage alcohol,"1,000 bushels",2018-07,3293.0
 consumed,,Beverage alcohol,"1,000 bushels",2018-08,3559.0
 consumed,,Beverage alcohol,"1,000 bushels",2018-09,2808.0
@@ -142,51 +97,6 @@ consumed,,Beverage alcohol,"1,000 bushels",2026-05,3819.0
 consumed,,Beverage alcohol,"1,000 bushels",2026-06,3832.0
 consumed,,Beverage alcohol,"1,000 bushels",2026-07,3704.0
 consumed,,Beverage alcohol,"1,000 bushels",2026-08,3309.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2014-10,427347.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2014-11,433939.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2014-12,455956.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-01,443890.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-02,394083.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-03,437828.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-04,407719.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-05,448984.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-06,441272.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-07,448400.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-08,445718.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-09,425916.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-10,440383.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-11,433903.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2015-12,451306.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-01,444036.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-02,420937.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-03,438381.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-04,400731.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-05,425684.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-06,427558.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-07,456422.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-08,458357.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-09,435220.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-10,455819.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-11,452039.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2016-12,473997.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-01,473641.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-02,423574.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-03,460383.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-04,432752.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-05,452966.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-06,436651.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-07,454757.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-08,480154.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-09,445534.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-10,470091.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-11,475665.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2017-12,487713.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-01,476129.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-02,433622.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-03,472912.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-04,445323.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-05,470404.0
-consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-06,462740.0
 consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-07,481320.0
 consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-08,483374.0
 consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2018-09,449288.0
@@ -285,51 +195,6 @@ consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2026-05,473737.0
 consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2026-06,464111.0
 consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2026-07,476146.0
 consumed,Fuel alcohol,Fuel alcohol,"1,000 bushels",2026-08,477732.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2014-10,381881.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2014-11,388410.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2014-12,406684.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-01,396007.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-02,353763.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-03,391736.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-04,365028.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-05,401263.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-06,395704.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-07,401423.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-08,398222.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-09,382208.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-10,395298.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-11,387777.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2015-12,401242.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-01,397028.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-02,377530.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-03,390918.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-04,358391.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-05,379474.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-06,382797.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-07,408504.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-08,411406.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-09,388472.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-10,407491.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-11,407858.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2016-12,424893.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-01,424269.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-02,382460.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-03,413733.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-04,385608.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-05,406016.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-06,390607.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-07,412276.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-08,431445.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-09,399974.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-10,419009.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-11,429123.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2017-12,439929.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-01,431474.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-02,393318.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-03,428916.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-04,405732.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-05,430324.0
-consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-06,421463.0
 consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-07,438081.0
 consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-08,441043.0
 consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2018-09,410966.0
@@ -428,51 +293,6 @@ consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2026-05,435925.0
 consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2026-06,429405.0
 consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2026-07,440991.0
 consumed,Fuel alcohol,Fuel alcohol - Dry mill,"1,000 bushels",2026-08,440666.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2014-10,45466.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2014-11,45529.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2014-12,49272.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-01,47883.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-02,40320.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-03,46092.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-04,42691.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-05,47721.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-06,45568.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-07,46977.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-08,47496.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-09,43708.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-10,45085.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-11,46126.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2015-12,50064.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-01,47008.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-02,43407.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-03,47463.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-04,42340.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-05,46210.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-06,44761.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-07,47918.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-08,46951.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-09,46748.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-10,48328.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-11,44181.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2016-12,49104.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-01,49372.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-02,41114.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-03,46650.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-04,47144.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-05,46950.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-06,46044.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-07,42481.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-08,48709.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-09,45560.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-10,51082.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-11,46542.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2017-12,47784.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-01,44655.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-02,40304.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-03,43996.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-04,39591.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-05,40080.0
-consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-06,41277.0
 consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-07,43239.0
 consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-08,42331.0
 consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2018-09,38322.0
@@ -571,51 +391,6 @@ consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2026-05,37812.0
 consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2026-06,34706.0
 consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2026-07,35155.0
 consumed,Fuel alcohol,Fuel alcohol - Wet mill,"1,000 bushels",2026-08,37066.0
-consumed,,Industrial alcohol,"1,000 bushels",2014-10,5664.0
-consumed,,Industrial alcohol,"1,000 bushels",2014-11,6293.0
-consumed,,Industrial alcohol,"1,000 bushels",2014-12,6953.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-01,6326.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-02,6522.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-03,6671.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-04,6555.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-05,5701.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-06,6857.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-07,6207.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-08,6336.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-09,5673.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-10,6687.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-11,5576.0
-consumed,,Industrial alcohol,"1,000 bushels",2015-12,6479.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-01,5505.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-02,6301.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-03,6126.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-04,6173.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-05,5923.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-06,4913.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-07,5772.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-08,5810.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-09,6135.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-10,6247.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-11,6489.0
-consumed,,Industrial alcohol,"1,000 bushels",2016-12,6108.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-01,7615.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-02,7045.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-03,6931.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-04,7218.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-05,6463.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-06,6449.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-07,6183.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-08,5894.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-09,5557.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-10,5368.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-11,5652.0
-consumed,,Industrial alcohol,"1,000 bushels",2017-12,6844.0
-consumed,,Industrial alcohol,"1,000 bushels",2018-01,6114.0
-consumed,,Industrial alcohol,"1,000 bushels",2018-02,5829.0
-consumed,,Industrial alcohol,"1,000 bushels",2018-03,7093.0
-consumed,,Industrial alcohol,"1,000 bushels",2018-04,6006.0
-consumed,,Industrial alcohol,"1,000 bushels",2018-05,6198.0
-consumed,,Industrial alcohol,"1,000 bushels",2018-06,6322.0
 consumed,,Industrial alcohol,"1,000 bushels",2018-07,6000.0
 consumed,,Industrial alcohol,"1,000 bushels",2018-08,7167.0
 consumed,,Industrial alcohol,"1,000 bushels",2018-09,7068.0
@@ -714,53 +489,6 @@ consumed,,Industrial alcohol,"1,000 bushels",2026-05,7428.0
 consumed,,Industrial alcohol,"1,000 bushels",2026-06,8610.0
 consumed,,Industrial alcohol,"1,000 bushels",2026-07,8557.0
 consumed,,Industrial alcohol,"1,000 bushels",2026-08,8046.0
-consumed,,Total,"1,000 bushels",2014-10,437211.0
-consumed,,Total,"1,000 bushels",2014-11,443207.0
-consumed,,Total,"1,000 bushels",2014-12,465273.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2014-10,39384.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2014-11,41855.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2014-12,44866.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-01,43389.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-02,37584.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-03,44348.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-04,44908.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-05,47625.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-06,42851.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-07,44139.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-08,42510.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-09,41906.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-10,42386.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-11,40935.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2015-12,41724.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-01,41331.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-02,40558.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-03,44136.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-04,43587.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-05,44555.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-06,43026.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-07,44564.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-08,43670.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-09,41035.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-10,42568.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2016-12,43272.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-01,43436.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-02,39138.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-03,44561.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-04,44780.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-05,46462.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-06,44000.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-07,45535.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-08,44642.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-09,43393.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-10,44206.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-11,40488.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2017-12,41253.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-01,40909.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-02,39966.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-03,43396.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-04,43884.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-05,44836.0
-consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-06,45307.0
 consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-07,45253.0
 consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-08,44916.0
 consumed,,Total wet mill products other than fuel,"1,000 bushels",2018-09,41573.0
@@ -859,51 +587,6 @@ consumed,,Total wet mill products other than fuel,"1,000 bushels",2026-05,41737.
 consumed,,Total wet mill products other than fuel,"1,000 bushels",2026-06,40437.0
 consumed,,Total wet mill products other than fuel,"1,000 bushels",2026-07,40577.0
 consumed,,Total wet mill products other than fuel,"1,000 bushels",2026-08,39017.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2014-10,240056.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2014-11,205305.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2014-12,217311.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-01,193460.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-02,173878.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-03,198922.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-04,209505.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-05,203119.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-06,214995.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-07,222712.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-08,224982.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-09,210337.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-10,229379.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-11,203996.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2015-12,211352.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-01,202150.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-02,193590.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-03,204371.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-04,199101.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-05,203264.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-06,228221.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-07,230934.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-08,224408.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-09,213022.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-10,213115.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-11,213244.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2016-12,201315.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-01,192585.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-02,176265.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-03,207016.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-04,200431.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-05,201035.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-06,217863.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-07,207049.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-08,227696.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-09,216846.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-10,225246.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-11,207728.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2017-12,209638.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-01,208318.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-02,187762.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-03,210775.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-04,216215.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-05,214508.0
-coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-06,241457.0
 coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-07,260461.0
 coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-08,282872.0
 coproducts,Dry and wet mill,Carbon dioxide captured,tons,2018-09,260179.0
@@ -1002,51 +685,6 @@ coproducts,Dry and wet mill,Carbon dioxide captured,tons,2026-05,251627.0
 coproducts,Dry and wet mill,Carbon dioxide captured,tons,2026-06,261483.0
 coproducts,Dry and wet mill,Carbon dioxide captured,tons,2026-07,284535.0
 coproducts,Dry and wet mill,Carbon dioxide captured,tons,2026-08,292163.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2014-10,149960.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2014-11,132236.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2014-12,172082.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-01,162127.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-02,128271.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-03,163796.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-04,140171.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-05,148757.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-06,146523.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-07,150631.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-08,155539.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-09,154104.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-10,143025.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-11,124855.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2015-12,134196.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-01,135339.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-02,122291.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-03,137541.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-04,130324.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-05,131318.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-06,132798.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-07,140639.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-08,143040.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-09,146764.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-10,145853.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-11,126968.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2016-12,138747.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-01,132952.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-02,115697.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-03,141951.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-04,118242.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-05,146225.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-06,125677.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-07,142865.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-08,133909.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-09,135061.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-10,136200.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-11,133982.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2017-12,124098.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-01,147329.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-02,152279.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-03,145808.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-04,135883.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-05,137929.0
-coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-06,140033.0
 coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-07,127335.0
 coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-08,134308.0
 coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2018-09,131317.0
@@ -1145,51 +783,6 @@ coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2026-05,125
 coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2026-06,130293.0
 coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2026-07,120964.0
 coproducts,Dry mill,Condensed distillers solubles (CDS - syrup),tons,2026-08,120765.0
-coproducts,Wet mill,Corn germ meal,tons,2014-10,78674.0
-coproducts,Wet mill,Corn germ meal,tons,2014-11,66384.0
-coproducts,Wet mill,Corn germ meal,tons,2014-12,75031.0
-coproducts,Wet mill,Corn germ meal,tons,2015-01,71492.0
-coproducts,Wet mill,Corn germ meal,tons,2015-02,48546.0
-coproducts,Wet mill,Corn germ meal,tons,2015-03,57439.0
-coproducts,Wet mill,Corn germ meal,tons,2015-04,61922.0
-coproducts,Wet mill,Corn germ meal,tons,2015-05,69274.0
-coproducts,Wet mill,Corn germ meal,tons,2015-06,63188.0
-coproducts,Wet mill,Corn germ meal,tons,2015-07,68528.0
-coproducts,Wet mill,Corn germ meal,tons,2015-08,66563.0
-coproducts,Wet mill,Corn germ meal,tons,2015-09,56106.0
-coproducts,Wet mill,Corn germ meal,tons,2015-10,62784.0
-coproducts,Wet mill,Corn germ meal,tons,2015-11,67645.0
-coproducts,Wet mill,Corn germ meal,tons,2015-12,69669.0
-coproducts,Wet mill,Corn germ meal,tons,2016-01,63787.0
-coproducts,Wet mill,Corn germ meal,tons,2016-02,65123.0
-coproducts,Wet mill,Corn germ meal,tons,2016-03,68140.0
-coproducts,Wet mill,Corn germ meal,tons,2016-04,67530.0
-coproducts,Wet mill,Corn germ meal,tons,2016-05,63859.0
-coproducts,Wet mill,Corn germ meal,tons,2016-06,58121.0
-coproducts,Wet mill,Corn germ meal,tons,2016-07,65032.0
-coproducts,Wet mill,Corn germ meal,tons,2016-08,65783.0
-coproducts,Wet mill,Corn germ meal,tons,2016-09,54996.0
-coproducts,Wet mill,Corn germ meal,tons,2016-10,58988.0
-coproducts,Wet mill,Corn germ meal,tons,2016-11,63635.0
-coproducts,Wet mill,Corn germ meal,tons,2016-12,63600.0
-coproducts,Wet mill,Corn germ meal,tons,2017-01,66031.0
-coproducts,Wet mill,Corn germ meal,tons,2017-02,57560.0
-coproducts,Wet mill,Corn germ meal,tons,2017-03,59425.0
-coproducts,Wet mill,Corn germ meal,tons,2017-04,60519.0
-coproducts,Wet mill,Corn germ meal,tons,2017-05,63302.0
-coproducts,Wet mill,Corn germ meal,tons,2017-06,59384.0
-coproducts,Wet mill,Corn germ meal,tons,2017-07,57952.0
-coproducts,Wet mill,Corn germ meal,tons,2017-08,90005.0
-coproducts,Wet mill,Corn germ meal,tons,2017-09,85798.0
-coproducts,Wet mill,Corn germ meal,tons,2017-10,90646.0
-coproducts,Wet mill,Corn germ meal,tons,2017-11,95999.0
-coproducts,Wet mill,Corn germ meal,tons,2017-12,71732.0
-coproducts,Wet mill,Corn germ meal,tons,2018-01,62669.0
-coproducts,Wet mill,Corn germ meal,tons,2018-02,58351.0
-coproducts,Wet mill,Corn germ meal,tons,2018-03,58359.0
-coproducts,Wet mill,Corn germ meal,tons,2018-04,60089.0
-coproducts,Wet mill,Corn germ meal,tons,2018-05,62146.0
-coproducts,Wet mill,Corn germ meal,tons,2018-06,61405.0
 coproducts,Wet mill,Corn germ meal,tons,2018-07,60800.0
 coproducts,Wet mill,Corn germ meal,tons,2018-08,55012.0
 coproducts,Wet mill,Corn germ meal,tons,2018-09,59668.0
@@ -1288,51 +881,6 @@ coproducts,Wet mill,Corn germ meal,tons,2026-05,53118.0
 coproducts,Wet mill,Corn germ meal,tons,2026-06,53129.0
 coproducts,Wet mill,Corn germ meal,tons,2026-07,50571.0
 coproducts,Wet mill,Corn germ meal,tons,2026-08,57915.0
-coproducts,Wet mill,Corn gluten feed,tons,2014-10,320692.0
-coproducts,Wet mill,Corn gluten feed,tons,2014-11,295030.0
-coproducts,Wet mill,Corn gluten feed,tons,2014-12,329431.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-01,321768.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-02,283990.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-03,331547.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-04,313889.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-05,348355.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-06,321209.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-07,333828.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-08,343476.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-09,312543.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-10,326055.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-11,322741.0
-coproducts,Wet mill,Corn gluten feed,tons,2015-12,340460.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-01,321956.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-02,312012.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-03,342668.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-04,306464.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-05,332975.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-06,331812.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-07,339700.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-08,336916.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-09,326211.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-10,342589.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-11,309305.0
-coproducts,Wet mill,Corn gluten feed,tons,2016-12,349226.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-01,347389.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-02,269325.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-03,355194.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-04,346377.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-05,341167.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-06,341215.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-07,328031.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-08,345196.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-09,321506.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-10,353394.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-11,311957.0
-coproducts,Wet mill,Corn gluten feed,tons,2017-12,318694.0
-coproducts,Wet mill,Corn gluten feed,tons,2018-01,303966.0
-coproducts,Wet mill,Corn gluten feed,tons,2018-02,285466.0
-coproducts,Wet mill,Corn gluten feed,tons,2018-03,319757.0
-coproducts,Wet mill,Corn gluten feed,tons,2018-04,304716.0
-coproducts,Wet mill,Corn gluten feed,tons,2018-05,291542.0
-coproducts,Wet mill,Corn gluten feed,tons,2018-06,301896.0
 coproducts,Wet mill,Corn gluten feed,tons,2018-07,321447.0
 coproducts,Wet mill,Corn gluten feed,tons,2018-08,325547.0
 coproducts,Wet mill,Corn gluten feed,tons,2018-09,293548.0
@@ -1431,51 +979,6 @@ coproducts,Wet mill,Corn gluten feed,tons,2026-05,292461.0
 coproducts,Wet mill,Corn gluten feed,tons,2026-06,257464.0
 coproducts,Wet mill,Corn gluten feed,tons,2026-07,250692.0
 coproducts,Wet mill,Corn gluten feed,tons,2026-08,278611.0
-coproducts,Wet mill,Corn gluten meal,tons,2014-10,92665.0
-coproducts,Wet mill,Corn gluten meal,tons,2014-11,89593.0
-coproducts,Wet mill,Corn gluten meal,tons,2014-12,94777.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-01,90617.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-02,80855.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-03,93078.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-04,89356.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-05,97139.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-06,92237.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-07,97130.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-08,96072.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-09,86522.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-10,83213.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-11,84505.0
-coproducts,Wet mill,Corn gluten meal,tons,2015-12,88921.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-01,87266.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-02,83643.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-03,91945.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-04,84916.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-05,88177.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-06,84034.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-07,89125.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-08,87793.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-09,86725.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-10,86227.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-11,84092.0
-coproducts,Wet mill,Corn gluten meal,tons,2016-12,89092.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-01,90593.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-02,78780.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-03,89491.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-04,90133.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-05,91895.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-06,86806.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-07,85087.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-08,92823.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-09,87322.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-10,93463.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-11,90366.0
-coproducts,Wet mill,Corn gluten meal,tons,2017-12,91092.0
-coproducts,Wet mill,Corn gluten meal,tons,2018-01,91519.0
-coproducts,Wet mill,Corn gluten meal,tons,2018-02,90924.0
-coproducts,Wet mill,Corn gluten meal,tons,2018-03,97157.0
-coproducts,Wet mill,Corn gluten meal,tons,2018-04,91427.0
-coproducts,Wet mill,Corn gluten meal,tons,2018-05,92487.0
-coproducts,Wet mill,Corn gluten meal,tons,2018-06,93357.0
 coproducts,Wet mill,Corn gluten meal,tons,2018-07,93113.0
 coproducts,Wet mill,Corn gluten meal,tons,2018-08,91947.0
 coproducts,Wet mill,Corn gluten meal,tons,2018-09,83262.0
@@ -1574,51 +1077,6 @@ coproducts,Wet mill,Corn gluten meal,tons,2026-05,106960.0
 coproducts,Wet mill,Corn gluten meal,tons,2026-06,101730.0
 coproducts,Wet mill,Corn gluten meal,tons,2026-07,103391.0
 coproducts,Wet mill,Corn gluten meal,tons,2026-08,98844.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2014-10,107516.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2014-11,107190.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2014-12,97380.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-01,103780.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-02,95268.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-03,106270.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-04,101614.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-05,117049.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-06,119146.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-07,124428.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-08,120756.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-09,116155.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-10,126813.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-11,129786.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2015-12,130652.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-01,125826.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-02,123806.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-03,128948.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-04,114127.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-05,125311.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-06,130964.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-07,144020.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-08,142000.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-09,134269.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-10,141775.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-11,147336.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2016-12,143942.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-01,146305.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-02,135060.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-03,143260.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-04,132804.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-05,148544.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-06,146584.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-07,157669.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-08,160316.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-09,149792.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-10,169314.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-11,175219.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2017-12,174078.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-01,164325.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-02,164531.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-03,148490.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-04,144813.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-05,159718.0
-coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-06,160521.0
 coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-07,166181.0
 coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-08,166106.0
 coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2018-09,155284.0
@@ -1717,51 +1175,6 @@ coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2026-05,206810.0
 coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2026-06,212805.0
 coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2026-07,222100.0
 coproducts,Dry mill,Corn oil (Corn Distillers Oil - CDO),tons,2026-08,221754.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2014-10,420226.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2014-11,419028.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2014-12,448551.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-01,438936.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-02,405025.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-03,438728.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-04,411664.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-05,418448.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-06,407259.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-07,450829.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-08,452969.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-09,420458.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-10,438027.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-11,413019.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2015-12,423632.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-01,383131.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-02,367436.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-03,384739.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-04,374750.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-05,411467.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-06,392438.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-07,404758.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-08,428748.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-09,398124.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-10,448355.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-11,423892.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2016-12,442824.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-01,430929.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-02,373099.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-03,425213.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-04,437914.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-05,435640.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-06,435900.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-07,462098.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-08,472705.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-09,454220.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-10,449199.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-11,430224.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2017-12,442427.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-01,406648.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-02,371026.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-03,417190.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-04,372741.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-05,392070.0
-coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-06,374274.0
 coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-07,390080.0
 coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-08,394908.0
 coproducts,Dry mill,Distillers dried grains (DDG),tons,2018-09,376510.0
@@ -1860,51 +1273,6 @@ coproducts,Dry mill,Distillers dried grains (DDG),tons,2026-05,370492.0
 coproducts,Dry mill,Distillers dried grains (DDG),tons,2026-06,381034.0
 coproducts,Dry mill,Distillers dried grains (DDG),tons,2026-07,393639.0
 coproducts,Dry mill,Distillers dried grains (DDG),tons,2026-08,412722.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2014-10,1856472.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2014-11,1770904.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2014-12,1919823.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-01,1831393.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-02,1622467.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-03,1781563.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-04,1663380.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-05,1861795.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-06,1950214.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-07,1975199.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-08,1928716.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-09,1875100.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-10,1921440.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-11,1903313.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2015-12,1941708.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-01,1905165.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-02,1795472.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-03,1919507.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-04,1717024.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-05,1845238.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-06,1893816.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-07,2047520.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-08,2072699.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-09,1964214.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-10,1927282.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-11,1995252.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2016-12,2095550.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-01,2073740.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-02,1891804.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-03,1997388.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-04,1752270.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-05,1906829.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-06,1851702.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-07,1930770.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-08,2062285.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-09,1854144.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-10,1961763.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-11,1996869.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2017-12,1967745.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-01,1986257.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-02,1829272.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-03,1942750.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-04,1831598.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-05,1968728.0
-coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-06,2020697.0
 coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-07,2109109.0
 coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-08,2185674.0
 coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2018-09,1951327.0
@@ -2003,51 +1371,6 @@ coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2026-05,17
 coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2026-06,1819647.0
 coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2026-07,1849717.0
 coproducts,Dry mill,Distillers dried grains with solubles (DDGS),tons,2026-08,1845438.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2014-10,1333264.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2014-11,1354729.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2014-12,1411411.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-01,1480431.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-02,1268244.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-03,1399125.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-04,1327808.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-05,1368926.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-06,1280651.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-07,1274543.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-08,1284329.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-09,1289753.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-10,1355693.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-11,1261784.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2015-12,1398280.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-01,1313632.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-02,1249676.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-03,1320322.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-04,1264745.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-05,1234315.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-06,1220639.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-07,1228286.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-08,1230155.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-09,1194344.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-10,1288256.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-11,1281029.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2016-12,1428635.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-01,1392605.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-02,1224738.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-03,1391225.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-04,1301416.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-05,1377061.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-06,1280610.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-07,1342934.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-08,1354542.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-09,1283173.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-10,1335166.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-11,1375547.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2017-12,1431323.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-01,1443327.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-02,1264798.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-03,1413641.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-04,1394684.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-05,1397439.0
-coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-06,1308000.0
 coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-07,1330483.0
 coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-08,1313014.0
 coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2018-09,1295724.0
@@ -2146,51 +1469,6 @@ coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2026-0
 coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2026-06,1295497.0
 coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2026-07,1293382.0
 coproducts,Dry mill,Distillers wet grains (DWG) 65% or more moisture,tons,2026-08,1278164.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2014-10,413040.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2014-11,472819.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2014-12,503258.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-01,476760.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-02,418698.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-03,494835.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-04,387155.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-05,414956.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-06,364385.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-07,347652.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-08,339316.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-09,366770.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-10,383457.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-11,422361.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2015-12,442448.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-01,454248.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-02,401370.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-03,456256.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-04,429972.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-05,425343.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-06,360904.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-07,359613.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-08,353754.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-09,375641.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-10,376028.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-11,389038.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2016-12,434498.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-01,444897.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-02,405666.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-03,457407.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-04,431983.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-05,460432.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-06,431035.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-07,423728.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-08,431072.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-09,419900.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-10,443221.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-11,476566.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2017-12,511763.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-01,512520.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-02,452351.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-03,509088.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-04,485841.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-05,467398.0
-coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-06,403381.0
 coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-07,420940.0
 coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-08,402346.0
 coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2018-09,408708.0
@@ -2289,51 +1567,6 @@ coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,ton
 coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2026-06,361161.0
 coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2026-07,359152.0
 coproducts,Dry mill,Modified distillers wet grains (DWG) 40% to 64% moisture,tons,2026-08,406854.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2014-10,320919.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2014-11,317273.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2014-12,338077.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-01,313400.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-02,274763.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-03,308444.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-04,314047.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-05,323436.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-06,304024.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-07,316790.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-08,290652.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-09,286615.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-10,296954.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-11,289171.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2015-12,307874.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-01,291882.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-02,277434.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-03,290565.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-04,301283.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-05,306424.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-06,312497.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-07,331949.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-08,309077.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-09,303504.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-10,300808.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-11,326550.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2016-12,317759.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-01,315420.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-02,292526.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-03,307814.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-04,283835.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-05,313876.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-06,297780.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-07,272165.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-08,313340.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-09,279654.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-10,302618.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-11,303209.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2017-12,309765.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-01,275284.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-02,254749.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-03,276350.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-04,254638.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-05,280979.0
-coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-06,262168.0
 coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-07,263139.0
 coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-08,256268.0
 coproducts,Wet mill,Wet corn gluten feed 40% to 60% moisture,tons,2018-09,229183.0
