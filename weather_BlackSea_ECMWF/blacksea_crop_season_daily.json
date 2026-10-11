@@ -1,6 +1,6 @@
 {
   "season": "2026 Black Sea Agricultural Season (Corn, Sunflower, Wheat & Rapeseed)",
-  "generated_at": "2026-10-11 17:15:37 UTC",
+  "generated_at": "2026-10-11 19:58:00 UTC",
   "archive_window": "2026-03-01 to 2026-09-27 (ERA5 Ag-Reanalysis)",
   "forecast_model": "ECMWF IFS 0.25\u00b0 Seamless Operational (15-Day Forward)",
   "nodes": {

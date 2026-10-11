@@ -537,11 +537,11 @@
         background: #ffffff;
         border: 1px solid var(--border-color);
         border-radius: 12px;
-        padding: 20px 24px;
+        padding: 14px 18px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
         position: relative;
     }
     .matrix-header {
@@ -549,97 +549,102 @@
         align-items: flex-start;
         justify-content: space-between;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 12px;
+        padding-bottom: 10px;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
     }
     .matrix-title-group h2 {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 800;
         color: var(--primary);
     }
     .matrix-title-group p {
-        font-size: 12px;
+        font-size: 11.5px;
         color: var(--text-secondary);
         margin-top: 2px;
     }
     .matrix-kpis {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 12px;
     }
     .matrix-kpi-item {
         background: #f8fafc;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 8px 14px;
+        border-radius: 6px;
+        padding: 6px 12px;
         text-align: right;
     }
     .matrix-kpi-label {
-        font-size: 10px;
+        font-size: 9.5px;
         font-weight: 700;
         color: var(--text-muted);
         text-transform: uppercase;
     }
     .matrix-kpi-value {
-        font-size: 17px;
+        font-size: 15px;
         font-weight: 800;
         color: var(--text-primary);
     }
 
-    /* Table Styles */
+    /* Table Styles - Compact & Tighter Columns */
     .matrix-table-wrapper {
         overflow-x: auto;
     }
     .matrix-table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         text-align: center;
-        font-size: 11px;
+        font-size: 10.5px;
+        table-layout: fixed;
     }
     .matrix-table th {
         background: #f8fafc;
         color: var(--text-secondary);
         font-weight: 800;
-        padding: 8px 4px;
+        padding: 5px 2px;
         border: 1px solid var(--border-color);
         text-transform: uppercase;
-        font-size: 10.5px;
+        font-size: 10px;
     }
     .matrix-table th.th-year {
-        width: 75px;
+        width: 58px;
         background: #f1f5f9;
-        font-size: 11.5px;
+        font-size: 11px;
     }
     .matrix-table th.th-avg {
-        width: 95px;
+        width: 78px;
         background: #f1f5f9;
+        font-size: 10px;
     }
     .matrix-table td {
-        padding: 3px 2px;
+        padding: 1.5px 1.5px;
         border: 1px solid #f1f5f9;
         vertical-align: middle;
     }
     .matrix-year-cell {
         font-weight: 800;
         color: var(--text-primary);
-        font-size: 12px;
+        font-size: 11px;
         background: #f8fafc;
         border: 1px solid var(--border-color) !important;
+        width: 58px;
     }
 
     /* Square Cell Heatmap */
     .matrix-square-cell {
-        border-radius: 5px;
-        padding: 6px 4px;
+        border-radius: 4px;
+        padding: 3px 2px;
+        min-height: 31px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 1px;
+        gap: 0px;
         cursor: pointer;
         font-weight: 800;
-        font-size: 11.5px;
+        font-size: 10.5px;
         transition: transform 0.12s ease, box-shadow 0.12s ease;
         position: relative;
     }
@@ -649,10 +654,11 @@
         z-index: 20;
     }
     .matrix-square-sub {
-        font-size: 9px;
+        font-size: 8px;
         font-weight: 600;
         opacity: 0.9;
         white-space: nowrap;
+        line-height: 1;
     }
     .forecast-square {
         border: 1.5px dashed #0284c7 !important;
@@ -662,25 +668,108 @@
         position: absolute;
         top: 1px;
         right: 2px;
-        font-size: 7px;
+        font-size: 6.5px;
         font-weight: 900;
         opacity: 0.8;
     }
 
     /* Density Classes */
     .matrix-compact .matrix-square-cell {
-        padding: 4px 2px;
-        font-size: 10px;
+        padding: 2px 1px;
+        min-height: 25px;
+        font-size: 9.5px;
     }
     .matrix-compact .matrix-square-sub {
-        font-size: 8px;
+        font-size: 7.5px;
     }
     .matrix-dense .matrix-square-cell {
-        padding: 2px 1px;
-        font-size: 9px;
+        padding: 1px 0px;
+        min-height: 19px;
+        font-size: 8.5px;
     }
     .matrix-dense .matrix-square-sub {
         display: none;
+    }
+
+    /* Individual State Matrices Multi-Select Breakdown */
+    .individual-states-section {
+        margin-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        border-top: 2px dashed var(--border-color);
+        padding-top: 16px;
+    }
+    .individual-states-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+    .state-submatrix-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .state-submatrix-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #f1f5f9;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .state-submatrix-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        color: var(--text-primary);
+    }
+    .state-sub-badge {
+        background: #0284c7;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+    .state-meta {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    .state-submatrix-kpis {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .state-kpi-pill {
+        font-size: 10.5px;
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 2px 7px;
+        color: var(--text-secondary);
+    }
+    .state-kpi-pill strong {
+        color: var(--text-primary);
+    }
+    .picker-hint {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
+        margin-left: 8px;
     }
 
     /* Floating Interactive Cell Inspector Popover */
@@ -850,6 +939,7 @@
         <div class="picker-header">
             <div class="picker-title-group">
                 <span class="picker-title">&#128506; Select States to View:</span>
+                <span class="picker-hint">(Click: Single State &bull; Ctrl+Click: Multi-Select)</span>
                 <input type="text" class="search-input" id="state-search-input" placeholder="Search state (e.g. Iowa, KS)..." oninput="filterStatesBySearch()">
             </div>
             <div class="quick-filters">
@@ -1295,7 +1385,7 @@ function renderStatePickers(filterQuery = "") {
     for (const [rtitle, locs] of Object.entries(belts)) {
         let chips = locs.map(l => {
             const isActive = selectedStates.includes(l.code);
-            return `<button class="state-chip ${isActive ? 'active' : ''}" onclick="toggleState('${l.code}')">${l.name} (${l.code})</button>`;
+            return `<button class="state-chip ${isActive ? 'active' : ''}" onclick="toggleState('${l.code}', event)">${l.name} (${l.code})</button>`;
         }).join("");
 
         html += `
@@ -1357,13 +1447,18 @@ function setDensity(d) {
     if (d === "dense") wrapper.classList.add("matrix-dense");
 }
 
-function toggleState(code) {
-    if (selectedStates.includes(code)) {
-        if (selectedStates.length > 1) {
-            selectedStates = selectedStates.filter(c => c !== code);
+function toggleState(code, event) {
+    const isMulti = event && (event.ctrlKey || event.metaKey);
+    if (isMulti) {
+        if (selectedStates.includes(code)) {
+            if (selectedStates.length > 1) {
+                selectedStates = selectedStates.filter(c => c !== code);
+            }
+        } else {
+            selectedStates.push(code);
         }
     } else {
-        selectedStates.push(code);
+        selectedStates = [code];
     }
     renderStatePickers();
     renderChart();
@@ -1685,34 +1780,11 @@ function renderChart() {
     `;
 }
 
-// 4. Render Matrix Table (Absolute & Anomaly Modes)
-function renderMatrix() {
+// 4. Generate Single Matrix Table (Modular helper for Composite and Individual States)
+function generateSingleMatrixTable(targetStates, isComposite = false, tableId = "") {
     const data = window.US_CROP_MATRIX_DATA;
-    if (!data) return;
-
-    const headerEl = document.getElementById("matrix-header-container");
-    const tableEl = document.getElementById("matrix-table-container");
-
     const yearsSorted = [...selectedYears].sort((a, b) => b - a);
     const monthsSorted = [...selectedMonths].sort((a, b) => a - b);
-
-    const isSingle = (selectedStates.length === 1);
-    const locMap = {};
-    data.locations.forEach(l => locMap[l.code] = l);
-
-    let stateTitle = "";
-    let stateSub = "";
-    if (isSingle) {
-        const l = locMap[selectedStates[0]] || {};
-        stateTitle = `${l.name} (${l.code}) &bull; ${getVarTitle()}`;
-        stateSub = `${l.region_title} &bull; District: ${l.district}`;
-    } else {
-        const names = selectedStates.map(c => (locMap[c] || {}).name || c).slice(0, 6).join(", ");
-        const extra = selectedStates.length > 6 ? ` +${selectedStates.length - 6} more` : '';
-        stateTitle = `Multi-State Composite (${selectedStates.length} States) &bull; ${getVarTitle()}`;
-        stateSub = `Agricultural Districts: ${names}${extra}`;
-    }
-
     const isAnom = (viewMode === "anomaly");
 
     // Table Headers
@@ -1731,19 +1803,18 @@ function renderMatrix() {
         </thead>
     `;
 
-    // Compute Rows
     let grandSum = 0;
     let grandCount = 0;
     let grandTotalAccum = 0;
     let grandAnomSum = 0;
     let rowsHtml = "";
 
-    // Pre-calculate baselines for selected states & months
+    // Pre-calculate baselines for target states & months
     const stateBaselines = {};
     monthsSorted.forEach(m => {
         const mStr = String(m);
         let bVals = [];
-        selectedStates.forEach(code => {
+        targetStates.forEach(code => {
             if (data.baseline_monthly && data.baseline_monthly[code] && data.baseline_monthly[code][mStr]) {
                 const bVal = getMetricValue(data.baseline_monthly[code][mStr], currentVar);
                 if (bVal !== null) bVals.push(bVal);
@@ -1764,7 +1835,7 @@ function renderMatrix() {
             let mAccums = [];
             let isFcst = false;
 
-            selectedStates.forEach(code => {
+            targetStates.forEach(code => {
                 const sMatrix = data.matrix_by_state[code] || {};
                 const yData = sMatrix[String(y)] || {};
                 const mInfo = yData[String(m)];
@@ -1811,12 +1882,10 @@ function renderMatrix() {
                 }
 
                 const sqClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
-                const tip = `${monthNames[m-1]} ${y}: ${displayVal} (${isFcst ? 'GFS Forecast' : 'Historical'})`;
-
                 cellsHtml += `
                     <td>
                         <div class="${sqClass}" style="background:${c.bg}; color:${c.text};"
-                             onmouseenter="showCellPopover(event, '${selectedStates.join(",")}', ${y}, ${m}, ${rawAvg}, ${norm}, ${anom}, ${isFcst})"
+                             onmouseenter="showCellPopover(event, '${targetStates.join(",")}', ${y}, ${m}, ${rawAvg}, ${norm}, ${anom}, ${isFcst})"
                              onmouseleave="hideCellPopover()">
                             <span>${displayVal}</span>
                             <span class="matrix-square-sub">${subText}</span>
@@ -1859,12 +1928,12 @@ function renderMatrix() {
 
             cellsHtml += `
                 <td>
-                    <div class="matrix-square-cell" style="background:${cRow.bg}; color:${cRow.text}; border:2px solid rgba(0,0,0,0.15);">
+                    <div class="matrix-square-cell" style="background:${cRow.bg}; color:${cRow.text}; border:1px solid rgba(0,0,0,0.15);">
                         <span>${dispRow}</span>
                         <span class="matrix-square-sub">${subRow}</span>
                     </div>
                 </td>
-                <td style="font-weight:700; color:var(--text-primary); font-size:11.5px;">
+                <td style="font-weight:700; color:var(--text-primary); font-size:10px;">
                     ${dispBaseAvg !== null ? `${dispBaseAvg.toFixed(1)} ${getUnitLabel()}` : '-'}
                 </td>
             `;
@@ -1882,38 +1951,125 @@ function renderMatrix() {
 
     const grandAvg = grandCount > 0 ? (grandSum / grandCount) : 0;
     const grandAnomAvg = grandCount > 0 ? (grandAnomSum / grandCount) : 0;
+    const meanAnnualPrecip = yearsSorted.length > 0 ? Math.round(grandTotalAccum / yearsSorted.length) : 0;
 
-    // Header KPI summary
+    const tableIdAttr = tableId ? ` id="${tableId}"` : '';
+    const tableHtml = `
+        <table class="matrix-table"${tableIdAttr}>
+            ${thead}
+            <tbody>${rowsHtml}</tbody>
+        </table>
+    `;
+
+    return {
+        tableHtml,
+        grandAvg,
+        grandAnomAvg,
+        meanAnnualPrecip,
+        yearsSorted,
+        monthsSorted
+    };
+}
+
+// 4b. Render Matrix View (Composite + Individual States Below)
+function renderMatrix() {
+    const data = window.US_CROP_MATRIX_DATA;
+    if (!data) return;
+
+    const headerEl = document.getElementById("matrix-header-container");
+    const tableEl = document.getElementById("matrix-table-container");
+
+    const isSingle = (selectedStates.length === 1);
+    const locMap = {};
+    data.locations.forEach(l => locMap[l.code] = l);
+    const isAnom = (viewMode === "anomaly");
+
+    // Primary/Composite calculation
+    const mainRes = generateSingleMatrixTable(selectedStates, !isSingle, "matrix-export-table");
+
+    let stateTitle = "";
+    let stateSub = "";
+    if (isSingle) {
+        const l = locMap[selectedStates[0]] || {};
+        stateTitle = `${l.name} (${l.code}) &bull; ${getVarTitle()}`;
+        stateSub = `${l.region_title} &bull; District: ${l.district}`;
+    } else {
+        const names = selectedStates.map(c => (locMap[c] || {}).name || c).slice(0, 8).join(", ");
+        const extra = selectedStates.length > 8 ? ` +${selectedStates.length - 8} more` : '';
+        stateTitle = `Multi-State Composite (${selectedStates.length} States) &bull; ${getVarTitle()}`;
+        stateSub = `Agricultural Districts: ${names}${extra}`;
+    }
+
+    // Header KPI summary for Primary Table
     headerEl.innerHTML = `
         <div class="matrix-header">
             <div class="matrix-title-group">
                 <h2>${stateTitle}</h2>
-                <p>${stateSub} &bull; Filtered Horizon: ${yearsSorted[yearsSorted.length-1]}–${yearsSorted[0]} (${yearsSorted.length} Yrs) &bull; Months: ${monthsSorted.map(m => monthNames[m-1]).join(", ")}</p>
+                <p>${stateSub} &bull; Filtered Horizon: ${mainRes.yearsSorted[mainRes.yearsSorted.length-1]}–${mainRes.yearsSorted[0]} (${mainRes.yearsSorted.length} Yrs) &bull; Months: ${mainRes.monthsSorted.map(m => monthNames[m-1]).join(", ")}</p>
             </div>
             <div class="matrix-kpis">
                 <div class="matrix-kpi-item">
                     <div class="matrix-kpi-label">Filtered ${isAnom ? 'Net Departure' : 'Period Average'}</div>
                     <div class="matrix-kpi-value">
-                        ${isAnom ? (grandAnomAvg >= 0 ? '+' : '') + convertValue(grandAnomAvg, currentVar, true).toFixed(1) : convertValue(grandAvg, currentVar, false).toFixed(1)}
-                        <span style="font-size:12px; font-weight:600;">${getUnitLabel()}</span>
+                        ${isAnom ? (mainRes.grandAnomAvg >= 0 ? '+' : '') + convertValue(mainRes.grandAnomAvg, currentVar, true).toFixed(1) : convertValue(mainRes.grandAvg, currentVar, false).toFixed(1)}
+                        <span style="font-size:11px; font-weight:600;">${getUnitLabel()}</span>
                     </div>
                 </div>
                 ${currentVar === 'precip' ? `
                 <div class="matrix-kpi-item">
                     <div class="matrix-kpi-label">Mean Annual Rainfall</div>
-                    <div class="matrix-kpi-value">${Math.round(grandTotalAccum / yearsSorted.length)} <span style="font-size:12px; font-weight:600;">mm/yr</span></div>
+                    <div class="matrix-kpi-value">${mainRes.meanAnnualPrecip} <span style="font-size:11px; font-weight:600;">mm/yr</span></div>
                 </div>
                 ` : ''}
             </div>
         </div>
     `;
 
-    tableEl.innerHTML = `
-        <table class="matrix-table" id="matrix-export-table">
-            ${thead}
-            <tbody>${rowsHtml}</tbody>
-        </table>
+    let fullHtml = `
+        <div class="matrix-table-wrapper">
+            ${mainRes.tableHtml}
+        </div>
     `;
+
+    // If more than 1 state selected: Render individual states below!
+    if (!isSingle) {
+        fullHtml += `
+            <div class="individual-states-section">
+                <div class="individual-states-heading">
+                    <span>&#128203; Individual State Matrices (${selectedStates.length} States Breakdown)</span>
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:none;">Granular state-by-state historical matrices shown below</span>
+                </div>
+        `;
+
+        selectedStates.forEach(code => {
+            const l = locMap[code] || { name: code, code: code, region_title: "US Agriculture", district: "Statewide" };
+            const stateRes = generateSingleMatrixTable([code], false, `matrix-table-${code}`);
+            const dispStateVal = isAnom ? (stateRes.grandAnomAvg >= 0 ? '+' : '') + convertValue(stateRes.grandAnomAvg, currentVar, true).toFixed(1) : convertValue(stateRes.grandAvg, currentVar, false).toFixed(1);
+
+            fullHtml += `
+                <div class="state-submatrix-card">
+                    <div class="state-submatrix-header">
+                        <div class="state-submatrix-title">
+                            <span class="state-sub-badge">${l.code}</span>
+                            <strong>${l.name}</strong>
+                            <span class="state-meta">&bull; ${l.region_title} &bull; District: ${l.district}</span>
+                        </div>
+                        <div class="state-submatrix-kpis">
+                            <span class="state-kpi-pill">Filtered ${isAnom ? 'Departure' : 'Avg'}: <strong>${dispStateVal} ${getUnitLabel()}</strong></span>
+                            ${currentVar === 'precip' ? `<span class="state-kpi-pill">Annual Rainfall: <strong>${stateRes.meanAnnualPrecip} mm</strong></span>` : ''}
+                        </div>
+                    </div>
+                    <div class="matrix-table-wrapper">
+                        ${stateRes.tableHtml}
+                    </div>
+                </div>
+            `;
+        });
+
+        fullHtml += `</div>`;
+    }
+
+    tableEl.innerHTML = fullHtml;
 }
 
 // 5. Floating Interactive Cell Popover

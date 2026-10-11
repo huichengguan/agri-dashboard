@@ -10,25 +10,21 @@
 </head>
 <body>
 
-    <!-- Header Banner: Dedicated Standalone Production Impact Header (No Navigation Tabs) -->
+    <!-- Header Banner with 4-Dashboard Navigation -->
     <header class="dashboard-header">
         <div class="header-left">
             <div class="header-title">
                 <h1>Southeast Asia Palm Oil Production Impact Summary</h1>
-                <p id="kpi-date">Empirically Calibrated to 21-Year MPOB Production Ground Truth & ECMWF 51-Member Ensemble Projections</p>
+                <p id="kpi-date">Target Period: Oct 2026 – Sep 2027 • Calibrated to 21-Yr MPOB Ground Truth & ECMWF SEAS5 51-Member Ensemble</p>
             </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <div style="display: inline-flex; align-items: center; gap: 6px; background: #0369a1; border: 1px solid #38bdf8; padding: 5px 14px; border-radius: 20px; font-size: 11.5px; font-weight: 700; color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-                <span>📅</span>
-                <span>Target Prediction Period: Oct 2026 – Sep 2027 (Forward Crop Year)</span>
-            </div>
-            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 5px 14px; border-radius: 20px; font-size: 11.5px; font-weight: 700; color: #ffffff;">
-                <span>📊</span>
-                <span>Standalone Production Impact & Yield Forecaster</span>
-            </div>
-        </div>
+        <nav class="dashboard-nav-tabs">
+            <a href="index.html" class="nav-tab">🌧️ Precipitation</a>
+            <a href="temperature.html" class="nav-tab">🌡️ Temperature</a>
+            <a href="soil_moisture.html" class="nav-tab">🌱 Topsoil & Subsoil</a>
+            <a href="production_impact.html" class="nav-tab active">📊 Production Impact</a>
+        </nav>
 
         <div class="header-right">
             <button class="btn btn-secondary" onclick="exportTableToCSV()">
@@ -114,7 +110,7 @@
                 <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan')">Kalimantan</button>
                 <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi')">Sulawesi</button>
                 <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua')">Papua</button>
-                <button class="segmented-btn" data-group="Southern Thailand" onclick="setGroup('Southern Thailand')">Thailand</button>
+                <button class="segmented-btn" data-group="South Thailand" onclick="setGroup('South Thailand')">Thailand</button>
                 <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)')">Philippines</button>
             </div>
 

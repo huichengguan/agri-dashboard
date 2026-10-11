@@ -1,6 +1,6 @@
 {
   "season": "2025/2026 South America Agricultural Season",
-  "generated_at": "2026-10-11 17:15:09 UTC",
+  "generated_at": "2026-10-11 19:57:33 UTC",
   "archive_window": "2025-09-01 to 2026-09-26 (ERA5 Ag-Reanalysis)",
   "forecast_model": "ECMWF IFS 0.25\u00b0 Seamless Operational (15-Day Forward)",
   "nodes": {

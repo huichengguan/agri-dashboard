@@ -242,9 +242,9 @@
         "name": "Romania Banat / Western Plain",
         "code": "RO-BANAT",
         "country": "Romania",
-        "district": "Timiș & Arad (Timișoara)",
-        "lat": 45.75,
-        "lon": 21.20,
+        "district": "Banat Chernozem Plain (Lovrin / Jimbolia / Sânnicolau Mare)",
+        "lat": 45.85,
+        "lon": 20.75,
         "commodities": [
           {
             "crop": "Corn (Grain Maize)",
@@ -273,9 +273,9 @@
         "name": "Bulgaria Dobrudzha Black Sea Export Hub",
         "code": "BG-DOBRUD",
         "country": "Bulgaria",
-        "district": "Danubian Plain & Dobrudzha (Dobrich / Pleven)",
-        "lat": 43.55,
-        "lon": 27.80,
+        "district": "Dobrudzha Grain Plateau (General Toshevo / Kavarna)",
+        "lat": 43.70,
+        "lon": 28.05,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -347,9 +347,9 @@
         "name": "Spain Castile & Duero Granary",
         "code": "ES-CASTILE",
         "country": "Spain",
-        "district": "Castile and León (Valladolid / Palencia)",
-        "lat": 41.65,
-        "lon": -4.70,
+        "district": "Tierra de Campos (Medina de Rioseco / Villalón Plain)",
+        "lat": 41.95,
+        "lon": -4.95,
         "commodities": [
           {
             "crop": "Barley (Winter & Spring)",
@@ -402,9 +402,9 @@
         "name": "Italy Apulia Tavoliere Durum Heartland",
         "code": "IT-PUGLIA",
         "country": "Italy",
-        "district": "Apulia (Tavoliere delle Puglie / Foggia)",
-        "lat": 41.45,
-        "lon": 15.55,
+        "district": "Tavoliere delle Puglie Durum Plain (Cerignola / Stornara)",
+        "lat": 41.30,
+        "lon": 15.80,
         "commodities": [
           {
             "crop": "Durum Wheat",

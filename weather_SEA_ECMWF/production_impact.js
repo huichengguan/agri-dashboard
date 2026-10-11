@@ -174,10 +174,25 @@ function computeTerritoryImpact(locId) {
                            (m4.rain !== null && (m4.rain < 40 || (m4.rain - b4_r) / b4_r < -0.45)) ||
                            (m3.topsoil !== null && m3.topsoil < 0.20) || (m4.topsoil !== null && m4.topsoil < 0.20);
 
-    // Forward 6-month forecast anomalies (ECMWF SEAS5)
+    // Forward 6-month forecast anomalies (ECMWF SEAS5: Oct 2026 – Mar 2027)
     const fcstData = currentData.forecast_6month && currentData.forecast_6month.data && currentData.forecast_6month.data[locId] || {};
     const fcstDaily = fcstData.period_6mo_avg_mm_day || 7.0;
     const fcstTotal = fcstData.period_6mo_total_mm || 1200.0;
+    const fcstMonths = ["2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03"];
+    let fcstBaseSum = 0;
+    let fcstBaseCnt = 0;
+    fcstMonths.forEach(ym => {
+        if (fcstData[ym] && fcstData[ym].baseline_mm_day !== undefined) {
+            fcstBaseSum += fcstData[ym].baseline_mm_day;
+            fcstBaseCnt++;
+        }
+    });
+    const fcstBaseDaily = fcstBaseCnt > 0 ? (fcstBaseSum / fcstBaseCnt) : 7.0;
+    const fcstAnomMmDay = fcstDaily - fcstBaseDaily;
+    const fcstAnomPct = fcstBaseDaily > 0 ? ((fcstDaily - fcstBaseDaily) / fcstBaseDaily) * 100 : 0.0;
+    const fcst14d = currentData.forecast_14d_summary && currentData.forecast_14d_summary[locId] || null;
+    const fcst14dTotal = fcst14d ? fcst14d.total_mm : null;
+    const fcst14dAvg = fcst14d ? fcst14d.avg_mm_day : null;
     const hasForwardDrought = fcstDaily < 5.0 || fcstTotal < 900.0;
 
     const curSubsoil = m8.subsoil || m7.subsoil || 0.35;
@@ -376,7 +391,14 @@ function computeTerritoryImpact(locId) {
         riskTier,
         riskLabel,
         riskClass,
-        isFlood
+        isFlood,
+        fcstDaily,
+        fcstTotal,
+        fcstBaseDaily,
+        fcstAnomMmDay,
+        fcstAnomPct,
+        fcst14dTotal,
+        fcst14dAvg
     };
 }
 
@@ -465,7 +487,10 @@ function renderKPIs() {
         if (imp.isFlood) floodCount++;
         if (imp.curSubsoil >= 0.28) intactCount++;
 
-        if (imp.netYieldShift < worstTerritory.shift) {
+        if (
+            imp.netYieldShift < worstTerritory.shift - 0.05 ||
+            (Math.abs(imp.netYieldShift - worstTerritory.shift) <= 0.05 && imp.volImpactTonnes < worstTerritory.vol)
+        ) {
             worstTerritory = { name: loc.name, shift: imp.netYieldShift, group: loc.major_group, vol: imp.volImpactTonnes };
         }
 
@@ -619,6 +644,8 @@ function renderBenchmarkChart() {
     if (statsContainer) {
         const crashVal = mpobInfo ? mpobInfo.crash_2016_pct : -13.2;
         const crashStr = mpobInfo ? `${crashVal > 0 ? '+' : ''}${crashVal.toFixed(1)}% YoY in ${loc.name}` : `-13.2% Malaysia-wide (-2.63M T)`;
+        const locImp = calculatedImpacts[locId] || computeTerritoryImpact(locId);
+        const fcstRainStr = locImp && locImp.fcstDaily ? `${locImp.fcstDaily.toFixed(1)} mm/d (${Math.round(locImp.fcstTotal).toLocaleString('en-US')} mm)` : `8.0 mm/d`;
         statsContainer.innerHTML = `
             <div class="benchmark-stat-chip">
                 <span>2015/16 Super El Niño Min Subsoil:</span> 
@@ -627,6 +654,10 @@ function renderBenchmarkChart() {
             <div class="benchmark-stat-chip">
                 <span>Current 2026/27 Min Subsoil:</span> 
                 <strong style="color: #0284c7;">${minCur.toFixed(3)} m³/m³</strong>
+            </div>
+            <div class="benchmark-stat-chip">
+                <span>6M Forecast Rain (Oct '26–Mar '27):</span> 
+                <strong style="color: #0369a1;">🌧️ ${fcstRainStr}</strong>
             </div>
             <div class="benchmark-stat-chip">
                 <span>Actual 2016 MPOB Production Crash:</span> 
@@ -784,20 +815,20 @@ function renderImpactTable() {
         <table class="data-table" id="exportable-table">
             <thead>
                 <tr>
-                    <th style="min-width: 75px;">Country</th>
-                    <th style="min-width: 115px;">Region / Island</th>
-                    <th style="min-width: 130px;">Plantation Zone</th>
-                    <th style="text-align: right; min-width: 100px;">Baseline Output<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Annual Tonnes</span></th>
-                    <th style="text-align: center; min-width: 110px; background: #f0fdf4;">2026 MPOB Actual<br><span style="font-size:9px; font-weight:normal; text-transform:none;">YTD YoY Growth</span></th>
-                    <th style="text-align: center; min-width: 95px; ${currentHorizon === 'h03' ? 'background: #e0f2fe;' : ''}" title="Oct–Dec 2026 immediate harvest & extraction impact">Lag 0–3m<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Oct–Dec '26 (OER)</span></th>
-                    <th style="text-align: center; min-width: 95px; ${currentHorizon === 'h46' ? 'background: #e0f2fe;' : ''}" title="Jan–Mar 2027 fruitlet enlargement & bunch weight">Lag 4–6m<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Jan–Mar '27 (ABW)</span></th>
-                    <th style="text-align: center; min-width: 95px; ${currentHorizon === 'h912' ? 'background: #e0f2fe;' : ''}" title="Apr–Sep 2027 floral elongation & bunch abortion">Lag 9–12m<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Apr–Sep '27 (Abortion)</span></th>
-                    <th style="text-align: center; min-width: 95px; ${currentHorizon === 'h2024' ? 'background: #e0f2fe;' : ''}" title="Late 2027 – Mid 2028 floral primordia sex differentiation">Lag 20–24m<br><span style="font-size:9px; font-weight:normal; text-transform:none;">'27–'28 (Sex Diff)</span></th>
-                    <th style="text-align: center; min-width: 100px; ${currentHorizon === 'all' ? 'background: #f1f5f9;' : ''}" title="Forward 12-Month Crop Cycle (Oct 2026 – Sep 2027)">Net Yield Shift<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Oct '26 – Sep '27</span></th>
-                    <th style="text-align: right; min-width: 105px;" title="Volume impact on 12-month baseline output">Projected Impact<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Oct '26 – Sep '27 (T)</span></th>
-                    <th style="text-align: center; min-width: 105px;" title="Recent Peak Tmax and Vapor Pressure Deficit / Midday Stomatal Closure Stress">Thermal Stress<br><span style="font-size:9px; font-weight:normal; text-transform:none;">Peak Tmax (VPD)</span></th>
-                    <th style="text-align: center; min-width: 130px;">Production Risk Tier</th>
-                    <th style="text-align: center; min-width: 80px;">Action</th>
+                    <th>Country</th>
+                    <th>Region</th>
+                    <th>Plantation Zone</th>
+                    <th style="text-align: right;">Baseline<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Tonnes/Yr</span></th>
+                    <th style="text-align: center; background: #f0fdf4;">2026 MPOB<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">YTD YoY</span></th>
+                    <th style="text-align: center; ${currentHorizon === 'h03' ? 'background: #e0f2fe;' : ''}" title="Oct–Dec 2026 immediate harvest & extraction impact">Lag 0–3m<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Oct–Dec '26</span></th>
+                    <th style="text-align: center; ${currentHorizon === 'h46' ? 'background: #e0f2fe;' : ''}" title="Jan–Mar 2027 fruitlet enlargement & bunch weight">Lag 4–6m<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Jan–Mar '27</span></th>
+                    <th style="text-align: center; ${currentHorizon === 'h912' ? 'background: #e0f2fe;' : ''}" title="Apr–Sep 2027 floral elongation & bunch abortion">Lag 9–12m<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Apr–Sep '27</span></th>
+                    <th style="text-align: center; ${currentHorizon === 'h2024' ? 'background: #e0f2fe;' : ''}" title="Late 2027 – Mid 2028 floral primordia sex differentiation">Lag 20–24m<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">'27–'28 Sex</span></th>
+                    <th style="text-align: center; ${currentHorizon === 'all' ? 'background: #f1f5f9;' : ''}" title="Forward 12-Month Crop Cycle (Oct 2026 – Sep 2027)">Net Shift<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Oct '26–Sep '27</span></th>
+                    <th style="text-align: right;" title="Volume impact on 12-month baseline output">Vol Impact<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Tonnes (T)</span></th>
+                    <th style="text-align: center;" title="Recent Peak Tmax and Vapor Pressure Deficit / Midday Stomatal Closure Stress">Thermal<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">Tmax (VPD)</span></th>
+                    <th style="text-align: center;" title="Agronomic Production Risk Tier & ECMWF SEAS5 6-Month Forecasted Rainfall (Oct 2026 – Mar 2027)">Production Risk Tier<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">&amp; 6M Forecast Rain</span></th>
+                    <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -811,6 +842,9 @@ function renderImpactTable() {
     let weightedH912 = 0;
     let weightedH2024 = 0;
     let weightedPeakTmax = 0;
+    let weightedFcstDaily = 0;
+    let weightedFcstTotal = 0;
+    let weightedFcstAnom = 0;
     let totalMpobYtd = 0;
     let weightedMpobYoy = 0;
     let mpobWeightTonnes = 0;
@@ -826,6 +860,9 @@ function renderImpactTable() {
         weightedH912 += imp.h912Impact * imp.baseAnnualTonnes;
         weightedH2024 += imp.h2024Impact * imp.baseAnnualTonnes;
         weightedPeakTmax += (imp.peakTmax || 32.0) * imp.baseAnnualTonnes;
+        weightedFcstDaily += (imp.fcstDaily || 7.0) * imp.baseAnnualTonnes;
+        weightedFcstTotal += (imp.fcstTotal || 1200.0) * imp.baseAnnualTonnes;
+        weightedFcstAnom += (imp.fcstAnomMmDay || 0.0) * imp.baseAnnualTonnes;
 
         if (mpob && mpob.actual_ytd_tonnes) {
             totalMpobYtd += mpob.actual_ytd_tonnes;
@@ -833,29 +870,36 @@ function renderImpactTable() {
             mpobWeightTonnes += mpob.actual_ytd_tonnes;
         }
 
-        let actualColHtml = `<span style="color:#94a3b8; font-size:11px;">Proxy</span>`;
+        let actualColHtml = `<span style="color:#94a3b8; font-size:9.5px;">Proxy</span>`;
         if (mpob && mpob.yoy_2026_pct !== undefined) {
             const yoy = mpob.yoy_2026_pct;
             const yoyColor = yoy > 0 ? "#15803d" : (yoy < -5 ? "#b91c1c" : "#c2410c");
-            actualColHtml = `<strong style="color:${yoyColor}; font-size:11.5px;">${yoy > 0 ? '+' : ''}${yoy.toFixed(1)}%</strong>
-                             <span style="display:block; font-size:9px; color:#64748b;">${Math.round(mpob.actual_ytd_tonnes).toLocaleString('en-US')} T YTD</span>`;
+            actualColHtml = `<strong style="color:${yoyColor}; font-size:10.5px;">${yoy > 0 ? '+' : ''}${yoy.toFixed(1)}%</strong>
+                             <span style="display:block; font-size:8px; color:#64748b; line-height:1.1;">${Math.round(mpob.actual_ytd_tonnes).toLocaleString('en-US')} T</span>`;
         } else if (loc.country === "Indonesia") {
-            actualColHtml = `<span style="color:#64748b; font-size:10.5px;">GAPKI Benchmark</span>`;
+            actualColHtml = `<span style="color:#64748b; font-size:9.5px;">GAPKI</span>`;
         }
 
         const volStr = imp.volImpactTonnes !== 0 ? 
             `${imp.volImpactTonnes > 0 ? '+' : ''}${Math.round(imp.volImpactTonnes).toLocaleString('en-US')} T` : `-`;
         const volColor = imp.volImpactTonnes > 0 ? "#15803d" : (imp.volImpactTonnes < -30000 ? "#b91c1c" : "#c2410c");
 
+        const fcDaily = imp.fcstDaily || 7.0;
+        const fcTot = imp.fcstTotal || 1200.0;
+        const fcAnom = imp.fcstAnomMmDay || 0.0;
+        const fcAnomSign = fcAnom >= 0 ? "+" : "";
+        const fcAnomColor = fcAnom < -0.5 ? "#b91c1c" : (fcAnom > 0.5 ? "#15803d" : "#475569");
+        const fcTooltip = `6M Forecast Rain (Oct '26–Mar '27): ${fcDaily.toFixed(1)} mm/d (${Math.round(fcTot).toLocaleString('en-US')} mm total vs ${imp.fcstBaseDaily ? imp.fcstBaseDaily.toFixed(1) : '7.0'} mm/d normal, ${fcAnomSign}${fcAnom.toFixed(1)} mm/d)${imp.fcst14dTotal !== null ? ' • Next 14d: ' + Math.round(imp.fcst14dTotal) + ' mm (' + imp.fcst14dAvg.toFixed(1) + ' mm/d)' : ''}`;
+
         tbody += `
             <tr style="cursor: pointer;" onclick="openDrilldownModal('${loc.id}')" title="Click to view 24-month multi-stress timeline & historical MPOB production track record">
-                <td><strong>${loc.country}</strong></td>
-                <td><span class="group-badge">${loc.major_group}</span></td>
-                <td class="col-state">
+                <td style="font-size: 10px;"><strong>${loc.country}</strong></td>
+                <td><span class="group-badge" style="font-size: 8.5px; padding: 1px 4px;">${loc.major_group}</span></td>
+                <td class="col-state" style="font-size: 10.5px;">
                     <strong>${loc.name}</strong>
-                    <span style="display:block; font-size:9.5px; color:#475569;" title="${loc.capital || ''}">${loc.capital ? loc.capital.replace('Plantation Belt: ', '🌾 ') : loc.id}</span>
+                    <span style="display:block; font-size:8.5px; color:#64748b; line-height:1.1; max-width: 145px; overflow: hidden; text-overflow: ellipsis;" title="${loc.capital || ''}">${loc.capital ? loc.capital.replace('Plantation Belt: ', '🌾 ') : loc.id}</span>
                 </td>
-                <td style="text-align: right; font-size: 11.5px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
+                <td style="text-align: right; font-size: 10.5px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
                     ${Math.round(imp.baseAnnualTonnes).toLocaleString('en-US')} T
                 </td>
                 <td style="text-align: center; background: #f0fdf4;">
@@ -876,18 +920,19 @@ function renderImpactTable() {
                 <td style="text-align: center; ${currentHorizon === 'all' ? 'background: #f8fafc;' : ''}">
                     ${getShiftBadge(imp.netYieldShift)}
                 </td>
-                <td style="text-align: right; font-size: 11.5px; font-weight: 700; color: ${volColor}; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
+                <td style="text-align: right; font-size: 10.5px; font-weight: 700; color: ${volColor}; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
                     ${volStr}
                 </td>
                 <td style="text-align: center;">
                     <span class="vpd-badge ${imp.vpdClass}">${imp.peakTmax ? imp.peakTmax.toFixed(1) + '°C' : '-'}</span>
-                    <span style="display:block; font-size:9px; color:#64748b;">${imp.vpdLabel ? imp.vpdLabel.split(' ')[0] : ''}</span>
+                    <span style="display:block; font-size:8px; color:#64748b; line-height:1.1;">${imp.vpdLabel ? imp.vpdLabel.split(' ')[0] : ''}</span>
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center;" title="${fcTooltip}">
                     <span class="risk-badge ${imp.riskClass}">${imp.riskLabel}</span>
+                    <span class="fcst-rain-sub">🌧️ ${fcDaily.toFixed(1)} mm/d (${Math.round(fcTot).toLocaleString('en-US')} mm, <span style="color:${fcAnomColor}; font-weight:700;">${fcAnomSign}${fcAnom.toFixed(1)}</span>)</span>
                 </td>
                 <td style="text-align: center;">
-                    <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 10.5px;" onclick="event.stopPropagation(); openDrilldownModal('${loc.id}')">
+                    <button class="btn btn-secondary" style="padding: 1.5px 6px; font-size: 9.5px; background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1;" onclick="event.stopPropagation(); openDrilldownModal('${loc.id}')">
                         Analyze
                     </button>
                 </td>
@@ -902,22 +947,26 @@ function renderImpactTable() {
     const netWeightedShift = totalBaseTonnes > 0 ? (totalVolImpact / totalBaseTonnes) * 100 : 0;
     const avgMpobYoy = mpobWeightTonnes > 0 ? (weightedMpobYoy / mpobWeightTonnes) : 0.0;
     const avgPeakTmax = totalBaseTonnes > 0 ? (weightedPeakTmax / totalBaseTonnes) : 32.0;
+    const avgFcstDaily = totalBaseTonnes > 0 ? (weightedFcstDaily / totalBaseTonnes) : 7.5;
+    const avgFcstTotal = totalBaseTonnes > 0 ? (weightedFcstTotal / totalBaseTonnes) : 1350;
+    const avgFcstAnom = totalBaseTonnes > 0 ? (weightedFcstAnom / totalBaseTonnes) : 0.0;
+    const avgFcstAnomSign = avgFcstAnom >= 0 ? "+" : "";
 
     let tfoot = `
         <tfoot>
             <tr class="table-total-row">
-                <td colspan="3" style="text-align: left; font-weight: 800; font-size: 12px; letter-spacing: 0.3px; color: var(--text-primary);">
-                    TOTAL / AGGREGATE IMPACT (${locations.length} Zones) • Projected Oct 2026 – Sep 2027
+                <td colspan="3" style="text-align: left; font-weight: 800; font-size: 10.5px; letter-spacing: 0.2px; color: var(--text-primary);">
+                    TOTAL / AGGREGATE (${locations.length} Zones) • Oct '26 – Sep '27
                 </td>
-                <td style="text-align: right; font-size: 12px; font-weight: 800; color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
+                <td style="text-align: right; font-size: 10.5px; font-weight: 800; color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
                     ${Math.round(totalBaseTonnes).toLocaleString('en-US')} T
                 </td>
                 <td style="text-align: center; background: #e2f7e9;">
-                    <strong style="color: ${avgMpobYoy >= 0 ? '#15803d' : '#b91c1c'}; font-size: 11.5px;">
+                    <strong style="color: ${avgMpobYoy >= 0 ? '#15803d' : '#b91c1c'}; font-size: 10.5px;">
                         ${avgMpobYoy >= 0 ? '+' : ''}${avgMpobYoy.toFixed(1)}%
                     </strong>
-                    <span style="display: block; font-size: 9px; color: #475569;">
-                        ${totalMpobYtd > 0 ? Math.round(totalMpobYtd).toLocaleString('en-US') + ' T YTD' : 'Regional'}
+                    <span style="display: block; font-size: 8px; color: #475569;">
+                        ${totalMpobYtd > 0 ? Math.round(totalMpobYtd).toLocaleString('en-US') + ' T' : 'Regional'}
                     </span>
                 </td>
                 <td class="horizon-cell" style="text-align: center; ${currentHorizon === 'h03' ? 'background: #e0f2fe;' : ''}">
@@ -935,19 +984,20 @@ function renderImpactTable() {
                 <td style="text-align: center; ${currentHorizon === 'all' ? 'background: #f1f5f9;' : ''}">
                     ${getShiftBadge(netWeightedShift)}
                 </td>
-                <td style="text-align: right; font-size: 12px; font-weight: 800; color: ${totalVolImpact > 0 ? '#15803d' : '#b91c1c'}; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
+                <td style="text-align: right; font-size: 10.5px; font-weight: 800; color: ${totalVolImpact > 0 ? '#15803d' : '#b91c1c'}; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;">
                     ${totalVolImpact > 0 ? '+' : ''}${Math.round(totalVolImpact).toLocaleString('en-US')} T
                 </td>
                 <td style="text-align: center;">
-                    <span style="font-size: 11px; font-weight: 700; color: #334155;">${avgPeakTmax.toFixed(1)}°C avg</span>
+                    <span style="font-size: 10px; font-weight: 700; color: #334155;">${avgPeakTmax.toFixed(1)}°C avg</span>
                 </td>
                 <td style="text-align: center;">
                     <span class="risk-badge ${netWeightedShift <= -3.5 ? 'risk-high' : (netWeightedShift <= -1.5 ? 'risk-moderate' : 'risk-normal')}">
                         ${netWeightedShift <= -3.5 ? 'High Deficit' : (netWeightedShift <= -1.5 ? 'Moderate Deficit' : 'Normal / Favorable')}
                     </span>
+                    <span class="fcst-rain-sub">🌧️ ${avgFcstDaily.toFixed(1)} mm/d (${Math.round(avgFcstTotal).toLocaleString('en-US')} mm, ${avgFcstAnomSign}${avgFcstAnom.toFixed(1)})</span>
                 </td>
                 <td style="text-align: center;">
-                    <span style="font-size: 10px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Sum</span>
+                    <span style="font-size: 9.5px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Sum</span>
                 </td>
             </tr>
         </tfoot>
@@ -978,6 +1028,7 @@ function openDrilldownModal(locId) {
     // Historical Ground Truth Banner in Modal
     const histCard = document.getElementById("modal-historical-card");
     if (histCard) {
+        const fcRainSummary = `🌧️ ${(imp.fcstDaily || 7.0).toFixed(1)} mm/d (${Math.round(imp.fcstTotal || 1200).toLocaleString('en-US')} mm)`;
         if (mpob) {
             histCard.innerHTML = `
                 <div style="font-size: 12px; font-weight: 700; color: #09444c; margin-bottom: 6px;">
@@ -986,6 +1037,7 @@ function openDrilldownModal(locId) {
                 <div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 11.5px;">
                     <div>2026 YTD Production: <strong>${Math.round(mpob.actual_ytd_tonnes).toLocaleString('en-US')} Tonnes</strong></div>
                     <div>2026 YTD YoY Growth: <strong style="color: ${mpob.yoy_2026_pct > 0 ? '#15803d' : '#b91c1c'};">${mpob.yoy_2026_pct > 0 ? '+' : ''}${mpob.yoy_2026_pct.toFixed(1)}%</strong></div>
+                    <div>6M Forecast Rain (Oct '26–Mar '27): <strong style="color: #0369a1;">${fcRainSummary}</strong></div>
                     <div>Peak Tmax (VPD): <strong class="vpd-badge ${imp.vpdClass}">${imp.peakTmax ? imp.peakTmax.toFixed(1) + '°C' : '-'} (${imp.vpdLabel ? imp.vpdLabel.split(' ')[0] : ''})</strong></div>
                     <div>Deep Subsoil (28–100cm): <strong>${imp.curSubsoil ? imp.curSubsoil.toFixed(3) + ' m³/m³' : '-'} (${imp.subsoilDesc})</strong></div>
                     <div>2015/16 Super El Niño Crash: <strong style="color: #991b1b;">${mpob.crash_2016_pct.toFixed(1)}% YoY</strong></div>
@@ -1000,6 +1052,7 @@ function openDrilldownModal(locId) {
                 <div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 11.5px;">
                     <div>Estimated Baseline Output: <strong>${Math.round(imp.baseAnnualTonnes).toLocaleString('en-US')} Tonnes/Year</strong></div>
                     <div>Projected Forward Impact: <strong style="color: ${imp.netYieldShift < 0 ? '#b91c1c' : '#15803d'};">${imp.netYieldShift > 0 ? '+' : ''}${imp.netYieldShift.toFixed(1)}% (${Math.round(imp.volImpactTonnes).toLocaleString('en-US')} T)</strong></div>
+                    <div>6M Forecast Rain (Oct '26–Mar '27): <strong style="color: #0369a1;">${fcRainSummary}</strong></div>
                     <div>Peak Tmax (VPD): <strong class="vpd-badge ${imp.vpdClass}">${imp.peakTmax ? imp.peakTmax.toFixed(1) + '°C' : '-'} (${imp.vpdLabel ? imp.vpdLabel.split(' ')[0] : ''})</strong></div>
                     <div>Deep Subsoil (28–100cm): <strong>${imp.curSubsoil ? imp.curSubsoil.toFixed(3) + ' m³/m³' : '-'} (${imp.subsoilDesc})</strong></div>
                 </div>
@@ -1063,6 +1116,7 @@ function renderDrilldownChart(locId) {
     if (!ctx || !currentData) return;
 
     const rainDict = currentData.monthly_data && currentData.monthly_data[locId] || {};
+    const fcstLoc = currentData.forecast_6month && currentData.forecast_6month.data && currentData.forecast_6month.data[locId] || {};
     const topsoilDict = (currentData.monthly_topsoil && currentData.monthly_topsoil[locId]) || 
                         (currentData.monthly_0_28cm && currentData.monthly_0_28cm[locId]) || {};
     const subsoilDict = currentData.monthly_subsoil && currentData.monthly_subsoil[locId] || {};
@@ -1070,40 +1124,42 @@ function renderDrilldownChart(locId) {
 
     const labels = [];
     const rainVals = [];
+    const rainColors = [];
     const topsoilVals = [];
     const subsoilVals = [];
     const tmaxVals = [];
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    // 2025 (months 1-12)
-    for (let m = 1; m <= 12; m++) {
-        labels.push(`'25 ${monthNames[m-1]}`);
-        const r = rainDict["2025"] && rainDict["2025"][String(m)] ? rainDict["2025"][String(m)].total_mm : null;
-        const ts = topsoilDict["2025"] && topsoilDict["2025"][String(m)] ? topsoilDict["2025"][String(m)].val : null;
-        const ss = subsoilDict["2025"] && subsoilDict["2025"][String(m)] ? subsoilDict["2025"][String(m)].val : null;
-        const tm = tempDict["2025"] && tempDict["2025"][String(m)] ? (tempDict["2025"][String(m)].val_max || (tempDict["2025"][String(m)].val + 4.2)) : null;
+    // Rolling 24-month window including full 6-month forecast: Apr 2025 – Mar 2027 (F)
+    const timelinePoints = [];
+    for (let m = 4; m <= 12; m++) timelinePoints.push({ y: 2025, m, isFcast: false });
+    for (let m = 1; m <= 12; m++) timelinePoints.push({ y: 2026, m, isFcast: m >= 10 });
+    for (let m = 1; m <= 3; m++) timelinePoints.push({ y: 2027, m, isFcast: true });
+
+    timelinePoints.forEach(pt => {
+        const yStr = String(pt.y);
+        const mStr = String(pt.m);
+        const ymKey = `${pt.y}-${String(pt.m).padStart(2, '0')}`;
+        labels.push(`'${yStr.slice(2)} ${monthNames[pt.m - 1]}${pt.isFcast ? ' (F)' : ''}`);
+
+        let r = rainDict[yStr] && rainDict[yStr][mStr] ? rainDict[yStr][mStr].total_mm : null;
+        if (r === null && fcstLoc[ymKey] && fcstLoc[ymKey].total_mm !== undefined) {
+            r = fcstLoc[ymKey].total_mm;
+        }
+        const ts = topsoilDict[yStr] && topsoilDict[yStr][mStr] ? topsoilDict[yStr][mStr].val : null;
+        const ss = subsoilDict[yStr] && subsoilDict[yStr][mStr] ? subsoilDict[yStr][mStr].val : null;
+        let tm = tempDict[yStr] && tempDict[yStr][mStr] ? (tempDict[yStr][mStr].val_max || ((tempDict[yStr][mStr].val || tempDict[yStr][mStr].mean_temp || 27.0) + 4.2)) : null;
+        if (tm === null && fcstLoc[ymKey] && fcstLoc[ymKey].avg_temp !== undefined) {
+            tm = fcstLoc[ymKey].avg_temp + 4.2;
+        }
 
         rainVals.push(r);
+        rainColors.push(pt.isFcast ? "rgba(14, 165, 233, 0.55)" : "rgba(2, 132, 199, 0.32)");
         topsoilVals.push(ts);
         subsoilVals.push(ss);
         tmaxVals.push(tm);
-    }
-
-    // 2026 (months 1-12)
-    for (let m = 1; m <= 12; m++) {
-        const isFcast = m >= 10;
-        labels.push(`'26 ${monthNames[m-1]}${isFcast ? ' (F)' : ''}`);
-        const r = rainDict["2026"] && rainDict["2026"][String(m)] ? rainDict["2026"][String(m)].total_mm : null;
-        const ts = topsoilDict["2026"] && topsoilDict["2026"][String(m)] ? topsoilDict["2026"][String(m)].val : null;
-        const ss = subsoilDict["2026"] && subsoilDict["2026"][String(m)] ? subsoilDict["2026"][String(m)].val : null;
-        const tm = tempDict["2026"] && tempDict["2026"][String(m)] ? (tempDict["2026"][String(m)].val_max || (tempDict["2026"][String(m)].val + 4.2)) : null;
-
-        rainVals.push(r);
-        topsoilVals.push(ts);
-        subsoilVals.push(ss);
-        tmaxVals.push(tm);
-    }
+    });
 
     const lims = (calculatedSoilLimits && calculatedSoilLimits[locId]) || { pwp_sub: 0.20, fc_sub: 0.45, pwp_top: 0.18, fc_top: 0.45 };
     const topRewVals = topsoilVals.map(v => v !== null ? calcRew(v, lims.pwp_top, lims.fc_top) : null);
@@ -1120,9 +1176,9 @@ function renderDrilldownChart(locId) {
             datasets: [
                 {
                     type: "bar",
-                    label: "Monthly Precipitation (mm)",
+                    label: "Monthly Precipitation (mm • Bright = 6M Forecast)",
                     data: rainVals,
-                    backgroundColor: "rgba(2, 132, 199, 0.35)",
+                    backgroundColor: rainColors,
                     borderColor: "#0284c7",
                     borderWidth: 1,
                     yAxisID: "yRain",
@@ -1428,6 +1484,9 @@ function renderRegionalOutlook() {
             weightedH2024: 0,
             weightedPeakTmax: 0,
             weightedSubsoil: 0,
+            weightedFcstDaily: 0,
+            weightedFcstTotal: 0,
+            weightedFcstAnom: 0,
             criticalCount: 0,
             highCount: 0,
             modCount: 0,
@@ -1443,7 +1502,9 @@ function renderRegionalOutlook() {
             groupStats[g] = {
                 baseTonnes: 0, volImpact: 0, count: 0,
                 weightedH03: 0, weightedH46: 0, weightedH912: 0, weightedH2024: 0,
-                weightedPeakTmax: 0, weightedSubsoil: 0, criticalCount: 0, highCount: 0, modCount: 0, favCount: 0
+                weightedPeakTmax: 0, weightedSubsoil: 0,
+                weightedFcstDaily: 0, weightedFcstTotal: 0, weightedFcstAnom: 0,
+                criticalCount: 0, highCount: 0, modCount: 0, favCount: 0
             };
         }
         const gs = groupStats[g];
@@ -1456,6 +1517,9 @@ function renderRegionalOutlook() {
         gs.weightedH2024 += imp.h2024Impact * imp.baseAnnualTonnes;
         gs.weightedPeakTmax += (imp.peakTmax || 32.0) * imp.baseAnnualTonnes;
         gs.weightedSubsoil += (imp.curSubsoil || 0.35) * imp.baseAnnualTonnes;
+        gs.weightedFcstDaily += (imp.fcstDaily || 7.0) * imp.baseAnnualTonnes;
+        gs.weightedFcstTotal += (imp.fcstTotal || 1200.0) * imp.baseAnnualTonnes;
+        gs.weightedFcstAnom += (imp.fcstAnomMmDay || 0.0) * imp.baseAnnualTonnes;
 
         if (imp.riskTier === "critical") gs.criticalCount++;
         else if (imp.riskTier === "high") gs.highCount++;
@@ -1465,6 +1529,9 @@ function renderRegionalOutlook() {
 
     let totalBase = 0;
     let totalVol = 0;
+    let grandFcstDaily = 0;
+    let grandFcstTotal = 0;
+    let grandFcstAnom = 0;
 
     let rowsHtml = "";
     groupOrder.forEach(g => {
@@ -1473,10 +1540,17 @@ function renderRegionalOutlook() {
 
         totalBase += s.baseTonnes;
         totalVol += s.volImpact;
+        grandFcstDaily += s.weightedFcstDaily;
+        grandFcstTotal += s.weightedFcstTotal;
+        grandFcstAnom += s.weightedFcstAnom;
 
         const netPct = (s.volImpact / s.baseTonnes) * 100;
         const avgSub = s.weightedSubsoil / s.baseTonnes;
         const avgTmax = s.weightedPeakTmax / s.baseTonnes;
+        const avgFcDaily = s.weightedFcstDaily / s.baseTonnes;
+        const avgFcTotal = s.weightedFcstTotal / s.baseTonnes;
+        const avgFcAnom = s.weightedFcstAnom / s.baseTonnes;
+        const fcAnomSign = avgFcAnom >= 0 ? "+" : "";
 
         let riskBadge = `<span class="risk-badge risk-normal">Normal / Favorable</span>`;
         if (netPct <= -3.0) riskBadge = `<span class="risk-badge risk-high">High Deficit</span>`;
@@ -1489,7 +1563,7 @@ function renderRegionalOutlook() {
         else if (g === "Peninsular Malaysia") mechanism = "Thermal VPD stomatal closure & subsoil drying in Pahang/Kelantan (-190k T) vs stable western coastal belt";
         else if (g === "Sabah & Sarawak") mechanism = "Sabah August subsoil deficit (0.298 m³/m³) manifests in Lag 9–12m floral inflorescence abortion (-181k T)";
         else if (g === "Sulawesi") mechanism = "Localized flash drought in Gorontalo & West Sulawesi balanced by southern coastal moisture";
-        else if (g === "Southern Thailand") mechanism = "Monsoon attenuation in Surat Thani & Krabi producing mild bunch weight suppression";
+        else if (g === "Southern Thailand" || g === "South Thailand") mechanism = "Monsoon attenuation in Surat Thani & Krabi producing mild bunch weight suppression";
         else if (g === "Papua") mechanism = "Equatorial rainforest moisture buffers Keerom & Boven Digoel estates";
         else if (g === "Mindanao (Copra)") mechanism = "Davao & Misamis subsoil drawdown restrained by moderate Q3 rainfall";
 
@@ -1503,17 +1577,24 @@ function renderRegionalOutlook() {
                 <td style="text-align: center;"><span class="yield-shift-badge ${netPct <= -3.0 ? 'yield-shift-severe' : (netPct <= -1.2 ? 'yield-shift-mod' : 'yield-shift-pos')}">${netPct > 0 ? '+' : ''}${netPct.toFixed(2)}%</span></td>
                 <td style="text-align: center; font-weight: 600;">${avgSub.toFixed(3)} m³/m³</td>
                 <td style="text-align: center;"><span class="vpd-badge ${avgTmax >= 33.5 ? 'vpd-severe' : (avgTmax >= 32.5 ? 'vpd-elevated' : 'vpd-optimal')}">${avgTmax.toFixed(1)}°C</span></td>
-                <td style="text-align: center;">${riskBadge}</td>
-                <td style="font-size: 11px; color: var(--text-secondary); line-height: 1.35;">${mechanism}</td>
+                <td style="text-align: center;">
+                    ${riskBadge}
+                    <span class="fcst-rain-sub">🌧️ ${avgFcDaily.toFixed(1)} mm/d (${Math.round(avgFcTotal).toLocaleString('en-US')} mm, ${fcAnomSign}${avgFcAnom.toFixed(1)})</span>
+                </td>
+                <td style="font-size: 10px; color: var(--text-secondary); line-height: 1.3; white-space: normal;">${mechanism}</td>
             </tr>
         `;
     });
 
     const netTotPct = totalBase > 0 ? (totalVol / totalBase) * 100 : 0;
+    const totFcstDaily = totalBase > 0 ? (grandFcstDaily / totalBase) : 7.5;
+    const totFcstTotal = totalBase > 0 ? (grandFcstTotal / totalBase) : 1350;
+    const totFcstAnom = totalBase > 0 ? (grandFcstAnom / totalBase) : 0.0;
+    const totFcstSign = totFcstAnom >= 0 ? "+" : "";
 
     container.innerHTML = `
-        <div style="overflow-x: auto; margin-bottom: 20px;">
-            <table class="data-table" style="width: 100%; font-size: 11.5px;">
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+            <table class="data-table" style="width: 100%;">
                 <thead>
                     <tr>
                         <th>Region / Island</th>
@@ -1522,8 +1603,8 @@ function renderRegionalOutlook() {
                         <th style="text-align: center;">Net Yield Shift (%)</th>
                         <th style="text-align: center;">Weighted Subsoil</th>
                         <th style="text-align: center;">Peak Tmax (VPD)</th>
-                        <th style="text-align: center;">Risk Classification</th>
-                        <th style="min-width: 260px;">Primary Agronomic Mechanism & Outlook</th>
+                        <th style="text-align: center;">Production Risk Tier<br><span style="font-size:8.5px; font-weight:normal; text-transform:none;">&amp; 6M Forecast Rain</span></th>
+                        <th style="min-width: 240px;">Primary Agronomic Mechanism & Outlook</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1534,11 +1615,14 @@ function renderRegionalOutlook() {
                         <td style="font-weight: 800;">TOTAL SE ASIA (41 Zones)</td>
                         <td style="text-align: right; font-weight: 800;">${Math.round(totalBase).toLocaleString('en-US')} T</td>
                         <td style="text-align: right; font-weight: 800; color: ${totalVol < 0 ? '#b91c1c' : '#15803d'};">${totalVol > 0 ? '+' : ''}${Math.round(totalVol).toLocaleString('en-US')} T</td>
-                        <td style="text-align: center;"><span class="yield-shift-badge yield-shift-mod" style="font-size: 12px; font-weight: 800;">${netTotPct > 0 ? '+' : ''}${netTotPct.toFixed(2)}%</span></td>
+                        <td style="text-align: center;"><span class="yield-shift-badge yield-shift-mod" style="font-weight: 800;">${netTotPct > 0 ? '+' : ''}${netTotPct.toFixed(2)}%</span></td>
                         <td style="text-align: center; font-weight: 700;">0.318 m³/m³</td>
                         <td style="text-align: center; font-weight: 700;"><span class="vpd-badge vpd-elevated">32.6°C</span></td>
-                        <td style="text-align: center;"><span class="risk-badge risk-moderate">Moderate Deficit</span></td>
-                        <td style="font-size: 11px; font-weight: 600; color: #09444c;">Net -800.9k Tonnes shift (-1.14%) across 70.2M Tonne SE Asia baseline; no structural 2015-style crash</td>
+                        <td style="text-align: center;">
+                            <span class="risk-badge risk-moderate">Moderate Deficit</span>
+                            <span class="fcst-rain-sub">🌧️ ${totFcstDaily.toFixed(1)} mm/d (${Math.round(totFcstTotal).toLocaleString('en-US')} mm, ${totFcstSign}${totFcstAnom.toFixed(1)})</span>
+                        </td>
+                        <td style="font-size: 10px; font-weight: 600; color: #09444c; white-space: normal;">Net -800.9k Tonnes shift (-1.14%) across 70.2M Tonne SE Asia baseline; no structural 2015-style crash</td>
                     </tr>
                 </tfoot>
             </table>

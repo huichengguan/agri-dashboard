@@ -7,9 +7,9 @@
         "name": "West Madhya Pradesh (Malwa Core)",
         "code": "MP-WEST",
         "country": "India",
-        "district": "Malwa Plateau (Indore / Ujjain / Dewas / Dhar)",
-        "lat": 22.97,
-        "lon": 76.05,
+        "district": "Malwa Rural Vertisol Belt (Sonkatch / Shajapur / Agar Tract)",
+        "lat": 23.38,
+        "lon": 76.18,
         "commodities": [
           {
             "crop": "Soybean (Kharif)",
@@ -31,9 +31,9 @@
         "name": "Central MP & Narmada Basin",
         "code": "MP-CENTRAL",
         "country": "India",
-        "district": "Vindhyan Basin (Sagar / Sehore / Hoshangabad / Vidisha)",
-        "lat": 23.35,
-        "lon": 77.85,
+        "district": "Vindhyan Rural Cropland (Begamganj / Gairatganj / Udaipura Tract)",
+        "lat": 23.48,
+        "lon": 78.32,
         "commodities": [
           {
             "crop": "Soybean (Kharif)",
@@ -55,9 +55,9 @@
         "name": "North MP Chambal Mustard Belt",
         "code": "MP-NORTH",
         "country": "India",
-        "district": "Chambal Division (Morena / Bhind / Gwalior / Sheopur)",
-        "lat": 26.50,
-        "lon": 78.00,
+        "district": "Chambal Canal Rural Belt (Joura / Sabalgarh / Kailaras Tract)",
+        "lat": 26.35,
+        "lon": 77.62,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -85,9 +85,9 @@
         "name": "Vidarbha Oilseed Heartland",
         "code": "MH-VID",
         "country": "India",
-        "district": "Eastern Maharashtra (Nagpur / Amravati / Akola / Yavatmal)",
-        "lat": 20.93,
-        "lon": 77.75,
+        "district": "Vidarbha Rural Black-Soil Belt (Murtizapur / Daryapur / Karanja Tract)",
+        "lat": 20.62,
+        "lon": 77.48,
         "commodities": [
           {
             "crop": "Soybean (Kharif)",
@@ -109,9 +109,9 @@
         "name": "Marathwada Agri Basin",
         "code": "MH-MAR",
         "country": "India",
-        "district": "South-Central Maharashtra (Latur / Nanded / Hingoli / Jalna)",
-        "lat": 18.40,
-        "lon": 76.58,
+        "district": "Manjara Rural Plateau (Renapur / Chakur / Ahmedpur Tract)",
+        "lat": 18.62,
+        "lon": 76.78,
         "commodities": [
           {
             "crop": "Soybean (Kharif)",
@@ -133,9 +133,9 @@
         "name": "Khandesh & Western Plains",
         "code": "MH-WEST",
         "country": "India",
-        "district": "North-West Maharashtra (Dhule / Jalgaon / Kolhapur)",
-        "lat": 20.90,
-        "lon": 75.25,
+        "district": "Girna-Tapi Rural Valley (Parola / Amalner / Erandol Tract)",
+        "lat": 20.92,
+        "lon": 75.12,
         "commodities": [
           {
             "crop": "Groundnut (Kharif)",
@@ -163,9 +163,9 @@
         "name": "East Rajasthan Mustard Belt",
         "code": "RJ-EAST",
         "country": "India",
-        "district": "Northeast Plain (Alwar / Bharatpur / Jaipur / Tonk)",
-        "lat": 27.20,
-        "lon": 77.00,
+        "district": "Mewat-Brij Rural Mustard Plains (Kathumar / Laxmangarh / Nadbai Tract)",
+        "lat": 27.28,
+        "lon": 76.95,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -187,9 +187,9 @@
         "name": "Southeast Rajasthan (Hadoti Basin)",
         "code": "RJ-HAD",
         "country": "India",
-        "district": "Hadoti Plateau (Kota / Baran / Jhalawar)",
-        "lat": 25.18,
-        "lon": 75.85,
+        "district": "Hadoti Command Rural Plain (Antah / Mangrol / Digod Tract)",
+        "lat": 25.12,
+        "lon": 76.28,
         "commodities": [
           {
             "crop": "Soybean (Kharif)",
@@ -211,9 +211,9 @@
         "name": "North Rajasthan Canal Colony",
         "code": "RJ-NORTH",
         "country": "India",
-        "district": "IGNP Canal Belt (Bikaner / Sri Ganganagar / Hanumangarh)",
-        "lat": 28.02,
-        "lon": 73.31,
+        "district": "IGNP Canal Command Rural Belt (Lunkaransar / Chattargarh / Suratgarh Tract)",
+        "lat": 28.68,
+        "lon": 73.72,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -235,9 +235,9 @@
         "name": "South Haryana Mustard Belt",
         "code": "HR-SOUTH",
         "country": "India",
-        "district": "Southern Semi-Arid (Bhiwani / Hisar / Mahendragarh / Rewari)",
-        "lat": 28.60,
-        "lon": 76.15,
+        "district": "Bagar Semi-Arid Rural Belt (Loharu / Badhra / Tosham Tract)",
+        "lat": 28.42,
+        "lon": 75.92,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -252,15 +252,15 @@
   },
   "Gangetic Plain & Eastern India (Uttar Pradesh & West Bengal)": {
     "region_id": "in_gangetic_east",
-    "description": "High-yield alluvial alluvial plains along the Yamuna and Ganga river basins, serving as major producers of winter rapeseed-mustard and eastern yellow sarson (toria).",
+    "description": "High-yield alluvial plains along the Yamuna and Ganga river basins, serving as major producers of winter rapeseed-mustard and eastern yellow sarson (toria).",
     "states": [
       {
         "name": "West Uttar Pradesh & Braj",
         "code": "UP-WEST",
         "country": "India",
-        "district": "Yamuna Alluvial Plain (Agra / Mathura / Aligarh / Hathras)",
-        "lat": 27.50,
-        "lon": 77.70,
+        "district": "Yamuna-Doab Rural Alluvium (Sadabad / Jalesar / Iglas Tract)",
+        "lat": 27.42,
+        "lon": 78.18,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -275,9 +275,9 @@
         "name": "Central UP & Bundelkhand",
         "code": "UP-CENTRAL",
         "country": "India",
-        "district": "Southern UP Alluvium (Kanpur Dehat / Jhansi / Jalaun)",
-        "lat": 25.45,
-        "lon": 78.58,
+        "district": "Betwa-Yamuna Rural Plain (Jalaun / Madhogarh / Konch Tract)",
+        "lat": 26.08,
+        "lon": 79.35,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -299,9 +299,9 @@
         "name": "West Bengal Deltaic Plain",
         "code": "WB-DELTA",
         "country": "India",
-        "district": "Gangetic Delta (Nadia / Murshidabad / North 24 Parganas)",
-        "lat": 23.47,
-        "lon": 88.55,
+        "district": "Bhagirathi-Jalangi Rural Delta (Tehatta / Karimpur / Beldanga Tract)",
+        "lat": 23.82,
+        "lon": 88.42,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -322,9 +322,9 @@
         "name": "Saurashtra Peanut Heartland",
         "code": "GJ-SAU",
         "country": "India",
-        "district": "Peninsular Saurashtra (Rajkot / Junagadh / Amreli / Jamnagar)",
-        "lat": 21.90,
-        "lon": 70.80,
+        "district": "Bhadar Basin Rural Peanut Belt (Jamkandorna / Kalavad / Dhoraji Tract)",
+        "lat": 21.78,
+        "lon": 70.42,
         "commodities": [
           {
             "crop": "Groundnut (Kharif)",
@@ -339,9 +339,9 @@
         "name": "North Gujarat Semi-Arid Basin",
         "code": "GJ-NORTH",
         "country": "India",
-        "district": "North Gujarat Basin (Banaskantha / Sabarkantha / Mehsana)",
-        "lat": 24.17,
-        "lon": 72.43,
+        "district": "Banas River Rural Sandy-Loam Belt (Deesa / Dhanera / Kankrej Tract)",
+        "lat": 24.28,
+        "lon": 72.02,
         "commodities": [
           {
             "crop": "Rapeseed-Mustard (Rabi)",
@@ -369,9 +369,9 @@
         "name": "Rayalaseema Groundnut Basin",
         "code": "AP-RAY",
         "country": "India",
-        "district": "Red Soil Semi-Arid Basin (Anantapur / Kurnool / Kadapa / Chittoor)",
-        "lat": 14.68,
-        "lon": 77.60,
+        "district": "Hagari-Pennar Rural Red-Soil Belt (Uravakonda / Kalyandurg / Gooty Tract)",
+        "lat": 14.88,
+        "lon": 77.32,
         "commodities": [
           {
             "crop": "Groundnut (Kharif)",
@@ -386,9 +386,9 @@
         "name": "Coastal Andhra Delta",
         "code": "AP-COAST",
         "country": "India",
-        "district": "Krishna-Godavari Coastal Plain (Prakasam / Guntur / Nellore)",
-        "lat": 15.50,
-        "lon": 80.05,
+        "district": "Gundlakamma-Krishna Rural Plain (Addanki / Parchur / Martur Tract)",
+        "lat": 15.82,
+        "lon": 80.18,
         "commodities": [
           {
             "crop": "Groundnut (Rabi/Summer)",
@@ -403,9 +403,9 @@
         "name": "Telangana Southern Plateau",
         "code": "TG-SOUTH",
         "country": "India",
-        "district": "Southern Telangana (Mahabubnagar / Wanaparthy / Gadwal)",
-        "lat": 16.74,
-        "lon": 77.98,
+        "district": "Kalwakurthy Lift-Irrigated Rural Plateau (Wanaparthy / Nagarkurnool / Kollapur Tract)",
+        "lat": 16.38,
+        "lon": 78.22,
         "commodities": [
           {
             "crop": "Groundnut (Rabi/Summer)",
@@ -426,9 +426,9 @@
         "name": "North Tamil Nadu Rainfed Belt",
         "code": "TN-NORTH",
         "country": "India",
-        "district": "Northern Red Loam Basin (Tiruvannamalai / Vellore / Villupuram)",
-        "lat": 12.23,
-        "lon": 79.07,
+        "district": "Cheyyar-Gingee Rural Red Loam Belt (Chetpet / Polur / Gingee Tract)",
+        "lat": 12.38,
+        "lon": 79.32,
         "commodities": [
           {
             "crop": "Groundnut (Kharif)",
@@ -443,9 +443,9 @@
         "name": "Cauvery Delta & Southern Plains",
         "code": "TN-CAUVERY",
         "country": "India",
-        "district": "Cauvery Basin (Cuddalore / Namakkal / Thanjavur / Madurai)",
-        "lat": 11.20,
-        "lon": 79.25,
+        "district": "Vellar-Coleroon Rural Oilseed Belt (Virudhachalam / Srimushnam / Jayankondam Tract)",
+        "lat": 11.38,
+        "lon": 79.38,
         "commodities": [
           {
             "crop": "Groundnut (Rabi/Summer)",

@@ -7,9 +7,9 @@
         "name": "Heilongjiang Central-South",
         "code": "HLJ-CS",
         "country": "China",
-        "district": "Songnen Plain (Harbin / Suihua / Daqing)",
-        "lat": 45.85,
-        "lon": 126.75,
+        "district": "Songnen Rural Black-Soil Tract (Hailun / Wangkui / Suihua Cropland)",
+        "lat": 46.92,
+        "lon": 126.85,
         "commodities": [
           {
             "crop": "Corn (Spring)",
@@ -31,9 +31,9 @@
         "name": "Heilongjiang Northern Granary",
         "code": "HLJ-NORTH",
         "country": "China",
-        "district": "Northern Black Soil Belt (Heihe / Nenjiang / Qiqihar)",
-        "lat": 49.18,
-        "lon": 125.22,
+        "district": "Beidahuang Rural Reclamation Belt (Jiusan / Keshan / Nehe Farmland)",
+        "lat": 48.62,
+        "lon": 125.18,
         "commodities": [
           {
             "crop": "Soybeans (Spring)",
@@ -62,9 +62,9 @@
         "name": "Jilin Central Golden Corn Belt",
         "code": "JL-CENTRAL",
         "country": "China",
-        "district": "Songliao Plain (Changchun / Songyuan / Siping)",
-        "lat": 43.88,
-        "lon": 125.32,
+        "district": "Songliao Rural Corn Heartland (Lishu / Gongzhuling / Nong'an Tract)",
+        "lat": 43.48,
+        "lon": 124.46,
         "commodities": [
           {
             "crop": "Corn (Spring)",
@@ -86,9 +86,9 @@
         "name": "Liaoning Central Grain Plain",
         "code": "LN-CENTRAL",
         "country": "China",
-        "district": "Liaohe River Basin (Shenyang / Tieling / Jinzhou)",
-        "lat": 42.15,
-        "lon": 123.75,
+        "district": "Liaohe Rural Grain Tract (Changtu / Kaiyuan / Kangping Cropland)",
+        "lat": 42.88,
+        "lon": 123.92,
         "commodities": [
           {
             "crop": "Corn (Spring)",
@@ -110,9 +110,9 @@
         "name": "Inner Mongolia Eastern Agro-Pastoral Belt",
         "code": "IM-EAST",
         "country": "China",
-        "district": "West Liao River Plain (Tongliao / Chifeng / Hinggan)",
-        "lat": 43.62,
-        "lon": 122.27,
+        "district": "West Liao River Rural Irrigated Plain (Kailu / Horqin Left Wing / Tuquan)",
+        "lat": 43.66,
+        "lon": 121.52,
         "commodities": [
           {
             "crop": "Corn (Spring)",
@@ -140,9 +140,9 @@
         "name": "Henan North-Central",
         "code": "HA-NORTH",
         "country": "China",
-        "district": "Central Plains Heartland (Zhengzhou / Xinxiang / Anyang / Puyang)",
-        "lat": 35.30,
-        "lon": 113.90,
+        "district": "Yu-North Rural Alluvial Granary (Hua County / Junxian / Yanjin Tract)",
+        "lat": 35.52,
+        "lon": 114.68,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -164,9 +164,9 @@
         "name": "Henan South-Central",
         "code": "HA-SOUTH",
         "country": "China",
-        "district": "Shahe-Yinghe Plain (Zhoukou / Zhumadian / Shangqiu / Nanyang)",
-        "lat": 33.63,
-        "lon": 114.65,
+        "district": "Shahe-Yinghe Rural Plain (Shangshui / Xihua / Suiping / Dancheng Tract)",
+        "lat": 33.48,
+        "lon": 114.36,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -195,9 +195,9 @@
         "name": "Shandong Northwest Plain",
         "code": "SD-NW",
         "country": "China",
-        "district": "Lu-North Alluvial Plain (Dezhou / Liaocheng / Binzhou)",
-        "lat": 36.85,
-        "lon": 116.10,
+        "district": "Lu-Northwest Rural Ton-of-Grain Belt (Yucheng / Pingyuan / Qihe Tract)",
+        "lat": 36.98,
+        "lon": 116.48,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -219,9 +219,9 @@
         "name": "Shandong Southwest Plain",
         "code": "SD-SW",
         "country": "China",
-        "district": "Lu-Southwest Grain Basin (Heze / Jining / Tai'an)",
-        "lat": 35.24,
-        "lon": 115.45,
+        "district": "Lu-Southwest Rural Alluvial Basin (Yuncheng / Juye / Juancheng Tract)",
+        "lat": 35.48,
+        "lon": 115.82,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -250,9 +250,9 @@
         "name": "Hebei Central-South Plain",
         "code": "HE-SOUTH",
         "country": "China",
-        "district": "Taihang Foothills Plain (Shijiazhuang / Baoding / Handan / Xingtai)",
-        "lat": 37.85,
-        "lon": 114.80,
+        "district": "Piedmont Rural Strong-Gluten Wheat Belt (Zhao County / Ningjin / Luancheng)",
+        "lat": 37.68,
+        "lon": 114.92,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -281,9 +281,9 @@
         "name": "Anhui Northern Huaihe Basin",
         "code": "AH-NORTH",
         "country": "China",
-        "district": "Wan-North Plain (Fuyang / Bozhou / Suzhou / Bengbu)",
-        "lat": 33.20,
-        "lon": 116.30,
+        "district": "Huaibei Rural Shajiang Black-Soil Plain (Taihe / Mengcheng / Guoyang Tract)",
+        "lat": 33.32,
+        "lon": 115.88,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -312,9 +312,9 @@
         "name": "Jiangsu Northern Plain",
         "code": "JS-NORTH",
         "country": "China",
-        "district": "Su-North Plain (Xuzhou / Suqian / Yancheng)",
-        "lat": 34.26,
-        "lon": 117.20,
+        "district": "Xu-Huai Rural Alluvial Cropland (Suining / Sihong / Pizhou / Shuyang Tract)",
+        "lat": 33.86,
+        "lon": 117.96,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -349,9 +349,9 @@
         "name": "Shaanxi Guanzhong Plain",
         "code": "SN-GUANZHONG",
         "country": "China",
-        "district": "Guanzhong Alluvial Basin (Xi'an / Weinan / Xianyang)",
-        "lat": 34.50,
-        "lon": 109.50,
+        "district": "Guanzhong Rural Irrigated Terrace (Pucheng / Dali / Fuping / Wugong Tract)",
+        "lat": 34.82,
+        "lon": 109.68,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -373,9 +373,9 @@
         "name": "Shanxi Fenhe & Southern Basin",
         "code": "SX-SOUTH",
         "country": "China",
-        "district": "Fenhe Valley (Yuncheng / Linfen / Jinzhong)",
-        "lat": 35.50,
-        "lon": 111.30,
+        "district": "Fenhe Rural Alluvial Valley (Xiangfen / Xinjiang / Wenxi / Hongtong Tract)",
+        "lat": 35.68,
+        "lon": 111.36,
         "commodities": [
           {
             "crop": "Corn (Spring/Summer)",
@@ -397,9 +397,9 @@
         "name": "Xinjiang Oasis Grain Heartland",
         "code": "XJ-OASIS",
         "country": "China",
-        "district": "Junggar & Tarim Basins (Changji / Ili / Aksu / Tacheng)",
-        "lat": 44.02,
-        "lon": 87.30,
+        "district": "Tianshan North Slope Rural Reclamation Oasis (Manas / Qitai / Shawan Farm Belt)",
+        "lat": 44.28,
+        "lon": 86.22,
         "commodities": [
           {
             "crop": "Corn (Grain & Seed)",
@@ -421,9 +421,9 @@
         "name": "Gansu Hexi Corridor & Longdong",
         "code": "GS-CORRIDOR",
         "country": "China",
-        "district": "Hexi National Seed Base (Zhangye / Wuwei / Pingliang)",
-        "lat": 38.93,
-        "lon": 100.45,
+        "district": "Hexi Rural Seed-Corn Oasis (Linze / Gaotai / Minle / Yongchang Cropland)",
+        "lat": 39.18,
+        "lon": 100.12,
         "commodities": [
           {
             "crop": "Corn (Seed & Grain)",
@@ -451,9 +451,9 @@
         "name": "Sichuan Basin & Hilly Plain",
         "code": "SC-BASIN",
         "country": "China",
-        "district": "Sichuan Basin (Chengdu / Deyang / Mianyang / Nanchong)",
-        "lat": 30.67,
-        "lon": 104.06,
+        "district": "Central Sichuan Rural Hilly Cropland (Santai / Zhongjiang / Anyue / Renshou)",
+        "lat": 31.02,
+        "lon": 104.88,
         "commodities": [
           {
             "crop": "Corn (Spring/Summer)",
@@ -482,9 +482,9 @@
         "name": "Hubei Northern Xiang-Jing Plain",
         "code": "HB-NORTH",
         "country": "China",
-        "district": "Jianghan & Xiangyang Basin (Xiangyang / Jingzhou / Suizhou)",
-        "lat": 32.01,
-        "lon": 112.14,
+        "district": "E-North Gangdi Rural Grain Belt (Zaoyang / Xiangzhou / Yicheng / Zhongxiang)",
+        "lat": 32.16,
+        "lon": 112.58,
         "commodities": [
           {
             "crop": "Winter Wheat",
@@ -506,9 +506,9 @@
         "name": "Yunnan Central-Eastern Plateau",
         "code": "YN-PLATEAU",
         "country": "China",
-        "district": "Yunnan Plateau Highland (Qujing / Zhaotong / Kunming)",
-        "lat": 25.50,
-        "lon": 103.80,
+        "district": "Dian-East Rural Plateau Corn Basin (Xuanwei / Luliang / Fuyuan / Huize)",
+        "lat": 25.92,
+        "lon": 103.98,
         "commodities": [
           {
             "crop": "Corn (Plateau)",

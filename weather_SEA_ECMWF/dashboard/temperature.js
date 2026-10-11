@@ -14,7 +14,7 @@ let modalCurrentLoc = null;
 
 // State Matrix Multi-selection State
 let matrixSelectedStates = [];
-let matrixSelectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+let matrixSelectedYears = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
 let matrixSelectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 let multiStateViewMode = "combined"; // 'combined' or 'breakdown'
 let matrixDensity = "compact";       // 'compact', 'dense', 'standard'
@@ -245,19 +245,20 @@ function renderHeaderKPIs() {
                 // Focus on October 2026 forecast or latest month
                 const targetM = y26["10"] ? "10" : months[0];
                 const info = y26[targetM];
-                if (info && info.val !== undefined) {
-                    allMeans.push(info.val);
-                    const tx = info.val_max !== undefined ? info.val_max : (info.val + 4.0);
-                    const tn = info.val_min !== undefined ? info.val_min : (info.val - 4.0);
+                const vMean = info ? (info.val !== undefined && info.val !== null ? info.val : info.mean_temp) : undefined;
+                if (info && vMean !== undefined && vMean !== null) {
+                    allMeans.push(vMean);
+                    const tx = info.val_max !== undefined ? info.val_max : (vMean + 4.0);
+                    const tn = info.val_min !== undefined ? info.val_min : (vMean - 4.0);
 
                     if (tx >= 33.0) {
                         heatAlertCount++;
                     }
                     if (tx > hottest.val) {
-                        hottest = { name: loc.name, val: tx, group: loc.major_group, mean: info.val, m: targetM };
+                        hottest = { name: loc.name, val: tx, group: loc.major_group, mean: vMean, m: targetM };
                     }
                     if (tn < coolest.val) {
-                        coolest = { name: loc.name, val: tn, group: loc.major_group, mean: info.val, m: targetM };
+                        coolest = { name: loc.name, val: tn, group: loc.major_group, mean: vMean, m: targetM };
                     }
                 }
             }
@@ -321,10 +322,10 @@ function populateYearSelect() {
     const select = document.getElementById("year-select");
     if (!select) return;
     select.innerHTML = "";
-    for (let y = 2026; y >= 2010; y--) {
+    for (let y = 2027; y >= 2010; y--) {
         const opt = document.createElement("option");
         opt.value = y;
-        opt.innerText = y === 2026 ? "2026 (Historical + Forecast)" : y;
+        opt.innerText = y === 2027 ? "2027 (Q1 Forecast)" : (y === 2026 ? "2026 (Historical + Forecast)" : y);
         if (y === currentYear) opt.selected = true;
         select.appendChild(opt);
     }
@@ -376,7 +377,7 @@ function renderMonthlyTable(locations) {
             <th>State / Province (${metricLabel})</th>
     `;
     monthNames.forEach((m, idx) => {
-        const isFc = (currentYear === 2026 && idx >= 9);
+        const isFc = (currentYear === 2026 && idx >= 9) || (currentYear === 2027 && idx <= 2);
         const fcBadge = isFc ? `<br><span style="font-size:9px; color:#4338ca; font-weight:700;">FC</span>` : '';
         thead += `<th style="text-align:center; min-width:${currentMetric === 'min_max' ? '74px' : '52px'};">${m}${fcBadge}</th>`;
     });
@@ -400,8 +401,8 @@ function renderMonthlyTable(locations) {
 
         for (let m = 1; m <= 12; m++) {
             const mData = locMonthly[m];
-            if (mData) {
-                const valMean = mData.val;
+            const valMean = mData ? (mData.val !== undefined && mData.val !== null ? mData.val : mData.mean_temp) : undefined;
+            if (mData && valMean !== undefined && valMean !== null) {
                 const valMax = mData.val_max !== undefined ? mData.val_max : (valMean + 4.2);
                 const valMin = mData.val_min !== undefined ? mData.val_min : (valMean - 4.2);
 
@@ -517,7 +518,7 @@ function renderYearPills() {
     const container = document.getElementById("year-pill-selector");
     if (!container) return;
     container.innerHTML = "";
-    for (let y = 2026; y >= 2010; y--) {
+    for (let y = 2027; y >= 2010; y--) {
         const pill = document.createElement("span");
         pill.className = "year-toggle-pill" + (matrixSelectedYears.includes(y) ? " active" : "");
         pill.innerText = y;
@@ -542,11 +543,11 @@ function setYearPreset(preset) {
         b.classList.toggle("active", b.dataset.ypreset === preset);
     });
     if (preset === "all") {
-        matrixSelectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+        matrixSelectedYears = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
     } else if (preset === "last5") {
-        matrixSelectedYears = [2026, 2025, 2024, 2023, 2022];
+        matrixSelectedYears = [2027, 2026, 2025, 2024, 2023, 2022];
     } else if (preset === "last10") {
-        matrixSelectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
+        matrixSelectedYears = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
     } else if (preset === "elnino") {
         matrixSelectedYears = [2026, 2023, 2019, 2016, 2015];
     }
@@ -809,6 +810,7 @@ function renderStateYearByMonthMatrix(stateId) {
 
         document.getElementById("table-container").innerHTML = `
             ${headerHtml}
+            ${getSeasonalChartCardHtml(selectedLocs, loc.name, metricTitle)}
             <div style="overflow-x: auto;">
                 <table class="matrix-table" id="exportable-table">
                     ${thead}
@@ -817,6 +819,7 @@ function renderStateYearByMonthMatrix(stateId) {
             </div>
         `;
         applyMatrixDensity();
+        renderMatrixSeasonalChart(selectedLocs);
         return;
     }
 
@@ -843,6 +846,7 @@ function renderStateYearByMonthMatrix(stateId) {
     `;
 
     let outputHtml = `${headerHtml}
+        ${getSeasonalChartCardHtml(selectedLocs, `${selectedLocs.length} States Combined (${stateNamesSummary})`, metricTitle)}
         <div style="overflow-x: auto; margin-bottom: 20px;">
             <table class="matrix-table" id="exportable-table">
                 ${combThead}
@@ -889,6 +893,338 @@ function renderStateYearByMonthMatrix(stateId) {
 
     document.getElementById("table-container").innerHTML = outputHtml;
     applyMatrixDensity();
+    renderMatrixSeasonalChart(selectedLocs);
+}
+
+// -------------------------------------------------------------
+// SEASONAL PATTERN CHART (JAN - DEC) FOR TEMPERATURE STATE MATRIX
+// -------------------------------------------------------------
+let seasonalChartInstance = null;
+let seasonalCompareYears = [2025];
+
+const SEASONAL_YEAR_COLORS = {
+    2025: "#10b981",
+    2024: "#f59e0b",
+    2023: "#ef4444",
+    2022: "#06b6d4",
+    2021: "#8b5cf6",
+    2020: "#ec4899",
+    2019: "#f97316",
+    2018: "#14b8a6",
+    2017: "#6366f1",
+    2016: "#b91c1c",
+    2015: "#7f1d1d",
+    2014: "#84cc16",
+    2013: "#0ea5e9",
+    2012: "#a855f7",
+    2011: "#d97706",
+    2010: "#64748b"
+};
+
+function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
+    let yAxisTitle = "Mean Temperature (°C)";
+    if (currentMetric === "temp_max") yAxisTitle = "Maximum Temperature (Tmax, °C)";
+    else if (currentMetric === "temp_min") yAxisTitle = "Minimum Temperature (Tmin, °C)";
+
+    let pillsHtml = "";
+    for (let y = 2025; y >= 2010; y--) {
+        const isActive = seasonalCompareYears.includes(y);
+        const col = SEASONAL_YEAR_COLORS[y] || "#475569";
+        const styleStr = isActive ? `background:${col}; border-color:${col}; color:#fff;` : "";
+        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y})" title="Toggle ${y} seasonality overlay">${y}</span>`;
+    }
+
+    return `
+        <div class="seasonal-chart-card">
+            <div class="seasonal-chart-header">
+                <div class="seasonal-chart-title">
+                    <h3>Seasonal Pattern (Jan &ndash; Dec) &bull; ${scopeLabel}</h3>
+                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 6M Forecast (Oct 2026 – Mar 2027)</strong></p>
+                </div>
+                <div class="seasonal-year-controls">
+                    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
+                        <span style="font-size:10px; font-weight:700; color:var(--text-secondary); text-transform:uppercase;">Overlay Other Years:</span>
+                        <button class="pill-btn" type="button" onclick="setSeasonalPreset('2025')" style="padding:1px 6px; font-size:10px;">2025</button>
+                        <button class="pill-btn" type="button" onclick="setSeasonalPreset('elnino')" style="padding:1px 6px; font-size:10px;">El Niño (15/16/23)</button>
+                        <button class="pill-btn" type="button" onclick="setSeasonalPreset('lanina')" style="padding:1px 6px; font-size:10px;">La Niña (21/22)</button>
+                        <button class="pill-btn" type="button" onclick="setSeasonalPreset('clear')" style="padding:1px 6px; font-size:10px; color:#ef4444; border-color:#fca5a5;">Clear Overlays</button>
+                    </div>
+                    <div class="seasonal-year-pills">
+                        ${pillsHtml}
+                    </div>
+                </div>
+            </div>
+            <div class="seasonal-canvas-wrap">
+                <canvas id="matrix-seasonal-chart"></canvas>
+            </div>
+        </div>
+    `;
+}
+
+function toggleSeasonalCompareYear(year) {
+    if (seasonalCompareYears.includes(year)) {
+        seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+    } else {
+        seasonalCompareYears.push(year);
+        seasonalCompareYears.sort((a, b) => b - a);
+    }
+    renderStateYearByMonthMatrix(selectedStateId);
+}
+
+function setSeasonalPreset(preset) {
+    if (preset === "clear") seasonalCompareYears = [];
+    else if (preset === "2025") seasonalCompareYears = [2025];
+    else if (preset === "elnino") seasonalCompareYears = [2023, 2016, 2015];
+    else if (preset === "lanina") seasonalCompareYears = [2022, 2021];
+    renderStateYearByMonthMatrix(selectedStateId);
+}
+
+function renderMatrixSeasonalChart(selectedLocs) {
+    const canvas = document.getElementById("matrix-seasonal-chart");
+    if (!canvas || typeof Chart === "undefined") return;
+    if (seasonalChartInstance) {
+        seasonalChartInstance.destroy();
+        seasonalChartInstance = null;
+    }
+
+    const tempDict = (currentData.monthly_temperature || currentData.monthly_temp) || {};
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let yAxisTitle = "Mean Temperature (°C)";
+    if (currentMetric === "temp_max") yAxisTitle = "Maximum Temperature (Tmax, °C)";
+    else if (currentMetric === "temp_min") yAxisTitle = "Minimum Temperature (Tmin, °C)";
+
+    function getCombinedMonthVal(y, m) {
+        let sum = 0;
+        let count = 0;
+        let isFc = false;
+        selectedLocs.forEach(loc => {
+            const locM = tempDict[loc.id] && tempDict[loc.id][y];
+            const mData = locM && locM[m];
+            if (mData) {
+                const vMean = mData.val !== undefined && mData.val !== null ? mData.val : mData.mean_temp;
+                if (vMean !== undefined && vMean !== null && !isNaN(vMean)) {
+                    let val = Number(vMean);
+                    if (currentMetric === "temp_max") val = mData.val_max !== undefined ? Number(mData.val_max) : val + 4.2;
+                    else if (currentMetric === "temp_min") val = mData.val_min !== undefined ? Number(mData.val_min) : val - 4.2;
+                    sum += val;
+                    count++;
+                    if (mData.is_forecast) isFc = true;
+                }
+            }
+        });
+        return count > 0 ? { val: sum / count, isFc } : null;
+    }
+
+    const histMin = [];
+    const histMax = [];
+    const histAvg = [];
+    const histMinYear = [];
+    const histMaxYear = [];
+
+    for (let m = 1; m <= 12; m++) {
+        let vals = [];
+        let minV = Infinity, maxV = -Infinity;
+        let minY = null, maxY = null;
+        for (let y = 2010; y <= 2025; y++) {
+            const res = getCombinedMonthVal(y, m);
+            if (res !== null) {
+                vals.push(res.val);
+                if (res.val < minV) { minV = res.val; minY = y; }
+                if (res.val > maxV) { maxV = res.val; maxY = y; }
+            }
+        }
+        if (vals.length > 0) {
+            histMin.push(Number(minV.toFixed(1)));
+            histMax.push(Number(maxV.toFixed(1)));
+            histAvg.push(Number((vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1)));
+            histMinYear.push(minY);
+            histMaxYear.push(maxY);
+        } else {
+            histMin.push(null);
+            histMax.push(null);
+            histAvg.push(null);
+            histMinYear.push(null);
+            histMaxYear.push(null);
+        }
+    }
+
+    const obs2026 = Array(12).fill(null);
+    const fc2026 = Array(12).fill(null);
+    for (let m = 1; m <= 12; m++) {
+        const res = getCombinedMonthVal(2026, m);
+        if (res !== null) {
+            const v = Number(res.val.toFixed(1));
+            if (m <= 10 && !res.isFc) {
+                obs2026[m - 1] = v;
+                if (m === 10) fc2026[m - 1] = v;
+            } else {
+                fc2026[m - 1] = v;
+                if (m === 10 && obs2026[8] !== null) obs2026[m - 1] = v;
+            }
+        }
+    }
+
+    const fc2027 = Array(12).fill(null);
+    let has2027 = false;
+    for (let m = 1; m <= 12; m++) {
+        const res = getCombinedMonthVal(2027, m);
+        if (res !== null) {
+            fc2027[m - 1] = Number(res.val.toFixed(1));
+            has2027 = true;
+        }
+    }
+
+    const datasets = [
+        {
+            label: "Hist Max (2010–2025)",
+            data: histMax,
+            borderColor: "rgba(148, 163, 184, 0.55)",
+            backgroundColor: "transparent",
+            borderWidth: 1,
+            borderDash: [2, 2],
+            pointRadius: 0,
+            pointHoverRadius: 3,
+            fill: false,
+            tension: 0.25,
+            order: 10
+        },
+        {
+            label: "Hist Min–Max Range (2010–2025)",
+            data: histMin,
+            borderColor: "rgba(148, 163, 184, 0.55)",
+            backgroundColor: "rgba(148, 163, 184, 0.18)",
+            borderWidth: 1,
+            borderDash: [2, 2],
+            pointRadius: 0,
+            pointHoverRadius: 3,
+            fill: "-1",
+            tension: 0.25,
+            order: 9
+        },
+        {
+            label: "Historical Avg (2010–2025)",
+            data: histAvg,
+            borderColor: "#475569",
+            backgroundColor: "#475569",
+            borderWidth: 2,
+            borderDash: [6, 4],
+            pointRadius: 3,
+            fill: false,
+            tension: 0.25,
+            order: 5
+        },
+        {
+            label: "2026 Observed",
+            data: obs2026,
+            borderColor: "#0284c7",
+            backgroundColor: "#0284c7",
+            borderWidth: 3.2,
+            pointRadius: 4,
+            fill: false,
+            tension: 0.25,
+            order: 1
+        },
+        {
+            label: "2026 Q4 Forecast (ECMWF)",
+            data: fc2026,
+            borderColor: "#4f46e5",
+            backgroundColor: "#4f46e5",
+            borderWidth: 3,
+            borderDash: [5, 4],
+            pointRadius: 4.5,
+            pointStyle: "rectRot",
+            fill: false,
+            tension: 0.25,
+            order: 1
+        }
+    ];
+
+    if (has2027) {
+        datasets.push({
+            label: "2027 Q1 Forecast (ECMWF)",
+            data: fc2027,
+            borderColor: "#9333ea",
+            backgroundColor: "#9333ea",
+            borderWidth: 2.8,
+            borderDash: [3, 3],
+            pointRadius: 4.5,
+            pointStyle: "triangle",
+            fill: false,
+            tension: 0.25,
+            order: 2
+        });
+    }
+
+    seasonalCompareYears.forEach(y => {
+        const yVals = [];
+        for (let m = 1; m <= 12; m++) {
+            const res = getCombinedMonthVal(y, m);
+            yVals.push(res !== null ? Number(res.val.toFixed(1)) : null);
+        }
+        const col = SEASONAL_YEAR_COLORS[y] || "#10b981";
+        datasets.push({
+            label: `${y}`,
+            data: yVals,
+            borderColor: col,
+            backgroundColor: col,
+            borderWidth: 2,
+            pointRadius: 3,
+            fill: false,
+            tension: 0.25,
+            order: 3
+        });
+    });
+
+    seasonalChartInstance = new Chart(canvas.getContext("2d"), {
+        type: "line",
+        data: {
+            labels: monthNames,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+                legend: {
+                    position: "top",
+                    labels: {
+                        boxWidth: 12,
+                        font: { size: 11, weight: "600" },
+                        filter: function(item) {
+                            return item.text !== "Hist Max (2010–2025)";
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(c) {
+                            if (c.raw === null || c.raw === undefined) return null;
+                            const idx = c.dataIndex;
+                            if (c.dataset.label === "Hist Max (2010–2025)") {
+                                return `Hist Max (2010–2025): ${c.raw.toFixed(1)} °C (${histMaxYear[idx]})`;
+                            }
+                            if (c.dataset.label === "Hist Min–Max Range (2010–2025)") {
+                                return `Hist Min (2010–2025): ${c.raw.toFixed(1)} °C (${histMinYear[idx]})`;
+                            }
+                            return `${c.dataset.label}: ${c.raw.toFixed(1)} °C`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: "Calendar Seasonality (Jan – Dec)", font: { size: 11, weight: "700" } },
+                    grid: { color: "#f1f5f9" }
+                },
+                y: {
+                    beginAtZero: false,
+                    title: { display: true, text: yAxisTitle, font: { size: 11, weight: "700" } },
+                    grid: { color: "#f1f5f9" }
+                }
+            }
+        }
+    });
 }
 
 function buildMatrixTableForLocation(loc, yearsToShow, activeMonths, monthNames) {
@@ -924,8 +1260,8 @@ function buildMatrixTableForLocation(loc, yearsToShow, activeMonths, monthNames)
 
         activeMonths.forEach(m => {
             const mData = locMonthly[y] && locMonthly[y][m];
-            if (mData) {
-                const valMean = mData.val;
+            const valMean = mData ? (mData.val !== undefined && mData.val !== null ? mData.val : mData.mean_temp) : undefined;
+            if (mData && valMean !== undefined && valMean !== null) {
                 const valMax = mData.val_max !== undefined ? mData.val_max : (valMean + 4.2);
                 const valMin = mData.val_min !== undefined ? mData.val_min : (valMean - 4.2);
 
@@ -1041,8 +1377,9 @@ function buildCombinedMatrixTable(selectedLocs, yearsToShow, activeMonths, month
             selectedLocs.forEach(loc => {
                 const locM = tempDict[loc.id] || {};
                 const mData = locM[y] && locM[y][m];
-                if (mData) {
-                    let val = mData.val;
+                const vMean = mData ? (mData.val !== undefined && mData.val !== null ? mData.val : mData.mean_temp) : undefined;
+                if (mData && vMean !== undefined && vMean !== null) {
+                    let val = vMean;
                     if (currentMetric === "temp_max") val = mData.val_max !== undefined ? mData.val_max : val + 4.2;
                     else if (currentMetric === "temp_min") val = mData.val_min !== undefined ? mData.val_min : val - 4.2;
                     grandSum += val;
@@ -1081,8 +1418,9 @@ function buildCombinedMatrixTable(selectedLocs, yearsToShow, activeMonths, month
             selectedLocs.forEach(loc => {
                 const locM = tempDict[loc.id] || {};
                 const mData = locM[y] && locM[y][m];
-                if (mData) {
-                    let val = mData.val;
+                const vMean = mData ? (mData.val !== undefined && mData.val !== null ? mData.val : mData.mean_temp) : undefined;
+                if (mData && vMean !== undefined && vMean !== null) {
+                    let val = vMean;
                     if (currentMetric === "temp_max") val = mData.val_max !== undefined ? mData.val_max : val + 4.2;
                     else if (currentMetric === "temp_min") val = mData.val_min !== undefined ? mData.val_min : val - 4.2;
                     mSum += val;
@@ -1185,8 +1523,8 @@ function renderClimograph(loc, selYear) {
         rainVals.push(rData ? rData.avg_mm_day : null);
 
         const tData = locMonthlyTemp[selYear] && locMonthlyTemp[selYear][m];
-        if (tData) {
-            const vMean = tData.val;
+        const vMean = tData ? (tData.val !== undefined && tData.val !== null ? tData.val : tData.mean_temp) : undefined;
+        if (tData && vMean !== undefined && vMean !== null) {
             const vMax = tData.val_max !== undefined ? tData.val_max : (vMean + 4.2);
             const vMin = tData.val_min !== undefined ? tData.val_min : (vMean - 4.2);
 
