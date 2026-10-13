@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Crop Min/Max Temperature &amp; Thermal Stress Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131b2e;
+            --bg-card: #172033;
+            --border-color: #273549;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-rose: #f43f5e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 24px;
+            line-height: 1.5;
+        }
+
+        /* Suite Nav */
+        .suite-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .suite-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        .suite-brand-badge {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .suite-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suite-tab {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #0b0f19;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+        .suite-tab:hover { color: #f8fafc; border-color: #38bdf8; }
+        .suite-tab.active { background: #0284c7; color: #ffffff; border-color: #38bdf8; font-weight: 700; }
+
+        /* Header */
+        .header-card {
+            background: linear-gradient(135deg, #172033 0%, #0b0f19 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+        .header-title h1 { font-size: 24px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 10px; }
+        .header-title p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+        .kpi-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .kpi-card {
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+        .kpi-val { font-size: 22px; font-weight: 800; color: #ffffff; }
+        .kpi-lbl { font-size: 11.5px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-top: 2px; }
+
+        /* Controls */
+        .controls-card {
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .mode-btn-group, .unit-group, .crop-btn-group {
+            display: flex;
+            background: #0b0f19;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+        .c-btn {
+            padding: 8px 13px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .c-btn:hover { color: #ffffff; background: #1e293b; }
+        .c-btn.active { background: #0284c7; color: #ffffff; }
+        .search-input {
+            background: #0b0f19;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 7px 13px;
+            color: #f8fafc;
+            font-size: 12.5px;
+            width: 220px;
+            outline: none;
+        }
+
+        /* Table */
+        .table-wrap {
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow-x: auto;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        th, td { padding: 8px 6px; border-bottom: 1px solid #1e293b; }
+        th { background: #0b0f19; color: #94a3b8; font-weight: 700; font-size: 11px; cursor: pointer; user-select: none; }
+        th:hover { color: #38bdf8; }
+        th.sticky-col, td.sticky-col {
+            position: sticky;
+            left: 0;
+            background: #131b2e;
+            z-index: 2;
+            text-align: left;
+            padding: 8px 12px;
+            width: 255px;
+            min-width: 255px;
+            border-right: 1px solid #273549;
+            white-space: normal;
+        }
+        th.sticky-col { background: #0b0f19; z-index: 3; }
+
+        .dual-box {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 10.5px;
+            font-weight: 700;
+        }
+        .dual-high { border-radius: 3px; padding: 1px 3px; }
+        .dual-low { border-radius: 3px; padding: 1px 3px; }
+
+        .single-box {
+            padding: 6px 4px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            min-width: 38px;
+        }
+
+        .forecast-header { background: rgba(2, 132, 199, 0.25) !important; color: #38bdf8 !important; border-bottom: 2px solid #0284c7 !important; }
+        .today-col { border-left: 2px solid #f59e0b !important; border-right: 2px solid #f59e0b !important; }
+
+        .comment-col {
+            text-align: left;
+            padding: 8px 12px;
+            max-width: 280px;
+            min-width: 240px;
+            white-space: normal;
+            font-size: 11.5px;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <div class="suite-nav">
+        <div class="suite-brand">
+            <span>🇨🇦</span>
+            <span>Canadian Crop Ag-Weather Intelligence Suite</span>
+            <span class="suite-brand-badge">ECMWF IFS 0.25°</span>
+        </div>
+        <div class="suite-tabs">
+            <a href="Canada_Crop_2_Week_Outlook.html" class="suite-tab">🌧️ 2-Week Outlook</a>
+            <a href="Canada_Crop_Soil_Moisture_Outlook.html" class="suite-tab">🌱 Soil Moisture Outlook</a>
+            <a href="Canada_Crop_Temperature_Outlook.html" class="suite-tab active">🌡️ Thermal Stress Outlook</a>
+            <a href="Canada_Crop_Weather_Matrix.html" class="suite-tab">📊 Matrix</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header-card">
+        <div class="header-top">
+            <div class="header-title">
+                <h1>🌡️ Canadian Crop Min/Max Temperature &amp; Thermal Stress Outlook</h1>
+                <p>Daytime highs (T-Max), nighttime lows &amp; killing frost risk (T-Min), 24-Hr Mean, and Agronomic Stress Counters across 14 Canadian agricultural regions</p>
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary);">
+                Model: <strong>ECMWF IFS (0.25°) Seamless Operational & ERA5 Ag-Reanalysis</strong> • Updated: 2026-10-12 16:43:20 UTC
+            </div>
+        </div>
+
+        <div class="kpi-deck">
+            <div class="kpi-card">
+                <div class="kpi-val" id="kpi-mean-high">10.1°C / 3.9°C</div>
+                <div class="kpi-lbl">Canadian Mean High / Low Today</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val" style="color: #34d399;">🔥 0 <span style="font-size:13px; color:#94a3b8;">/ 14 Basins</span></div>
+                <div class="kpi-lbl">Heat Stress Days (≥30°C / 86°F)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val" style="color: #34d399;">🌙 0 <span style="font-size:13px; color:#94a3b8;">/ 14 Basins</span></div>
+                <div class="kpi-lbl">Warm Respiration Nights (≥20°C / 68°F)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val" style="color: #38bdf8;">❄️ 11 <span style="font-size:13px; color:#94a3b8;">/ 14 Basins</span></div>
+                <div class="kpi-lbl">Killing Frost Days (≤0°C / 32°F)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-card">
+        <div class="mode-btn-group">
+            <button class="c-btn active" id="mode-dual" onclick="setViewMode('dual')">Dual (High / Low)</button>
+            <button class="c-btn" id="mode-tmax" onclick="setViewMode('tmax')">☀️ Day High (T-Max)</button>
+            <button class="c-btn" id="mode-tmin" onclick="setViewMode('tmin')">🌙 Night Low (T-Min)</button>
+            <button class="c-btn" id="mode-tmean" onclick="setViewMode('tmean')">🌡️ 24-Hr Mean</button>
+        </div>
+
+        <div class="crop-btn-group" id="crop-group">
+            <button class="c-btn active" onclick="setCropFilter('ALL', this)">All Crops</button>
+            <button class="c-btn" onclick="setCropFilter('wheat', this)">🌾 Wheat</button>
+            <button class="c-btn" onclick="setCropFilter('rapeseed', this)">🌼 Rapeseed / Canola</button>
+            <button class="c-btn" onclick="setCropFilter('corn', this)">🌽 Corn</button>
+            <button class="c-btn" onclick="setCropFilter('soy', this)">🫘 Soybeans</button>
+        </div>
+
+        <input type="text" class="search-input" id="search-input" placeholder="🔍 Search basin or province..." oninput="renderTable()">
+
+        <div class="unit-group">
+            <button class="c-btn active" id="unit-c" onclick="toggleTempUnit('C')">Celsius (°C)</button>
+            <button class="c-btn" id="unit-f" onclick="toggleTempUnit('F')">Fahrenheit (°F)</button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+        <table id="temp-table">
+            <thead>
+                <tr id="temp-header-row"></tr>
+            </thead>
+            <tbody id="temp-tbody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const TEMP_DATA = [{"code": "SK-SOUTH", "name": "Southern Saskatchewan Durum & Wheat Plain", "country": "Saskatchewan", "macro_region": "Saskatchewan - Prairie Canola, Spring Wheat & Durum Heartland", "district": "Regina Plains, Moose Jaw, Swift Current & Weyburn (Crop Districts 1\u20134)", "commodities": [{"crop": "Wheat (Durum & CWRS)", "production_mmt": 8.4, "yield_tha": 3.15, "share_pct": 24.5, "status": "Harvest Complete / Autumn Stubble Soil Recharge"}, {"crop": "Rapeseed (Canola)", "production_mmt": 2.8, "yield_tha": 2.25, "share_pct": 14.7, "status": "Combining Complete / Fall Fieldwork"}, {"crop": "Soybeans", "production_mmt": 0.08, "yield_tha": 2.1, "share_pct": 1.1, "status": "Harvest Complete"}], "crop_tags": "rapeseed soy wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [19.0, 20.8, 15.1, 14.6, 18.2, 15.4, 18.3, 21.7, 18.8, 15.8, 15.5, 21.0, 12.3, 5.6, 3.0, 9.1, 14.2, 9.5, 16.5, 20.9, 14.4, 19.0, 19.2, 13.8, 9.9, 9.2, 9.9, 7.6], "tmin": [4.4, 7.3, 6.3, 1.5, 2.4, 5.7, 1.8, 7.1, 6.6, 4.0, 3.9, 4.9, 5.7, 2.5, 0.6, 1.4, -1.0, 1.4, -0.3, 7.5, 4.0, 5.7, 5.6, 5.9, 5.9, 3.8, 3.5, 0.4], "tmean": [11.2, 13.0, 10.5, 7.6, 9.5, 10.2, 9.5, 13.1, 11.7, 8.9, 8.9, 11.4, 8.5, 3.1, 1.3, 3.9, 5.7, 5.5, 7.5, 12.2, 8.2, 10.4, 10.5, 8.0, 7.7, 5.9, 5.8, 4.1], "today_idx": 14, "gdd_corn_14d": 8.9, "gdd_cereal_14d": 44.5, "heat_days": 0, "warm_nights": 0, "frost_days": 2, "ag_comment": "Saturated topsoil profile (0.456 m\u00b3/m\u00b3; \u03947D +0.153); excess moisture slows combine trafficability for standing corn and soybeans. Dry 7-day outlook (9.1 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -1.0\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "SK-CENTRAL", "name": "Central Saskatchewan Parkland Canola & CWRS Belt", "country": "Saskatchewan", "macro_region": "Saskatchewan - Prairie Canola, Spring Wheat & Durum Heartland", "district": "Saskatoon, Humboldt, Rosetown & Yorkton (Crop Districts 5\u20137)", "commodities": [{"crop": "Wheat (Spring CWRS)", "production_mmt": 4.9, "yield_tha": 3.75, "share_pct": 14.3, "status": "Harvest Wrap-Up / Pre-Freeze Soil Moisture Recharge"}, {"crop": "Rapeseed (Canola)", "production_mmt": 4.3, "yield_tha": 2.45, "share_pct": 22.6, "status": "Harvest Complete / Fall Fertilizer Application"}], "crop_tags": "rapeseed wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [18.5, 19.5, 14.6, 14.7, 13.4, 15.2, 15.8, 18.6, 18.3, 15.6, 15.0, 14.4, 10.1, 3.0, 4.1, 10.5, 10.6, 10.0, 15.5, 16.3, 12.0, 15.2, 16.3, 13.1, 9.3, 8.5, 10.5, 8.0], "tmin": [3.9, 7.9, 4.7, 1.1, 2.6, 4.1, 1.4, 5.6, 7.1, 4.5, 4.3, 8.0, 3.1, 1.1, 0.1, 0.1, -0.4, 2.6, 2.1, 5.4, 4.0, 5.1, 5.9, 6.1, 5.6, 5.2, 4.2, 0.3], "tmean": [10.9, 12.7, 9.4, 7.5, 7.6, 9.1, 8.6, 11.5, 12.4, 9.1, 9.2, 10.3, 5.6, 1.8, 1.9, 4.3, 4.9, 5.5, 7.3, 9.5, 7.5, 9.3, 9.8, 7.3, 7.1, 6.3, 7.0, 3.7], "today_idx": 14, "gdd_corn_14d": 2.1, "gdd_cereal_14d": 36.9, "heat_days": 0, "warm_nights": 0, "frost_days": 1, "ag_comment": "Favorable soil moisture (0.333 m\u00b3/m\u00b3 topsoil, 0.192 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (0.7 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -0.4\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "SK-NORTH", "name": "Northern Saskatchewan Black Soil Oilseed & Cereal Zone", "country": "Saskatchewan", "macro_region": "Saskatchewan - Prairie Canola, Spring Wheat & Durum Heartland", "district": "Melfort, Tisdale, Prince Albert & North Battleford (Crop Districts 8\u20139)", "commodities": [{"crop": "Rapeseed (Canola)", "production_mmt": 3.2, "yield_tha": 2.55, "share_pct": 16.8, "status": "Late Combining Wrap-Up / Post-Harvest"}, {"crop": "Wheat (Spring CWRS)", "production_mmt": 2.8, "yield_tha": 3.95, "share_pct": 8.2, "status": "Late Harvest / Autumn Tillage"}], "crop_tags": "rapeseed wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [18.1, 17.3, 13.8, 12.3, 16.3, 15.5, 16.1, 18.5, 18.0, 16.2, 16.0, 10.7, 8.1, 2.5, 4.4, 9.1, 10.4, 8.7, 13.6, 15.7, 11.9, 14.9, 17.6, 12.9, 7.8, 6.9, 7.9, 6.4], "tmin": [6.2, 8.2, 5.6, 2.2, 2.7, 4.6, 2.7, 7.5, 8.9, 5.7, 5.4, 6.0, 1.9, 0.4, -0.4, 2.0, 0.4, 2.1, 1.5, 5.1, 3.4, 3.4, 4.8, 3.9, 3.5, 2.9, 2.9, 0.5], "tmean": [11.3, 11.8, 9.1, 6.6, 8.5, 9.4, 9.3, 12.3, 13.2, 10.5, 9.5, 8.0, 4.8, 1.3, 1.9, 4.5, 4.9, 5.7, 6.4, 9.2, 7.3, 8.7, 9.9, 6.4, 5.3, 4.3, 4.6, 2.7], "today_idx": 14, "gdd_corn_14d": 1.6, "gdd_cereal_14d": 26.7, "heat_days": 0, "warm_nights": 0, "frost_days": 1, "ag_comment": "Favorable soil moisture (0.298 m\u00b3/m\u00b3 topsoil, 0.265 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (1.3 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -0.4\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "AB-SOUTH", "name": "Southern Alberta Palliser & Irrigated Bow/Oldman Basin", "country": "Alberta", "macro_region": "Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt", "district": "Lethbridge, Medicine Hat, Taber & Brooks (AB South Region)", "commodities": [{"crop": "Wheat (CWRS, Durum & Winter)", "production_mmt": 4.5, "yield_tha": 3.65, "share_pct": 13.1, "status": "Winter Wheat Emergence / Spring Cereal Harvested"}, {"crop": "Rapeseed (Canola)", "production_mmt": 1.4, "yield_tha": 2.35, "share_pct": 7.4, "status": "Harvest Complete / Fall Moisture Deficit Watch"}, {"crop": "Corn (Grain Maize)", "production_mmt": 0.25, "yield_tha": 9.8, "share_pct": 1.6, "status": "Active Grain Drydown & Harvest"}], "crop_tags": "rapeseed corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [18.2, 17.7, 14.1, 14.1, 20.2, 18.4, 21.3, 24.0, 23.2, 17.7, 15.8, 21.6, 12.8, 2.8, 2.3, 8.8, 16.2, 12.4, 20.2, 20.2, 13.8, 19.3, 15.3, 7.8, 13.2, 11.6, 9.3, 7.2], "tmin": [0.8, 10.5, 5.3, 2.4, 6.2, 2.7, 2.3, 12.2, 5.7, 4.5, 3.8, 12.9, 2.9, 0.1, -1.5, -4.6, 1.1, 0.2, 4.4, 9.9, 3.3, 5.8, 4.2, 3.8, 3.7, 3.9, 1.8, -1.9], "tmean": [9.8, 13.9, 9.9, 8.0, 12.2, 10.3, 10.9, 17.4, 14.6, 10.3, 9.5, 15.7, 4.7, 0.7, -0.0, 1.3, 7.5, 6.7, 11.0, 14.1, 9.1, 11.1, 7.2, 5.3, 7.7, 7.2, 5.7, 1.9], "today_idx": 14, "gdd_corn_14d": 9.9, "gdd_cereal_14d": 45.7, "heat_days": 0, "warm_nights": 0, "frost_days": 3, "ag_comment": "Favorable soil moisture (0.298 m\u00b3/m\u00b3 topsoil, 0.293 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (3.3 mm) provides an open window for combine operations and fall field prep. Hard freeze risk (7D low -4.6\u00b0C) signals end of growing season and accelerates crop drydown."}, {"code": "AB-CENTRAL", "name": "Central Alberta Parkland & Highway 2 Corridor", "country": "Alberta", "macro_region": "Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt", "district": "Red Deer, Drumheller, Camrose & Olds (AB Central Region)", "commodities": [{"crop": "Wheat (Spring CWRS)", "production_mmt": 4.2, "yield_tha": 4.25, "share_pct": 12.2, "status": "Harvest Complete / Fall Fieldwork"}, {"crop": "Rapeseed (Canola)", "production_mmt": 2.4, "yield_tha": 2.55, "share_pct": 12.6, "status": "Harvest Complete / Stubble Recharge"}], "crop_tags": "rapeseed wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [17.9, 14.9, 13.5, 14.2, 15.6, 16.3, 17.8, 23.7, 19.2, 14.9, 14.5, 13.9, 7.6, 2.1, 5.8, 11.1, 16.3, 11.4, 20.7, 16.8, 12.3, 15.6, 12.5, 7.6, 10.5, 9.5, 9.0, 6.1], "tmin": [-0.7, 7.1, 2.1, -0.9, 3.4, 1.4, 4.0, 6.9, 6.9, 3.8, 5.7, 5.0, 0.9, 0.0, -1.6, -1.5, 3.7, -0.4, 2.2, 6.4, 4.3, 4.0, 3.4, 2.8, 1.2, -2.0, -0.5, -1.9], "tmean": [8.7, 11.1, 8.0, 6.7, 9.3, 8.6, 10.3, 14.1, 12.2, 9.4, 10.1, 8.1, 2.1, 0.9, 1.3, 4.7, 8.9, 5.4, 10.3, 11.0, 8.1, 8.7, 5.6, 4.5, 5.1, 3.7, 3.2, 1.7], "today_idx": 14, "gdd_corn_14d": 3.1, "gdd_cereal_14d": 30.6, "heat_days": 0, "warm_nights": 0, "frost_days": 6, "ag_comment": "Favorable soil moisture (0.243 m\u00b3/m\u00b3 topsoil, 0.195 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (0.6 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -1.6\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "AB-NORTH", "name": "North-Central Alberta Vermilion & North Saskatchewan Basin", "country": "Alberta", "macro_region": "Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt", "district": "Edmonton East, Vegreville, Vermilion & Lloydminster (AB NE/NW Regions)", "commodities": [{"crop": "Wheat (Spring CWRS)", "production_mmt": 2.6, "yield_tha": 4.15, "share_pct": 7.6, "status": "Late Harvest Wrap-Up / Fall Soil Prep"}, {"crop": "Rapeseed (Canola)", "production_mmt": 1.9, "yield_tha": 2.5, "share_pct": 10.0, "status": "Harvest Wrap-Up / Pre-Winter Conditioning"}], "crop_tags": "rapeseed wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [17.3, 13.7, 12.3, 13.7, 14.1, 14.5, 17.0, 19.8, 16.2, 15.2, 13.1, 11.7, 6.7, 3.6, 6.8, 11.1, 15.5, 10.4, 17.0, 14.7, 11.6, 13.9, 10.8, 9.2, 10.5, 9.2, 9.1, 6.1], "tmin": [1.0, 6.4, 4.8, 1.8, 1.4, 1.8, 1.3, 4.9, 5.7, 4.2, 7.4, 6.6, 1.2, 0.5, -0.2, 0.5, 2.4, -0.9, 1.9, 6.1, 0.7, 2.3, 4.0, 3.2, 2.7, 2.0, -0.4, -1.5], "tmean": [8.9, 9.9, 7.9, 7.0, 7.3, 7.9, 8.9, 11.9, 10.8, 9.1, 9.4, 8.5, 2.0, 1.9, 2.9, 4.7, 7.4, 5.0, 8.5, 9.9, 6.9, 7.7, 7.3, 4.6, 5.8, 4.7, 3.6, 1.7], "today_idx": 14, "gdd_corn_14d": 0.4, "gdd_cereal_14d": 24.6, "heat_days": 0, "warm_nights": 0, "frost_days": 4, "ag_comment": "Favorable soil moisture (0.299 m\u00b3/m\u00b3 topsoil, 0.247 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (0.0 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -0.9\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "AB-PEACE", "name": "Peace River Northern Agricultural Basin", "country": "Alberta", "macro_region": "Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt", "district": "Grande Prairie, Peace River & Rycroft (AB Peace Region)", "commodities": [{"crop": "Rapeseed (Canola)", "production_mmt": 0.95, "yield_tha": 2.2, "share_pct": 5.0, "status": "Late Harvest / Early Freeze Watch"}, {"crop": "Wheat (Spring CWRS)", "production_mmt": 0.9, "yield_tha": 3.6, "share_pct": 2.6, "status": "Late Harvest / Pre-Freeze Window"}], "crop_tags": "rapeseed wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [15.9, 12.3, 12.1, 13.8, 13.5, 10.8, 14.2, 16.1, 15.1, 14.8, 10.4, 6.7, 1.2, 5.4, 7.4, 9.0, 9.6, 11.3, 21.4, 12.9, 9.8, 10.2, 8.9, 9.4, 10.2, 10.1, 8.2, 7.5], "tmin": [5.4, 6.0, 5.1, 1.7, 1.0, 2.8, 2.4, 9.6, 8.6, 4.6, 4.4, 1.2, -1.0, -4.0, -4.6, -0.3, 3.6, -0.5, 1.8, 5.5, -0.2, 3.4, 0.3, -2.4, 2.1, 0.8, -0.2, -2.2], "tmean": [10.1, 9.0, 7.7, 7.2, 7.0, 6.1, 7.3, 12.8, 11.2, 9.4, 5.9, 3.8, -0.3, 0.1, 0.4, 3.7, 6.5, 4.5, 9.0, 8.3, 4.8, 6.3, 4.0, 2.1, 5.9, 5.3, 3.5, 1.3], "today_idx": 14, "gdd_corn_14d": 1.6, "gdd_cereal_14d": 16.2, "heat_days": 0, "warm_nights": 0, "frost_days": 7, "ag_comment": "Saturated topsoil profile (0.465 m\u00b3/m\u00b3; \u03947D +0.161); wet fields pause heavy autumn tillage and grain hauling. Dry 7-day outlook (3.2 mm) provides an open window for combine operations and fall field prep. Hard freeze risk (7D low -4.6\u00b0C) signals end of growing season and accelerates crop drydown."}, {"code": "MB-REDRIVER", "name": "Manitoba Red River Valley & Central Plains", "country": "Manitoba", "macro_region": "Manitoba - Red River Valley & Eastern Prairie Multi-Crop Hub", "district": "Winkler, Morden, Portage la Prairie & Morris (MB Central / Eastern)", "commodities": [{"crop": "Wheat (Spring CWRS & Winter)", "production_mmt": 2.6, "yield_tha": 4.45, "share_pct": 7.6, "status": "Harvest Complete / Fall Tillage"}, {"crop": "Corn (Grain Maize)", "production_mmt": 1.75, "yield_tha": 8.6, "share_pct": 11.4, "status": "Active Grain Corn Combining Window"}, {"crop": "Rapeseed (Canola)", "production_mmt": 1.7, "yield_tha": 2.6, "share_pct": 8.9, "status": "Harvest Complete / Fall Soil Prep"}, {"crop": "Soybeans", "production_mmt": 0.95, "yield_tha": 2.85, "share_pct": 13.6, "status": "Soybean Harvest Wrap-Up"}], "crop_tags": "rapeseed soy corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [16.1, 23.6, 20.2, 14.4, 17.9, 18.6, 17.3, 18.1, 21.8, 18.1, 16.4, 19.3, 23.4, 17.1, 6.6, 9.7, 13.0, 10.5, 12.8, 18.5, 16.7, 18.7, 19.9, 24.2, 18.7, 15.7, 15.7, 8.8], "tmin": [5.8, 12.9, 9.4, 7.0, 2.9, 8.4, 5.9, 2.0, 7.3, 9.5, 6.4, 4.1, 11.5, 7.2, 5.6, 4.9, 1.6, 5.3, 0.7, 4.4, 7.3, 4.1, 7.6, 12.7, 8.0, 8.8, 6.1, 3.5], "tmean": [10.8, 16.9, 14.0, 10.5, 9.9, 12.9, 10.8, 9.1, 13.8, 13.4, 10.7, 10.5, 16.4, 9.4, 6.0, 6.7, 7.0, 7.5, 6.7, 10.1, 10.7, 9.9, 13.0, 16.7, 9.9, 12.5, 10.3, 6.2], "today_idx": 14, "gdd_corn_14d": 23.5, "gdd_cereal_14d": 75.1, "heat_days": 0, "warm_nights": 0, "frost_days": 0, "ag_comment": "Favorable soil moisture (0.316 m\u00b3/m\u00b3 topsoil, 0.255 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Moderate 7-day precipitation (20.1 mm) replenishes topsoil moisture between harvest windows."}, {"code": "MB-WEST", "name": "Western Manitoba Assiniboine & Parkland Belt", "country": "Manitoba", "macro_region": "Manitoba - Red River Valley & Eastern Prairie Multi-Crop Hub", "district": "Brandon, Minnedosa, Dauphin & Virden (MB Southwest / Northwest)", "commodities": [{"crop": "Wheat (Spring CWRS)", "production_mmt": 2.2, "yield_tha": 4.2, "share_pct": 6.4, "status": "Harvest Complete / Fall Fieldwork"}, {"crop": "Rapeseed (Canola)", "production_mmt": 1.45, "yield_tha": 2.5, "share_pct": 7.6, "status": "Harvest Complete"}, {"crop": "Soybeans", "production_mmt": 0.45, "yield_tha": 2.65, "share_pct": 6.4, "status": "Late Soybean Harvest"}], "crop_tags": "rapeseed soy wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [16.6, 22.3, 19.0, 13.8, 17.0, 18.4, 16.3, 19.7, 20.1, 17.3, 14.1, 19.8, 21.2, 14.6, 5.1, 7.9, 12.2, 8.8, 12.5, 17.3, 16.6, 19.6, 19.3, 20.4, 15.2, 13.7, 13.3, 7.9], "tmin": [7.9, 11.4, 7.1, 4.8, 2.3, 7.7, 5.1, 4.3, 7.9, 7.7, 5.0, 5.3, 8.0, 5.3, 3.8, 2.8, 0.3, 5.8, -0.9, 5.0, 5.3, 4.6, 6.8, 9.9, 6.3, 6.9, 3.5, 3.5], "tmean": [12.2, 16.1, 12.0, 9.3, 9.1, 12.0, 10.2, 10.7, 13.2, 12.2, 8.6, 11.1, 14.3, 7.5, 4.3, 5.0, 5.4, 7.2, 5.0, 10.5, 10.6, 11.0, 12.6, 14.5, 8.3, 9.9, 8.8, 5.5], "today_idx": 14, "gdd_corn_14d": 13.5, "gdd_cereal_14d": 57.3, "heat_days": 0, "warm_nights": 0, "frost_days": 1, "ag_comment": "Favorable soil moisture (0.338 m\u00b3/m\u00b3 topsoil, 0.214 m\u00b3/m\u00b3 subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Moderate 7-day precipitation (25.4 mm) replenishes topsoil moisture between harvest windows. Frost watch (7D low -0.9\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "ON-SW", "name": "Southwestern Ontario Lake Erie Row-Crop Core", "country": "Ontario", "macro_region": "Ontario - Great Lakes Corn, Soybean & Winter Wheat Heartland", "district": "Chatham-Kent, Essex, Lambton, Middlesex & Elgin", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 4.6, "yield_tha": 11.2, "share_pct": 29.9, "status": "Black Layer Maturity / Active Grain Harvest"}, {"crop": "Soybeans", "production_mmt": 1.95, "yield_tha": 3.55, "share_pct": 27.9, "status": "Active Soybean Combining / Post-Harvest Winter Wheat Drilling"}, {"crop": "Wheat (Winter SRW)", "production_mmt": 1.35, "yield_tha": 6.4, "share_pct": 3.9, "status": "Autumn Winter Wheat Drilling & Emergence"}], "crop_tags": "soy corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [23.1, 22.7, 22.9, 24.3, 20.9, 17.7, 21.5, 16.1, 17.4, 23.3, 19.6, 19.5, 20.9, 18.8, 23.6, 27.6, 23.1, 16.0, 15.2, 12.6, 16.3, 15.4, 19.3, 19.2, 19.9, 22.1, 23.9, 20.2], "tmin": [9.8, 9.4, 15.9, 18.3, 12.4, 7.0, 5.7, 8.6, 4.9, 13.0, 9.1, 6.2, 11.5, 14.8, 14.1, 18.9, 13.7, 10.3, 10.3, 5.3, 6.1, 12.0, 10.8, 11.2, 14.4, 17.1, 18.0, 15.7], "tmean": [15.4, 15.1, 18.2, 20.5, 15.4, 11.5, 13.5, 12.0, 10.8, 17.2, 14.5, 12.4, 16.1, 16.6, 18.1, 22.2, 16.6, 12.8, 12.6, 8.9, 10.6, 13.3, 13.8, 14.5, 16.7, 18.4, 19.8, 17.8], "today_idx": 14, "gdd_corn_14d": 87.2, "gdd_cereal_14d": 156.1, "heat_days": 0, "warm_nights": 0, "frost_days": 0, "ag_comment": "Favorable soil moisture (0.291 m\u00b3/m\u00b3 topsoil, 0.281 m\u00b3/m\u00b3 subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Ontario. Moderate 7-day precipitation (14.9 mm) replenishes topsoil moisture between harvest windows. Warm daytime highs (peak 27.6\u00b0C) accelerate grain drydown."}, {"code": "ON-CENTRAL", "name": "West-Central Ontario Huron-Perth-Oxford Loam Belt", "country": "Ontario", "macro_region": "Ontario - Great Lakes Corn, Soybean & Winter Wheat Heartland", "district": "Huron, Perth, Oxford, Wellington & Waterloo (Stratford / Guelph)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 3.4, "yield_tha": 10.85, "share_pct": 22.1, "status": "Grain Drydown & Early Combining"}, {"crop": "Soybeans", "production_mmt": 1.35, "yield_tha": 3.4, "share_pct": 19.3, "status": "Active Soybean Harvest Window"}, {"crop": "Wheat (Winter SRW/SWW)", "production_mmt": 0.95, "yield_tha": 6.15, "share_pct": 2.8, "status": "Autumn Drilling & Early Tillering"}, {"crop": "Rapeseed (Canola)", "production_mmt": 0.08, "yield_tha": 3.1, "share_pct": 0.4, "status": "Autumn Establishment"}], "crop_tags": "rapeseed soy corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [21.9, 22.2, 21.6, 23.0, 18.9, 15.9, 18.9, 14.0, 15.0, 20.6, 15.9, 17.4, 18.9, 15.2, 21.7, 24.4, 20.7, 12.9, 11.9, 10.4, 13.9, 14.4, 16.9, 17.4, 20.1, 18.4, 20.6, 17.8], "tmin": [9.5, 10.4, 13.2, 16.0, 10.5, 6.2, 6.2, 7.9, 1.9, 10.4, 8.9, 6.2, 6.2, 11.6, 11.9, 16.7, 11.5, 7.9, 7.4, 2.4, 4.3, 9.6, 10.5, 8.7, 11.3, 14.6, 12.9, 13.2], "tmean": [15.1, 15.5, 16.4, 18.7, 14.2, 10.6, 11.7, 10.4, 7.8, 14.4, 11.9, 10.8, 11.2, 13.2, 16.0, 19.8, 14.3, 10.6, 9.8, 6.2, 8.3, 11.3, 12.9, 12.4, 14.7, 15.5, 16.5, 15.9], "today_idx": 14, "gdd_corn_14d": 57.1, "gdd_cereal_14d": 122.2, "heat_days": 0, "warm_nights": 0, "frost_days": 0, "ag_comment": "Saturated topsoil profile (0.441 m\u00b3/m\u00b3; \u03947D +0.045); excess moisture slows combine trafficability for standing corn and soybeans. Moderate 7-day precipitation (15.4 mm) replenishes topsoil moisture between harvest windows."}, {"code": "ON-EAST", "name": "Eastern Ontario Ottawa & St. Lawrence Valley", "country": "Ontario", "macro_region": "Ontario - Great Lakes Corn, Soybean & Winter Wheat Heartland", "district": "Stormont-Dundas-Glengarry, Prescott-Russell & Ottawa Valley (Winchester)", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 1.65, "yield_tha": 9.95, "share_pct": 10.7, "status": "Grain Drydown & Harvest Onset"}, {"crop": "Soybeans", "production_mmt": 0.9, "yield_tha": 3.2, "share_pct": 12.9, "status": "Active Soybean Combining"}, {"crop": "Wheat (Winter & Spring)", "production_mmt": 0.3, "yield_tha": 5.3, "share_pct": 0.9, "status": "Autumn Winter Wheat Seeding"}], "crop_tags": "soy corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [18.4, 17.3, 20.7, 20.6, 19.4, 15.7, 19.9, 14.7, 13.0, 18.9, 17.6, 16.0, 13.8, 19.4, 16.8, 12.7, 13.6, 12.0, 7.8, 6.5, 7.8, 15.8, 15.6, 17.0, 18.5, 15.3, 10.8, 21.5], "tmin": [11.9, 10.9, 10.0, 15.3, 13.8, 5.2, 5.4, 8.5, 3.1, 4.9, 9.8, 7.2, 1.4, 7.1, 11.1, 6.8, 8.0, 7.6, 6.4, 1.4, -0.2, 2.7, 10.1, 6.5, 8.6, 8.2, 5.8, 10.9], "tmean": [14.6, 13.3, 14.6, 17.6, 17.0, 10.8, 11.7, 11.4, 7.1, 11.6, 12.9, 10.5, 7.2, 12.7, 13.7, 8.2, 9.9, 9.8, 7.2, 4.5, 3.2, 9.7, 12.0, 10.2, 12.6, 11.0, 8.2, 17.1], "today_idx": 14, "gdd_corn_14d": 20.9, "gdd_cereal_14d": 75.0, "heat_days": 0, "warm_nights": 0, "frost_days": 1, "ag_comment": "Favorable soil moisture (0.343 m\u00b3/m\u00b3 topsoil, 0.259 m\u00b3/m\u00b3 subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Ontario. Substantial 7-day rainfall (38.9 mm; 14D 50.3 mm) boosts deep root-zone reserves but interrupts active harvest. Frost watch (7D low -0.2\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "QC-MONTEREGIE", "name": "Mont\u00e9r\u00e9gie & Richelieu Valley Grain Core", "country": "Quebec", "macro_region": "Quebec - St. Lawrence Lowlands Corn & Soybean Basin", "district": "Saint-Hyacinthe, Saint-Jean-sur-Richelieu & Sorel-Tracy", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 2.35, "yield_tha": 10.3, "share_pct": 15.3, "status": "Grain Drydown & Active Harvest"}, {"crop": "Soybeans", "production_mmt": 0.75, "yield_tha": 3.25, "share_pct": 10.7, "status": "Active Soybean Harvest Window"}, {"crop": "Wheat (Spring & Winter)", "production_mmt": 0.22, "yield_tha": 4.4, "share_pct": 0.6, "status": "Autumn Seedbed Preparation"}], "crop_tags": "soy corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [18.2, 16.6, 19.1, 22.8, 18.2, 15.4, 18.5, 16.1, 13.0, 16.2, 16.6, 13.5, 13.0, 17.4, 17.0, 9.9, 11.0, 12.4, 8.3, 6.9, 7.0, 14.5, 15.5, 15.9, 18.1, 14.7, 12.0, 20.8], "tmin": [12.6, 11.3, 8.1, 14.5, 12.8, 5.8, 3.6, 9.1, 5.6, 3.2, 10.4, 7.5, 1.9, 5.1, 8.5, 6.2, 8.2, 5.1, 4.0, 2.8, -1.6, -0.3, 9.2, 4.9, 7.2, 5.9, 0.7, 10.4], "tmean": [14.3, 13.0, 13.0, 17.7, 16.4, 10.8, 10.7, 12.0, 8.6, 10.0, 12.9, 9.9, 7.1, 10.9, 12.7, 8.0, 9.5, 9.2, 6.2, 4.6, 2.2, 7.6, 11.0, 8.9, 11.4, 9.8, 5.9, 15.9], "today_idx": 14, "gdd_corn_14d": 14.1, "gdd_cereal_14d": 60.0, "heat_days": 0, "warm_nights": 0, "frost_days": 2, "ag_comment": "Favorable soil moisture (0.348 m\u00b3/m\u00b3 topsoil, 0.250 m\u00b3/m\u00b3 subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Quebec. Substantial 7-day rainfall (64.2 mm; 14D 75.4 mm) boosts deep root-zone reserves but interrupts active harvest. Frost watch (7D low -1.6\u00b0C) aids natural senescence for late-maturing soybeans and corn."}, {"code": "QC-CENTRE", "name": "Centre-du-Qu\u00e9bec, Lanaudi\u00e8re & Chaudi\u00e8re Plains", "country": "Quebec", "macro_region": "Quebec - St. Lawrence Lowlands Corn & Soybean Basin", "district": "Drummondville, Nicolet, Joliette & Victoriaville", "commodities": [{"crop": "Corn (Grain Maize)", "production_mmt": 1.2, "yield_tha": 9.4, "share_pct": 7.8, "status": "Maturation & Grain Drydown"}, {"crop": "Soybeans", "production_mmt": 0.5, "yield_tha": 3.05, "share_pct": 7.1, "status": "Active Soybean Harvest"}, {"crop": "Wheat (Spring & Winter)", "production_mmt": 0.16, "yield_tha": 4.1, "share_pct": 0.5, "status": "Autumn Sowing / Post-Harvest"}, {"crop": "Rapeseed (Canola)", "production_mmt": 0.05, "yield_tha": 2.75, "share_pct": 0.3, "status": "Harvest Complete"}], "crop_tags": "rapeseed soy corn wheat", "dates": ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"], "tmax": [16.4, 16.9, 19.0, 23.3, 18.2, 14.9, 17.5, 15.0, 13.0, 15.1, 15.9, 12.9, 12.2, 17.3, 16.7, 7.4, 9.3, 11.5, 6.5, 6.1, 5.9, 13.8, 14.3, 13.9, 17.5, 14.2, 12.1, 21.1], "tmin": [11.1, 9.9, 8.9, 13.2, 12.0, 5.0, 3.3, 8.3, 6.3, 2.7, 9.7, 6.3, 1.3, 3.8, 6.8, 5.3, 6.9, 4.6, 2.6, 2.4, -1.8, -1.3, 7.3, 3.3, 6.7, 4.0, -0.6, 8.6], "tmean": [13.0, 12.9, 12.9, 17.6, 15.9, 10.1, 10.1, 11.5, 8.6, 8.8, 11.6, 8.6, 6.5, 10.2, 11.7, 6.5, 8.1, 8.2, 4.9, 3.9, 1.5, 5.9, 9.7, 7.7, 10.6, 7.7, 5.0, 14.6], "today_idx": 14, "gdd_corn_14d": 9.5, "gdd_cereal_14d": 46.7, "heat_days": 0, "warm_nights": 0, "frost_days": 3, "ag_comment": "Favorable soil moisture (0.342 m\u00b3/m\u00b3 topsoil, 0.265 m\u00b3/m\u00b3 subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Quebec. Substantial 7-day rainfall (44.1 mm; 14D 58.1 mm) boosts deep root-zone reserves but interrupts active harvest. Frost watch (7D low -1.8\u00b0C) aids natural senescence for late-maturing soybeans and corn."}];
+        const DATES = ["2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25"];
+        const TODAY_IDX = 14;
+
+        let viewMode = 'dual';
+        let tempUnit = 'C';
+        let currentCrop = 'ALL';
+        let sortKey = null;
+        let sortDesc = true;
+
+        function setViewMode(m) {
+            viewMode = m;
+            document.querySelectorAll('.mode-btn-group .c-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('mode-' + m).classList.add('active');
+            renderTable();
+        }
+
+        function setCropFilter(crop, btn) {
+            currentCrop = crop;
+            document.querySelectorAll('#crop-group .c-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTable();
+        }
+
+        function toggleTempUnit(u) {
+            tempUnit = u;
+            document.getElementById('unit-c').classList.toggle('active', u === 'C');
+            document.getElementById('unit-f').classList.toggle('active', u === 'F');
+            const kpiEl = document.getElementById('kpi-mean-high');
+            if (kpiEl) {
+                if (u === 'F') {
+                    kpiEl.innerText = (10.092857142857143*9/5+32).toFixed(1) + '°F / ' + (3.871428571428571*9/5+32).toFixed(1) + '°F';
+                } else {
+                    kpiEl.innerText = '10.1°C / 3.9°C';
+                }
+            }
+            renderTable();
+        }
+
+        function sortBy(key) {
+            if (sortKey === key) {
+                sortDesc = !sortDesc;
+            } else {
+                sortKey = key;
+                sortDesc = true;
+            }
+            renderTable();
+        }
+
+        function formatTemp(cVal) {
+            if (cVal === null || cVal === undefined || isNaN(cVal)) return 'N/A';
+            const num = parseFloat(cVal);
+            if (tempUnit === 'F') {
+                return Math.round(num * 9/5 + 32) + '°';
+            }
+            return Math.round(num) + '°';
+        }
+
+        function getTmaxStyle(val) {
+            if (val === null || val === undefined) return { bg: '#1e293b', text: '#94a3b8' };
+            const v = parseFloat(val);
+            if (v < 5) return { bg: '#1e3a8a', text: '#93c5fd' };
+            if (v < 15) return { bg: '#0284c7', text: '#ffffff' };
+            if (v < 24) return { bg: '#10b981', text: '#ffffff' };
+            if (v < 29) return { bg: '#f59e0b', text: '#ffffff' };
+            if (v < 32) return { bg: '#ea580c', text: '#ffffff' };
+            return { bg: '#dc2626', text: '#ffffff' };
+        }
+
+        function getTminStyle(val) {
+            if (val === null || val === undefined) return { bg: '#1e293b', text: '#94a3b8' };
+            const v = parseFloat(val);
+            if (v <= -3) return { bg: '#311042', text: '#f5d0fe' };
+            if (v <= 0) return { bg: '#0284c7', text: '#ffffff' };
+            if (v < 6) return { bg: '#1e3a8a', text: '#93c5fd' };
+            if (v < 14) return { bg: '#10b981', text: '#ffffff' };
+            if (v < 20) return { bg: '#f59e0b', text: '#ffffff' };
+            return { bg: '#ea580c', text: '#ffffff' };
+        }
+
+        function renderTable() {
+            const query = (document.getElementById('search-input')?.value || '').toLowerCase();
+            const headRow = document.getElementById('temp-header-row');
+            let hHtml = `
+                <th class="sticky-col" onclick="sortBy('name')">Agricultural Basin &#8645;</th>
+                <th onclick="sortBy('heat_days')">🔥 Heat<br>(≥30°C) &#8645;</th>
+                <th onclick="sortBy('warm_nights')">🌙 Warm<br>(≥20°C) &#8645;</th>
+                <th onclick="sortBy('frost_days')">❄️ Frost<br>(≤0°C) &#8645;</th>
+                <th onclick="sortBy('gdd_cereal_14d')">14D Canola/Wht<br>GDD (5°C) &#8645;</th>
+                <th onclick="sortBy('gdd_corn_14d')">14D Corn/Soy<br>GDD (10°C) &#8645;</th>
+            `;
+
+            DATES.forEach((d, idx) => {
+                const isToday = idx === TODAY_IDX;
+                const isForecast = idx >= TODAY_IDX;
+                const cls = (isForecast ? 'forecast-header' : '') + (isToday ? ' today-col' : '');
+                const label = isToday ? 'TODAY<br>' + d.slice(5) : d.slice(5);
+                hHtml += `<th class="${cls}" onclick="sortBy('day_${idx}')">${label}</th>`;
+            });
+
+            hHtml += `<th class="comment-col">Agronomic Thermal Diagnosis</th>`;
+            headRow.innerHTML = hHtml;
+
+            let filtered = TEMP_DATA.filter(node => {
+                if (currentCrop !== 'ALL' && !node.crop_tags.includes(currentCrop)) return false;
+                const hay = (node.name + ' ' + node.code + ' ' + node.country + ' ' + node.district).toLowerCase();
+                if (query && !hay.includes(query)) return false;
+                return true;
+            });
+
+            if (sortKey) {
+                filtered.sort((a, b) => {
+                    if (sortKey === 'name') {
+                        return sortDesc ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name);
+                    }
+                    let vA = a[sortKey];
+                    let vB = b[sortKey];
+                    if (sortKey.startsWith('day_')) {
+                        const idx = parseInt(sortKey.split('_')[1]);
+                        const arrA = viewMode === 'tmin' ? a.tmin : (viewMode === 'tmean' ? a.tmean : a.tmax);
+                        const arrB = viewMode === 'tmin' ? b.tmin : (viewMode === 'tmean' ? b.tmean : b.tmax);
+                        vA = arrA[idx] ?? -999;
+                        vB = arrB[idx] ?? -999;
+                    }
+                    return sortDesc ? (vB - vA) : (vA - vB);
+                });
+            }
+
+            const tbody = document.getElementById('temp-tbody');
+            let bHtml = '';
+
+            filtered.forEach(node => {
+                let cells = '';
+                DATES.forEach((d, idx) => {
+                    const isToday = idx === TODAY_IDX;
+                    const todayCls = isToday ? ' today-col' : '';
+                    const hi = node.tmax[idx];
+                    const lo = node.tmin[idx];
+                    const mean = node.tmean[idx];
+
+                    if (viewMode === 'dual') {
+                        const hiSt = getTmaxStyle(hi);
+                        const loSt = getTminStyle(lo);
+                        cells += `
+                            <td class="${todayCls}" style="padding: 2px;">
+                                <div class="dual-box">
+                                    <span class="dual-high" style="background:${hiSt.bg}; color:${hiSt.text};">H: ${formatTemp(hi)}</span>
+                                    <span class="dual-low" style="background:${loSt.bg}; color:${loSt.text};">L: ${formatTemp(lo)}</span>
+                                </div>
+                            </td>
+                        `;
+                    } else if (viewMode === 'tmax') {
+                        const st = getTmaxStyle(hi);
+                        cells += `
+                            <td class="${todayCls}" style="padding: 3px;">
+                                <div class="single-box" style="background:${st.bg}; color:${st.text};">
+                                    ${formatTemp(hi)}
+                                </div>
+                            </td>
+                        `;
+                    } else if (viewMode === 'tmin') {
+                        const st = getTminStyle(lo);
+                        cells += `
+                            <td class="${todayCls}" style="padding: 3px;">
+                                <div class="single-box" style="background:${st.bg}; color:${st.text};">
+                                    ${formatTemp(lo)}
+                                </div>
+                            </td>
+                        `;
+                    } else {
+                        const st = getTmaxStyle(mean);
+                        cells += `
+                            <td class="${todayCls}" style="padding: 3px;">
+                                <div class="single-box" style="background:${st.bg}; color:${st.text};">
+                                    ${formatTemp(mean)}
+                                </div>
+                            </td>
+                        `;
+                    }
+                });
+
+                bHtml += `
+                    <tr>
+                        <td class="sticky-col">
+                            <div style="font-weight: 800; font-size: 13px; color: #f8fafc;">🇨🇦 ${node.name} <span style="color:#38bdf8; font-size:11px;">(${node.code})</span></div>
+                            <div style="font-size: 11px; color: #94a3b8;">${node.country} • ${node.district}</div>
+                        </td>
+                        <td><span style="font-weight:700; color:${node.heat_days > 0 ? '#ef4444' : '#64748b'};">${node.heat_days}d</span></td>
+                        <td><span style="font-weight:700; color:${node.warm_nights > 0 ? '#f59e0b' : '#64748b'};">${node.warm_nights}d</span></td>
+                        <td><span style="font-weight:700; color:${node.frost_days > 0 ? '#38bdf8' : '#64748b'};">${node.frost_days}d</span></td>
+                        <td><span style="font-weight:700; color:#34d399;">${node.gdd_cereal_14d}</span></td>
+                        <td><span style="font-weight:700; color:#38bdf8;">${node.gdd_corn_14d}</span></td>
+                        ${cells}
+                        <td class="comment-col">${node.ag_comment}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = bHtml;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+report_date,country_iso,country_name,agency,marketing_year,commodity,metric,value_mmt,prior_value_mmt,change_mmt,territorial_scope,source_urn,notes
+2026-06-05,RU,Russia,IKAR,2026/27,Total Grains,Production,142.5,,,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Early June baseline cited by IKAR on July 24
+2026-06-05,RU,Russia,IKAR,2026/27,Wheat,Production,91.5,,,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Early June baseline cited by IKAR on July 24
+2026-06-05,RU,Russia,IKAR,2026/27,Total Grains,Exports,63.7,,,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Early June export potential baseline
+2026-06-05,RU,Russia,IKAR,2026/27,Wheat,Exports,47.5,,,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Early June wheat export potential baseline
+2026-07-24,RU,Russia,IKAR,2026/27,Total Grains,Production,139.0,142.5,-3.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Trimmed on difficult weather in Siberia & Urals
+2026-07-24,RU,Russia,IKAR,2026/27,Wheat,Production,90.0,91.5,-1.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Trimmed on Siberia/Urals spring wheat weather
+2026-07-24,RU,Russia,IKAR,2026/27,Total Grains,Exports,58.5,63.7,-5.2,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Export potential lowered with smaller crop
+2026-07-24,RU,Russia,IKAR,2026/27,Wheat,Exports,44.5,47.5,-3.0,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260724:nL8N43Q0ZG:2,Wheat export potential cut to 44.5 MMT
+2026-08-11,RU,Russia,IKAR,2026/27,Total Grains,Production,138.5,140.0,-1.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260811:nS8N44008S:1,Smaller spring wheat planting areas
+2026-08-11,RU,Russia,IKAR,2026/27,Wheat,Production,90.0,90.5,-0.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260811:nS8N44008S:1,Cut from interim 90.5 MMT to 90.0 MMT
+2026-08-11,RU,Russia,IKAR,2026/27,Total Grains,Exports,60.0,61.5,-1.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260811:nS8N44008S:1,All-grain export potential trimmed to 60.0 MMT
+2026-08-11,RU,Russia,IKAR,2026/27,Wheat,Exports,44.5,45.0,-0.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260811:nS8N44008S:1,Wheat export potential at 44.5 MMT
+2026-10-12,RU,Russia,IKAR,2026/27,Total Grains,Production,137.0,138.0,-1.0,Excl. Crimea/New Regions,urn:newsml:reuters.com:20261012:nR4N45F021:2,Latest Oct 12 revision (Screenshot 2)
+2026-10-12,RU,Russia,IKAR,2026/27,Wheat,Production,88.0,88.5,-0.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20261012:nR4N45F021:2,Latest Oct 12 revision: 88.0 MMT down from 88.5 MMT
+2026-10-12,RU,Russia,IKAR,2026/27,Total Grains,Exports,52.8,55.0,-2.2,Excl. Crimea/New Regions,urn:newsml:reuters.com:20261012:nR4N45F021:2,Cut on Azov-Black Sea port disruptions (stress case: 35 MMT)
+2026-10-12,RU,Russia,IKAR,2026/27,Wheat,Exports,42.0,43.5,-1.5,Excl. Crimea/New Regions,urn:newsml:reuters.com:20261012:nR4N45F021:2,Cut from 43.5 MMT to 42.0 MMT
+2026-09-30,RU,Russia,SovEcon,2026/27,Total Grains,Exports,44.7,49.4,-4.7,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260930:nL8N45M15X:2,Slashed as Azov-Black Sea ports seen shut until 2027
+2026-09-30,RU,Russia,SovEcon,2026/27,Wheat,Exports,36.7,41.4,-4.7,Excl. Crimea/New Regions,urn:newsml:reuters.com:20260930:nL8N45M15X:2,Lowered by 4.7 MMT to 36.7 MMT on southern port standstill
+2026-10-07,RU,Russia,SovEcon,2026/27,Wheat,Production,87.5,88.2,-0.7,Excl. Crimea/New Regions,urn:newsml:reuters.com:20261007:nS8N3VK0AD:2,Cut 2026 Russian wheat crop to 87.5 MMT from 88.2 MMT
+2026-07-08,RU,Russia,Rusagrotrans,2025/26,Wheat,Exports,48.0,42.2,5.8,All Russian Ports & Rail,urn:newsml:newsroom:20260708:nNRA15goqk:0,Full 2025/26 MY realized wheat exports (+13.7% YoY vs 2024/25)
+2026-10-01,RU,Russia,Rusagrotrans,2026/27,Total Grains,Production,137.6,142.1,-4.5,Excl. New Regions,urn:newsml:newsroom:20261001:nNRA25w7bz:0,Eurasian Agricom 2026 Astana presentation (-4.5 MMT YoY)
+2026-10-01,RU,Russia,Rusagrotrans,2026/27,Wheat,Production,90.2,91.1,-0.9,Excl. New Regions,urn:newsml:newsroom:20261001:nNRA25w7bz:0,Top-5 historical wheat harvest; -0.9 MMT vs 2025
+2026-10-01,RU,Russia,Rusagrotrans,2026/27,Barley,Production,19.3,19.7,-0.4,Excl. New Regions,urn:newsml:newsroom:20261001:nNRA25w7bz:0,Barley harvest forecast at 19.3 MMT
+2026-10-01,RU,Russia,Rusagrotrans,2026/27,Corn,Production,16.7,15.8,0.9,Excl. New Regions,urn:newsml:newsroom:20261001:nNRA25w7bz:0,Corn harvest forecast at 16.7 MMT (+0.9 MMT YoY)
+2026-07-06,RU,Russia,ProZerno,2026/27,Total Grains,Production,134.7,137.4,-2.7,Excl. New Regions,urn:newsml:newsroom:20260706:nNRA14i49o:0,Cut by 2.7 MMT; 2025 actual was 141.2 MMT
+2026-07-06,RU,Russia,ProZerno,2026/27,Wheat,Production,86.85,91.07,-4.22,Excl. New Regions,urn:newsml:newsroom:20260706:nNRA14i49o:0,Spring wheat area fell below 10 Mha (9.86 Mha) for first time since 1970
+2026-07-06,RU,Russia,ProZerno,2026/27,Barley,Production,19.2,19.67,-0.47,Excl. New Regions,urn:newsml:newsroom:20260706:nNRA14i49o:0,-2.4% vs 2025 harvest of 19.67 MMT
+2026-07-06,RU,Russia,ProZerno,2026/27,Corn,Production,15.7,14.8,0.9,Excl. New Regions,urn:newsml:newsroom:20260706:nNRA14i49o:0,Up from 14.8 MMT in 2025
+2026-10-12,RU,Russia,USDA FAS,2026/27,Wheat,Production,88.0,90.3,-2.3,Excl. Crimea & Occupied Oblasts,USDA_PSD_2026,Official USDA PSD 2026/27 vs 2025/26 (90.3 MMT)
+2026-10-12,RU,Russia,USDA FAS,2026/27,Wheat,Exports,43.0,48.0,-5.0,Excl. Crimea & Occupied Oblasts,USDA_PSD_2026,Official USDA PSD 2026/27 vs 2025/26 (48.0 MMT)
+2026-10-12,RU,Russia,USDA FAS,2026/27,Barley,Production,19.5,19.4,0.1,Excl. Crimea & Occupied Oblasts,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,RU,Russia,USDA FAS,2026/27,Barley,Exports,3.4,4.5,-1.1,Excl. Crimea & Occupied Oblasts,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,RU,Russia,USDA FAS,2026/27,Corn,Production,16.5,14.8,1.7,Excl. Crimea & Occupied Oblasts,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,RU,Russia,USDA FAS,2026/27,Corn,Exports,3.7,4.0,-0.3,Excl. Crimea & Occupied Oblasts,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,RU,Russia,USDA FAS,2026/27,Total Grains,Production,124.0,124.5,-0.5,Wheat + Corn + Barley Sum,USDA_PSD_2026,Sum of USDA Wheat (88.0) + Barley (19.5) + Corn (16.5)
+2026-10-12,RU,Russia,USDA FAS,2026/27,Total Grains,Exports,50.1,56.5,-6.4,Wheat + Corn + Barley Sum,USDA_PSD_2026,Sum of USDA Wheat (43.0) + Barley (3.4) + Corn (3.7)
+2026-06-15,UA,Ukraine,APK-Inform,2026/27,Total Grains,Exports,43.1,,,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,June pre-blockade export outlook cited by Reuters
+2026-08-15,UA,Ukraine,APK-Inform,2026/27,Total Grains,Production,60.5,,,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,August grain harvest forecast cited on Sept 14
+2026-08-15,UA,Ukraine,APK-Inform,2026/27,Total Grains,Exports,39.4,43.1,-3.7,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Initial cut after late-July Odesa port attacks
+2026-08-15,UA,Ukraine,APK-Inform,2026/27,Wheat,Production,22.6,,,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,August wheat crop forecast before yield upgrade
+2026-08-15,UA,Ukraine,APK-Inform,2026/27,Wheat,Exports,13.5,,,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,August wheat export forecast
+2026-08-15,UA,Ukraine,APK-Inform,2026/27,Corn,Production,29.8,,,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,August corn crop forecast
+2026-08-15,UA,Ukraine,APK-Inform,2026/27,Corn,Exports,24.0,,,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,August corn export forecast
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Total Grains,Production,65.249,60.5,4.749,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Raised +7.8% on strong field yields
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Total Grains,Exports,33.869,39.4,-5.531,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Cut -14% due to blocked Odesa deep-sea ports
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Wheat,Production,25.021,22.6,2.421,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Upgraded on realized harvest yields
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Wheat,Exports,10.5,13.5,-3.0,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Cut by 3.0 MMT to 10.5 MMT
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Corn,Production,32.307,29.8,2.507,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Raised to 32.31 MMT
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Corn,Exports,22.0,24.0,-2.0,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Trimmed to 22.0 MMT
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Sunflowerseed,Production,13.58,13.48,0.1,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL8N45502F:1,Sunseed harvest forecast increased to 13.58 MMT
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Sunflower Oil,Production,5.73,5.84,-0.11,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL8N45502F:2,Sunoil output trimmed to 5.73 MMT
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Sunflower Oil,Exports,5.28,5.38,-0.1,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL8N45502F:3,Sunoil export forecast trimmed to 5.28 MMT
+2026-09-14,UA,Ukraine,APK-Inform,2026/27,Soybeans,Production,5.22,5.73,-0.51,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL8N45502F:4,Soybean crop cut from 5.73 MMT to 5.22 MMT
+2026-10-05,UA,Ukraine,APK-Inform,2026/27,Soybeans,Production,5.03,5.22,-0.19,Ukraine Controlled Territory,urn:newsml:reuters.com:20261005:nL8N45R05Q:3,Further cut to 5.03 MMT
+2026-10-05,UA,Ukraine,APK-Inform,2026/27,Sunflower Oil,Production,5.65,5.73,-0.08,Ukraine Controlled Territory,urn:newsml:reuters.com:20261005:nL8N45R05Q:1,Cut from 5.73 MMT to 5.65 MMT
+2026-10-05,UA,Ukraine,APK-Inform,2026/27,Sunflower Oil,Exports,5.2,5.28,-0.08,Ukraine Controlled Territory,urn:newsml:reuters.com:20261005:nL8N45R05Q:2,Cut from 5.28 MMT to 5.20 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Total Grains,Production,65.323,65.249,0.074,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL1N45Y0DA:1,Latest Oct 12 S&D balance (Screenshot 1)
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Total Grains,Exports,31.706,33.869,-2.163,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL1N45Y0DA:1,Cut -6.5% to 31.71 MMT; ending stocks surge to record 27.0 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Wheat,Production,25.522,25.021,0.501,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL1N45Y0DA:1,Raised to 25.522 MMT from 25.021 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Wheat,Exports,10.5,10.5,0.0,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL1N45Y0DA:1,Maintained at 10.50 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Corn,Production,31.849,32.307,-0.458,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL1N45Y0DA:1,Trimmed -1.5% to 31.849 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Corn,Exports,20.0,22.0,-2.0,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL1N45Y0DA:1,Cut by 2.0 MMT to 20.0 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Sunflower Oil,Production,5.49,5.65,-0.16,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL8N45Y0AC:1,Cut to 5.49 MMT from 5.65 MMT
+2026-10-12,UA,Ukraine,APK-Inform,2026/27,Sunflower Oil,Exports,5.03,5.2,-0.17,Ukraine Controlled Territory,urn:newsml:reuters.com:20261012:nL8N45Y0AC:1,Cut to 5.03 MMT from 5.20 MMT
+2026-10-06,UA,Ukraine,Minagro (Ministry),2026/27,Total Grains,Production,60.0,60.0,0.0,Ukraine Controlled Territory,urn:newsml:reuters.com:20260914:nL1N45604F:21,Official Ministry grain crop forecast (~60 MMT)
+2026-10-06,UA,Ukraine,Minagro (Ministry),2026/27,Wheat,Production,26.01,,,Ukraine Controlled Territory,Minagro_Oct06_2026,100% threshed (5.116 Mha at 5.08 t/ha)
+2026-10-06,UA,Ukraine,Minagro (Ministry),2026/27,Barley,Production,6.58,,,Ukraine Controlled Territory,Minagro_Oct06_2026,100% threshed (1.477 Mha at 4.46 t/ha)
+2026-10-06,UA,Ukraine,Minagro (Ministry),2026/27,Rapeseed,Production,3.88,,,Ukraine Controlled Territory,Minagro_Oct06_2026,100% threshed (1.329 Mha at 2.92 t/ha)
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Wheat,Production,26.0,24.1,1.9,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27 vs 2025/26 (24.1 MMT)
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Wheat,Exports,12.5,14.104,-1.604,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27 vs 2025/26
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Corn,Production,31.8,30.9,0.9,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Corn,Exports,22.0,22.4,-0.4,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Barley,Production,6.6,5.6,1.0,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Barley,Exports,1.7,1.484,0.216,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Total Grains,Production,64.4,60.6,3.8,Wheat + Corn + Barley Sum,USDA_PSD_2026,Sum of USDA Wheat (26.0) + Corn (31.8) + Barley (6.6)
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Total Grains,Exports,36.2,37.988,-1.788,Wheat + Corn + Barley Sum,USDA_PSD_2026,Sum of USDA Wheat (12.5) + Corn (22.0) + Barley (1.7)
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Sunflowerseed,Production,13.0,10.7,2.3,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Sunflower Oil,Production,5.418,4.515,0.903,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Sunflower Oil,Exports,5.0,4.036,0.964,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Soybeans,Production,5.0,5.5,-0.5,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27
+2026-10-12,UA,Ukraine,USDA FAS,2026/27,Rapeseed,Production,4.35,3.5,0.85,International Borders,USDA_PSD_2026,Official USDA PSD 2026/27

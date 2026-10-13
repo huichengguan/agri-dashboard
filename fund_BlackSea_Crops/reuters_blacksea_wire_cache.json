@@ -1,0 +1,246 @@
+{
+  "fetched_at": "2026-10-13 00:23:53",
+  "count": 53,
+  "headlines": [
+    {
+      "timestamp": "2026-10-12 13:02:01",
+      "headline": "UPDATE 1-APK-Inform ups Ukraine's 2026 wheat crop forecast, cuts grain export outlook",
+      "story_id": "urn:newsml:reuters.com:20261012:nL1N45Y0DA:1",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 10:49:23",
+      "headline": "IKAR trims 2026 Russia's grain crop forecast to 137 mln tons",
+      "story_id": "urn:newsml:reuters.com:20261012:nR4N45F021:2",
+      "query": "IKAR AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-12 10:36:09.456000",
+      "headline": "RUSSIA'S IKAR CONSULTANCY: RUSSIA'S 2026/27 WHEAT EXPORT SEEN AT 42 MLN T",
+      "story_id": "urn:newsml:reuters.com:20261012:nR4N45F021:7",
+      "query": "IKAR AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-12 10:36:03.275000",
+      "headline": "RUSSIA'S IKAR CONSULTANCY: RUSSIA'S 2026/27 GRAIN EXPORT SEEN AT 52.8 MLN T",
+      "story_id": "urn:newsml:reuters.com:20261012:nR4N45F021:5",
+      "query": "IKAR AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-12 10:35:46.309000",
+      "headline": "RUSSIA'S IKAR CONSULTANCY: RUSSIA'S 2026 WHEAT CROP SEEN AT 88 MLN T",
+      "story_id": "urn:newsml:reuters.com:20261012:nR4N45F021:3",
+      "query": "IKAR AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-12 10:35:32.902000",
+      "headline": "RUSSIA'S IKAR CONSULTANCY: RUSSIA'S 2026 GRAIN CROP SEEN AT 137 MLN T",
+      "story_id": "urn:newsml:reuters.com:20261012:nR4N45F021:1",
+      "query": "IKAR AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-12 09:12:56",
+      "headline": "TABLE-Russia's October grain export estimates from Sovecon",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y0GF:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-12 07:09:39",
+      "headline": "APK-Inform cuts Ukraine 2026/27 sunoil output, export forecast",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y0AC:1",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 07:06:00",
+      "headline": "APK-INFORM CUTS UKRAINE 2026/27 SUNFLOWER OIL EXPORT FORECAST TO 5.03 MILLION TONS FROM 5.20 MILLION TONS",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y0AC:2",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 06:40:36",
+      "headline": "APK-Inform ups Ukraine's 2026 wheat crop forecast, cuts grain export outlook",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y06Z:1",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 06:32:31",
+      "headline": "APK-INFORM SEES UKRAINE CARRYOVER GRAIN STOCKS AT 27 MILLION TONS AT THE START OF 2027/28 SEASON (11.6 MILLION TONS IN 2026/27)",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y06Z:5",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 06:32:30",
+      "headline": "APK-INFORM SAYS UKRAINE 2026/27 GRAIN EXPORTS COULD INCLUDE 10.5 MILLION TONS WHEAT, 20 MILLION TONS CORN",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y06Z:4",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 06:32:30",
+      "headline": "APK-INFORM CUTS UKRAINE 2026/27 GRAIN EXPORTS FORECAST TO 31.7 MILLION TONS FROM PREVIOUS 33.9 MILLION TONS",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y06Z:3",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-12 06:32:29",
+      "headline": "APK-INFORM CUTS UKRAINE 2026 CORN HARVEST FORECAST TO 31.8 MILLION TONS FROM 32.3 MILLION TONS",
+      "story_id": "urn:newsml:reuters.com:20261012:nL8N45Y06Z:2",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-07 16:11:43.366000",
+      "headline": "Russia's wheat exports fall 37.5% to 7 mln tonnes in July-Sept - Rusagrotrans",
+      "story_id": "urn:newsml:newsroom:20261007:nNRA28i13c:0",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-10-07 12:11:53.560000",
+      "headline": "Russian wheat shipments via Baltic reach record of around 1.4 mln tonnes in Sept 2026 - IKAR",
+      "story_id": "urn:newsml:newsroom:20261007:nNRA28ekba:0",
+      "query": "IKAR AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-07 11:34:25",
+      "headline": "SovEcon cuts Russia 2026 wheat crop forecast to 87.5 mln T",
+      "story_id": "urn:newsml:reuters.com:20261007:nS8N3VK0AD:2",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-07 11:27:54.656000",
+      "headline": "SOVECON CONSULTANCY CUTS RUSSIAN 2026 WHEAT CROP FORECAST TO 87.5 MMT FROM 88.2 MMT",
+      "story_id": "urn:newsml:reuters.com:20261007:nS8N3VK0AD:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-05 10:34:01",
+      "headline": "TABLE-Russia's September grain export estimates from Sovecon",
+      "story_id": "urn:newsml:reuters.com:20261005:nL8N45R0DK:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-10-05 06:19:49.392000",
+      "headline": "APK-Inform将乌克兰2026/27年度葵花籽油出口预测从528万吨下调至520万吨。",
+      "story_id": "urn:link:webnews:20261005:nNRA277tik:0",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-05 06:19:49.299000",
+      "headline": "APK-Inform将乌克兰2026/27年度葵花籽油产量预测从573万吨下调至565万吨。",
+      "story_id": "urn:link:webnews:20261005:nNRA277tih:0",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-05 06:19:47.857000",
+      "headline": "Apk-Inform将乌克兰2026年大豆收割预估从之前的522万吨下调至503万吨。",
+      "story_id": "urn:link:webnews:20261005:nNRA277s5w:0",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-05 06:13:01",
+      "headline": "APK-INFORM CUTS UKRAINE 2026 SOY BEAN HARVEST FORECAST TO 5.03 MILLION TONS FROM PREVIOUS 5.22 MILLION TONS",
+      "story_id": "urn:newsml:reuters.com:20261005:nL8N45R05Q:3",
+      "query": "APK-Inform"
+    },
+    {
+      "timestamp": "2026-10-01 14:51:45.840000",
+      "headline": "Baltic ports account for over 60% of Russian wheat exports in Sept - Rusagrotrans",
+      "story_id": "urn:newsml:newsroom:20261001:nNRA25w7bz:0",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-10-01 14:41:44.871000",
+      "headline": "Russia may increase grain exports to Kazakhstan more than a third in 2026-2027 agricultural year to 3.7 mln tonnes - Rusagrotrans",
+      "story_id": "urn:newsml:newsroom:20261001:nNRA25w1x2:0",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-10-01 14:41:43.726000",
+      "headline": "Russia may increase grain exports to Kazakhstan more than a third in 2026-2027 agricultural year to 3.7 mln tonnes - Rusagrotrans",
+      "story_id": "urn:newsml:reuters.com:20261001:nNRA25w1x2:1",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-10-01 13:31:44.836000",
+      "headline": "Russia may boost grain exports to Kazakhstan by a third in 2026/27 - Rusagrotrans",
+      "story_id": "urn:newsml:newsroom:20261001:nNRA25uvk8:0",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-10-01 12:31:43.838000",
+      "headline": "SovEcon lowers forecast for Russian wheat exports in 2026-2027 agricultural year by 4.7 mln tonnes to 36.7 mln tonnes",
+      "story_id": "urn:newsml:newsroom:20261001:nNRA25tmjh:0",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 16:30:50.505000",
+      "headline": "Sovecon Cuts Russian Grain Forecast Amidst Black Sea Disruptions",
+      "story_id": "urn:link:webnews:20260930:nNRA25cvze:0",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 13:31:45.922000",
+      "headline": "Russia's pulse crops harvest will fall 36.5% in 2026 to 5 mln tonnes - ProZerno",
+      "story_id": "urn:newsml:newsroom:20260930:nNRA25a1ax:0",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-09-30 13:20:26",
+      "headline": "UPDATE 1-Sovecon sharply cuts Russia 2026/27 grain export forecast on Black Sea disruptions",
+      "story_id": "urn:newsml:reuters.com:20260930:nL8N45M15X:2",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 13:01:50",
+      "headline": "Sovecon rebaja previsiones de envíos de granos de Rusia en 2026/27 por interrupciones en el mar Negro",
+      "story_id": "urn:newsml:reuters.com:20260930:nL6N45M0UJ:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 12:16:44",
+      "headline": "Sovecon cuts Russia 2026/27 grain export forecast on Black Sea disruptions",
+      "story_id": "urn:newsml:reuters.com:20260930:nS8N44T0I0:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 12:01:28.393000",
+      "headline": "DOWNGRADE FOLLOWS CONTINUED DISRUPTIONS TO EXPORTS FROM RUSSIA’S SOUTHERN PORTS AND A LACK OF VISIBLE PROGRESS TOWARD AN AGREEMENT THAT COULD RESTORE NORMAL NAVIGATION IN BLACK SEA - SOVECON",
+      "story_id": "urn:newsml:reuters.com:20260930:nS8N44T0I0:5",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 12:01:04.883000",
+      "headline": "TOTAL RUSSIAN GRAIN EXPORTS ARE NOW SEEN AT 44.7 MILLION TONNES - SOVECON",
+      "story_id": "urn:newsml:reuters.com:20260930:nS8N44T0I0:3",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-30 10:21:47.011000",
+      "headline": "Russia's grain crop harvest could be lower than last year's - ProZerno",
+      "story_id": "urn:newsml:newsroom:20260930:nNRA25621f:0",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-09-28 16:36:52",
+      "headline": "@sizov_andre: Retweeted @FabianWierczoch: Grain markets can sustain these levels only if the Black Sea exports don't manage to find a way out. \n\nSeeing that Andrey continues to raise the SovEcon export numbers, it seems the market found some ways to get more and more grain out of Russia. Ukraine ramps up their Danube https://t.co/G8ClkhyasP",
+      "story_id": "urn:newsml:social:20260928:nTWT1ktzFC:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-28 09:08:45",
+      "headline": "TABLE-Russia's September grain export estimates from Sovecon",
+      "story_id": "urn:newsml:reuters.com:20260928:nL8N45K0G6:1",
+      "query": "Sovecon AND (crop OR harvest OR export OR wheat)"
+    },
+    {
+      "timestamp": "2026-09-23 18:54:20",
+      "headline": "@sizov_andre: Replying to @exit266: \"Rusagrotrans Analytical Center reported 1.1 million tons of wheat were exported in the first half of the month\"\n\nthat's correct\nthat's why total Sep exports will be 2+ mmt",
+      "story_id": "urn:newsml:social:20260923:nTWT2JfPh7:1",
+      "query": "Rusagrotrans OR ProZerno"
+    },
+    {
+      "timestamp": "2026-09-23 16:12:11.775000",
+      "headline": "Rusagrotrans raises forecast for Russia's wheat exports for second time in Sept to 2.3 mln tonnes",
+      "story_id": "urn:newsml:newsroom:20260923:nNRA223mix:0",
+      "query": "Rusagrotrans OR ProZerno"
+    }
+  ]
+}

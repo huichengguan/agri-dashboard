@@ -1,0 +1,457 @@
+{
+  "Saskatchewan - Prairie Canola, Spring Wheat & Durum Heartland": {
+    "region_id": "sk_prairie_core",
+    "province": "Saskatchewan",
+    "description": "Canada's largest grain and oilseed province, accounting for ~54% of national Canola (Rapeseed), ~46% of total Canadian Wheat, and >80% of Durum Wheat production.",
+    "states": [
+      {
+        "name": "Southern Saskatchewan Durum & Wheat Plain",
+        "code": "SK-SOUTH",
+        "country": "Saskatchewan",
+        "district": "Regina Plains, Moose Jaw, Swift Current & Weyburn (Crop Districts 1–4)",
+        "lat": 50.45,
+        "lon": -105.55,
+        "commodities": [
+          {
+            "crop": "Wheat (Durum & CWRS)",
+            "production_mmt": 8.4,
+            "yield_tha": 3.15,
+            "share_pct": 24.5,
+            "status": "Harvest Complete / Autumn Stubble Soil Recharge"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 2.8,
+            "yield_tha": 2.25,
+            "share_pct": 14.7,
+            "status": "Combining Complete / Fall Fieldwork"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 0.08,
+            "yield_tha": 2.10,
+            "share_pct": 1.1,
+            "status": "Harvest Complete"
+          }
+        ]
+      },
+      {
+        "name": "Central Saskatchewan Parkland Canola & CWRS Belt",
+        "code": "SK-CENTRAL",
+        "country": "Saskatchewan",
+        "district": "Saskatoon, Humboldt, Rosetown & Yorkton (Crop Districts 5–7)",
+        "lat": 52.13,
+        "lon": -106.67,
+        "commodities": [
+          {
+            "crop": "Wheat (Spring CWRS)",
+            "production_mmt": 4.9,
+            "yield_tha": 3.75,
+            "share_pct": 14.3,
+            "status": "Harvest Wrap-Up / Pre-Freeze Soil Moisture Recharge"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 4.3,
+            "yield_tha": 2.45,
+            "share_pct": 22.6,
+            "status": "Harvest Complete / Fall Fertilizer Application"
+          }
+        ]
+      },
+      {
+        "name": "Northern Saskatchewan Black Soil Oilseed & Cereal Zone",
+        "code": "SK-NORTH",
+        "country": "Saskatchewan",
+        "district": "Melfort, Tisdale, Prince Albert & North Battleford (Crop Districts 8–9)",
+        "lat": 52.86,
+        "lon": -104.61,
+        "commodities": [
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 3.2,
+            "yield_tha": 2.55,
+            "share_pct": 16.8,
+            "status": "Late Combining Wrap-Up / Post-Harvest"
+          },
+          {
+            "crop": "Wheat (Spring CWRS)",
+            "production_mmt": 2.8,
+            "yield_tha": 3.95,
+            "share_pct": 8.2,
+            "status": "Late Harvest / Autumn Tillage"
+          }
+        ]
+      }
+    ]
+  },
+  "Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt": {
+    "region_id": "ab_western_prairie",
+    "province": "Alberta",
+    "description": "Canada's second-largest agricultural province, producing ~31% of Canadian Wheat and ~29% of Canadian Rapeseed (Canola), plus irrigated Southern Alberta grain corn.",
+    "states": [
+      {
+        "name": "Southern Alberta Palliser & Irrigated Bow/Oldman Basin",
+        "code": "AB-SOUTH",
+        "country": "Alberta",
+        "district": "Lethbridge, Medicine Hat, Taber & Brooks (AB South Region)",
+        "lat": 49.70,
+        "lon": -112.83,
+        "commodities": [
+          {
+            "crop": "Wheat (CWRS, Durum & Winter)",
+            "production_mmt": 4.5,
+            "yield_tha": 3.65,
+            "share_pct": 13.1,
+            "status": "Winter Wheat Emergence / Spring Cereal Harvested"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 1.4,
+            "yield_tha": 2.35,
+            "share_pct": 7.4,
+            "status": "Harvest Complete / Fall Moisture Deficit Watch"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 0.25,
+            "yield_tha": 9.80,
+            "share_pct": 1.6,
+            "status": "Active Grain Drydown & Harvest"
+          }
+        ]
+      },
+      {
+        "name": "Central Alberta Parkland & Highway 2 Corridor",
+        "code": "AB-CENTRAL",
+        "country": "Alberta",
+        "district": "Red Deer, Drumheller, Camrose & Olds (AB Central Region)",
+        "lat": 52.27,
+        "lon": -113.81,
+        "commodities": [
+          {
+            "crop": "Wheat (Spring CWRS)",
+            "production_mmt": 4.2,
+            "yield_tha": 4.25,
+            "share_pct": 12.2,
+            "status": "Harvest Complete / Fall Fieldwork"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 2.4,
+            "yield_tha": 2.55,
+            "share_pct": 12.6,
+            "status": "Harvest Complete / Stubble Recharge"
+          }
+        ]
+      },
+      {
+        "name": "North-Central Alberta Vermilion & North Saskatchewan Basin",
+        "code": "AB-NORTH",
+        "country": "Alberta",
+        "district": "Edmonton East, Vegreville, Vermilion & Lloydminster (AB NE/NW Regions)",
+        "lat": 53.50,
+        "lon": -112.05,
+        "commodities": [
+          {
+            "crop": "Wheat (Spring CWRS)",
+            "production_mmt": 2.6,
+            "yield_tha": 4.15,
+            "share_pct": 7.6,
+            "status": "Late Harvest Wrap-Up / Fall Soil Prep"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 1.9,
+            "yield_tha": 2.50,
+            "share_pct": 10.0,
+            "status": "Harvest Wrap-Up / Pre-Winter Conditioning"
+          }
+        ]
+      },
+      {
+        "name": "Peace River Northern Agricultural Basin",
+        "code": "AB-PEACE",
+        "country": "Alberta",
+        "district": "Grande Prairie, Peace River & Rycroft (AB Peace Region)",
+        "lat": 55.17,
+        "lon": -118.80,
+        "commodities": [
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 0.95,
+            "yield_tha": 2.20,
+            "share_pct": 5.0,
+            "status": "Late Harvest / Early Freeze Watch"
+          },
+          {
+            "crop": "Wheat (Spring CWRS)",
+            "production_mmt": 0.90,
+            "yield_tha": 3.60,
+            "share_pct": 2.6,
+            "status": "Late Harvest / Pre-Freeze Window"
+          }
+        ]
+      }
+    ]
+  },
+  "Manitoba - Red River Valley & Eastern Prairie Multi-Crop Hub": {
+    "region_id": "mb_red_river_prairie",
+    "province": "Manitoba",
+    "description": "The eastern gateway of the Canadian Prairies where long-season warm-weather crops (Soybeans and Grain Corn) overlap with high-yielding Spring Wheat and Canola.",
+    "states": [
+      {
+        "name": "Manitoba Red River Valley & Central Plains",
+        "code": "MB-REDRIVER",
+        "country": "Manitoba",
+        "district": "Winkler, Morden, Portage la Prairie & Morris (MB Central / Eastern)",
+        "lat": 49.55,
+        "lon": -97.90,
+        "commodities": [
+          {
+            "crop": "Wheat (Spring CWRS & Winter)",
+            "production_mmt": 2.6,
+            "yield_tha": 4.45,
+            "share_pct": 7.6,
+            "status": "Harvest Complete / Fall Tillage"
+          },
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.75,
+            "yield_tha": 8.60,
+            "share_pct": 11.4,
+            "status": "Active Grain Corn Combining Window"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 1.7,
+            "yield_tha": 2.60,
+            "share_pct": 8.9,
+            "status": "Harvest Complete / Fall Soil Prep"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 0.95,
+            "yield_tha": 2.85,
+            "share_pct": 13.6,
+            "status": "Soybean Harvest Wrap-Up"
+          }
+        ]
+      },
+      {
+        "name": "Western Manitoba Assiniboine & Parkland Belt",
+        "code": "MB-WEST",
+        "country": "Manitoba",
+        "district": "Brandon, Minnedosa, Dauphin & Virden (MB Southwest / Northwest)",
+        "lat": 49.85,
+        "lon": -99.95,
+        "commodities": [
+          {
+            "crop": "Wheat (Spring CWRS)",
+            "production_mmt": 2.2,
+            "yield_tha": 4.20,
+            "share_pct": 6.4,
+            "status": "Harvest Complete / Fall Fieldwork"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 1.45,
+            "yield_tha": 2.50,
+            "share_pct": 7.6,
+            "status": "Harvest Complete"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 0.45,
+            "yield_tha": 2.65,
+            "share_pct": 6.4,
+            "status": "Late Soybean Harvest"
+          }
+        ]
+      }
+    ]
+  },
+  "Ontario - Great Lakes Corn, Soybean & Winter Wheat Heartland": {
+    "region_id": "on_great_lakes_heartland",
+    "province": "Ontario",
+    "description": "Canada's premier row-crop and soft winter wheat belt, producing ~63% of Canadian Grain Corn, ~60% of Canadian Soybeans, and ~75% of Canadian Winter Wheat.",
+    "states": [
+      {
+        "name": "Southwestern Ontario Lake Erie Row-Crop Core",
+        "code": "ON-SW",
+        "country": "Ontario",
+        "district": "Chatham-Kent, Essex, Lambton, Middlesex & Elgin",
+        "lat": 42.45,
+        "lon": -82.10,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 4.6,
+            "yield_tha": 11.20,
+            "share_pct": 29.9,
+            "status": "Black Layer Maturity / Active Grain Harvest"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 1.95,
+            "yield_tha": 3.55,
+            "share_pct": 27.9,
+            "status": "Active Soybean Combining / Post-Harvest Winter Wheat Drilling"
+          },
+          {
+            "crop": "Wheat (Winter SRW)",
+            "production_mmt": 1.35,
+            "yield_tha": 6.40,
+            "share_pct": 3.9,
+            "status": "Autumn Winter Wheat Drilling & Emergence"
+          }
+        ]
+      },
+      {
+        "name": "West-Central Ontario Huron-Perth-Oxford Loam Belt",
+        "code": "ON-CENTRAL",
+        "country": "Ontario",
+        "district": "Huron, Perth, Oxford, Wellington & Waterloo (Stratford / Guelph)",
+        "lat": 43.37,
+        "lon": -80.98,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 3.4,
+            "yield_tha": 10.85,
+            "share_pct": 22.1,
+            "status": "Grain Drydown & Early Combining"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 1.35,
+            "yield_tha": 3.40,
+            "share_pct": 19.3,
+            "status": "Active Soybean Harvest Window"
+          },
+          {
+            "crop": "Wheat (Winter SRW/SWW)",
+            "production_mmt": 0.95,
+            "yield_tha": 6.15,
+            "share_pct": 2.8,
+            "status": "Autumn Drilling & Early Tillering"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 0.08,
+            "yield_tha": 3.10,
+            "share_pct": 0.4,
+            "status": "Autumn Establishment"
+          }
+        ]
+      },
+      {
+        "name": "Eastern Ontario Ottawa & St. Lawrence Valley",
+        "code": "ON-EAST",
+        "country": "Ontario",
+        "district": "Stormont-Dundas-Glengarry, Prescott-Russell & Ottawa Valley (Winchester)",
+        "lat": 45.05,
+        "lon": -75.35,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.65,
+            "yield_tha": 9.95,
+            "share_pct": 10.7,
+            "status": "Grain Drydown & Harvest Onset"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 0.90,
+            "yield_tha": 3.20,
+            "share_pct": 12.9,
+            "status": "Active Soybean Combining"
+          },
+          {
+            "crop": "Wheat (Winter & Spring)",
+            "production_mmt": 0.30,
+            "yield_tha": 5.30,
+            "share_pct": 0.9,
+            "status": "Autumn Winter Wheat Seeding"
+          }
+        ]
+      }
+    ]
+  },
+  "Quebec - St. Lawrence Lowlands Corn & Soybean Basin": {
+    "region_id": "qc_st_lawrence_basin",
+    "province": "Quebec",
+    "description": "Eastern Canada's St. Lawrence River valley agricultural heartland, accounting for ~23% of Canadian Grain Corn and ~18% of Canadian Soybean output.",
+    "states": [
+      {
+        "name": "Montérégie & Richelieu Valley Grain Core",
+        "code": "QC-MONTEREGIE",
+        "country": "Quebec",
+        "district": "Saint-Hyacinthe, Saint-Jean-sur-Richelieu & Sorel-Tracy",
+        "lat": 45.62,
+        "lon": -72.95,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 2.35,
+            "yield_tha": 10.30,
+            "share_pct": 15.3,
+            "status": "Grain Drydown & Active Harvest"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 0.75,
+            "yield_tha": 3.25,
+            "share_pct": 10.7,
+            "status": "Active Soybean Harvest Window"
+          },
+          {
+            "crop": "Wheat (Spring & Winter)",
+            "production_mmt": 0.22,
+            "yield_tha": 4.40,
+            "share_pct": 0.6,
+            "status": "Autumn Seedbed Preparation"
+          }
+        ]
+      },
+      {
+        "name": "Centre-du-Québec, Lanaudière & Chaudière Plains",
+        "code": "QC-CENTRE",
+        "country": "Quebec",
+        "district": "Drummondville, Nicolet, Joliette & Victoriaville",
+        "lat": 46.05,
+        "lon": -72.48,
+        "commodities": [
+          {
+            "crop": "Corn (Grain Maize)",
+            "production_mmt": 1.20,
+            "yield_tha": 9.40,
+            "share_pct": 7.8,
+            "status": "Maturation & Grain Drydown"
+          },
+          {
+            "crop": "Soybeans",
+            "production_mmt": 0.50,
+            "yield_tha": 3.05,
+            "share_pct": 7.1,
+            "status": "Active Soybean Harvest"
+          },
+          {
+            "crop": "Wheat (Spring & Winter)",
+            "production_mmt": 0.16,
+            "yield_tha": 4.10,
+            "share_pct": 0.5,
+            "status": "Autumn Sowing / Post-Harvest"
+          },
+          {
+            "crop": "Rapeseed (Canola)",
+            "production_mmt": 0.05,
+            "yield_tha": 2.75,
+            "share_pct": 0.3,
+            "status": "Harvest Complete"
+          }
+        ]
+      }
+    ]
+  }
+}

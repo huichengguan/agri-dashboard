@@ -1,0 +1,737 @@
+period,frequency,marketing_year,month_index_jul_jun,month_label,country_iso,country_name,commodity,agency,volume_kmt,volume_mmt,corridor,status,source_urn
+2017-07,Monthly,2017/18,1,Jul,RU,Russia,Wheat,SovEcon,1396.0,1.396,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-07,Monthly,2017/18,1,Jul,RU,Russia,Barley,SovEcon,668.0,0.668,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-07,Monthly,2017/18,1,Jul,RU,Russia,Corn,SovEcon,380.0,0.38,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-07,Monthly,2017/18,1,Jul,RU,Russia,Total Grains,SovEcon,2444.0,2.444,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-08,Monthly,2017/18,2,Aug,RU,Russia,Wheat,SovEcon,3905.0,3.905,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-08,Monthly,2017/18,2,Aug,RU,Russia,Barley,SovEcon,721.0,0.721,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-08,Monthly,2017/18,2,Aug,RU,Russia,Corn,SovEcon,123.0,0.123,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-08,Monthly,2017/18,2,Aug,RU,Russia,Total Grains,SovEcon,4749.0,4.749,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-09,Monthly,2017/18,3,Sep,RU,Russia,Wheat,SovEcon,4116.0,4.116,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-09,Monthly,2017/18,3,Sep,RU,Russia,Barley,SovEcon,558.0,0.558,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-09,Monthly,2017/18,3,Sep,RU,Russia,Corn,SovEcon,318.0,0.318,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-09,Monthly,2017/18,3,Sep,RU,Russia,Total Grains,SovEcon,4992.0,4.992,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-10,Monthly,2017/18,4,Oct,RU,Russia,Wheat,SovEcon,3548.0,3.548,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-10,Monthly,2017/18,4,Oct,RU,Russia,Barley,SovEcon,576.0,0.576,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-10,Monthly,2017/18,4,Oct,RU,Russia,Corn,SovEcon,409.0,0.409,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-10,Monthly,2017/18,4,Oct,RU,Russia,Total Grains,SovEcon,4533.0,4.533,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-11,Monthly,2017/18,5,Nov,RU,Russia,Wheat,SovEcon,4214.0,4.214,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-11,Monthly,2017/18,5,Nov,RU,Russia,Barley,SovEcon,489.0,0.489,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-11,Monthly,2017/18,5,Nov,RU,Russia,Corn,SovEcon,565.0,0.565,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-11,Monthly,2017/18,5,Nov,RU,Russia,Total Grains,SovEcon,5268.0,5.268,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-12,Monthly,2017/18,6,Dec,RU,Russia,Wheat,SovEcon,4146.0,4.146,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-12,Monthly,2017/18,6,Dec,RU,Russia,Barley,SovEcon,507.0,0.507,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-12,Monthly,2017/18,6,Dec,RU,Russia,Corn,SovEcon,523.0,0.523,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2017-12,Monthly,2017/18,6,Dec,RU,Russia,Total Grains,SovEcon,5176.0,5.176,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-01,Monthly,2017/18,7,Jan,RU,Russia,Wheat,SovEcon,2478.0,2.478,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-01,Monthly,2017/18,7,Jan,RU,Russia,Barley,SovEcon,280.0,0.28,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-01,Monthly,2017/18,7,Jan,RU,Russia,Corn,SovEcon,409.0,0.409,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-01,Monthly,2017/18,7,Jan,RU,Russia,Total Grains,SovEcon,3167.0,3.167,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-02,Monthly,2017/18,8,Feb,RU,Russia,Wheat,SovEcon,3311.0,3.311,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-02,Monthly,2017/18,8,Feb,RU,Russia,Barley,SovEcon,306.0,0.306,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-02,Monthly,2017/18,8,Feb,RU,Russia,Corn,SovEcon,535.0,0.535,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-02,Monthly,2017/18,8,Feb,RU,Russia,Total Grains,SovEcon,4152.0,4.152,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-03,Monthly,2017/18,9,Mar,RU,Russia,Wheat,SovEcon,3896.0,3.896,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-03,Monthly,2017/18,9,Mar,RU,Russia,Barley,SovEcon,401.0,0.401,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-03,Monthly,2017/18,9,Mar,RU,Russia,Corn,SovEcon,736.0,0.736,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-03,Monthly,2017/18,9,Mar,RU,Russia,Total Grains,SovEcon,5033.0,5.033,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-04,Monthly,2017/18,10,Apr,RU,Russia,Wheat,SovEcon,3269.0,3.269,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-04,Monthly,2017/18,10,Apr,RU,Russia,Barley,SovEcon,350.0,0.35,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-04,Monthly,2017/18,10,Apr,RU,Russia,Corn,SovEcon,637.0,0.637,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-04,Monthly,2017/18,10,Apr,RU,Russia,Total Grains,SovEcon,4256.0,4.256,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-05,Monthly,2017/18,11,May,RU,Russia,Wheat,SovEcon,4026.0,4.026,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-05,Monthly,2017/18,11,May,RU,Russia,Barley,SovEcon,630.0,0.63,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-05,Monthly,2017/18,11,May,RU,Russia,Corn,SovEcon,569.0,0.569,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-05,Monthly,2017/18,11,May,RU,Russia,Total Grains,SovEcon,5225.0,5.225,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-06,Monthly,2017/18,12,Jun,RU,Russia,Wheat,SovEcon,2143.0,2.143,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-06,Monthly,2017/18,12,Jun,RU,Russia,Barley,SovEcon,360.0,0.36,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-06,Monthly,2017/18,12,Jun,RU,Russia,Corn,SovEcon,583.0,0.583,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-06,Monthly,2017/18,12,Jun,RU,Russia,Total Grains,SovEcon,3086.0,3.086,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20180707:nL8N1U306B:0
+2018-07,Monthly,2018/19,1,Jul,RU,Russia,Wheat,SovEcon,3838.0,3.838,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-07,Monthly,2018/19,1,Jul,RU,Russia,Barley,SovEcon,645.0,0.645,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-07,Monthly,2018/19,1,Jul,RU,Russia,Corn,SovEcon,265.0,0.265,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-07,Monthly,2018/19,1,Jul,RU,Russia,Total Grains,SovEcon,4748.0,4.748,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-08,Monthly,2018/19,2,Aug,RU,Russia,Wheat,SovEcon,4678.0,4.678,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-08,Monthly,2018/19,2,Aug,RU,Russia,Barley,SovEcon,589.0,0.589,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-08,Monthly,2018/19,2,Aug,RU,Russia,Corn,SovEcon,110.0,0.11,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-08,Monthly,2018/19,2,Aug,RU,Russia,Total Grains,SovEcon,5377.0,5.377,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-09,Monthly,2018/19,3,Sep,RU,Russia,Wheat,SovEcon,4536.0,4.536,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-09,Monthly,2018/19,3,Sep,RU,Russia,Barley,SovEcon,482.0,0.482,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-09,Monthly,2018/19,3,Sep,RU,Russia,Corn,SovEcon,98.0,0.098,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-09,Monthly,2018/19,3,Sep,RU,Russia,Total Grains,SovEcon,5116.0,5.116,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-10,Monthly,2018/19,4,Oct,RU,Russia,Wheat,SovEcon,4368.0,4.368,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-10,Monthly,2018/19,4,Oct,RU,Russia,Barley,SovEcon,509.0,0.509,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-10,Monthly,2018/19,4,Oct,RU,Russia,Corn,SovEcon,166.0,0.166,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-10,Monthly,2018/19,4,Oct,RU,Russia,Total Grains,SovEcon,5043.0,5.043,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20181208:nL8N1YD0CT:0
+2018-11,Monthly,2018/19,5,Nov,RU,Russia,Wheat,SovEcon,3378.0,3.378,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-11,Monthly,2018/19,5,Nov,RU,Russia,Barley,SovEcon,517.0,0.517,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-11,Monthly,2018/19,5,Nov,RU,Russia,Corn,SovEcon,282.0,0.282,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-11,Monthly,2018/19,5,Nov,RU,Russia,Total Grains,SovEcon,4177.0,4.177,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-12,Monthly,2018/19,6,Dec,RU,Russia,Wheat,SovEcon,3773.0,3.773,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-12,Monthly,2018/19,6,Dec,RU,Russia,Barley,SovEcon,305.0,0.305,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-12,Monthly,2018/19,6,Dec,RU,Russia,Corn,SovEcon,338.0,0.338,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2018-12,Monthly,2018/19,6,Dec,RU,Russia,Total Grains,SovEcon,4416.0,4.416,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-01,Monthly,2018/19,7,Jan,RU,Russia,Wheat,SovEcon,2417.0,2.417,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-01,Monthly,2018/19,7,Jan,RU,Russia,Barley,SovEcon,366.0,0.366,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-01,Monthly,2018/19,7,Jan,RU,Russia,Corn,SovEcon,267.0,0.267,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-01,Monthly,2018/19,7,Jan,RU,Russia,Total Grains,SovEcon,3050.0,3.05,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-02,Monthly,2018/19,8,Feb,RU,Russia,Wheat,SovEcon,2244.0,2.244,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-02,Monthly,2018/19,8,Feb,RU,Russia,Barley,SovEcon,203.0,0.203,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-02,Monthly,2018/19,8,Feb,RU,Russia,Corn,SovEcon,276.0,0.276,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-02,Monthly,2018/19,8,Feb,RU,Russia,Total Grains,SovEcon,2723.0,2.723,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-03,Monthly,2018/19,9,Mar,RU,Russia,Wheat,SovEcon,1933.0,1.933,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-03,Monthly,2018/19,9,Mar,RU,Russia,Barley,SovEcon,273.0,0.273,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-03,Monthly,2018/19,9,Mar,RU,Russia,Corn,SovEcon,282.0,0.282,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-03,Monthly,2018/19,9,Mar,RU,Russia,Total Grains,SovEcon,2488.0,2.488,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-04,Monthly,2018/19,10,Apr,RU,Russia,Wheat,SovEcon,1916.0,1.916,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-04,Monthly,2018/19,10,Apr,RU,Russia,Barley,SovEcon,343.0,0.343,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-04,Monthly,2018/19,10,Apr,RU,Russia,Corn,SovEcon,218.0,0.218,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-04,Monthly,2018/19,10,Apr,RU,Russia,Total Grains,SovEcon,2477.0,2.477,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-05,Monthly,2018/19,11,May,RU,Russia,Wheat,SovEcon,1001.0,1.001,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-05,Monthly,2018/19,11,May,RU,Russia,Barley,SovEcon,260.0,0.26,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-05,Monthly,2018/19,11,May,RU,Russia,Corn,SovEcon,204.0,0.204,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-05,Monthly,2018/19,11,May,RU,Russia,Total Grains,SovEcon,1465.0,1.465,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-06,Monthly,2018/19,12,Jun,RU,Russia,Wheat,SovEcon,1075.0,1.075,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-06,Monthly,2018/19,12,Jun,RU,Russia,Barley,SovEcon,102.0,0.102,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-06,Monthly,2018/19,12,Jun,RU,Russia,Corn,SovEcon,255.0,0.255,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-06,Monthly,2018/19,12,Jun,RU,Russia,Total Grains,SovEcon,1432.0,1.432,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20191230:nL8N2940GS:0
+2019-07,Monthly,2019/20,1,Jul,RU,Russia,Wheat,SovEcon,2975.0,2.975,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-07,Monthly,2019/20,1,Jul,RU,Russia,Barley,SovEcon,624.0,0.624,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-07,Monthly,2019/20,1,Jul,RU,Russia,Corn,SovEcon,215.0,0.215,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-07,Monthly,2019/20,1,Jul,RU,Russia,Total Grains,SovEcon,3814.0,3.814,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-08,Monthly,2019/20,2,Aug,RU,Russia,Wheat,SovEcon,4867.0,4.867,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-08,Monthly,2019/20,2,Aug,RU,Russia,Barley,SovEcon,421.0,0.421,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-08,Monthly,2019/20,2,Aug,RU,Russia,Corn,SovEcon,109.0,0.109,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-08,Monthly,2019/20,2,Aug,RU,Russia,Total Grains,SovEcon,5397.0,5.397,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-09,Monthly,2019/20,3,Sep,RU,Russia,Wheat,SovEcon,4156.0,4.156,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-09,Monthly,2019/20,3,Sep,RU,Russia,Barley,SovEcon,322.0,0.322,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-09,Monthly,2019/20,3,Sep,RU,Russia,Corn,SovEcon,149.0,0.149,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-09,Monthly,2019/20,3,Sep,RU,Russia,Total Grains,SovEcon,4627.0,4.627,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-10,Monthly,2019/20,4,Oct,RU,Russia,Wheat,SovEcon,3754.0,3.754,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-10,Monthly,2019/20,4,Oct,RU,Russia,Barley,SovEcon,272.0,0.272,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-10,Monthly,2019/20,4,Oct,RU,Russia,Corn,SovEcon,339.0,0.339,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-10,Monthly,2019/20,4,Oct,RU,Russia,Total Grains,SovEcon,4365.0,4.365,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-11,Monthly,2019/20,5,Nov,RU,Russia,Wheat,SovEcon,2692.0,2.692,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-11,Monthly,2019/20,5,Nov,RU,Russia,Barley,SovEcon,343.0,0.343,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-11,Monthly,2019/20,5,Nov,RU,Russia,Corn,SovEcon,366.0,0.366,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-11,Monthly,2019/20,5,Nov,RU,Russia,Total Grains,SovEcon,3401.0,3.401,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-12,Monthly,2019/20,6,Dec,RU,Russia,Wheat,SovEcon,2648.0,2.648,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-12,Monthly,2019/20,6,Dec,RU,Russia,Barley,SovEcon,297.0,0.297,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-12,Monthly,2019/20,6,Dec,RU,Russia,Corn,SovEcon,442.0,0.442,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2019-12,Monthly,2019/20,6,Dec,RU,Russia,Total Grains,SovEcon,3387.0,3.387,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-01,Monthly,2019/20,7,Jan,RU,Russia,Wheat,SovEcon,2099.0,2.099,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-01,Monthly,2019/20,7,Jan,RU,Russia,Barley,SovEcon,469.0,0.469,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-01,Monthly,2019/20,7,Jan,RU,Russia,Corn,SovEcon,352.0,0.352,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-01,Monthly,2019/20,7,Jan,RU,Russia,Total Grains,SovEcon,2920.0,2.92,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-02,Monthly,2019/20,8,Feb,RU,Russia,Wheat,SovEcon,1565.0,1.565,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-02,Monthly,2019/20,8,Feb,RU,Russia,Barley,SovEcon,242.0,0.242,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-02,Monthly,2019/20,8,Feb,RU,Russia,Corn,SovEcon,336.0,0.336,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-02,Monthly,2019/20,8,Feb,RU,Russia,Total Grains,SovEcon,2143.0,2.143,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-03,Monthly,2019/20,9,Mar,RU,Russia,Wheat,SovEcon,3358.0,3.358,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-03,Monthly,2019/20,9,Mar,RU,Russia,Barley,SovEcon,301.0,0.301,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-03,Monthly,2019/20,9,Mar,RU,Russia,Corn,SovEcon,551.0,0.551,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-03,Monthly,2019/20,9,Mar,RU,Russia,Total Grains,SovEcon,4210.0,4.21,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-04,Monthly,2019/20,10,Apr,RU,Russia,Wheat,SovEcon,3786.0,3.786,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-04,Monthly,2019/20,10,Apr,RU,Russia,Barley,SovEcon,450.0,0.45,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-04,Monthly,2019/20,10,Apr,RU,Russia,Corn,SovEcon,867.0,0.867,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-04,Monthly,2019/20,10,Apr,RU,Russia,Total Grains,SovEcon,5103.0,5.103,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-05,Monthly,2019/20,11,May,RU,Russia,Wheat,SovEcon,1500.0,1.5,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-05,Monthly,2019/20,11,May,RU,Russia,Barley,SovEcon,370.0,0.37,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-05,Monthly,2019/20,11,May,RU,Russia,Corn,SovEcon,340.0,0.34,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-05,Monthly,2019/20,11,May,RU,Russia,Total Grains,SovEcon,2210.0,2.21,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-06,Monthly,2019/20,12,Jun,RU,Russia,Wheat,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-06,Monthly,2019/20,12,Jun,RU,Russia,Barley,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-06,Monthly,2019/20,12,Jun,RU,Russia,Corn,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-06,Monthly,2019/20,12,Jun,RU,Russia,Total Grains,SovEcon,550.0,0.55,All Russian Ports & Crossings,SovEcon / Customs,urn:newsml:newsroom:20200824:nL8N2FQ169:0
+2020-07,Monthly,2020/21,1,Jul,RU,Russia,Wheat,SovEcon,2337.0,2.337,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-07,Monthly,2020/21,1,Jul,RU,Russia,Barley,SovEcon,712.0,0.712,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-07,Monthly,2020/21,1,Jul,RU,Russia,Corn,SovEcon,250.0,0.25,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-07,Monthly,2020/21,1,Jul,RU,Russia,Total Grains,SovEcon,3299.0,3.299,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-08,Monthly,2020/21,2,Aug,RU,Russia,Wheat,SovEcon,4667.0,4.667,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-08,Monthly,2020/21,2,Aug,RU,Russia,Barley,SovEcon,593.0,0.593,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-08,Monthly,2020/21,2,Aug,RU,Russia,Corn,SovEcon,156.0,0.156,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-08,Monthly,2020/21,2,Aug,RU,Russia,Total Grains,SovEcon,5416.0,5.416,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-09,Monthly,2020/21,3,Sep,RU,Russia,Wheat,SovEcon,5016.0,5.016,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-09,Monthly,2020/21,3,Sep,RU,Russia,Barley,SovEcon,885.0,0.885,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-09,Monthly,2020/21,3,Sep,RU,Russia,Corn,SovEcon,88.0,0.088,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-09,Monthly,2020/21,3,Sep,RU,Russia,Total Grains,SovEcon,5989.0,5.989,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-10,Monthly,2020/21,4,Oct,RU,Russia,Wheat,SovEcon,4643.0,4.643,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-10,Monthly,2020/21,4,Oct,RU,Russia,Barley,SovEcon,721.0,0.721,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-10,Monthly,2020/21,4,Oct,RU,Russia,Corn,SovEcon,142.0,0.142,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-10,Monthly,2020/21,4,Oct,RU,Russia,Total Grains,SovEcon,5506.0,5.506,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-11,Monthly,2020/21,5,Nov,RU,Russia,Wheat,SovEcon,4291.0,4.291,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-11,Monthly,2020/21,5,Nov,RU,Russia,Barley,SovEcon,396.0,0.396,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-11,Monthly,2020/21,5,Nov,RU,Russia,Corn,SovEcon,333.0,0.333,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-11,Monthly,2020/21,5,Nov,RU,Russia,Total Grains,SovEcon,5020.0,5.02,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-12,Monthly,2020/21,6,Dec,RU,Russia,Wheat,SovEcon,4868.0,4.868,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-12,Monthly,2020/21,6,Dec,RU,Russia,Barley,SovEcon,576.0,0.576,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-12,Monthly,2020/21,6,Dec,RU,Russia,Corn,SovEcon,393.0,0.393,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2020-12,Monthly,2020/21,6,Dec,RU,Russia,Total Grains,SovEcon,5837.0,5.837,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-01,Monthly,2020/21,7,Jan,RU,Russia,Wheat,SovEcon,3084.0,3.084,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-01,Monthly,2020/21,7,Jan,RU,Russia,Barley,SovEcon,224.0,0.224,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-01,Monthly,2020/21,7,Jan,RU,Russia,Corn,SovEcon,385.0,0.385,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-01,Monthly,2020/21,7,Jan,RU,Russia,Total Grains,SovEcon,3693.0,3.693,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-02,Monthly,2020/21,8,Feb,RU,Russia,Wheat,SovEcon,4512.0,4.512,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-02,Monthly,2020/21,8,Feb,RU,Russia,Barley,SovEcon,410.0,0.41,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-02,Monthly,2020/21,8,Feb,RU,Russia,Corn,SovEcon,474.0,0.474,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-02,Monthly,2020/21,8,Feb,RU,Russia,Total Grains,SovEcon,5396.0,5.396,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-03,Monthly,2020/21,9,Mar,RU,Russia,Wheat,SovEcon,1148.0,1.148,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-03,Monthly,2020/21,9,Mar,RU,Russia,Barley,SovEcon,780.0,0.78,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-03,Monthly,2020/21,9,Mar,RU,Russia,Corn,SovEcon,984.0,0.984,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-03,Monthly,2020/21,9,Mar,RU,Russia,Total Grains,SovEcon,2912.0,2.912,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-04,Monthly,2020/21,10,Apr,RU,Russia,Wheat,SovEcon,800.0,0.8,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-04,Monthly,2020/21,10,Apr,RU,Russia,Barley,SovEcon,369.0,0.369,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-04,Monthly,2020/21,10,Apr,RU,Russia,Corn,SovEcon,287.0,0.287,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-04,Monthly,2020/21,10,Apr,RU,Russia,Total Grains,SovEcon,1456.0,1.456,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-05,Monthly,2020/21,11,May,RU,Russia,Wheat,SovEcon,458.0,0.458,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-05,Monthly,2020/21,11,May,RU,Russia,Barley,SovEcon,551.0,0.551,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-05,Monthly,2020/21,11,May,RU,Russia,Corn,SovEcon,551.0,0.551,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-05,Monthly,2020/21,11,May,RU,Russia,Total Grains,SovEcon,1560.0,1.56,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-06,Monthly,2020/21,12,Jun,RU,Russia,Wheat,SovEcon,2228.0,2.228,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-06,Monthly,2020/21,12,Jun,RU,Russia,Barley,SovEcon,77.0,0.077,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-06,Monthly,2020/21,12,Jun,RU,Russia,Corn,SovEcon,201.0,0.201,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-06,Monthly,2020/21,12,Jun,RU,Russia,Total Grains,SovEcon,2506.0,2.506,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20210913:nL8N2QF0X9:0
+2021-07,Monthly,2021/22,1,Jul,RU,Russia,Wheat,SovEcon,1844.0,1.844,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20211025:nL8N2RL24M:0
+2021-07,Monthly,2021/22,1,Jul,RU,Russia,Barley,SovEcon,506.0,0.506,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20211025:nL8N2RL24M:0
+2021-07,Monthly,2021/22,1,Jul,RU,Russia,Corn,SovEcon,134.0,0.134,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20211025:nL8N2RL24M:0
+2021-07,Monthly,2021/22,1,Jul,RU,Russia,Total Grains,SovEcon,2484.0,2.484,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20211025:nL8N2RL24M:0
+2021-08,Monthly,2021/22,2,Aug,RU,Russia,Wheat,SovEcon,5220.0,5.22,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-08,Monthly,2021/22,2,Aug,RU,Russia,Barley,SovEcon,564.0,0.564,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-08,Monthly,2021/22,2,Aug,RU,Russia,Corn,SovEcon,68.0,0.068,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-08,Monthly,2021/22,2,Aug,RU,Russia,Total Grains,SovEcon,5852.0,5.852,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-09,Monthly,2021/22,3,Sep,RU,Russia,Wheat,SovEcon,4651.0,4.651,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-09,Monthly,2021/22,3,Sep,RU,Russia,Barley,SovEcon,553.0,0.553,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-09,Monthly,2021/22,3,Sep,RU,Russia,Corn,SovEcon,79.0,0.079,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-09,Monthly,2021/22,3,Sep,RU,Russia,Total Grains,SovEcon,5283.0,5.283,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-10,Monthly,2021/22,4,Oct,RU,Russia,Wheat,SovEcon,2842.0,2.842,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-10,Monthly,2021/22,4,Oct,RU,Russia,Barley,SovEcon,292.0,0.292,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-10,Monthly,2021/22,4,Oct,RU,Russia,Corn,SovEcon,252.0,0.252,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-10,Monthly,2021/22,4,Oct,RU,Russia,Total Grains,SovEcon,3386.0,3.386,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-11,Monthly,2021/22,5,Nov,RU,Russia,Wheat,SovEcon,3196.0,3.196,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-11,Monthly,2021/22,5,Nov,RU,Russia,Barley,SovEcon,410.0,0.41,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-11,Monthly,2021/22,5,Nov,RU,Russia,Corn,SovEcon,352.0,0.352,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-11,Monthly,2021/22,5,Nov,RU,Russia,Total Grains,SovEcon,3958.0,3.958,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-12,Monthly,2021/22,6,Dec,RU,Russia,Wheat,SovEcon,3063.0,3.063,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-12,Monthly,2021/22,6,Dec,RU,Russia,Barley,SovEcon,437.0,0.437,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-12,Monthly,2021/22,6,Dec,RU,Russia,Corn,SovEcon,412.0,0.412,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2021-12,Monthly,2021/22,6,Dec,RU,Russia,Total Grains,SovEcon,3912.0,3.912,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-01,Monthly,2021/22,7,Jan,RU,Russia,Wheat,SovEcon,1448.0,1.448,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-01,Monthly,2021/22,7,Jan,RU,Russia,Barley,SovEcon,98.0,0.098,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-01,Monthly,2021/22,7,Jan,RU,Russia,Corn,SovEcon,282.0,0.282,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-01,Monthly,2021/22,7,Jan,RU,Russia,Total Grains,SovEcon,1828.0,1.828,All Russian Ports & Crossings,Official Customs,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-02,Monthly,2021/22,8,Feb,RU,Russia,Wheat,SovEcon,2500.0,2.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-02,Monthly,2021/22,8,Feb,RU,Russia,Barley,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-02,Monthly,2021/22,8,Feb,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-02,Monthly,2021/22,8,Feb,RU,Russia,Total Grains,SovEcon,2800.0,2.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-03,Monthly,2021/22,9,Mar,RU,Russia,Wheat,SovEcon,2200.0,2.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-03,Monthly,2021/22,9,Mar,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-03,Monthly,2021/22,9,Mar,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-03,Monthly,2021/22,9,Mar,RU,Russia,Total Grains,SovEcon,2650.0,2.65,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-04,Monthly,2021/22,10,Apr,RU,Russia,Wheat,SovEcon,2200.0,2.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-04,Monthly,2021/22,10,Apr,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-04,Monthly,2021/22,10,Apr,RU,Russia,Corn,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-04,Monthly,2021/22,10,Apr,RU,Russia,Total Grains,SovEcon,2700.0,2.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-05,Monthly,2021/22,11,May,RU,Russia,Wheat,SovEcon,1300.0,1.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-05,Monthly,2021/22,11,May,RU,Russia,Barley,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-05,Monthly,2021/22,11,May,RU,Russia,Corn,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-05,Monthly,2021/22,11,May,RU,Russia,Total Grains,SovEcon,1800.0,1.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-06,Monthly,2021/22,12,Jun,RU,Russia,Wheat,SovEcon,1100.0,1.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-06,Monthly,2021/22,12,Jun,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-06,Monthly,2021/22,12,Jun,RU,Russia,Corn,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-06,Monthly,2021/22,12,Jun,RU,Russia,Total Grains,SovEcon,1600.0,1.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20220912:nL8N30J0ZT:0
+2022-07,Monthly,2022/23,1,Jul,RU,Russia,Wheat,SovEcon,2300.0,2.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20221024:nL8N31M2PC:0
+2022-07,Monthly,2022/23,1,Jul,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20221024:nL8N31M2PC:0
+2022-07,Monthly,2022/23,1,Jul,RU,Russia,Corn,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20221024:nL8N31M2PC:0
+2022-07,Monthly,2022/23,1,Jul,RU,Russia,Total Grains,SovEcon,2650.0,2.65,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20221024:nL8N31M2PC:0
+2022-08,Monthly,2022/23,2,Aug,RU,Russia,Wheat,SovEcon,3500.0,3.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-08,Monthly,2022/23,2,Aug,RU,Russia,Barley,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-08,Monthly,2022/23,2,Aug,RU,Russia,Corn,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-08,Monthly,2022/23,2,Aug,RU,Russia,Total Grains,SovEcon,4200.0,4.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-09,Monthly,2022/23,3,Sep,RU,Russia,Wheat,SovEcon,4100.0,4.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-09,Monthly,2022/23,3,Sep,RU,Russia,Barley,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-09,Monthly,2022/23,3,Sep,RU,Russia,Corn,SovEcon,50.0,0.05,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-09,Monthly,2022/23,3,Sep,RU,Russia,Total Grains,SovEcon,4450.0,4.45,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-10,Monthly,2022/23,4,Oct,RU,Russia,Wheat,SovEcon,4300.0,4.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-10,Monthly,2022/23,4,Oct,RU,Russia,Barley,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-10,Monthly,2022/23,4,Oct,RU,Russia,Corn,SovEcon,50.0,0.05,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-10,Monthly,2022/23,4,Oct,RU,Russia,Total Grains,SovEcon,4700.0,4.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-11,Monthly,2022/23,5,Nov,RU,Russia,Wheat,SovEcon,4300.0,4.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-11,Monthly,2022/23,5,Nov,RU,Russia,Barley,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-11,Monthly,2022/23,5,Nov,RU,Russia,Corn,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-11,Monthly,2022/23,5,Nov,RU,Russia,Total Grains,SovEcon,4850.0,4.85,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-12,Monthly,2022/23,6,Dec,RU,Russia,Wheat,SovEcon,4000.0,4.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-12,Monthly,2022/23,6,Dec,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-12,Monthly,2022/23,6,Dec,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2022-12,Monthly,2022/23,6,Dec,RU,Russia,Total Grains,SovEcon,4500.0,4.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-01,Monthly,2022/23,7,Jan,RU,Russia,Wheat,SovEcon,3800.0,3.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-01,Monthly,2022/23,7,Jan,RU,Russia,Barley,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-01,Monthly,2022/23,7,Jan,RU,Russia,Corn,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-01,Monthly,2022/23,7,Jan,RU,Russia,Total Grains,SovEcon,4400.0,4.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-02,Monthly,2022/23,8,Feb,RU,Russia,Wheat,SovEcon,2900.0,2.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-02,Monthly,2022/23,8,Feb,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-02,Monthly,2022/23,8,Feb,RU,Russia,Corn,SovEcon,450.0,0.45,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-02,Monthly,2022/23,8,Feb,RU,Russia,Total Grains,SovEcon,3500.0,3.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-03,Monthly,2022/23,9,Mar,RU,Russia,Wheat,SovEcon,4500.0,4.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-03,Monthly,2022/23,9,Mar,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-03,Monthly,2022/23,9,Mar,RU,Russia,Corn,SovEcon,700.0,0.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-03,Monthly,2022/23,9,Mar,RU,Russia,Total Grains,SovEcon,5350.0,5.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-04,Monthly,2022/23,10,Apr,RU,Russia,Wheat,SovEcon,4300.0,4.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-04,Monthly,2022/23,10,Apr,RU,Russia,Barley,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-04,Monthly,2022/23,10,Apr,RU,Russia,Corn,SovEcon,650.0,0.65,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-04,Monthly,2022/23,10,Apr,RU,Russia,Total Grains,SovEcon,5250.0,5.25,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-05,Monthly,2022/23,11,May,RU,Russia,Wheat,SovEcon,4200.0,4.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-05,Monthly,2022/23,11,May,RU,Russia,Barley,SovEcon,250.0,0.25,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-05,Monthly,2022/23,11,May,RU,Russia,Corn,SovEcon,550.0,0.55,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-05,Monthly,2022/23,11,May,RU,Russia,Total Grains,SovEcon,5000.0,5.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-06,Monthly,2022/23,12,Jun,RU,Russia,Wheat,SovEcon,3500.0,3.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-06,Monthly,2022/23,12,Jun,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-06,Monthly,2022/23,12,Jun,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-06,Monthly,2022/23,12,Jun,RU,Russia,Total Grains,SovEcon,4000.0,4.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20230911:nL8N3AN1P1:0
+2023-07,Monthly,2023/24,1,Jul,RU,Russia,Wheat,SovEcon,4400.0,4.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-07,Monthly,2023/24,1,Jul,RU,Russia,Barley,SovEcon,800.0,0.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-07,Monthly,2023/24,1,Jul,RU,Russia,Corn,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-07,Monthly,2023/24,1,Jul,RU,Russia,Total Grains,SovEcon,5600.0,5.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-08,Monthly,2023/24,2,Aug,RU,Russia,Wheat,SovEcon,5300.0,5.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-08,Monthly,2023/24,2,Aug,RU,Russia,Barley,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-08,Monthly,2023/24,2,Aug,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-08,Monthly,2023/24,2,Aug,RU,Russia,Total Grains,SovEcon,6100.0,6.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-09,Monthly,2023/24,3,Sep,RU,Russia,Wheat,SovEcon,5100.0,5.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-09,Monthly,2023/24,3,Sep,RU,Russia,Barley,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-09,Monthly,2023/24,3,Sep,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-09,Monthly,2023/24,3,Sep,RU,Russia,Total Grains,SovEcon,5900.0,5.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-10,Monthly,2023/24,4,Oct,RU,Russia,Wheat,SovEcon,4600.0,4.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-10,Monthly,2023/24,4,Oct,RU,Russia,Barley,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-10,Monthly,2023/24,4,Oct,RU,Russia,Corn,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-10,Monthly,2023/24,4,Oct,RU,Russia,Total Grains,SovEcon,5400.0,5.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-11,Monthly,2023/24,5,Nov,RU,Russia,Wheat,SovEcon,3400.0,3.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-11,Monthly,2023/24,5,Nov,RU,Russia,Barley,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-11,Monthly,2023/24,5,Nov,RU,Russia,Corn,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-11,Monthly,2023/24,5,Nov,RU,Russia,Total Grains,SovEcon,4300.0,4.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-12,Monthly,2023/24,6,Dec,RU,Russia,Wheat,SovEcon,3700.0,3.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-12,Monthly,2023/24,6,Dec,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-12,Monthly,2023/24,6,Dec,RU,Russia,Corn,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2023-12,Monthly,2023/24,6,Dec,RU,Russia,Total Grains,SovEcon,4400.0,4.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-01,Monthly,2023/24,7,Jan,RU,Russia,Wheat,SovEcon,3600.0,3.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-01,Monthly,2023/24,7,Jan,RU,Russia,Barley,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-01,Monthly,2023/24,7,Jan,RU,Russia,Corn,SovEcon,700.0,0.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-01,Monthly,2023/24,7,Jan,RU,Russia,Total Grains,SovEcon,4600.0,4.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-02,Monthly,2023/24,8,Feb,RU,Russia,Wheat,SovEcon,4100.0,4.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-02,Monthly,2023/24,8,Feb,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-02,Monthly,2023/24,8,Feb,RU,Russia,Corn,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-02,Monthly,2023/24,8,Feb,RU,Russia,Total Grains,SovEcon,4900.0,4.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-03,Monthly,2023/24,9,Mar,RU,Russia,Wheat,SovEcon,4800.0,4.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-03,Monthly,2023/24,9,Mar,RU,Russia,Barley,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-03,Monthly,2023/24,9,Mar,RU,Russia,Corn,SovEcon,700.0,0.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-03,Monthly,2023/24,9,Mar,RU,Russia,Total Grains,SovEcon,6100.0,6.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-04,Monthly,2023/24,10,Apr,RU,Russia,Wheat,SovEcon,4600.0,4.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-04,Monthly,2023/24,10,Apr,RU,Russia,Barley,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-04,Monthly,2023/24,10,Apr,RU,Russia,Corn,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-04,Monthly,2023/24,10,Apr,RU,Russia,Total Grains,SovEcon,5700.0,5.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-05,Monthly,2023/24,11,May,RU,Russia,Wheat,SovEcon,4400.0,4.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-05,Monthly,2023/24,11,May,RU,Russia,Barley,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-05,Monthly,2023/24,11,May,RU,Russia,Corn,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-05,Monthly,2023/24,11,May,RU,Russia,Total Grains,SovEcon,5500.0,5.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-06,Monthly,2023/24,12,Jun,RU,Russia,Wheat,SovEcon,4000.0,4.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-06,Monthly,2023/24,12,Jun,RU,Russia,Barley,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-06,Monthly,2023/24,12,Jun,RU,Russia,Corn,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-06,Monthly,2023/24,12,Jun,RU,Russia,Total Grains,SovEcon,4700.0,4.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-07,Monthly,2024/25,1,Jul,RU,Russia,Wheat,SovEcon,3600.0,3.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-07,Monthly,2024/25,1,Jul,RU,Russia,Barley,SovEcon,600.0,0.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-07,Monthly,2024/25,1,Jul,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-07,Monthly,2024/25,1,Jul,RU,Russia,Total Grains,SovEcon,4500.0,4.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:newsroom:20241028:nL8N3M40IL:0
+2024-08,Monthly,2024/25,2,Aug,RU,Russia,Wheat,SovEcon,5700.0,5.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-08,Monthly,2024/25,2,Aug,RU,Russia,Barley,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-08,Monthly,2024/25,2,Aug,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-08,Monthly,2024/25,2,Aug,RU,Russia,Total Grains,SovEcon,6300.0,6.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-09,Monthly,2024/25,3,Sep,RU,Russia,Wheat,SovEcon,5100.0,5.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-09,Monthly,2024/25,3,Sep,RU,Russia,Barley,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-09,Monthly,2024/25,3,Sep,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-09,Monthly,2024/25,3,Sep,RU,Russia,Total Grains,SovEcon,5800.0,5.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-10,Monthly,2024/25,4,Oct,RU,Russia,Wheat,SovEcon,5600.0,5.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-10,Monthly,2024/25,4,Oct,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-10,Monthly,2024/25,4,Oct,RU,Russia,Corn,SovEcon,250.0,0.25,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-10,Monthly,2024/25,4,Oct,RU,Russia,Total Grains,SovEcon,6050.0,6.05,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-11,Monthly,2024/25,5,Nov,RU,Russia,Wheat,SovEcon,4100.0,4.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-11,Monthly,2024/25,5,Nov,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-11,Monthly,2024/25,5,Nov,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-11,Monthly,2024/25,5,Nov,RU,Russia,Total Grains,SovEcon,4600.0,4.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-12,Monthly,2024/25,6,Dec,RU,Russia,Wheat,SovEcon,3400.0,3.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-12,Monthly,2024/25,6,Dec,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-12,Monthly,2024/25,6,Dec,RU,Russia,Corn,SovEcon,250.0,0.25,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2024-12,Monthly,2024/25,6,Dec,RU,Russia,Total Grains,SovEcon,3800.0,3.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-01,Monthly,2024/25,7,Jan,RU,Russia,Wheat,SovEcon,2200.0,2.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-01,Monthly,2024/25,7,Jan,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-01,Monthly,2024/25,7,Jan,RU,Russia,Corn,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-01,Monthly,2024/25,7,Jan,RU,Russia,Total Grains,SovEcon,2750.0,2.75,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-02,Monthly,2024/25,8,Feb,RU,Russia,Wheat,SovEcon,1900.0,1.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-02,Monthly,2024/25,8,Feb,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-02,Monthly,2024/25,8,Feb,RU,Russia,Corn,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-02,Monthly,2024/25,8,Feb,RU,Russia,Total Grains,SovEcon,2200.0,2.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-03,Monthly,2024/25,9,Mar,RU,Russia,Wheat,SovEcon,1900.0,1.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-03,Monthly,2024/25,9,Mar,RU,Russia,Barley,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-03,Monthly,2024/25,9,Mar,RU,Russia,Corn,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-03,Monthly,2024/25,9,Mar,RU,Russia,Total Grains,SovEcon,1900.0,1.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-04,Monthly,2024/25,10,Apr,RU,Russia,Wheat,SovEcon,2400.0,2.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-04,Monthly,2024/25,10,Apr,RU,Russia,Barley,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-04,Monthly,2024/25,10,Apr,RU,Russia,Corn,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-04,Monthly,2024/25,10,Apr,RU,Russia,Total Grains,SovEcon,2400.0,2.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-05,Monthly,2024/25,11,May,RU,Russia,Wheat,SovEcon,1900.0,1.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-05,Monthly,2024/25,11,May,RU,Russia,Barley,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-05,Monthly,2024/25,11,May,RU,Russia,Corn,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-05,Monthly,2024/25,11,May,RU,Russia,Total Grains,SovEcon,1900.0,1.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-06,Monthly,2024/25,12,Jun,RU,Russia,Wheat,SovEcon,1200.0,1.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-06,Monthly,2024/25,12,Jun,RU,Russia,Barley,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-06,Monthly,2024/25,12,Jun,RU,Russia,Corn,SovEcon,0.0,0.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-06,Monthly,2024/25,12,Jun,RU,Russia,Total Grains,SovEcon,1200.0,1.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20250901:nL8N3UO0F5:1
+2025-07,Monthly,2025/26,1,Jul,RU,Russia,Wheat,SovEcon,2000.0,2.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-07,Monthly,2025/26,1,Jul,RU,Russia,Barley,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-07,Monthly,2025/26,1,Jul,RU,Russia,Corn,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-07,Monthly,2025/26,1,Jul,RU,Russia,Total Grains,SovEcon,2900.0,2.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-08,Monthly,2025/26,2,Aug,RU,Russia,Wheat,SovEcon,4400.0,4.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-08,Monthly,2025/26,2,Aug,RU,Russia,Barley,SovEcon,500.0,0.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-08,Monthly,2025/26,2,Aug,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-08,Monthly,2025/26,2,Aug,RU,Russia,Total Grains,SovEcon,5100.0,5.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-09,Monthly,2025/26,3,Sep,RU,Russia,Wheat,SovEcon,4600.0,4.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-09,Monthly,2025/26,3,Sep,RU,Russia,Barley,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-09,Monthly,2025/26,3,Sep,RU,Russia,Corn,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-09,Monthly,2025/26,3,Sep,RU,Russia,Total Grains,SovEcon,5150.0,5.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-10,Monthly,2025/26,4,Oct,RU,Russia,Wheat,SovEcon,5100.0,5.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-10,Monthly,2025/26,4,Oct,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-10,Monthly,2025/26,4,Oct,RU,Russia,Corn,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-10,Monthly,2025/26,4,Oct,RU,Russia,Total Grains,SovEcon,5400.0,5.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-11,Monthly,2025/26,5,Nov,RU,Russia,Wheat,SovEcon,4800.0,4.8,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-11,Monthly,2025/26,5,Nov,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-11,Monthly,2025/26,5,Nov,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-11,Monthly,2025/26,5,Nov,RU,Russia,Total Grains,SovEcon,5200.0,5.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-12,Monthly,2025/26,6,Dec,RU,Russia,Wheat,SovEcon,4200.0,4.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-12,Monthly,2025/26,6,Dec,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-12,Monthly,2025/26,6,Dec,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2025-12,Monthly,2025/26,6,Dec,RU,Russia,Total Grains,SovEcon,4600.0,4.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-01,Monthly,2025/26,7,Jan,RU,Russia,Wheat,SovEcon,2900.0,2.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-01,Monthly,2025/26,7,Jan,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-01,Monthly,2025/26,7,Jan,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-01,Monthly,2025/26,7,Jan,RU,Russia,Total Grains,SovEcon,3300.0,3.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-02,Monthly,2025/26,8,Feb,RU,Russia,Wheat,SovEcon,2900.0,2.9,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-02,Monthly,2025/26,8,Feb,RU,Russia,Barley,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-02,Monthly,2025/26,8,Feb,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-02,Monthly,2025/26,8,Feb,RU,Russia,Total Grains,SovEcon,3500.0,3.5,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-03,Monthly,2025/26,9,Mar,RU,Russia,Wheat,SovEcon,4700.0,4.7,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-03,Monthly,2025/26,9,Mar,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-03,Monthly,2025/26,9,Mar,RU,Russia,Corn,SovEcon,400.0,0.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-03,Monthly,2025/26,9,Mar,RU,Russia,Total Grains,SovEcon,5300.0,5.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-04,Monthly,2025/26,10,Apr,RU,Russia,Wheat,SovEcon,4000.0,4.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-04,Monthly,2025/26,10,Apr,RU,Russia,Barley,SovEcon,250.0,0.25,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-04,Monthly,2025/26,10,Apr,RU,Russia,Corn,SovEcon,300.0,0.3,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-04,Monthly,2025/26,10,Apr,RU,Russia,Total Grains,SovEcon,4550.0,4.55,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-05,Monthly,2025/26,11,May,RU,Russia,Wheat,SovEcon,3100.0,3.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-05,Monthly,2025/26,11,May,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-05,Monthly,2025/26,11,May,RU,Russia,Corn,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-05,Monthly,2025/26,11,May,RU,Russia,Total Grains,SovEcon,3600.0,3.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-06,Monthly,2025/26,12,Jun,RU,Russia,Wheat,SovEcon,2200.0,2.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-06,Monthly,2025/26,12,Jun,RU,Russia,Barley,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-06,Monthly,2025/26,12,Jun,RU,Russia,Corn,SovEcon,350.0,0.35,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-06,Monthly,2025/26,12,Jun,RU,Russia,Total Grains,SovEcon,2650.0,2.65,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-07,Monthly,2026/27,1,Jul,RU,Russia,Wheat,SovEcon,1600.0,1.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-07,Monthly,2026/27,1,Jul,RU,Russia,Barley,SovEcon,150.0,0.15,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-07,Monthly,2026/27,1,Jul,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-07,Monthly,2026/27,1,Jul,RU,Russia,Total Grains,SovEcon,1950.0,1.95,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-08,Monthly,2026/27,2,Aug,RU,Russia,Wheat,SovEcon,2000.0,2.0,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-08,Monthly,2026/27,2,Aug,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-08,Monthly,2026/27,2,Aug,RU,Russia,Corn,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-08,Monthly,2026/27,2,Aug,RU,Russia,Total Grains,SovEcon,2400.0,2.4,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-09,Monthly,2026/27,3,Sep,RU,Russia,Wheat,SovEcon,2600.0,2.6,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-09,Monthly,2026/27,3,Sep,RU,Russia,Barley,SovEcon,250.0,0.25,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-09,Monthly,2026/27,3,Sep,RU,Russia,Corn,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-09,Monthly,2026/27,3,Sep,RU,Russia,Total Grains,SovEcon,2950.0,2.95,All Russian Ports & Crossings,SovEcon Series,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-10,Monthly,2026/27,4,Oct,RU,Russia,Wheat,SovEcon,2500.0,2.5,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-10,Monthly,2026/27,4,Oct,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-10,Monthly,2026/27,4,Oct,RU,Russia,Corn,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-10,Monthly,2026/27,4,Oct,RU,Russia,Total Grains,SovEcon,2800.0,2.8,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
+2026-09,Monthly,2026/27,3,Sep,RU,Russia,Wheat,IKAR,2500.0,2.5,"All Russian Ports (1,400 kmt Baltic)",Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-10,Monthly,2026/27,4,Oct,RU,Russia,Wheat,IKAR,3000.0,3.0,"All Russian Ports (1,800 kmt Baltic)",Oct Outlook,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-09,Monthly,2026/27,3,Sep,RU,Russia,Wheat,Rusagrotrans,2700.0,2.7,All Russian Ports (60% Baltic + 20% Central Asia),Actual/Reported,urn:newsml:newsroom:20261007:nNRA28i13c:0
+2026-Q1 (Jul-Sep),Quarterly,2026/27,3,Jul-Sep,RU,Russia,Wheat,Rusagrotrans,7000.0,7.0,"All Routes (Egypt 1.2M, AZ 0.5M, KZ 0.5M, NG 0.45M)",Actual/Reported,urn:newsml:newsroom:20261007:nNRA28i13c:0
+2025-Q1 (Jul-Sep),Quarterly,2025/26,3,Jul-Sep,RU,Russia,Wheat,Rusagrotrans,11300.0,11.3,All Routes,Actual,urn:newsml:newsroom:20261007:nNRA28i13c:0
+2026-Q1 (Jul-Sep),Quarterly,2026/27,3,Jul-Sep,RU,Russia,Barley,Rusagrotrans,1300.0,1.3,"All Routes (vs 2,400 kmt in Jul-Sep 2025)",Actual/Reported,urn:newsml:newsroom:20261001:nNRA25w7bz:0
+2026-Q1 (Jul-Sep),Quarterly,2026/27,3,Jul-Sep,RU,Russia,Corn,Rusagrotrans,884.0,0.884,All Routes (vs 993 kmt in Jul-Sep 2025),Actual/Reported,urn:newsml:newsroom:20261001:nNRA25w7bz:0
+2026-09,MonthlyCorridor,2026/27,3,Sep,RU,Russia,Total Grains,Russian Grain Union,530.0,0.53,Baltic: Ust-Luga Port (>30% share),Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-09,MonthlyCorridor,2026/27,3,Sep,RU,Russia,Total Grains,Russian Grain Union,353.0,0.353,Baltic: Vysotsk Port (~20% share),Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-09,MonthlyCorridor,2026/27,3,Sep,RU,Russia,Total Grains,SovEcon,400.0,0.4,Baltic: Latvia & Lithuania Transit Ports,Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-09,MonthlyCorridor,2026/27,3,Sep,RU,Russia,Total Grains,Russian Grain Union,40.0,0.04,Baltic: Kaliningrad Exclave,Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-09,MonthlyCorridor,2026/27,3,Sep,RU,Russia,Total Grains,Russian Grain Union,283.0,0.283,Black Sea: Novorossiysk & Tuapse Trickle,Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2019-07,Monthly,2019/20,1,Jul,UA,Ukraine,Wheat,Minagro (Ministry),1600.0,1.6,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190806:nL8N25244I:0
+2019-07,Monthly,2019/20,1,Jul,UA,Ukraine,Barley,Minagro (Ministry),1000.0,1.0,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190806:nL8N25244I:0
+2019-07,Monthly,2019/20,1,Jul,UA,Ukraine,Corn,Minagro (Ministry),1600.0,1.6,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190806:nL8N25244I:0
+2019-07,Monthly,2019/20,1,Jul,UA,Ukraine,Total Grains,Minagro (Ministry),4200.0,4.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190806:nL8N25244I:0
+2019-08,Monthly,2019/20,2,Aug,UA,Ukraine,Wheat,Minagro (Ministry),2470.0,2.47,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190828:nL5N25O5D3:0
+2019-08,Monthly,2019/20,2,Aug,UA,Ukraine,Barley,Minagro (Ministry),750.0,0.75,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190828:nL5N25O5D3:0
+2019-08,Monthly,2019/20,2,Aug,UA,Ukraine,Corn,Minagro (Ministry),180.0,0.18,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190828:nL5N25O5D3:0
+2019-08,Monthly,2019/20,2,Aug,UA,Ukraine,Total Grains,Minagro (Ministry),3400.0,3.4,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20190828:nL5N25O5D3:0
+2019-11,Monthly,2019/20,5,Nov,UA,Ukraine,Wheat,Minagro (Ministry),2580.0,2.58,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20191202:nL8N28C3B1:0
+2019-11,Monthly,2019/20,5,Nov,UA,Ukraine,Barley,Minagro (Ministry),300.0,0.3,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20191202:nL8N28C3B1:0
+2019-11,Monthly,2019/20,5,Nov,UA,Ukraine,Corn,Minagro (Ministry),3910.0,3.91,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20191202:nL8N28C3B1:0
+2019-11,Monthly,2019/20,5,Nov,UA,Ukraine,Total Grains,Minagro (Ministry),6790.0,6.79,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20191202:nL8N28C3B1:0
+2020-02,Monthly,2019/20,8,Feb,UA,Ukraine,Wheat,Minagro (Ministry),1000.0,1.0,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20200302:nL8N2AV4XW:0
+2020-02,Monthly,2019/20,8,Feb,UA,Ukraine,Barley,Minagro (Ministry),150.0,0.15,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20200302:nL8N2AV4XW:0
+2020-02,Monthly,2019/20,8,Feb,UA,Ukraine,Corn,Minagro (Ministry),4700.0,4.7,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20200302:nL8N2AV4XW:0
+2020-02,Monthly,2019/20,8,Feb,UA,Ukraine,Total Grains,Minagro (Ministry),5850.0,5.85,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20200302:nL8N2AV4XW:0
+2020-10,Monthly,2020/21,4,Oct,UA,Ukraine,Wheat,Minagro (Ministry),2400.0,2.4,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20201102:nL1N2HO0YB:0
+2020-10,Monthly,2020/21,4,Oct,UA,Ukraine,Barley,Minagro (Ministry),500.0,0.5,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20201102:nL1N2HO0YB:0
+2020-10,Monthly,2020/21,4,Oct,UA,Ukraine,Corn,Minagro (Ministry),1869.0,1.869,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20201102:nL1N2HO0YB:0
+2020-10,Monthly,2020/21,4,Oct,UA,Ukraine,Total Grains,Minagro (Ministry),4769.0,4.769,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20201102:nL1N2HO0YB:0
+2021-01,Monthly,2020/21,7,Jan,UA,Ukraine,Wheat,Minagro (Ministry),610.0,0.61,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210129:nL1N2K40MF:0
+2021-01,Monthly,2020/21,7,Jan,UA,Ukraine,Barley,Minagro (Ministry),150.0,0.15,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210129:nL1N2K40MF:0
+2021-01,Monthly,2020/21,7,Jan,UA,Ukraine,Corn,Minagro (Ministry),2030.0,2.03,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210129:nL1N2K40MF:0
+2021-01,Monthly,2020/21,7,Jan,UA,Ukraine,Total Grains,Minagro (Ministry),2790.0,2.79,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210129:nL1N2K40MF:0
+2021-02,Monthly,2020/21,8,Feb,UA,Ukraine,Wheat,Minagro (Ministry),780.0,0.78,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210303:nL2N2L1158:0
+2021-02,Monthly,2020/21,8,Feb,UA,Ukraine,Barley,Minagro (Ministry),60.0,0.06,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210303:nL2N2L1158:0
+2021-02,Monthly,2020/21,8,Feb,UA,Ukraine,Corn,Minagro (Ministry),3590.0,3.59,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210303:nL2N2L1158:0
+2021-02,Monthly,2020/21,8,Feb,UA,Ukraine,Total Grains,Minagro (Ministry),4430.0,4.43,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210303:nL2N2L1158:0
+2021-03,Monthly,2020/21,9,Mar,UA,Ukraine,Wheat,Minagro (Ministry),530.0,0.53,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210401:nL1N2LT10G:0
+2021-03,Monthly,2020/21,9,Mar,UA,Ukraine,Barley,Minagro (Ministry),130.0,0.13,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210401:nL1N2LT10G:0
+2021-03,Monthly,2020/21,9,Mar,UA,Ukraine,Corn,Minagro (Ministry),2120.0,2.12,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210401:nL1N2LT10G:0
+2021-03,Monthly,2020/21,9,Mar,UA,Ukraine,Total Grains,Minagro (Ministry),2780.0,2.78,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210401:nL1N2LT10G:0
+2021-04,Monthly,2020/21,10,Apr,UA,Ukraine,Wheat,Minagro (Ministry),830.0,0.83,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210505:nL1N2MS0WC:0
+2021-04,Monthly,2020/21,10,Apr,UA,Ukraine,Barley,Minagro (Ministry),30.0,0.03,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210505:nL1N2MS0WC:0
+2021-04,Monthly,2020/21,10,Apr,UA,Ukraine,Corn,Minagro (Ministry),3060.0,3.06,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210505:nL1N2MS0WC:0
+2021-04,Monthly,2020/21,10,Apr,UA,Ukraine,Total Grains,Minagro (Ministry),3920.0,3.92,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210505:nL1N2MS0WC:0
+2021-05,Monthly,2020/21,11,May,UA,Ukraine,Wheat,Minagro (Ministry),750.0,0.75,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210531:nL5N2NI1N8:0
+2021-05,Monthly,2020/21,11,May,UA,Ukraine,Barley,Minagro (Ministry),50.0,0.05,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210531:nL5N2NI1N8:0
+2021-05,Monthly,2020/21,11,May,UA,Ukraine,Corn,Minagro (Ministry),2000.0,2.0,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210531:nL5N2NI1N8:0
+2021-05,Monthly,2020/21,11,May,UA,Ukraine,Total Grains,Minagro (Ministry),2800.0,2.8,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20210531:nL5N2NI1N8:0
+2021-06,Monthly,2020/21,12,Jun,UA,Ukraine,Wheat,Minagro (Ministry),759.0,0.759,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220701:nL1N2YJ04N:0
+2021-06,Monthly,2020/21,12,Jun,UA,Ukraine,Barley,Minagro (Ministry),60.0,0.06,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220701:nL1N2YJ04N:0
+2021-06,Monthly,2020/21,12,Jun,UA,Ukraine,Corn,Minagro (Ministry),1937.0,1.937,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220701:nL1N2YJ04N:0
+2021-06,Monthly,2020/21,12,Jun,UA,Ukraine,Total Grains,Minagro (Ministry),2756.0,2.756,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220701:nL1N2YJ04N:0
+2021-11,Monthly,2021/22,5,Nov,UA,Ukraine,Wheat,Minagro (Ministry),2170.0,2.17,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20211201:nL8N2SM28U:0
+2021-11,Monthly,2021/22,5,Nov,UA,Ukraine,Barley,Minagro (Ministry),400.0,0.4,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20211201:nL8N2SM28U:0
+2021-11,Monthly,2021/22,5,Nov,UA,Ukraine,Corn,Minagro (Ministry),3200.0,3.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20211201:nL8N2SM28U:0
+2021-11,Monthly,2021/22,5,Nov,UA,Ukraine,Total Grains,Minagro (Ministry),5770.0,5.77,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20211201:nL8N2SM28U:0
+2021-12,Monthly,2021/22,6,Dec,UA,Ukraine,Wheat,Minagro (Ministry),1296.0,1.296,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2021-12,Monthly,2021/22,6,Dec,UA,Ukraine,Barley,Minagro (Ministry),296.0,0.296,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2021-12,Monthly,2021/22,6,Dec,UA,Ukraine,Corn,Minagro (Ministry),5324.0,5.324,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2021-12,Monthly,2021/22,6,Dec,UA,Ukraine,Total Grains,Minagro (Ministry),6916.0,6.916,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2022-06,Monthly,2021/22,12,Jun,UA,Ukraine,Wheat,Minagro (Ministry),142.0,0.142,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2022-06,Monthly,2021/22,12,Jun,UA,Ukraine,Barley,Minagro (Ministry),47.0,0.047,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2022-06,Monthly,2021/22,12,Jun,UA,Ukraine,Corn,Minagro (Ministry),1009.0,1.009,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2022-06,Monthly,2021/22,12,Jun,UA,Ukraine,Total Grains,Minagro (Ministry),1198.0,1.198,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2022-07,Monthly,2022/23,1,Jul,UA,Ukraine,Wheat,Minagro (Ministry),361.0,0.361,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2022-07,Monthly,2022/23,1,Jul,UA,Ukraine,Barley,Minagro (Ministry),142.0,0.142,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2022-07,Monthly,2022/23,1,Jul,UA,Ukraine,Corn,Minagro (Ministry),1100.0,1.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2022-07,Monthly,2022/23,1,Jul,UA,Ukraine,Total Grains,Minagro (Ministry),1603.0,1.603,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2022-08,Monthly,2022/23,2,Aug,UA,Ukraine,Wheat,Minagro (Ministry),829.0,0.829,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220902:nL1N309129:0
+2022-08,Monthly,2022/23,2,Aug,UA,Ukraine,Barley,Minagro (Ministry),219.0,0.219,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220902:nL1N309129:0
+2022-08,Monthly,2022/23,2,Aug,UA,Ukraine,Corn,Minagro (Ministry),1490.0,1.49,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220902:nL1N309129:0
+2022-08,Monthly,2022/23,2,Aug,UA,Ukraine,Total Grains,Minagro (Ministry),2538.0,2.538,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20220902:nL1N309129:0
+2022-09,Monthly,2022/23,3,Sep,UA,Ukraine,Wheat,Minagro (Ministry),1810.0,1.81,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221001:nL1N31205N:0
+2022-09,Monthly,2022/23,3,Sep,UA,Ukraine,Barley,Minagro (Ministry),401.0,0.401,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221001:nL1N31205N:0
+2022-09,Monthly,2022/23,3,Sep,UA,Ukraine,Corn,Minagro (Ministry),2210.0,2.21,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221001:nL1N31205N:0
+2022-09,Monthly,2022/23,3,Sep,UA,Ukraine,Total Grains,Minagro (Ministry),4421.0,4.421,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221001:nL1N31205N:0
+2022-10,Monthly,2022/23,4,Oct,UA,Ukraine,Wheat,Minagro (Ministry),2100.0,2.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221102:nL8N31Y2LT:0
+2022-10,Monthly,2022/23,4,Oct,UA,Ukraine,Barley,Minagro (Ministry),338.0,0.338,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221102:nL8N31Y2LT:0
+2022-10,Monthly,2022/23,4,Oct,UA,Ukraine,Corn,Minagro (Ministry),2300.0,2.3,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221102:nL8N31Y2LT:0
+2022-10,Monthly,2022/23,4,Oct,UA,Ukraine,Total Grains,Minagro (Ministry),4738.0,4.738,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20221102:nL8N31Y2LT:0
+2022-11,Monthly,2022/23,5,Nov,UA,Ukraine,Wheat,Minagro (Ministry),1600.0,1.6,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231127:nL1N3CS0C9:0
+2022-11,Monthly,2022/23,5,Nov,UA,Ukraine,Barley,Minagro (Ministry),350.0,0.35,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231127:nL1N3CS0C9:0
+2022-11,Monthly,2022/23,5,Nov,UA,Ukraine,Corn,Minagro (Ministry),2200.0,2.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231127:nL1N3CS0C9:0
+2022-11,Monthly,2022/23,5,Nov,UA,Ukraine,Total Grains,Minagro (Ministry),4150.0,4.15,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231127:nL1N3CS0C9:0
+2022-12,Monthly,2022/23,6,Dec,UA,Ukraine,Wheat,Minagro (Ministry),1682.0,1.682,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2022-12,Monthly,2022/23,6,Dec,UA,Ukraine,Barley,Minagro (Ministry),173.0,0.173,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2022-12,Monthly,2022/23,6,Dec,UA,Ukraine,Corn,Minagro (Ministry),3223.0,3.223,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2022-12,Monthly,2022/23,6,Dec,UA,Ukraine,Total Grains,Minagro (Ministry),5078.0,5.078,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230102:nL1N33N06T:0
+2023-01,Monthly,2022/23,7,Jan,UA,Ukraine,Wheat,Minagro (Ministry),1018.0,1.018,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230130:nL1N34F0R5:0
+2023-01,Monthly,2022/23,7,Jan,UA,Ukraine,Barley,Minagro (Ministry),177.0,0.177,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230130:nL1N34F0R5:0
+2023-01,Monthly,2022/23,7,Jan,UA,Ukraine,Corn,Minagro (Ministry),2377.0,2.377,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230130:nL1N34F0R5:0
+2023-01,Monthly,2022/23,7,Jan,UA,Ukraine,Total Grains,Minagro (Ministry),3572.0,3.572,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230130:nL1N34F0R5:0
+2023-02,Monthly,2022/23,8,Feb,UA,Ukraine,Wheat,Minagro (Ministry),1800.0,1.8,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230227:nL1N3570JQ:0
+2023-02,Monthly,2022/23,8,Feb,UA,Ukraine,Barley,Minagro (Ministry),200.0,0.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230227:nL1N3570JQ:0
+2023-02,Monthly,2022/23,8,Feb,UA,Ukraine,Corn,Minagro (Ministry),3100.0,3.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230227:nL1N3570JQ:0
+2023-02,Monthly,2022/23,8,Feb,UA,Ukraine,Total Grains,Minagro (Ministry),5100.0,5.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230227:nL1N3570JQ:0
+2023-03,Monthly,2022/23,9,Mar,UA,Ukraine,Wheat,Minagro (Ministry),1600.0,1.6,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230329:nL1N36116Y:0
+2023-03,Monthly,2022/23,9,Mar,UA,Ukraine,Barley,Minagro (Ministry),270.0,0.27,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230329:nL1N36116Y:0
+2023-03,Monthly,2022/23,9,Mar,UA,Ukraine,Corn,Minagro (Ministry),4000.0,4.0,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230329:nL1N36116Y:0
+2023-03,Monthly,2022/23,9,Mar,UA,Ukraine,Total Grains,Minagro (Ministry),5870.0,5.87,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230329:nL1N36116Y:0
+2023-04,Monthly,2022/23,10,Apr,UA,Ukraine,Wheat,Minagro (Ministry),1600.0,1.6,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230501:nL1N36Y0DC:0
+2023-04,Monthly,2022/23,10,Apr,UA,Ukraine,Barley,Minagro (Ministry),230.0,0.23,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230501:nL1N36Y0DC:0
+2023-04,Monthly,2022/23,10,Apr,UA,Ukraine,Corn,Minagro (Ministry),2400.0,2.4,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230501:nL1N36Y0DC:0
+2023-04,Monthly,2022/23,10,Apr,UA,Ukraine,Total Grains,Minagro (Ministry),4230.0,4.23,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230501:nL1N36Y0DC:0
+2023-05,Monthly,2022/23,11,May,UA,Ukraine,Wheat,Minagro (Ministry),1200.0,1.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230606:nL1N37Y13P:0
+2023-05,Monthly,2022/23,11,May,UA,Ukraine,Barley,Minagro (Ministry),200.0,0.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230606:nL1N37Y13P:0
+2023-05,Monthly,2022/23,11,May,UA,Ukraine,Corn,Minagro (Ministry),2700.0,2.7,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230606:nL1N37Y13P:0
+2023-05,Monthly,2022/23,11,May,UA,Ukraine,Total Grains,Minagro (Ministry),4100.0,4.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230606:nL1N37Y13P:0
+2023-06,Monthly,2022/23,12,Jun,UA,Ukraine,Wheat,Minagro (Ministry),1236.0,1.236,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2023-06,Monthly,2022/23,12,Jun,UA,Ukraine,Barley,Minagro (Ministry),4.0,0.004,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2023-06,Monthly,2022/23,12,Jun,UA,Ukraine,Corn,Minagro (Ministry),2028.0,2.028,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2023-06,Monthly,2022/23,12,Jun,UA,Ukraine,Total Grains,Minagro (Ministry),3268.0,3.268,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230702:nL1N38O02A:0
+2023-07,Monthly,2023/24,1,Jul,UA,Ukraine,Wheat,Minagro (Ministry),758.0,0.758,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2023-07,Monthly,2023/24,1,Jul,UA,Ukraine,Barley,Minagro (Ministry),285.0,0.285,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2023-07,Monthly,2023/24,1,Jul,UA,Ukraine,Corn,Minagro (Ministry),1110.0,1.11,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2023-07,Monthly,2023/24,1,Jul,UA,Ukraine,Total Grains,Minagro (Ministry),2153.0,2.153,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230731:nL1N39H0IB:0
+2023-08,Monthly,2023/24,2,Aug,UA,Ukraine,Wheat,Minagro (Ministry),1122.0,1.122,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230830:nL1N3AB0N4:0
+2023-08,Monthly,2023/24,2,Aug,UA,Ukraine,Barley,Minagro (Ministry),185.0,0.185,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230830:nL1N3AB0N4:0
+2023-08,Monthly,2023/24,2,Aug,UA,Ukraine,Corn,Minagro (Ministry),870.0,0.87,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230830:nL1N3AB0N4:0
+2023-08,Monthly,2023/24,2,Aug,UA,Ukraine,Total Grains,Minagro (Ministry),2177.0,2.177,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20230830:nL1N3AB0N4:0
+2023-09,Monthly,2023/24,3,Sep,UA,Ukraine,Wheat,Minagro (Ministry),1420.0,1.42,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231002:nL2N3B80JV:0
+2023-09,Monthly,2023/24,3,Sep,UA,Ukraine,Barley,Minagro (Ministry),152.0,0.152,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231002:nL2N3B80JV:0
+2023-09,Monthly,2023/24,3,Sep,UA,Ukraine,Corn,Minagro (Ministry),720.0,0.72,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231002:nL2N3B80JV:0
+2023-09,Monthly,2023/24,3,Sep,UA,Ukraine,Total Grains,Minagro (Ministry),2292.0,2.292,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231002:nL2N3B80JV:0
+2023-10,Monthly,2023/24,4,Oct,UA,Ukraine,Wheat,Minagro (Ministry),1300.0,1.3,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231101:nL1N3C20KB:0
+2023-10,Monthly,2023/24,4,Oct,UA,Ukraine,Barley,Minagro (Ministry),60.0,0.06,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231101:nL1N3C20KB:0
+2023-10,Monthly,2023/24,4,Oct,UA,Ukraine,Corn,Minagro (Ministry),1100.0,1.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231101:nL1N3C20KB:0
+2023-10,Monthly,2023/24,4,Oct,UA,Ukraine,Total Grains,Minagro (Ministry),2460.0,2.46,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20231101:nL1N3C20KB:0
+2023-11,Monthly,2023/24,5,Nov,UA,Ukraine,Wheat,Minagro (Ministry),1330.0,1.33,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20241202:nL2N3N309V:0
+2023-11,Monthly,2023/24,5,Nov,UA,Ukraine,Barley,Minagro (Ministry),198.0,0.198,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20241202:nL2N3N309V:0
+2023-11,Monthly,2023/24,5,Nov,UA,Ukraine,Corn,Minagro (Ministry),2670.0,2.67,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20241202:nL2N3N309V:0
+2023-11,Monthly,2023/24,5,Nov,UA,Ukraine,Total Grains,Minagro (Ministry),4198.0,4.198,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20241202:nL2N3N309V:0
+2024-02,Monthly,2023/24,8,Feb,UA,Ukraine,Wheat,Minagro (Ministry),2910.0,2.91,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250303:nL2N3PM095:0
+2024-02,Monthly,2023/24,8,Feb,UA,Ukraine,Barley,Minagro (Ministry),220.0,0.22,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250303:nL2N3PM095:0
+2024-02,Monthly,2023/24,8,Feb,UA,Ukraine,Corn,Minagro (Ministry),3640.0,3.64,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250303:nL2N3PM095:0
+2024-02,Monthly,2023/24,8,Feb,UA,Ukraine,Total Grains,Minagro (Ministry),6770.0,6.77,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250303:nL2N3PM095:0
+2024-03,Monthly,2023/24,9,Mar,UA,Ukraine,Wheat,Minagro (Ministry),2290.0,2.29,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250402:nL2N3QG09N:0
+2024-03,Monthly,2023/24,9,Mar,UA,Ukraine,Barley,Minagro (Ministry),350.0,0.35,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250402:nL2N3QG09N:0
+2024-03,Monthly,2023/24,9,Mar,UA,Ukraine,Corn,Minagro (Ministry),3420.0,3.42,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250402:nL2N3QG09N:0
+2024-03,Monthly,2023/24,9,Mar,UA,Ukraine,Total Grains,Minagro (Ministry),6060.0,6.06,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250402:nL2N3QG09N:0
+2024-04,Monthly,2023/24,10,Apr,UA,Ukraine,Wheat,Minagro (Ministry),1320.0,1.32,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2024-04,Monthly,2023/24,10,Apr,UA,Ukraine,Barley,Minagro (Ministry),210.0,0.21,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2024-04,Monthly,2023/24,10,Apr,UA,Ukraine,Corn,Minagro (Ministry),2970.0,2.97,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2024-04,Monthly,2023/24,10,Apr,UA,Ukraine,Total Grains,Minagro (Ministry),4500.0,4.5,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2024-05,Monthly,2023/24,11,May,UA,Ukraine,Wheat,Minagro (Ministry),1890.0,1.89,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250602:nL2N3S5084:0
+2024-05,Monthly,2023/24,11,May,UA,Ukraine,Barley,Minagro (Ministry),210.0,0.21,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250602:nL2N3S5084:0
+2024-05,Monthly,2023/24,11,May,UA,Ukraine,Corn,Minagro (Ministry),4100.0,4.1,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250602:nL2N3S5084:0
+2024-05,Monthly,2023/24,11,May,UA,Ukraine,Total Grains,Minagro (Ministry),6200.0,6.2,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250602:nL2N3S5084:0
+2024-06,Monthly,2023/24,12,Jun,UA,Ukraine,Wheat,Minagro (Ministry),1137.0,1.137,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro / USDA PSD,USDA_PSD_2026
+2024-06,Monthly,2023/24,12,Jun,UA,Ukraine,Barley,Minagro (Ministry),92.0,0.092,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro / USDA PSD,USDA_PSD_2026
+2024-06,Monthly,2023/24,12,Jun,UA,Ukraine,Corn,Minagro (Ministry),2888.0,2.888,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro / USDA PSD,USDA_PSD_2026
+2024-06,Monthly,2023/24,12,Jun,UA,Ukraine,Total Grains,Minagro (Ministry),4117.0,4.117,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro / USDA PSD,USDA_PSD_2026
+2024-07,Monthly,2024/25,1,Jul,UA,Ukraine,Wheat,Minagro (Ministry),1440.0,1.44,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2024-07,Monthly,2024/25,1,Jul,UA,Ukraine,Barley,Minagro (Ministry),477.0,0.477,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2024-07,Monthly,2024/25,1,Jul,UA,Ukraine,Corn,Minagro (Ministry),1510.0,1.51,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2024-07,Monthly,2024/25,1,Jul,UA,Ukraine,Total Grains,Minagro (Ministry),3427.0,3.427,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2024-08,Monthly,2024/25,2,Aug,UA,Ukraine,Wheat,Minagro (Ministry),1950.0,1.95,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250828:nL1N3UK07B:1
+2024-08,Monthly,2024/25,2,Aug,UA,Ukraine,Barley,Minagro (Ministry),613.0,0.613,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250828:nL1N3UK07B:1
+2024-08,Monthly,2024/25,2,Aug,UA,Ukraine,Corn,Minagro (Ministry),730.0,0.73,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250828:nL1N3UK07B:1
+2024-08,Monthly,2024/25,2,Aug,UA,Ukraine,Total Grains,Minagro (Ministry),3293.0,3.293,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250828:nL1N3UK07B:1
+2024-09,Monthly,2024/25,3,Sep,UA,Ukraine,Wheat,Minagro (Ministry),2570.0,2.57,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251001:nL2N3VI0F7:1
+2024-09,Monthly,2024/25,3,Sep,UA,Ukraine,Barley,Minagro (Ministry),230.0,0.23,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251001:nL2N3VI0F7:1
+2024-09,Monthly,2024/25,3,Sep,UA,Ukraine,Corn,Minagro (Ministry),510.0,0.51,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251001:nL2N3VI0F7:1
+2024-09,Monthly,2024/25,3,Sep,UA,Ukraine,Total Grains,Minagro (Ministry),3310.0,3.31,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251001:nL2N3VI0F7:1
+2024-10,Monthly,2024/25,4,Oct,UA,Ukraine,Wheat,Minagro (Ministry),1720.0,1.72,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2024-10,Monthly,2024/25,4,Oct,UA,Ukraine,Barley,Minagro (Ministry),370.0,0.37,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2024-10,Monthly,2024/25,4,Oct,UA,Ukraine,Corn,Minagro (Ministry),1750.0,1.75,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2024-10,Monthly,2024/25,4,Oct,UA,Ukraine,Total Grains,Minagro (Ministry),3840.0,3.84,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2024-11,Monthly,2024/25,5,Nov,UA,Ukraine,Wheat,Minagro (Ministry),1140.0,1.14,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2024-11,Monthly,2024/25,5,Nov,UA,Ukraine,Barley,Minagro (Ministry),170.0,0.17,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2024-11,Monthly,2024/25,5,Nov,UA,Ukraine,Corn,Minagro (Ministry),2460.0,2.46,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2024-11,Monthly,2024/25,5,Nov,UA,Ukraine,Total Grains,Minagro (Ministry),3770.0,3.77,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2024-12,Monthly,2024/25,6,Dec,UA,Ukraine,Wheat,Minagro (Ministry),960.0,0.96,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2024-12,Monthly,2024/25,6,Dec,UA,Ukraine,Barley,Minagro (Ministry),110.0,0.11,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2024-12,Monthly,2024/25,6,Dec,UA,Ukraine,Corn,Minagro (Ministry),2820.0,2.82,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2024-12,Monthly,2024/25,6,Dec,UA,Ukraine,Total Grains,Minagro (Ministry),3890.0,3.89,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2025-01,Monthly,2024/25,7,Jan,UA,Ukraine,Wheat,Minagro (Ministry),960.0,0.96,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2025-01,Monthly,2024/25,7,Jan,UA,Ukraine,Barley,Minagro (Ministry),90.0,0.09,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2025-01,Monthly,2024/25,7,Jan,UA,Ukraine,Corn,Minagro (Ministry),2500.0,2.5,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2025-01,Monthly,2024/25,7,Jan,UA,Ukraine,Total Grains,Minagro (Ministry),3550.0,3.55,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2025-02,Monthly,2024/25,8,Feb,UA,Ukraine,Wheat,Minagro (Ministry),1270.0,1.27,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2025-02,Monthly,2024/25,8,Feb,UA,Ukraine,Barley,Minagro (Ministry),70.0,0.07,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2025-02,Monthly,2024/25,8,Feb,UA,Ukraine,Corn,Minagro (Ministry),2340.0,2.34,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2025-02,Monthly,2024/25,8,Feb,UA,Ukraine,Total Grains,Minagro (Ministry),3680.0,3.68,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2025-03,Monthly,2024/25,9,Mar,UA,Ukraine,Wheat,Minagro (Ministry),990.0,0.99,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2025-03,Monthly,2024/25,9,Mar,UA,Ukraine,Barley,Minagro (Ministry),80.0,0.08,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2025-03,Monthly,2024/25,9,Mar,UA,Ukraine,Corn,Minagro (Ministry),2230.0,2.23,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2025-03,Monthly,2024/25,9,Mar,UA,Ukraine,Total Grains,Minagro (Ministry),3300.0,3.3,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2025-04,Monthly,2024/25,10,Apr,UA,Ukraine,Wheat,Minagro (Ministry),870.0,0.87,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2025-04,Monthly,2024/25,10,Apr,UA,Ukraine,Barley,Minagro (Ministry),50.0,0.05,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2025-04,Monthly,2024/25,10,Apr,UA,Ukraine,Corn,Minagro (Ministry),1590.0,1.59,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2025-04,Monthly,2024/25,10,Apr,UA,Ukraine,Total Grains,Minagro (Ministry),2510.0,2.51,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:newsroom:20250430:nL1N3R80OC:0
+2025-05,Monthly,2024/25,11,May,UA,Ukraine,Wheat,Minagro (Ministry),990.0,0.99,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2025-05,Monthly,2024/25,11,May,UA,Ukraine,Barley,Minagro (Ministry),50.0,0.05,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2025-05,Monthly,2024/25,11,May,UA,Ukraine,Corn,Minagro (Ministry),2140.0,2.14,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2025-05,Monthly,2024/25,11,May,UA,Ukraine,Total Grains,Minagro (Ministry),3180.0,3.18,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2025-06,Monthly,2024/25,12,Jun,UA,Ukraine,Wheat,Minagro (Ministry),860.0,0.86,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2025-06,Monthly,2024/25,12,Jun,UA,Ukraine,Barley,Minagro (Ministry),10.0,0.01,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2025-06,Monthly,2024/25,12,Jun,UA,Ukraine,Corn,Minagro (Ministry),1380.0,1.38,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2025-06,Monthly,2024/25,12,Jun,UA,Ukraine,Total Grains,Minagro (Ministry),2250.0,2.25,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2025-07,Monthly,2025/26,1,Jul,UA,Ukraine,Wheat,Minagro (Ministry),487.0,0.487,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2025-07,Monthly,2025/26,1,Jul,UA,Ukraine,Barley,Minagro (Ministry),191.0,0.191,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2025-07,Monthly,2025/26,1,Jul,UA,Ukraine,Corn,Minagro (Ministry),613.0,0.613,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2025-07,Monthly,2025/26,1,Jul,UA,Ukraine,Total Grains,Minagro (Ministry),1291.0,1.291,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20250730:nL1N3TR0CH:1
+2025-08,Monthly,2025/26,2,Aug,UA,Ukraine,Wheat,Minagro (Ministry),2066.0,2.066,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2025-08,Monthly,2025/26,2,Aug,UA,Ukraine,Barley,Minagro (Ministry),371.0,0.371,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2025-08,Monthly,2025/26,2,Aug,UA,Ukraine,Corn,Minagro (Ministry),269.0,0.269,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2025-08,Monthly,2025/26,2,Aug,UA,Ukraine,Total Grains,Minagro (Ministry),2706.0,2.706,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2025-09,Monthly,2025/26,3,Sep,UA,Ukraine,Wheat,Minagro (Ministry),2143.0,2.143,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2025-09,Monthly,2025/26,3,Sep,UA,Ukraine,Barley,Minagro (Ministry),263.0,0.263,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2025-09,Monthly,2025/26,3,Sep,UA,Ukraine,Corn,Minagro (Ministry),31.0,0.031,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2025-09,Monthly,2025/26,3,Sep,UA,Ukraine,Total Grains,Minagro (Ministry),2437.0,2.437,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2025-10,Monthly,2025/26,4,Oct,UA,Ukraine,Wheat,Minagro (Ministry),1454.0,1.454,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2025-10,Monthly,2025/26,4,Oct,UA,Ukraine,Barley,Minagro (Ministry),235.0,0.235,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2025-10,Monthly,2025/26,4,Oct,UA,Ukraine,Corn,Minagro (Ministry),667.0,0.667,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2025-10,Monthly,2025/26,4,Oct,UA,Ukraine,Total Grains,Minagro (Ministry),2356.0,2.356,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251029:nL1N3WA0C6:1
+2025-11,Monthly,2025/26,5,Nov,UA,Ukraine,Wheat,Minagro (Ministry),1150.0,1.15,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2025-11,Monthly,2025/26,5,Nov,UA,Ukraine,Barley,Minagro (Ministry),110.0,0.11,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2025-11,Monthly,2025/26,5,Nov,UA,Ukraine,Corn,Minagro (Ministry),1890.0,1.89,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2025-11,Monthly,2025/26,5,Nov,UA,Ukraine,Total Grains,Minagro (Ministry),3150.0,3.15,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20251128:nL1N3X40CE:1
+2025-12,Monthly,2025/26,6,Dec,UA,Ukraine,Wheat,Minagro (Ministry),610.0,0.61,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2025-12,Monthly,2025/26,6,Dec,UA,Ukraine,Barley,Minagro (Ministry),150.0,0.15,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2025-12,Monthly,2025/26,6,Dec,UA,Ukraine,Corn,Minagro (Ministry),2490.0,2.49,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2025-12,Monthly,2025/26,6,Dec,UA,Ukraine,Total Grains,Minagro (Ministry),3250.0,3.25,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260102:nL1N3Y30BU:1
+2026-01,Monthly,2025/26,7,Jan,UA,Ukraine,Wheat,Minagro (Ministry),540.0,0.54,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2026-01,Monthly,2025/26,7,Jan,UA,Ukraine,Barley,Minagro (Ministry),20.0,0.02,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2026-01,Monthly,2025/26,7,Jan,UA,Ukraine,Corn,Minagro (Ministry),2660.0,2.66,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2026-01,Monthly,2025/26,7,Jan,UA,Ukraine,Total Grains,Minagro (Ministry),3220.0,3.22,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260130:nL1N3YV0BS:1
+2026-02,Monthly,2025/26,8,Feb,UA,Ukraine,Wheat,Minagro (Ministry),670.0,0.67,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2026-02,Monthly,2025/26,8,Feb,UA,Ukraine,Barley,Minagro (Ministry),10.0,0.01,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2026-02,Monthly,2025/26,8,Feb,UA,Ukraine,Corn,Minagro (Ministry),2920.0,2.92,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2026-02,Monthly,2025/26,8,Feb,UA,Ukraine,Total Grains,Minagro (Ministry),3600.0,3.6,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260302:nL1N3ZQ0BD:1
+2026-03,Monthly,2025/26,9,Mar,UA,Ukraine,Wheat,Minagro (Ministry),820.0,0.82,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2026-03,Monthly,2025/26,9,Mar,UA,Ukraine,Barley,Minagro (Ministry),50.0,0.05,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2026-03,Monthly,2025/26,9,Mar,UA,Ukraine,Corn,Minagro (Ministry),2590.0,2.59,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2026-03,Monthly,2025/26,9,Mar,UA,Ukraine,Total Grains,Minagro (Ministry),3460.0,3.46,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260331:nL1N40J072:1
+2026-04,Monthly,2025/26,10,Apr,UA,Ukraine,Wheat,Minagro (Ministry),1770.0,1.77,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260515:nL1N41S077:1
+2026-04,Monthly,2025/26,10,Apr,UA,Ukraine,Barley,Minagro (Ministry),70.0,0.07,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260515:nL1N41S077:1
+2026-04,Monthly,2025/26,10,Apr,UA,Ukraine,Corn,Minagro (Ministry),3720.0,3.72,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260515:nL1N41S077:1
+2026-04,Monthly,2025/26,10,Apr,UA,Ukraine,Total Grains,Minagro (Ministry),5560.0,5.56,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260515:nL1N41S077:1
+2026-05,Monthly,2025/26,11,May,UA,Ukraine,Wheat,Minagro (Ministry),1130.0,1.13,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2026-05,Monthly,2025/26,11,May,UA,Ukraine,Barley,Minagro (Ministry),10.0,0.01,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2026-05,Monthly,2025/26,11,May,UA,Ukraine,Corn,Minagro (Ministry),1750.0,1.75,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2026-05,Monthly,2025/26,11,May,UA,Ukraine,Total Grains,Minagro (Ministry),2890.0,2.89,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260605:nL1N42D0DG:1
+2026-06,Monthly,2025/26,12,Jun,UA,Ukraine,Wheat,Minagro (Ministry),1040.0,1.04,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2026-06,Monthly,2025/26,12,Jun,UA,Ukraine,Barley,Minagro (Ministry),40.0,0.04,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2026-06,Monthly,2025/26,12,Jun,UA,Ukraine,Corn,Minagro (Ministry),1330.0,1.33,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2026-06,Monthly,2025/26,12,Jun,UA,Ukraine,Total Grains,Minagro (Ministry),2410.0,2.41,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260626:nL1N42Y0DG:1
+2026-07,Monthly,2026/27,1,Jul,UA,Ukraine,Wheat,Minagro (Ministry),961.0,0.961,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260727:nL1N43T093:1
+2026-07,Monthly,2026/27,1,Jul,UA,Ukraine,Barley,Minagro (Ministry),183.0,0.183,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260727:nL1N43T093:1
+2026-07,Monthly,2026/27,1,Jul,UA,Ukraine,Corn,Minagro (Ministry),1209.0,1.209,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260727:nL1N43T093:1
+2026-07,Monthly,2026/27,1,Jul,UA,Ukraine,Total Grains,Minagro (Ministry),2353.0,2.353,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260727:nL1N43T093:1
+2026-08,Monthly,2026/27,2,Aug,UA,Ukraine,Wheat,Minagro (Ministry),716.0,0.716,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2026-08,Monthly,2026/27,2,Aug,UA,Ukraine,Barley,Minagro (Ministry),185.0,0.185,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2026-08,Monthly,2026/27,2,Aug,UA,Ukraine,Corn,Minagro (Ministry),411.0,0.411,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2026-08,Monthly,2026/27,2,Aug,UA,Ukraine,Total Grains,Minagro (Ministry),1312.0,1.312,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20260902:nL8N44U19M:1
+2026-09,Monthly,2026/27,3,Sep,UA,Ukraine,Wheat,Minagro (Ministry),1102.0,1.102,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2026-09,Monthly,2026/27,3,Sep,UA,Ukraine,Barley,Minagro (Ministry),80.0,0.08,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2026-09,Monthly,2026/27,3,Sep,UA,Ukraine,Corn,Minagro (Ministry),309.0,0.309,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2026-09,Monthly,2026/27,3,Sep,UA,Ukraine,Total Grains,Minagro (Ministry),1491.0,1.491,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Official,urn:newsml:reuters.com:20261001:nL1N45N07J:1
+2026-10,Monthly,2026/27,4,Oct,UA,Ukraine,Wheat,Minagro (Ministry),348.0,0.348,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Oct 1-12 MTD,urn:newsml:reuters.com:20261012:nL1N45Y0D7:1
+2026-10,Monthly,2026/27,4,Oct,UA,Ukraine,Barley,Minagro (Ministry),12.0,0.012,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Oct 1-12 MTD,urn:newsml:reuters.com:20261012:nL1N45Y0D7:1
+2026-10,Monthly,2026/27,4,Oct,UA,Ukraine,Corn,Minagro (Ministry),76.0,0.076,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Oct 1-12 MTD,urn:newsml:reuters.com:20261012:nL1N45Y0D7:1
+2026-10,Monthly,2026/27,4,Oct,UA,Ukraine,Total Grains,Minagro (Ministry),436.0,0.436,"All Ukrainian Ports, Danube & Western Land Crossings",Minagro Oct 1-12 MTD,urn:newsml:reuters.com:20261012:nL1N45Y0D7:1
+2026-07 (Early Jul wk),Weekly,2026/27,1,Jul,UA,Ukraine,Total Grains,APK-Inform,760.0,0.76,Normal Pre-Blockade Odesa + Danube,Actual,urn:newsml:reuters.com:20260830:nL1N44R01C:2
+2026-08-20/26,Weekly,2026/27,2,Aug,UA,Ukraine,Total Grains,APK-Inform,240.9,0.241,Danube + Western Land Borders (Odesa Blocked),Actual,urn:newsml:reuters.com:20260830:nL1N44R01C:2
+2026-08-20/26,Weekly,2026/27,2,Aug,UA,Ukraine,Wheat,APK-Inform,173.3,0.173,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260830:nL1N44R01C:2
+2026-08-20/26,Weekly,2026/27,2,Aug,UA,Ukraine,Corn,APK-Inform,58.9,0.059,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260830:nL1N44R01C:2
+2026-08-20/26,Weekly,2026/27,2,Aug,UA,Ukraine,Barley,APK-Inform,8.6,0.009,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260830:nL1N44R01C:2
+2026-08-27/09-02,Weekly,2026/27,2,Aug/Sep,UA,Ukraine,Total Grains,APK-Inform,433.7,0.434,Danube + Western Land Borders (+80% WoW),Actual,urn:newsml:reuters.com:20260907:nL1N44Z03Z:1
+2026-09-03/09,Weekly,2026/27,3,Sep,UA,Ukraine,Total Grains,APK-Inform,296.6,0.297,Danube + Western Land Borders (-32% WoW),Actual,urn:newsml:reuters.com:20260914:nL8N4560GX:1
+2026-09-03/09,Weekly,2026/27,3,Sep,UA,Ukraine,Wheat,APK-Inform,204.0,0.204,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260914:nL8N4560GX:1
+2026-09-03/09,Weekly,2026/27,3,Sep,UA,Ukraine,Corn,APK-Inform,70.5,0.07,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260914:nL8N4560GX:1
+2026-09-03/09,Weekly,2026/27,3,Sep,UA,Ukraine,Barley,APK-Inform,22.1,0.022,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260914:nL8N4560GX:1
+2026-09-10/16,Weekly,2026/27,3,Sep,UA,Ukraine,Total Grains,APK-Inform,270.3,0.27,Danube + Western Land Borders (-9% WoW),Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-10/16,Weekly,2026/27,3,Sep,UA,Ukraine,Wheat,APK-Inform,206.4,0.206,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-10/16,Weekly,2026/27,3,Sep,UA,Ukraine,Corn,APK-Inform,58.0,0.058,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-10/16,Weekly,2026/27,3,Sep,UA,Ukraine,Barley,APK-Inform,5.9,0.006,Danube + Western Land Borders,Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-17/23,Weekly,2026/27,3,Sep,UA,Ukraine,Total Grains,APK-Inform,372.2,0.372,Rail Crossings 503.4k / Danube 132.2k (+40% WoW),Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-17/23,Weekly,2026/27,3,Sep,UA,Ukraine,Wheat,APK-Inform,273.7,0.274,Danube + Western Land Borders (+32.6% WoW),Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-17/23,Weekly,2026/27,3,Sep,UA,Ukraine,Corn,APK-Inform,64.4,0.064,Danube + Western Land Borders (+11.1% WoW),Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09-17/23,Weekly,2026/27,3,Sep,UA,Ukraine,Barley,APK-Inform,34.1,0.034,Danube + Western Land Borders (+480% WoW),Actual,urn:newsml:reuters.com:20260928:nL8N45K0IM:1
+2026-09 (Rail),MonthlyRail,2026/27,3,Sep,UA,Ukraine,Total Grains,Ukrzaliznytsia (State Rail),814.0,0.814,Rail Export Deliveries (+21.2% MoM vs Aug),Actual,urn:newsml:reuters.com:20261008:nL1N45U07V:2
+2026-10-01/06,Weekly,2026/27,4,Oct,UA,Ukraine,Total Grains,Ukrzaliznytsia (State Rail),177.07,0.177,EU Land Borders: 166.18k (+34.4%) / Danube: 14.50k (-65.7%),Actual,urn:newsml:reuters.com:20261008:nL1N45U07V:2

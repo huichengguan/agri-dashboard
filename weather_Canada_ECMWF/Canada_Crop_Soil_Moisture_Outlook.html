@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Crop Dual-Layer Soil Moisture Outlook | ECMWF IFS 0.25°</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-card: #151d2f;
+            --bg-row-alt: #101625;
+            --border-color: #23314d;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --text-muted: #64748b;
+            --accent-blue: #38bdf8;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            padding: 24px;
+            line-height: 1.45;
+        }
+
+        /* Suite Nav */
+        .suite-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .suite-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        .suite-brand-badge {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .suite-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suite-tab {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: #0b0f19;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+        .suite-tab:hover { color: #f8fafc; border-color: #38bdf8; }
+        .suite-tab.active { background: #0284c7; color: #ffffff; border-color: #38bdf8; font-weight: 700; }
+
+        /* Header */
+        .header-card {
+            background: linear-gradient(135deg, #151d2f 0%, #0b0f19 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+        .header-title h1 { font-size: 24px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 10px; }
+        .header-title p { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+
+        .kpi-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .kpi-card {
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+        .kpi-val { font-size: 22px; font-weight: 800; color: #ffffff; }
+        .kpi-lbl { font-size: 12px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-top: 2px; }
+
+        /* Filter bar */
+        .controls-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .search-box {
+            background: #0b0f19;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: #f8fafc;
+            font-size: 13px;
+            width: 240px;
+            outline: none;
+        }
+        .filter-btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
+        .f-btn {
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #0b0f19;
+            color: #94a3b8;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+        .f-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
+
+        /* Table */
+        .table-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #1a243b;
+            vertical-align: top;
+        }
+        th {
+            background: #090e18;
+            color: var(--text-sub);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+        }
+        th:hover { color: #38bdf8; }
+
+        .reg-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(56, 189, 248, 0.08);
+            border-left: 4px solid var(--accent-blue);
+            padding: 8px 14px;
+            border-radius: 4px;
+        }
+        .reg-banner-title { font-weight: 800; font-size: 13px; color: #38bdf8; }
+        .reg-banner-count { font-size: 11px; color: #94a3b8; font-weight: 600; }
+
+        .loc-country { font-size: 11px; color: #38bdf8; text-transform: uppercase; font-weight: 700; }
+        .loc-name { font-size: 14px; color: #f8fafc; margin: 2px 0; }
+        .loc-code { font-size: 11px; color: #94a3b8; }
+        .loc-district { font-size: 11.5px; color: #64748b; }
+
+        .crop-badge {
+            display: inline-block;
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin: 2px;
+        }
+        .badge-corn { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .badge-rapeseed { background: rgba(250, 204, 21, 0.15); color: #fef08a; border: 1px solid rgba(250, 204, 21, 0.3); }
+        .badge-wheat { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-soy { background: rgba(34, 197, 94, 0.15); color: #bbf7d0; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .yield-tag { color: #94a3b8; font-size: 10.5px; }
+
+        .moist-pill {
+            padding: 6px 10px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        .moist-desc { font-size: 11px; color: #94a3b8; margin-top: 4px; max-width: 220px; }
+
+        .trend-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .trend-up { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .trend-down { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .trend-flat { background: rgba(148, 163, 184, 0.12); color: #cbd5e1; border: 1px solid #334155; }
+        .delta-raw { font-size: 10.5px; color: #64748b; margin-top: 3px; }
+
+        .rain-val { font-weight: 800; font-size: 13px; color: #38bdf8; }
+        .rain-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+        .comment-text { font-size: 11.5px; color: #cbd5e1; line-height: 1.45; max-width: 360px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <div class="suite-nav">
+        <div class="suite-brand">
+            <span>🇨🇦</span>
+            <span>Canadian Crop Ag-Weather Intelligence Suite</span>
+            <span class="suite-brand-badge">ECMWF IFS 0.25°</span>
+        </div>
+        <div class="suite-tabs">
+            <a href="Canada_Crop_2_Week_Outlook.html" class="suite-tab">🌧️ 2-Week Outlook</a>
+            <a href="Canada_Crop_Soil_Moisture_Outlook.html" class="suite-tab active">🌱 Soil Moisture Outlook</a>
+            <a href="Canada_Crop_Temperature_Outlook.html" class="suite-tab">🌡️ Thermal Stress Outlook</a>
+            <a href="Canada_Crop_Weather_Matrix.html" class="suite-tab">📊 Matrix</a>
+        </div>
+    </div>
+
+    <!-- Header Card & KPIs -->
+    <div class="header-card">
+        <div class="header-top">
+            <div class="header-title">
+                <h1>🌱 Canadian Crop Dual-Layer Soil Moisture Outlook</h1>
+                <p>Explicit Topsoil (0–7 cm shallow seedbed) and Subsoil (7–100 cm deep root zone) volumetric water content across Prairie &amp; Eastern Canadian agricultural belts</p>
+            </div>
+            <div style="font-size: 12px; color: var(--text-sub);">
+                Model: <strong>ECMWF IFS (0.25°) Seamless Operational & ERA5 Ag-Reanalysis</strong> • Updated: 2026-10-12 16:43:20 UTC
+            </div>
+        </div>
+
+        <div class="kpi-deck">
+            <div class="kpi-card">
+                <div class="kpi-val">0.344 <span style="font-size: 13px; color: var(--text-sub);">m³/m³</span></div>
+                <div class="kpi-lbl">Canadian Mean Topsoil (0–7 cm)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val">0.259 <span style="font-size: 13px; color: var(--text-sub);">m³/m³</span></div>
+                <div class="kpi-lbl">Canadian Mean Subsoil (7–100 cm)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val" style="color: #34d399;">100%</div>
+                <div class="kpi-lbl">Regions Adequate / Favorable+</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val" style="color: #38bdf8;">10 <span style="font-size: 13px; color: var(--text-sub);">Basins</span></div>
+                <div class="kpi-lbl">7-Day Topsoil Recharge</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-val" style="color: #fb923c;">3 <span style="font-size: 13px; color: var(--text-sub);">Basins</span></div>
+                <div class="kpi-lbl">7-Day Seedbed Drydown</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="controls-card">
+        <input type="text" class="search-box" id="search-input" placeholder="🔍 Search province, basin, crop..." oninput="filterRows()">
+
+        <div class="filter-btn-group" id="status-btn-group">
+            <button class="f-btn active" onclick="setStatusFilter('ALL', this)">All Statuses</button>
+            <button class="f-btn" onclick="setStatusFilter('Surplus', this)">Surplus</button>
+            <button class="f-btn" onclick="setStatusFilter('Favorable', this)">Favorable</button>
+            <button class="f-btn" onclick="setStatusFilter('Adequate', this)">Adequate</button>
+            <button class="f-btn" onclick="setStatusFilter('Moderate Stress', this)">Moderate Stress</button>
+            <button class="f-btn" onclick="setStatusFilter('Severe Drought', this)">Severe Drought</button>
+        </div>
+
+        <div class="filter-btn-group" id="crop-btn-group">
+            <button class="f-btn active" onclick="setCropFilter('ALL', this)">All Crops</button>
+            <button class="f-btn" onclick="setCropFilter('wheat', this)">🌾 Wheat</button>
+            <button class="f-btn" onclick="setCropFilter('rapeseed', this)">🌼 Rapeseed / Canola</button>
+            <button class="f-btn" onclick="setCropFilter('corn', this)">🌽 Corn</button>
+            <button class="f-btn" onclick="setCropFilter('soy', this)">🫘 Soybeans</button>
+        </div>
+
+        <div class="filter-btn-group">
+            <button class="f-btn active" id="btn-m3" onclick="toggleUnit('m3')">Metric (m³/m³ • mm)</button>
+            <button class="f-btn" id="btn-pct" onclick="toggleUnit('pct')">Imperial (% Cap • in)</button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+        <table id="soil-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('name')">Location / District &#8645;</th>
+                    <th>Core Commodities &amp; StatCan Shares</th>
+                    <th onclick="sortTable('top')">Topsoil Moisture (0–7 cm) &#8645;</th>
+                    <th onclick="sortTable('sub')">Subsoil Moisture (7–100 cm) &#8645;</th>
+                    <th onclick="sortTable('delta')">7D Moisture Trend &#8645;</th>
+                    <th onclick="sortTable('rain')">7D / 14D Fwd Precip &#8645;</th>
+                    <th>Agronomic Soil &amp; Fieldwork Diagnosis</th>
+                </tr>
+            </thead>
+            <tbody id="soil-tbody">
+                
+        <tr class="region-header-row" data-region="Saskatchewan - Prairie Canola, Spring Wheat & Durum Heartland">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Saskatchewan - Prairie Canola, Spring Wheat & Durum Heartland</span>
+                    <span class="reg-banner-count">3 Agricultural Regions</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row"
+                data-name="Southern Saskatchewan Durum & Wheat Plain"
+                data-code="SK-SOUTH"
+                data-country="Saskatchewan"
+                data-crops="wheat rapeseed soy"
+                data-top="0.4557"
+                data-sub="0.2110"
+                data-delta="0.1530"
+                data-rain="9.10"
+                data-status="Surplus">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Saskatchewan</div>
+                    <div class="loc-name"><strong>Southern Saskatchewan Durum & Wheat Plain</strong> <span class="loc-code">(SK-SOUTH)</span></div>
+                    <div class="loc-district">Regina Plains, Moose Jaw, Swift Current & Weyburn (Crop Districts 1–4)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Durum & CWRS)</strong>: 8.40 MMT <span class="yield-tag">(3.15 t/ha, 24.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 2.80 MMT <span class="yield-tag">(2.25 t/ha, 14.7%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 0.08 MMT <span class="yield-tag">(2.10 t/ha, 1.1%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.4557">
+                    <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
+                        <span class="val-metric">0.456 m³/m³</span>
+                        <span class="val-pct" style="display:none;">101.3% Cap</span>
+                        <span class="status-label">• Surplus</span>
+                    </div>
+                    <div class="moist-desc">High Saturation / Wet Field Conditions Delaying Combine Traffic</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,23.2 4.1,23.7 8.1,23.1 12.2,22.0 16.3,19.8 20.4,19.4 24.4,20.8 28.5,21.3 32.6,20.7 36.7,18.1 40.7,16.4 44.8,15.4 48.9,13.5 53.0,12.0 57.0,8.4 61.1,9.1 65.2,10.9 69.3,12.5 73.3,13.7 77.4,14.9 81.5,15.5 85.6,16.0 89.6,16.6 93.7,16.9 97.8,16.8 101.9,6.7 105.9,4.3 110.0,6.6" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2110">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.211 m³/m³</span>
+                        <span class="val-pct" style="display:none;">46.9% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,16.8 4.1,17.1 8.1,17.4 12.2,17.7 16.3,18.8 20.4,19.8 24.4,20.6 28.5,21.3 32.6,21.8 36.7,22.1 40.7,22.2 44.8,22.1 48.9,21.5 53.0,20.8 57.0,20.1 61.1,19.2 65.2,18.8 69.3,18.6 73.3,18.5 77.4,18.5 81.5,18.4 85.6,18.3 89.6,18.4 93.7,18.3 97.8,18.3 101.9,15.7 105.9,6.6 110.0,5.8" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1530">
+                    <span class="trend-badge trend-up">▲ +15.3% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.153 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="9.10">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 9.1 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.36 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 83.2 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 3.28 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Saturated topsoil profile (0.456 m³/m³; Δ7D +0.153); excess moisture slows combine trafficability for standing corn and soybeans. Dry 7-day outlook (9.1 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -1.0°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Central Saskatchewan Parkland Canola & CWRS Belt"
+                data-code="SK-CENTRAL"
+                data-country="Saskatchewan"
+                data-crops="wheat rapeseed"
+                data-top="0.3327"
+                data-sub="0.1915"
+                data-delta="0.0865"
+                data-rain="0.70"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Saskatchewan</div>
+                    <div class="loc-name"><strong>Central Saskatchewan Parkland Canola & CWRS Belt</strong> <span class="loc-code">(SK-CENTRAL)</span></div>
+                    <div class="loc-district">Saskatoon, Humboldt, Rosetown & Yorkton (Crop Districts 5–7)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS)</strong>: 4.90 MMT <span class="yield-tag">(3.75 t/ha, 14.3%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 4.30 MMT <span class="yield-tag">(2.45 t/ha, 22.6%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.3327">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.333 m³/m³</span>
+                        <span class="val-pct" style="display:none;">73.9% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,23.0 4.1,23.6 8.1,23.0 12.2,22.4 16.3,20.1 20.4,16.4 24.4,17.0 28.5,15.3 32.6,14.7 36.7,14.1 40.7,13.6 44.8,11.0 48.9,9.2 53.0,7.5 57.0,7.4 61.1,8.0 65.2,9.0 69.3,9.9 73.3,11.4 77.4,12.6 81.5,15.4 85.6,16.2 89.6,16.6 93.7,16.0 97.8,16.1 101.9,10.2 105.9,4.4 110.0,8.1" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.1915">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.192 m³/m³</span>
+                        <span class="val-pct" style="display:none;">42.6% Cap</span>
+                        <span class="status-label">• Moderate Stress</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Subsoil Depletion Entering Autumn</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,11.6 4.1,11.8 8.1,10.7 12.2,10.3 16.3,11.3 20.4,13.7 24.4,16.2 28.5,17.3 32.6,17.9 36.7,17.7 40.7,18.5 44.8,19.2 48.9,18.5 53.0,17.0 57.0,15.0 61.1,13.9 65.2,13.1 69.3,12.6 73.3,12.1 77.4,12.0 81.5,13.5 85.6,13.6 89.6,13.6 93.7,13.5 97.8,13.5 101.9,13.2 105.9,9.9 110.0,8.8" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.0865">
+                    <span class="trend-badge trend-up">▲ +8.6% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.086 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="0.70">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 0.7 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.03 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 21.9 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 0.86 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.333 m³/m³ topsoil, 0.192 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (0.7 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -0.4°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Northern Saskatchewan Black Soil Oilseed & Cereal Zone"
+                data-code="SK-NORTH"
+                data-country="Saskatchewan"
+                data-crops="rapeseed wheat"
+                data-top="0.2981"
+                data-sub="0.2646"
+                data-delta="0.1002"
+                data-rain="1.30"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Saskatchewan</div>
+                    <div class="loc-name"><strong>Northern Saskatchewan Black Soil Oilseed & Cereal Zone</strong> <span class="loc-code">(SK-NORTH)</span></div>
+                    <div class="loc-district">Melfort, Tisdale, Prince Albert & North Battleford (Crop Districts 8–9)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 3.20 MMT <span class="yield-tag">(2.55 t/ha, 16.8%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS)</strong>: 2.80 MMT <span class="yield-tag">(3.95 t/ha, 8.2%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.2981">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.298 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.2% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,16.3 4.1,17.3 8.1,16.8 12.2,16.9 16.3,17.9 20.4,19.6 24.4,22.2 28.5,22.3 32.6,23.2 36.7,23.3 40.7,23.7 44.8,20.2 48.9,15.8 53.0,13.5 57.0,13.9 61.1,14.0 65.2,14.4 69.3,14.8 73.3,15.9 77.4,16.8 81.5,18.2 85.6,18.8 89.6,19.1 93.7,19.2 97.8,19.2 101.9,15.5 105.9,4.3 110.0,7.6" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2646">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.265 m³/m³</span>
+                        <span class="val-pct" style="display:none;">58.8% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,7.8 4.1,8.8 8.1,7.9 12.2,7.7 16.3,9.2 20.4,12.3 24.4,15.9 28.5,16.2 32.6,18.2 36.7,18.7 40.7,20.3 44.8,20.3 48.9,18.1 53.0,17.4 57.0,17.3 61.1,17.2 65.2,16.9 69.3,16.7 73.3,16.6 77.4,16.7 81.5,16.9 85.6,17.0 89.6,17.0 93.7,17.0 97.8,17.2 101.9,17.1 105.9,10.6 110.0,8.3" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1002">
+                    <span class="trend-badge trend-up">▲ +10.0% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.100 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="1.30">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 1.3 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.05 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 39.1 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 1.54 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.298 m³/m³ topsoil, 0.265 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (1.3 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -0.4°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Alberta - Western Prairie Wheat, Canola & Irrigated Row-Crop Belt</span>
+                    <span class="reg-banner-count">4 Agricultural Regions</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row"
+                data-name="Southern Alberta Palliser & Irrigated Bow/Oldman Basin"
+                data-code="AB-SOUTH"
+                data-country="Alberta"
+                data-crops="wheat rapeseed corn"
+                data-top="0.2976"
+                data-sub="0.2935"
+                data-delta="0.1395"
+                data-rain="3.30"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Alberta</div>
+                    <div class="loc-name"><strong>Southern Alberta Palliser & Irrigated Bow/Oldman Basin</strong> <span class="loc-code">(AB-SOUTH)</span></div>
+                    <div class="loc-district">Lethbridge, Medicine Hat, Taber & Brooks (AB South Region)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (CWRS, Durum & Winter)</strong>: 4.50 MMT <span class="yield-tag">(3.65 t/ha, 13.1%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 1.40 MMT <span class="yield-tag">(2.35 t/ha, 7.4%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 0.25 MMT <span class="yield-tag">(9.80 t/ha, 1.6%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.2976">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.298 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.1% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,19.3 4.1,22.1 8.1,21.8 12.2,21.2 16.3,20.9 20.4,20.2 24.4,20.7 28.5,22.2 32.6,23.6 36.7,22.4 40.7,21.2 44.8,21.1 48.9,19.0 53.0,14.7 57.0,8.8 61.1,5.3 65.2,4.4 69.3,6.1 73.3,7.9 77.4,9.9 81.5,11.2 85.6,11.4 89.6,11.0 93.7,7.7 97.8,8.4 101.9,8.7 105.9,9.4 110.0,8.3" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2935">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.293 m³/m³</span>
+                        <span class="val-pct" style="display:none;">65.2% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,14.3 4.1,16.3 8.1,16.4 12.2,17.0 16.3,18.5 20.4,18.8 24.4,19.3 28.5,20.2 32.6,20.0 36.7,16.5 40.7,15.4 44.8,14.9 48.9,14.6 53.0,10.3 57.0,8.4 61.1,8.5 65.2,8.0 69.3,7.8 73.3,7.9 77.4,8.3 81.5,9.0 85.6,9.2 89.6,9.5 93.7,9.6 97.8,9.6 101.9,9.6 105.9,9.9 110.0,9.9" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1395">
+                    <span class="trend-badge trend-up">▲ +14.0% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.140 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="3.30">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 3.3 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.13 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 11.9 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 0.47 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.298 m³/m³ topsoil, 0.293 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (3.3 mm) provides an open window for combine operations and fall field prep. Hard freeze risk (7D low -4.6°C) signals end of growing season and accelerates crop drydown.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Central Alberta Parkland & Highway 2 Corridor"
+                data-code="AB-CENTRAL"
+                data-country="Alberta"
+                data-crops="wheat rapeseed"
+                data-top="0.2431"
+                data-sub="0.1952"
+                data-delta="0.1485"
+                data-rain="0.60"
+                data-status="Adequate">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Alberta</div>
+                    <div class="loc-name"><strong>Central Alberta Parkland & Highway 2 Corridor</strong> <span class="loc-code">(AB-CENTRAL)</span></div>
+                    <div class="loc-district">Red Deer, Drumheller, Camrose & Olds (AB Central Region)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS)</strong>: 4.20 MMT <span class="yield-tag">(4.25 t/ha, 12.2%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 2.40 MMT <span class="yield-tag">(2.55 t/ha, 12.6%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.2431">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.243 m³/m³</span>
+                        <span class="val-pct" style="display:none;">54.0% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,19.1 4.1,22.6 8.1,21.0 12.2,21.8 16.3,22.3 20.4,21.7 24.4,22.0 28.5,23.2 32.6,21.6 36.7,20.0 40.7,19.9 44.8,17.4 48.9,15.5 53.0,10.5 57.0,5.5 61.1,4.8 65.2,6.2 69.3,8.3 73.3,10.1 77.4,12.0 81.5,13.0 85.6,13.5 89.6,13.5 93.7,8.3 97.8,9.1 101.9,9.8 105.9,10.5 110.0,8.4" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.1952">
+                    <div class="moist-pill" style="background-color: #f97316; color: #ffffff;">
+                        <span class="val-metric">0.195 m³/m³</span>
+                        <span class="val-pct" style="display:none;">43.4% Cap</span>
+                        <span class="status-label">• Moderate Stress</span>
+                    </div>
+                    <div class="moist-desc">Moisture Deficit / Subsoil Depletion Entering Autumn</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,9.8 4.1,11.6 8.1,11.5 12.2,13.8 16.3,16.4 20.4,17.2 24.4,17.8 28.5,18.5 32.6,18.5 36.7,17.3 40.7,17.8 44.8,16.4 48.9,14.3 53.0,12.7 57.0,10.0 61.1,9.8 65.2,9.6 69.3,9.5 73.3,9.5 77.4,9.5 81.5,9.9 85.6,9.9 89.6,9.9 93.7,9.9 97.8,9.8 101.9,9.7 105.9,9.7 110.0,9.7" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1485">
+                    <span class="trend-badge trend-up">▲ +14.8% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.148 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="0.60">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 0.6 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.02 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 8.9 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 0.35 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.243 m³/m³ topsoil, 0.195 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (0.6 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -1.6°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="North-Central Alberta Vermilion & North Saskatchewan Basin"
+                data-code="AB-NORTH"
+                data-country="Alberta"
+                data-crops="wheat rapeseed"
+                data-top="0.2990"
+                data-sub="0.2466"
+                data-delta="0.1401"
+                data-rain="0.00"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Alberta</div>
+                    <div class="loc-name"><strong>North-Central Alberta Vermilion & North Saskatchewan Basin</strong> <span class="loc-code">(AB-NORTH)</span></div>
+                    <div class="loc-district">Edmonton East, Vegreville, Vermilion & Lloydminster (AB NE/NW Regions)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS)</strong>: 2.60 MMT <span class="yield-tag">(4.15 t/ha, 7.6%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 1.90 MMT <span class="yield-tag">(2.50 t/ha, 10.0%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.2990">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.299 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.4% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,19.2 4.1,20.2 8.1,19.5 12.2,20.8 16.3,22.0 20.4,21.7 24.4,22.4 28.5,23.1 32.6,22.3 36.7,22.6 40.7,22.6 44.8,17.7 48.9,12.4 53.0,4.9 57.0,5.7 61.1,7.8 65.2,9.5 69.3,11.1 73.3,12.3 77.4,13.4 81.5,14.3 85.6,15.2 89.6,15.5 93.7,13.1 97.8,13.4 101.9,13.8 105.9,14.1 110.0,14.6" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2466">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.247 m³/m³</span>
+                        <span class="val-pct" style="display:none;">54.8% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,8.4 4.1,11.0 8.1,10.7 12.2,12.0 16.3,14.8 20.4,15.9 24.4,17.8 28.5,19.6 32.6,18.3 36.7,17.0 40.7,17.8 44.8,16.4 48.9,14.4 53.0,12.8 57.0,9.3 61.1,9.0 65.2,8.9 69.3,8.9 73.3,9.0 77.4,9.2 81.5,9.8 85.6,10.0 89.6,10.0 93.7,10.1 97.8,10.1 101.9,10.1 105.9,10.1 110.0,10.2" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1401">
+                    <span class="trend-badge trend-up">▲ +14.0% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.140 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="0.00">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 0.0 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.00 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 2.2 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 0.09 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.299 m³/m³ topsoil, 0.247 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Dry 7-day outlook (0.0 mm) provides an open window for combine operations and fall field prep. Frost watch (7D low -0.9°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Peace River Northern Agricultural Basin"
+                data-code="AB-PEACE"
+                data-country="Alberta"
+                data-crops="rapeseed wheat"
+                data-top="0.4650"
+                data-sub="0.3566"
+                data-delta="0.1610"
+                data-rain="3.20"
+                data-status="Surplus">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Alberta</div>
+                    <div class="loc-name"><strong>Peace River Northern Agricultural Basin</strong> <span class="loc-code">(AB-PEACE)</span></div>
+                    <div class="loc-district">Grande Prairie, Peace River & Rycroft (AB Peace Region)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 0.95 MMT <span class="yield-tag">(2.20 t/ha, 5.0%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS)</strong>: 0.90 MMT <span class="yield-tag">(3.60 t/ha, 2.6%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.4650">
+                    <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
+                        <span class="val-metric">0.465 m³/m³</span>
+                        <span class="val-pct" style="display:none;">103.3% Cap</span>
+                        <span class="status-label">• Surplus</span>
+                    </div>
+                    <div class="moist-desc">High Saturation / Wet Field Conditions Delaying Combine Traffic</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,12.6 4.1,14.4 8.1,16.3 12.2,17.8 16.3,19.9 20.4,20.7 24.4,20.9 28.5,21.4 32.6,22.7 36.7,23.6 40.7,20.2 44.8,4.4 48.9,5.9 53.0,7.2 57.0,6.4 61.1,5.7 65.2,4.7 69.3,6.6 73.3,7.6 77.4,8.8 81.5,10.1 85.6,10.3 89.6,8.5 93.7,9.1 97.8,9.3 101.9,9.8 105.9,10.3 110.0,10.7" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.3566">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.357 m³/m³</span>
+                        <span class="val-pct" style="display:none;">79.2% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,11.2 4.1,14.4 8.1,14.9 12.2,15.6 16.3,17.6 20.4,18.6 24.4,19.2 28.5,19.1 32.6,18.7 36.7,19.5 40.7,19.8 44.8,17.2 48.9,13.4 53.0,12.4 57.0,11.4 61.1,10.5 65.2,8.8 69.3,8.3 73.3,8.2 77.4,8.2 81.5,9.5 85.6,9.6 89.6,9.6 93.7,9.6 97.8,9.4 101.9,9.6 105.9,9.5 110.0,9.6" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1610">
+                    <span class="trend-badge trend-up">▲ +16.1% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.161 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="3.20">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 3.2 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.13 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 6.1 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 0.24 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Saturated topsoil profile (0.465 m³/m³; Δ7D +0.161); wet fields pause heavy autumn tillage and grain hauling. Dry 7-day outlook (3.2 mm) provides an open window for combine operations and fall field prep. Hard freeze risk (7D low -4.6°C) signals end of growing season and accelerates crop drydown.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Manitoba - Red River Valley & Eastern Prairie Multi-Crop Hub">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Manitoba - Red River Valley & Eastern Prairie Multi-Crop Hub</span>
+                    <span class="reg-banner-count">2 Agricultural Regions</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row"
+                data-name="Manitoba Red River Valley & Central Plains"
+                data-code="MB-REDRIVER"
+                data-country="Manitoba"
+                data-crops="wheat corn rapeseed soy"
+                data-top="0.3160"
+                data-sub="0.2545"
+                data-delta="0.0635"
+                data-rain="20.10"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Manitoba</div>
+                    <div class="loc-name"><strong>Manitoba Red River Valley & Central Plains</strong> <span class="loc-code">(MB-REDRIVER)</span></div>
+                    <div class="loc-district">Winkler, Morden, Portage la Prairie & Morris (MB Central / Eastern)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS & Winter)</strong>: 2.60 MMT <span class="yield-tag">(4.45 t/ha, 7.6%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.75 MMT <span class="yield-tag">(8.60 t/ha, 11.4%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 1.70 MMT <span class="yield-tag">(2.60 t/ha, 8.9%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 0.95 MMT <span class="yield-tag">(2.85 t/ha, 13.6%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.3160">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.316 m³/m³</span>
+                        <span class="val-pct" style="display:none;">70.2% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,6.4 4.1,5.0 8.1,8.3 12.2,10.1 16.3,11.8 20.4,13.4 24.4,16.4 28.5,17.3 32.6,19.6 36.7,20.5 40.7,21.6 44.8,22.2 48.9,23.2 53.0,21.4 57.0,9.8 61.1,6.2 65.2,8.9 69.3,10.2 73.3,10.9 77.4,12.4 81.5,13.8 85.6,14.6 89.6,15.6 93.7,16.1 97.8,16.6 101.9,10.8 105.9,4.8 110.0,6.2" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2545">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.255 m³/m³</span>
+                        <span class="val-pct" style="display:none;">56.6% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,17.6 4.1,14.8 8.1,14.5 12.2,14.6 16.3,14.6 20.4,15.0 24.4,16.0 28.5,17.1 32.6,18.0 36.7,18.0 40.7,18.4 44.8,18.3 48.9,18.3 53.0,17.3 57.0,15.8 61.1,12.5 65.2,12.5 69.3,12.8 73.3,13.1 77.4,13.5 81.5,14.4 85.6,15.0 89.6,15.6 93.7,15.9 97.8,16.4 101.9,15.3 105.9,10.2 110.0,9.6" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.0635">
+                    <span class="trend-badge trend-up">▲ +6.3% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.064 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="20.10">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 20.1 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.79 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 44.5 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 1.75 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.316 m³/m³ topsoil, 0.255 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Moderate 7-day precipitation (20.1 mm) replenishes topsoil moisture between harvest windows.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Western Manitoba Assiniboine & Parkland Belt"
+                data-code="MB-WEST"
+                data-country="Manitoba"
+                data-crops="wheat rapeseed soy"
+                data-top="0.3381"
+                data-sub="0.2143"
+                data-delta="0.1387"
+                data-rain="25.40"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Manitoba</div>
+                    <div class="loc-name"><strong>Western Manitoba Assiniboine & Parkland Belt</strong> <span class="loc-code">(MB-WEST)</span></div>
+                    <div class="loc-district">Brandon, Minnedosa, Dauphin & Virden (MB Southwest / Northwest)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring CWRS)</strong>: 2.20 MMT <span class="yield-tag">(4.20 t/ha, 6.4%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 1.45 MMT <span class="yield-tag">(2.50 t/ha, 7.6%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 0.45 MMT <span class="yield-tag">(2.65 t/ha, 6.4%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.3381">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.338 m³/m³</span>
+                        <span class="val-pct" style="display:none;">75.1% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,10.5 4.1,13.0 8.1,15.1 12.2,16.0 16.3,16.9 20.4,18.1 24.4,20.2 28.5,21.3 32.6,22.3 36.7,23.4 40.7,23.1 44.8,22.7 48.9,22.5 53.0,19.8 57.0,6.1 61.1,6.1 65.2,8.8 69.3,10.4 73.3,11.5 77.4,12.9 81.5,14.9 85.6,15.7 89.6,16.4 93.7,16.7 97.8,17.0 101.9,8.5 105.9,4.6 110.0,6.9" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2143">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.214 m³/m³</span>
+                        <span class="val-pct" style="display:none;">47.6% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,8.1 4.1,10.4 8.1,11.9 12.2,13.2 16.3,14.3 20.4,17.3 24.4,18.2 28.5,18.9 32.6,19.6 36.7,19.9 40.7,19.3 44.8,18.8 48.9,18.7 53.0,18.6 57.0,16.6 61.1,12.2 65.2,11.8 69.3,11.8 73.3,11.9 77.4,12.1 81.5,13.7 85.6,14.1 89.6,14.4 93.7,14.7 97.8,14.8 101.9,13.3 105.9,8.5 110.0,8.1" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.1387">
+                    <span class="trend-badge trend-up">▲ +13.9% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.139 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="25.40">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 25.4 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 1.00 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 51.8 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 2.04 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.338 m³/m³ topsoil, 0.214 m³/m³ subsoil); healthy pre-freeze moisture bank supporting fall fieldwork and winter wheat establishment. Moderate 7-day precipitation (25.4 mm) replenishes topsoil moisture between harvest windows. Frost watch (7D low -0.9°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Ontario - Great Lakes Corn, Soybean & Winter Wheat Heartland">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Ontario - Great Lakes Corn, Soybean & Winter Wheat Heartland</span>
+                    <span class="reg-banner-count">3 Agricultural Regions</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row"
+                data-name="Southwestern Ontario Lake Erie Row-Crop Core"
+                data-code="ON-SW"
+                data-country="Ontario"
+                data-crops="corn soy wheat"
+                data-top="0.2907"
+                data-sub="0.2805"
+                data-delta="-0.0221"
+                data-rain="14.90"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Ontario</div>
+                    <div class="loc-name"><strong>Southwestern Ontario Lake Erie Row-Crop Core</strong> <span class="loc-code">(ON-SW)</span></div>
+                    <div class="loc-district">Chatham-Kent, Essex, Lambton, Middlesex & Elgin</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 4.60 MMT <span class="yield-tag">(11.20 t/ha, 29.9%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 1.95 MMT <span class="yield-tag">(3.55 t/ha, 27.9%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Winter SRW)</strong>: 1.35 MMT <span class="yield-tag">(6.40 t/ha, 3.9%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.2907">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.291 m³/m³</span>
+                        <span class="val-pct" style="display:none;">64.6% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,22.7 4.1,23.3 8.1,21.9 12.2,13.6 16.3,4.7 20.4,8.6 24.4,10.3 28.5,12.8 32.6,14.3 36.7,16.1 40.7,18.2 44.8,19.3 48.9,19.8 53.0,15.7 57.0,15.3 61.1,16.5 65.2,17.4 69.3,15.3 73.3,5.9 77.4,9.4 81.5,15.9 85.6,17.6 89.6,17.9 93.7,18.2 97.8,17.1 101.9,13.2 105.9,7.6 110.0,10.3" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2805">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.281 m³/m³</span>
+                        <span class="val-pct" style="display:none;">62.3% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,17.7 4.1,18.3 8.1,18.0 12.2,17.7 16.3,13.7 20.4,11.2 24.4,11.7 28.5,12.2 32.6,12.4 36.7,12.9 40.7,13.0 44.8,13.0 48.9,13.4 53.0,12.2 57.0,11.5 61.1,11.9 65.2,12.5 69.3,12.7 73.3,11.2 77.4,9.7 81.5,11.5 85.6,12.1 89.6,12.3 93.7,12.5 97.8,12.7 101.9,12.6 105.9,11.1 110.0,10.1" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="-0.0221">
+                    <span class="trend-badge trend-down">▼ -2.2% Drydown</span>
+                    <div class="delta-raw">Δ 7D: -0.022 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="14.90">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 14.9 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.59 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 29.5 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 1.16 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.291 m³/m³ topsoil, 0.281 m³/m³ subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Ontario. Moderate 7-day precipitation (14.9 mm) replenishes topsoil moisture between harvest windows. Warm daytime highs (peak 27.6°C) accelerate grain drydown.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="West-Central Ontario Huron-Perth-Oxford Loam Belt"
+                data-code="ON-CENTRAL"
+                data-country="Ontario"
+                data-crops="corn soy wheat rapeseed"
+                data-top="0.4410"
+                data-sub="0.3504"
+                data-delta="0.0446"
+                data-rain="15.40"
+                data-status="Surplus">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Ontario</div>
+                    <div class="loc-name"><strong>West-Central Ontario Huron-Perth-Oxford Loam Belt</strong> <span class="loc-code">(ON-CENTRAL)</span></div>
+                    <div class="loc-district">Huron, Perth, Oxford, Wellington & Waterloo (Stratford / Guelph)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 3.40 MMT <span class="yield-tag">(10.85 t/ha, 22.1%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 1.35 MMT <span class="yield-tag">(3.40 t/ha, 19.3%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Winter SRW/SWW)</strong>: 0.95 MMT <span class="yield-tag">(6.15 t/ha, 2.8%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 0.08 MMT <span class="yield-tag">(3.10 t/ha, 0.4%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.4410">
+                    <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
+                        <span class="val-metric">0.441 m³/m³</span>
+                        <span class="val-pct" style="display:none;">98.0% Cap</span>
+                        <span class="status-label">• Surplus</span>
+                    </div>
+                    <div class="moist-desc">High Saturation / Wet Field Conditions Delaying Combine Traffic</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,23.2 4.1,23.6 8.1,22.8 12.2,16.9 16.3,4.5 20.4,7.3 24.4,8.5 28.5,9.9 32.6,10.3 36.7,11.2 40.7,13.0 44.8,14.7 48.9,15.6 53.0,10.2 57.0,5.6 61.1,7.3 65.2,8.0 69.3,9.1 73.3,5.1 77.4,6.0 81.5,8.2 85.6,8.9 89.6,9.4 93.7,9.7 97.8,9.9 101.9,8.5 105.9,4.4 110.0,6.3" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.3504">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.350 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.9% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,20.1 4.1,20.0 8.1,18.9 12.2,18.2 16.3,13.4 20.4,11.7 24.4,12.0 28.5,12.3 32.6,11.7 36.7,11.9 40.7,13.7 44.8,14.4 48.9,14.5 53.0,13.2 57.0,11.6 61.1,11.5 65.2,11.4 69.3,11.5 73.3,10.8 77.4,9.6 81.5,10.1 85.6,10.3 89.6,10.3 93.7,10.5 97.8,10.8 101.9,10.6 105.9,9.0 110.0,7.9" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="0.0446">
+                    <span class="trend-badge trend-up">▲ +4.5% Recharge</span>
+                    <div class="delta-raw">Δ 7D: +0.045 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="15.40">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 15.4 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 0.61 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 30.8 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 1.21 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Saturated topsoil profile (0.441 m³/m³; Δ7D +0.045); excess moisture slows combine trafficability for standing corn and soybeans. Moderate 7-day precipitation (15.4 mm) replenishes topsoil moisture between harvest windows.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Eastern Ontario Ottawa & St. Lawrence Valley"
+                data-code="ON-EAST"
+                data-country="Ontario"
+                data-crops="corn soy wheat"
+                data-top="0.3432"
+                data-sub="0.2590"
+                data-delta="-0.0446"
+                data-rain="38.90"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Ontario</div>
+                    <div class="loc-name"><strong>Eastern Ontario Ottawa & St. Lawrence Valley</strong> <span class="loc-code">(ON-EAST)</span></div>
+                    <div class="loc-district">Stormont-Dundas-Glengarry, Prescott-Russell & Ottawa Valley (Winchester)</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.65 MMT <span class="yield-tag">(9.95 t/ha, 10.7%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 0.90 MMT <span class="yield-tag">(3.20 t/ha, 12.9%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Winter & Spring)</strong>: 0.30 MMT <span class="yield-tag">(5.30 t/ha, 0.9%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.3432">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.343 m³/m³</span>
+                        <span class="val-pct" style="display:none;">76.3% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,23.4 4.1,22.3 8.1,21.5 12.2,21.0 16.3,7.4 20.4,9.1 24.4,13.1 28.5,13.2 32.6,16.1 36.7,17.2 40.7,19.4 44.8,19.1 48.9,18.3 53.0,18.8 57.0,17.9 61.1,6.8 65.2,6.4 69.3,9.4 73.3,4.6 77.4,5.2 81.5,8.1 85.6,9.6 89.6,9.5 93.7,10.1 97.8,8.3 101.9,5.7 105.9,7.6 110.0,7.8" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2590">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.259 m³/m³</span>
+                        <span class="val-pct" style="display:none;">57.6% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,19.4 4.1,19.7 8.1,19.6 12.2,20.0 16.3,19.0 20.4,17.1 24.4,17.3 28.5,17.7 32.6,18.1 36.7,18.6 40.7,18.9 44.8,18.9 48.9,18.4 53.0,18.1 57.0,18.2 61.1,17.3 65.2,14.6 69.3,14.0 73.3,12.2 77.4,9.3 81.5,9.4 85.6,9.6 89.6,9.6 93.7,9.7 97.8,9.6 101.9,8.4 105.9,8.1 110.0,8.0" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="-0.0446">
+                    <span class="trend-badge trend-down">▼ -4.5% Drydown</span>
+                    <div class="delta-raw">Δ 7D: -0.045 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="38.90">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 38.9 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 1.53 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 50.3 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 1.98 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.343 m³/m³ topsoil, 0.259 m³/m³ subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Ontario. Substantial 7-day rainfall (38.9 mm; 14D 50.3 mm) boosts deep root-zone reserves but interrupts active harvest. Frost watch (7D low -0.2°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Quebec - St. Lawrence Lowlands Corn & Soybean Basin">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Quebec - St. Lawrence Lowlands Corn & Soybean Basin</span>
+                    <span class="reg-banner-count">2 Agricultural Regions</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="data-row"
+                data-name="Montérégie & Richelieu Valley Grain Core"
+                data-code="QC-MONTEREGIE"
+                data-country="Quebec"
+                data-crops="corn soy wheat"
+                data-top="0.3477"
+                data-sub="0.2503"
+                data-delta="-0.0224"
+                data-rain="64.20"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Quebec</div>
+                    <div class="loc-name"><strong>Montérégie & Richelieu Valley Grain Core</strong> <span class="loc-code">(QC-MONTEREGIE)</span></div>
+                    <div class="loc-district">Saint-Hyacinthe, Saint-Jean-sur-Richelieu & Sorel-Tracy</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 2.35 MMT <span class="yield-tag">(10.30 t/ha, 15.3%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 0.75 MMT <span class="yield-tag">(3.25 t/ha, 10.7%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring & Winter)</strong>: 0.22 MMT <span class="yield-tag">(4.40 t/ha, 0.6%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.3477">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.348 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.3% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,23.4 4.1,19.1 8.1,19.2 12.2,18.8 16.3,8.6 20.4,10.3 24.4,12.7 28.5,9.2 32.6,12.4 36.7,13.6 40.7,7.8 44.8,7.6 48.9,9.6 53.0,11.4 57.0,11.6 61.1,5.4 65.2,4.6 69.3,7.3 73.3,5.0 77.4,6.1 81.5,8.0 85.6,9.1 89.6,9.3 93.7,9.9 97.8,10.3 101.9,8.5 105.9,10.1 110.0,7.9" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2503">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.250 m³/m³</span>
+                        <span class="val-pct" style="display:none;">55.6% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,22.4 4.1,21.8 8.1,21.5 12.2,20.5 16.3,19.6 20.4,17.9 24.4,17.7 28.5,17.9 32.6,17.6 36.7,17.4 40.7,16.2 44.8,15.4 48.9,15.0 53.0,15.2 57.0,15.3 61.1,13.4 65.2,8.7 69.3,8.4 73.3,7.2 77.4,5.6 81.5,6.4 85.6,6.5 89.6,6.5 93.7,6.4 97.8,6.5 101.9,6.2 105.9,6.1 110.0,5.7" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="-0.0224">
+                    <span class="trend-badge trend-down">▼ -2.2% Drydown</span>
+                    <div class="delta-raw">Δ 7D: -0.022 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="64.20">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 64.2 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 2.53 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 75.4 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 2.97 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.348 m³/m³ topsoil, 0.250 m³/m³ subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Quebec. Substantial 7-day rainfall (64.2 mm; 14D 75.4 mm) boosts deep root-zone reserves but interrupts active harvest. Frost watch (7D low -1.6°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+            <tr class="data-row"
+                data-name="Centre-du-Québec, Lanaudière & Chaudière Plains"
+                data-code="QC-CENTRE"
+                data-country="Quebec"
+                data-crops="corn soy wheat rapeseed"
+                data-top="0.3415"
+                data-sub="0.2649"
+                data-delta="-0.0039"
+                data-rain="44.10"
+                data-status="Favorable">
+
+                <td class="col-location">
+                    <div class="loc-country">🇨🇦 Quebec</div>
+                    <div class="loc-name"><strong>Centre-du-Québec, Lanaudière & Chaudière Plains</strong> <span class="loc-code">(QC-CENTRE)</span></div>
+                    <div class="loc-district">Drummondville, Nicolet, Joliette & Victoriaville</div>
+                </td>
+
+                <td class="col-commodities">
+                    <div class="commodities-wrap"><span class="crop-badge badge-corn"><strong>🌽 Corn (Grain Maize)</strong>: 1.20 MMT <span class="yield-tag">(9.40 t/ha, 7.8%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 0.50 MMT <span class="yield-tag">(3.05 t/ha, 7.1%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 Wheat (Spring & Winter)</strong>: 0.16 MMT <span class="yield-tag">(4.10 t/ha, 0.5%)</span></span><span class="crop-badge badge-rapeseed"><strong>🌼 Rapeseed (Canola)</strong>: 0.05 MMT <span class="yield-tag">(2.75 t/ha, 0.3%)</span></span></div>
+                </td>
+
+                <td class="col-topsoil" data-val="0.3415">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.342 m³/m³</span>
+                        <span class="val-pct" style="display:none;">75.9% Cap</span>
+                        <span class="status-label">• Favorable</span>
+                    </div>
+                    <div class="moist-desc">Favorable Moisture / Strong Pre-Winter Subsoil & Seedbed Profile</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#38bdf8" stroke-width="1.8" points="0.0,23.3 4.1,18.4 8.1,17.8 12.2,19.1 16.3,12.2 20.4,12.0 24.4,13.2 28.5,11.9 32.6,15.3 36.7,13.9 40.7,7.2 44.8,8.8 48.9,10.2 53.0,11.6 57.0,12.3 61.1,7.3 65.2,5.3 69.3,7.8 73.3,4.7 77.4,5.9 81.5,7.8 85.6,9.1 89.6,9.8 93.7,10.5 97.8,10.6 101.9,8.9 105.9,10.6 110.0,5.6" /></svg>
+                </td>
+
+                <td class="col-subsoil" data-val="0.2649">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.265 m³/m³</span>
+                        <span class="val-pct" style="display:none;">58.9% Cap</span>
+                        <span class="status-label">• Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Hydration / Balanced for Harvest & Fall Fieldwork</div>
+                    <svg width="110" height="28" viewBox="0 0 110 28" style="overflow:visible; margin-top:4px;"><line x1="57.0" y1="0" x2="57.0" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#34d399" stroke-width="1.8" points="0.0,22.2 4.1,21.3 8.1,20.8 12.2,20.7 16.3,20.6 20.4,19.3 24.4,18.3 28.5,19.0 32.6,18.5 36.7,17.2 40.7,16.4 44.8,15.7 48.9,14.5 53.0,13.6 57.0,14.4 61.1,13.6 65.2,10.8 69.3,10.6 73.3,9.4 77.4,7.5 81.5,6.8 85.6,6.7 89.6,6.8 93.7,6.8 97.8,6.8 101.9,6.6 105.9,6.6 110.0,5.8" /></svg>
+                </td>
+
+                <td class="col-delta" data-val="-0.0039">
+                    <span class="trend-badge trend-flat">■ -0.4% Steady</span>
+                    <div class="delta-raw">Δ 7D: -0.004 m³/m³</div>
+                </td>
+
+                <td class="col-rain" data-val="44.10">
+                    <div class="rain-val">
+                        <span class="rain-mm">🌧️ 44.1 mm</span>
+                        <span class="rain-in" style="display:none;">🌧️ 1.74 in</span>
+                    </div>
+                    <div class="rain-sub">
+                        <span class="rain-mm">14D Fwd: 58.1 mm</span>
+                        <span class="rain-in" style="display:none;">14D Fwd: 2.29 in</span>
+                    </div>
+                </td>
+
+                <td class="col-comment">
+                    <div class="comment-text">Favorable soil moisture (0.342 m³/m³ topsoil, 0.265 m³/m³ subsoil); balanced seedbed hydration for winter wheat emergence and row-crop harvest in Quebec. Substantial 7-day rainfall (44.1 mm; 14D 58.1 mm) boosts deep root-zone reserves but interrupts active harvest. Frost watch (7D low -1.8°C) aids natural senescence for late-maturing soybeans and corn.</div>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentStatus = 'ALL';
+        let currentCrop = 'ALL';
+        let sortDir = {};
+
+        function setStatusFilter(status, btn) {
+            currentStatus = status;
+            document.querySelectorAll('#status-btn-group .f-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterRows();
+        }
+
+        function setCropFilter(crop, btn) {
+            currentCrop = crop;
+            document.querySelectorAll('#crop-btn-group .f-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterRows();
+        }
+
+        function toggleUnit(u) {
+            const showPct = (u === 'pct');
+            document.querySelectorAll('.val-metric').forEach(el => el.style.display = showPct ? 'none' : 'inline');
+            document.querySelectorAll('.val-pct').forEach(el => el.style.display = showPct ? 'inline' : 'none');
+            document.querySelectorAll('.rain-mm').forEach(el => el.style.display = showPct ? 'none' : 'inline');
+            document.querySelectorAll('.rain-in').forEach(el => el.style.display = showPct ? 'inline' : 'none');
+            document.getElementById('btn-m3').classList.toggle('active', !showPct);
+            document.getElementById('btn-pct').classList.toggle('active', showPct);
+        }
+
+        function filterRows() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('.data-row');
+            const regHeaders = document.querySelectorAll('.region-header-row');
+
+            rows.forEach(row => {
+                const status = row.getAttribute('data-status');
+                const crops = row.getAttribute('data-crops') || '';
+                const rowText = row.innerText.toLowerCase();
+
+                const matchesSearch = !query || rowText.includes(query);
+                const matchesStatus = (currentStatus === 'ALL') || (status === currentStatus);
+                const matchesCrop = (currentCrop === 'ALL') || crops.includes(currentCrop);
+
+                row.style.display = (matchesSearch && matchesStatus && matchesCrop) ? '' : 'none';
+            });
+
+            regHeaders.forEach(rh => {
+                let next = rh.nextElementSibling;
+                let anyVisible = false;
+                while (next && !next.classList.contains('region-header-row')) {
+                    if (next.style.display !== 'none') anyVisible = true;
+                    next = next.nextElementSibling;
+                }
+                rh.style.display = anyVisible ? '' : 'none';
+            });
+        }
+
+        function sortTable(field) {
+            const tbody = document.getElementById('soil-tbody');
+            const rows = Array.from(tbody.querySelectorAll('.data-row'));
+            const asc = sortDir[field] === 'desc';
+            sortDir[field] = asc ? 'asc' : 'desc';
+
+            rows.sort((a, b) => {
+                if (field === 'name') {
+                    const nA = a.getAttribute('data-name');
+                    const nB = b.getAttribute('data-name');
+                    return asc ? nA.localeCompare(nB) : nB.localeCompare(nA);
+                }
+                const vA = parseFloat(a.getAttribute('data-' + field)) || 0;
+                const vB = parseFloat(b.getAttribute('data-' + field)) || 0;
+                return asc ? (vA - vB) : (vB - vA);
+            });
+
+            tbody.querySelectorAll('.region-header-row').forEach(rh => rh.style.display = 'none');
+            rows.forEach(r => tbody.appendChild(r));
+        }
+    </script>
+</body>
+</html>
