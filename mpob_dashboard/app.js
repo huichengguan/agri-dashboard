@@ -15,6 +15,9 @@ let bsViewMode = 'horizontal_matrix';
 let stateData = null;
 let exportProductsData = null;
 let annualExportsData = null;
+let annualBalanceSheetData = null;
+let stateMatrixData = null;
+let stateViewMode = 'snapshot';
 let exportSubTab = 'matrix';
 let yieldCadence = 'monthly';
 let yieldRegion = 'all';
@@ -59,6 +62,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadStateData();
   loadExportProductsData();
   loadAnnualExportsData();
+  loadAnnualBalanceSheetData();
+  loadStateMatrixData();
   loadWorkdayData();
   loadSppomaData();
 
@@ -305,6 +310,12 @@ function updateAllVisualizations() {
   }
   if (annualExportsData) {
     renderAnnualExportTable();
+  }
+  if (annualBalanceSheetData) {
+    renderAnnualBalanceSheetTable();
+  }
+  if (stateMatrixData) {
+    renderStateMatrix();
   }
 }
 
@@ -829,10 +840,16 @@ function renderSeasonalityCurveChart() {
 function setBalanceSheetViewMode(mode) {
   bsViewMode = mode;
   
-  const modes = ['horizontal_matrix', 'full_grid', 'vertical_table'];
+  const modes = ['horizontal_matrix', 'full_grid', 'vertical_table', 'annual_history'];
   modes.forEach(m => {
-    const btn = document.getElementById(m === 'horizontal_matrix' ? 'btn-mode-matrix' : (m === 'full_grid' ? 'btn-mode-grid' : 'btn-mode-table'));
-    const container = document.getElementById(m === 'horizontal_matrix' ? 'container-horizontal-matrix' : (m === 'full_grid' ? 'container-full-grid' : 'container-vertical-table'));
+    let btnId = 'btn-mode-matrix';
+    let containerId = 'container-horizontal-matrix';
+    if (m === 'full_grid') { btnId = 'btn-mode-grid'; containerId = 'container-full-grid'; }
+    else if (m === 'vertical_table') { btnId = 'btn-mode-table'; containerId = 'container-vertical-table'; }
+    else if (m === 'annual_history') { btnId = 'btn-mode-annual-history'; containerId = 'container-annual-history'; }
+    
+    const btn = document.getElementById(btnId);
+    const container = document.getElementById(containerId);
     
     if (m === mode) {
       if (btn) {
@@ -850,6 +867,10 @@ function setBalanceSheetViewMode(mode) {
   if (mode === 'horizontal_matrix') renderHorizontalMatrix();
   else if (mode === 'full_grid') renderFullGrid();
   else if (mode === 'vertical_table') renderBalanceSheetTable();
+  else if (mode === 'annual_history') {
+    if (!annualBalanceSheetData) loadAnnualBalanceSheetData();
+    else renderAnnualBalanceSheetTable();
+  }
   if (window.lucide) lucide.createIcons();
 }
 
@@ -1455,6 +1476,135 @@ function renderStateAnalytics() {
 }
 
 // -------------------------------------------------------------
+// State Multi-Year Matrix & Sub-View Switcher
+// -------------------------------------------------------------
+
+function setStateViewMode(mode) {
+  stateViewMode = mode;
+  const btnSnap = document.getElementById("btn-state-view-snapshot");
+  const btnMat = document.getElementById("btn-state-view-matrix");
+  const viewSnap = document.getElementById("state-view-snapshot");
+  const viewMat = document.getElementById("state-view-matrix");
+  const controlsSnap = document.getElementById("state-snapshot-controls");
+
+  if (mode === 'snapshot') {
+    if (btnSnap) btnSnap.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition flex items-center space-x-1.5";
+    if (btnMat) btnMat.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5";
+    if (viewSnap) viewSnap.classList.remove("hidden");
+    if (viewMat) viewMat.classList.add("hidden");
+    if (controlsSnap) controlsSnap.classList.remove("hidden");
+    renderStateAnalytics();
+  } else {
+    if (btnMat) btnMat.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition flex items-center space-x-1.5";
+    if (btnSnap) btnSnap.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5";
+    if (viewMat) viewMat.classList.remove("hidden");
+    if (viewSnap) viewSnap.classList.add("hidden");
+    if (controlsSnap) controlsSnap.classList.add("hidden");
+    if (!stateMatrixData) {
+      loadStateMatrixData();
+    } else {
+      renderStateMatrix();
+    }
+  }
+  if (window.lucide) lucide.createIcons();
+}
+
+async function loadStateMatrixData() {
+  try {
+    stateMatrixData = await fetchJsonData("/api/state-matrix", "api_state_matrix.json");
+    renderStateMatrix();
+  } catch (err) {
+    console.error("Failed to load state matrix data:", err);
+  }
+}
+
+function renderStateMatrix() {
+  const thead = document.getElementById("state-matrix-thead");
+  const tbody = document.getElementById("state-matrix-tbody");
+  if (!thead || !tbody || !stateMatrixData || !stateMatrixData.matrix) return;
+
+  const select = document.getElementById("state-matrix-metric");
+  const metric = select ? select.value : "cpo_production";
+
+  const matrix = stateMatrixData.matrix;
+  const years = stateMatrixData.years || Object.keys(matrix).map(Number).sort((a, b) => b - a);
+
+  const orderedEntities = [
+    "Total Malaysia",
+    "Peninsular Malaysia",
+    "Sabah",
+    "Sarawak",
+    "Johor",
+    "Pahang",
+    "Perak",
+    "Selangor",
+    "Terengganu",
+    "Kelantan",
+    "Kedah",
+    "Negeri Sembilan",
+    "Melaka",
+    "Pulau Pinang",
+    "Perlis"
+  ];
+
+  const fmt = (val) => {
+    if (val === null || val === undefined || isNaN(val)) return '<span class="text-slate-600 font-mono">-</span>';
+    if (metric === "national_share_pct" || metric === "oer") {
+      return Number(val).toFixed(2) + "%";
+    }
+    if (metric === "ffb_yield" || metric === "cpo_yield") {
+      return Number(val).toFixed(2);
+    }
+    return Math.round(Number(val)).toLocaleString("en-US");
+  };
+
+  let theadHtml = `<tr><th class="py-2.5 px-3 whitespace-nowrap bg-slate-950 sticky left-0 z-30 border-r border-slate-800">State / Region</th>`;
+  years.forEach(y => {
+    const isYtd = matrix[y] && matrix[y].is_ytd;
+    const yearLabel = isYtd ? `${y} <span class="text-[9px] text-amber-400 font-normal">YTD</span>` : y;
+    theadHtml += `<th class="py-2.5 px-2.5 text-right whitespace-nowrap">${yearLabel}</th>`;
+  });
+  theadHtml += `</tr>`;
+  thead.innerHTML = theadHtml;
+
+  tbody.innerHTML = "";
+
+  orderedEntities.forEach(ent => {
+    const tr = document.createElement("tr");
+    const isTotal = ent === "Total Malaysia";
+    const isRegional = ent === "Peninsular Malaysia" || ent === "Sabah" || ent === "Sarawak";
+
+    let rowClass = "hover:bg-slate-800/40 transition border-b border-slate-800/40";
+    let nameClass = "font-semibold text-white";
+    let cellColor = "text-slate-300";
+
+    if (isTotal) {
+      rowClass = "bg-slate-900/90 font-bold border-b border-slate-700 sticky bottom-0 z-10";
+      nameClass = "text-emerald-400 font-bold";
+      cellColor = "text-emerald-300 font-bold";
+    } else if (isRegional) {
+      rowClass = "bg-slate-950/60 font-semibold border-b border-slate-800";
+      nameClass = ent === "Peninsular Malaysia" ? "text-blue-300" : (ent === "Sabah" ? "text-emerald-400" : "text-cyan-300");
+      cellColor = ent === "Peninsular Malaysia" ? "text-blue-200" : (ent === "Sabah" ? "text-emerald-300" : "text-cyan-200");
+    }
+
+    tr.className = rowClass;
+
+    let rowHtml = `<td class="py-2.5 px-3 whitespace-nowrap bg-slate-950 sticky left-0 z-10 border-r border-slate-800 ${nameClass}">${ent}</td>`;
+
+    years.forEach(y => {
+      const yData = matrix[y];
+      const entData = yData && yData.entities ? yData.entities[ent] : null;
+      const val = entData ? entData[metric] : null;
+      rowHtml += `<td class="py-2.5 px-2.5 text-right font-mono ${cellColor}">${fmt(val)}</td>`;
+    });
+
+    tr.innerHTML = rowHtml;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------------
 // Product Export Breakdown (Report 34)
 // -------------------------------------------------------------
 
@@ -2031,6 +2181,70 @@ function renderAnnualExportTable() {
       <td class="py-2.5 px-3 text-right text-orange-400 font-mono">${formatNumber(r.palm_kernel_cake_tonnes)}</td>
       <td class="py-2.5 px-3 text-right text-amber-400 font-bold font-mono">${r.total_all_products_rm_mil ? formatNumber(r.total_all_products_rm_mil) : '--'}</td>
       <td class="py-2.5 px-2.5 text-right text-slate-300 font-mono">${r.unit_price_rm_tonne ? 'RM ' + formatNumber(r.unit_price_rm_tonne) : '--'}</td>
+      <td class="py-2.5 px-3 text-center text-[11px] text-slate-400 max-w-[200px] truncate" title="${r.source || ''}">${r.source || '--'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------------
+// Annual Multi-Decade Balance Sheet History (1980 - 2026)
+// -------------------------------------------------------------
+
+async function loadAnnualBalanceSheetData() {
+  try {
+    annualBalanceSheetData = await fetchJsonData("/api/annual-balance-sheet", "api_annual_balance_sheet.json");
+    renderAnnualBalanceSheetTable();
+  } catch (err) {
+    console.error("Failed to load annual balance sheet data:", err);
+  }
+}
+
+function filterAnnualBalanceSheetTable() {
+  renderAnnualBalanceSheetTable();
+}
+
+function renderAnnualBalanceSheetTable() {
+  const tbody = document.getElementById("annual-bs-tbody");
+  if (!tbody || !annualBalanceSheetData || !annualBalanceSheetData.data) return;
+  tbody.innerHTML = "";
+
+  const query = document.getElementById("annual-bs-search") ? document.getElementById("annual-bs-search").value.toLowerCase().trim() : "";
+  const records = [...annualBalanceSheetData.data].reverse();
+
+  const filtered = records.filter(r => !query || r.year.toString().includes(query) || (r.source && r.source.toLowerCase().includes(query)));
+
+  filtered.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.className = "hover:bg-slate-800/40 transition";
+
+    const formatYoY = (v) => {
+      if (v === null || v === undefined || isNaN(v)) return '<span class="text-slate-500 font-mono">--</span>';
+      const isPos = v >= 0;
+      return `<span class="${isPos ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'} font-mono">${isPos ? '+' : ''}${v.toFixed(1)}%</span>`;
+    };
+
+    const yearLabel = r.is_ytd
+      ? `<span class="font-bold text-white">${r.year}</span> <span class="text-[10px] px-1 py-0.5 rounded bg-amber-500/20 text-amber-300 font-normal">YTD (${r.months_count}M)</span>`
+      : `<span class="font-bold text-white">${r.year}</span>`;
+
+    tr.innerHTML = `
+      <td class="py-2.5 px-3 font-semibold text-white whitespace-nowrap">${yearLabel}</td>
+      <td class="py-2.5 px-3 text-right font-mono text-slate-300">${formatNumber(r.beginning_stocks)}</td>
+      <td class="py-2.5 px-3 text-right text-emerald-400 font-bold font-mono">${formatNumber(r.production)}</td>
+      <td class="py-2.5 px-2 text-right">${formatYoY(r.production_yoy_pct)}</td>
+      <td class="py-2.5 px-2.5 text-right font-mono text-slate-300">${formatNumber(r.imports)}</td>
+      <td class="py-2.5 px-3 text-right font-bold font-mono text-slate-200">${formatNumber(r.total_supply)}</td>
+      <td class="py-2.5 px-3 text-right text-blue-400 font-bold font-mono">${formatNumber(r.exports)}</td>
+      <td class="py-2.5 px-2 text-right">${formatYoY(r.export_yoy_pct)}</td>
+      <td class="py-2.5 px-3 text-right text-purple-400 font-mono">${formatNumber(r.domestic_disappearance)}</td>
+      <td class="py-2.5 px-3 text-right font-bold font-mono text-slate-200">${formatNumber(r.total_use)}</td>
+      <td class="py-2.5 px-3 text-right text-amber-400 font-bold font-mono">${formatNumber(r.ending_stocks)}</td>
+      <td class="py-2.5 px-2 text-right">${formatYoY(r.ending_stock_yoy_pct)}</td>
+      <td class="py-2.5 px-2.5 text-right font-bold text-slate-200 font-mono">${r.stock_to_use_pct ? r.stock_to_use_pct.toFixed(2) + '%' : '--'}</td>
+      <td class="py-2.5 px-3 text-right text-cyan-300 font-mono">${r.area_planted_ha ? formatNumber(r.area_planted_ha) : '--'}</td>
+      <td class="py-2.5 px-2.5 text-right text-emerald-300 font-bold font-mono">${r.ffb_yield_t_ha ? r.ffb_yield_t_ha.toFixed(2) : '--'}</td>
+      <td class="py-2.5 px-2.5 text-right text-yellow-300 font-bold font-mono">${r.oer_pct ? r.oer_pct.toFixed(2) + '%' : '--'}</td>
       <td class="py-2.5 px-3 text-center text-[11px] text-slate-400 max-w-[200px] truncate" title="${r.source || ''}">${r.source || '--'}</td>
     `;
     tbody.appendChild(tr);

@@ -1,0 +1,373 @@
+year,is_ytd,entity,cpo_production,national_share_pct,ffb_processed,oer,ffb_yield,cpo_yield,source
+2026,True,Total Malaysia,12633182.4,100.0,63069280.5,20.03,,,MPOB Prestasi Sawit Annual Census
+2026,True,Peninsular Malaysia,6883744.8,54.49,34658552.8,19.86,,,MPOB Prestasi Sawit Annual Census
+2026,True,Johor,1995926.0,15.8,9958417.9,20.08,4.62,0.93,MPOB Prestasi Sawit Annual Census
+2026,True,Kedah,166701.2,1.32,838767.5,19.83,3.99,0.79,MPOB Prestasi Sawit Annual Census
+2026,True,Kelantan,224132.2,1.77,1060526.4,21.14,2.85,0.6,MPOB Prestasi Sawit Annual Census
+2026,True,Melaka,58687.0,0.46,287760.1,20.43,4.78,0.98,MPOB Prestasi Sawit Annual Census
+2026,True,Negeri Sembilan,423900.9,3.36,2106652.7,20.15,4.25,0.86,MPOB Prestasi Sawit Annual Census
+2026,True,Pahang,1910188.6,15.12,9571387.5,19.97,4.07,0.81,MPOB Prestasi Sawit Annual Census
+2026,True,Perak,1335970.7,10.58,6904508.9,19.38,5.75,1.11,MPOB Prestasi Sawit Annual Census
+2026,True,Perlis,0.0,0.0,,,3.24,,MPOB Prestasi Sawit Annual Census
+2026,True,Pulau Pinang,85608.2,0.68,437689.0,19.53,3.76,0.73,MPOB Prestasi Sawit Annual Census
+2026,True,Selangor,373663.4,2.96,1953364.1,19.15,5.3,1.01,MPOB Prestasi Sawit Annual Census
+2026,True,Terengganu,308966.7,2.45,1539478.5,20.05,3.33,0.67,MPOB Prestasi Sawit Annual Census
+2026,True,Sabah,2820532.9,22.33,13458923.9,20.94,3.92,0.82,MPOB Prestasi Sawit Annual Census
+2026,True,Sarawak,2928904.6,23.18,14951803.9,19.59,4.13,0.81,MPOB Prestasi Sawit Annual Census
+2025,False,Total Malaysia,20283470.2,100.0,102755713.7,19.74,,,MPOB Prestasi Sawit Annual Census
+2025,False,Peninsular Malaysia,11376840.7,56.09,57996150.6,19.62,,,MPOB Prestasi Sawit Annual Census
+2025,False,Johor,3174452.0,15.65,16174666.0,19.59,13.44,2.63,MPOB Prestasi Sawit Annual Census
+2025,False,Kedah,281192.0,1.39,1399340.6,20.07,11.57,2.32,MPOB Prestasi Sawit Annual Census
+2025,False,Kelantan,414130.9,2.04,2016797.6,20.38,9.25,1.89,MPOB Prestasi Sawit Annual Census
+2025,False,Melaka,88694.0,0.44,437851.3,20.27,13.36,2.71,MPOB Prestasi Sawit Annual Census
+2025,False,Negeri Sembilan,726969.3,3.58,3645625.6,19.9,12.76,2.54,MPOB Prestasi Sawit Annual Census
+2025,False,Pahang,3476094.0,17.14,17681807.2,19.61,13.05,2.56,MPOB Prestasi Sawit Annual Census
+2025,False,Perak,2030201.2,10.01,10480406.1,19.35,14.38,2.78,MPOB Prestasi Sawit Annual Census
+2025,False,Perlis,0.0,0.0,,,10.42,,MPOB Prestasi Sawit Annual Census
+2025,False,Pulau Pinang,131824.1,0.65,663041.4,19.74,8.32,1.64,MPOB Prestasi Sawit Annual Census
+2025,False,Selangor,573620.4,2.83,3046242.8,18.81,13.46,2.53,MPOB Prestasi Sawit Annual Census
+2025,False,Terengganu,479662.8,2.36,2450372.0,19.45,9.31,1.81,MPOB Prestasi Sawit Annual Census
+2025,False,Sabah,4410290.4,21.74,21710591.6,20.26,11.12,2.25,MPOB Prestasi Sawit Annual Census
+2025,False,Sarawak,4496339.2,22.17,23048971.5,19.47,10.71,2.09,MPOB Prestasi Sawit Annual Census
+2024,False,Total Malaysia,17851170.9,100.0,90671936.4,19.69,,,MPOB Prestasi Sawit Annual Census
+2024,False,Peninsular Malaysia,10105968.3,56.61,51866879.7,19.48,,,MPOB Prestasi Sawit Annual Census
+2024,False,Johor,2883025.4,16.15,14852281.0,19.42,9.82,1.91,MPOB Prestasi Sawit Annual Census
+2024,False,Kedah,241876.8,1.35,1227160.7,19.66,8.95,1.76,MPOB Prestasi Sawit Annual Census
+2024,False,Kelantan,333776.2,1.87,1603867.7,20.76,6.3,1.31,MPOB Prestasi Sawit Annual Census
+2024,False,Melaka,81154.7,0.45,403636.9,20.11,10.13,2.04,MPOB Prestasi Sawit Annual Census
+2024,False,Negeri Sembilan,666838.2,3.74,3393344.4,19.68,9.84,1.94,MPOB Prestasi Sawit Annual Census
+2024,False,Pahang,3093121.1,17.33,15666427.9,19.72,9.26,1.83,MPOB Prestasi Sawit Annual Census
+2024,False,Perak,1745107.4,9.78,9192247.4,19.0,10.53,2.0,MPOB Prestasi Sawit Annual Census
+2024,False,Perlis,0.0,0.0,,,8.13,,MPOB Prestasi Sawit Annual Census
+2024,False,Pulau Pinang,122230.1,0.68,635788.4,19.19,6.7,1.29,MPOB Prestasi Sawit Annual Census
+2024,False,Selangor,497947.0,2.79,2686249.8,18.54,9.81,1.82,MPOB Prestasi Sawit Annual Census
+2024,False,Terengganu,440891.4,2.47,2205875.6,19.91,6.56,1.31,MPOB Prestasi Sawit Annual Census
+2024,False,Sabah,3922763.7,21.97,19086600.2,20.53,7.77,1.6,MPOB Prestasi Sawit Annual Census
+2024,False,Sarawak,3822438.9,21.41,19718456.5,19.41,7.17,1.39,MPOB Prestasi Sawit Annual Census
+2023,False,Total Malaysia,18551715.9,100.0,93386585.6,19.87,,,MPOB Prestasi Sawit Annual Census
+2023,False,Peninsular Malaysia,9824897.2,52.96,50010273.5,19.65,,,MPOB Prestasi Sawit Annual Census
+2023,False,Johor,2860243.2,15.42,14638867.4,19.51,13.03,2.54,MPOB Prestasi Sawit Annual Census
+2023,False,Kedah,213550.8,1.15,1067932.1,19.99,11.65,2.33,MPOB Prestasi Sawit Annual Census
+2023,False,Kelantan,336602.3,1.81,1628152.7,20.64,8.48,1.75,MPOB Prestasi Sawit Annual Census
+2023,False,Melaka,77588.6,0.42,390930.5,19.81,13.74,2.72,MPOB Prestasi Sawit Annual Census
+2023,False,Negeri Sembilan,624200.7,3.36,3130482.6,19.89,11.77,2.34,MPOB Prestasi Sawit Annual Census
+2023,False,Pahang,2826333.5,15.23,14321316.9,19.69,11.43,2.25,MPOB Prestasi Sawit Annual Census
+2023,False,Perak,1842435.0,9.93,9485659.5,19.43,14.57,2.83,MPOB Prestasi Sawit Annual Census
+2023,False,Perlis,0.0,0.0,,,10.6,,MPOB Prestasi Sawit Annual Census
+2023,False,Pulau Pinang,137873.8,0.74,696019.7,19.79,9.27,1.83,MPOB Prestasi Sawit Annual Census
+2023,False,Selangor,492511.5,2.65,2585348.8,19.04,13.25,2.52,MPOB Prestasi Sawit Annual Census
+2023,False,Terengganu,413557.8,2.23,2065563.3,19.91,9.21,1.83,MPOB Prestasi Sawit Annual Census
+2023,False,Sabah,4507435.5,24.3,22098346.9,20.38,12.33,2.51,MPOB Prestasi Sawit Annual Census
+2023,False,Sarawak,4219383.2,22.74,21277965.2,19.82,11.09,2.2,MPOB Prestasi Sawit Annual Census
+2022,False,Total Malaysia,18453383.9,100.0,93650466.9,19.7,,,MPOB Prestasi Sawit Annual Census
+2022,False,Peninsular Malaysia,10161326.7,55.06,51910925.0,19.57,,,MPOB Prestasi Sawit Annual Census
+2022,False,Johor,2969524.5,16.09,15153298.0,19.61,16.45,3.23,MPOB Prestasi Sawit Annual Census
+2022,False,Kedah,237382.7,1.29,1200793.9,19.73,14.18,2.8,MPOB Prestasi Sawit Annual Census
+2022,False,Kelantan,336059.8,1.82,1619121.9,20.72,10.42,2.16,MPOB Prestasi Sawit Annual Census
+2022,False,Melaka,64407.1,0.35,327117.2,19.68,16.97,3.34,MPOB Prestasi Sawit Annual Census
+2022,False,Negeri Sembilan,675767.2,3.66,3445561.0,19.63,16.51,3.24,MPOB Prestasi Sawit Annual Census
+2022,False,Pahang,3013107.6,16.33,15391880.8,19.58,15.34,3.0,MPOB Prestasi Sawit Annual Census
+2022,False,Perak,1866421.9,10.11,9614528.0,19.4,17.18,3.33,MPOB Prestasi Sawit Annual Census
+2022,False,Perlis,0.0,0.0,,,13.53,,MPOB Prestasi Sawit Annual Census
+2022,False,Pulau Pinang,92252.2,0.5,460648.5,20.03,10.55,2.11,MPOB Prestasi Sawit Annual Census
+2022,False,Selangor,498901.9,2.7,2641089.4,18.88,15.57,2.94,MPOB Prestasi Sawit Annual Census
+2022,False,Terengganu,407501.8,2.21,2056886.2,19.79,11.33,2.24,MPOB Prestasi Sawit Annual Census
+2022,False,Sabah,4286630.5,23.23,21170258.9,20.24,14.13,2.86,MPOB Prestasi Sawit Annual Census
+2022,False,Sarawak,4005426.6,21.71,20569283.0,19.47,13.16,2.56,MPOB Prestasi Sawit Annual Census
+2021,False,Total Malaysia,18116352.8,100.0,90529858.7,20.01,,,MPOB Prestasi Sawit Annual Census
+2021,False,Peninsular Malaysia,9846995.9,54.35,49654895.3,19.83,,,MPOB Prestasi Sawit Annual Census
+2021,False,Johor,2851496.0,15.74,14402211.9,19.78,15.15,3.0,MPOB Prestasi Sawit Annual Census
+2021,False,Kedah,236667.2,1.31,1177711.8,20.09,14.58,2.93,MPOB Prestasi Sawit Annual Census
+2021,False,Kelantan,314405.0,1.74,1519031.9,20.59,8.84,1.82,MPOB Prestasi Sawit Annual Census
+2021,False,Melaka,72580.7,0.4,343551.7,21.13,14.68,3.1,MPOB Prestasi Sawit Annual Census
+2021,False,Negeri Sembilan,631112.0,3.48,3117495.1,20.25,13.66,2.77,MPOB Prestasi Sawit Annual Census
+2021,False,Pahang,2795769.0,15.43,14006502.4,19.91,13.31,2.65,MPOB Prestasi Sawit Annual Census
+2021,False,Perak,1902381.2,10.5,9752696.9,19.5,16.79,3.27,MPOB Prestasi Sawit Annual Census
+2021,False,Perlis,0.0,0.0,,,11.77,,MPOB Prestasi Sawit Annual Census
+2021,False,Pulau Pinang,90548.0,0.5,458841.4,20.04,11.22,2.25,MPOB Prestasi Sawit Annual Census
+2021,False,Selangor,522372.1,2.88,2728037.9,19.14,16.79,3.21,MPOB Prestasi Sawit Annual Census
+2021,False,Terengganu,429664.6,2.37,2148814.3,19.87,11.02,2.19,MPOB Prestasi Sawit Annual Census
+2021,False,Sabah,4361538.4,24.08,21222030.1,20.48,13.38,2.74,MPOB Prestasi Sawit Annual Census
+2021,False,Sarawak,3907818.5,21.57,19652933.2,19.87,11.69,2.32,MPOB Prestasi Sawit Annual Census
+2020,False,Total Malaysia,19140609.3,100.0,96089385.5,19.92,,,MPOB Prestasi Sawit Annual Census
+2020,False,Peninsular Malaysia,10438897.1,54.54,53020072.2,19.69,,,MPOB Prestasi Sawit Annual Census
+2020,False,Johor,3157647.3,16.5,15961668.9,19.82,14.97,2.97,MPOB Prestasi Sawit Annual Census
+2020,False,Kedah,218105.9,1.14,1095239.9,20.0,12.31,2.46,MPOB Prestasi Sawit Annual Census
+2020,False,Kelantan,338019.8,1.77,1636271.3,20.59,8.27,1.7,MPOB Prestasi Sawit Annual Census
+2020,False,Melaka,82377.9,0.43,407102.3,20.24,14.29,2.89,MPOB Prestasi Sawit Annual Census
+2020,False,Negeri Sembilan,651309.4,3.4,3295772.5,19.81,12.67,2.51,MPOB Prestasi Sawit Annual Census
+2020,False,Pahang,2998601.6,15.67,15144763.3,19.79,12.7,2.51,MPOB Prestasi Sawit Annual Census
+2020,False,Perak,1840645.8,9.62,9584118.7,19.2,14.89,2.86,MPOB Prestasi Sawit Annual Census
+2020,False,Perlis,0.0,0.0,,,9.79,,MPOB Prestasi Sawit Annual Census
+2020,False,Pulau Pinang,101283.8,0.53,527303.4,19.18,9.3,1.78,MPOB Prestasi Sawit Annual Census
+2020,False,Selangor,509534.7,2.66,2657401.7,19.18,14.64,2.81,MPOB Prestasi Sawit Annual Census
+2020,False,Terengganu,541370.8,2.83,2710430.2,19.91,10.74,2.14,MPOB Prestasi Sawit Annual Census
+2020,False,Sabah,4647374.8,24.28,22405360.6,20.74,12.39,2.57,MPOB Prestasi Sawit Annual Census
+2020,False,Sarawak,4054337.4,21.18,20663952.6,19.64,11.05,2.17,MPOB Prestasi Sawit Annual Census
+2019,False,Total Malaysia,19858367.8,100.0,98277618.9,20.21,,,MPOB Prestasi Sawit Annual Census
+2019,False,Peninsular Malaysia,10583788.1,53.3,53109200.3,19.93,,,MPOB Prestasi Sawit Annual Census
+2019,False,Johor,3142218.9,15.82,15537172.0,20.21,8.02,1.62,MPOB Prestasi Sawit Annual Census
+2019,False,Kedah,239074.6,1.2,1197545.2,19.96,5.99,1.2,MPOB Prestasi Sawit Annual Census
+2019,False,Kelantan,332438.2,1.67,1603392.6,20.7,4.53,0.94,MPOB Prestasi Sawit Annual Census
+2019,False,Melaka,110509.3,0.56,546600.3,20.29,6.88,1.4,MPOB Prestasi Sawit Annual Census
+2019,False,Negeri Sembilan,698440.0,3.52,3503508.7,19.98,6.7,1.34,MPOB Prestasi Sawit Annual Census
+2019,False,Pahang,3019772.1,15.21,15130318.1,19.95,6.95,1.39,MPOB Prestasi Sawit Annual Census
+2019,False,Perak,1854050.4,9.34,9582172.1,19.34,7.51,1.45,MPOB Prestasi Sawit Annual Census
+2019,False,Perlis,0.0,0.0,,,7.54,,MPOB Prestasi Sawit Annual Census
+2019,False,Pulau Pinang,109218.1,0.55,571831.8,19.09,3.48,0.66,MPOB Prestasi Sawit Annual Census
+2019,False,Selangor,521837.1,2.63,2690457.0,19.4,7.3,1.42,MPOB Prestasi Sawit Annual Census
+2019,False,Terengganu,556229.3,2.8,2746202.6,20.23,5.92,1.2,MPOB Prestasi Sawit Annual Census
+2019,False,Sabah,5037169.0,25.37,24016183.2,20.98,7.55,1.58,MPOB Prestasi Sawit Annual Census
+2019,False,Sarawak,4237410.7,21.34,21152235.4,20.0,6.42,1.28,MPOB Prestasi Sawit Annual Census
+2018,False,Total Malaysia,19516140.9,100.0,97803924.8,19.95,,,MPOB Prestasi Sawit Annual Census
+2018,False,Peninsular Malaysia,10197446.0,52.25,51797648.2,19.69,,,MPOB Prestasi Sawit Annual Census
+2018,False,Johor,3113455.5,15.95,15814635.2,19.69,16.79,3.31,MPOB Prestasi Sawit Annual Census
+2018,False,Kedah,265770.9,1.36,1329859.6,20.0,14.67,2.93,MPOB Prestasi Sawit Annual Census
+2018,False,Kelantan,294884.0,1.51,1421809.8,20.83,8.62,1.8,MPOB Prestasi Sawit Annual Census
+2018,False,Melaka,109390.3,0.56,549405.6,19.91,16.54,3.29,MPOB Prestasi Sawit Annual Census
+2018,False,Negeri Sembilan,679450.9,3.48,3470097.4,19.58,14.9,2.92,MPOB Prestasi Sawit Annual Census
+2018,False,Pahang,2754380.8,14.11,13823732.4,19.93,14.11,2.81,MPOB Prestasi Sawit Annual Census
+2018,False,Perak,1861065.6,9.54,9691087.6,19.21,16.72,3.21,MPOB Prestasi Sawit Annual Census
+2018,False,Perlis,0.0,0.0,,,16.93,,MPOB Prestasi Sawit Annual Census
+2018,False,Pulau Pinang,113127.5,0.58,583827.0,19.38,9.38,1.82,MPOB Prestasi Sawit Annual Census
+2018,False,Selangor,519504.2,2.66,2684814.2,19.35,17.33,3.35,MPOB Prestasi Sawit Annual Census
+2018,False,Terengganu,486416.3,2.49,2428379.5,20.07,10.46,2.1,MPOB Prestasi Sawit Annual Census
+2018,False,Sabah,5139354.7,26.33,24952419.1,20.64,15.26,3.15,MPOB Prestasi Sawit Annual Census
+2018,False,Sarawak,4179340.2,21.41,21053857.4,19.82,13.63,2.7,MPOB Prestasi Sawit Annual Census
+2017,False,Total Malaysia,19919343.4,100.0,101021150.7,19.72,,,MPOB Prestasi Sawit Annual Census
+2017,False,Peninsular Malaysia,10575923.3,53.09,55044008.2,19.21,,,MPOB Prestasi Sawit Annual Census
+2017,False,Johor,3142523.6,15.78,16341663.0,19.25,15.82,3.05,MPOB Prestasi Sawit Annual Census
+2017,False,Kedah,309346.4,1.55,1557208.1,19.85,15.32,3.04,MPOB Prestasi Sawit Annual Census
+2017,False,Kelantan,318980.3,1.6,1594030.7,19.97,8.68,1.73,MPOB Prestasi Sawit Annual Census
+2017,False,Melaka,111635.6,0.56,574828.1,19.41,17.37,3.37,MPOB Prestasi Sawit Annual Census
+2017,False,Negeri Sembilan,682943.6,3.43,3599963.2,18.98,13.77,2.61,MPOB Prestasi Sawit Annual Census
+2017,False,Pahang,2849621.2,14.31,14779122.8,19.28,13.87,2.67,MPOB Prestasi Sawit Annual Census
+2017,False,Perak,2029909.2,10.19,10687448.6,19.0,16.44,3.12,MPOB Prestasi Sawit Annual Census
+2017,False,Perlis,0.0,0.0,,,11.31,,MPOB Prestasi Sawit Annual Census
+2017,False,Pulau Pinang,103712.2,0.52,537110.3,19.25,11.27,2.17,MPOB Prestasi Sawit Annual Census
+2017,False,Selangor,532519.5,2.67,2814663.7,18.92,16.21,3.07,MPOB Prestasi Sawit Annual Census
+2017,False,Terengganu,494731.8,2.48,2557969.7,19.3,11.54,2.23,MPOB Prestasi Sawit Annual Census
+2017,False,Sabah,5215344.8,26.18,25319549.0,20.58,13.91,2.86,MPOB Prestasi Sawit Annual Census
+2017,False,Sarawak,4128075.3,20.72,20657593.5,20.0,12.39,2.48,MPOB Prestasi Sawit Annual Census
+2016,False,Total Malaysia,17319170.7,100.0,85836771.3,20.18,,,MPOB Prestasi Sawit Annual Census
+2016,False,Peninsular Malaysia,8886631.6,51.31,44964113.8,19.76,,,MPOB Prestasi Sawit Annual Census
+2016,False,Johor,2745389.3,15.85,13845688.2,19.82,12.2,2.42,MPOB Prestasi Sawit Annual Census
+2016,False,Kedah,222308.0,1.28,1123915.6,19.86,9.17,1.82,MPOB Prestasi Sawit Annual Census
+2016,False,Kelantan,278085.0,1.61,1329981.8,20.85,6.96,1.45,MPOB Prestasi Sawit Annual Census
+2016,False,Melaka,86254.0,0.5,438491.3,19.7,11.46,2.26,MPOB Prestasi Sawit Annual Census
+2016,False,Negeri Sembilan,542560.2,3.13,2796025.3,19.41,9.66,1.88,MPOB Prestasi Sawit Annual Census
+2016,False,Pahang,2422678.7,13.99,12122837.6,19.96,10.26,2.05,MPOB Prestasi Sawit Annual Census
+2016,False,Perak,1629338.5,9.41,8408689.1,19.37,11.72,2.27,MPOB Prestasi Sawit Annual Census
+2016,False,Perlis,0.0,0.0,,,5.24,,MPOB Prestasi Sawit Annual Census
+2016,False,Pulau Pinang,95963.8,0.55,498540.9,19.21,7.17,1.38,MPOB Prestasi Sawit Annual Census
+2016,False,Selangor,418089.1,2.41,2175031.2,19.22,11.68,2.24,MPOB Prestasi Sawit Annual Census
+2016,False,Terengganu,445965.0,2.57,2224912.8,20.03,9.16,1.83,MPOB Prestasi Sawit Annual Census
+2016,False,Sabah,4847253.2,27.99,22963396.9,21.13,11.37,2.4,MPOB Prestasi Sawit Annual Census
+2016,False,Sarawak,3585285.9,20.7,17909260.6,20.03,9.98,2.0,MPOB Prestasi Sawit Annual Census
+2015,False,Total Malaysia,19961578.5,100.0,97566390.0,20.46,,,MPOB Prestasi Sawit Annual Census
+2015,False,Peninsular Malaysia,10536465.0,52.78,52667946.2,20.01,,,MPOB Prestasi Sawit Annual Census
+2015,False,Johor,3117618.8,15.62,15438072.6,20.2,12.94,2.61,MPOB Prestasi Sawit Annual Census
+2015,False,Kedah,315647.4,1.58,1583937.3,19.97,12.98,2.59,MPOB Prestasi Sawit Annual Census
+2015,False,Kelantan,281413.0,1.41,1328490.3,21.04,6.84,1.44,MPOB Prestasi Sawit Annual Census
+2015,False,Melaka,109014.4,0.55,528325.3,20.63,14.71,3.03,MPOB Prestasi Sawit Annual Census
+2015,False,Negeri Sembilan,680283.2,3.41,3414043.8,19.95,12.07,2.41,MPOB Prestasi Sawit Annual Census
+2015,False,Pahang,2950300.6,14.78,14561950.1,20.22,11.68,2.36,MPOB Prestasi Sawit Annual Census
+2015,False,Perak,1989285.1,9.97,10292160.6,19.34,13.63,2.64,MPOB Prestasi Sawit Annual Census
+2015,False,Perlis,0.0,0.0,,,7.03,,MPOB Prestasi Sawit Annual Census
+2015,False,Pulau Pinang,92496.5,0.46,475942.6,19.42,10.98,2.13,MPOB Prestasi Sawit Annual Census
+2015,False,Selangor,503877.5,2.52,2614067.4,19.3,13.24,2.56,MPOB Prestasi Sawit Annual Census
+2015,False,Terengganu,496528.5,2.49,2430956.3,20.25,9.15,1.85,MPOB Prestasi Sawit Annual Census
+2015,False,Sabah,5722965.9,28.67,26528655.5,21.55,13.09,2.82,MPOB Prestasi Sawit Annual Census
+2015,False,Sarawak,3702147.5,18.55,18369788.3,20.11,10.29,2.07,MPOB Prestasi Sawit Annual Census
+2014,False,Total Malaysia,19667014.6,100.0,95380438.7,20.62,,,MPOB Prestasi Sawit Annual Census
+2014,False,Peninsular Malaysia,10172108.2,51.72,50370884.5,20.19,,,MPOB Prestasi Sawit Annual Census
+2014,False,Johor,3047050.0,15.49,15105022.9,20.21,16.25,3.28,MPOB Prestasi Sawit Annual Census
+2014,False,Kedah,244953.2,1.25,1216094.8,20.18,14.54,2.93,MPOB Prestasi Sawit Annual Census
+2014,False,Kelantan,284644.0,1.45,1342396.1,21.11,10.19,2.15,MPOB Prestasi Sawit Annual Census
+2014,False,Melaka,104776.4,0.53,505447.9,20.73,17.11,3.55,MPOB Prestasi Sawit Annual Census
+2014,False,Negeri Sembilan,612779.4,3.12,3016858.9,20.36,15.07,3.07,MPOB Prestasi Sawit Annual Census
+2014,False,Pahang,2889341.6,14.69,14112612.0,20.49,15.58,3.19,MPOB Prestasi Sawit Annual Census
+2014,False,Perak,1907710.6,9.7,9691920.1,19.73,17.08,3.37,MPOB Prestasi Sawit Annual Census
+2014,False,Perlis,0.0,0.0,,,11.62,,MPOB Prestasi Sawit Annual Census
+2014,False,Pulau Pinang,90161.8,0.46,454584.2,19.81,11.9,2.36,MPOB Prestasi Sawit Annual Census
+2014,False,Selangor,509665.4,2.59,2589294.0,19.73,16.64,3.28,MPOB Prestasi Sawit Annual Census
+2014,False,Terengganu,481025.7,2.45,2336653.6,20.49,12.03,2.46,MPOB Prestasi Sawit Annual Census
+2014,False,Sabah,6055568.5,30.79,28177589.9,21.48,17.53,3.77,MPOB Prestasi Sawit Annual Census
+2014,False,Sarawak,3439337.9,17.49,16831964.2,20.43,13.5,2.76,MPOB Prestasi Sawit Annual Census
+2013,False,Total Malaysia,19216451.7,100.0,94917736.2,20.25,,,MPOB Prestasi Sawit Annual Census
+2013,False,Peninsular Malaysia,10328017.5,53.75,52006394.1,19.86,,,MPOB Prestasi Sawit Annual Census
+2013,False,Johor,3013784.8,15.68,15247102.1,19.77,12.79,2.53,MPOB Prestasi Sawit Annual Census
+2013,False,Kedah,283714.5,1.48,1422032.8,19.94,11.8,2.35,MPOB Prestasi Sawit Annual Census
+2013,False,Kelantan,289769.3,1.51,1418584.9,20.37,8.45,1.72,MPOB Prestasi Sawit Annual Census
+2013,False,Melaka,102928.1,0.54,498273.7,20.65,13.44,2.78,MPOB Prestasi Sawit Annual Census
+2013,False,Negeri Sembilan,662171.8,3.45,3314986.4,19.98,13.29,2.66,MPOB Prestasi Sawit Annual Census
+2013,False,Pahang,2962087.9,15.41,14794196.4,20.03,13.23,2.65,MPOB Prestasi Sawit Annual Census
+2013,False,Perak,1884656.9,9.81,9650739.3,19.54,12.92,2.52,MPOB Prestasi Sawit Annual Census
+2013,False,Perlis,0.0,0.0,,,7.31,,MPOB Prestasi Sawit Annual Census
+2013,False,Pulau Pinang,93929.0,0.49,472859.2,19.87,9.55,1.9,MPOB Prestasi Sawit Annual Census
+2013,False,Selangor,550240.9,2.86,2802047.0,19.65,12.3,2.42,MPOB Prestasi Sawit Annual Census
+2013,False,Terengganu,484734.3,2.52,2385572.4,20.29,9.49,1.93,MPOB Prestasi Sawit Annual Census
+2013,False,Sabah,5776460.1,30.06,27440634.3,21.06,12.51,2.63,MPOB Prestasi Sawit Annual Census
+2013,False,Sarawak,3111974.1,16.19,15470707.8,20.13,10.81,2.18,MPOB Prestasi Sawit Annual Census
+2012,False,Total Malaysia,18785032.9,100.0,92328850.4,20.35,,,MPOB Prestasi Sawit Annual Census
+2012,False,Peninsular Malaysia,10319776.6,54.94,51655658.7,19.98,,,MPOB Prestasi Sawit Annual Census
+2012,False,Johor,2946730.3,15.69,14859421.3,19.83,10.88,2.16,MPOB Prestasi Sawit Annual Census
+2012,False,Kedah,324051.0,1.73,1628141.9,19.93,12.11,2.41,MPOB Prestasi Sawit Annual Census
+2012,False,Kelantan,255918.2,1.36,1236984.2,20.65,6.89,1.42,MPOB Prestasi Sawit Annual Census
+2012,False,Melaka,114698.9,0.61,566064.3,20.28,13.31,2.7,MPOB Prestasi Sawit Annual Census
+2012,False,Negeri Sembilan,696400.4,3.71,3462492.2,20.13,11.14,2.24,MPOB Prestasi Sawit Annual Census
+2012,False,Pahang,2828378.7,15.06,13935420.8,20.28,10.85,2.2,MPOB Prestasi Sawit Annual Census
+2012,False,Perak,1930821.5,10.28,9846659.6,19.62,12.05,2.36,MPOB Prestasi Sawit Annual Census
+2012,False,Perlis,0.0,0.0,,,9.66,,MPOB Prestasi Sawit Annual Census
+2012,False,Pulau Pinang,97858.6,0.52,490964.5,19.93,9.67,1.93,MPOB Prestasi Sawit Annual Census
+2012,False,Selangor,631789.2,3.36,3222955.8,19.61,11.83,2.32,MPOB Prestasi Sawit Annual Census
+2012,False,Terengganu,493129.7,2.63,2406554.3,20.45,8.81,1.8,MPOB Prestasi Sawit Annual Census
+2012,False,Sabah,5542649.7,29.51,26369726.3,21.04,12.1,2.55,MPOB Prestasi Sawit Annual Census
+2012,False,Sarawak,2922606.7,15.56,14303465.4,20.47,9.48,1.94,MPOB Prestasi Sawit Annual Census
+2011,False,Total Malaysia,18911513.2,100.0,92917490.2,20.35,,,MPOB Prestasi Sawit Annual Census
+2011,False,Peninsular Malaysia,10372817.3,54.85,51649256.0,20.08,,,MPOB Prestasi Sawit Annual Census
+2011,False,Johor,3022338.3,15.98,15202242.6,19.84,16.16,3.21,MPOB Prestasi Sawit Annual Census
+2011,False,Kedah,322492.2,1.71,1613717.3,19.95,17.31,3.45,MPOB Prestasi Sawit Annual Census
+2011,False,Kelantan,252061.9,1.33,1222560.6,20.47,9.79,2.0,MPOB Prestasi Sawit Annual Census
+2011,False,Melaka,145560.7,0.77,717785.3,20.26,19.53,3.96,MPOB Prestasi Sawit Annual Census
+2011,False,Negeri Sembilan,643339.5,3.4,3184348.8,20.16,15.9,3.21,MPOB Prestasi Sawit Annual Census
+2011,False,Pahang,2799563.8,14.8,13724413.2,20.31,15.56,3.16,MPOB Prestasi Sawit Annual Census
+2011,False,Perak,1962528.7,10.38,9838517.6,19.93,17.89,3.57,MPOB Prestasi Sawit Annual Census
+2011,False,Perlis,0.0,0.0,,,11.25,,MPOB Prestasi Sawit Annual Census
+2011,False,Pulau Pinang,95734.0,0.51,480979.7,19.86,14.49,2.88,MPOB Prestasi Sawit Annual Census
+2011,False,Selangor,613230.1,3.24,3103861.0,19.75,16.76,3.31,MPOB Prestasi Sawit Annual Census
+2011,False,Terengganu,515968.2,2.73,2560830.0,20.03,12.41,2.49,MPOB Prestasi Sawit Annual Census
+2011,False,Sabah,5843163.7,30.9,28172824.6,20.68,18.39,3.8,MPOB Prestasi Sawit Annual Census
+2011,False,Sarawak,2695532.1,14.25,13095409.6,20.57,13.64,2.81,MPOB Prestasi Sawit Annual Census
+2010,False,Total Malaysia,16993719.6,100.0,83090930.9,20.45,,,MPOB Prestasi Sawit Annual Census
+2010,False,Peninsular Malaysia,9498122.1,55.89,47713108.0,19.91,,,MPOB Prestasi Sawit Annual Census
+2010,False,Johor,2808201.3,16.52,14259679.1,19.72,15.03,2.96,MPOB Prestasi Sawit Annual Census
+2010,False,Kedah,277538.3,1.63,1393056.1,19.92,16.68,3.32,MPOB Prestasi Sawit Annual Census
+2010,False,Kelantan,234864.6,1.38,1116048.8,21.03,9.29,1.95,MPOB Prestasi Sawit Annual Census
+2010,False,Melaka,123688.4,0.73,612377.3,20.19,17.75,3.58,MPOB Prestasi Sawit Annual Census
+2010,False,Negeri Sembilan,535500.6,3.15,2680158.4,19.99,15.19,3.04,MPOB Prestasi Sawit Annual Census
+2010,False,Pahang,2548431.9,15.0,12518785.3,20.36,14.81,3.02,MPOB Prestasi Sawit Annual Census
+2010,False,Perak,1807983.3,10.64,9259668.4,19.54,17.19,3.36,MPOB Prestasi Sawit Annual Census
+2010,False,Perlis,0.0,0.0,,,11.61,,MPOB Prestasi Sawit Annual Census
+2010,False,Pulau Pinang,79074.3,0.47,407678.3,19.38,13.55,2.63,MPOB Prestasi Sawit Annual Census
+2010,False,Selangor,594044.8,3.5,3058517.0,19.45,16.75,3.26,MPOB Prestasi Sawit Annual Census
+2010,False,Terengganu,488794.6,2.88,2407139.2,20.29,11.47,2.33,MPOB Prestasi Sawit Annual Census
+2010,False,Sabah,5315996.7,31.28,24925619.8,21.33,16.94,3.61,MPOB Prestasi Sawit Annual Census
+2010,False,Sarawak,2179600.8,12.83,10452203.1,20.93,12.25,2.56,MPOB Prestasi Sawit Annual Census
+2009,False,Total Malaysia,17564937.4,100.0,85705500.6,20.49,,,MPOB Prestasi Sawit Annual Census
+2009,False,Peninsular Malaysia,10120465.2,57.62,50775730.5,19.93,,,MPOB Prestasi Sawit Annual Census
+2009,False,Johor,2937846.6,16.73,14815234.7,19.83,15.89,3.15,MPOB Prestasi Sawit Annual Census
+2009,False,Kedah,311007.8,1.77,1575409.8,19.72,19.0,3.75,MPOB Prestasi Sawit Annual Census
+2009,False,Kelantan,250572.2,1.43,1227900.6,20.39,10.68,2.18,MPOB Prestasi Sawit Annual Census
+2009,False,Melaka,125966.1,0.72,617742.6,20.37,19.84,4.04,MPOB Prestasi Sawit Annual Census
+2009,False,Negeri Sembilan,586322.7,3.34,2918679.6,20.08,16.48,3.31,MPOB Prestasi Sawit Annual Census
+2009,False,Pahang,2720460.5,15.49,13459865.7,20.2,16.38,3.31,MPOB Prestasi Sawit Annual Census
+2009,False,Perak,1980884.9,11.28,10042652.1,19.72,19.33,3.81,MPOB Prestasi Sawit Annual Census
+2009,False,Perlis,0.0,0.0,,,14.94,,MPOB Prestasi Sawit Annual Census
+2009,False,Pulau Pinang,73060.6,0.42,376114.3,19.41,14.62,2.84,MPOB Prestasi Sawit Annual Census
+2009,False,Selangor,664067.9,3.78,3364454.2,19.73,17.61,3.47,MPOB Prestasi Sawit Annual Census
+2009,False,Terengganu,470275.8,2.68,2377677.0,19.77,11.97,2.37,MPOB Prestasi Sawit Annual Census
+2009,False,Sabah,5449692.4,31.03,25520178.8,21.36,18.03,3.85,MPOB Prestasi Sawit Annual Census
+2009,False,Sarawak,1994779.8,11.36,9409591.4,21.17,13.02,2.76,MPOB Prestasi Sawit Annual Census
+2008,False,Total Malaysia,17734441.9,100.0,87749835.2,20.21,,,MPOB Prestasi Sawit Annual Census
+2008,False,Peninsular Malaysia,10129640.2,57.12,51647322.9,19.61,,,MPOB Prestasi Sawit Annual Census
+2008,False,Johor,2921328.0,16.47,15092437.5,19.36,10.8,2.09,MPOB Prestasi Sawit Annual Census
+2008,False,Kedah,301220.0,1.7,1516260.3,19.89,11.09,2.21,MPOB Prestasi Sawit Annual Census
+2008,False,Kelantan,275915.6,1.56,1369592.3,20.12,8.63,1.74,MPOB Prestasi Sawit Annual Census
+2008,False,Melaka,119279.8,0.67,594708.6,20.06,14.21,2.85,MPOB Prestasi Sawit Annual Census
+2008,False,Negeri Sembilan,592465.7,3.34,2998796.6,19.76,11.02,2.18,MPOB Prestasi Sawit Annual Census
+2008,False,Pahang,2750386.0,15.51,13868710.3,19.83,10.95,2.17,MPOB Prestasi Sawit Annual Census
+2008,False,Perak,1940433.5,10.94,9915926.2,19.56,13.0,2.54,MPOB Prestasi Sawit Annual Census
+2008,False,Perlis,0.0,0.0,,,5.57,,MPOB Prestasi Sawit Annual Census
+2008,False,Pulau Pinang,52006.1,0.29,281112.2,18.42,10.25,1.89,MPOB Prestasi Sawit Annual Census
+2008,False,Selangor,673976.7,3.8,3442020.8,19.58,12.05,2.36,MPOB Prestasi Sawit Annual Census
+2008,False,Terengganu,502629.0,2.83,2567758.0,19.56,8.42,1.65,MPOB Prestasi Sawit Annual Census
+2008,False,Sabah,5740428.8,32.37,27244405.1,21.06,13.04,2.75,MPOB Prestasi Sawit Annual Census
+2008,False,Sarawak,1864372.9,10.51,8858107.2,21.04,8.69,1.83,MPOB Prestasi Sawit Annual Census
+2007,False,Total Malaysia,15823744.3,100.0,78600386.8,20.13,,,MPOB Prestasi Sawit Annual Census
+2007,False,Peninsular Malaysia,8627000.6,54.52,44658282.5,19.32,,,MPOB Prestasi Sawit Annual Census
+2007,False,Johor,2625237.9,16.59,13863739.2,18.89,15.79,2.98,MPOB Prestasi Sawit Annual Census
+2007,False,Kedah,246842.7,1.56,1242459.9,19.83,16.7,3.31,MPOB Prestasi Sawit Annual Census
+2007,False,Kelantan,226736.5,1.43,1142729.2,19.81,10.16,2.01,MPOB Prestasi Sawit Annual Census
+2007,False,Melaka,103412.1,0.65,531800.4,19.46,18.4,3.58,MPOB Prestasi Sawit Annual Census
+2007,False,Negeri Sembilan,470789.5,2.98,2447516.3,19.2,13.88,2.67,MPOB Prestasi Sawit Annual Census
+2007,False,Pahang,2158802.5,13.64,10990418.5,19.61,13.92,2.73,MPOB Prestasi Sawit Annual Census
+2007,False,Perak,1719429.7,10.87,8876193.6,19.36,18.07,3.5,MPOB Prestasi Sawit Annual Census
+2007,False,Perlis,0.0,0.0,,,6.26,,MPOB Prestasi Sawit Annual Census
+2007,False,Pulau Pinang,54154.9,0.34,296073.5,18.27,14.01,2.56,MPOB Prestasi Sawit Annual Census
+2007,False,Selangor,574428.4,3.63,2962290.2,19.38,16.14,3.13,MPOB Prestasi Sawit Annual Census
+2007,False,Terengganu,447166.4,2.83,2305061.7,19.39,12.33,2.39,MPOB Prestasi Sawit Annual Census
+2007,False,Sabah,5561484.2,35.15,26168743.9,21.25,19.56,4.16,MPOB Prestasi Sawit Annual Census
+2007,False,Sarawak,1635259.6,10.33,7773360.4,21.04,13.42,2.82,MPOB Prestasi Sawit Annual Census
+2006,False,Total Malaysia,15880783.0,100.0,79263388.8,20.04,,,MPOB Prestasi Sawit Annual Census
+2006,False,Peninsular Malaysia,8972043.2,56.5,46668759.6,19.22,,,MPOB Prestasi Sawit Annual Census
+2006,False,Johor,2821040.7,17.76,14788332.1,19.04,8.83,1.68,MPOB Prestasi Sawit Annual Census
+2006,False,Kedah,221962.8,1.4,1125773.0,19.72,9.28,1.83,MPOB Prestasi Sawit Annual Census
+2006,False,Kelantan,233283.3,1.47,1182537.0,19.68,6.29,1.24,MPOB Prestasi Sawit Annual Census
+2006,False,Melaka,105791.2,0.67,549025.8,19.25,10.42,2.01,MPOB Prestasi Sawit Annual Census
+2006,False,Negeri Sembilan,491352.9,3.09,2575533.9,19.05,7.28,1.39,MPOB Prestasi Sawit Annual Census
+2006,False,Pahang,2292900.5,14.44,11822718.5,19.35,7.96,1.54,MPOB Prestasi Sawit Annual Census
+2006,False,Perak,1724470.5,10.86,9015888.7,19.12,10.09,1.93,MPOB Prestasi Sawit Annual Census
+2006,False,Perlis,0.0,0.0,,,2.42,,MPOB Prestasi Sawit Annual Census
+2006,False,Pulau Pinang,59054.8,0.37,320991.8,18.42,8.9,1.64,MPOB Prestasi Sawit Annual Census
+2006,False,Selangor,615492.9,3.88,3223085.0,19.09,8.96,1.71,MPOB Prestasi Sawit Annual Census
+2006,False,Terengganu,406693.6,2.56,2064873.8,19.59,6.58,1.29,MPOB Prestasi Sawit Annual Census
+2006,False,Sabah,5405617.2,34.04,25600591.9,21.06,11.15,2.35,MPOB Prestasi Sawit Annual Census
+2006,False,Sarawak,1503122.7,9.47,6994037.3,21.47,7.25,1.56,MPOB Prestasi Sawit Annual Census
+2005,False,Total Malaysia,14961657.6,100.0,74235342.6,20.15,,,MPOB Prestasi Sawit Annual Census
+2005,False,Peninsular Malaysia,8291254.7,55.42,43047030.6,19.26,,,MPOB Prestasi Sawit Annual Census
+2005,False,Johor,2570267.6,17.18,13463937.4,19.11,16.28,3.11,MPOB Prestasi Sawit Annual Census
+2005,False,Kedah,157456.3,1.05,776811.4,20.23,15.39,3.11,MPOB Prestasi Sawit Annual Census
+2005,False,Kelantan,226472.6,1.51,1147082.8,19.72,12.07,2.38,MPOB Prestasi Sawit Annual Census
+2005,False,Melaka,80749.5,0.54,417761.0,19.34,17.9,3.46,MPOB Prestasi Sawit Annual Census
+2005,False,Negeri Sembilan,443484.3,2.96,2340222.0,18.99,14.95,2.84,MPOB Prestasi Sawit Annual Census
+2005,False,Pahang,2132525.2,14.25,11032486.1,19.34,15.82,3.06,MPOB Prestasi Sawit Annual Census
+2005,False,Perak,1620522.0,10.83,8389290.7,19.31,19.35,3.74,MPOB Prestasi Sawit Annual Census
+2005,False,Perlis,0.0,0.0,,,1.49,,MPOB Prestasi Sawit Annual Census
+2005,False,Pulau Pinang,48145.8,0.32,257791.2,18.69,15.84,2.96,MPOB Prestasi Sawit Annual Census
+2005,False,Selangor,592140.0,3.96,3072191.8,19.3,18.32,3.54,MPOB Prestasi Sawit Annual Census
+2005,False,Terengganu,419491.2,2.8,2149456.2,19.47,13.06,2.54,MPOB Prestasi Sawit Annual Census
+2005,False,Sabah,5333764.4,35.65,24993134.6,21.35,20.65,4.41,MPOB Prestasi Sawit Annual Census
+2005,False,Sarawak,1336638.5,8.93,6195177.4,21.61,13.28,2.87,MPOB Prestasi Sawit Annual Census
+2004,False,Total Malaysia,13133670.0,100.0,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2004,False,Peninsular Malaysia,7921120.0,60.31,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2004,False,Sabah,3892450.0,29.64,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2004,False,Sarawak,1320100.0,10.05,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2004,False,Johor,2490000.0,18.96,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2004,False,Pahang,2110000.0,16.07,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2004,False,Perak,1210000.0,9.21,,,,,MPOB Malaysian Oil Palm Statistics (2004)
+2000,False,Total Malaysia,10852095.0,100.0,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+2000,False,Peninsular Malaysia,7221539.0,66.55,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+2000,False,Sabah,3110320.0,28.66,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+2000,False,Sarawak,520236.0,4.79,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+2000,False,Johor,2350000.0,21.65,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+2000,False,Pahang,1890000.0,17.42,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+2000,False,Perak,1080000.0,9.95,,,,,MPOB Malaysian Oil Palm Statistics (2000)
+1995,False,Total Malaysia,7810546.0,100.0,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1995,False,Peninsular Malaysia,6094560.0,78.03,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1995,False,Sabah,1493623.0,19.12,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1995,False,Sarawak,222363.0,2.85,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1995,False,Johor,1820000.0,23.3,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1995,False,Pahang,1410000.0,18.05,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1995,False,Perak,860000.0,11.01,,,,,MPOB Malaysian Oil Palm Statistics (1995)
+1990,False,Total Malaysia,6881268.0,100.0,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1990,False,Peninsular Malaysia,6094622.0,88.57,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1990,False,Sabah,678995.0,9.87,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1990,False,Sarawak,107651.0,1.56,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1990,False,Johor,1780000.0,25.87,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1990,False,Pahang,1290000.0,18.75,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1990,False,Perak,780000.0,11.34,,,,,PORLA / MPOB Palm Oil Statistics (1990)
+1985,False,Total Malaysia,4133000.0,100.0,,,,,PORLA Annual Statistics Handbook (1985)
+1985,False,Peninsular Malaysia,3980100.0,96.3,,,,,PORLA Annual Statistics Handbook (1985)
+1985,False,Sabah,125500.0,3.04,,,,,PORLA Annual Statistics Handbook (1985)
+1985,False,Sarawak,27400.0,0.66,,,,,PORLA Annual Statistics Handbook (1985)
+1985,False,Johor,1185000.0,28.67,,,,,PORLA Annual Statistics Handbook (1985)
+1985,False,Pahang,765000.0,18.51,,,,,PORLA Annual Statistics Handbook (1985)
+1985,False,Perak,512000.0,12.39,,,,,PORLA Annual Statistics Handbook (1985)
+1980,False,Total Malaysia,2573173.0,100.0,,,,,PORLA Annual Statistics Handbook (1980)
+1980,False,Peninsular Malaysia,2394324.0,93.05,,,,,PORLA Annual Statistics Handbook (1980)
+1980,False,Sabah,156471.0,6.08,,,,,PORLA Annual Statistics Handbook (1980)
+1980,False,Sarawak,22378.0,0.87,,,,,PORLA Annual Statistics Handbook (1980)
+1980,False,Johor,737674.0,28.67,,,,,PORLA Annual Statistics Handbook (1980)
+1980,False,Pahang,460669.0,17.9,,,,,PORLA Annual Statistics Handbook (1980)
+1980,False,Perak,312400.0,12.14,,,,,PORLA Annual Statistics Handbook (1980)
