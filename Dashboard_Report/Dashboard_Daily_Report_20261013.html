@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Dashboard Intelligence Report | First Resources Trading</title>
+<style>
+  :root {
+    --primary: #0d3b32;
+    --primary-dark: #082620;
+    --accent: #2e7d32;
+    --warning: #b45309;
+    --danger: #b91c1c;
+    --info: #1d4ed8;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border: #e2e8f0;
+  }
+  body {
+    margin: 0;
+    padding: 24px;
+    background-color: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    padding: 32px;
+  }
+  .header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .header-left h1 {
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+  }
+  .header-left .meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .badge-live {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .alert-banner {
+    background-color: #f0fdf4;
+    border-left: 4px solid var(--primary);
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+  .alert-banner h3 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  h2.section-title {
+    color: var(--primary-dark);
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 6px;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h3.sub-title {
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .table-responsive {
+    overflow-x: auto;
+    margin-bottom: 24px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  tr:hover {
+    background-color: #f8fafc;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-high { background-color: #fee2e2; color: #991b1b; }
+  .badge-med { background-color: #fef3c7; color: #92400e; }
+  .badge-low { background-color: #f1f5f9; color: #475569; }
+  .badge-stage-ph { background-color: #dbeafe; color: #1e40af; }
+  .badge-stage-pp { background-color: #dcfce7; color: #166534; }
+  .badge-stage-p { background-color: #fef9c3; color: #854d0e; }
+  .badge-stage-r { background-color: #ffedd5; color: #9a3412; }
+  .badge-stage-v { background-color: #f3e8ff; color: #6b21a8; }
+  .status-sat { color: #1d4ed8; font-weight: 700; }
+  .status-opt { color: #15803d; font-weight: 700; }
+  .status-dry { color: #b91c1c; font-weight: 700; }
+  .ric-code {
+    font-family: monospace;
+    font-weight: 700;
+    color: #0369a1;
+    background-color: #f0f9ff;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background-color: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .stat-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .stat-card .val {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .stat-card .sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .footer {
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Daily Dashboard Intelligence Report</h1>
+      <div class="meta">First Resources Trading | Ags & Energy Desk | Tuesday, 13 October 2026</div>
+    </div>
+    <div>
+      <span class="badge-live">Live Feed Active</span>
+    </div>
+  </div>
+
+  <!-- Executive Alert Box -->
+  <div class="alert-banner">
+    <h3>Desk Strategic Highlights</h3>
+    <ul style="margin: 6px 0 0 0; padding-left: 20px;">
+      <li><strong>US Harvest Velocity:</strong> Ideal field dryness across the Eastern Corn Belt (Illinois, Indiana, Ohio) has soybean harvest operating at peak velocity ("blowin' and goin'"). Yields are running fan-freakin'-tastic.</li>
+      <li><strong>Historic Brazil Planting Start:</strong> Center-West rains have unlocked rapid sowing. National planting is at <strong>20%</strong> (fastest on record), and Mato Grosso is at <strong>33%</strong> (IMEA).</li>
+      <li><strong>Weather Divergence:</strong> Southern Brazil (Paraná) is oversaturated (topsoil 0.503 m³/m³, +164mm 7d), delaying fieldwork; MATOPIBA remains parched awaiting late-October monsoons.</li>
+      <li><strong>USDA Holiday Lag:</strong> Columbus Day shifted USDA Export Inspections and Weekly Crop Progress to today (Tuesday Oct 13 at 16:00 EDT / 04:00 SGT Wed). Dashboard updates overnight.</li>
+      <li><strong>Mega Macro Calendar:</strong> Thursday Oct 15 features US CPI, PPI, Retail Sales, NOPA Soybean Crush, and EIA Petroleum/Ethanol.</li>
+    </ul>
+  </div>
+
+  <!-- Key Stat Cards -->
+  <div class="grid-2">
+    <div class="stat-card">
+      <h4>US Soybean Harvest (Expected Oct 13 Release)</h4>
+      <div class="val">~40% - 42%</div>
+      <div class="sub">Jump from 25% last week | 5-Yr Avg: 33% | Yields reported exceptionally strong</div>
+    </div>
+    <div class="stat-card">
+      <h4>Brazil Soybean Sowing Pace (National)</h4>
+      <div class="val">20% Planted</div>
+      <div class="sub">Pátria Agronegócios | Prior year: 13% | Mato Grosso at 33% (IMEA)</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Crop Calendar -->
+  <h2 class="section-title">1. Crop Calendar — October Phenology & Sowing / Harvest Matrix</h2>
+  <p style="font-size: 13px; color: var(--text-muted); margin-top: -8px;">Current growth stages and field operational expectations across major global production basins for October.</p>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Commodity</th>
+          <th>Country / Region</th>
+          <th>Size</th>
+          <th>October Stage</th>
+          <th>Phenological Status</th>
+          <th>Desk Trading Takeaway</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>USA (Main Belt)</td>
+          <td>113 MMT</td>
+          <td><span class="badge badge-stage-ph">Prime Harvest (ph/ph)</span></td>
+          <td>Peak combining; leaf drop complete; rapid elevator delivery</td>
+          <td>Heavy seasonal hedge pressure; interior basis easing; strong crusher bids</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>Brazil (Center-West - MT/GO)</td>
+          <td>78 MMT</td>
+          <td><span class="badge badge-stage-pp">Prime Planting (pp/pp)</span></td>
+          <td>Monsoonal rains establish; rapid seedbed drilling</td>
+          <td>Earliest record planting pace; ensures optimal Jan/Feb safrinha corn window</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>Brazil (South - Paraná)</td>
+          <td>25 MMT</td>
+          <td><span class="badge badge-stage-pp">Prime Planting (pp/pp)</span></td>
+          <td>Planting window open; hampered by saturated soil</td>
+          <td>Field access delayed; waterlogging risks in low-lying tracts</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>Brazil (Far South - RS)</td>
+          <td>22 MMT</td>
+          <td><span class="badge badge-stage-p">Early Planting (p)</span></td>
+          <td>Initial sowing late October; peak in November</td>
+          <td>Soil moisture abundant; awaiting temperature rise</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>Brazil (MATOPIBA)</td>
+          <td>20 MMT</td>
+          <td><span class="badge badge-stage-p">Early Planting (p)</span></td>
+          <td>Topsoil dry; awaiting late-month rains</td>
+          <td>Planters staged; planting surges in November</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>Argentina (1st Crop)</td>
+          <td>34 MMT</td>
+          <td><span class="badge badge-stage-p">Early Planting (p)</span></td>
+          <td>Early planting commencing in Core Pampean zone</td>
+          <td>Good moisture profile after recent weekend storms</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>India (Kharif)</td>
+          <td>12 MMT</td>
+          <td><span class="badge badge-stage-ph">Prime Harvest (ph/ph)</span></td>
+          <td>Kharif combining active; arrivals hitting spot mandis</td>
+          <td>Domestic crush accelerating; meal export availability increasing</td>
+        </tr>
+        <tr>
+          <td><strong>Soybeans</strong></td>
+          <td>Ukraine & Russia</td>
+          <td>12.8 MMT</td>
+          <td><span class="badge badge-stage-ph">Prime Harvest (ph/ph)</span></td>
+          <td>Active harvest before winter freezing conditions</td>
+          <td>Strong direct truck/rail demand from EU crushers</td>
+        </tr>
+        <tr>
+          <td><strong>Corn</strong></td>
+          <td>USA (Main Belt)</td>
+          <td>389 MMT</td>
+          <td><span class="badge badge-stage-ph">Prime Harvest (ph/h)</span></td>
+          <td>Combining ramping up; soybeans prioritized first</td>
+          <td>Record ear weights confirmed; storage filled; cash basis surprisingly firm</td>
+        </tr>
+        <tr>
+          <td><strong>Corn</strong></td>
+          <td>Brazil (Summer Crop)</td>
+          <td>30 MMT</td>
+          <td><span class="badge badge-stage-pp">Planting / Veg (pp/v)</span></td>
+          <td>Sowing ending in South; vegetative emergence</td>
+          <td>Southern rainfall excessive but drought risk eliminated</td>
+        </tr>
+        <tr>
+          <td><strong>Corn</strong></td>
+          <td>Argentina (Temprano)</td>
+          <td>25 MMT</td>
+          <td><span class="badge badge-stage-pp">Planting / Veg (pp/v)</span></td>
+          <td>Early corn seeding concluding; good germination</td>
+          <td>Deep subsoil moisture recharged across Santa Fe & Córdoba</td>
+        </tr>
+        <tr>
+          <td><strong>Corn</strong></td>
+          <td>Ukraine & Russia</td>
+          <td>43 MMT</td>
+          <td><span class="badge badge-stage-ph">Prime Harvest (ph/ph)</span></td>
+          <td>Field combining active; grain dry-down monitored</td>
+          <td>High freight and infrastructure risk in Black Sea export corridor</td>
+        </tr>
+        <tr>
+          <td><strong>Wheat</strong></td>
+          <td>USA (Winter Wheat)</td>
+          <td>35 MMT</td>
+          <td><span class="badge badge-stage-pp">Prime Planting (pp/v)</span></td>
+          <td>Planting accelerating; early emergence in Plains</td>
+          <td>Rain break in KS/OK created ideal seedbeds; condition starting strong</td>
+        </tr>
+        <tr>
+          <td><strong>Wheat</strong></td>
+          <td>EU (France/Germany/Poland)</td>
+          <td>134 MMT</td>
+          <td><span class="badge badge-stage-pp">Prime Planting (pp/pp)</span></td>
+          <td>Main winter seeding campaign across Western/Central Europe</td>
+          <td>Favorable soil moisture; smooth drill progress</td>
+        </tr>
+        <tr>
+          <td><strong>Wheat</strong></td>
+          <td>Russia & Ukraine</td>
+          <td>89 MMT</td>
+          <td><span class="badge badge-stage-p">Planting / Veg (p/v)</span></td>
+          <td>Seeding wrapping up; emergence before frost</td>
+          <td>Southern Russian areas saw dry conditions, but recent rain helped</td>
+        </tr>
+        <tr>
+          <td><strong>Wheat</strong></td>
+          <td>Australia (Main)</td>
+          <td>26 MMT</td>
+          <td><span class="badge badge-stage-ph">Harvest / Heading (h/ph)</span></td>
+          <td>Harvesting in QLD; flowering/filling in South/West</td>
+          <td>Frost damage in SE being assessed; overall crop estimate 26–28 MMT</td>
+        </tr>
+        <tr>
+          <td><strong>Wheat</strong></td>
+          <td>Argentina (Main)</td>
+          <td>15 MMT</td>
+          <td><span class="badge badge-stage-r">Reproduction (r/r)</span></td>
+          <td>Critical flowering and grain fill</td>
+          <td>Recent rains were yield-savers; production outlook stabilized</td>
+        </tr>
+        <tr>
+          <td><strong>Canola</strong></td>
+          <td>Canada (Spring)</td>
+          <td>18 MMT</td>
+          <td><span class="badge badge-stage-ph">Harvest End (h)</span></td>
+          <td>Combining complete across Prairies</td>
+          <td>Supply flowing into domestic crushers and Vancouver terminals</td>
+        </tr>
+        <tr>
+          <td><strong>Rapeseed</strong></td>
+          <td>EU (France/Germany)</td>
+          <td>20 MMT</td>
+          <td><span class="badge badge-stage-v">Vegetative (v/v)</span></td>
+          <td>Autumn rosette leaf development</td>
+          <td>Good stand establishment ahead of winter dormancy</td>
+        </tr>
+        <tr>
+          <td><strong>Sunflower</strong></td>
+          <td>Russia & Ukraine</td>
+          <td>31 MMT</td>
+          <td><span class="badge badge-stage-ph">Prime Harvest (ph/ph)</span></td>
+          <td>Combines operating at capacity; seed moisture drying</td>
+          <td>Crush margins healthy; sunoil export offers competitive</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 2: Weather Dashboards -->
+  <h2 class="section-title">2. Weather Dashboards — Ground Impact on Sowing & Harvesting</h2>
+
+  <h3 class="sub-title">A. US Corn Belt & Plains (GFS 0.25° Resolution)</h3>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Past 14d Rain</th>
+          <th>Fcst 7d Rain</th>
+          <th>Fcst 14d Rain</th>
+          <th>Fcst Tmax</th>
+          <th>Frost Days</th>
+          <th>Harvest / Sowing Operational Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Illinois</strong></td>
+          <td>14.1 mm</td>
+          <td>9.9 mm</td>
+          <td>23.1 mm</td>
+          <td>20.3 °C</td>
+          <td>0</td>
+          <td><span class="status-opt">Prime Window:</span> Soy harvest wrapping up by weekend. Excellent dry down.</td>
+        </tr>
+        <tr>
+          <td><strong>Indiana</strong></td>
+          <td>1.5 mm</td>
+          <td>18.4 mm</td>
+          <td>26.1 mm</td>
+          <td>19.6 °C</td>
+          <td>0</td>
+          <td><span class="status-opt">Rapid Progress:</span> Bone dry ground. Record ear weights being harvested with zero delay.</td>
+        </tr>
+        <tr>
+          <td><strong>Iowa</strong></td>
+          <td>24.8 mm</td>
+          <td>15.2 mm</td>
+          <td>89.6 mm</td>
+          <td>16.1 °C</td>
+          <td>0</td>
+          <td><span class="status-opt">Pushing to 60%:</span> Dry 7d allows big progress before late-month frontal rains arrive.</td>
+        </tr>
+        <tr>
+          <td><strong>Minnesota</strong></td>
+          <td>14.9 mm</td>
+          <td>27.2 mm</td>
+          <td>70.4 mm</td>
+          <td>15.1 °C</td>
+          <td>0</td>
+          <td><span class="status-opt">Good Pace:</span> Combining active; moderate rain will recharge subsoil after harvest.</td>
+        </tr>
+        <tr>
+          <td><strong>Nebraska</strong></td>
+          <td>56.2 mm</td>
+          <td>8.7 mm</td>
+          <td>48.3 mm</td>
+          <td>15.9 °C</td>
+          <td>0</td>
+          <td><span class="status-opt">Dry Beans:</span> Reports of dry bean grain (&lt;10% moisture); combines running nonstop.</td>
+        </tr>
+        <tr>
+          <td><strong>Kansas</strong></td>
+          <td>124.7 mm</td>
+          <td>28.3 mm</td>
+          <td>126.7 mm</td>
+          <td>17.7 °C</td>
+          <td>0</td>
+          <td><span class="status-sat">Recharged Soils:</span> Drought broken; winter wheat drilling accelerating with ideal seedbed.</td>
+        </tr>
+        <tr>
+          <td><strong>North Dakota</strong></td>
+          <td>67.9 mm</td>
+          <td>0.4 mm</td>
+          <td>67.9 mm</td>
+          <td>12.6 °C</td>
+          <td>2</td>
+          <td><span class="status-opt">Wrapping Up:</span> Near completion. Cool nights (2 frost days) ending season.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub-title">B. South America Production Basins (ECMWF IFS 0.25° Resolution)</h3>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>State / Province</th>
+          <th>Country</th>
+          <th>Fcst 7d Rain</th>
+          <th>Fcst 14d Rain</th>
+          <th>Topsoil Moisture</th>
+          <th>Moisture Status</th>
+          <th>Planting / Crop Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Mato Grosso</strong></td>
+          <td>Brazil</td>
+          <td>33.7 mm</td>
+          <td>49.9 mm</td>
+          <td>0.229 m³/m³</td>
+          <td><span class="status-opt">Adequate / Optimal</span></td>
+          <td>Seasonal rains regular. Sowing surging at 33% (fastest in history). High heat spikes (38°C).</td>
+        </tr>
+        <tr>
+          <td><strong>Goiás</strong></td>
+          <td>Brazil</td>
+          <td>32.2 mm</td>
+          <td>41.6 mm</td>
+          <td>0.300 m³/m³</td>
+          <td><span class="status-opt">Optimal</span></td>
+          <td>Ideal drilling conditions across southwest Goiás. Planters moving smoothly.</td>
+        </tr>
+        <tr>
+          <td><strong>Mato Grosso do Sul</strong></td>
+          <td>Brazil</td>
+          <td>80.6 mm</td>
+          <td>106.0 mm</td>
+          <td>0.503 m³/m³</td>
+          <td><span class="status-sat">Saturated</span></td>
+          <td>Heavy rains slowing field access; however, deep subsoil moisture fully loaded.</td>
+        </tr>
+        <tr>
+          <td><strong>Paraná</strong></td>
+          <td>Brazil</td>
+          <td>164.3 mm</td>
+          <td>181.1 mm</td>
+          <td>0.503 m³/m³</td>
+          <td><span class="status-sat">Saturated (Risk)</span></td>
+          <td>Excessive rain causing waterlogging; halts soy planting and degrades winter wheat harvest.</td>
+        </tr>
+        <tr>
+          <td><strong>Rio Grande do Sul</strong></td>
+          <td>Brazil</td>
+          <td>65.1 mm</td>
+          <td>69.9 mm</td>
+          <td>0.499 m³/m³</td>
+          <td><span class="status-sat">Saturated</span></td>
+          <td>Topsoil soaked. Soy planting starts late October; winter wheat harvest disrupted.</td>
+        </tr>
+        <tr>
+          <td><strong>Western Bahia</strong></td>
+          <td>Brazil</td>
+          <td>12.7 mm</td>
+          <td>63.5 mm</td>
+          <td>0.018 m³/m³</td>
+          <td><span class="status-dry">Severe Deficit</span></td>
+          <td>Dry topsoil. Planters idle; waiting for late-month monsoon onset (63.5mm in week 2).</td>
+        </tr>
+        <tr>
+          <td><strong>Buenos Aires North</strong></td>
+          <td>Argentina</td>
+          <td>27.3 mm</td>
+          <td>44.9 mm</td>
+          <td>0.459 m³/m³</td>
+          <td><span class="status-sat">Saturated</span></td>
+          <td>Excellent moisture reserves for early corn and emerging wheat. Brief dry-down needed.</td>
+        </tr>
+        <tr>
+          <td><strong>Córdoba Core</strong></td>
+          <td>Argentina</td>
+          <td>15.3 mm</td>
+          <td>27.3 mm</td>
+          <td>0.468 m³/m³</td>
+          <td><span class="status-sat">Saturated</span></td>
+          <td>Subsoil recharged. Early corn planting resuming as field surface dries.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 3: Fundamental & Crop Progress Updates -->
+  <h2 class="section-title">3. Fundamental Updates & Crop Progress Intelligence</h2>
+  <div style="background-color: #f8fafc; border: 1px solid var(--border); border-radius: 6px; padding: 18px; margin-bottom: 24px;">
+    <h3 style="margin-top: 0; color: var(--primary);">Understanding Today's USDA Data Schedule</h3>
+    <p style="margin: 0 0 10px 0; font-size: 13px;">
+      Because Monday Oct 12 was a US Federal Holiday (Columbus Day), the USDA was closed. The official reports release on <strong>Tuesday, Oct 13</strong>:
+    </p>
+    <ul style="margin: 0; padding-left: 20px; font-size: 13px;">
+      <li><strong>USDA Export Inspections:</strong> 11:00 AM EDT (15:00 UTC / 23:00 SGT Tuesday).</li>
+      <li><strong>USDA Weekly Crop Progress & Condition:</strong> 4:00 PM EDT (20:00 UTC Tuesday / 04:00 SGT Wednesday morning).</li>
+    </ul>
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Oct 5 Actual</th>
+          <th>5-Yr Average</th>
+          <th>Trade Guess (Oct 13)</th>
+          <th>What to Look for in the Data When Dashboard Updates</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>US Soybean Harvest</strong></td>
+          <td><strong>25%</strong></td>
+          <td>33%</td>
+          <td><strong>~40% - 42%</strong></td>
+          <td>Watch Illinois (wrap up ~70-80%) and Iowa (jumping from 5% to ~30-40%). Check if national pace crosses 5-yr avg.</td>
+        </tr>
+        <tr>
+          <td><strong>US Corn Harvest</strong></td>
+          <td><strong>23%</strong></td>
+          <td>27%</td>
+          <td><strong>~32% - 35%</strong></td>
+          <td>Corn combines followed behind beans. Confirm record ear weights in Indiana and Ohio.</td>
+        </tr>
+        <tr>
+          <td><strong>US Winter Wheat Planted</strong></td>
+          <td><strong>36%</strong></td>
+          <td>46%</td>
+          <td><strong>~48% - 52%</strong></td>
+          <td>Watch Kansas jump from 30% toward 50%. Rain eliminated previous drought halts.</td>
+        </tr>
+        <tr>
+          <td><strong>US Soybean Good/Excellent</strong></td>
+          <td><strong>64%</strong></td>
+          <td>58%</td>
+          <td><strong>62% - 64%</strong></td>
+          <td>Final ratings before discontinuation. Confirms exceptional yield potential.</td>
+        </tr>
+        <tr>
+          <td><strong>Brazil Soybean Planted</strong></td>
+          <td>--</td>
+          <td>18%</td>
+          <td><strong>20% (Pátria) / 33% (MT)</strong></td>
+          <td>Fastest planting pace on record. Guarantees early export supplies by January.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 4: LSEG Timetable -->
+  <h2 class="section-title">4. Timetable of Important Economic & Agri Commodity Reports (This Week)</h2>
+  <p style="font-size: 13px; color: var(--text-muted); margin-top: -8px;">Live feed from LSEG Workspace Economic Calendar (`=ECI`) covering market-moving macro, energy, and ag data.</p>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Time (UTC / Local)</th>
+          <th>LSEG RIC</th>
+          <th>Event / Report Name</th>
+          <th>Sector</th>
+          <th>Impact</th>
+          <th>Reuters Poll / Est</th>
+          <th>Prior</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td><strong>Tuesday, Oct 13</strong></td>
+          <td>15:00 UTC / 11:00 EDT</td>
+          <td><span class="ric-code">USCRII=ECI</span></td>
+          <td>USDA Export Inspections: Corn (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>1367.685</td>
+        </tr>
+        <tr>
+          <td><strong>Tuesday, Oct 13</strong></td>
+          <td>15:00 UTC / 11:00 EDT</td>
+          <td><span class="ric-code">USSOII=ECI</span></td>
+          <td>USDA Export Inspections: Soybeans (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>1138.416</td>
+        </tr>
+        <tr>
+          <td><strong>Tuesday, Oct 13</strong></td>
+          <td>15:00 UTC / 11:00 EDT</td>
+          <td><span class="ric-code">USWHII=ECI</span></td>
+          <td>USDA Export Inspections: All Wheat (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>302.356</td>
+        </tr>
+        <tr>
+          <td><strong>Tuesday, Oct 13</strong></td>
+          <td>12:55 UTC / 08:55 EDT</td>
+          <td><span class="ric-code">USREDY=ECI</span></td>
+          <td>US Redbook Chain Store Sales YoY</td>
+          <td>Macro</td>
+          <td><span class="badge badge-low">Low</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>8.6</td>
+        </tr>
+        <tr>
+          <td><strong>Tuesday, Oct 13</strong></td>
+          <td>15:30 UTC / 11:30 EDT</td>
+          <td><span class="ric-code">US3MAB=ECI</span></td>
+          <td>US 3-Month Bill Auction High Yield (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-low">Low</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>2.51</td>
+        </tr>
+        <tr>
+          <td><strong>Tuesday, Oct 13</strong></td>
+          <td>15:30 UTC / 11:30 EDT</td>
+          <td><span class="ric-code">US6MAB=ECI</span></td>
+          <td>US 6-Month Bill Auction High Yield (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-low">Low</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>2.79</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>23:50 UTC-1 / 08:50 JST</td>
+          <td><span class="ric-code">JPMORD=ECI</span></td>
+          <td>Japan Machinery Orders Core MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-3.7</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>06:00 UTC / 07:00 BST</td>
+          <td><span class="ric-code">GBGDMM=ECI</span></td>
+          <td>UK Monthly GDP Estimate MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0.4</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>06:00 UTC / 07:00 BST</td>
+          <td><span class="ric-code">GBIP=ECI</span></td>
+          <td>UK Industrial Production MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0.2</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>06:00 UTC / 07:00 BST</td>
+          <td><span class="ric-code">GBMFG=ECI</span></td>
+          <td>UK Manufacturing Output MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0.9</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>06:00 UTC / 07:00 BST</td>
+          <td><span class="ric-code">GBTBAL=ECI</span></td>
+          <td>UK Trade Balance Goods (GBP Mln)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-20.965</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">CABPER=ECI</span></td>
+          <td>Canada Building Permits MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-low">Low</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-17.3</td>
+        </tr>
+        <tr>
+          <td><strong>Wednesday, Oct 14</strong></td>
+          <td>11:00 UTC / 07:00 EDT</td>
+          <td><span class="ric-code">USMGM=ECI</span></td>
+          <td>US MBA Mortgage Applications Index</td>
+          <td>Macro</td>
+          <td><span class="badge badge-low">Low</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>204.7</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USCPI=ECI</span></td>
+          <td>US Consumer Price Index (CPI) MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><strong>+0.6% (Broker est)</strong></td>
+          <td>0.4</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USCPNY=ECI</span></td>
+          <td>US Consumer Price Index (CPI) YoY (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>3.4</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USCPFY=ECI</span></td>
+          <td>US Core CPI YoY (ex Food & Energy) (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>2.4</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USPPFD=ECI</span></td>
+          <td>US Producer Price Index (PPI) Final Demand MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><strong>+0.6% (Broker est)</strong></td>
+          <td>0.4</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USPPFY=ECI</span></td>
+          <td>US Producer Price Index (PPI) Final Demand YoY (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>5.4</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USRSL=ECI</span></td>
+          <td>US Retail Sales MoM (Headline) (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>1.2</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USRSLA=ECI</span></td>
+          <td>US Retail Sales MoM (ex-Autos) (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>1.4</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USJOB=ECI</span></td>
+          <td>US Initial Jobless Claims (Weekly) (k)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>197</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USEMPM=ECI</span></td>
+          <td>US NY Fed Empire State Manufacturing Index</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>7.6</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USPFDB=ECI</span></td>
+          <td>US Philadelphia Fed Business Outlook Index</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>37.8</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>16:00 UTC / 12:00 EDT</td>
+          <td><span class="ric-code">USNSC=ECI</span></td>
+          <td>NOPA Monthly US Soybean Crush (Mil Bu)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><strong>198.5 (Consensus)</strong></td>
+          <td>205.456</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>16:00 UTC / 12:00 EDT</td>
+          <td><span class="ric-code">USBOS=ECI</span></td>
+          <td>NOPA US Soybean Oil Stocks (Bil Lbs)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><strong>1.220 (Consensus)</strong></td>
+          <td>1.201</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>16:00 UTC / 12:00 EDT</td>
+          <td><span class="ric-code">USETNP=ECI</span></td>
+          <td>EIA Weekly Fuel Ethanol Production (k bpd)</td>
+          <td>Energy/Ag</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>1053</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>16:00 UTC / 12:00 EDT</td>
+          <td><span class="ric-code">USETNS=ECI</span></td>
+          <td>EIA Weekly Fuel Ethanol Ending Stocks (k bbl)</td>
+          <td>Energy/Ag</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>23743</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>15:00 UTC / 11:00 EDT</td>
+          <td><span class="ric-code">USOICI=ECI</span></td>
+          <td>EIA Weekly U.S. Commercial Crude Oil Stocks (Mil Bbl)</td>
+          <td>Energy</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-0.053</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>15:00 UTC / 11:00 EDT</td>
+          <td><span class="ric-code">USOILG=ECI</span></td>
+          <td>EIA Weekly Motor Gasoline Stocks Change (Mil Bbl)</td>
+          <td>Energy</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0.382</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>15:00 UTC / 11:00 EDT</td>
+          <td><span class="ric-code">USOILD=ECI</span></td>
+          <td>EIA Weekly Distillate Fuel Stocks Change (Mil Bbl)</td>
+          <td>Energy</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-0.042</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>09:00 UTC / 11:00 CEST</td>
+          <td><span class="ric-code">EUIP=ECI</span></td>
+          <td>Euro Zone Industrial Production MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-0.1</td>
+        </tr>
+        <tr>
+          <td><strong>Thursday, Oct 15</strong></td>
+          <td>06:45 UTC / 08:45 CEST</td>
+          <td><span class="ric-code">FRHICY=ECI</span></td>
+          <td>France HICP Final Inflation YoY (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>3.4</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>09:00 UTC / 11:00 CEST</td>
+          <td><span class="ric-code">EUHICY=ECI</span></td>
+          <td>Euro Zone HICP Final Inflation YoY (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>3.8</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>09:00 UTC / 11:00 CEST</td>
+          <td><span class="ric-code">EUCPXY=ECI</span></td>
+          <td>Euro Zone Core CPI Final YoY (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>2.5</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:00 UTC / 09:00 BRT</td>
+          <td><span class="ric-code">BRIBC=ECI</span></td>
+          <td>Brazil Central Bank Economic Activity (IBC-Br) MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>-0.2</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USNESN=ECI</span></td>
+          <td>USDA Weekly Export Sales: Corn (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>769.5</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USSESN=ECI</span></td>
+          <td>USDA Weekly Export Sales: Soybeans (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>549.4</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USMESN=ECI</span></td>
+          <td>USDA Weekly Export Sales: Soybean Meal (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>1047.6</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USOESN=ECI</span></td>
+          <td>USDA Weekly Export Sales: Soybean Oil (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>9.3</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USWESN=ECI</span></td>
+          <td>USDA Weekly Export Sales: All Wheat (k MT)</td>
+          <td>Agri</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>451.6</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>13:15 UTC / 09:15 EDT</td>
+          <td><span class="ric-code">USIP=ECI</span></td>
+          <td>US Industrial Production MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>13:15 UTC / 09:15 EDT</td>
+          <td><span class="ric-code">USCAPU=ECI</span></td>
+          <td>US Capacity Utilization Rate (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>76.3</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USIMP=ECI</span></td>
+          <td>US Import Price Index MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0.7</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>12:30 UTC / 08:30 EDT</td>
+          <td><span class="ric-code">USEXP=ECI</span></td>
+          <td>US Export Price Index MoM (%)</td>
+          <td>Macro</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>0.6</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>17:00 UTC / 13:00 EDT</td>
+          <td><span class="ric-code">USOIRC=ECI</span></td>
+          <td>Baker Hughes US Oil Rig Count</td>
+          <td>Energy</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>462</td>
+        </tr>
+        <tr>
+          <td><strong>Friday, Oct 16</strong></td>
+          <td>17:00 UTC / 13:00 EDT</td>
+          <td><span class="ric-code">USGSRC=ECI</span></td>
+          <td>Baker Hughes US Natural Gas Rig Count</td>
+          <td>Energy</td>
+          <td><span class="badge badge-med">Medium</span></td>
+          <td><span style='color:#94a3b8;'>--</span></td>
+          <td>132</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>Generated by Agri & Macro Intelligence System | First Resources Trading Pte Ltd</div>
+    <div>Strictly Confidential — Internal Trading Desk Distribution Only</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Daily Commodity Bull/Bear Dossier</title>
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    background-color: #f1f5f9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 3px solid #0d3b32;
+    padding: 30px;
+  }
+  .header-table {
+    width: 100%;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+  .title {
+    color: #0b251e;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+  }
+  .subtitle {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .alert-box {
+    background-color: #f8fafc;
+    border-left: 4px solid #0d3b32;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .alert-title {
+    font-weight: 700;
+    color: #0b251e;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .category-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .category-header {
+    background-color: #0d3b32;
+    color: #ffffff;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .category-body {
+    padding: 16px;
+  }
+  .sub-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 12px 0 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .bull-title { color: #15803d; }
+  .bear-title { color: #b91c1c; }
+  .verdict-title { color: #0b251e; }
+  ul {
+    margin: 0 0 12px 0;
+    padding-left: 20px;
+  }
+  li {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    color: #334155;
+  }
+  li strong {
+    color: #0f172a;
+  }
+  .verdict-box {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #0d3b32;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #0f172a;
+  }
+  .footer {
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 20px;
+    margin-top: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <table class="header-table" cellpadding="0" cellspacing="0">
+    <tr>
+      <td style="vertical-align: middle; width: 65px;">
+        <img src="cid:first_resources_logo" width="45" height="80" alt="First Resources" style="width: 45px; height: 80px; max-width: 45px; max-height: 80px; display: block; border: 0;" />
+      </td>
+      <td style="vertical-align: middle; padding-left: 15px;">
+        <div class="title">🌾 Daily Commodity Bull/Bear Dossier</div>
+        <div class="subtitle">Trade Date: Monday, 12 October 2026 | First Resources Trading Intelligence Desk</div>
+        <div class="subtitle" style="color: #64748b; font-size: 11px; margin-top: 3px;">Coverage: Palm Oil, Soybeans, Meal, Soyoil, Sunflowers, Rapeseed, Corn, Wheat, Energy, Biofuels, Fixed Income</div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="alert-box">
+    <div class="alert-title">Critical Cross-Source Analytical Divergences (12 Oct 2026)</div>
+    <ul style="margin: 0; padding-left: 18px;">
+      <li><strong>China Crush Margins & Buying Posture:</strong> Argus reports board margins improved to -295 yuan/t (-$44/t) encouraging private purchases of Nov/Dec Brazilian (+305c/+300c) and Argentine cargoes (+255c); in contrast, Sernatinger reports Chinese crushers citing -$20/t margins and planning a 3-week shutdown, with Sinograin holding off ahead of a 518kt reserve auction and rejecting US bean color quality ("no private buying in Brazil, no state buying in US").</li>
+      <li><strong>US Corn Yield Reality:</strong> USDA WASDE shocked markets by raising US yield to 181.2 bpa (+2.7 bpa) and ending stocks to 1.849 bb (11.3% stocks/use); however, Sernatinger reports field yield talk outside Minnesota is "iffy" pointing to lower yields in November, while Argus Outlook notes late-cycle condition drops (linked to September flooding) historically correlate (R²=0.78) with downward January revisions, modeling a 178 bpa yield.</li>
+      <li><strong>Geopolitical "Energy Ceasefire" vs Physical Reality:</strong> Trump declared an immediate Russia-Ukraine "energy ceasefire" and 300kt Russian diesel supply deal; yet Russia bombed Ukrainian power plants overnight, maintains an internal diesel export ban, the US is a net diesel exporter, and heating oil futures refused to drop.</li>
+      <li><strong>Indonesian B50 Rollout vs Gasoil Deficit:</strong> While Argus Outlook projects palm exports falling 6.6mn t on B50 absorption, Argus Biofuels reveals Pertamina was forced back into the Asian spot market to tender for three 200k bl cargoes of 2,500ppm gasoil because domestic FAME plants are operating at only 70–80% capacity.</li>
+    </ul>
+  </div>
+
+  <!-- 1. Palm Oil -->
+  <div class="category-card">
+    <div class="category-header">1. Palm Oil</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>Structural 2026/27 Export Contraction:</strong> Combined Indonesian/Malaysian exports are forecast to shrink by 6.6mn t y/y to ~43.0mn t as Indonesia's mandatory B50 biodiesel rollout absorbs an expanding share of domestic CPO output.</li>
+        <li><strong>Indian Festive Stock Rebuilding:</strong> Indian refiners accelerated import purchases through September/October to rebuild pipeline stocks ahead of Diwali, taking advantage of palm oil's competitive discount to soft oils.</li>
+        <li><strong>Black Sea Sunflower Oil Deficit Spillovers:</strong> War-related infrastructure destruction and Danube logistical gridlock have choked Black Sea sunflower oil shipments, shifting destination buying back toward palm olein.</li>
+        <li><strong>Systematic Algorithmic Turnaround:</strong> Matthews Group managed futures models indicate systematic trend-following "Buy" signals triggering on Palm Oil tomorrow.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Record Malaysian Stock Surge:</strong> MPOB reported end-September stocks surging 24.5% m/m to an all-time record 3.510mn t (vs 3.373mn t expected), as production jumped 16.5% to 2.117mn t on maturing high-yielding acreage in Sabah (+35%) and Sarawak (+15%).</li>
+        <li><strong>Export Competitiveness Gap vs Indonesia:</strong> Malaysian September exports fell 12.1% m/m to 1.12mn t as buyers favored cheaper Indonesian origin, forcing Malaysia to import Indonesian CPO for downstream refining.</li>
+        <li><strong>No Export Duty Waiver in Budget 2027:</strong> Malaysia's Budget 2027 tabled on 9 Oct omitted the expected CPO export duty exemption, eliminating immediate policy catalysts for fast inventory liquidation.</li>
+        <li><strong>Indonesian FAME Processing Chokepoints:</strong> Domestic blending rollout is strained as Indonesian biodiesel plants operate at only 70–80% capacity, forcing Pertamina to import spot gasoil.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bullish-to-Neutral Consolidation.</strong> BMD third-month CPO executed a "sell the rumor, buy the fact" rebound (+46 MYR/t) following the MPOB release. Although 3.51mn t stocks create an immediate physical overhang, long-term export tightening (-6.6mn t under B50) and Black Sea vegoil deficits provide durable underlying support.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Soybean Complex -->
+  <div class="category-card">
+    <div class="category-header">2A. Soybean Complex: Soybeans (Beans)</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>US Export Sales Pacing & Chinese Inquiries:</strong> US export commitments remain ahead of seasonal pace; improving Chinese crush margins (-$44/t) prompted private bookings of Nov/Dec Brazilian (+305c/+300c) and Nov Argentine (+255c) cargoes.</li>
+        <li><strong>Late Pod Rainfall & Seed Quality Threats:</strong> September rainfall exceeding 80mm across the US Corn Belt during pod-fill caused damage and moisture variability (Nebraska beans arriving at 8% moisture shattering risk), while pod counts in 7 of 11 objective states trail 2025.</li>
+        <li><strong>Ultra-Lean US Carryover Buffer:</strong> US 2026/27 ending stocks remain projected at a tight 315 mb (8.1mn t), reflecting an austere 6.4%–7.4% stocks-to-use ratio highly exposed to South American weather disruptions.</li>
+        <li><strong>Brazilian Old-Crop Farmgate Exhaustion:</strong> Brazilian interior farmers are virtually sold out of old-crop beans; a firmer Real (4.9871/USD) prevents aggressive FOB basis discounting.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>US Harvest Acceleration & Yield Realization:</strong> Dry weather is pushing US harvest toward 40% completion (Illinois wrapping up, Iowa 60%), with strong field reports supporting USDA's record 4.562 bb crop (53.1 bpa).</li>
+        <li><strong>Record-Fast Brazilian Planting Pace:</strong> Patria Agronegocios and Safras report Brazilian planting at 20.4% (vs 11.2% last year)—the fastest pace in historical records—with Mato Grosso at 33%–38% under favorable rainfall.</li>
+        <li><strong>Chinese Processing Slowdown & State Auctions:</strong> Negative crush margins prompted Chinese crushers to plan a 3-week processing slowdown; Sinograin is auctioning 518kt from state reserves and rejecting US cargoes over color quality.</li>
+        <li><strong>Systematic CTA Sell Signals:</strong> Managed futures models are issuing systematic "Sell" signals on CBOT soybeans on Wednesday as harvest hedge volume peaks.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bearish.</strong> Commercial hedge pressure from the accelerating US harvest and Brazil's record planting campaign dominate spot price action. Despite lean US carryover buffers, Chinese demand resistance and systematic selling keep near-term rallies capped below $13.00.
+      </div>
+    </div>
+  </div>
+
+  <div class="category-card">
+    <div class="category-header">2B. Soybean Complex: Soybean Meal</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>Robust US Export Sales Pacing:</strong> US meal export commitments continue to exceed seasonal pacing benchmarks, with active spot tender inquiries from Canada, Vietnam, and Egypt.</li>
+        <li><strong>Argentine EUDR Deforestation Premium Incentives:</strong> Argentine crushers are maximizing meal production ahead of the Jan 2027 EUDR mandate, with compliant meal expected to capture premiums up to $50/t.</li>
+        <li><strong>European Domestic Deficit:</strong> European meal production remains subdued, forcing feed compounders to maintain high import inclusion rates from the Americas.</li>
+        <li><strong>Delivery Receipt Cleansing:</strong> CME delivery receipts erased 132 Gilman receipts on Friday with zero weekend deliveries, leaving only 1 open contract in deliverable position.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Argentine Crush Running at 95% Capacity:</strong> USDA FAS reports Argentine crush running at 4.2mn t/month (second highest on record at 44.8mn t for 2026/27), generating heavy meal export availability.</li>
+        <li><strong>Chinese Cash Meal Weakness:</strong> Jan DCE meal futures declined and Chinese port spot meal traded down 16 yuan/t, reflecting domestic protein feeding saturation.</li>
+        <li><strong>Managed Money Extreme Long Concentration:</strong> Managed money holds 205,301 net long contracts; failing to expand for the first time in 5 weeks leaves positions vulnerable to abrupt liquidation.</li>
+        <li><strong>Systematic Sell Watch:</strong> Trend-following models have shifted Dec meal to a "Sell Watch" targeting liquidation triggers by Wednesday.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Neutral-to-Bearish Exhaustion.</strong> Dec meal settled at $365.60 after testing resistance, but fund long concentration and surging Argentine crushing runs indicate meal is set to concede market share to bean oil within the crush spread.
+      </div>
+    </div>
+  </div>
+
+  <div class="category-card">
+    <div class="category-header">2C. Soybean Complex: Soybean Oil (SBO)</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>OMB Clearance of 770M Gallon SRE Reallocation:</strong> The White House OMB returned the SRE reallocation rule to the EPA, with expectations that ~770mn RINs will be redistributed 50/50 across 2026 and 2027 obligations.</li>
+        <li><strong>Late US Pod Rain & Extraction Yield Downgrades:</strong> Rainfall >80mm during maturation is historically linked to lower seed oil extraction rates, threatening a repeat of last year's sub-trend 19.4% yield and requiring higher crush volumes.</li>
+        <li><strong>Tightening US SBO Balance Sheet:</strong> USDA cut 2025/26 ending stocks by 180 mln lbs to 1.657 bln lbs and trimmed 2026/27 carryover to 1.797 bln lbs, alongside 39 cancelled delivery receipts.</li>
+        <li><strong>Systematic Buy Signals & Capacity Additions:</strong> Managed futures models trigger systematic "Buy" signals on BO tomorrow, while CHS broke ground on its $700mn Evansville plant to produce 1 bln lbs of SBO for renewable diesel.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Brazilian Biodiesel Mandate Pause:</strong> Brazil's Agriculture Minister stated over the weekend that "now is not the time to increase the biodiesel blending mandate," curbing South American demand expectations.</li>
+        <li><strong>Weak South American Export Basis:</strong> Argentine FOB upriver basis weakened 40–50 points to -1310/-1400 under Dec futures on heavy Rosario crushing volume.</li>
+        <li><strong>Loss of Parity Against European RSO:</strong> European RSO dropped to €1,231.50/t fob Dutch mill, making RSO significantly more attractive than imported oils for European blenders.</li>
+        <li><strong>Cross-Commodity Energy Headline Noise:</strong> Volatility in crude and conflicting White House statements regarding Russian diesel inject cross-market uncertainty into vegoil valuation.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bullish.</strong> Dec bean oil settled at 68.02 c/lb, supported by regulatory reallocation catalysts (770M gal SREs), tight carryover (1.797 bln lbs), and extraction yield downgrades. Bean oil is fundamentally primed to outperform meal in oil-share spreads.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Sunflower Complex -->
+  <div class="category-card">
+    <div class="category-header">3. Sunflower Complex</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>Ukrainian SFO Production & Export Downgrades:</strong> APK-Inform cut Ukrainian SFO output to 5.49mn t (from 5.65mn t) and exports to 5.03mn t (from 5.20mn t) on war infrastructure damage and tight seed supply.</li>
+        <li><strong>Severe Danube Logistics Paralysis:</strong> Ukrainian September SFO exports slumped to 147kt as deep-sea ports remain closed and Danube barge shortages/high freight force crushers into hand-to-mouth seed procurement.</li>
+        <li><strong>European Crop Deficit:</strong> Argus estimates the total EU sunflower harvest at barely 9.0mn t, failing to cover internal demand and leaving crushers reliant on constrained external imports.</li>
+        <li><strong>Restored European Parity Premium:</strong> Spot SFO fob 6 ports restored a substantial premium over RSO ($1,407.50/t vs RSO €1,231.50/t), while Indian CIF demand firms.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Argentine Record Production & Crush:</strong> USDA FAS raised Argentina's 2026/27 sunflower crop to a record 7.4mn t (+8%), with crush forecast at 6.0mn t, lifting SFO exports to 2.0mn t into India and the Mediterranean.</li>
+        <li><strong>Ukrainian Harvest Ahead of Rain:</strong> Farmers threshed 3.44mn ha (66% complete) with yields recovering to 2.16 t/ha (up from 1.85 t/ha during the 2025 drought).</li>
+        <li><strong>Port Terminal Storage Saturation:</strong> Crushing plants at Danube and POC ports face storage bottlenecks, curtailing seed processing as incoming grains compete for logistics.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bullish for Oil; Neutral for Seed/Meal.</strong> Spot FOB POC sunflower oil ($1,095/t) and European refined oil remain tight due to Black Sea shipping chokeholds and a 9mn t European harvest deficit. Argentine replacement supplies will not hit scale until early 2027.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Rapeseed Complex -->
+  <div class="category-card">
+    <div class="category-header">4. Rapeseed Complex</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>EU Seed Deficit & Lack of Import Incentive:</strong> French rapeseed trades at a steep discount to Australian canola, while the Euronext-Winnipeg spread fails to cover freight, leaving EU crushers without import margin and tightening domestic balances.</li>
+        <li><strong>China Diverting Australian GM Canola:</strong> China's reopening to Australian canola is expected to absorb >75% of Western Australia's crop, cutting non-GM seed flows into European feed crushers.</li>
+        <li><strong>Chinese Domestic RSO Drawdown:</strong> Chinese RSO stocks dropped to 500kt (-30kt in one week) with Guangxi plants offline due to seed shortages, driving substitution into alternative vegoils.</li>
+        <li><strong>Ukrainian Acreage Shift:</strong> Ukrainian farmers switched 15%–20% of winter grains area into rapeseed to maximize higher-value oilseed revenue against inflated freight costs.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Rhine River Gridlock Throttling EU Crush:</strong> Persistently low water levels at Kaub (<100cm into mid-November) halt barge traffic, forcing German crushers to curb runs and dropping prompt Dutch mill RSO to €1,231.50/t.</li>
+        <li><strong>Subdued RME Biodiesel Demand:</strong> Mild winter forecasts (ECMWF 60% probability above-normal Oct–Jan) and France's CFPP waiver until Nov 15 delay winter blending urgency, dropping RME outright value by $10/t to $1,800/t.</li>
+        <li><strong>Canadian Harvest Acceleration:</strong> Dry weather boosted Saskatchewan harvest by 27 points to 72% and Alberta to 56%, with weekly Canadian canola exports surging to a 4-year high of 271kt.</li>
+        <li><strong>Australian Record Crop Pipeline:</strong> Australia's canola output is projected at up to 8.4mn t, creating a massive export supply pipeline set to hit world markets in 1Q 2027.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Neutral Near-Term / Bullish Deferred.</strong> Prompt Euronext contracts and Dutch mill RSO are restrained by Rhine logistical logjams and delayed winter biodiesel demand. However, solid forward crush margins above €80/t and European seed deficits will reassert bullish momentum once river navigation normalizes.
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Corn -->
+  <div class="category-card">
+    <div class="category-header">5. Corn</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>European Supply Crisis & Ukrainian Bottlenecks:</strong> EU 4Q corn imports will drop to 4.0mn t (lowest since 2Q 2025) due to French production falling 38% to 5.7mn t and Ukrainian shipments capped below 250kt/month.</li>
+        <li><strong>Record Euronext Corn Premium Over Wheat:</strong> European tightness has driven Euronext March corn to a record €21.50/t premium over wheat, forcing feed compounders to substitute wheat.</li>
+        <li><strong>Asian Import Tender Wave:</strong> Asian buyers stepped in aggressively on the price break: Philippines booked 110kt, South Korea NOFI/FLC tendered for 276kt, and Taiwan tendered for 65kt.</li>
+        <li><strong>Interior US Processor Basis Strength:</strong> US processor cash bids rose 5–10 cents in the interior despite falling futures, as processors bid aggressively to secure supplies while farmers harvest beans.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>USDA WASDE October Shock:</strong> USDA raised US corn yield +2.7 bpa to 181.2 bpa (Nebraska +11 bpa, South Dakota +6 bpa, record ear weights in IN/OH), increasing production by 234 mb and swelling 2026/27 ending stocks to 1.849 bb (stocks/use jumping to 11.3%).</li>
+        <li><strong>Impending Commercial Harvest Wall:</strong> Warm, dry weather is accelerating US harvest toward 36%; as bean harvest finishes this week, massive corn volume will swamp Midwest elevators.</li>
+        <li><strong>Massive Managed Money Long Liquidation:</strong> Managed money dumped 61,000 contracts (now 317k lots); Matthews Group Fund Exit Indicator requires another 15-cent drop to trigger full capitulation.</li>
+        <li><strong>China Cuts Domestic Feed Demand by 9.4MT:</strong> CASDE cut corn feed demand by 9.4mn t to 201.5mn t due to aggressive substitution of cheaper domestic wheat and sorghum, forecasting 2026/27 imports at only 6.0mn t.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Strong Bearish.</strong> Dec corn settled down 20.5 cents at $4.79 3/4 on record volume (1.203 million contracts). While European scarcity supports Euronext, CBOT is crushed under USDA's 1.849 bb carryover and the incoming commercial harvest deluge. Further liquidation toward $4.70 and $4.27 1/4 is favored.
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Wheat -->
+  <div class="category-card">
+    <div class="category-header">6. Wheat</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>Active State Tenders (Algeria, Jordan, Saudi Arabia):</strong> Algeria's OAIC issued an immediate tender for 50kt (loading Dec) closing Oct 13, Jordan's MIT tenders for 120kt, and Saudi Arabia closed 683kt, driving intense spot demand for milling grades.</li>
+        <li><strong>High-Protein / Dough-Strength Scarcity:</strong> OAIC's 180W dough strength specification commands a €2–3/t premium over standard milling wheat, as Romanian and Bulgarian crops feature low dough strength and CVB origins are oversold.</li>
+        <li><strong>Moroccan Stock Depletion:</strong> Moroccan stocks are critically low following summer import curbs and poor collection (650kt), requiring sustained imports of 400–500kt/month through June to reach its 4.1mn t requirement.</li>
+        <li><strong>Black Sea Deepwater Paralysis & Freight Strikes:</strong> Deepwater Ukrainian ports remain shut, Russian Black Sea loadings halted last week, and naval strikes in Romanian/Bulgarian waters have inflated merchant shipping freight rates.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Massive Russian Baltic Outflow:</strong> Exporters bypassed Black Sea bottlenecks by ramping Baltic shipments (Vysotsk, Ust-Luga, St. Petersburg) to 1.5mn t in October, selling at steep discounts ($184.50/t fob Novorossiysk, $267/t fob Baltic).</li>
+        <li><strong>USDA Ending Stocks Build:</strong> USDA raised US ending stocks to 740 mb and world stocks to 276.63mn t, trimming major exporter demand while expanding Southern Hemisphere potential (+1mn t).</li>
+        <li><strong>Southern Hemisphere Harvest Approaching:</strong> Favorable weather across Australia (record crop potential) and Argentina means low-cost new-crop wheat will flood international tender channels by December.</li>
+        <li><strong>Subdued Speculative Short Interest:</strong> Managed money is net short only 30,000 CBT contracts (vs record short of 189,000), leaving ample room for trend-following short extension.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bearish-to-Neutral.</strong> Dec Chicago wheat closed down 12.25 cents at $6.71. Despite active North African tenders, none of the state demand is priced to originate from the US, while Russian Baltic export flows (1.5mn t/month) continue to undercut European FOB structures.
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Energy -->
+  <div class="category-card">
+    <div class="category-header">7. Energy</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>Saudi Riyadh Airport Strike & US Retaliation Threats:</strong> Nymex WTI jumped $1.89/bbl to $93.74/bbl following a deadly Houthi attack on King Khalid International Airport (12 killed, 309 injured), with Trump announcing the US is considering joining Saudi retaliatory strikes in Yemen.</li>
+        <li><strong>Middle East War Premium Escalation:</strong> Ongoing hostilities in the Mideast Gulf and the US-Iran confrontation continue to disrupt regional shipping lanes, keeping tanker freight and bunker risk premiums elevated.</li>
+        <li><strong>Physical Refining Disruption:</strong> Drone strikes on Russian refineries continue to restrict domestic and international middle distillate output, forcing Russia to maintain its domestic diesel export ban.</li>
+        <li><strong>Refined Product Strength & Crack Spreads:</strong> Nymex gasoline crack spreads held firm at +$44.51/bbl, while US heating oil refused to follow through to the downside.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Trump Truth Social "Energy Ceasefire" Claim:</strong> Trump claimed an immediate energy ceasefire between Russia and Ukraine had been agreed, threatening to cut off US intelligence and arms to Ukraine for refinery strikes.</li>
+        <li><strong>Announced Release of Russian Diesel:</strong> The White House announced Putin agreed to release 300kt of Russian diesel immediately, followed by 500kt in Nov and 1mn t thereafter, with US Treasury suspending Lukoil sanctions until April 7.</li>
+        <li><strong>Physical Contradictions & Legislative Resistance:</strong> Lawmakers across both parties condemned the diesel announcement, while market realities show the US is a net diesel exporter and Russian domestic shortages make deliveries improbable.</li>
+        <li><strong>Sideways Technical Range:</strong> WTI crude remains confined in a sideways consolidation range ($90–$95), lacking systematic breakout momentum until macro data clarifies.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Strong Bullish.</strong> Rhetorical ceasefire claims are contradicted by physical drone strikes on Saudi Arabia's capital airport and overnight attacks on Ukrainian power infrastructure. WTI holding at $93.74/bbl keeps underlying cost-push support under the entire biofuel and agricultural input complex.
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Biofuels -->
+  <div class="category-card">
+    <div class="category-header">8. Biofuels</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>OMB Clearance of 770M Gal SRE Reallocation:</strong> The White House OMB returned the SRE reallocation rule to the EPA, with expectations that ~770mn RINs will be redistributed 50/50 across 2026 and 2027 RFS compliance years.</li>
+        <li><strong>Rising RIN Credits & Widening BOHO Spread:</strong> 2026 D4 biomass-based diesel RINs gained 2.25 c/RIN to 211.75 c/RIN, D6 ethanol RINs rose 2.5 c/RIN to 204.5 c/RIN, and the BOHO spread widened 5.87 c/gal to 39.93 c/gal, expanding margins for US biomass-based diesel producers.</li>
+        <li><strong>Dutch Marine ZRE Ticket Shortfall Fears:</strong> Dutch marine ZRE ticket prices jumped to 23–24 c/kgCO2e as bunker suppliers faced acute year-end compliance shortfalls, triggering severe cuts in B100 offers to maximize ticket generation ($775/t ZRE value per tonne of B100).</li>
+        <li><strong>German HVO100 Retail Parity & Volume Doubling:</strong> German HVO consumption is forecast to reach 2.41mn t in 2026 (up from 1.01mn t in 2025) as the removal of double-counting mandates physical drop-in fuels, with retail HVO100 selling at parity or discount to fossil diesel.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Rhine River Gridlock Throttling ARA Biofuel Flows:</strong> Low water levels at Kaub (<100cm into mid-November) prevent barge transport from ARA into Germany, causing HVO stocks to build in ARA and pushing Northwest European HVO Class II outright prices down by $31.98/t to $2,699.48/t.</li>
+        <li><strong>Milder European Winter Forecasts & CFPP Derogations:</strong> ECMWF predicts a 60% probability of above-normal temperatures Oct–Jan across Europe, while France extended its CFPP cold-flow waiver to Nov 15, dampening spot winter RME urgency.</li>
+        <li><strong>Weak US Import Demand for EPA-Certified UCO:</strong> Seaborne EPA-certified bulk UCO fob China declined to $1,110–1,130/t as US renewable diesel refiners maintain sluggish feedstock demand with zero fresh spot inquiries emerging.</li>
+        <li><strong>IATA Downgrades CORSIA SAF Demand:</strong> IATA revised down its 2026 CORSIA compliance offsetting requirements by 25% to 65.4mn t CO2e, citing geopolitical flight rerouting in the Middle East.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bullish for US RFS / RINs; Bearish for ARA Waterborne Premiums.</strong> The regulatory tailwind of 770M gallons of reallocated SREs in the US, combined with Dutch ZRE panic buying, underpins compliance values. In Europe, Rhine barge logistics remain the primary bottleneck dictating spot discounts.
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Fixed Income -->
+  <div class="category-card">
+    <div class="category-header">9. Fixed Income</div>
+    <div class="category-body">
+      <div class="sub-title bull-title">Bull Case</div>
+      <ul>
+        <li><strong>European Bund Bottoming Formations:</strong> German Bunds are establishing a technical bottom, historically acting as a leading indicator for a turnaround in US Treasuries.</li>
+        <li><strong>Elevated Borrowing Costs Restraining CapEx:</strong> High interest rates continue to pressure capital-intensive commodity processing projects and inventory holding capacity across agribusinesses.</li>
+        <li><strong>Safe-Haven Geopolitical Flows:</strong> Escalating military conflict in Yemen and the Middle East Gulf stimulates periodic flight-to-safety bids into short-duration sovereign debt.</li>
+      </ul>
+      <div class="sub-title bear-title">Bear Case</div>
+      <ul>
+        <li><strong>Hot Inflation Expectations (CPI & PPI):</strong> Consensus forecasts for this week's US CPI (Wednesday) and PPI (Thursday) are elevated at +0.6% m/m, threatening to postpone monetary easing.</li>
+        <li><strong>Hawkish CME FedWatch Shift:</strong> Markets are pricing in an 83% probability of unchanged rates at the Oct 28 FOMC meeting, with a 72% probability of a 25 bps rate hike at the December meeting.</li>
+        <li><strong>Resilient US Dollar Index Strength:</strong> The US Dollar Index (DXY) maintains a positive trend above 101.57 (targeting 104.41), pressuring US dollar-denominated commodity exports.</li>
+        <li><strong>Fed Chair Warsh Scheduled Remarks:</strong> Markets face volatility ahead of scheduled remarks on Thursday by Fed Chair Warsh, with systematic macro funds maintaining short bond / long dollar positions.</li>
+      </ul>
+      <div class="verdict-box">
+        <strong>Directional Bias: Bearish Fixed Income / Bullish USD.</strong> With CPI and PPI projected at +0.6% and the December FOMC pricing in a 72% chance of a 25 bps rate hike, Treasury yields remain supported. The firm Dollar Index (102.20) presents an enduring headwind for US agricultural export parity against South American and Black Sea competitors.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    CONFIDENTIAL
+  </div>
+</div>
+</body>
+</html>

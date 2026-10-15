@@ -361,7 +361,7 @@
             </div>
             <div class="header-stats">
                 <div class="stat-pill">
-                    <span class="num">31</span>
+                    <span class="num">33</span>
                     <span class="lbl">Suites</span>
                 </div>
             </div>
@@ -382,9 +382,10 @@
                 <button class="filter-pill" onclick="filterCategory('weather', this)">🌦️ Weather</button>
                 <button class="filter-pill" onclick="filterCategory('cropprogress', this)">🌱 Crop Progress</button>
                 <button class="filter-pill" onclick="filterCategory('farmerselling', this)">🚜 Farmer Selling</button>
-                <button class="filter-pill" onclick="filterCategory('positioning', this)">📈 COT Positioning</button>
-                <button class="filter-pill" onclick="filterCategory('tradedemand', this)">🚢 Trade &amp; S&amp;D</button>
-                <button class="filter-pill" onclick="filterCategory('technical', this)">📊 Basis &amp; Technical</button>
+                <button class="filter-pill" onclick="filterCategory('technicals', this)">📈 Technicals</button>
+                <button class="filter-pill" onclick="filterCategory('fundamentals', this)">🚢 Fundamentals</button>
+                <button class="filter-pill" onclick="filterCategory('price', this)">🏷️ Price</button>
+                <button class="filter-pill" onclick="filterCategory('reports', this)">📑 Reports</button>
             </div>
             <div class="search-box">
                 <input type="text" id="portal-search" placeholder="Search glossary, crops, regions..." oninput="handleSearch()">
@@ -715,15 +716,15 @@
             </div>
         </section>
         
-        <section class="category-section" id="cat-sec-positioning" data-cat="positioning">
+        <section class="category-section" id="cat-sec-technicals" data-cat="technicals">
             <h2 class="category-heading">
                 <span class="category-heading-icon">📈</span>
-                <span class="category-heading-title">Positioning & Speculative Flows</span>
-                <span class="category-heading-count">(1)</span>
+                <span class="category-heading-title">Technical Analysis, Market Structure & Speculative Flows</span>
+                <span class="category-heading-count">(2)</span>
             </h2>
             <div class="category-grid">
                 
-            <div class="suite-card" data-category="positioning" data-search="cftc & commodity cot positioning intelligence 31 benchmark commodities & financials (cftc disaggregated, ice & matif) with managed money dry powder and percentile ranks. cftc_drypowder" onclick="window.open('CFTC_drypowder/dashboard.html', '_blank')">
+            <div class="suite-card" data-category="technicals" data-search="cftc & commodity cot positioning intelligence 31 benchmark commodities & financials (cftc disaggregated, ice & matif) with managed money dry powder and percentile ranks. cftc_drypowder" onclick="window.open('CFTC_drypowder/dashboard.html', '_blank')">
                 <div class="card-main">
                     <div class="card-meta">
                         <span class="folder-tag">CFTC_drypowder</span>
@@ -742,300 +743,7 @@
                 </div>
             </div>
             
-            </div>
-        </section>
-        
-        <section class="category-section" id="cat-sec-tradedemand" data-cat="tradedemand">
-            <h2 class="category-heading">
-                <span class="category-heading-icon">🚢</span>
-                <span class="category-heading-title">Supply, Demand, Trade & Fundamentals</span>
-                <span class="category-heading-count">(12)</span>
-            </h2>
-            <div class="category-grid">
-                
-            <div class="suite-card" data-category="tradedemand" data-search="mpob palm oil intelligence terminal malaysian palm oil board historical supply, demand, stocks & yield model (2005-2026) with regional breakdown. mpob_dashboard" onclick="window.open('mpob_dashboard/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">mpob_dashboard</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">MPOB Palm Oil Intelligence Terminal</h3>
-                    <p class="card-desc">Malaysian Palm Oil Board Historical Supply, Demand, Stocks & Yield Model (2005-2026) with regional breakdown.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="mpob_dashboard/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="usda weekly export sales intelligence multi-commodity weekly export commitments, shipments & outstanding sales monitor. usda_export_sales" onclick="window.open('usda_export_sales/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">usda_export_sales</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Weekly Export Sales Intelligence</h3>
-                    <p class="card-desc">Multi-commodity weekly export commitments, shipments & outstanding sales monitor.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="usda_export_sales/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="farmdoc daily market intelligence university of illinois agricultural economic commentary, marketing strategy & daily analysis digest. farmdoc_agent" onclick="window.open('farmdoc_agent/preview_email_sep_01.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">farmdoc_agent</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">FarmDoc Daily Market Intelligence</h3>
-                    <p class="card-desc">University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="farmdoc_agent/preview_email_sep_01.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="us imports dashboard (us customs) us imports intelligence tracking commodity flows, origin countries, and trade volume trends. fund_customs_us" onclick="window.open('fund_Customs_US/US_Imports_Dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_Customs_US</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">US Imports Dashboard (US Customs)</h3>
-                    <p class="card-desc">US imports intelligence tracking commodity flows, origin countries, and trade volume trends.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_Customs_US/US_Imports_Dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="advanced biofuels intelligence (eia) us biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol. fund_eia_biofuel" onclick="window.open('fund_EIA_Biofuel/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_EIA_Biofuel</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Advanced Biofuels Intelligence (EIA)</h3>
-                    <p class="card-desc">US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_EIA_Biofuel/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Biofuels Terminal</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                <a href="fund_EIA_Biofuel/dashboard_matrix.html" class="act-btn secondary" target="_blank" onclick="event.stopPropagation()">
-                    <span>Export Matrix</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="eia energy market intelligence us energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets. fund_eia_energy" onclick="window.open('fund_EIA_Energy/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_EIA_Energy</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">EIA Energy Market Intelligence</h3>
-                    <p class="card-desc">US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_EIA_Energy/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="usda corn crushings & s&d intelligence monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, ddgs co-products & full ers balance sheet. fund_usda_corncrush" onclick="window.open('fund_USDA_CornCrush/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_CornCrush</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Corn Crushings & S&D Intelligence</h3>
-                    <p class="card-desc">Monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, DDGS co-products & full ERS balance sheet.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_USDA_CornCrush/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="usda fats & oils (oilseeds & crush s&d) soybeans, canola, corn oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows. fund_usda_oilnfats" onclick="window.open('fund_USDA_OilnFats/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_OilnFats</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Fats & Oils (Oilseeds & Crush S&D)</h3>
-                    <p class="card-desc">Soybeans, Canola, Corn Oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_USDA_OilnFats/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="usda wheat supply & demand intelligence by-class s&d balance sheet (hrw, hrs, srw, white, durum), summer feed & residual surge, flour grind & global export matrix. fund_usda_wheat" onclick="window.open('fund_USDA_Wheat/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_Wheat</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Wheat Supply & Demand Intelligence</h3>
-                    <p class="card-desc">By-class S&D balance sheet (HRW, HRS, SRW, White, Durum), summer feed & residual surge, flour grind & global export matrix.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_USDA_Wheat/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="black sea grains & oilseeds s&d intelligence supply & demand balance sheets, agency consensus revisions (usda/ikar/sovecon/apk), export pace and export duties for russia, ukraine & kazakhstan. fund_blacksea_crops" onclick="window.open('fund_BlackSea_Crops/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_BlackSea_Crops</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Black Sea Grains & Oilseeds S&D Intelligence</h3>
-                    <p class="card-desc">Supply & demand balance sheets, agency consensus revisions (USDA/IKAR/SovEcon/APK), export pace and export duties for Russia, Ukraine & Kazakhstan.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_BlackSea_Crops/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="global s&d multi-agency consensus collation engine harmonized balance sheet comparison across official & commercial forecasters: usda wasde vs conab vs bage vs agcanada vs ikar vs sovecon vs coceral vs abares. fund_snd_collate" onclick="window.open('fund_SND_Collate/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_SND_Collate</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Global S&D Multi-Agency Consensus Collation Engine</h3>
-                    <p class="card-desc">Harmonized balance sheet comparison across official & commercial forecasters: USDA WASDE vs CONAB vs BAGE vs AgCanada vs IKAR vs SovEcon vs Coceral vs ABARES.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_SND_Collate/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="tradedemand" data-search="usda principal crops acreage & planting evolution multi-decade prospective plantings, june acreage revisions, and final harvested area evolution across us corn, soybeans, wheat, cotton & feed grains. fund_usda_acreage" onclick="window.open('fund_USDA_Acreage/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_Acreage</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Principal Crops Acreage & Planting Evolution</h3>
-                    <p class="card-desc">Multi-decade prospective plantings, June acreage revisions, and final harvested area evolution across US Corn, Soybeans, Wheat, Cotton & Feed Grains.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="fund_USDA_Acreage/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            </div>
-        </section>
-        
-        <section class="category-section" id="cat-sec-technical" data-cat="technical">
-            <h2 class="category-heading">
-                <span class="category-heading-icon">📊</span>
-                <span class="category-heading-title">Cash Basis & Technical Analysis</span>
-                <span class="category-heading-count">(3)</span>
-            </h2>
-            <div class="category-grid">
-                
-            <div class="suite-card" data-category="technical" data-search="us corn & soybeans seasonal basis analytics historical seasonal basis curves and multi-year cash vs futures basis comparisons across us grain elevators and river terminals. tech_price_basis_usa" onclick="window.open('tech_Price_Basis_USA/seasonal_basis_dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Price_Basis_USA</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">US Corn & Soybeans Seasonal Basis Analytics</h3>
-                    <p class="card-desc">Historical seasonal basis curves and multi-year cash vs futures basis comparisons across US grain elevators and river terminals.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="tech_Price_Basis_USA/seasonal_basis_dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="technical" data-search="usda historical spot basis terminal interactive spot cash basis monitor powered by usda ams market reports across regions and agricultural commodities. tech_price_usdabasis" onclick="window.open('tech_Price_USDABasis/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Price_USDABasis</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Historical Spot Basis Terminal</h3>
-                    <p class="card-desc">Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.</p>
-                </div>
-                <div class="card-actions">
-                    
-                <a href="tech_Price_USDABasis/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
-                    <span>Open Dashboard</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                
-                </div>
-            </div>
-            
-            <div class="suite-card" data-category="technical" data-search="agri-commodities & macro technical desk multi-timeframe technical structure, neely wave counts, trend momentum and volatility analysis across fcpo, grains, energy & macro assets. tech_desk" onclick="window.open('tech_Desk/dashboard.html', '_blank')">
+            <div class="suite-card" data-category="technicals" data-search="agri-commodities & macro technical desk multi-timeframe technical structure, neely wave counts, trend momentum and volatility analysis across fcpo, grains, energy & macro assets. tech_desk" onclick="window.open('tech_Desk/dashboard.html', '_blank')">
                 <div class="card-main">
                     <div class="card-meta">
                         <span class="folder-tag">tech_Desk</span>
@@ -1062,9 +770,351 @@
             </div>
         </section>
         
+        <section class="category-section" id="cat-sec-fundamentals" data-cat="fundamentals">
+            <h2 class="category-heading">
+                <span class="category-heading-icon">🚢</span>
+                <span class="category-heading-title">Agricultural Fundamentals, Supply & Demand</span>
+                <span class="category-heading-count">(11)</span>
+            </h2>
+            <div class="category-grid">
+                
+            <div class="suite-card" data-category="fundamentals" data-search="mpob palm oil intelligence terminal malaysian palm oil board historical supply, demand, stocks & yield model (2005-2026) with regional breakdown. mpob_dashboard" onclick="window.open('mpob_dashboard/index.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">mpob_dashboard</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">MPOB Palm Oil Intelligence Terminal</h3>
+                    <p class="card-desc">Malaysian Palm Oil Board Historical Supply, Demand, Stocks & Yield Model (2005-2026) with regional breakdown.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="mpob_dashboard/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="usda weekly export sales intelligence multi-commodity weekly export commitments, shipments & outstanding sales monitor. usda_export_sales" onclick="window.open('usda_export_sales/index.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">usda_export_sales</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">USDA Weekly Export Sales Intelligence</h3>
+                    <p class="card-desc">Multi-commodity weekly export commitments, shipments & outstanding sales monitor.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="usda_export_sales/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="us imports dashboard (us customs) us imports intelligence tracking commodity flows, origin countries, and trade volume trends. fund_customs_us" onclick="window.open('fund_Customs_US/US_Imports_Dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_Customs_US</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">US Imports Dashboard (US Customs)</h3>
+                    <p class="card-desc">US imports intelligence tracking commodity flows, origin countries, and trade volume trends.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_Customs_US/US_Imports_Dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="advanced biofuels intelligence (eia) us biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol. fund_eia_biofuel" onclick="window.open('fund_EIA_Biofuel/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_EIA_Biofuel</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">Advanced Biofuels Intelligence (EIA)</h3>
+                    <p class="card-desc">US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_EIA_Biofuel/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Biofuels Terminal</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                <a href="fund_EIA_Biofuel/dashboard_matrix.html" class="act-btn secondary" target="_blank" onclick="event.stopPropagation()">
+                    <span>Export Matrix</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="eia energy market intelligence us energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets. fund_eia_energy" onclick="window.open('fund_EIA_Energy/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_EIA_Energy</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">EIA Energy Market Intelligence</h3>
+                    <p class="card-desc">US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_EIA_Energy/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="usda corn crushings & s&d intelligence monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, ddgs co-products & full ers balance sheet. fund_usda_corncrush" onclick="window.open('fund_USDA_CornCrush/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_USDA_CornCrush</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">USDA Corn Crushings & S&D Intelligence</h3>
+                    <p class="card-desc">Monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, DDGS co-products & full ERS balance sheet.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_USDA_CornCrush/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="usda fats & oils (oilseeds & crush s&d) soybeans, canola, corn oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows. fund_usda_oilnfats" onclick="window.open('fund_USDA_OilnFats/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_USDA_OilnFats</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">USDA Fats & Oils (Oilseeds & Crush S&D)</h3>
+                    <p class="card-desc">Soybeans, Canola, Corn Oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_USDA_OilnFats/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="usda wheat supply & demand intelligence by-class s&d balance sheet (hrw, hrs, srw, white, durum), summer feed & residual surge, flour grind & global export matrix. fund_usda_wheat" onclick="window.open('fund_USDA_Wheat/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_USDA_Wheat</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">USDA Wheat Supply & Demand Intelligence</h3>
+                    <p class="card-desc">By-class S&D balance sheet (HRW, HRS, SRW, White, Durum), summer feed & residual surge, flour grind & global export matrix.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_USDA_Wheat/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="black sea grains & oilseeds s&d intelligence supply & demand balance sheets, agency consensus revisions (usda/ikar/sovecon/apk), export pace and export duties for russia, ukraine & kazakhstan. fund_blacksea_crops" onclick="window.open('fund_BlackSea_Crops/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_BlackSea_Crops</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">Black Sea Grains & Oilseeds S&D Intelligence</h3>
+                    <p class="card-desc">Supply & demand balance sheets, agency consensus revisions (USDA/IKAR/SovEcon/APK), export pace and export duties for Russia, Ukraine & Kazakhstan.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_BlackSea_Crops/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="global s&d multi-agency consensus collation engine harmonized balance sheet comparison across official & commercial forecasters: usda wasde vs conab vs bage vs agcanada vs ikar vs sovecon vs coceral vs abares. fund_snd_collate" onclick="window.open('fund_SND_Collate/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_SND_Collate</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">Global S&D Multi-Agency Consensus Collation Engine</h3>
+                    <p class="card-desc">Harmonized balance sheet comparison across official & commercial forecasters: USDA WASDE vs CONAB vs BAGE vs AgCanada vs IKAR vs SovEcon vs Coceral vs ABARES.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_SND_Collate/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="fundamentals" data-search="usda principal crops acreage & planting evolution multi-decade prospective plantings, june acreage revisions, and final harvested area evolution across us corn, soybeans, wheat, cotton & feed grains. fund_usda_acreage" onclick="window.open('fund_USDA_Acreage/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">fund_USDA_Acreage</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">USDA Principal Crops Acreage & Planting Evolution</h3>
+                    <p class="card-desc">Multi-decade prospective plantings, June acreage revisions, and final harvested area evolution across US Corn, Soybeans, Wheat, Cotton & Feed Grains.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="fund_USDA_Acreage/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            </div>
+        </section>
+        
+        <section class="category-section" id="cat-sec-price" data-cat="price">
+            <h2 class="category-heading">
+                <span class="category-heading-icon">🏷️</span>
+                <span class="category-heading-title">Cash Basis & Spot Price Intelligence</span>
+                <span class="category-heading-count">(2)</span>
+            </h2>
+            <div class="category-grid">
+                
+            <div class="suite-card" data-category="price" data-search="us corn & soybeans seasonal basis analytics historical seasonal basis curves, argus cfr china vs gulf/pnw spreads, and cash vs futures basis comparisons across us grain elevators and river terminals. tech_price_basis_usa" onclick="window.open('tech_Price_Basis_USA/seasonal_basis_dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">tech_Price_Basis_USA</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">US Corn & Soybeans Seasonal Basis Analytics</h3>
+                    <p class="card-desc">Historical seasonal basis curves, Argus CFR China vs Gulf/PNW spreads, and cash vs futures basis comparisons across US grain elevators and river terminals.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="tech_Price_Basis_USA/seasonal_basis_dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="price" data-search="usda historical spot basis terminal interactive spot cash basis monitor powered by usda ams market reports across regions and agricultural commodities. tech_price_usdabasis" onclick="window.open('tech_Price_USDABasis/dashboard.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">tech_Price_USDABasis</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">USDA Historical Spot Basis Terminal</h3>
+                    <p class="card-desc">Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="tech_Price_USDABasis/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open Dashboard</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            </div>
+        </section>
+        
+        <section class="category-section" id="cat-sec-reports" data-cat="reports">
+            <h2 class="category-heading">
+                <span class="category-heading-icon">📑</span>
+                <span class="category-heading-title">Market Intelligence & Analytical Reports</span>
+                <span class="category-heading-count">(3)</span>
+            </h2>
+            <div class="category-grid">
+                
+            <div class="suite-card" data-category="reports" data-search="daily cross-commodity bull/bear dossier first resources trading daily fundamental market intelligence dossier covering palm oil, soybeans, corn, wheat, and energy flows. daily_bullbear" onclick="window.open('Daily_BullBear/index.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">Daily_BullBear</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">Daily Cross-Commodity Bull/Bear Dossier</h3>
+                    <p class="card-desc">First Resources Trading daily fundamental market intelligence dossier covering Palm Oil, Soybeans, Corn, Wheat, and Energy flows.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="Daily_BullBear/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Latest Bull/Bear Dossier</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="reports" data-search="daily multi-dashboard intelligence synthesis automated trader-grade daily briefing synthesizing global crop calendars, us gfs & south america weather stresses, usda crop progress, and macro events. dashboard_report" onclick="window.open('Dashboard_Report/index.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">Dashboard_Report</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">Daily Multi-Dashboard Intelligence Synthesis</h3>
+                    <p class="card-desc">Automated trader-grade daily briefing synthesizing global crop calendars, US GFS & South America weather stresses, USDA crop progress, and macro events.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="Dashboard_Report/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Latest Synthesis Report</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            <div class="suite-card" data-category="reports" data-search="farmdoc daily market intelligence university of illinois agricultural economic commentary, marketing strategy & daily analysis digest. farmdoc_agent" onclick="window.open('farmdoc_agent/preview_email_sep_01.html', '_blank')">
+                <div class="card-main">
+                    <div class="card-meta">
+                        <span class="folder-tag">farmdoc_agent</span>
+                        <span class="live-dot" title="Live Linked"></span>
+                    </div>
+                    <h3 class="card-title">FarmDoc Daily Market Intelligence</h3>
+                    <p class="card-desc">University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.</p>
+                </div>
+                <div class="card-actions">
+                    
+                <a href="farmdoc_agent/preview_email_sep_01.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
+                    <span>Open FarmDoc Digest</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                
+                </div>
+            </div>
+            
+            </div>
+        </section>
+        
 
         <footer class="portal-footer">
-            <p>Agri Agent Platform &bull; Published Online Production Suite &bull; All 31 suites synchronized</p>
+            <p>Agri Agent Platform &bull; Published Online Production Suite &bull; All 33 suites synchronized</p>
         </footer>
     </div>
 
