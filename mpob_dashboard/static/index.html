@@ -742,22 +742,161 @@
         </div>
       </div>
 
-      <!-- Comprehensive Product Export Table -->
-      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <!-- Export Navigation Sub-Tabs -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-2">
+        <div class="flex items-center space-x-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <button onclick="switchExportSubTab('matrix')" id="btn-exp-subtab-matrix" class="px-3 py-1.5 rounded-lg bg-emerald-600 font-bold text-white transition shadow flex items-center space-x-1.5">
+            <i data-lucide="grid" class="w-3.5 h-3.5"></i>
+            <span>Month &times; Year Seasonality Matrix</span>
+          </button>
+          <button onclick="switchExportSubTab('annual')" id="btn-exp-subtab-annual" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 text-slate-300 transition flex items-center space-x-1.5">
+            <i data-lucide="history" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Annual Multi-Decade History (1964 &ndash; 2026)</span>
+          </button>
+          <button onclick="switchExportSubTab('ledger')" id="btn-exp-subtab-ledger" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 text-slate-300 transition flex items-center space-x-1.5">
+            <i data-lucide="list" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Monthly Product Breakdown (Report 34)</span>
+          </button>
+        </div>
+        <div id="export-subtab-actions" class="flex items-center space-x-2 text-xs">
+          <!-- Dynamic actions updated via JS -->
+        </div>
+      </div>
+
+      <!-- VIEW 1: Month x Year Seasonality Matrix Table -->
+      <div id="export-view-matrix" class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
           <div>
-            <h3 class="text-base font-semibold text-white">Product Export Breakdown Ledger (Report 34)</h3>
-            <p class="text-xs text-slate-400">Detailed monthly and annual export volumes and export value</p>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-wide">Seasonality Matrix</span>
+              <h3 class="text-base font-bold text-white">Month-by-Year Export Ledger (2005 &ndash; 2026)</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Track month-by-month historical volumes, revenues, and price realizations across 22 years</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <label for="export-matrix-metric" class="text-xs text-slate-400 font-medium">Select Category:</label>
+            <select id="export-matrix-metric" onchange="renderExportMatrix()" class="bg-slate-800 border border-slate-700 text-emerald-300 font-semibold rounded-lg px-3 py-1.5 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+              <optgroup label="Export Volumes (Metric Tonnes)">
+                <option value="palm_oil_total_tonnes" selected>Total Palm Oil (CPO + PPO) [Tonnes]</option>
+                <option value="total_all_products_tonnes">Total All Palm Products (Incl. PKO, Oleo, etc.) [Tonnes]</option>
+                <option value="cpo_tonnes">Crude Palm Oil (CPO) [Tonnes]</option>
+                <option value="ppo_tonnes">Processed Palm Oil (PPO) [Tonnes]</option>
+                <option value="oleochemicals_tonnes">Oleochemicals [Tonnes]</option>
+                <option value="biodiesel_tonnes">Biodiesel [Tonnes]</option>
+                <option value="pko_total_tonnes">Palm Kernel Oil (PKO) [Tonnes]</option>
+                <option value="palm_kernel_cake_tonnes">Palm Kernel Cake (PKC) [Tonnes]</option>
+                <option value="finished_products_tonnes">Finished Products [Tonnes]</option>
+              </optgroup>
+              <optgroup label="Export Revenues & Values (RM Million)">
+                <option value="total_all_products_rm_mil">Total All Products Revenue [RM Million]</option>
+                <option value="palm_oil_total_rm_mil">Palm Oil Only Revenue [RM Million]</option>
+                <option value="cpo_rm_mil">CPO Export Revenue [RM Million]</option>
+                <option value="ppo_rm_mil">PPO Export Revenue [RM Million]</option>
+                <option value="oleochemicals_rm_mil">Oleochemicals Export Revenue [RM Million]</option>
+                <option value="pko_total_rm_mil">PKO Export Revenue [RM Million]</option>
+              </optgroup>
+              <optgroup label="Realized Export Prices (RM / Tonne)">
+                <option value="total_all_products_unit_price_rm_tonne">All Products Average Export Realization [RM/Tonne]</option>
+                <option value="cpo_unit_price_rm_tonne">CPO Realized Export FOB Price [RM/Tonne]</option>
+                <option value="ppo_unit_price_rm_tonne">PPO Realized Export FOB Price [RM/Tonne]</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto max-h-[550px] border border-slate-800 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-800 text-xs text-left" id="export-matrix-table">
+            <thead class="bg-slate-950 text-slate-300 font-semibold sticky top-0 z-20">
+              <tr>
+                <th class="py-2.5 px-3 whitespace-nowrap bg-slate-950 sticky left-0 z-30">Year</th>
+                <th class="py-2.5 px-2 text-right">Jan</th>
+                <th class="py-2.5 px-2 text-right">Feb</th>
+                <th class="py-2.5 px-2 text-right">Mar</th>
+                <th class="py-2.5 px-2 text-right">Apr</th>
+                <th class="py-2.5 px-2 text-right">May</th>
+                <th class="py-2.5 px-2 text-right">Jun</th>
+                <th class="py-2.5 px-2 text-right">Jul</th>
+                <th class="py-2.5 px-2 text-right">Aug</th>
+                <th class="py-2.5 px-2 text-right">Sep</th>
+                <th class="py-2.5 px-2 text-right">Oct</th>
+                <th class="py-2.5 px-2 text-right">Nov</th>
+                <th class="py-2.5 px-2 text-right">Dec</th>
+                <th class="py-2.5 px-3 text-right bg-slate-900/90 text-emerald-400 font-bold">Total / YTD</th>
+                <th class="py-2.5 px-2.5 text-right bg-slate-900/90 text-slate-300 font-bold">YoY (%)</th>
+              </tr>
+            </thead>
+            <tbody id="export-matrix-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Dynamically populated -->
+            </tbody>
+            <tfoot id="export-matrix-tfoot" class="bg-slate-950 font-mono text-xs border-t-2 border-slate-700 sticky bottom-0 z-20">
+              <!-- Dynamically populated summary benchmarks -->
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- VIEW 2: Annual Multi-Decade History Table (1964 - 2026) -->
+      <div id="export-view-annual" class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wide">63-Year Long Horizon</span>
+              <h3 class="text-base font-bold text-white">Annual Multi-Decade Palm Oil Export Ledger (1964 &ndash; 2026)</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Continuous official time series tracking Malaysia's structural transition from raw CPO to refined downstream dominance</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <input type="text" id="export-annual-search" onkeyup="filterAnnualExportTable()" placeholder="Search year (e.g. 1980)..." class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:ring-1 focus:ring-amber-500 focus:outline-none">
+            <a href="/api/download/annual-exports-csv" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 transition shadow-sm">
+              <i data-lucide="download" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Download CSV (1964-2026)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto max-h-[550px] border border-slate-800 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-800 text-xs text-left" id="export-annual-table">
+            <thead class="bg-slate-950 text-slate-300 font-semibold sticky top-0 z-10">
+              <tr>
+                <th class="py-2.5 px-3">Year</th>
+                <th class="py-2.5 px-3 text-right text-emerald-400 font-bold">Total Palm Oil (T)</th>
+                <th class="py-2.5 px-2.5 text-right font-bold text-slate-200">YoY (%)</th>
+                <th class="py-2.5 px-3 text-right text-blue-400">Crude Palm Oil (T)</th>
+                <th class="py-2.5 px-3 text-right text-emerald-300">Processed Palm Oil (T)</th>
+                <th class="py-2.5 px-2.5 text-right text-cyan-300 font-bold bg-slate-900/60">PPO Share (%)</th>
+                <th class="py-2.5 px-3 text-right text-yellow-400">Palm Kernel Oil (T)</th>
+                <th class="py-2.5 px-3 text-right text-orange-400">Palm Kernel Cake (T)</th>
+                <th class="py-2.5 px-3 text-right text-amber-400 font-bold">Export Value (RM Mil)</th>
+                <th class="py-2.5 px-2.5 text-right text-slate-300">Unit Realization (RM/T)</th>
+                <th class="py-2.5 px-3 text-center text-slate-400">Data Source</th>
+              </tr>
+            </thead>
+            <tbody id="export-annual-tbody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VIEW 3: Monthly Chronological Ledger (Report 34) -->
+      <div id="export-view-ledger" class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase tracking-wide">Monthly Census</span>
+              <h3 class="text-base font-bold text-white">Product Export Breakdown Ledger (Report 34)</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Detailed monthly and annual export volumes and export value</p>
           </div>
           <div class="flex items-center space-x-2 text-xs">
-            <input type="text" id="export-search-input" onkeyup="filterExportTable()" placeholder="Search period (e.g. 2025)..." class="bg-slate-800 border border-slate-700 rounded px-3 py-1.5 text-slate-200 focus:border-emerald-500">
-            <button onclick="toggleExportTableView()" id="btn-toggle-exp-view" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-medium transition">
+            <input type="text" id="export-search-input" onkeyup="filterExportTable()" placeholder="Search period (e.g. 2025)..." class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-200 focus:border-emerald-500 focus:outline-none">
+            <button onclick="toggleExportTableView()" id="btn-toggle-exp-view" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-medium transition">
               Switch to Annual Totals
             </button>
           </div>
         </div>
 
-        <div class="overflow-x-auto max-h-96 border border-slate-800 rounded-lg">
+        <div class="overflow-x-auto max-h-[500px] border border-slate-800 rounded-lg">
           <table class="min-w-full divide-y divide-slate-800 text-xs text-left">
             <thead class="bg-slate-900/90 sticky top-0 z-10 text-slate-300 font-semibold">
               <tr>
@@ -1942,7 +2081,7 @@
     <p>Data Source: Economics and Industry Development Division, Malaysian Palm Oil Board (MPOB) & Prestasi Sawit &bull; 2005–2026 Historical Supply, Demand & Yield Model</p>
   </footer>
 
-  <script src="app.js?v=20261015171823"></script>
+  <script src="app.js?v=20261015173400"></script>
   <script>
     lucide.createIcons();
   </script>

@@ -14,6 +14,8 @@ let bsViewMode = 'horizontal_matrix';
 // State and Export datasets
 let stateData = null;
 let exportProductsData = null;
+let annualExportsData = null;
+let exportSubTab = 'matrix';
 let yieldCadence = 'monthly';
 let yieldRegion = 'all';
 let exportCadence = 'monthly';
@@ -56,6 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load async secondary datasets
   loadStateData();
   loadExportProductsData();
+  loadAnnualExportsData();
   loadWorkdayData();
   loadSppomaData();
 
@@ -298,6 +301,10 @@ function updateAllVisualizations() {
   if (exportProductsData) {
     renderExportBreakdown();
     renderExportProductsTable();
+    renderExportMatrix();
+  }
+  if (annualExportsData) {
+    renderAnnualExportTable();
   }
 }
 
@@ -1456,6 +1463,7 @@ async function loadExportProductsData() {
     exportProductsData = await fetchJsonData("/api/export-products?start_year=2005&end_year=2026", "api_export_products.json");
     renderExportBreakdown();
     renderExportProductsTable();
+    renderExportMatrix();
   } catch (err) {
     console.error("Failed to load export products data:", err);
   }
@@ -1768,6 +1776,262 @@ function renderExportProductsTable() {
       <td class="py-2 px-3 text-right text-yellow-400">${formatNumber(r.pko_total_tonnes)}</td>
       <td class="py-2 px-3 text-right text-orange-400">${formatNumber(r.palm_kernel_cake_tonnes)}</td>
       <td class="py-2 px-3 text-right text-pink-400">${formatNumber(r.finished_products_tonnes)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+
+// -------------------------------------------------------------
+// Export Sub-Tabs & Seasonality Matrix
+// -------------------------------------------------------------
+
+function switchExportSubTab(tab) {
+  exportSubTab = tab;
+  const tabs = ['matrix', 'annual', 'ledger'];
+  tabs.forEach(t => {
+    const btn = document.getElementById(`btn-exp-subtab-${t}`);
+    const view = document.getElementById(`export-view-${t}`);
+    if (t === tab) {
+      if (btn) {
+        btn.className = "px-3 py-1.5 rounded-lg bg-emerald-600 font-bold text-white transition shadow flex items-center space-x-1.5";
+      }
+      if (view) view.classList.remove("hidden");
+    } else {
+      if (btn) {
+        btn.className = "px-3 py-1.5 rounded-lg hover:bg-slate-800 text-slate-300 transition flex items-center space-x-1.5";
+      }
+      if (view) view.classList.add("hidden");
+    }
+  });
+
+  if (tab === 'matrix') {
+    renderExportMatrix();
+  } else if (tab === 'annual') {
+    if (!annualExportsData) {
+      loadAnnualExportsData();
+    } else {
+      renderAnnualExportTable();
+    }
+  } else if (tab === 'ledger') {
+    renderExportProductsTable();
+  }
+  if (window.lucide) lucide.createIcons();
+}
+
+function renderExportMatrix() {
+  const tbody = document.getElementById("export-matrix-tbody");
+  const tfoot = document.getElementById("export-matrix-tfoot");
+  if (!tbody || !exportProductsData || !exportProductsData.data) return;
+
+  const select = document.getElementById("export-matrix-metric");
+  const metric = select ? select.value : "palm_oil_total_tonnes";
+
+  tbody.innerHTML = "";
+  if (tfoot) tfoot.innerHTML = "";
+
+  // Group by year and month
+  const byYear = {};
+  exportProductsData.data.forEach(r => {
+    const y = r.year;
+    const m = r.month;
+    if (!byYear[y]) byYear[y] = { year: y, months: {}, rawRecords: [] };
+    byYear[y].months[m] = r[metric];
+    byYear[y].rawRecords.push(r);
+  });
+
+  const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+  if (!years.length) return;
+
+  const isPrice = metric.includes("unit_price");
+  const isRev = metric.includes("rm_mil");
+
+  // Helper for formatting matrix value
+  const fmt = (v) => {
+    if (v === null || v === undefined || isNaN(v)) return '<span class="text-slate-600 font-mono">-</span>';
+    if (isRev) {
+      return Number(v).toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    }
+    return Math.round(Number(v)).toLocaleString("en-US");
+  };
+
+  // Helper for volume-weighted price calculation if metric is price
+  const calcYearTotal = (yData) => {
+    const recs = yData.rawRecords;
+    if (isPrice) {
+      let volField = null;
+      let revField = null;
+      if (metric === "cpo_unit_price_rm_tonne") { volField = "cpo_tonnes"; revField = "cpo_rm_mil"; }
+      else if (metric === "ppo_unit_price_rm_tonne") { volField = "ppo_tonnes"; revField = "ppo_rm_mil"; }
+      else if (metric === "total_all_products_unit_price_rm_tonne") { volField = "total_all_products_tonnes"; revField = "total_all_products_rm_mil"; }
+
+      if (volField && revField) {
+        const totVol = recs.reduce((acc, r) => acc + (r[volField] || 0), 0);
+        const totRev = recs.reduce((acc, r) => acc + (r[revField] || 0), 0);
+        return totVol > 0 ? (totRev * 1000000 / totVol) : null;
+      }
+      const validPrices = Object.values(yData.months).filter(v => v !== null && v !== undefined && !isNaN(v));
+      return validPrices.length ? (validPrices.reduce((a, b) => a + b, 0) / validPrices.length) : null;
+    }
+    const validVals = Object.values(yData.months).filter(v => v !== null && v !== undefined && !isNaN(v));
+    return validVals.length ? validVals.reduce((a, b) => a + b, 0) : null;
+  };
+
+  // Pre-calculate totals for YoY comparison
+  const yearTotals = {};
+  const yearMonthlyCounts = {};
+  years.forEach(y => {
+    yearTotals[y] = calcYearTotal(byYear[y]);
+    yearMonthlyCounts[y] = Object.keys(byYear[y].months).length;
+  });
+
+  // Render rows
+  years.forEach(y => {
+    const yData = byYear[y];
+    const totalVal = yearTotals[y];
+    const numMonths = yearMonthlyCounts[y];
+    const isYtd = numMonths < 12;
+
+    // Calculate YoY comparison (comparing same available months M1..Mn)
+    let yoyHtml = '<span class="text-slate-500 font-mono">--</span>';
+    const prevYear = y - 1;
+    if (byYear[prevYear]) {
+      const prevMonths = byYear[prevYear].months;
+      let currSum = 0, prevSum = 0, validMonthsCount = 0;
+      
+      for (let m = 1; m <= 12; m++) {
+        if (yData.months[m] !== undefined && yData.months[m] !== null) {
+          if (prevMonths[m] !== undefined && prevMonths[m] !== null) {
+            currSum += yData.months[m];
+            prevSum += prevMonths[m];
+            validMonthsCount++;
+          }
+        }
+      }
+
+      if (validMonthsCount > 0 && prevSum > 0) {
+        const yoyPct = ((currSum - prevSum) / prevSum) * 100;
+        const isPos = yoyPct >= 0;
+        yoyHtml = `<span class="${isPos ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'} font-mono">${isPos ? '+' : ''}${yoyPct.toFixed(1)}%</span>`;
+      }
+    }
+
+    const tr = document.createElement("tr");
+    tr.className = "hover:bg-slate-800/40 transition border-b border-slate-800/40";
+
+    const yearDisplay = isYtd
+      ? `<span class="font-bold text-white">${y}</span> <span class="text-[10px] text-amber-400 font-normal px-1 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">YTD (${numMonths}M)</span>`
+      : `<span class="font-bold text-white">${y}</span>`;
+
+    let cellsHtml = `<td class="py-2.5 px-3 whitespace-nowrap bg-slate-950/90 sticky left-0 z-10 border-r border-slate-800">${yearDisplay}</td>`;
+
+    for (let m = 1; m <= 12; m++) {
+      const val = yData.months[m];
+      cellsHtml += `<td class="py-2.5 px-2 text-right text-slate-300 font-mono">${fmt(val)}</td>`;
+    }
+
+    // Total/YTD column
+    cellsHtml += `<td class="py-2.5 px-3 text-right bg-slate-900/90 text-emerald-400 font-bold font-mono border-l border-slate-800">${fmt(totalVal)}</td>`;
+    // YoY column
+    cellsHtml += `<td class="py-2.5 px-2.5 text-right bg-slate-900/90 border-l border-slate-800">${yoyHtml}</td>`;
+
+    tr.innerHTML = cellsHtml;
+    tbody.appendChild(tr);
+  });
+
+  // Calculate seasonal benchmarks for tfoot
+  if (tfoot) {
+    const calcAvgRow = (label, startYear, endYear, badgeClass) => {
+      const eligibleYears = years.filter(y => y >= startYear && y <= endYear && yearMonthlyCounts[y] === 12);
+      if (!eligibleYears.length) return "";
+
+      let html = `<tr class="border-t border-slate-800 bg-slate-950/95 font-mono">`;
+      html += `<td class="py-2.5 px-3 whitespace-nowrap sticky left-0 z-10 bg-slate-950 border-r border-slate-800 font-semibold ${badgeClass}">${label}</td>`;
+
+      let totalSum = 0;
+      for (let m = 1; m <= 12; m++) {
+        const vals = eligibleYears.map(y => byYear[y].months[m]).filter(v => v !== null && v !== undefined && !isNaN(v));
+        const avg = vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length) : null;
+        if (avg !== null && !isPrice) totalSum += avg;
+        html += `<td class="py-2.5 px-2 text-right ${badgeClass} font-semibold">${fmt(avg)}</td>`;
+      }
+
+      const totAvg = isPrice
+        ? eligibleYears.map(y => yearTotals[y]).filter(v => v !== null && !isNaN(v)).reduce((a, b) => a + b, 0) / eligibleYears.length
+        : totalSum;
+
+      html += `<td class="py-2.5 px-3 text-right bg-slate-900 ${badgeClass} font-bold border-l border-slate-800">${fmt(totAvg)}</td>`;
+      html += `<td class="py-2.5 px-2.5 text-right bg-slate-900 text-slate-500 border-l border-slate-800">--</td>`;
+      html += `</tr>`;
+      return html;
+    };
+
+    let footHtml = "";
+    footHtml += calcAvgRow("5-Yr Normal (2021-2025)", 2021, 2025, "text-emerald-400");
+    footHtml += calcAvgRow("10-Yr Normal (2016-2025)", 2016, 2025, "text-blue-400");
+    footHtml += calcAvgRow("All-Time Avg (2005-2025)", 2005, 2025, "text-amber-400");
+    tfoot.innerHTML = footHtml;
+  }
+}
+
+// -------------------------------------------------------------
+// Annual Multi-Decade Export History (1964 - 2026)
+// -------------------------------------------------------------
+
+async function loadAnnualExportsData() {
+  try {
+    annualExportsData = await fetchJsonData("/api/annual-exports", "api_annual_exports.json");
+    renderAnnualExportTable();
+  } catch (err) {
+    console.error("Failed to load annual exports history:", err);
+  }
+}
+
+function filterAnnualExportTable() {
+  renderAnnualExportTable();
+}
+
+function renderAnnualExportTable() {
+  const tbody = document.getElementById("export-annual-tbody");
+  if (!tbody || !annualExportsData || !annualExportsData.data) return;
+  tbody.innerHTML = "";
+
+  const query = document.getElementById("export-annual-search") ? document.getElementById("export-annual-search").value.toLowerCase().trim() : "";
+  const records = [...annualExportsData.data].reverse();
+
+  const filtered = records.filter(r => !query || r.year.toString().includes(query) || (r.source && r.source.toLowerCase().includes(query)));
+
+  filtered.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.className = "hover:bg-slate-800/40 transition";
+
+    let yoyHtml = '<span class="text-slate-500 font-mono">--</span>';
+    if (r.yoy_pct !== null && r.yoy_pct !== undefined) {
+      const isPos = r.yoy_pct >= 0;
+      yoyHtml = `<span class="${isPos ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'} font-mono">${isPos ? '+' : ''}${r.yoy_pct.toFixed(2)}%</span>`;
+    }
+
+    let ppoShareHtml = '<span class="text-slate-500 font-mono">--</span>';
+    if (r.ppo_share_pct !== null && r.ppo_share_pct !== undefined) {
+      ppoShareHtml = `<span class="font-mono text-cyan-300 font-semibold">${r.ppo_share_pct.toFixed(1)}%</span>`;
+    }
+
+    const yearLabel = r.is_ytd
+      ? `<span class="font-bold text-white">${r.year}</span> <span class="text-[10px] px-1 py-0.5 rounded bg-amber-500/20 text-amber-300 font-normal">YTD Aug</span>`
+      : `<span class="font-bold text-white">${r.year}</span>`;
+
+    tr.innerHTML = `
+      <td class="py-2.5 px-3 font-semibold text-white whitespace-nowrap">${yearLabel}</td>
+      <td class="py-2.5 px-3 text-right text-emerald-400 font-bold font-mono">${formatNumber(r.palm_oil_total_tonnes)}</td>
+      <td class="py-2.5 px-2.5 text-right font-mono">${yoyHtml}</td>
+      <td class="py-2.5 px-3 text-right text-blue-400 font-mono">${formatNumber(r.cpo_tonnes)}</td>
+      <td class="py-2.5 px-3 text-right text-emerald-300 font-mono">${formatNumber(r.ppo_tonnes)}</td>
+      <td class="py-2.5 px-2.5 text-right bg-slate-900/40">${ppoShareHtml}</td>
+      <td class="py-2.5 px-3 text-right text-yellow-400 font-mono">${formatNumber(r.pko_total_tonnes)}</td>
+      <td class="py-2.5 px-3 text-right text-orange-400 font-mono">${formatNumber(r.palm_kernel_cake_tonnes)}</td>
+      <td class="py-2.5 px-3 text-right text-amber-400 font-bold font-mono">${r.total_all_products_rm_mil ? formatNumber(r.total_all_products_rm_mil) : '--'}</td>
+      <td class="py-2.5 px-2.5 text-right text-slate-300 font-mono">${r.unit_price_rm_tonne ? 'RM ' + formatNumber(r.unit_price_rm_tonne) : '--'}</td>
+      <td class="py-2.5 px-3 text-center text-[11px] text-slate-400 max-w-[200px] truncate" title="${r.source || ''}">${r.source || '--'}</td>
     `;
     tbody.appendChild(tr);
   });
