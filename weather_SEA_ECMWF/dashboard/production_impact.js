@@ -6,6 +6,7 @@
 let currentData = null;
 let currentHorizon = "all"; // 'all', 'h03', 'h46', 'h912', 'h2024'
 let currentGroup = "all";
+let currentGroups = ["all"];
 let currentSearch = "";
 let selectedBenchmarkLocId = "ID-KT"; // Default: Central Kalimantan
 let benchmarkChart = null;
@@ -754,10 +755,35 @@ function setHorizon(horizon) {
     renderImpactTable();
 }
 
-function setGroup(group) {
-    currentGroup = group;
-    document.querySelectorAll("#region-filter-container .segmented-btn").forEach(b => {
-        b.classList.toggle("active", b.dataset.group === group);
+function setGroup(group, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (group === "all") {
+        currentGroups = ["all"];
+        currentGroup = "all";
+    } else if (isMulti) {
+        if (currentGroups.includes("all")) {
+            currentGroups = [group];
+        } else if (currentGroups.includes(group)) {
+            currentGroups = currentGroups.filter(g => g !== group);
+            if (currentGroups.length === 0) currentGroups = ["all"];
+        } else {
+            currentGroups.push(group);
+        }
+        currentGroup = currentGroups.length === 1 ? currentGroups[0] : (currentGroups.includes("all") ? "all" : "multiple");
+    } else {
+        currentGroups = [group];
+        currentGroup = group;
+    }
+
+    document.querySelectorAll("#region-filter-container .segmented-btn, #region-filter-container button[data-group]").forEach(b => {
+        const bg = b.dataset.group;
+        if (bg === "all") {
+            b.classList.toggle("active", currentGroups.includes("all"));
+        } else {
+            b.classList.toggle("active", currentGroups.includes(bg));
+        }
     });
     renderImpactTable();
 }
@@ -771,8 +797,8 @@ function getFilteredLocations() {
     if (!currentData || !currentData.locations) return [];
     let locs = [...currentData.locations];
 
-    if (currentGroup !== "all") {
-        locs = locs.filter(l => l.major_group === currentGroup);
+    if (!currentGroups.includes("all") && currentGroups.length > 0) {
+        locs = locs.filter(l => currentGroups.includes(l.major_group));
     }
 
     if (currentSearch) {

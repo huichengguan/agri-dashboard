@@ -102,16 +102,16 @@
             </div>
 
             <!-- Region Filter -->
-            <div class="segmented-control" id="region-filter-container">
-                <button class="segmented-btn active" data-group="all" onclick="setGroup('all')">All (41)</button>
-                <button class="segmented-btn" data-group="Peninsular Malaysia" onclick="setGroup('Peninsular Malaysia')">Peninsular</button>
-                <button class="segmented-btn" data-group="Sabah & Sarawak" onclick="setGroup('Sabah & Sarawak')">Sabah & Sarawak</button>
-                <button class="segmented-btn" data-group="Sumatera" onclick="setGroup('Sumatera')">Sumatera</button>
-                <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan')">Kalimantan</button>
-                <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi')">Sulawesi</button>
-                <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua')">Papua</button>
-                <button class="segmented-btn" data-group="South Thailand" onclick="setGroup('South Thailand')">Thailand</button>
-                <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)')">Philippines</button>
+            <div class="segmented-control" id="region-filter-container" title="Click to filter • Ctrl+Click to select multiple regions">
+                <button class="segmented-btn active" data-group="all" onclick="setGroup('all', event)" title="Show all regions">All (41)</button>
+                <button class="segmented-btn" data-group="Peninsular Malaysia" onclick="setGroup('Peninsular Malaysia', event)" title="Click to filter • Ctrl+Click to multi-select">Peninsular</button>
+                <button class="segmented-btn" data-group="Sabah & Sarawak" onclick="setGroup('Sabah & Sarawak', event)" title="Click to filter • Ctrl+Click to multi-select">Sabah & Sarawak</button>
+                <button class="segmented-btn" data-group="Sumatera" onclick="setGroup('Sumatera', event)" title="Click to filter • Ctrl+Click to multi-select">Sumatera</button>
+                <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan', event)" title="Click to filter • Ctrl+Click to multi-select">Kalimantan</button>
+                <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi', event)" title="Click to filter • Ctrl+Click to multi-select">Sulawesi</button>
+                <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua', event)" title="Click to filter • Ctrl+Click to multi-select">Papua</button>
+                <button class="segmented-btn" data-group="South Thailand" onclick="setGroup('South Thailand', event)" title="Click to filter • Ctrl+Click to multi-select">Thailand</button>
+                <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)', event)" title="Click to filter • Ctrl+Click to multi-select">Philippines</button>
             </div>
 
             <!-- Search input -->

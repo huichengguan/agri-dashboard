@@ -7,6 +7,7 @@ let currentData = null;
 let currentMetric = "temp_mean"; // 'temp_mean', 'temp_max', 'temp_min', 'min_max'
 let currentMode = "monthly";     // 'monthly', 'state_matrix'
 let currentGroup = "all";
+let currentGroups = ["all"];
 let currentYear = 2026;
 let selectedStateId = "MY-09";
 let currentChart = null;
@@ -310,10 +311,35 @@ function setMode(mode) {
     renderTable();
 }
 
-function setGroup(group) {
-    currentGroup = group;
-    document.querySelectorAll("#region-filter-container button[data-group]").forEach(b => {
-        b.classList.toggle("active", b.dataset.group === group);
+function setGroup(group, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (group === "all") {
+        currentGroups = ["all"];
+        currentGroup = "all";
+    } else if (isMulti) {
+        if (currentGroups.includes("all")) {
+            currentGroups = [group];
+        } else if (currentGroups.includes(group)) {
+            currentGroups = currentGroups.filter(g => g !== group);
+            if (currentGroups.length === 0) currentGroups = ["all"];
+        } else {
+            currentGroups.push(group);
+        }
+        currentGroup = currentGroups.length === 1 ? currentGroups[0] : (currentGroups.includes("all") ? "all" : "multiple");
+    } else {
+        currentGroups = [group];
+        currentGroup = group;
+    }
+
+    document.querySelectorAll(".controls-bar .segmented-btn[data-group], #region-filter-container button[data-group]").forEach(b => {
+        const bg = b.dataset.group;
+        if (bg === "all") {
+            b.classList.toggle("active", currentGroups.includes("all"));
+        } else {
+            b.classList.toggle("active", currentGroups.includes(bg));
+        }
     });
     renderTable();
 }
@@ -338,8 +364,8 @@ function populateYearSelect() {
 function getFilteredLocations() {
     if (!currentData || !currentData.locations) return [];
     let locs = currentData.locations;
-    if (currentGroup !== "all") {
-        locs = locs.filter(l => l.major_group === currentGroup);
+    if (!currentGroups.includes("all") && currentGroups.length > 0) {
+        locs = locs.filter(l => currentGroups.includes(l.major_group));
     }
     return locs.sort((a, b) => a.sort_order - b.sort_order);
 }
@@ -522,17 +548,28 @@ function renderYearPills() {
         const pill = document.createElement("span");
         pill.className = "year-toggle-pill" + (matrixSelectedYears.includes(y) ? " active" : "");
         pill.innerText = y;
-        pill.onclick = () => toggleYear(y);
+        pill.title = (y === 2027) ? "2027 Q1 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : (y === 2026) ? "2026 Includes Q4 Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
+        pill.onclick = (e) => toggleYear(y, e);
         container.appendChild(pill);
     }
 }
 
-function toggleYear(year) {
-    if (matrixSelectedYears.includes(year)) {
-        if (matrixSelectedYears.length === 1) return;
-        matrixSelectedYears = matrixSelectedYears.filter(y => y !== year);
+function toggleYear(year, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedYears.includes(year)) {
+            if (matrixSelectedYears.length > 1) {
+                matrixSelectedYears = matrixSelectedYears.filter(y => y !== year);
+            }
+        } else {
+            matrixSelectedYears.push(year);
+            matrixSelectedYears.sort((a, b) => b - a);
+        }
     } else {
-        matrixSelectedYears.push(year);
+        // Single-select isolation mode
+        matrixSelectedYears = [year];
     }
     renderYearPills();
     renderTable();
@@ -564,17 +601,28 @@ function renderMonthPills() {
         const pill = document.createElement("span");
         pill.className = "month-toggle-pill" + (matrixSelectedMonths.includes(m) ? " active" : "");
         pill.innerText = monthNames[m - 1];
-        pill.onclick = () => toggleMonth(m);
+        pill.title = `${monthNames[m - 1]} • Click to isolate, Ctrl+Click to multi-select`;
+        pill.onclick = (e) => toggleMonth(m, e);
         container.appendChild(pill);
     }
 }
 
-function toggleMonth(month) {
-    if (matrixSelectedMonths.includes(month)) {
-        if (matrixSelectedMonths.length === 1) return;
-        matrixSelectedMonths = matrixSelectedMonths.filter(m => m !== month);
+function toggleMonth(month, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedMonths.includes(month)) {
+            if (matrixSelectedMonths.length > 1) {
+                matrixSelectedMonths = matrixSelectedMonths.filter(m => m !== month);
+            }
+        } else {
+            matrixSelectedMonths.push(month);
+            matrixSelectedMonths.sort((a, b) => a - b);
+        }
     } else {
-        matrixSelectedMonths.push(month);
+        // Single-select isolation mode
+        matrixSelectedMonths = [month];
     }
     renderMonthPills();
     renderTable();
@@ -634,7 +682,8 @@ function renderStatePills() {
             const pill = document.createElement("span");
             pill.className = "state-toggle-pill" + (matrixSelectedStates.includes(loc.id) ? " active" : "");
             pill.innerText = loc.name;
-            pill.onclick = () => toggleStateSelection(loc.id);
+            pill.title = `${loc.name} (${rName}) • Click to isolate, Ctrl+Click to multi-select`;
+            pill.onclick = (e) => toggleStateSelection(loc.id, e);
             pillsWrap.appendChild(pill);
         });
 
@@ -645,26 +694,47 @@ function renderStatePills() {
     updateSelectedStateBadge();
 }
 
-function toggleStateSelection(locId) {
-    if (matrixSelectedStates.includes(locId)) {
-        if (matrixSelectedStates.length === 1) return;
-        matrixSelectedStates = matrixSelectedStates.filter(id => id !== locId);
+function toggleStateSelection(locId, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedStates.includes(locId)) {
+            if (matrixSelectedStates.length > 1) {
+                matrixSelectedStates = matrixSelectedStates.filter(id => id !== locId);
+            }
+        } else {
+            matrixSelectedStates.push(locId);
+        }
     } else {
-        matrixSelectedStates.push(locId);
+        // Single-select isolation mode
+        matrixSelectedStates = [locId];
     }
     selectedStateId = matrixSelectedStates[0];
     renderStatePills();
     renderTable();
 }
 
-function selectRegionStates(regionName) {
+function selectRegionStates(regionName, e) {
+    if (!e && window.event) e = window.event;
     const matched = currentData.locations.filter(l => l.major_group === regionName).map(l => l.id);
-    if (matched.length > 0) {
+    if (!matched || matched.length === 0) return;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        const allPresent = matched.every(id => matrixSelectedStates.includes(id));
+        if (allPresent) {
+            const filtered = matrixSelectedStates.filter(id => !matched.includes(id));
+            if (filtered.length > 0) matrixSelectedStates = filtered;
+        } else {
+            matrixSelectedStates = Array.from(new Set([...matrixSelectedStates, ...matched]));
+        }
+    } else {
         matrixSelectedStates = matched;
-        selectedStateId = matched[0];
-        renderStatePills();
-        renderTable();
     }
+    selectedStateId = matrixSelectedStates[0];
+    renderStatePills();
+    renderTable();
 }
 
 function selectAllStates() {
@@ -931,7 +1001,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
         const isActive = seasonalCompareYears.includes(y);
         const col = SEASONAL_YEAR_COLORS[y] || "#475569";
         const styleStr = isActive ? `background:${col}; border-color:${col}; color:#fff;` : "";
-        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y})" title="Toggle ${y} seasonality overlay">${y}</span>`;
+        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y}, event)" title="${y} • Click to compare, Ctrl+Click to select multiple">${y}</span>`;
     }
 
     return `
@@ -961,12 +1031,23 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
     `;
 }
 
-function toggleSeasonalCompareYear(year) {
-    if (seasonalCompareYears.includes(year)) {
-        seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+function toggleSeasonalCompareYear(year, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (seasonalCompareYears.includes(year)) {
+            seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+        } else {
+            seasonalCompareYears.push(year);
+            seasonalCompareYears.sort((a, b) => b - a);
+        }
     } else {
-        seasonalCompareYears.push(year);
-        seasonalCompareYears.sort((a, b) => b - a);
+        if (seasonalCompareYears.length === 1 && seasonalCompareYears[0] === year) {
+            seasonalCompareYears = [];
+        } else {
+            seasonalCompareYears = [year];
+        }
     }
     renderStateYearByMonthMatrix(selectedStateId);
 }

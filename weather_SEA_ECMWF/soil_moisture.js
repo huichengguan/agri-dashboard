@@ -7,6 +7,7 @@ let currentData = null;
 let currentSoilDepth = "rootzone"; // 'rootzone' (0–28 cm) or 'subsoil' (28–100 cm)
 let currentMode = "monthly"; // 'monthly', 'state_matrix'
 let currentGroup = "all";
+let currentGroups = ["all"];
 let currentYear = 2026;
 let selectedStateId = "MY-09"; // default Perlis
 let currentChart = null;
@@ -300,19 +301,44 @@ function setMode(mode) {
     renderTable();
 }
 
-function setGroup(grp) {
-    currentGroup = grp;
-    document.querySelectorAll(".controls-bar .segmented-btn[data-group]").forEach(b => {
-        b.classList.toggle("active", b.dataset.group === grp);
+function setGroup(grp, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (grp === "all") {
+        currentGroups = ["all"];
+        currentGroup = "all";
+    } else if (isMulti) {
+        if (currentGroups.includes("all")) {
+            currentGroups = [grp];
+        } else if (currentGroups.includes(grp)) {
+            currentGroups = currentGroups.filter(g => g !== grp);
+            if (currentGroups.length === 0) currentGroups = ["all"];
+        } else {
+            currentGroups.push(grp);
+        }
+        currentGroup = currentGroups.length === 1 ? currentGroups[0] : (currentGroups.includes("all") ? "all" : "multiple");
+    } else {
+        currentGroups = [grp];
+        currentGroup = grp;
+    }
+
+    document.querySelectorAll(".controls-bar .segmented-btn[data-group], #region-filter-container button[data-group]").forEach(b => {
+        const bg = b.dataset.group;
+        if (bg === "all") {
+            b.classList.toggle("active", currentGroups.includes("all"));
+        } else {
+            b.classList.toggle("active", currentGroups.includes(bg));
+        }
     });
     renderTable();
 }
 
 function getFilteredLocations() {
-    if (!currentData) return [];
+    if (!currentData || !currentData.locations) return [];
     let locs = currentData.locations;
-    if (currentGroup !== "all") {
-        locs = locs.filter(l => l.major_group === currentGroup);
+    if (!currentGroups.includes("all") && currentGroups.length > 0) {
+        locs = locs.filter(l => currentGroups.includes(l.major_group));
     }
     return locs.sort((a, b) => a.sort_order - b.sort_order);
 }
@@ -512,8 +538,8 @@ function renderStatePills() {
             const isSelected = matrixSelectedStates.includes(loc.id);
             pill.className = `state-toggle-pill ${isSelected ? "active" : ""}`;
             pill.innerText = loc.name;
-            pill.title = `Click to toggle ${loc.name}`;
-            pill.onclick = () => toggleState(loc.id);
+            pill.title = `${loc.name} (${rg.label}) • Click to isolate, Ctrl+Click to multi-select`;
+            pill.onclick = (e) => toggleState(loc.id, e);
             pills.appendChild(pill);
         });
 
@@ -524,12 +550,21 @@ function renderStatePills() {
     updateSelectedStateBadge();
 }
 
-function toggleState(locId) {
-    if (matrixSelectedStates.includes(locId)) {
-        if (matrixSelectedStates.length === 1) return; // Keep at least 1
-        matrixSelectedStates = matrixSelectedStates.filter(id => id !== locId);
+function toggleState(locId, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedStates.includes(locId)) {
+            if (matrixSelectedStates.length > 1) {
+                matrixSelectedStates = matrixSelectedStates.filter(id => id !== locId);
+            }
+        } else {
+            matrixSelectedStates.push(locId);
+        }
     } else {
-        matrixSelectedStates.push(locId);
+        // Single-select isolation mode
+        matrixSelectedStates = [locId];
     }
     selectedStateId = matrixSelectedStates[0];
     renderStatePills();
@@ -548,20 +583,23 @@ function updateSelectedStateBadge() {
     }
 }
 
-function selectRegionStates(regionName) {
+function selectRegionStates(regionName, e) {
+    if (!e && window.event) e = window.event;
     if (!currentData) return;
     const regionLocs = currentData.locations.filter(l => l.major_group === regionName);
     const regionIds = regionLocs.map(l => l.id);
-    const allSelected = regionIds.every(id => matrixSelectedStates.includes(id));
-    if (allSelected) {
-        matrixSelectedStates = matrixSelectedStates.filter(id => !regionIds.includes(id));
-        if (matrixSelectedStates.length === 0) {
-            matrixSelectedStates = [regionIds[0]];
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        const allSelected = regionIds.every(id => matrixSelectedStates.includes(id));
+        if (allSelected) {
+            const filtered = matrixSelectedStates.filter(id => !regionIds.includes(id));
+            if (filtered.length > 0) matrixSelectedStates = filtered;
+        } else {
+            matrixSelectedStates = Array.from(new Set([...matrixSelectedStates, ...regionIds]));
         }
     } else {
-        regionIds.forEach(id => {
-            if (!matrixSelectedStates.includes(id)) matrixSelectedStates.push(id);
-        });
+        matrixSelectedStates = regionIds;
     }
     selectedStateId = matrixSelectedStates[0];
     renderStatePills();
@@ -650,19 +688,28 @@ function renderYearPills() {
         btn.type = "button";
         btn.className = `year-toggle-pill ${matrixSelectedYears.includes(y) ? "active" : ""}`;
         btn.innerText = y;
-        btn.title = (y === 2027) ? "2027 Q1 Seasonal Forecast" : (y === 2026) ? "2026 Includes Q4 Forecast" : `Click to toggle ${y}`;
-        btn.onclick = () => toggleYear(y);
+        btn.title = (y === 2027) ? "2027 Q1 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : (y === 2026) ? "2026 Includes Q4 Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
+        btn.onclick = (e) => toggleYear(y, e);
         container.appendChild(btn);
     }
 }
 
-function toggleYear(y) {
-    if (matrixSelectedYears.includes(y)) {
-        if (matrixSelectedYears.length === 1) return;
-        matrixSelectedYears = matrixSelectedYears.filter(x => x !== y);
+function toggleYear(y, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedYears.includes(y)) {
+            if (matrixSelectedYears.length > 1) {
+                matrixSelectedYears = matrixSelectedYears.filter(x => x !== y);
+            }
+        } else {
+            matrixSelectedYears.push(y);
+            matrixSelectedYears.sort((a, b) => b - a);
+        }
     } else {
-        matrixSelectedYears.push(y);
-        matrixSelectedYears.sort((a, b) => b - a);
+        // Single-select isolation mode
+        matrixSelectedYears = [y];
     }
     updateYearPresetButtons();
     renderYearPills();
@@ -708,19 +755,27 @@ function renderMonthPills() {
         btn.type = "button";
         btn.className = `month-toggle-pill ${matrixSelectedMonths.includes(m) ? "active" : ""}`;
         btn.innerText = monthNames[m - 1];
-        btn.title = `Click to toggle ${monthNames[m - 1]}`;
-        btn.onclick = () => toggleMonth(m);
+        btn.title = `${monthNames[m - 1]} • Click to isolate, Ctrl+Click to multi-select`;
+        btn.onclick = (e) => toggleMonth(m, e);
         container.appendChild(btn);
     }
 }
 
-function toggleMonth(m) {
-    if (matrixSelectedMonths.includes(m)) {
-        if (matrixSelectedMonths.length === 1) return;
-        matrixSelectedMonths = matrixSelectedMonths.filter(x => x !== m);
+function toggleMonth(m, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedMonths.includes(m)) {
+            if (matrixSelectedMonths.length === 1) return;
+            matrixSelectedMonths = matrixSelectedMonths.filter(x => x !== m);
+        } else {
+            matrixSelectedMonths.push(m);
+            matrixSelectedMonths.sort((a, b) => a - b);
+        }
     } else {
-        matrixSelectedMonths.push(m);
-        matrixSelectedMonths.sort((a, b) => a - b);
+        // Single-select isolation mode
+        matrixSelectedMonths = [m];
     }
     updateMonthPresetButtons();
     renderMonthPills();
@@ -939,7 +994,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
         const isActive = seasonalCompareYears.includes(y);
         const col = SEASONAL_YEAR_COLORS[y] || "#475569";
         const styleStr = isActive ? `background:${col}; border-color:${col}; color:#fff;` : "";
-        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y})" title="Toggle ${y} seasonality overlay">${y}</span>`;
+        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y}, event)" title="${y} • Click to compare, Ctrl+Click to select multiple">${y}</span>`;
     }
 
     return `
@@ -969,12 +1024,23 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
     `;
 }
 
-function toggleSeasonalCompareYear(year) {
-    if (seasonalCompareYears.includes(year)) {
-        seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+function toggleSeasonalCompareYear(year, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (seasonalCompareYears.includes(year)) {
+            seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+        } else {
+            seasonalCompareYears.push(year);
+            seasonalCompareYears.sort((a, b) => b - a);
+        }
     } else {
-        seasonalCompareYears.push(year);
-        seasonalCompareYears.sort((a, b) => b - a);
+        if (seasonalCompareYears.length === 1 && seasonalCompareYears[0] === year) {
+            seasonalCompareYears = [];
+        } else {
+            seasonalCompareYears = [year];
+        }
     }
     renderStateYearByMonthMatrix();
 }

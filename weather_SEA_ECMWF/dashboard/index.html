@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malaysia & Indonesia Daily Rainfall Monitoring Dashboard (2010–Present)</title>
+    <title>South East Asia Dashboard (2010–Present)</title>
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js for interactive historical graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -14,7 +14,7 @@
     <header class="dashboard-header">
         <div class="header-left">
             <div class="header-title">
-                <h1>Malaysia & Indonesia Rainfall Monitoring Dashboard</h1>
+                <h1>South East Asia Dashboard</h1>
                 <p id="kpi-date">Historical ECMWF ERA5 & Daily Operational Monitor (2010–Present)</p>
             </div>
         </div>
@@ -96,16 +96,16 @@
             </div>
 
             <!-- Region Filter -->
-            <div class="segmented-control" id="region-filter-container">
-                <button class="segmented-btn active" data-group="all" onclick="setGroup('all')">All</button>
-                <button class="segmented-btn" data-group="Peninsular Malaysia" onclick="setGroup('Peninsular Malaysia')">Peninsular</button>
-                <button class="segmented-btn" data-group="Sabah & Sarawak" onclick="setGroup('Sabah & Sarawak')">Sabah & Sarawak</button>
-                <button class="segmented-btn" data-group="Sumatera" onclick="setGroup('Sumatera')">Sumatera</button>
-                <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan')">Kalimantan</button>
-                <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi')">Sulawesi</button>
-                <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua')">Papua</button>
-                <button class="segmented-btn" data-group="South Thailand" onclick="setGroup('South Thailand')">S. Thailand</button>
-                <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)')">Mindanao</button>
+            <div class="segmented-control" id="region-filter-container" title="Click to filter • Ctrl+Click to select multiple regions">
+                <button class="segmented-btn active" data-group="all" onclick="setGroup('all', event)" title="Show all regions">All</button>
+                <button class="segmented-btn" data-group="Peninsular Malaysia" onclick="setGroup('Peninsular Malaysia', event)" title="Click to filter • Ctrl+Click to multi-select">Peninsular</button>
+                <button class="segmented-btn" data-group="Sabah & Sarawak" onclick="setGroup('Sabah & Sarawak', event)" title="Click to filter • Ctrl+Click to multi-select">Sabah & Sarawak</button>
+                <button class="segmented-btn" data-group="Sumatera" onclick="setGroup('Sumatera', event)" title="Click to filter • Ctrl+Click to multi-select">Sumatera</button>
+                <button class="segmented-btn" data-group="Kalimantan" onclick="setGroup('Kalimantan', event)" title="Click to filter • Ctrl+Click to multi-select">Kalimantan</button>
+                <button class="segmented-btn" data-group="Sulawesi" onclick="setGroup('Sulawesi', event)" title="Click to filter • Ctrl+Click to multi-select">Sulawesi</button>
+                <button class="segmented-btn" data-group="Papua" onclick="setGroup('Papua', event)" title="Click to filter • Ctrl+Click to multi-select">Papua</button>
+                <button class="segmented-btn" data-group="South Thailand" onclick="setGroup('South Thailand', event)" title="Click to filter • Ctrl+Click to multi-select">S. Thailand</button>
+                <button class="segmented-btn" data-group="Mindanao (Copra)" onclick="setGroup('Mindanao (Copra)', event)" title="Click to filter • Ctrl+Click to multi-select">Mindanao</button>
             </div>
 
             <!-- State Dropdown (for State Matrix Mode) -->
@@ -127,17 +127,17 @@
             <div class="matrix-state-filter-box">
                 <div class="matrix-state-filter-header">
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="filter-label" style="margin-bottom: 0;">Select States (Click to toggle on/off):</span>
+                        <span class="filter-label" style="margin-bottom: 0;">Select States (Click to isolate • Ctrl+Click to multi-select):</span>
                         <span class="selected-state-count-badge" id="selected-state-count-badge">1 State Selected</span>
                         <button class="pill-btn" id="toggle-state-picker-btn" type="button" onclick="toggleStatePicker()" style="font-weight: 700; background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">▲ Hide State Picker</button>
                     </div>
                     <div class="state-preset-group">
-                        <button class="pill-btn" type="button" onclick="selectRegionStates('Peninsular Malaysia')">Peninsular</button>
-                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sabah & Sarawak')">Sabah & Sarawak</button>
-                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sumatera')">Sumatera</button>
-                        <button class="pill-btn" type="button" onclick="selectRegionStates('Kalimantan')">Kalimantan</button>
-                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sulawesi')">Sulawesi</button>
-                        <button class="pill-btn" type="button" onclick="selectRegionStates('Papua')">Papua</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Peninsular Malaysia', event)" title="Click to isolate • Ctrl+Click to add">Peninsular</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sabah & Sarawak', event)" title="Click to isolate • Ctrl+Click to add">Sabah & Sarawak</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sumatera', event)" title="Click to isolate • Ctrl+Click to add">Sumatera</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Kalimantan', event)" title="Click to isolate • Ctrl+Click to add">Kalimantan</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Sulawesi', event)" title="Click to isolate • Ctrl+Click to add">Sulawesi</button>
+                        <button class="pill-btn" type="button" onclick="selectRegionStates('Papua', event)" title="Click to isolate • Ctrl+Click to add">Papua</button>
                         <button class="pill-btn" type="button" onclick="selectAllStates()">All 39 States</button>
                         <button class="pill-btn" type="button" onclick="clearStateSelection()" style="color: #ef4444; border-color: #fca5a5;">Reset to First</button>
                     </div>

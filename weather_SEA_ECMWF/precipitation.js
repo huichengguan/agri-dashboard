@@ -6,6 +6,7 @@ let currentData = null;
 let currentMode = "monthly"; // 'monthly', 'daily', 'state_matrix', 'forecast_6mo'
 let currentFcstMetric = "absolute"; // 'absolute' or 'anomaly'
 let currentGroup = "all";
+let currentGroups = ["all"];
 let currentYear = 2026;
 let selectedStateId = "MY-09"; // default Perlis
 let currentChart = null;
@@ -295,19 +296,44 @@ function setFcstMetric(metric) {
     renderTable();
 }
 
-function setGroup(grp) {
-    currentGroup = grp;
-    document.querySelectorAll(".controls-bar .segmented-btn[data-group]").forEach(b => {
-        b.classList.toggle("active", b.dataset.group === grp);
+function setGroup(grp, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (grp === "all") {
+        currentGroups = ["all"];
+        currentGroup = "all";
+    } else if (isMulti) {
+        if (currentGroups.includes("all")) {
+            currentGroups = [grp];
+        } else if (currentGroups.includes(grp)) {
+            currentGroups = currentGroups.filter(g => g !== grp);
+            if (currentGroups.length === 0) currentGroups = ["all"];
+        } else {
+            currentGroups.push(grp);
+        }
+        currentGroup = currentGroups.length === 1 ? currentGroups[0] : (currentGroups.includes("all") ? "all" : "multiple");
+    } else {
+        currentGroups = [grp];
+        currentGroup = grp;
+    }
+
+    document.querySelectorAll(".controls-bar .segmented-btn[data-group], #region-filter-container button[data-group]").forEach(b => {
+        const bg = b.dataset.group;
+        if (bg === "all") {
+            b.classList.toggle("active", currentGroups.includes("all"));
+        } else {
+            b.classList.toggle("active", currentGroups.includes(bg));
+        }
     });
     renderTable();
 }
 
 function getFilteredLocations() {
-    if (!currentData) return [];
+    if (!currentData || !currentData.locations) return [];
     let locs = currentData.locations;
-    if (currentGroup !== "all") {
-        locs = locs.filter(l => l.major_group === currentGroup);
+    if (!currentGroups.includes("all") && currentGroups.length > 0) {
+        locs = locs.filter(l => currentGroups.includes(l.major_group));
     }
     return locs.sort((a, b) => a.sort_order - b.sort_order);
 }
@@ -727,30 +753,11 @@ function renderDailyTable(locations) {
     // 3. Build Table Headers
     let thead = "";
     if (isTimelineView) {
-        const seg1Title = (dateMid < forecastStartDate)
-            ? `🌧️ 1ST 14 DAYS (OBSERVED ECMWF IFS/ERA5) • ${formatShortDate(dateStart)} – ${formatShortDate(dateMid)}`
-            : `🔮 1ST 14 DAYS (ECMWF OPERATIONAL FORECAST) • ${formatShortDate(dateStart)} – ${formatShortDate(dateMid)}`;
-        
-        const seg2Title = (dateSeg2Start >= forecastStartDate)
-            ? ((dateSeg2Start > (fcDates[13] || "")) ? `🔮 2ND 14 DAYS (ECMWF 51-MEMBER ENSEMBLE FORECAST) • ${formatShortDate(dateSeg2Start)} – ${formatShortDate(dateEnd)}` : `🔮 2ND 14 DAYS (ECMWF OPERATIONAL FORECAST) • ${formatShortDate(dateSeg2Start)} – ${formatShortDate(dateEnd)}`)
-            : `🌧️ 2ND 14 DAYS (OBSERVED ECMWF IFS/ERA5) • ${formatShortDate(dateSeg2Start)} – ${formatShortDate(dateEnd)}`;
-
         thead = `
             <tr>
-                <th rowspan="2" class="col-country-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle;">Country</th>
-                <th rowspan="2" class="col-region-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle;">Region</th>
-                <th rowspan="2" class="col-state-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; border-right:2px solid #cbd5e1;">State / Province</th>
-                <th colspan="15" style="text-align:center; background:#0f172a; color:#f8fafc; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:6px 4px;">
-                    ${seg1Title}
-                </th>
-                <th colspan="15" style="text-align:center; background:#1e1b4b; color:#38bdf8; font-size:10.5px; font-weight:700; letter-spacing:0.5px; border-right:3px solid #0284c7; padding:6px 4px;">
-                    ${seg2Title}
-                </th>
-                <th class="col-tot-superhead" title="28-Day Window Daily Average (mm/day)">
-                    28D
-                </th>
-            </tr>
-            <tr>
+                <th class="col-country-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle;">Country</th>
+                <th class="col-region-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle;">Region</th>
+                <th class="col-state-head" style="background:#f8fafc; border-bottom:2px solid var(--border-color); vertical-align:middle; border-right:2px solid #cbd5e1;">State / Province</th>
         `;
 
         // 1st 14 days headers
@@ -775,7 +782,7 @@ function renderDailyTable(locations) {
                 </th>
             `;
         });
-        thead += `<th class="col-avg-head" title="1st 14-Day Average (mm/day)">AVG</th>`;
+        thead += `<th class="col-avg-head" style="vertical-align:middle;" title="1st 14-Day Average (mm/day)">AVG</th>`;
 
         // 2nd 14 days headers
         activeDates.slice(14, 28).forEach((d, i) => {
@@ -799,11 +806,11 @@ function renderDailyTable(locations) {
                 </th>
             `;
         });
-        thead += `<th class="col-avg-head" title="2nd 14-Day Average (mm/day)">AVG</th>`;
+        thead += `<th class="col-avg-head" style="vertical-align:middle;" title="2nd 14-Day Average (mm/day)">AVG</th>`;
 
         // 28D Summary Header (AVG only)
         thead += `
-            <th class="col-tot-avg-head" title="28-Day Window Daily Average (mm/day)">AVG</th>
+            <th class="col-tot-avg-head" style="vertical-align:middle;" title="28-Day Window Daily Average (mm/day)"><div style="font-size:8px; line-height:1.1;">28D</div><div style="font-size:8.5px; line-height:1.1;">AVG</div></th>
             </tr>
         `;
 
@@ -1158,19 +1165,28 @@ function renderYearPills() {
         const pill = document.createElement("span");
         pill.className = "year-toggle-pill" + (matrixSelectedYears.includes(y) ? " active" : "");
         pill.innerText = (y === 2027) ? "2027 (F)" : y;
-        pill.title = (y === 2027) ? "2027 Q1 Seasonal Forecast" : y;
-        pill.onclick = () => toggleYear(y);
+        pill.title = (y === 2027) ? "2027 Q1 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
+        pill.onclick = (e) => toggleYear(y, e);
         container.appendChild(pill);
     }
 }
 
-function toggleYear(year) {
-    if (matrixSelectedYears.includes(year)) {
-        if (matrixSelectedYears.length === 1) return;
-        matrixSelectedYears = matrixSelectedYears.filter(y => y !== year);
+function toggleYear(year, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedYears.includes(year)) {
+            if (matrixSelectedYears.length > 1) {
+                matrixSelectedYears = matrixSelectedYears.filter(y => y !== year);
+            }
+        } else {
+            matrixSelectedYears.push(year);
+            matrixSelectedYears.sort((a, b) => b - a);
+        }
     } else {
-        matrixSelectedYears.push(year);
-        matrixSelectedYears.sort((a, b) => b - a);
+        // Single-select isolation mode
+        matrixSelectedYears = [year];
     }
     renderYearPills();
     renderTable();
@@ -1202,17 +1218,28 @@ function renderMonthPills() {
         const pill = document.createElement("span");
         pill.className = "month-toggle-pill" + (matrixSelectedMonths.includes(m) ? " active" : "");
         pill.innerText = monthNames[m - 1];
-        pill.onclick = () => toggleMonth(m);
+        pill.title = `${monthNames[m - 1]} • Click to isolate, Ctrl+Click to multi-select`;
+        pill.onclick = (e) => toggleMonth(m, e);
         container.appendChild(pill);
     }
 }
 
-function toggleMonth(month) {
-    if (matrixSelectedMonths.includes(month)) {
-        if (matrixSelectedMonths.length === 1) return;
-        matrixSelectedMonths = matrixSelectedMonths.filter(m => m !== month);
+function toggleMonth(month, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedMonths.includes(month)) {
+            if (matrixSelectedMonths.length > 1) {
+                matrixSelectedMonths = matrixSelectedMonths.filter(m => m !== month);
+            }
+        } else {
+            matrixSelectedMonths.push(month);
+            matrixSelectedMonths.sort((a, b) => a - b);
+        }
     } else {
-        matrixSelectedMonths.push(month);
+        // Single-select isolation mode
+        matrixSelectedMonths = [month];
     }
     renderMonthPills();
     renderTable();
@@ -1262,7 +1289,8 @@ function renderStatePills() {
             const pill = document.createElement("span");
             pill.className = "state-toggle-pill" + (matrixSelectedStates.includes(loc.id) ? " active" : "");
             pill.innerText = loc.name;
-            pill.onclick = () => toggleStateSelection(loc.id);
+            pill.title = `${loc.name} (${rName}) • Click to isolate, Ctrl+Click to multi-select`;
+            pill.onclick = (e) => toggleStateSelection(loc.id, e);
             pillsWrap.appendChild(pill);
         });
 
@@ -1273,22 +1301,45 @@ function renderStatePills() {
     updateSelectedStateBadge();
 }
 
-function toggleStateSelection(locId) {
-    if (matrixSelectedStates.includes(locId)) {
-        if (matrixSelectedStates.length === 1) return;
-        matrixSelectedStates = matrixSelectedStates.filter(id => id !== locId);
+function toggleStateSelection(locId, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (matrixSelectedStates.includes(locId)) {
+            if (matrixSelectedStates.length > 1) {
+                matrixSelectedStates = matrixSelectedStates.filter(id => id !== locId);
+            }
+        } else {
+            matrixSelectedStates.push(locId);
+        }
     } else {
-        matrixSelectedStates.push(locId);
+        // Single-select isolation mode (Power BI / Excel Slicer behavior)
+        matrixSelectedStates = [locId];
     }
     selectedStateId = matrixSelectedStates[0];
     renderStatePills();
     renderTable();
 }
 
-function selectRegionStates(regionName) {
+function selectRegionStates(regionName, e) {
+    if (!e && window.event) e = window.event;
     if (!currentData) return;
     const regionLocs = currentData.locations.filter(l => l.major_group === regionName);
-    matrixSelectedStates = regionLocs.map(l => l.id);
+    const regionIds = regionLocs.map(l => l.id);
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        const allPresent = regionIds.every(id => matrixSelectedStates.includes(id));
+        if (allPresent) {
+            const filtered = matrixSelectedStates.filter(id => !regionIds.includes(id));
+            if (filtered.length > 0) matrixSelectedStates = filtered;
+        } else {
+            matrixSelectedStates = Array.from(new Set([...matrixSelectedStates, ...regionIds]));
+        }
+    } else {
+        matrixSelectedStates = regionIds;
+    }
     selectedStateId = matrixSelectedStates[0];
     renderStatePills();
     renderTable();
@@ -1552,7 +1603,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel) {
         const isActive = seasonalCompareYears.includes(y);
         const col = SEASONAL_YEAR_COLORS[y] || "#475569";
         const styleStr = isActive ? `background:${col}; border-color:${col}; color:#fff;` : "";
-        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y})" title="Toggle ${y} seasonality overlay">${y}</span>`;
+        pillsHtml += `<span class="seasonal-year-pill ${isActive ? 'active' : ''}" style="${styleStr}" onclick="toggleSeasonalCompareYear(${y}, event)" title="${y} • Click to compare, Ctrl+Click to select multiple">${y}</span>`;
     }
 
     return `
@@ -1582,12 +1633,23 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel) {
     `;
 }
 
-function toggleSeasonalCompareYear(year) {
-    if (seasonalCompareYears.includes(year)) {
-        seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+function toggleSeasonalCompareYear(year, e) {
+    if (!e && window.event) e = window.event;
+    const isMulti = e && (e.ctrlKey || e.metaKey || e.shiftKey);
+
+    if (isMulti) {
+        if (seasonalCompareYears.includes(year)) {
+            seasonalCompareYears = seasonalCompareYears.filter(y => y !== year);
+        } else {
+            seasonalCompareYears.push(year);
+            seasonalCompareYears.sort((a, b) => b - a);
+        }
     } else {
-        seasonalCompareYears.push(year);
-        seasonalCompareYears.sort((a, b) => b - a);
+        if (seasonalCompareYears.length === 1 && seasonalCompareYears[0] === year) {
+            seasonalCompareYears = [];
+        } else {
+            seasonalCompareYears = [year];
+        }
     }
     renderStateYearByMonthMatrix(selectedStateId);
 }
