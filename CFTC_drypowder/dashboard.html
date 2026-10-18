@@ -6,17 +6,17 @@
     <title>CFTC & Global COT Positioning Intelligence | First Resources</title>
     <style>
         :root {
-            --bg-primary: #0b0f19;
-            --bg-card: #131b2e;
-            --bg-sub: #17223b;
-            --border: #23314d;
-            --border-hover: #38bdf8;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --green: #10b981;
-            --red: #ef4444;
-            --accent: #38bdf8;
-            --amber: #f59e0b;
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sub: #f1f5f9;
+            --border: #e2e8f0;
+            --border-hover: #0284c7;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --green: #16a34a;
+            --red: #dc2626;
+            --accent: #0284c7;
+            --amber: #d97706;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body {
@@ -33,518 +33,336 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
-            margin-bottom: 24px;
+            padding-bottom: 16px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 14px;
         }
-        .header-title-zone { display: flex; align-items: center; gap: 16px; }
+        .header-title-zone { display: flex; align-items: center; gap: 14px; }
         .header-icon {
-            width: 48px; height: 48px; border-radius: 12px;
+            width: 44px; height: 44px; border-radius: 10px;
             background: linear-gradient(135deg, #064e3b, #10b981);
             display: flex; align-items: center; justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
+            box-shadow: 0 2px 8px rgba(6, 78, 59, 0.2);
         }
-        .header-title-zone h1 { font-size: 22px; font-weight: 800; }
-        .header-title-zone p { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+        .header-title-zone h1 { font-size: 20px; font-weight: 800; color: #0f172a; }
+        .header-title-zone p { font-size: 12.5px; color: var(--text-sub); margin-top: 3px; }
         .back-hub-btn {
             color: var(--accent);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            padding: 8px 14px;
+            padding: 6px 12px;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 6px;
             background: var(--bg-card);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
             transition: all 0.2s;
         }
-        .back-hub-btn:hover { border-color: var(--accent); background: var(--bg-sub); }
+        .back-hub-btn:hover { border-color: var(--accent); background: #e0f2fe; }
 
         /* Edition Switcher Tabs */
         .edition-tabs {
             display: flex;
-            gap: 12px;
-            margin-bottom: 22px;
+            gap: 8px;
+            margin-bottom: 18px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
         }
         .tab-btn {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-sub);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 6px 13px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-        .tab-btn:hover { border-color: var(--accent); color: var(--text-main); }
+        .tab-btn:hover { border-color: var(--accent); color: var(--text-main); background: #f8fafc; }
         .tab-btn.active {
-            background: linear-gradient(135deg, #064e3b, #047857);
+            background: #064e3b;
             color: #ffffff;
-            border-color: #10b981;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            border-color: #064e3b;
+            box-shadow: 0 2px 6px rgba(6, 78, 59, 0.25);
         }
 
         /* KPI Banner */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
         }
         .kpi-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 18px 20px;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
-        .kpi-card .lbl { font-size: 12px; color: var(--text-sub); text-transform: uppercase; font-weight: 600; }
-        .kpi-card .val { font-size: 22px; font-weight: 800; margin-top: 6px; }
+        .kpi-card .lbl { font-size: 11px; color: var(--text-sub); text-transform: uppercase; font-weight: 700; }
+        .kpi-card .val { font-size: 19px; font-weight: 800; margin-top: 4px; }
 
         /* Controls */
         .controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
-        .sector-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+        .sector-filters { display: flex; gap: 6px; flex-wrap: wrap; }
         .filter-btn {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-sub);
-            padding: 7px 14px;
-            border-radius: 8px;
-            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
             transition: all 0.15s;
         }
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent);
-            color: #0b0f19;
+        .filter-btn:hover {
             border-color: var(--accent);
+            color: #0f172a;
+            background: #f1f5f9;
+        }
+        .filter-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 1px 4px rgba(2, 132, 199, 0.25);
         }
         .search-box {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
             outline: none;
-            width: 240px;
+            width: 220px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
-        .search-box:focus { border-color: var(--accent); }
+        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
 
         /* Table */
         .table-container {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow-x: auto;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 12.5px;
             text-align: left;
         }
         th {
-            background: #0d1424;
-            color: var(--text-sub);
-            padding: 12px 14px;
-            font-size: 11px;
+            background: #f8fafc;
+            color: #475569;
+            padding: 10px 12px;
+            font-size: 10.5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid #cbd5e1;
             cursor: pointer;
             user-select: none;
+            font-weight: 700;
         }
-        th:hover { color: #fff; }
+        th:hover { color: #0f172a; background: #f1f5f9; }
         td {
-            padding: 11px 14px;
-            border-bottom: 1px solid #1a253d;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
         }
-        tr:hover td { background: var(--bg-sub); }
-        .commodity-name { font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+        tr:nth-child(even) td { background: #fafafa; }
+        tr:hover td { background: #f1f5f9; }
+        .commodity-name { font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 6px; }
         .chart-icon-btn {
             cursor: pointer;
-            font-size: 12px;
-            padding: 3px 8px;
-            background: rgba(56, 189, 248, 0.15);
+            font-size: 11px;
+            padding: 2px 7px;
+            background: #e0f2fe;
             border-radius: 4px;
-            color: var(--accent);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #0369a1;
+            border: 1px solid #bae6fd;
             font-weight: 600;
         }
-        .chart-icon-btn:hover { background: var(--accent); color: #000; }
+        .chart-icon-btn:hover { background: var(--accent); color: #fff; }
 
         /* Badges */
         .badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-size: 10.5px;
             font-weight: 700;
+            white-space: nowrap;
         }
-        .badge-crowd-long { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
-        .badge-squeeze { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
-        .badge-long { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-        .badge-short { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
-
-        /* Percentile Bar */
-        .bar-wrap { display: flex; align-items: center; gap: 8px; }
-        .pct-bar {
-            height: 6px; width: 65px; background: #23314d; border-radius: 3px; overflow: hidden; position: relative;
-        }
-        .pct-fill { height: 100%; border-radius: 3px; }
+        .badge-crowd-long { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .badge-squeeze { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+        .badge-long { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        .badge-short { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
 
         /* Modal Chart Preview */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
             display: none; align-items: center; justify-content: center;
             z-index: 1000; padding: 20px;
         }
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 14px;
             max-width: 1000px;
             width: 100%;
             max-height: 92vh;
             overflow-y: auto;
-            padding: 24px;
+            padding: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
             position: relative;
         }
         .modal-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
         }
+        .modal-header h2 { color: #0f172a; }
         .modal-close {
-            background: none; border: none; font-size: 24px; color: var(--text-sub); cursor: pointer;
+            background: transparent; border: none; font-size: 24px; color: var(--text-sub); cursor: pointer;
         }
-        .modal-close:hover { color: #fff; }
-        .modal-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+        .modal-close:hover { color: #0f172a; }
+        .modal-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); }
 
-        /* High-Res Reports Section */
+        /* Reports Gallery */
         .reports-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 18px;
+            margin-top: 14px;
+            margin-bottom: 30px;
         }
         .report-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
-        .report-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-        .report-card p { font-size: 12px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.4; }
+        .report-card h3 { font-size: 14.5px; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+        .report-card p { font-size: 11.5px; color: var(--text-sub); margin-bottom: 12px; line-height: 1.4; }
         .report-card img {
             width: 100%; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: opacity 0.2s;
         }
         .report-card img:hover { opacity: 0.9; }
 
         /* Institutional Guide Styling */
-        .guide-wrapper {
-            margin-top: 10px;
-            margin-bottom: 40px;
-        }
+        .guide-wrapper { margin-top: 10px; margin-bottom: 40px; }
         .guide-nav-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 12px 18px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            position: sticky;
-            top: 12px;
-            z-index: 90;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+            background: var(--bg-card); border: 1px solid var(--border);
+            padding: 10px 14px; border-radius: 10px; margin-bottom: 20px;
+            position: sticky; top: 10px; z-index: 90; backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .guide-nav-title {
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-        }
+        .guide-nav-title { font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--accent); }
         .guide-pill {
-            color: var(--text-sub);
-            text-decoration: none;
-            font-size: 12.5px;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 6px;
-            background: var(--bg-sub);
-            border: 1px solid var(--border);
+            color: #475569; text-decoration: none; font-size: 11.5px; font-weight: 600;
+            padding: 5px 10px; border-radius: 5px; background: #f8fafc; border: 1px solid var(--border);
             transition: all 0.2s;
         }
-        .guide-pill:hover {
-            color: #fff;
-            border-color: var(--accent);
-            background: rgba(56, 189, 248, 0.15);
-        }
+        .guide-pill:hover { color: #0369a1; border-color: var(--accent); background: #e0f2fe; }
         .guide-hero-card {
-            background: linear-gradient(135deg, rgba(6, 78, 59, 0.4), rgba(19, 27, 46, 0.95));
-            border: 1px solid #059669;
-            border-radius: 14px;
-            padding: 26px 30px;
-            margin-bottom: 26px;
-            box-shadow: 0 4px 24px rgba(16, 185, 129, 0.12);
+            background: linear-gradient(135deg, #064e3b, #047857);
+            border: 1px solid #059669; border-radius: 12px; padding: 22px 26px; margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.15);
         }
-        .guide-hero-badge {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #34d399;
-            margin-bottom: 8px;
-        }
-        .guide-hero-card h2 {
-            font-size: 24px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .guide-hero-card p {
-            font-size: 14px;
-            color: #cbd5e1;
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
+        .guide-hero-badge { font-size: 10.5px; font-weight: 800; letter-spacing: 1px; color: #a7f3d0; margin-bottom: 6px; }
+        .guide-hero-card h2 { font-size: 21px; font-weight: 800; color: #ffffff; margin-bottom: 10px; }
+        .guide-hero-card p { font-size: 13px; color: #f1f5f9; line-height: 1.6; max-width: 900px; }
         .guide-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 28px;
-            margin-bottom: 26px;
-            scroll-margin-top: 80px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+            padding: 22px 26px; margin-bottom: 22px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
-        .guide-card-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-        }
+        .guide-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
         .sec-number {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: var(--bg-sub);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            font-size: 18px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            width: 34px; height: 34px; border-radius: 8px; background: #e0f2fe;
+            color: var(--accent); font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center;
         }
-        .guide-card-header h3 {
-            font-size: 18px;
-            font-weight: 800;
-            color: #fff;
-        }
-        .sec-sub {
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-top: 3px;
-        }
-        .guide-card p {
-            font-size: 13.5px;
-            color: #cbd5e1;
-            line-height: 1.7;
-            margin-bottom: 14px;
-        }
-        .guide-table-scroll {
-            overflow-x: auto;
-            margin: 16px 0;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        .guide-matrix-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: var(--bg-card);
-        }
-        .guide-matrix-table th {
-            background: #0d1424;
-            color: var(--text-sub);
-            padding: 12px 14px;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--border);
-            text-align: left;
-        }
-        .guide-matrix-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid #1a253d;
-            color: #cbd5e1;
-            line-height: 1.6;
-            vertical-align: top;
-        }
-        .guide-matrix-table tr:hover td {
-            background: var(--bg-sub);
-        }
-        .badge-tag {
-            display: inline-block;
-            font-size: 10.5px;
-            font-weight: 700;
-            padding: 2px 7px;
-            border-radius: 4px;
-            margin-top: 4px;
-            background: rgba(148, 163, 184, 0.15);
-            color: #94a3b8;
-        }
-        .player-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 16px;
-            margin: 18px 0;
-        }
-        .player-card {
-            background: var(--bg-sub);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .player-card-top {
-            margin-bottom: 12px;
-        }
-        .player-role-badge {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
-        .player-card-top h4 {
-            font-size: 16px;
-            font-weight: 800;
-            color: #fff;
-        }
-        .player-desc p {
-            font-size: 13px;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-        .player-desc ul {
-            font-size: 12.5px;
-            color: #94a3b8;
-            line-height: 1.6;
-            margin-left: 18px;
-        }
-        .player-desc li {
-            margin-bottom: 6px;
-        }
-        .guide-two-col {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 18px;
-            margin: 18px 0;
-        }
-        .guide-box {
-            background: var(--bg-sub);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-        }
-        .guide-box h4 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-        .guide-box p {
-            font-size: 13px;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-        .guide-box ol {
-            font-size: 12.5px;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-left: 18px;
-        }
-        .guide-box li {
-            margin-bottom: 8px;
-        }
-        .callout {
-            border-radius: 10px;
-            padding: 16px 20px;
-            margin: 18px 0;
-            font-size: 13.5px;
-            line-height: 1.7;
-        }
-        .callout-amber {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 4px solid #f59e0b;
-            color: #fef3c7;
-        }
-        .callout-emerald {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid #10b981;
-            color: #d1fae5;
-        }
-        .callout-sky {
-            background: rgba(56, 189, 248, 0.1);
-            border-left: 4px solid #38bdf8;
-            color: #e0f2fe;
-        }
-        .callout-purple {
-            background: rgba(168, 85, 247, 0.1);
-            border-left: 4px solid #a855f7;
-            color: #f3e8ff;
-        }
+        .guide-card-header h3 { font-size: 17px; font-weight: 700; color: #0f172a; }
+        .guide-card-header .sec-sub { font-size: 12px; color: var(--text-sub); }
+        .guide-card p { color: #334155; line-height: 1.6; margin-bottom: 12px; font-size: 13px; }
+        .guide-table-scroll { overflow-x: auto; margin: 14px 0; border-radius: 8px; border: 1px solid var(--border); }
+        .guide-matrix-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--bg-card); }
+        .guide-matrix-table th { background: #f8fafc; color: #475569; padding: 10px 12px; font-size: 10px; text-transform: uppercase; border-bottom: 2px solid var(--border); text-align: left; }
+        .guide-matrix-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: #334155; line-height: 1.5; vertical-align: top; }
+        .player-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0; }
+        .player-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+        .player-role-badge { font-size: 9.5px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 4px; margin-bottom: 6px; display: inline-block; }
+        .player-card-top h4 { font-size: 15px; font-weight: 800; color: #0f172a; }
+        .player-desc p { font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 8px; }
+        .player-desc ul { font-size: 11.5px; color: #64748b; line-height: 1.5; margin-left: 16px; }
+        .guide-two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin: 14px 0; }
+        .guide-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+        .guide-box h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        .guide-box p { font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 8px; }
+        .guide-box ul { font-size: 11.5px; color: #64748b; line-height: 1.5; margin-left: 16px; }
+        .guide-callout { background: #f0fdf4; border-left: 3px solid #16a34a; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+        .guide-callout h5 { font-size: 12.5px; font-weight: 700; color: #166534; margin-bottom: 4px; }
+        .guide-callout p { font-size: 12px; color: #1e3a8a; line-height: 1.5; margin: 0; }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header class="header">
             <div class="header-title-zone">
                 <div class="header-icon">📈</div>
                 <div>
-                    <h1>First Resources | Commodity Positioning Intelligence</h1>
-                    <p>Quantitative Positioning & Hedging Model &bull; Report As of <strong>2026-10-13</strong> &bull; CFTC, ICE Europe & Euronext MATIF</p>
+                    <h1>First Resources | CFTC & Global COT Positioning Intelligence</h1>
+                    <p>Cross-Market Commitments of Traders • Managed Money, Commercials, Swap Dealers & Retail • As of 2026-10-13</p>
                 </div>
             </div>
             <a href="../index.html" class="back-hub-btn">&larr; Master Dashboard Portal</a>
         </header>
 
-        <!-- Edition Tabs -->
-        <div class="edition-tabs">
+        <!-- Edition Tabs (Compact Header Navigation) -->
+        <nav class="edition-tabs">
             <button class="tab-btn active" id="tab-mm" onclick="switchEdition('mm')">
-                🌾 Managed Money (Speculator Funds — 32 Markets)
+                🌾 Managed Money (Funds)
             </button>
             <button class="tab-btn" id="tab-prod" onclick="switchEdition('prod')">
-                🚜 Producer & Commercial Hedging (17 Markets)
+                🚜 Commercial Producers (Hedgers)
+            </button>
+            <button class="tab-btn" id="tab-swap" onclick="switchEdition('swap')">
+                🏦 Swap Dealers (Index Traders)
+            </button>
+            <button class="tab-btn" id="tab-nonrept" onclick="switchEdition('nonrept')">
+                👥 Non-Reportables (Retail)
+            </button>
+            <button class="tab-btn" id="tab-reports" onclick="switchEdition('reports')">
+                📊 Executive Reports (PNG)
             </button>
             <button class="tab-btn" id="tab-guide" onclick="switchEdition('guide')">
-                📘 COT Market Playbook & Trader Guide (Interpretation, Personas & Signals)
+                📘 Institutional Guide
             </button>
-        </div>
+        </nav>
 
         <!-- Data View (KPIs, Filters, Table) -->
         <div id="dataViewContainer">
@@ -568,7 +386,7 @@
                 </div>
             </section>
 
-            <!-- Controls -->
+            <!-- Controls (Compact Category Slicers & Search) -->
             <div class="controls">
                 <div class="sector-filters" id="sectorFilters"></div>
                 <input type="text" id="searchInput" class="search-box" placeholder="Search commodity..." oninput="handleSearch()">
@@ -580,6 +398,33 @@
                     <thead id="tableHead"></thead>
                     <tbody id="tableBody"></tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Executive Reports Dedicated Container (Moved from bottom to separate tab) -->
+        <div id="reportsContainer" style="display: none;">
+            <div style="margin-bottom: 16px;">
+                <h2 style="font-size: 18px; font-weight: 800; color: #0f172a;">📊 Executive Positioning Reports (Ultra-HD PNG)</h2>
+                <p style="color: var(--text-sub); font-size: 12.5px; margin-top: 4px;">
+                    Publication-grade multi-panel positioning sheets designed for executive morning briefings and trading desk distribution. Click any report to enlarge in full-screen modal.
+                </p>
+            </div>
+            <div class="reports-grid">
+                <div class="report-card" style="border-top: 4px solid #b45309;">
+                    <h3 style="color: #b45309;">🚜 Producer & Commercial Hedging Report (17 Markets)</h3>
+                    <p>Commercial forward producer selling, processor coverage, and 20-yr hedging intensity percentiles.</p>
+                    <img src="output_charts/First_Resources_Producer_Agri_Energy_Report_2026-10-13.png" alt="Producer Report" onclick="openReport(this.src, 'Producer & Commercial Hedging Report (2026-10-13)')">
+                </div>
+                <div class="report-card" style="border-top: 4px solid #10b981;">
+                    <h3 style="color: #047857;">🌾 Agri & Energy Focused Positioning Report (17 Markets)</h3>
+                    <p>Targeted edition for agricultural and energy trading desks focusing on Managed Money funds.</p>
+                    <img src="output_charts/First_Resources_Agri_Energy_Positioning_Report_2026-10-13.png" alt="Agri Report" onclick="openReport(this.src, 'Agri & Energy Positioning Report (2026-10-13)')">
+                </div>
+                <div class="report-card" style="border-top: 4px solid #0284c7;">
+                    <h3 style="color: #0284c7;">🌐 Global Master Positioning Report (32 Markets)</h3>
+                    <p>High-resolution master positioning across all 6 complexes with 10-session momentum trails.</p>
+                    <img src="output_charts/First_Resources_Global_Positioning_Report_2026-10-13.png" alt="Global Report" onclick="openReport(this.src, 'Global Positioning Report (2026-10-13)')">
+                </div>
             </div>
         </div>
 
@@ -1073,33 +918,13 @@
     </div>
     
         </div>
-
-        <!-- High-DPI Master Reports -->
-        <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Executive Master PNG Reports (2026-10-13)</h2>
-        <div class="reports-grid">
-            <div class="report-card" style="border-top: 4px solid #b45309;">
-                <h3 style="color: #fbbf24;">🚜 Producer & Commercial Hedging (17 Markets)</h3>
-                <p>Commercial forward producer selling, processor coverage, and 20-yr hedging intensity percentiles.</p>
-                <img src="output_charts/First_Resources_Producer_Agri_Energy_Report_2026-10-13.png" alt="Producer Report" onclick="openReport(this.src, 'Producer & Commercial Hedging Report (2026-10-13)')">
-            </div>
-            <div class="report-card" style="border-top: 4px solid #10b981;">
-                <h3 style="color: #34d399;">🌾 Agri & Energy Focused Report (17 Markets)</h3>
-                <p>Targeted edition for agricultural and energy trading desks focusing on Managed Money funds.</p>
-                <img src="output_charts/First_Resources_Agri_Energy_Positioning_Report_2026-10-13.png" alt="Agri Report" onclick="openReport(this.src, 'Agri & Energy Positioning Report (2026-10-13)')">
-            </div>
-            <div class="report-card" style="border-top: 4px solid #38bdf8;">
-                <h3 style="color: #38bdf8;">🌐 Global Master Report (32 Markets)</h3>
-                <p>High-resolution master positioning across all 6 complexes with 10-session momentum trails.</p>
-                <img src="output_charts/First_Resources_Global_Positioning_Report_2026-10-13.png" alt="Global Report" onclick="openReport(this.src, 'Global Positioning Report (2026-10-13)')">
-            </div>
-        </div>
     </div>
 
     <!-- Modal for Chart View -->
     <div class="modal-overlay" id="chartModal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2 id="modalTitle" style="font-size: 18px; font-weight: 700;"></h2>
+                <h2 id="modalTitle" style="font-size: 16px; font-weight: 700;"></h2>
                 <button class="modal-close" onclick="closeModalDirect()">&times;</button>
             </div>
             <img id="modalImg" class="modal-img" src="" alt="Chart">
@@ -1107,17 +932,23 @@
     </div>
 
     <script>
-        const dataMM = [{"commodity": "Corn", "as_of_date": "2026-10-13", "open_interest": 2519671, "curr_long_pos": 321331, "curr_long_traders": 109, "prev_long_pos": 384250, "prev_long_traders": 125, "curr_short_pos": 90454, "curr_short_traders": 37, "prev_short_pos": 66891, "prev_short_traders": 39, "net_pos": 230877, "prev_net_pos": 317359, "net_change_wow": -86482, "net_pct_oi": 9.16, "net_pct_oi_pctile": 63.7, "net_pct_oi_ath": 20.9, "net_pct_oi_atl": -17.4, "long_pos_pctile": 85.0, "short_pos_pctile": 40.8, "long_traders_pctile": 79.8, "short_traders_pctile": 26.7, "sector": "Grains & Oilseeds", "chart_img": "corn_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Soybeans", "as_of_date": "2026-10-13", "open_interest": 1329482, "curr_long_pos": 272905, "curr_long_traders": 113, "prev_long_pos": 279144, "prev_long_traders": 114, "curr_short_pos": 35414, "curr_short_traders": 36, "prev_short_pos": 27484, "prev_short_traders": 32, "net_pos": 237491, "prev_net_pos": 251660, "net_change_wow": -14169, "net_pct_oi": 17.86, "net_pct_oi_pctile": 88.5, "net_pct_oi_ath": 25.1, "net_pct_oi_atl": -18.5, "long_pos_pctile": 100.0, "short_pos_pctile": 50.7, "long_traders_pctile": 86.0, "short_traders_pctile": 47.1, "sector": "Grains & Oilseeds", "chart_img": "soybeans_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "Soybean Meal", "as_of_date": "2026-10-13", "open_interest": 742046, "curr_long_pos": 212946, "curr_long_traders": 91, "prev_long_pos": 213651, "prev_long_traders": 100, "curr_short_pos": 6815, "curr_short_traders": 16, "prev_short_pos": 6847, "prev_short_traders": 14, "net_pos": 206131, "prev_net_pos": 206804, "net_change_wow": -673, "net_pct_oi": 27.78, "net_pct_oi_pctile": 96.9, "net_pct_oi_ath": 33.6, "net_pct_oi_atl": -20.1, "long_pos_pctile": 100.0, "short_pos_pctile": 15.8, "long_traders_pctile": 99.1, "short_traders_pctile": 36.2, "sector": "Grains & Oilseeds", "chart_img": "soybean_meal_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "Soybean Oil", "as_of_date": "2026-10-13", "open_interest": 638230, "curr_long_pos": 116449, "curr_long_traders": 79, "prev_long_pos": 122341, "prev_long_traders": 83, "curr_short_pos": 27121, "curr_short_traders": 32, "prev_short_pos": 22894, "prev_short_traders": 28, "net_pos": 89328, "prev_net_pos": 99447, "net_change_wow": -10119, "net_pct_oi": 14.0, "net_pct_oi_pctile": 78.2, "net_pct_oi_ath": 24.7, "net_pct_oi_atl": -17.5, "long_pos_pctile": 95.1, "short_pos_pctile": 42.2, "long_traders_pctile": 93.9, "short_traders_pctile": 49.4, "sector": "Grains & Oilseeds", "chart_img": "soybean_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Wheat (SRW)", "as_of_date": "2026-10-13", "open_interest": 608955, "curr_long_pos": 85818, "curr_long_traders": 85, "prev_long_pos": 84078, "prev_long_traders": 84, "curr_short_pos": 118856, "curr_short_traders": 52, "prev_short_pos": 113621, "prev_short_traders": 53, "net_pos": -33038, "prev_net_pos": -29543, "net_change_wow": -3495, "net_pct_oi": -5.43, "net_pct_oi_pctile": 43.2, "net_pct_oi_ath": 12.7, "net_pct_oi_atl": -27.3, "long_pos_pctile": 72.7, "short_pos_pctile": 67.0, "long_traders_pctile": 98.4, "short_traders_pctile": 24.8, "sector": "Grains & Oilseeds", "chart_img": "wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Kansas City Wheat (HRW)", "as_of_date": "2026-10-13", "open_interest": 343473, "curr_long_pos": 59844, "curr_long_traders": 60, "prev_long_pos": 69309, "prev_long_traders": 63, "curr_short_pos": 42453, "curr_short_traders": 32, "prev_short_pos": 45269, "prev_short_traders": 31, "net_pos": 17391, "prev_net_pos": 24040, "net_change_wow": -6649, "net_pct_oi": 5.06, "net_pct_oi_pctile": 48.3, "net_pct_oi_ath": 32.5, "net_pct_oi_atl": -25.6, "long_pos_pctile": 79.2, "short_pos_pctile": 63.1, "long_traders_pctile": 99.2, "short_traders_pctile": 62.0, "sector": "Grains & Oilseeds", "chart_img": "kc_wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Minneapolis Wheat (HRS)", "as_of_date": "2026-10-13", "open_interest": 73685, "curr_long_pos": 16407, "curr_long_traders": 11, "prev_long_pos": 17580, "prev_long_traders": 12, "curr_short_pos": 6870, "curr_short_traders": 12, "prev_short_pos": 5911, "prev_short_traders": 12, "net_pos": 9537, "prev_net_pos": 11669, "net_change_wow": -2132, "net_pct_oi": 12.94, "net_pct_oi_pctile": 75.1, "net_pct_oi_ath": 33.9, "net_pct_oi_atl": -45.7, "long_pos_pctile": 94.0, "short_pos_pctile": 55.1, "long_traders_pctile": 66.4, "short_traders_pctile": 71.7, "sector": "Grains & Oilseeds", "chart_img": "minn_wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "ICE Canola (Rapeseed)", "as_of_date": "2026-10-13", "open_interest": 382506, "curr_long_pos": 127029, "curr_long_traders": 72, "prev_long_pos": 130507, "prev_long_traders": 75, "curr_short_pos": 25033, "curr_short_traders": 28, "prev_short_pos": 19280, "prev_short_traders": 26, "net_pos": 101996, "prev_net_pos": 111227, "net_change_wow": -9231, "net_pct_oi": 26.67, "net_pct_oi_pctile": 88.3, "net_pct_oi_ath": 53.3, "net_pct_oi_atl": -50.9, "long_pos_pctile": 98.3, "short_pos_pctile": 33.5, "long_traders_pctile": 95.8, "short_traders_pctile": 32.5, "sector": "Grains & Oilseeds", "chart_img": "canola_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "ICE Cocoa", "as_of_date": "2026-10-13", "open_interest": 239962, "curr_long_pos": 15695, "curr_long_traders": 42, "prev_long_pos": 16166, "prev_long_traders": 46, "curr_short_pos": 30072, "curr_short_traders": 45, "prev_short_pos": 30660, "prev_short_traders": 41, "net_pos": -14377, "prev_net_pos": -14494, "net_change_wow": 117, "net_pct_oi": -5.99, "net_pct_oi_pctile": 12.0, "net_pct_oi_ath": 35.0, "net_pct_oi_atl": -18.6, "long_pos_pctile": 0.7, "short_pos_pctile": 57.3, "long_traders_pctile": 28.0, "short_traders_pctile": 79.6, "sector": "Softs", "chart_img": "cocoa_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Coffee C", "as_of_date": "2026-10-13", "open_interest": 201085, "curr_long_pos": 31777, "curr_long_traders": 55, "prev_long_pos": 33896, "prev_long_traders": 67, "curr_short_pos": 21510, "curr_short_traders": 53, "prev_short_pos": 19967, "prev_short_traders": 52, "net_pos": 10267, "prev_net_pos": 13929, "net_change_wow": -3662, "net_pct_oi": 5.11, "net_pct_oi_pctile": 48.4, "net_pct_oi_ath": 27.4, "net_pct_oi_atl": -28.1, "long_pos_pctile": 34.8, "short_pos_pctile": 55.9, "long_traders_pctile": 28.2, "short_traders_pctile": 61.7, "sector": "Softs", "chart_img": "coffee_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Sugar No. 11 (Raw)", "as_of_date": "2026-10-13", "open_interest": 1509322, "curr_long_pos": 355100, "curr_long_traders": 97, "prev_long_pos": 351366, "prev_long_traders": 88, "curr_short_pos": 93259, "curr_short_traders": 24, "prev_short_pos": 94002, "prev_short_traders": 31, "net_pos": 261841, "prev_net_pos": 257364, "net_change_wow": 4477, "net_pct_oi": 17.35, "net_pct_oi_pctile": 88.4, "net_pct_oi_ath": 26.7, "net_pct_oi_atl": -21.4, "long_pos_pctile": 100.0, "short_pos_pctile": 58.5, "long_traders_pctile": 99.9, "short_traders_pctile": 41.9, "sector": "Softs", "chart_img": "sugar_11_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "ICE White Sugar", "as_of_date": "2026-10-13", "open_interest": 161842, "curr_long_pos": 65152, "curr_long_traders": 66, "prev_long_pos": 63886, "prev_long_traders": 64, "curr_short_pos": 4397, "curr_short_traders": 8, "prev_short_pos": 5804, "prev_short_traders": 12, "net_pos": 60755, "prev_net_pos": 58082, "net_change_wow": 2673, "net_pct_oi": 37.54, "net_pct_oi_pctile": 98.9, "net_pct_oi_ath": 38.8, "net_pct_oi_atl": -34.8, "long_pos_pctile": 98.5, "short_pos_pctile": 48.0, "long_traders_pctile": 100.0, "short_traders_pctile": 39.1, "sector": "Softs", "chart_img": "white_sugar_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a0\ufe0f Crowded Long</span>"}, {"commodity": "Cotton No. 2", "as_of_date": "2026-10-13", "open_interest": 542451, "curr_long_pos": 76983, "curr_long_traders": 90, "prev_long_pos": 76721, "prev_long_traders": 89, "curr_short_pos": 11284, "curr_short_traders": 30, "prev_short_pos": 12884, "prev_short_traders": 32, "net_pos": 65699, "prev_net_pos": 63837, "net_change_wow": 1862, "net_pct_oi": 12.11, "net_pct_oi_pctile": 53.6, "net_pct_oi_ath": 34.0, "net_pct_oi_atl": -24.2, "long_pos_pctile": 88.1, "short_pos_pctile": 40.6, "long_traders_pctile": 78.5, "short_traders_pctile": 46.2, "sector": "Softs", "chart_img": "cotton_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Lean Hogs", "as_of_date": "2026-10-13", "open_interest": 427572, "curr_long_pos": 69172, "curr_long_traders": 58, "prev_long_pos": 73149, "prev_long_traders": 57, "curr_short_pos": 111260, "curr_short_traders": 77, "prev_short_pos": 108421, "prev_short_traders": 77, "net_pos": -42088, "prev_net_pos": -35272, "net_change_wow": -6816, "net_pct_oi": -9.84, "net_pct_oi_pctile": 0.5, "net_pct_oi_ath": 29.1, "net_pct_oi_atl": -11.0, "long_pos_pctile": 73.6, "short_pos_pctile": 100.0, "long_traders_pctile": 45.8, "short_traders_pctile": 100.0, "sector": "Livestock", "chart_img": "lean_hogs_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a1 ATH Short Squeeze</span>"}, {"commodity": "Live Cattle", "as_of_date": "2026-10-13", "open_interest": 390003, "curr_long_pos": 73074, "curr_long_traders": 75, "prev_long_pos": 77963, "prev_long_traders": 74, "curr_short_pos": 24326, "curr_short_traders": 43, "prev_short_pos": 27043, "prev_short_traders": 42, "net_pos": 48748, "prev_net_pos": 50920, "net_change_wow": -2172, "net_pct_oi": 12.5, "net_pct_oi_pctile": 35.5, "net_pct_oi_ath": 33.1, "net_pct_oi_atl": -1.7, "long_pos_pctile": 32.4, "short_pos_pctile": 56.5, "long_traders_pctile": 47.2, "short_traders_pctile": 63.6, "sector": "Livestock", "chart_img": "live_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Feeder Cattle", "as_of_date": "2026-10-13", "open_interest": 92539, "curr_long_pos": 18855, "curr_long_traders": 46, "prev_long_pos": 18827, "prev_long_traders": 44, "curr_short_pos": 10003, "curr_short_traders": 27, "prev_short_pos": 10040, "prev_short_traders": 24, "net_pos": 8852, "prev_net_pos": 8787, "net_change_wow": 65, "net_pct_oi": 9.57, "net_pct_oi_pctile": 45.8, "net_pct_oi_ath": 38.4, "net_pct_oi_atl": -16.9, "long_pos_pctile": 85.7, "short_pos_pctile": 81.7, "long_traders_pctile": 87.2, "short_traders_pctile": 75.0, "sector": "Livestock", "chart_img": "feeder_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "NYMEX WTI Crude", "as_of_date": "2026-10-13", "open_interest": 2575891, "curr_long_pos": 195537, "curr_long_traders": 68, "prev_long_pos": 198618, "prev_long_traders": 66, "curr_short_pos": 92772, "curr_short_traders": 33, "prev_short_pos": 94127, "prev_short_traders": 35, "net_pos": 102765, "prev_net_pos": 104491, "net_change_wow": -1726, "net_pct_oi": 3.99, "net_pct_oi_pctile": 20.2, "net_pct_oi_ath": 16.3, "net_pct_oi_atl": -1.3, "long_pos_pctile": 24.7, "short_pos_pctile": 80.9, "long_traders_pctile": 37.0, "short_traders_pctile": 23.7, "sector": "Energy", "chart_img": "wti_crude_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "ICE Brent Crude", "as_of_date": "2026-10-13", "open_interest": 3582932, "curr_long_pos": 332971, "curr_long_traders": 140, "prev_long_pos": 310802, "prev_long_traders": 127, "curr_short_pos": 99942, "curr_short_traders": 41, "prev_short_pos": 109750, "prev_short_traders": 50, "net_pos": 233029, "prev_net_pos": 201052, "net_change_wow": 31977, "net_pct_oi": 6.5, "net_pct_oi_pctile": 32.7, "net_pct_oi_ath": 20.1, "net_pct_oi_atl": -0.4, "long_pos_pctile": 59.1, "short_pos_pctile": 73.6, "long_traders_pctile": 98.0, "short_traders_pctile": 53.4, "sector": "Energy", "chart_img": "brent_crude_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "ICE Gasoil", "as_of_date": "2026-10-13", "open_interest": 831853, "curr_long_pos": 97779, "curr_long_traders": 57, "prev_long_pos": 95081, "prev_long_traders": 55, "curr_short_pos": 22318, "curr_short_traders": 20, "prev_short_pos": 24924, "prev_short_traders": 22, "net_pos": 75461, "prev_net_pos": 70157, "net_change_wow": 5304, "net_pct_oi": 9.07, "net_pct_oi_pctile": 60.8, "net_pct_oi_ath": 21.5, "net_pct_oi_atl": -7.1, "long_pos_pctile": 68.3, "short_pos_pctile": 46.7, "long_traders_pctile": 73.1, "short_traders_pctile": 50.3, "sector": "Energy", "chart_img": "gasoil_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "NY Harbor ULSD", "as_of_date": "2026-10-13", "open_interest": 278003, "curr_long_pos": 32706, "curr_long_traders": 33, "prev_long_pos": 31265, "prev_long_traders": 32, "curr_short_pos": 20952, "curr_short_traders": 15, "prev_short_pos": 20312, "prev_short_traders": 17, "net_pos": 11754, "prev_net_pos": 10953, "net_change_wow": 801, "net_pct_oi": 4.23, "net_pct_oi_pctile": 48.8, "net_pct_oi_ath": 19.6, "net_pct_oi_atl": -12.1, "long_pos_pctile": 45.4, "short_pos_pctile": 55.0, "long_traders_pctile": 59.0, "short_traders_pctile": 42.6, "sector": "Energy", "chart_img": "ulsd_heating_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "NYMEX Gasoline RBOB", "as_of_date": "2026-10-13", "open_interest": 341577, "curr_long_pos": 106917, "curr_long_traders": 70, "prev_long_pos": 109052, "prev_long_traders": 71, "curr_short_pos": 9271, "curr_short_traders": 12, "prev_short_pos": 12240, "prev_short_traders": 13, "net_pos": 97646, "prev_net_pos": 96812, "net_change_wow": 834, "net_pct_oi": 28.59, "net_pct_oi_pctile": 99.8, "net_pct_oi_ath": 29.1, "net_pct_oi_atl": -5.0, "long_pos_pctile": 96.7, "short_pos_pctile": 39.5, "long_traders_pctile": 86.4, "short_traders_pctile": 27.4, "sector": "Energy", "chart_img": "rbob_gasoline_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "Gold (COMEX)", "as_of_date": "2026-10-13", "open_interest": 526276, "curr_long_pos": 128542, "curr_long_traders": 84, "prev_long_pos": 130247, "prev_long_traders": 81, "curr_short_pos": 17463, "curr_short_traders": 23, "prev_short_pos": 15427, "prev_short_traders": 22, "net_pos": 111079, "prev_net_pos": 114820, "net_change_wow": -3741, "net_pct_oi": 21.11, "net_pct_oi_pctile": 64.4, "net_pct_oi_ath": 35.6, "net_pct_oi_atl": -14.6, "long_pos_pctile": 33.6, "short_pos_pctile": 27.7, "long_traders_pctile": 41.3, "short_traders_pctile": 34.3, "sector": "Metals", "chart_img": "gold_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Silver (COMEX)", "as_of_date": "2026-10-13", "open_interest": 123414, "curr_long_pos": 15679, "curr_long_traders": 33, "prev_long_pos": 16214, "prev_long_traders": 32, "curr_short_pos": 9944, "curr_short_traders": 17, "prev_short_pos": 8606, "prev_short_traders": 17, "net_pos": 5735, "prev_net_pos": 7608, "net_change_wow": -1873, "net_pct_oi": 4.65, "net_pct_oi_pctile": 22.0, "net_pct_oi_ath": 41.2, "net_pct_oi_atl": -19.1, "long_pos_pctile": 2.7, "short_pos_pctile": 33.4, "long_traders_pctile": 18.1, "short_traders_pctile": 39.1, "sector": "Metals", "chart_img": "silver_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Copper (COMEX)", "as_of_date": "2026-10-13", "open_interest": 328963, "curr_long_pos": 78147, "curr_long_traders": 86, "prev_long_pos": 77381, "prev_long_traders": 88, "curr_short_pos": 16977, "curr_short_traders": 27, "prev_short_pos": 15916, "prev_short_traders": 24, "net_pos": 61170, "prev_net_pos": 61465, "net_change_wow": -295, "net_pct_oi": 18.59, "net_pct_oi_pctile": 82.3, "net_pct_oi_ath": 38.6, "net_pct_oi_atl": -26.7, "long_pos_pctile": 84.8, "short_pos_pctile": 19.8, "long_traders_pctile": 86.2, "short_traders_pctile": 33.6, "sector": "Metals", "chart_img": "copper_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Platinum (NYMEX)", "as_of_date": "2026-10-13", "open_interest": 70934, "curr_long_pos": 17845, "curr_long_traders": 47, "prev_long_pos": 19160, "prev_long_traders": 48, "curr_short_pos": 10823, "curr_short_traders": 32, "prev_short_pos": 11043, "prev_short_traders": 30, "net_pos": 7022, "prev_net_pos": 8117, "net_change_wow": -1095, "net_pct_oi": 9.9, "net_pct_oi_pctile": 26.8, "net_pct_oi_ath": 61.5, "net_pct_oi_atl": -35.4, "long_pos_pctile": 25.7, "short_pos_pctile": 51.8, "long_traders_pctile": 39.6, "short_traders_pctile": 70.5, "sector": "Metals", "chart_img": "platinum_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Palladium (NYMEX)", "as_of_date": "2026-10-13", "open_interest": 23942, "curr_long_pos": 5238, "curr_long_traders": 34, "prev_long_pos": 4462, "prev_long_traders": 31, "curr_short_pos": 16098, "curr_short_traders": 46, "prev_short_pos": 13983, "prev_short_traders": 47, "net_pos": -10860, "prev_net_pos": -9521, "net_change_wow": -1339, "net_pct_oi": -45.36, "net_pct_oi_pctile": 7.2, "net_pct_oi_ath": 71.6, "net_pct_oi_atl": -63.3, "long_pos_pctile": 29.4, "short_pos_pctile": 98.7, "long_traders_pctile": 49.8, "short_traders_pctile": 96.0, "sector": "Metals", "chart_img": "palladium_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f Crowded Short</span>"}, {"commodity": "E-mini S&P 500", "as_of_date": "2026-10-13", "open_interest": 1931607, "curr_long_pos": 121404, "curr_long_traders": 62, "prev_long_pos": 113223, "prev_long_traders": 60, "curr_short_pos": 530130, "curr_short_traders": 79, "prev_short_pos": 528310, "prev_short_traders": 78, "net_pos": -408726, "prev_net_pos": -415087, "net_change_wow": 6361, "net_pct_oi": -21.16, "net_pct_oi_pctile": 5.2, "net_pct_oi_ath": 8.4, "net_pct_oi_atl": -26.8, "long_pos_pctile": 2.8, "short_pos_pctile": 37.3, "long_traders_pctile": 21.4, "short_traders_pctile": 15.2, "sector": "Equities & Indices", "chart_img": "sp500_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f Crowded Short</span>"}, {"commodity": "Nasdaq-100 E-mini", "as_of_date": "2026-10-13", "open_interest": 279515, "curr_long_pos": 48106, "curr_long_traders": 45, "prev_long_pos": 51349, "prev_long_traders": 56, "curr_short_pos": 59699, "curr_short_traders": 48, "prev_short_pos": 70561, "prev_short_traders": 47, "net_pos": -11593, "prev_net_pos": -19212, "net_change_wow": 7619, "net_pct_oi": -4.15, "net_pct_oi_pctile": 45.7, "net_pct_oi_ath": 37.5, "net_pct_oi_atl": -40.9, "long_pos_pctile": 20.6, "short_pos_pctile": 27.9, "long_traders_pctile": 43.5, "short_traders_pctile": 43.8, "sector": "Equities & Indices", "chart_img": "nasdaq100_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Russell 2000 E-mini", "as_of_date": "2026-10-13", "open_interest": 444784, "curr_long_pos": 101532, "curr_long_traders": 37, "prev_long_pos": 83927, "prev_long_traders": 38, "curr_short_pos": 193179, "curr_short_traders": 74, "prev_short_pos": 189244, "prev_short_traders": 70, "net_pos": -91647, "prev_net_pos": -105317, "net_change_wow": 13670, "net_pct_oi": -20.6, "net_pct_oi_pctile": 6.5, "net_pct_oi_ath": 14.9, "net_pct_oi_atl": -27.4, "long_pos_pctile": 76.4, "short_pos_pctile": 88.8, "long_traders_pctile": 27.9, "short_traders_pctile": 76.2, "sector": "Equities & Indices", "chart_img": "russell2000_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f Crowded Short</span>"}, {"commodity": "Dow Jones ($5)", "as_of_date": "2026-10-13", "open_interest": 90364, "curr_long_pos": 14651, "curr_long_traders": 19, "prev_long_pos": 13661, "prev_long_traders": 20, "curr_short_pos": 11842, "curr_short_traders": 15, "prev_short_pos": 17828, "prev_short_traders": 20, "net_pos": 2809, "prev_net_pos": -4167, "net_change_wow": 6976, "net_pct_oi": 3.11, "net_pct_oi_pctile": 32.6, "net_pct_oi_ath": 51.8, "net_pct_oi_atl": -30.6, "long_pos_pctile": 16.5, "short_pos_pctile": 20.2, "long_traders_pctile": 26.4, "short_traders_pctile": 45.2, "sector": "Equities & Indices", "chart_img": "dowjones_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Cboe VIX Futures", "as_of_date": "2026-10-13", "open_interest": 448469, "curr_long_pos": 88587, "curr_long_traders": 46, "prev_long_pos": 89535, "prev_long_traders": 50, "curr_short_pos": 87482, "curr_short_traders": 50, "prev_short_pos": 84041, "prev_short_traders": 44, "net_pos": 1105, "prev_net_pos": 5494, "net_change_wow": -4389, "net_pct_oi": 0.25, "net_pct_oi_pctile": 83.3, "net_pct_oi_ath": 37.8, "net_pct_oi_atl": -42.6, "long_pos_pctile": 91.6, "short_pos_pctile": 42.2, "long_traders_pctile": 87.0, "short_traders_pctile": 72.7, "sector": "Equities & Indices", "chart_img": "vix_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "MATIF Rapeseed (Colza)", "as_of_date": "2026-08-28", "open_interest": 192102, "curr_long_pos": 89789, "curr_long_traders": 353, "prev_long_pos": 91404, "prev_long_traders": 353, "curr_short_pos": 10940, "curr_short_traders": 0, "prev_short_pos": 11459, "prev_short_traders": 0, "net_pos": 78849, "prev_net_pos": 79945, "net_change_wow": -1096, "net_pct_oi": 41.05, "net_pct_oi_pctile": 89.2, "net_pct_oi_ath": 41.1, "net_pct_oi_atl": -20.0, "long_pos_pctile": 89.2, "short_pos_pctile": 10.8, "long_traders_pctile": 85.0, "short_traders_pctile": 15.0, "sector": "Grains & Oilseeds", "chart_img": "", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}];
-        const dataProd = [{"commodity": "Corn", "as_of_date": "2026-10-13", "open_interest": 2519671, "curr_long_pos": 543397, "curr_long_traders": 398, "prev_long_pos": 509200, "prev_long_traders": 381, "curr_short_pos": 1096637, "curr_short_traders": 401, "prev_short_pos": 1144170, "prev_short_traders": 402, "net_pos": -553240, "prev_net_pos": -634970, "net_change_wow": 81730, "net_pct_oi": -21.96, "net_pct_oi_pctile": 62.8, "net_pct_oi_ath": 3.1, "net_pct_oi_atl": -36.9, "long_pos_pctile": 83.8, "short_pos_pctile": 93.0, "long_traders_pctile": 97.2, "short_traders_pctile": 84.4, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "corn_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Wheat (SRW)", "as_of_date": "2026-10-13", "open_interest": 608955, "curr_long_pos": 97351, "curr_long_traders": 78, "prev_long_pos": 91558, "prev_long_traders": 77, "curr_short_pos": 141499, "curr_short_traders": 106, "prev_short_pos": 139316, "prev_short_traders": 106, "net_pos": -44148, "prev_net_pos": -47758, "net_change_wow": 3610, "net_pct_oi": -7.25, "net_pct_oi_pctile": 28.2, "net_pct_oi_ath": 9.7, "net_pct_oi_atl": -37.5, "long_pos_pctile": 90.1, "short_pos_pctile": 57.9, "long_traders_pctile": 60.3, "short_traders_pctile": 87.1, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "wheat_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Kansas City Wheat (HRW)", "as_of_date": "2026-10-13", "open_interest": 343473, "curr_long_pos": 31543, "curr_long_traders": 62, "prev_long_pos": 29332, "prev_long_traders": 65, "curr_short_pos": 114516, "curr_short_traders": 86, "prev_short_pos": 121730, "prev_short_traders": 88, "net_pos": -82973, "prev_net_pos": -92398, "net_change_wow": 9425, "net_pct_oi": -24.16, "net_pct_oi_pctile": 54.1, "net_pct_oi_ath": 4.2, "net_pct_oi_atl": -51.2, "long_pos_pctile": 25.1, "short_pos_pctile": 80.9, "long_traders_pctile": 70.0, "short_traders_pctile": 96.9, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "kc_wheat_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Minneapolis Wheat (HRS)", "as_of_date": "2026-10-13", "open_interest": 73685, "curr_long_pos": 31777, "curr_long_traders": 55, "prev_long_pos": 33352, "prev_long_traders": 56, "curr_short_pos": 51608, "curr_short_traders": 45, "prev_short_pos": 55151, "prev_short_traders": 43, "net_pos": -19831, "prev_net_pos": -21799, "net_change_wow": 1968, "net_pct_oi": -26.91, "net_pct_oi_pctile": 82.4, "net_pct_oi_ath": 44.5, "net_pct_oi_atl": -44.5, "long_pos_pctile": 58.0, "short_pos_pctile": 89.6, "long_traders_pctile": 97.3, "short_traders_pctile": 95.0, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "minn_wheat_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Soybeans", "as_of_date": "2026-10-13", "open_interest": 1329482, "curr_long_pos": 374339, "curr_long_traders": 197, "prev_long_pos": 390896, "prev_long_traders": 197, "curr_short_pos": 648523, "curr_short_traders": 273, "prev_short_pos": 685497, "prev_short_traders": 266, "net_pos": -274184, "prev_net_pos": -294601, "net_change_wow": 20417, "net_pct_oi": -20.62, "net_pct_oi_pctile": 53.4, "net_pct_oi_ath": 9.1, "net_pct_oi_atl": -40.9, "long_pos_pctile": 95.3, "short_pos_pctile": 98.3, "long_traders_pctile": 91.1, "short_traders_pctile": 99.5, "diagnosis": "HEAVY PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "soybeans_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-squeeze\" style=\"background:rgba(234,88,12,0.2);color:#fb923c;border:1px solid rgba(234,88,12,0.4)\">\u26a0\ufe0f HEAVY PRODUCER HEDGE</span>"}, {"commodity": "Soybean Meal", "as_of_date": "2026-10-13", "open_interest": 742046, "curr_long_pos": 94331, "curr_long_traders": 101, "prev_long_pos": 88730, "prev_long_traders": 99, "curr_short_pos": 452688, "curr_short_traders": 113, "prev_short_pos": 452712, "prev_short_traders": 115, "net_pos": -358357, "prev_net_pos": -363982, "net_change_wow": 5625, "net_pct_oi": -48.29, "net_pct_oi_pctile": 96.1, "net_pct_oi_ath": 16.6, "net_pct_oi_atl": -56.2, "long_pos_pctile": 42.3, "short_pos_pctile": 99.8, "long_traders_pctile": 88.6, "short_traders_pctile": 98.7, "diagnosis": "ATH PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "soybean_meal_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH PRODUCER HEDGE</span>"}, {"commodity": "Soybean Oil", "as_of_date": "2026-10-13", "open_interest": 638230, "curr_long_pos": 140355, "curr_long_traders": 78, "prev_long_pos": 132812, "prev_long_traders": 76, "curr_short_pos": 351675, "curr_short_traders": 91, "prev_short_pos": 350404, "prev_short_traders": 89, "net_pos": -211320, "prev_net_pos": -217592, "net_change_wow": 6272, "net_pct_oi": -33.11, "net_pct_oi_pctile": 67.3, "net_pct_oi_ath": -0.6, "net_pct_oi_atl": -53.4, "long_pos_pctile": 78.2, "short_pos_pctile": 94.8, "long_traders_pctile": 78.9, "short_traders_pctile": 90.1, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "soybean_oil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "ICE Canola (Rapeseed)", "as_of_date": "2026-10-13", "open_interest": 382506, "curr_long_pos": 161819, "curr_long_traders": 55, "prev_long_pos": 158476, "prev_long_traders": 47, "curr_short_pos": 223834, "curr_short_traders": 142, "prev_short_pos": 236029, "prev_short_traders": 143, "net_pos": -62015, "prev_net_pos": -77553, "net_change_wow": 15538, "net_pct_oi": -16.21, "net_pct_oi_pctile": 79.5, "net_pct_oi_ath": 54.5, "net_pct_oi_atl": -50.2, "long_pos_pctile": 56.9, "short_pos_pctile": 97.4, "long_traders_pctile": 67.4, "short_traders_pctile": 98.4, "diagnosis": "HEAVY PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "canola_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-squeeze\" style=\"background:rgba(234,88,12,0.2);color:#fb923c;border:1px solid rgba(234,88,12,0.4)\">\u26a0\ufe0f HEAVY PRODUCER HEDGE</span>"}, {"commodity": "Live Cattle", "as_of_date": "2026-10-13", "open_interest": 390003, "curr_long_pos": 66003, "curr_long_traders": 126, "prev_long_pos": 65701, "prev_long_traders": 130, "curr_short_pos": 172559, "curr_short_traders": 159, "prev_short_pos": 170236, "prev_short_traders": 159, "net_pos": -106556, "prev_net_pos": -104535, "net_change_wow": -2021, "net_pct_oi": -27.32, "net_pct_oi_pctile": 19.3, "net_pct_oi_ath": -7.7, "net_pct_oi_atl": -53.1, "long_pos_pctile": 88.6, "short_pos_pctile": 43.1, "long_traders_pctile": 71.5, "short_traders_pctile": 60.7, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Livestock", "chart_img": "live_cattle_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Feeder Cattle", "as_of_date": "2026-10-13", "open_interest": 92539, "curr_long_pos": 9847, "curr_long_traders": 72, "prev_long_pos": 9762, "prev_long_traders": 75, "curr_short_pos": 16440, "curr_short_traders": 83, "prev_short_pos": 16588, "prev_short_traders": 87, "net_pos": -6593, "prev_net_pos": -6826, "net_change_wow": 233, "net_pct_oi": -7.12, "net_pct_oi_pctile": 61.8, "net_pct_oi_ath": 16.0, "net_pct_oi_atl": -26.9, "long_pos_pctile": 73.4, "short_pos_pctile": 88.2, "long_traders_pctile": 84.4, "short_traders_pctile": 81.5, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Livestock", "chart_img": "feeder_cattle_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Lean Hogs", "as_of_date": "2026-10-13", "open_interest": 427572, "curr_long_pos": 64736, "curr_long_traders": 83, "prev_long_pos": 62390, "prev_long_traders": 85, "curr_short_pos": 91817, "curr_short_traders": 82, "prev_short_pos": 92275, "prev_short_traders": 83, "net_pos": -27081, "prev_net_pos": -29885, "net_change_wow": 2804, "net_pct_oi": -6.33, "net_pct_oi_pctile": 0.1, "net_pct_oi_ath": -6.3, "net_pct_oi_atl": -49.2, "long_pos_pctile": 97.3, "short_pos_pctile": 24.9, "long_traders_pctile": 84.7, "short_traders_pctile": 69.8, "diagnosis": "HEAVY CONSUMER HEDGE", "sector": "Livestock", "chart_img": "lean_hogs_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-long\">\ud83d\uded2 HEAVY CONSUMER HEDGE</span>"}, {"commodity": "NYMEX WTI Crude", "as_of_date": "2026-10-13", "open_interest": 2575891, "curr_long_pos": 698656, "curr_long_traders": 65, "prev_long_pos": 655227, "prev_long_traders": 66, "curr_short_pos": 333927, "curr_short_traders": 62, "prev_short_pos": 308889, "prev_short_traders": 61, "net_pos": 364729, "prev_net_pos": 346338, "net_change_wow": 18391, "net_pct_oi": 14.16, "net_pct_oi_pctile": 99.3, "net_pct_oi_ath": 15.8, "net_pct_oi_atl": -12.0, "long_pos_pctile": 97.3, "short_pos_pctile": 7.3, "long_traders_pctile": 83.3, "short_traders_pctile": 28.3, "diagnosis": "HEAVY CONSUMER HEDGE", "sector": "Energy", "chart_img": "wti_crude_oil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-long\">\ud83d\uded2 HEAVY CONSUMER HEDGE</span>"}, {"commodity": "ICE Brent Crude", "as_of_date": "2026-10-13", "open_interest": 3582932, "curr_long_pos": 1023216, "curr_long_traders": 141, "prev_long_pos": 920763, "prev_long_traders": 138, "curr_short_pos": 1438861, "curr_short_traders": 184, "prev_short_pos": 1302733, "prev_short_traders": 181, "net_pos": -415645, "prev_net_pos": -381970, "net_change_wow": -33675, "net_pct_oi": -11.6, "net_pct_oi_pctile": 30.6, "net_pct_oi_ath": -3.7, "net_pct_oi_atl": -29.5, "long_pos_pctile": 80.7, "short_pos_pctile": 71.1, "long_traders_pctile": 81.1, "short_traders_pctile": 97.9, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Energy", "chart_img": "brent_crude_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "NYMEX Gasoline RBOB", "as_of_date": "2026-10-13", "open_interest": 341577, "curr_long_pos": 81343, "curr_long_traders": 59, "prev_long_pos": 82511, "prev_long_traders": 55, "curr_short_pos": 174996, "curr_short_traders": 81, "prev_short_pos": 177592, "prev_short_traders": 78, "net_pos": -93653, "prev_net_pos": -95081, "net_change_wow": 1428, "net_pct_oi": -27.42, "net_pct_oi_pctile": 37.5, "net_pct_oi_ath": -8.0, "net_pct_oi_atl": -46.4, "long_pos_pctile": 22.3, "short_pos_pctile": 24.8, "long_traders_pctile": 36.0, "short_traders_pctile": 57.6, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Energy", "chart_img": "rbob_gasoline_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "NY Harbor ULSD", "as_of_date": "2026-10-13", "open_interest": 278003, "curr_long_pos": 60874, "curr_long_traders": 48, "prev_long_pos": 44068, "prev_long_traders": 46, "curr_short_pos": 146076, "curr_short_traders": 61, "prev_short_pos": 124840, "prev_short_traders": 63, "net_pos": -85202, "prev_net_pos": -80772, "net_change_wow": -4430, "net_pct_oi": -30.65, "net_pct_oi_pctile": 85.7, "net_pct_oi_ath": -4.2, "net_pct_oi_atl": -39.0, "long_pos_pctile": 8.4, "short_pos_pctile": 19.9, "long_traders_pctile": 16.9, "short_traders_pctile": 30.1, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Energy", "chart_img": "ulsd_heating_oil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "ICE Gasoil", "as_of_date": "2026-10-13", "open_interest": 831853, "curr_long_pos": 169699, "curr_long_traders": 84, "prev_long_pos": 194472, "prev_long_traders": 90, "curr_short_pos": 255641, "curr_short_traders": 99, "prev_short_pos": 283761, "prev_short_traders": 102, "net_pos": -85942, "prev_net_pos": -89289, "net_change_wow": 3347, "net_pct_oi": -10.33, "net_pct_oi_pctile": 10.7, "net_pct_oi_ath": -2.7, "net_pct_oi_atl": -42.3, "long_pos_pctile": 8.3, "short_pos_pctile": 5.2, "long_traders_pctile": 29.3, "short_traders_pctile": 28.6, "diagnosis": "HEDGE DEPLETED (UNHEDGED)", "sector": "Energy", "chart_img": "gasoil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a1 HEDGE DEPLETED (UNHEDGED)</span>"}, {"commodity": "MATIF Rapeseed (Colza)", "as_of_date": "2026-08-28", "open_interest": 192102, "curr_long_pos": 83514, "curr_long_traders": 655, "prev_long_pos": 82746, "prev_long_traders": 655, "curr_short_pos": 151781, "curr_short_traders": 655, "prev_short_pos": 151824, "prev_short_traders": 655, "net_pos": -68267, "prev_net_pos": -69078, "net_change_wow": 811, "net_pct_oi": -35.54, "net_pct_oi_pctile": 85.5, "net_pct_oi_ath": 10.0, "net_pct_oi_atl": -55.0, "long_pos_pctile": 65.0, "short_pos_pctile": 85.5, "long_traders_pctile": 80.0, "short_traders_pctile": 80.0, "diagnosis": "HEAVY PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "", "badge_html": "<span class=\"badge badge-squeeze\" style=\"background:rgba(234,88,12,0.2);color:#fb923c;border:1px solid rgba(234,88,12,0.4)\">\u26a0\ufe0f HEAVY PRODUCER HEDGE</span>"}];
+        const dataMM = [{"commodity": "Corn", "as_of_date": "2026-10-13", "open_interest": 2519671, "curr_long_pos": 321331, "curr_long_traders": 109, "prev_long_pos": 384250, "prev_long_traders": 125, "curr_short_pos": 90454, "curr_short_traders": 37, "prev_short_pos": 66891, "prev_short_traders": 39, "net_pos": 230877, "prev_net_pos": 317359, "net_change_wow": -86482, "net_pct_oi": 9.16, "net_pct_oi_pctile": 63.7, "net_pct_oi_ath": 20.9, "net_pct_oi_atl": -17.4, "long_pos_pctile": 85.0, "short_pos_pctile": 40.8, "long_traders_pctile": 79.8, "short_traders_pctile": 26.7, "sector": "Grains & Oilseeds", "chart_img": "corn_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Soybeans", "as_of_date": "2026-10-13", "open_interest": 1329482, "curr_long_pos": 272905, "curr_long_traders": 113, "prev_long_pos": 279144, "prev_long_traders": 114, "curr_short_pos": 35414, "curr_short_traders": 36, "prev_short_pos": 27484, "prev_short_traders": 32, "net_pos": 237491, "prev_net_pos": 251660, "net_change_wow": -14169, "net_pct_oi": 17.86, "net_pct_oi_pctile": 88.5, "net_pct_oi_ath": 25.1, "net_pct_oi_atl": -18.5, "long_pos_pctile": 100.0, "short_pos_pctile": 50.7, "long_traders_pctile": 86.0, "short_traders_pctile": 47.1, "sector": "Grains & Oilseeds", "chart_img": "soybeans_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "Soybean Meal", "as_of_date": "2026-10-13", "open_interest": 742046, "curr_long_pos": 212946, "curr_long_traders": 91, "prev_long_pos": 213651, "prev_long_traders": 100, "curr_short_pos": 6815, "curr_short_traders": 16, "prev_short_pos": 6847, "prev_short_traders": 14, "net_pos": 206131, "prev_net_pos": 206804, "net_change_wow": -673, "net_pct_oi": 27.78, "net_pct_oi_pctile": 96.9, "net_pct_oi_ath": 33.6, "net_pct_oi_atl": -20.1, "long_pos_pctile": 100.0, "short_pos_pctile": 15.8, "long_traders_pctile": 99.1, "short_traders_pctile": 36.2, "sector": "Grains & Oilseeds", "chart_img": "soybean_meal_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "Soybean Oil", "as_of_date": "2026-10-13", "open_interest": 638230, "curr_long_pos": 116449, "curr_long_traders": 79, "prev_long_pos": 122341, "prev_long_traders": 83, "curr_short_pos": 27121, "curr_short_traders": 32, "prev_short_pos": 22894, "prev_short_traders": 28, "net_pos": 89328, "prev_net_pos": 99447, "net_change_wow": -10119, "net_pct_oi": 14.0, "net_pct_oi_pctile": 78.2, "net_pct_oi_ath": 24.7, "net_pct_oi_atl": -17.5, "long_pos_pctile": 95.1, "short_pos_pctile": 42.2, "long_traders_pctile": 93.9, "short_traders_pctile": 49.4, "sector": "Grains & Oilseeds", "chart_img": "soybean_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Wheat (SRW)", "as_of_date": "2026-10-13", "open_interest": 608955, "curr_long_pos": 85818, "curr_long_traders": 85, "prev_long_pos": 84078, "prev_long_traders": 84, "curr_short_pos": 118856, "curr_short_traders": 52, "prev_short_pos": 113621, "prev_short_traders": 53, "net_pos": -33038, "prev_net_pos": -29543, "net_change_wow": -3495, "net_pct_oi": -5.43, "net_pct_oi_pctile": 43.2, "net_pct_oi_ath": 12.7, "net_pct_oi_atl": -27.3, "long_pos_pctile": 72.7, "short_pos_pctile": 67.0, "long_traders_pctile": 98.4, "short_traders_pctile": 24.8, "sector": "Grains & Oilseeds", "chart_img": "wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Kansas City Wheat (HRW)", "as_of_date": "2026-10-13", "open_interest": 343473, "curr_long_pos": 59844, "curr_long_traders": 60, "prev_long_pos": 69309, "prev_long_traders": 63, "curr_short_pos": 42453, "curr_short_traders": 32, "prev_short_pos": 45269, "prev_short_traders": 31, "net_pos": 17391, "prev_net_pos": 24040, "net_change_wow": -6649, "net_pct_oi": 5.06, "net_pct_oi_pctile": 48.3, "net_pct_oi_ath": 32.5, "net_pct_oi_atl": -25.6, "long_pos_pctile": 79.2, "short_pos_pctile": 63.1, "long_traders_pctile": 99.2, "short_traders_pctile": 62.0, "sector": "Grains & Oilseeds", "chart_img": "kc_wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Minneapolis Wheat (HRS)", "as_of_date": "2026-10-13", "open_interest": 73685, "curr_long_pos": 16407, "curr_long_traders": 11, "prev_long_pos": 17580, "prev_long_traders": 12, "curr_short_pos": 6870, "curr_short_traders": 12, "prev_short_pos": 5911, "prev_short_traders": 12, "net_pos": 9537, "prev_net_pos": 11669, "net_change_wow": -2132, "net_pct_oi": 12.94, "net_pct_oi_pctile": 75.1, "net_pct_oi_ath": 33.9, "net_pct_oi_atl": -45.7, "long_pos_pctile": 94.0, "short_pos_pctile": 55.1, "long_traders_pctile": 66.4, "short_traders_pctile": 71.7, "sector": "Grains & Oilseeds", "chart_img": "minn_wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "ICE Canola (Rapeseed)", "as_of_date": "2026-10-13", "open_interest": 382506, "curr_long_pos": 127029, "curr_long_traders": 72, "prev_long_pos": 130507, "prev_long_traders": 75, "curr_short_pos": 25033, "curr_short_traders": 28, "prev_short_pos": 19280, "prev_short_traders": 26, "net_pos": 101996, "prev_net_pos": 111227, "net_change_wow": -9231, "net_pct_oi": 26.67, "net_pct_oi_pctile": 88.3, "net_pct_oi_ath": 53.3, "net_pct_oi_atl": -50.9, "long_pos_pctile": 98.3, "short_pos_pctile": 33.5, "long_traders_pctile": 95.8, "short_traders_pctile": 32.5, "sector": "Grains & Oilseeds", "chart_img": "canola_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "ICE Cocoa", "as_of_date": "2026-10-13", "open_interest": 239962, "curr_long_pos": 15695, "curr_long_traders": 42, "prev_long_pos": 16166, "prev_long_traders": 46, "curr_short_pos": 30072, "curr_short_traders": 45, "prev_short_pos": 30660, "prev_short_traders": 41, "net_pos": -14377, "prev_net_pos": -14494, "net_change_wow": 117, "net_pct_oi": -5.99, "net_pct_oi_pctile": 12.0, "net_pct_oi_ath": 35.0, "net_pct_oi_atl": -18.6, "long_pos_pctile": 0.7, "short_pos_pctile": 57.3, "long_traders_pctile": 28.0, "short_traders_pctile": 79.6, "sector": "Softs", "chart_img": "cocoa_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Coffee C", "as_of_date": "2026-10-13", "open_interest": 201085, "curr_long_pos": 31777, "curr_long_traders": 55, "prev_long_pos": 33896, "prev_long_traders": 67, "curr_short_pos": 21510, "curr_short_traders": 53, "prev_short_pos": 19967, "prev_short_traders": 52, "net_pos": 10267, "prev_net_pos": 13929, "net_change_wow": -3662, "net_pct_oi": 5.11, "net_pct_oi_pctile": 48.4, "net_pct_oi_ath": 27.4, "net_pct_oi_atl": -28.1, "long_pos_pctile": 34.8, "short_pos_pctile": 55.9, "long_traders_pctile": 28.2, "short_traders_pctile": 61.7, "sector": "Softs", "chart_img": "coffee_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Sugar No. 11 (Raw)", "as_of_date": "2026-10-13", "open_interest": 1509322, "curr_long_pos": 355100, "curr_long_traders": 97, "prev_long_pos": 351366, "prev_long_traders": 88, "curr_short_pos": 93259, "curr_short_traders": 24, "prev_short_pos": 94002, "prev_short_traders": 31, "net_pos": 261841, "prev_net_pos": 257364, "net_change_wow": 4477, "net_pct_oi": 17.35, "net_pct_oi_pctile": 88.4, "net_pct_oi_ath": 26.7, "net_pct_oi_atl": -21.4, "long_pos_pctile": 100.0, "short_pos_pctile": 58.5, "long_traders_pctile": 99.9, "short_traders_pctile": 41.9, "sector": "Softs", "chart_img": "sugar_11_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "ICE White Sugar", "as_of_date": "2026-10-13", "open_interest": 161842, "curr_long_pos": 65152, "curr_long_traders": 66, "prev_long_pos": 63886, "prev_long_traders": 64, "curr_short_pos": 4397, "curr_short_traders": 8, "prev_short_pos": 5804, "prev_short_traders": 12, "net_pos": 60755, "prev_net_pos": 58082, "net_change_wow": 2673, "net_pct_oi": 37.54, "net_pct_oi_pctile": 98.9, "net_pct_oi_ath": 38.8, "net_pct_oi_atl": -34.8, "long_pos_pctile": 98.5, "short_pos_pctile": 48.0, "long_traders_pctile": 100.0, "short_traders_pctile": 39.1, "sector": "Softs", "chart_img": "white_sugar_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a0\ufe0f Crowded Long</span>"}, {"commodity": "Cotton No. 2", "as_of_date": "2026-10-13", "open_interest": 542451, "curr_long_pos": 76983, "curr_long_traders": 90, "prev_long_pos": 76721, "prev_long_traders": 89, "curr_short_pos": 11284, "curr_short_traders": 30, "prev_short_pos": 12884, "prev_short_traders": 32, "net_pos": 65699, "prev_net_pos": 63837, "net_change_wow": 1862, "net_pct_oi": 12.11, "net_pct_oi_pctile": 53.6, "net_pct_oi_ath": 34.0, "net_pct_oi_atl": -24.2, "long_pos_pctile": 88.1, "short_pos_pctile": 40.6, "long_traders_pctile": 78.5, "short_traders_pctile": 46.2, "sector": "Softs", "chart_img": "cotton_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Lean Hogs", "as_of_date": "2026-10-13", "open_interest": 427572, "curr_long_pos": 69172, "curr_long_traders": 58, "prev_long_pos": 73149, "prev_long_traders": 57, "curr_short_pos": 111260, "curr_short_traders": 77, "prev_short_pos": 108421, "prev_short_traders": 77, "net_pos": -42088, "prev_net_pos": -35272, "net_change_wow": -6816, "net_pct_oi": -9.84, "net_pct_oi_pctile": 0.5, "net_pct_oi_ath": 29.1, "net_pct_oi_atl": -11.0, "long_pos_pctile": 73.6, "short_pos_pctile": 100.0, "long_traders_pctile": 45.8, "short_traders_pctile": 100.0, "sector": "Livestock", "chart_img": "lean_hogs_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a1 ATH Short Squeeze</span>"}, {"commodity": "Live Cattle", "as_of_date": "2026-10-13", "open_interest": 390003, "curr_long_pos": 73074, "curr_long_traders": 75, "prev_long_pos": 77963, "prev_long_traders": 74, "curr_short_pos": 24326, "curr_short_traders": 43, "prev_short_pos": 27043, "prev_short_traders": 42, "net_pos": 48748, "prev_net_pos": 50920, "net_change_wow": -2172, "net_pct_oi": 12.5, "net_pct_oi_pctile": 35.5, "net_pct_oi_ath": 33.1, "net_pct_oi_atl": -1.7, "long_pos_pctile": 32.4, "short_pos_pctile": 56.5, "long_traders_pctile": 47.2, "short_traders_pctile": 63.6, "sector": "Livestock", "chart_img": "live_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Feeder Cattle", "as_of_date": "2026-10-13", "open_interest": 92539, "curr_long_pos": 18855, "curr_long_traders": 46, "prev_long_pos": 18827, "prev_long_traders": 44, "curr_short_pos": 10003, "curr_short_traders": 27, "prev_short_pos": 10040, "prev_short_traders": 24, "net_pos": 8852, "prev_net_pos": 8787, "net_change_wow": 65, "net_pct_oi": 9.57, "net_pct_oi_pctile": 45.8, "net_pct_oi_ath": 38.4, "net_pct_oi_atl": -16.9, "long_pos_pctile": 85.7, "short_pos_pctile": 81.7, "long_traders_pctile": 87.2, "short_traders_pctile": 75.0, "sector": "Livestock", "chart_img": "feeder_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "NYMEX WTI Crude", "as_of_date": "2026-10-13", "open_interest": 2575891, "curr_long_pos": 195537, "curr_long_traders": 68, "prev_long_pos": 198618, "prev_long_traders": 66, "curr_short_pos": 92772, "curr_short_traders": 33, "prev_short_pos": 94127, "prev_short_traders": 35, "net_pos": 102765, "prev_net_pos": 104491, "net_change_wow": -1726, "net_pct_oi": 3.99, "net_pct_oi_pctile": 20.2, "net_pct_oi_ath": 16.3, "net_pct_oi_atl": -1.3, "long_pos_pctile": 24.7, "short_pos_pctile": 80.9, "long_traders_pctile": 37.0, "short_traders_pctile": 23.7, "sector": "Energy", "chart_img": "wti_crude_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "ICE Brent Crude", "as_of_date": "2026-10-13", "open_interest": 3582932, "curr_long_pos": 332971, "curr_long_traders": 140, "prev_long_pos": 310802, "prev_long_traders": 127, "curr_short_pos": 99942, "curr_short_traders": 41, "prev_short_pos": 109750, "prev_short_traders": 50, "net_pos": 233029, "prev_net_pos": 201052, "net_change_wow": 31977, "net_pct_oi": 6.5, "net_pct_oi_pctile": 32.7, "net_pct_oi_ath": 20.1, "net_pct_oi_atl": -0.4, "long_pos_pctile": 59.1, "short_pos_pctile": 73.6, "long_traders_pctile": 98.0, "short_traders_pctile": 53.4, "sector": "Energy", "chart_img": "brent_crude_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "ICE Gasoil", "as_of_date": "2026-10-13", "open_interest": 831853, "curr_long_pos": 97779, "curr_long_traders": 57, "prev_long_pos": 95081, "prev_long_traders": 55, "curr_short_pos": 22318, "curr_short_traders": 20, "prev_short_pos": 24924, "prev_short_traders": 22, "net_pos": 75461, "prev_net_pos": 70157, "net_change_wow": 5304, "net_pct_oi": 9.07, "net_pct_oi_pctile": 60.8, "net_pct_oi_ath": 21.5, "net_pct_oi_atl": -7.1, "long_pos_pctile": 68.3, "short_pos_pctile": 46.7, "long_traders_pctile": 73.1, "short_traders_pctile": 50.3, "sector": "Energy", "chart_img": "gasoil_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "NY Harbor ULSD", "as_of_date": "2026-10-13", "open_interest": 278003, "curr_long_pos": 32706, "curr_long_traders": 33, "prev_long_pos": 31265, "prev_long_traders": 32, "curr_short_pos": 20952, "curr_short_traders": 15, "prev_short_pos": 20312, "prev_short_traders": 17, "net_pos": 11754, "prev_net_pos": 10953, "net_change_wow": 801, "net_pct_oi": 4.23, "net_pct_oi_pctile": 48.8, "net_pct_oi_ath": 19.6, "net_pct_oi_atl": -12.1, "long_pos_pctile": 45.4, "short_pos_pctile": 55.0, "long_traders_pctile": 59.0, "short_traders_pctile": 42.6, "sector": "Energy", "chart_img": "ulsd_heating_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "NYMEX Gasoline RBOB", "as_of_date": "2026-10-13", "open_interest": 341577, "curr_long_pos": 106917, "curr_long_traders": 70, "prev_long_pos": 109052, "prev_long_traders": 71, "curr_short_pos": 9271, "curr_short_traders": 12, "prev_short_pos": 12240, "prev_short_traders": 13, "net_pos": 97646, "prev_net_pos": 96812, "net_change_wow": 834, "net_pct_oi": 28.59, "net_pct_oi_pctile": 99.8, "net_pct_oi_ath": 29.1, "net_pct_oi_atl": -5.0, "long_pos_pctile": 96.7, "short_pos_pctile": 39.5, "long_traders_pctile": 86.4, "short_traders_pctile": 27.4, "sector": "Energy", "chart_img": "rbob_gasoline_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH Long Crowd</span>"}, {"commodity": "Gold (COMEX)", "as_of_date": "2026-10-13", "open_interest": 526276, "curr_long_pos": 128542, "curr_long_traders": 84, "prev_long_pos": 130247, "prev_long_traders": 81, "curr_short_pos": 17463, "curr_short_traders": 23, "prev_short_pos": 15427, "prev_short_traders": 22, "net_pos": 111079, "prev_net_pos": 114820, "net_change_wow": -3741, "net_pct_oi": 21.11, "net_pct_oi_pctile": 64.4, "net_pct_oi_ath": 35.6, "net_pct_oi_atl": -14.6, "long_pos_pctile": 33.6, "short_pos_pctile": 27.7, "long_traders_pctile": 41.3, "short_traders_pctile": 34.3, "sector": "Metals", "chart_img": "gold_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Silver (COMEX)", "as_of_date": "2026-10-13", "open_interest": 123414, "curr_long_pos": 15679, "curr_long_traders": 33, "prev_long_pos": 16214, "prev_long_traders": 32, "curr_short_pos": 9944, "curr_short_traders": 17, "prev_short_pos": 8606, "prev_short_traders": 17, "net_pos": 5735, "prev_net_pos": 7608, "net_change_wow": -1873, "net_pct_oi": 4.65, "net_pct_oi_pctile": 22.0, "net_pct_oi_ath": 41.2, "net_pct_oi_atl": -19.1, "long_pos_pctile": 2.7, "short_pos_pctile": 33.4, "long_traders_pctile": 18.1, "short_traders_pctile": 39.1, "sector": "Metals", "chart_img": "silver_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Copper (COMEX)", "as_of_date": "2026-10-13", "open_interest": 328963, "curr_long_pos": 78147, "curr_long_traders": 86, "prev_long_pos": 77381, "prev_long_traders": 88, "curr_short_pos": 16977, "curr_short_traders": 27, "prev_short_pos": 15916, "prev_short_traders": 24, "net_pos": 61170, "prev_net_pos": 61465, "net_change_wow": -295, "net_pct_oi": 18.59, "net_pct_oi_pctile": 82.3, "net_pct_oi_ath": 38.6, "net_pct_oi_atl": -26.7, "long_pos_pctile": 84.8, "short_pos_pctile": 19.8, "long_traders_pctile": 86.2, "short_traders_pctile": 33.6, "sector": "Metals", "chart_img": "copper_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "Platinum (NYMEX)", "as_of_date": "2026-10-13", "open_interest": 70934, "curr_long_pos": 17845, "curr_long_traders": 47, "prev_long_pos": 19160, "prev_long_traders": 48, "curr_short_pos": 10823, "curr_short_traders": 32, "prev_short_pos": 11043, "prev_short_traders": 30, "net_pos": 7022, "prev_net_pos": 8117, "net_change_wow": -1095, "net_pct_oi": 9.9, "net_pct_oi_pctile": 26.8, "net_pct_oi_ath": 61.5, "net_pct_oi_atl": -35.4, "long_pos_pctile": 25.7, "short_pos_pctile": 51.8, "long_traders_pctile": 39.6, "short_traders_pctile": 70.5, "sector": "Metals", "chart_img": "platinum_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Palladium (NYMEX)", "as_of_date": "2026-10-13", "open_interest": 23942, "curr_long_pos": 5238, "curr_long_traders": 34, "prev_long_pos": 4462, "prev_long_traders": 31, "curr_short_pos": 16098, "curr_short_traders": 46, "prev_short_pos": 13983, "prev_short_traders": 47, "net_pos": -10860, "prev_net_pos": -9521, "net_change_wow": -1339, "net_pct_oi": -45.36, "net_pct_oi_pctile": 7.2, "net_pct_oi_ath": 71.6, "net_pct_oi_atl": -63.3, "long_pos_pctile": 29.4, "short_pos_pctile": 98.7, "long_traders_pctile": 49.8, "short_traders_pctile": 96.0, "sector": "Metals", "chart_img": "palladium_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f Crowded Short</span>"}, {"commodity": "E-mini S&P 500", "as_of_date": "2026-10-13", "open_interest": 1931607, "curr_long_pos": 121404, "curr_long_traders": 62, "prev_long_pos": 113223, "prev_long_traders": 60, "curr_short_pos": 530130, "curr_short_traders": 79, "prev_short_pos": 528310, "prev_short_traders": 78, "net_pos": -408726, "prev_net_pos": -415087, "net_change_wow": 6361, "net_pct_oi": -21.16, "net_pct_oi_pctile": 5.2, "net_pct_oi_ath": 8.4, "net_pct_oi_atl": -26.8, "long_pos_pctile": 2.8, "short_pos_pctile": 37.3, "long_traders_pctile": 21.4, "short_traders_pctile": 15.2, "sector": "Equities & Indices", "chart_img": "sp500_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f Crowded Short</span>"}, {"commodity": "Nasdaq-100 E-mini", "as_of_date": "2026-10-13", "open_interest": 279515, "curr_long_pos": 48106, "curr_long_traders": 45, "prev_long_pos": 51349, "prev_long_traders": 56, "curr_short_pos": 59699, "curr_short_traders": 48, "prev_short_pos": 70561, "prev_short_traders": 47, "net_pos": -11593, "prev_net_pos": -19212, "net_change_wow": 7619, "net_pct_oi": -4.15, "net_pct_oi_pctile": 45.7, "net_pct_oi_ath": 37.5, "net_pct_oi_atl": -40.9, "long_pos_pctile": 20.6, "short_pos_pctile": 27.9, "long_traders_pctile": 43.5, "short_traders_pctile": 43.8, "sector": "Equities & Indices", "chart_img": "nasdaq100_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Russell 2000 E-mini", "as_of_date": "2026-10-13", "open_interest": 444784, "curr_long_pos": 101532, "curr_long_traders": 37, "prev_long_pos": 83927, "prev_long_traders": 38, "curr_short_pos": 193179, "curr_short_traders": 74, "prev_short_pos": 189244, "prev_short_traders": 70, "net_pos": -91647, "prev_net_pos": -105317, "net_change_wow": 13670, "net_pct_oi": -20.6, "net_pct_oi_pctile": 6.5, "net_pct_oi_ath": 14.9, "net_pct_oi_atl": -27.4, "long_pos_pctile": 76.4, "short_pos_pctile": 88.8, "long_traders_pctile": 27.9, "short_traders_pctile": 76.2, "sector": "Equities & Indices", "chart_img": "russell2000_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f Crowded Short</span>"}, {"commodity": "Dow Jones ($5)", "as_of_date": "2026-10-13", "open_interest": 90364, "curr_long_pos": 14651, "curr_long_traders": 19, "prev_long_pos": 13661, "prev_long_traders": 20, "curr_short_pos": 11842, "curr_short_traders": 15, "prev_short_pos": 17828, "prev_short_traders": 20, "net_pos": 2809, "prev_net_pos": -4167, "net_change_wow": 6976, "net_pct_oi": 3.11, "net_pct_oi_pctile": 32.6, "net_pct_oi_ath": 51.8, "net_pct_oi_atl": -30.6, "long_pos_pctile": 16.5, "short_pos_pctile": 20.2, "long_traders_pctile": 26.4, "short_traders_pctile": 45.2, "sector": "Equities & Indices", "chart_img": "dowjones_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">Net Short</span>"}, {"commodity": "Cboe VIX Futures", "as_of_date": "2026-10-13", "open_interest": 448469, "curr_long_pos": 88587, "curr_long_traders": 46, "prev_long_pos": 89535, "prev_long_traders": 50, "curr_short_pos": 87482, "curr_short_traders": 50, "prev_short_pos": 84041, "prev_short_traders": 44, "net_pos": 1105, "prev_net_pos": 5494, "net_change_wow": -4389, "net_pct_oi": 0.25, "net_pct_oi_pctile": 83.3, "net_pct_oi_ath": 37.8, "net_pct_oi_atl": -42.6, "long_pos_pctile": 91.6, "short_pos_pctile": 42.2, "long_traders_pctile": 87.0, "short_traders_pctile": 72.7, "sector": "Equities & Indices", "chart_img": "vix_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}, {"commodity": "MATIF Rapeseed (Colza)", "as_of_date": "2026-10-09", "open_interest": 161759, "curr_long_pos": 75234, "curr_long_traders": 358, "prev_long_pos": 85645, "prev_long_traders": 357, "curr_short_pos": 14708, "curr_short_traders": 69, "prev_short_pos": 14227, "prev_short_traders": 59, "net_pos": 60526, "prev_net_pos": 71418, "net_change_wow": -10892, "net_pct_oi": 37.42, "net_pct_oi_pctile": 67.0, "net_pct_oi_ath": 46.8, "net_pct_oi_atl": -9.4, "long_pos_pctile": 77.8, "short_pos_pctile": 64.2, "long_traders_pctile": 100.0, "short_traders_pctile": 58.0, "sector": "Grains & Oilseeds", "chart_img": "matif_rapeseed_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">Net Long</span>"}];
+        const dataProd = [{"commodity": "Corn", "as_of_date": "2026-10-13", "open_interest": 2519671, "curr_long_pos": 543397, "curr_long_traders": 398, "prev_long_pos": 509200, "prev_long_traders": 381, "curr_short_pos": 1096637, "curr_short_traders": 401, "prev_short_pos": 1144170, "prev_short_traders": 402, "net_pos": -553240, "prev_net_pos": -634970, "net_change_wow": 81730, "net_pct_oi": -21.96, "net_pct_oi_pctile": 62.8, "net_pct_oi_ath": 3.1, "net_pct_oi_atl": -36.9, "long_pos_pctile": 83.8, "short_pos_pctile": 93.0, "long_traders_pctile": 97.2, "short_traders_pctile": 84.4, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "corn_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Wheat (SRW)", "as_of_date": "2026-10-13", "open_interest": 608955, "curr_long_pos": 97351, "curr_long_traders": 78, "prev_long_pos": 91558, "prev_long_traders": 77, "curr_short_pos": 141499, "curr_short_traders": 106, "prev_short_pos": 139316, "prev_short_traders": 106, "net_pos": -44148, "prev_net_pos": -47758, "net_change_wow": 3610, "net_pct_oi": -7.25, "net_pct_oi_pctile": 28.2, "net_pct_oi_ath": 9.7, "net_pct_oi_atl": -37.5, "long_pos_pctile": 90.1, "short_pos_pctile": 57.9, "long_traders_pctile": 60.3, "short_traders_pctile": 87.1, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "wheat_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Kansas City Wheat (HRW)", "as_of_date": "2026-10-13", "open_interest": 343473, "curr_long_pos": 31543, "curr_long_traders": 62, "prev_long_pos": 29332, "prev_long_traders": 65, "curr_short_pos": 114516, "curr_short_traders": 86, "prev_short_pos": 121730, "prev_short_traders": 88, "net_pos": -82973, "prev_net_pos": -92398, "net_change_wow": 9425, "net_pct_oi": -24.16, "net_pct_oi_pctile": 54.1, "net_pct_oi_ath": 4.2, "net_pct_oi_atl": -51.2, "long_pos_pctile": 25.1, "short_pos_pctile": 80.9, "long_traders_pctile": 70.0, "short_traders_pctile": 96.9, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "kc_wheat_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Minneapolis Wheat (HRS)", "as_of_date": "2026-10-13", "open_interest": 73685, "curr_long_pos": 31777, "curr_long_traders": 55, "prev_long_pos": 33352, "prev_long_traders": 56, "curr_short_pos": 51608, "curr_short_traders": 45, "prev_short_pos": 55151, "prev_short_traders": 43, "net_pos": -19831, "prev_net_pos": -21799, "net_change_wow": 1968, "net_pct_oi": -26.91, "net_pct_oi_pctile": 82.4, "net_pct_oi_ath": 44.5, "net_pct_oi_atl": -44.5, "long_pos_pctile": 58.0, "short_pos_pctile": 89.6, "long_traders_pctile": 97.3, "short_traders_pctile": 95.0, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "minn_wheat_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Soybeans", "as_of_date": "2026-10-13", "open_interest": 1329482, "curr_long_pos": 374339, "curr_long_traders": 197, "prev_long_pos": 390896, "prev_long_traders": 197, "curr_short_pos": 648523, "curr_short_traders": 273, "prev_short_pos": 685497, "prev_short_traders": 266, "net_pos": -274184, "prev_net_pos": -294601, "net_change_wow": 20417, "net_pct_oi": -20.62, "net_pct_oi_pctile": 53.4, "net_pct_oi_ath": 9.1, "net_pct_oi_atl": -40.9, "long_pos_pctile": 95.3, "short_pos_pctile": 98.3, "long_traders_pctile": 91.1, "short_traders_pctile": 99.5, "diagnosis": "HEAVY PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "soybeans_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-squeeze\" style=\"background:#ffedd5;color:#c2410c;border:1px solid #fdba74\">\u26a0\ufe0f HEAVY PRODUCER HEDGE</span>"}, {"commodity": "Soybean Meal", "as_of_date": "2026-10-13", "open_interest": 742046, "curr_long_pos": 94331, "curr_long_traders": 101, "prev_long_pos": 88730, "prev_long_traders": 99, "curr_short_pos": 452688, "curr_short_traders": 113, "prev_short_pos": 452712, "prev_short_traders": 115, "net_pos": -358357, "prev_net_pos": -363982, "net_change_wow": 5625, "net_pct_oi": -48.29, "net_pct_oi_pctile": 96.1, "net_pct_oi_ath": 16.6, "net_pct_oi_atl": -56.2, "long_pos_pctile": 42.3, "short_pos_pctile": 99.8, "long_traders_pctile": 88.6, "short_traders_pctile": 98.7, "diagnosis": "ATH PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "soybean_meal_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 ATH PRODUCER HEDGE</span>"}, {"commodity": "Soybean Oil", "as_of_date": "2026-10-13", "open_interest": 638230, "curr_long_pos": 140355, "curr_long_traders": 78, "prev_long_pos": 132812, "prev_long_traders": 76, "curr_short_pos": 351675, "curr_short_traders": 91, "prev_short_pos": 350404, "prev_short_traders": 89, "net_pos": -211320, "prev_net_pos": -217592, "net_change_wow": 6272, "net_pct_oi": -33.11, "net_pct_oi_pctile": 67.3, "net_pct_oi_ath": -0.6, "net_pct_oi_atl": -53.4, "long_pos_pctile": 78.2, "short_pos_pctile": 94.8, "long_traders_pctile": 78.9, "short_traders_pctile": 90.1, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "soybean_oil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "ICE Canola (Rapeseed)", "as_of_date": "2026-10-13", "open_interest": 382506, "curr_long_pos": 161819, "curr_long_traders": 55, "prev_long_pos": 158476, "prev_long_traders": 47, "curr_short_pos": 223834, "curr_short_traders": 142, "prev_short_pos": 236029, "prev_short_traders": 143, "net_pos": -62015, "prev_net_pos": -77553, "net_change_wow": 15538, "net_pct_oi": -16.21, "net_pct_oi_pctile": 79.5, "net_pct_oi_ath": 54.5, "net_pct_oi_atl": -50.2, "long_pos_pctile": 56.9, "short_pos_pctile": 97.4, "long_traders_pctile": 67.4, "short_traders_pctile": 98.4, "diagnosis": "HEAVY PRODUCER HEDGE", "sector": "Grains & Oilseeds", "chart_img": "canola_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-squeeze\" style=\"background:#ffedd5;color:#c2410c;border:1px solid #fdba74\">\u26a0\ufe0f HEAVY PRODUCER HEDGE</span>"}, {"commodity": "Live Cattle", "as_of_date": "2026-10-13", "open_interest": 390003, "curr_long_pos": 66003, "curr_long_traders": 126, "prev_long_pos": 65701, "prev_long_traders": 130, "curr_short_pos": 172559, "curr_short_traders": 159, "prev_short_pos": 170236, "prev_short_traders": 159, "net_pos": -106556, "prev_net_pos": -104535, "net_change_wow": -2021, "net_pct_oi": -27.32, "net_pct_oi_pctile": 19.3, "net_pct_oi_ath": -7.7, "net_pct_oi_atl": -53.1, "long_pos_pctile": 88.6, "short_pos_pctile": 43.1, "long_traders_pctile": 71.5, "short_traders_pctile": 60.7, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Livestock", "chart_img": "live_cattle_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Feeder Cattle", "as_of_date": "2026-10-13", "open_interest": 92539, "curr_long_pos": 9847, "curr_long_traders": 72, "prev_long_pos": 9762, "prev_long_traders": 75, "curr_short_pos": 16440, "curr_short_traders": 83, "prev_short_pos": 16588, "prev_short_traders": 87, "net_pos": -6593, "prev_net_pos": -6826, "net_change_wow": 233, "net_pct_oi": -7.12, "net_pct_oi_pctile": 61.8, "net_pct_oi_ath": 16.0, "net_pct_oi_atl": -26.9, "long_pos_pctile": 73.4, "short_pos_pctile": 88.2, "long_traders_pctile": 84.4, "short_traders_pctile": 81.5, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Livestock", "chart_img": "feeder_cattle_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "Lean Hogs", "as_of_date": "2026-10-13", "open_interest": 427572, "curr_long_pos": 64736, "curr_long_traders": 83, "prev_long_pos": 62390, "prev_long_traders": 85, "curr_short_pos": 91817, "curr_short_traders": 82, "prev_short_pos": 92275, "prev_short_traders": 83, "net_pos": -27081, "prev_net_pos": -29885, "net_change_wow": 2804, "net_pct_oi": -6.33, "net_pct_oi_pctile": 0.1, "net_pct_oi_ath": -6.3, "net_pct_oi_atl": -49.2, "long_pos_pctile": 97.3, "short_pos_pctile": 24.9, "long_traders_pctile": 84.7, "short_traders_pctile": 69.8, "diagnosis": "HEAVY CONSUMER HEDGE", "sector": "Livestock", "chart_img": "lean_hogs_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-long\">\ud83d\uded2 HEAVY CONSUMER HEDGE</span>"}, {"commodity": "NYMEX WTI Crude", "as_of_date": "2026-10-13", "open_interest": 2575891, "curr_long_pos": 698656, "curr_long_traders": 65, "prev_long_pos": 655227, "prev_long_traders": 66, "curr_short_pos": 333927, "curr_short_traders": 62, "prev_short_pos": 308889, "prev_short_traders": 61, "net_pos": 364729, "prev_net_pos": 346338, "net_change_wow": 18391, "net_pct_oi": 14.16, "net_pct_oi_pctile": 99.3, "net_pct_oi_ath": 15.8, "net_pct_oi_atl": -12.0, "long_pos_pctile": 97.3, "short_pos_pctile": 7.3, "long_traders_pctile": 83.3, "short_traders_pctile": 28.3, "diagnosis": "HEAVY CONSUMER HEDGE", "sector": "Energy", "chart_img": "wti_crude_oil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-long\">\ud83d\uded2 HEAVY CONSUMER HEDGE</span>"}, {"commodity": "ICE Brent Crude", "as_of_date": "2026-10-13", "open_interest": 3582932, "curr_long_pos": 1023216, "curr_long_traders": 141, "prev_long_pos": 920763, "prev_long_traders": 138, "curr_short_pos": 1438861, "curr_short_traders": 184, "prev_short_pos": 1302733, "prev_short_traders": 181, "net_pos": -415645, "prev_net_pos": -381970, "net_change_wow": -33675, "net_pct_oi": -11.6, "net_pct_oi_pctile": 30.6, "net_pct_oi_ath": -3.7, "net_pct_oi_atl": -29.5, "long_pos_pctile": 80.7, "short_pos_pctile": 71.1, "long_traders_pctile": 81.1, "short_traders_pctile": 97.9, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Energy", "chart_img": "brent_crude_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "NYMEX Gasoline RBOB", "as_of_date": "2026-10-13", "open_interest": 341577, "curr_long_pos": 81343, "curr_long_traders": 59, "prev_long_pos": 82511, "prev_long_traders": 55, "curr_short_pos": 174996, "curr_short_traders": 81, "prev_short_pos": 177592, "prev_short_traders": 78, "net_pos": -93653, "prev_net_pos": -95081, "net_change_wow": 1428, "net_pct_oi": -27.42, "net_pct_oi_pctile": 37.5, "net_pct_oi_ath": -8.0, "net_pct_oi_atl": -46.4, "long_pos_pctile": 22.3, "short_pos_pctile": 24.8, "long_traders_pctile": 36.0, "short_traders_pctile": 57.6, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Energy", "chart_img": "rbob_gasoline_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "NY Harbor ULSD", "as_of_date": "2026-10-13", "open_interest": 278003, "curr_long_pos": 60874, "curr_long_traders": 48, "prev_long_pos": 44068, "prev_long_traders": 46, "curr_short_pos": 146076, "curr_short_traders": 61, "prev_short_pos": 124840, "prev_short_traders": 63, "net_pos": -85202, "prev_net_pos": -80772, "net_change_wow": -4430, "net_pct_oi": -30.65, "net_pct_oi_pctile": 85.7, "net_pct_oi_ath": -4.2, "net_pct_oi_atl": -39.0, "long_pos_pctile": 8.4, "short_pos_pctile": 19.9, "long_traders_pctile": 16.9, "short_traders_pctile": 30.1, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Energy", "chart_img": "ulsd_heating_oil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}, {"commodity": "ICE Gasoil", "as_of_date": "2026-10-13", "open_interest": 831853, "curr_long_pos": 169699, "curr_long_traders": 84, "prev_long_pos": 194472, "prev_long_traders": 90, "curr_short_pos": 255641, "curr_short_traders": 99, "prev_short_pos": 283761, "prev_short_traders": 102, "net_pos": -85942, "prev_net_pos": -89289, "net_change_wow": 3347, "net_pct_oi": -10.33, "net_pct_oi_pctile": 10.7, "net_pct_oi_ath": -2.7, "net_pct_oi_atl": -42.3, "long_pos_pctile": 8.3, "short_pos_pctile": 5.2, "long_traders_pctile": 29.3, "short_traders_pctile": 28.6, "diagnosis": "HEDGE DEPLETED (UNHEDGED)", "sector": "Energy", "chart_img": "gasoil_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a1 HEDGE DEPLETED (UNHEDGED)</span>"}, {"commodity": "MATIF Rapeseed (Colza)", "as_of_date": "2026-10-09", "open_interest": 161759, "curr_long_pos": 72694, "curr_long_traders": 522, "prev_long_pos": 75613, "prev_long_traders": 531, "curr_short_pos": 121146, "curr_short_traders": 522, "prev_short_pos": 135829, "prev_short_traders": 531, "net_pos": -48452, "prev_net_pos": -60216, "net_change_wow": 11764, "net_pct_oi": -29.95, "net_pct_oi_pctile": 63.7, "net_pct_oi_ath": 11.4, "net_pct_oi_atl": -43.7, "long_pos_pctile": 41.8, "short_pos_pctile": 70.3, "long_traders_pctile": 36.3, "short_traders_pctile": 36.3, "diagnosis": "BALANCED COMMERCIAL FLOW", "sector": "Grains & Oilseeds", "chart_img": "matif_rapeseed_dry_powder_producer.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED COMMERCIAL FLOW</span>"}];
+        const dataSwap = [{"commodity": "Corn", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 2519671, "curr_long_pos": 354626, "curr_short_pos": 28801, "net_pos": 325825, "prev_net_pos": 317703, "net_change_wow": 8122, "net_pct_oi": 12.93, "net_pct_oi_pctile": 44.6, "long_pos_pctile": 87.2, "short_pos_pctile": 70.7, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "corn_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Soybeans", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 1329482, "curr_long_pos": 129346, "curr_short_pos": 78434, "net_pos": 50912, "prev_net_pos": 51417, "net_change_wow": -505, "net_pct_oi": 3.83, "net_pct_oi_pctile": 0.6, "long_pos_pctile": 57.3, "short_pos_pctile": 99.5, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "soybeans_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Soybean Meal", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 742046, "curr_long_pos": 131522, "curr_short_pos": 22294, "net_pos": 109228, "prev_net_pos": 111995, "net_change_wow": -2767, "net_pct_oi": 14.72, "net_pct_oi_pctile": 57.6, "long_pos_pctile": 99.8, "short_pos_pctile": 99.8, "diagnosis": "EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)", "chart_img": "soybean_meal_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)</span>"}, {"commodity": "Soybean Oil", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 638230, "curr_long_pos": 92517, "curr_short_pos": 4974, "net_pos": 87543, "prev_net_pos": 87439, "net_change_wow": 104, "net_pct_oi": 13.72, "net_pct_oi_pctile": 7.4, "long_pos_pctile": 59.0, "short_pos_pctile": 65.2, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "soybean_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Wheat (SRW)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 608955, "curr_long_pos": 87621, "curr_short_pos": 17021, "net_pos": 70600, "prev_net_pos": 70605, "net_change_wow": -5, "net_pct_oi": 11.59, "net_pct_oi_pctile": 5.4, "long_pos_pctile": 27.4, "short_pos_pctile": 75.7, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Kansas City Wheat (HRW)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 343473, "curr_long_pos": 81170, "curr_short_pos": 2578, "net_pos": 78592, "prev_net_pos": 77456, "net_change_wow": 1136, "net_pct_oi": 22.88, "net_pct_oi_pctile": 88.5, "long_pos_pctile": 98.0, "short_pos_pctile": 49.8, "diagnosis": "EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)", "chart_img": "kc_wheat_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#f0f9ff;color:#0284c7;border:1px solid #bae6fd\">\ud83d\udcc8 EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)</span>"}, {"commodity": "Minneapolis Wheat (HRS)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 73685, "curr_long_pos": 7761, "curr_short_pos": 671, "net_pos": 7090, "prev_net_pos": 6840, "net_change_wow": 250, "net_pct_oi": 9.62, "net_pct_oi_pctile": 98.0, "long_pos_pctile": 100.0, "short_pos_pctile": 85.0, "diagnosis": "EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)", "chart_img": "minn_wheat_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#e0f2fe;color:#0369a1;border:1px solid #7dd3fc\">\ud83d\udea8 EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)</span>"}, {"commodity": "ICE Canola (Rapeseed)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 382506, "curr_long_pos": 2990, "curr_short_pos": 19725, "net_pos": -16735, "prev_net_pos": -14140, "net_change_wow": -2595, "net_pct_oi": -4.38, "net_pct_oi_pctile": 2.3, "long_pos_pctile": 36.6, "short_pos_pctile": 96.7, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "canola_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "ICE Cocoa", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 239962, "curr_long_pos": 46684, "curr_short_pos": 8431, "net_pos": 38253, "prev_net_pos": 37467, "net_change_wow": 786, "net_pct_oi": 15.94, "net_pct_oi_pctile": 98.6, "long_pos_pctile": 98.7, "short_pos_pctile": 43.3, "diagnosis": "EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)", "chart_img": "cocoa_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#e0f2fe;color:#0369a1;border:1px solid #7dd3fc\">\ud83d\udea8 EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)</span>"}, {"commodity": "Coffee C", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 201085, "curr_long_pos": 26234, "curr_short_pos": 21223, "net_pos": 5011, "prev_net_pos": 2454, "net_change_wow": 2557, "net_pct_oi": 2.49, "net_pct_oi_pctile": 17.2, "long_pos_pctile": 10.3, "short_pos_pctile": 78.2, "diagnosis": "SUBDUED PASSIVE ALLOCATION", "chart_img": "coffee_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\ud83d\udcc9 SUBDUED PASSIVE ALLOCATION</span>"}, {"commodity": "Sugar No. 11 (Raw)", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 1509322, "curr_long_pos": 264087, "curr_short_pos": 202527, "net_pos": 61560, "prev_net_pos": 59539, "net_change_wow": 2021, "net_pct_oi": 4.08, "net_pct_oi_pctile": 33.7, "long_pos_pctile": 96.4, "short_pos_pctile": 97.6, "diagnosis": "EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)", "chart_img": "sugar_11_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)</span>"}, {"commodity": "ICE White Sugar", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 161842, "curr_long_pos": 17867, "curr_short_pos": 12491, "net_pos": 5376, "prev_net_pos": 4094, "net_change_wow": 1282, "net_pct_oi": 3.32, "net_pct_oi_pctile": 31.0, "long_pos_pctile": 92.1, "short_pos_pctile": 86.6, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "white_sugar_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Cotton No. 2", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 542451, "curr_long_pos": 68915, "curr_short_pos": 29620, "net_pos": 39295, "prev_net_pos": 40034, "net_change_wow": -739, "net_pct_oi": 7.24, "net_pct_oi_pctile": 5.5, "long_pos_pctile": 77.3, "short_pos_pctile": 98.1, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "cotton_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Lean Hogs", "sector": "Livestock", "as_of_date": "2026-10-13", "open_interest": 427572, "curr_long_pos": 83270, "curr_short_pos": 1367, "net_pos": 81903, "prev_net_pos": 76924, "net_change_wow": 4979, "net_pct_oi": 19.16, "net_pct_oi_pctile": 46.0, "long_pos_pctile": 94.7, "short_pos_pctile": 29.8, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "lean_hogs_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Live Cattle", "sector": "Livestock", "as_of_date": "2026-10-13", "open_interest": 390003, "curr_long_pos": 73303, "curr_short_pos": 2164, "net_pos": 71139, "prev_net_pos": 66545, "net_change_wow": 4594, "net_pct_oi": 18.24, "net_pct_oi_pctile": 33.1, "long_pos_pctile": 36.2, "short_pos_pctile": 24.3, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "live_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Feeder Cattle", "sector": "Livestock", "as_of_date": "2026-10-13", "open_interest": 92539, "curr_long_pos": 6996, "curr_short_pos": 484, "net_pos": 6512, "prev_net_pos": 6557, "net_change_wow": -45, "net_pct_oi": 7.04, "net_pct_oi_pctile": 29.4, "long_pos_pctile": 82.2, "short_pos_pctile": 59.6, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "feeder_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "NYMEX WTI Crude", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 2575891, "curr_long_pos": 116508, "curr_short_pos": 703419, "net_pos": -586911, "prev_net_pos": -562981, "net_change_wow": -23930, "net_pct_oi": -22.78, "net_pct_oi_pctile": 1.8, "long_pos_pctile": 24.2, "short_pos_pctile": 91.7, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "wti_crude_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "ICE Brent Crude", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 3582932, "curr_long_pos": 410810, "curr_short_pos": 113839, "net_pos": 296971, "prev_net_pos": 309779, "net_change_wow": -12808, "net_pct_oi": 8.29, "net_pct_oi_pctile": 11.5, "long_pos_pctile": 42.0, "short_pos_pctile": 98.9, "diagnosis": "SUBDUED PASSIVE ALLOCATION", "chart_img": "brent_crude_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\ud83d\udcc9 SUBDUED PASSIVE ALLOCATION</span>"}, {"commodity": "ICE Gasoil", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 831853, "curr_long_pos": 250245, "curr_short_pos": 16798, "net_pos": 233447, "prev_net_pos": 236389, "net_change_wow": -2942, "net_pct_oi": 28.06, "net_pct_oi_pctile": 63.1, "long_pos_pctile": 66.5, "short_pos_pctile": 87.9, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "gasoil_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "NY Harbor ULSD", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 278003, "curr_long_pos": 58979, "curr_short_pos": 7287, "net_pos": 51692, "prev_net_pos": 50897, "net_change_wow": 795, "net_pct_oi": 18.59, "net_pct_oi_pctile": 63.7, "long_pos_pctile": 38.4, "short_pos_pctile": 85.9, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "ulsd_heating_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "NYMEX Gasoline RBOB", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 341577, "curr_long_pos": 44802, "curr_short_pos": 41016, "net_pos": 3786, "prev_net_pos": 11152, "net_change_wow": -7366, "net_pct_oi": 1.11, "net_pct_oi_pctile": 1.4, "long_pos_pctile": 54.0, "short_pos_pctile": 99.5, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "rbob_gasoline_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Gold (COMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 526276, "curr_long_pos": 12706, "curr_short_pos": 231189, "net_pos": -218483, "prev_net_pos": -218616, "net_change_wow": 133, "net_pct_oi": -41.51, "net_pct_oi_pctile": 0.2, "long_pos_pctile": 0.2, "short_pos_pctile": 75.0, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "gold_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Silver (COMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 123414, "curr_long_pos": 24893, "curr_short_pos": 47219, "net_pos": -22326, "prev_net_pos": -24241, "net_change_wow": 1915, "net_pct_oi": -18.09, "net_pct_oi_pctile": 8.0, "long_pos_pctile": 39.8, "short_pos_pctile": 66.2, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "silver_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Copper (COMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 328963, "curr_long_pos": 54517, "curr_short_pos": 40760, "net_pos": 13757, "prev_net_pos": 14450, "net_change_wow": -693, "net_pct_oi": 4.18, "net_pct_oi_pctile": 2.1, "long_pos_pctile": 81.8, "short_pos_pctile": 99.0, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "copper_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\u26a1 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}, {"commodity": "Platinum (NYMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 70934, "curr_long_pos": 15347, "curr_short_pos": 23879, "net_pos": -8532, "prev_net_pos": -8147, "net_change_wow": -385, "net_pct_oi": -12.03, "net_pct_oi_pctile": 46.2, "long_pos_pctile": 88.3, "short_pos_pctile": 94.5, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "platinum_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Palladium (NYMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 23942, "curr_long_pos": 8510, "curr_short_pos": 2085, "net_pos": 6425, "prev_net_pos": 5804, "net_change_wow": 621, "net_pct_oi": 26.84, "net_pct_oi_pctile": 83.4, "long_pos_pctile": 96.1, "short_pos_pctile": 36.7, "diagnosis": "EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)", "chart_img": "palladium_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#f0f9ff;color:#0284c7;border:1px solid #bae6fd\">\ud83d\udcc8 EXTREME PASSIVE INFLOW (HEAVY INDEX ALLOCATION)</span>"}, {"commodity": "E-mini S&P 500", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 1931607, "curr_long_pos": 200960, "curr_short_pos": 803318, "net_pos": -602358, "prev_net_pos": -600841, "net_change_wow": -1517, "net_pct_oi": -31.18, "net_pct_oi_pctile": 12.9, "long_pos_pctile": 33.7, "short_pos_pctile": 72.6, "diagnosis": "SUBDUED PASSIVE ALLOCATION", "chart_img": "sp500_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\ud83d\udcc9 SUBDUED PASSIVE ALLOCATION</span>"}, {"commodity": "Nasdaq-100 E-mini", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 279515, "curr_long_pos": 48575, "curr_short_pos": 126507, "net_pos": -77932, "prev_net_pos": -72562, "net_change_wow": -5370, "net_pct_oi": -27.88, "net_pct_oi_pctile": 27.3, "long_pos_pctile": 45.7, "short_pos_pctile": 66.3, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "nasdaq100_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Russell 2000 E-mini", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 444784, "curr_long_pos": 107968, "curr_short_pos": 50465, "net_pos": 57503, "prev_net_pos": 61393, "net_change_wow": -3890, "net_pct_oi": 12.93, "net_pct_oi_pctile": 60.7, "long_pos_pctile": 49.8, "short_pos_pctile": 19.2, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "russell2000_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Dow Jones ($5)", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 90364, "curr_long_pos": 41582, "curr_short_pos": 60031, "net_pos": -18449, "prev_net_pos": -21854, "net_change_wow": 3405, "net_pct_oi": -20.42, "net_pct_oi_pctile": 42.1, "long_pos_pctile": 90.3, "short_pos_pctile": 70.2, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "dowjones_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "Cboe VIX Futures", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 448469, "curr_long_pos": 106006, "curr_short_pos": 35958, "net_pos": 70048, "prev_net_pos": 71707, "net_change_wow": -1659, "net_pct_oi": 15.62, "net_pct_oi_pctile": 73.4, "long_pos_pctile": 82.0, "short_pos_pctile": 67.1, "diagnosis": "STEADY PASSIVE INDEX ALLOCATION", "chart_img": "vix_dry_powder.png", "badge_html": "<span class=\"badge badge-long\">\u2696\ufe0f STEADY PASSIVE INDEX ALLOCATION</span>"}, {"commodity": "MATIF Rapeseed (Colza)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-09", "open_interest": 161759, "curr_long_pos": 6223, "curr_short_pos": 11657, "net_pos": -5433, "prev_net_pos": -5040, "net_change_wow": -392, "net_pct_oi": -3.36, "net_pct_oi_pctile": 11.0, "long_pos_pctile": 2.2, "short_pos_pctile": 24.2, "diagnosis": "PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)", "chart_img": "matif_rapeseed_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\ud83d\udcc9 PASSIVE CAPITAL OUTFLOW (INDEX REDEMPTION)</span>"}];
+        const dataNonRept = [{"commodity": "Corn", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 2519671, "curr_long_pos": 194808, "curr_short_pos": 226523, "net_pos": -31715, "prev_net_pos": -33589, "net_change_wow": 1874, "net_pct_oi": -1.26, "net_pct_oi_pctile": 78.9, "long_pos_pctile": 62.3, "short_pos_pctile": 27.3, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "corn_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Soybeans", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 1329482, "curr_long_pos": 57402, "curr_short_pos": 85780, "net_pos": -28378, "prev_net_pos": -26419, "net_change_wow": -1959, "net_pct_oi": -2.13, "net_pct_oi_pctile": 73.3, "long_pos_pctile": 38.5, "short_pos_pctile": 37.5, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "soybeans_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Soybean Meal", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 742046, "curr_long_pos": 55139, "curr_short_pos": 29641, "net_pos": 25498, "prev_net_pos": 24994, "net_change_wow": 504, "net_pct_oi": 3.44, "net_pct_oi_pctile": 29.0, "long_pos_pctile": 82.1, "short_pos_pctile": 50.7, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "soybean_meal_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Soybean Oil", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 638230, "curr_long_pos": 38322, "curr_short_pos": 22709, "net_pos": 15613, "prev_net_pos": 14549, "net_change_wow": 1064, "net_pct_oi": 2.45, "net_pct_oi_pctile": 69.2, "long_pos_pctile": 76.0, "short_pos_pctile": 18.5, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "soybean_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Wheat (SRW)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 608955, "curr_long_pos": 39087, "curr_short_pos": 35231, "net_pos": 3856, "prev_net_pos": 3253, "net_change_wow": 603, "net_pct_oi": 0.63, "net_pct_oi_pctile": 90.2, "long_pos_pctile": 59.1, "short_pos_pctile": 4.6, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Kansas City Wheat (HRW)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 343473, "curr_long_pos": 20967, "curr_short_pos": 22703, "net_pos": -1736, "prev_net_pos": -1057, "net_change_wow": -679, "net_pct_oi": -0.51, "net_pct_oi_pctile": 65.7, "long_pos_pctile": 46.1, "short_pos_pctile": 31.4, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "kc_wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Minneapolis Wheat (HRS)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 73685, "curr_long_pos": 10816, "curr_short_pos": 8271, "net_pos": 2545, "prev_net_pos": 2192, "net_change_wow": 353, "net_pct_oi": 3.45, "net_pct_oi_pctile": 81.9, "long_pos_pctile": 36.1, "short_pos_pctile": 3.2, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "minn_wheat_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "ICE Canola (Rapeseed)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-13", "open_interest": 382506, "curr_long_pos": 3874, "curr_short_pos": 4406, "net_pos": -532, "prev_net_pos": -466, "net_change_wow": -66, "net_pct_oi": -0.14, "net_pct_oi_pctile": 60.8, "long_pos_pctile": 98.8, "short_pos_pctile": 98.4, "diagnosis": "RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)", "chart_img": "canola_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)</span>"}, {"commodity": "ICE Cocoa", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 239962, "curr_long_pos": 10892, "curr_short_pos": 9088, "net_pos": 1804, "prev_net_pos": 1172, "net_change_wow": 632, "net_pct_oi": 0.75, "net_pct_oi_pctile": 21.7, "long_pos_pctile": 22.8, "short_pos_pctile": 61.1, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "cocoa_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Coffee C", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 201085, "curr_long_pos": 7662, "curr_short_pos": 6992, "net_pos": 670, "prev_net_pos": 1164, "net_change_wow": -494, "net_pct_oi": 0.33, "net_pct_oi_pctile": 15.3, "long_pos_pctile": 9.9, "short_pos_pctile": 26.2, "diagnosis": "RETAIL CROWDED SHORT", "chart_img": "coffee_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd\">\ud83d\uded2 RETAIL CROWDED SHORT</span>"}, {"commodity": "Sugar No. 11 (Raw)", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 1509322, "curr_long_pos": 109246, "curr_short_pos": 48324, "net_pos": 60922, "prev_net_pos": 60815, "net_change_wow": 107, "net_pct_oi": 4.04, "net_pct_oi_pctile": 84.4, "long_pos_pctile": 95.5, "short_pos_pctile": 9.2, "diagnosis": "RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)", "chart_img": "sugar_11_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)</span>"}, {"commodity": "ICE White Sugar", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 161842, "curr_long_pos": 7803, "curr_short_pos": 3623, "net_pos": 4180, "prev_net_pos": 5481, "net_change_wow": -1301, "net_pct_oi": 2.58, "net_pct_oi_pctile": 54.4, "long_pos_pctile": 97.6, "short_pos_pctile": 66.1, "diagnosis": "RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)", "chart_img": "white_sugar_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)</span>"}, {"commodity": "Cotton No. 2", "sector": "Softs", "as_of_date": "2026-10-13", "open_interest": 542451, "curr_long_pos": 17926, "curr_short_pos": 10094, "net_pos": 7832, "prev_net_pos": 7907, "net_change_wow": -75, "net_pct_oi": 1.44, "net_pct_oi_pctile": 44.8, "long_pos_pctile": 58.8, "short_pos_pctile": 22.3, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "cotton_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Lean Hogs", "sector": "Livestock", "as_of_date": "2026-10-13", "open_interest": 427572, "curr_long_pos": 30432, "curr_short_pos": 26374, "net_pos": 4058, "prev_net_pos": 3294, "net_change_wow": 764, "net_pct_oi": 0.95, "net_pct_oi_pctile": 99.2, "long_pos_pctile": 81.4, "short_pos_pctile": 5.9, "diagnosis": "RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)", "chart_img": "lean_hogs_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)</span>"}, {"commodity": "Live Cattle", "sector": "Livestock", "as_of_date": "2026-10-13", "open_interest": 390003, "curr_long_pos": 29159, "curr_short_pos": 40305, "net_pos": -11146, "prev_net_pos": -10738, "net_change_wow": -408, "net_pct_oi": -2.86, "net_pct_oi_pctile": 88.3, "long_pos_pctile": 25.9, "short_pos_pctile": 1.0, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "live_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Feeder Cattle", "sector": "Livestock", "as_of_date": "2026-10-13", "open_interest": 92539, "curr_long_pos": 10780, "curr_short_pos": 14890, "net_pos": -4110, "prev_net_pos": -3533, "net_change_wow": -577, "net_pct_oi": -4.44, "net_pct_oi_pctile": 94.0, "long_pos_pctile": 75.5, "short_pos_pctile": 29.7, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "feeder_cattle_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "NYMEX WTI Crude", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 2575891, "curr_long_pos": 93980, "curr_short_pos": 66449, "net_pos": 27531, "prev_net_pos": 30396, "net_change_wow": -2865, "net_pct_oi": 1.07, "net_pct_oi_pctile": 65.9, "long_pos_pctile": 42.8, "short_pos_pctile": 24.4, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "wti_crude_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "ICE Brent Crude", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 3582932, "curr_long_pos": 78608, "curr_short_pos": 61962, "net_pos": 16646, "prev_net_pos": 13205, "net_change_wow": 3441, "net_pct_oi": 0.46, "net_pct_oi_pctile": 58.3, "long_pos_pctile": 93.9, "short_pos_pctile": 89.4, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "brent_crude_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "ICE Gasoil", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 831853, "curr_long_pos": 41345, "curr_short_pos": 28869, "net_pos": 12476, "prev_net_pos": 13064, "net_change_wow": -588, "net_pct_oi": 1.5, "net_pct_oi_pctile": 83.1, "long_pos_pctile": 84.6, "short_pos_pctile": 63.0, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "gasoil_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "NY Harbor ULSD", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 278003, "curr_long_pos": 52501, "curr_short_pos": 33714, "net_pos": 18787, "prev_net_pos": 18937, "net_change_wow": -150, "net_pct_oi": 6.76, "net_pct_oi_pctile": 88.8, "long_pos_pctile": 93.1, "short_pos_pctile": 72.8, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "ulsd_heating_oil_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "NYMEX Gasoline RBOB", "sector": "Energy", "as_of_date": "2026-10-13", "open_interest": 341577, "curr_long_pos": 27520, "curr_short_pos": 12976, "net_pos": 14544, "prev_net_pos": 13531, "net_change_wow": 1013, "net_pct_oi": 4.26, "net_pct_oi_pctile": 96.7, "long_pos_pctile": 87.9, "short_pos_pctile": 10.2, "diagnosis": "RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)", "chart_img": "rbob_gasoline_dry_powder.png", "badge_html": "<span class=\"badge badge-crowd-long\">\ud83d\udea8 RETAIL EXTREME BULLISH (CONTRARIAN TOP RISK)</span>"}, {"commodity": "Gold (COMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 526276, "curr_long_pos": 56281, "curr_short_pos": 19850, "net_pos": 36431, "prev_net_pos": 36022, "net_change_wow": 409, "net_pct_oi": 6.92, "net_pct_oi_pctile": 88.0, "long_pos_pctile": 47.5, "short_pos_pctile": 3.1, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "gold_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Silver (COMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 123414, "curr_long_pos": 28357, "curr_short_pos": 10778, "net_pos": 17579, "prev_net_pos": 19167, "net_change_wow": -1588, "net_pct_oi": 14.24, "net_pct_oi_pctile": 94.7, "long_pos_pctile": 39.7, "short_pos_pctile": 7.7, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "silver_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Copper (COMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 328963, "curr_long_pos": 18478, "curr_short_pos": 10048, "net_pos": 8430, "prev_net_pos": 8816, "net_change_wow": -386, "net_pct_oi": 2.56, "net_pct_oi_pctile": 81.5, "long_pos_pctile": 73.4, "short_pos_pctile": 2.4, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "copper_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Platinum (NYMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 70934, "curr_long_pos": 6527, "curr_short_pos": 3113, "net_pos": 3414, "prev_net_pos": 3888, "net_change_wow": -474, "net_pct_oi": 4.81, "net_pct_oi_pctile": 16.8, "long_pos_pctile": 42.7, "short_pos_pctile": 58.9, "diagnosis": "RETAIL CROWDED SHORT", "chart_img": "platinum_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd\">\ud83d\uded2 RETAIL CROWDED SHORT</span>"}, {"commodity": "Palladium (NYMEX)", "sector": "Metals", "as_of_date": "2026-10-13", "open_interest": 23942, "curr_long_pos": 2845, "curr_short_pos": 1839, "net_pos": 1006, "prev_net_pos": 1245, "net_change_wow": -239, "net_pct_oi": 4.2, "net_pct_oi_pctile": 55.1, "long_pos_pctile": 88.6, "short_pos_pctile": 90.9, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "palladium_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "E-mini S&P 500", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 1931607, "curr_long_pos": 244009, "curr_short_pos": 137681, "net_pos": 106328, "prev_net_pos": 111005, "net_change_wow": -4677, "net_pct_oi": 5.5, "net_pct_oi_pctile": 77.8, "long_pos_pctile": 18.5, "short_pos_pctile": 3.4, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "sp500_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Nasdaq-100 E-mini", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 279515, "curr_long_pos": 42519, "curr_short_pos": 31215, "net_pos": 11304, "prev_net_pos": 10323, "net_change_wow": 981, "net_pct_oi": 4.04, "net_pct_oi_pctile": 75.5, "long_pos_pctile": 84.2, "short_pos_pctile": 52.1, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "nasdaq100_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "Russell 2000 E-mini", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 444784, "curr_long_pos": 32934, "curr_short_pos": 20309, "net_pos": 12625, "prev_net_pos": 7561, "net_change_wow": 5064, "net_pct_oi": 2.84, "net_pct_oi_pctile": 86.8, "long_pos_pctile": 88.3, "short_pos_pctile": 45.5, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "russell2000_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Dow Jones ($5)", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 90364, "curr_long_pos": 13522, "curr_short_pos": 9201, "net_pos": 4321, "prev_net_pos": 5856, "net_change_wow": -1535, "net_pct_oi": 4.78, "net_pct_oi_pctile": 80.2, "long_pos_pctile": 34.8, "short_pos_pctile": 6.3, "diagnosis": "RETAIL CROWDED LONG", "chart_img": "dowjones_dry_powder.png", "badge_html": "<span class=\"badge badge-squeeze\">\u26a0\ufe0f RETAIL CROWDED LONG</span>"}, {"commodity": "Cboe VIX Futures", "sector": "Equities & Indices", "as_of_date": "2026-10-13", "open_interest": 448469, "curr_long_pos": 25548, "curr_short_pos": 22267, "net_pos": 3281, "prev_net_pos": 696, "net_change_wow": 2585, "net_pct_oi": 0.73, "net_pct_oi_pctile": 78.2, "long_pos_pctile": 67.5, "short_pos_pctile": 27.9, "diagnosis": "BALANCED RETAIL PARTICIPATION", "chart_img": "vix_dry_powder.png", "badge_html": "<span class=\"badge badge-short\">\u2696\ufe0f BALANCED RETAIL PARTICIPATION</span>"}, {"commodity": "MATIF Rapeseed (Colza)", "sector": "Grains & Oilseeds", "as_of_date": "2026-10-09", "open_interest": 161759, "curr_long_pos": 13831, "curr_short_pos": 25905, "net_pos": -12074, "prev_net_pos": -11202, "net_change_wow": -872, "net_pct_oi": -7.46, "net_pct_oi_pctile": 11.0, "long_pos_pctile": 2.2, "short_pos_pctile": 24.2, "diagnosis": "RETAIL CROWDED SHORT", "chart_img": "matif_rapeseed_dry_powder.png", "badge_html": "<span class=\"badge\" style=\"background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd\">\ud83d\uded2 RETAIL CROWDED SHORT</span>"}];
 
-        let currentEdition = 'mm'; // 'mm' or 'prod'
+        let currentEdition = 'mm'; // 'mm', 'prod', 'swap', 'nonrept', 'reports', 'guide'
         let currentSector = 'All';
         let searchQuery = '';
         let sortKey = 'sector';
         let sortAsc = true;
 
         function getActiveData() {
-            return currentEdition === 'mm' ? dataMM : dataProd;
+            if (currentEdition === 'mm') return dataMM;
+            if (currentEdition === 'prod') return dataProd;
+            if (currentEdition === 'swap') return dataSwap;
+            if (currentEdition === 'nonrept') return dataNonRept;
+            return dataMM;
         }
 
         function switchEdition(edition) {
@@ -1125,20 +956,32 @@
 
             document.getElementById('tab-mm').classList.toggle('active', edition === 'mm');
             document.getElementById('tab-prod').classList.toggle('active', edition === 'prod');
+            document.getElementById('tab-swap').classList.toggle('active', edition === 'swap');
+            document.getElementById('tab-nonrept').classList.toggle('active', edition === 'nonrept');
+            document.getElementById('tab-reports').classList.toggle('active', edition === 'reports');
             document.getElementById('tab-guide').classList.toggle('active', edition === 'guide');
 
             const dataView = document.getElementById('dataViewContainer');
             const guideView = document.getElementById('guideContainer');
+            const reportsView = document.getElementById('reportsContainer');
 
             if (edition === 'guide') {
                 dataView.style.display = 'none';
                 guideView.style.display = 'block';
+                reportsView.style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            } else if (edition === 'reports') {
+                dataView.style.display = 'none';
+                guideView.style.display = 'none';
+                reportsView.style.display = 'block';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             }
 
             dataView.style.display = 'block';
             guideView.style.display = 'none';
+            reportsView.style.display = 'none';
 
             currentSector = 'All';
             searchQuery = '';
@@ -1158,7 +1001,7 @@
             let html = '';
             sectors.forEach(s => {
                 const count = s === 'All' ? data.length : data.filter(r => r.sector === s).length;
-                const label = s === 'All' ? `All Sectors (${count})` : `${s} (${count})`;
+                const label = s === 'All' ? `All (${count})` : `${s} (${count})`;
                 const active = s === currentSector ? 'active' : '';
                 html += `<button class="filter-btn ${active}" onclick="filterSector('${s}')">${label}</button>`;
             });
@@ -1183,7 +1026,7 @@
                 const agFlowSign = agFlow >= 0 ? '+' : '';
                 document.getElementById('kpi-grain-flow').textContent = `${agFlowSign}${Number(agFlow).toLocaleString()} Cont`;
                 document.getElementById('kpi-grain-flow').style.color = agFlow >= 0 ? 'var(--green)' : 'var(--red)';
-            } else {
+            } else if (currentEdition === 'prod') {
                 document.getElementById('kpi-label-crowd').textContent = "Heavy / ATH Producer Hedges";
                 document.getElementById('kpi-label-squeeze').textContent = "Consumer Long Coverage / Depleted";
                 document.getElementById('kpi-label-flow').textContent = "Commercial Producer Net Flow";
@@ -1197,44 +1040,75 @@
                 const prodFlowSign = prodFlow >= 0 ? '+' : '';
                 document.getElementById('kpi-grain-flow').textContent = `${prodFlowSign}${Number(prodFlow).toLocaleString()} Cont`;
                 document.getElementById('kpi-grain-flow').style.color = prodFlow >= 0 ? 'var(--green)' : 'var(--red)';
+            } else if (currentEdition === 'swap') {
+                document.getElementById('kpi-label-crowd').textContent = "Heavy Index Long Exposure (>=80th %ile)";
+                document.getElementById('kpi-label-squeeze').textContent = "Index Capital Outflows (<=20th %ile)";
+                document.getElementById('kpi-label-flow').textContent = "Swap Dealers Ag Flow";
+
+                const heavyIndex = data.filter(r => (r.net_pct_oi_pctile >= 80)).length;
+                const indexOutflow = data.filter(r => (r.net_pct_oi_pctile <= 20)).length;
+                document.getElementById('kpi-crowd-long').textContent = `${heavyIndex} Contracts`;
+                document.getElementById('kpi-squeeze').textContent = `${indexOutflow} Contracts`;
+
+                const swapFlow = data.filter(r => r.sector === 'Grains & Oilseeds').reduce((sum, r) => sum + (r.net_change_wow || 0), 0);
+                const swapFlowSign = swapFlow >= 0 ? '+' : '';
+                document.getElementById('kpi-grain-flow').textContent = `${swapFlowSign}${Number(swapFlow).toLocaleString()} Cont`;
+                document.getElementById('kpi-grain-flow').style.color = swapFlow >= 0 ? 'var(--green)' : 'var(--red)';
+            } else if (currentEdition === 'nonrept') {
+                document.getElementById('kpi-label-crowd').textContent = "Retail Extreme Longs (Contrarian Tops)";
+                document.getElementById('kpi-label-squeeze').textContent = "Retail Panic Shorts (Contrarian Bottoms)";
+                document.getElementById('kpi-label-flow').textContent = "Retail Speculative Net Flow";
+
+                const retailTops = data.filter(r => (r.net_pct_oi_pctile >= 80)).length;
+                const retailBottoms = data.filter(r => (r.net_pct_oi_pctile <= 20)).length;
+                document.getElementById('kpi-crowd-long').textContent = `${retailTops} Contracts`;
+                document.getElementById('kpi-squeeze').textContent = `${retailBottoms} Contracts`;
+
+                const retailFlow = data.filter(r => r.sector === 'Grains & Oilseeds').reduce((sum, r) => sum + (r.net_change_wow || 0), 0);
+                const retailFlowSign = retailFlow >= 0 ? '+' : '';
+                document.getElementById('kpi-grain-flow').textContent = `${retailFlowSign}${Number(retailFlow).toLocaleString()} Cont`;
+                document.getElementById('kpi-grain-flow').style.color = retailFlow >= 0 ? 'var(--green)' : 'var(--red)';
             }
         }
 
         function renderTableHeaders() {
             const thead = document.getElementById('tableHead');
-            if (currentEdition === 'mm') {
-                thead.innerHTML = `<tr>
-                    <th onclick="sortTable('commodity')">Commodity & Chart</th>
-                    <th onclick="sortTable('sector')">Sector</th>
-                    <th onclick="sortTable('net_pos')">Net Spec Pos</th>
-                    <th onclick="sortTable('net_change_wow')">WoW Change</th>
-                    <th onclick="sortTable('net_pct_oi')">Net % of OI</th>
-                    <th onclick="sortTable('net_pct_oi_pctile')">Spec OI %ile</th>
-                    <th onclick="sortTable('long_pos_pctile')">Long %ile</th>
-                    <th onclick="sortTable('short_pos_pctile')">Short %ile</th>
-                    <th>Diagnosis Badge</th>
-                </tr>`;
-            } else {
-                thead.innerHTML = `<tr>
-                    <th onclick="sortTable('commodity')">Commodity & Chart</th>
-                    <th onclick="sortTable('sector')">Sector</th>
-                    <th onclick="sortTable('curr_long_pos')">Producer Long</th>
-                    <th onclick="sortTable('curr_short_pos')">Producer Short</th>
-                    <th onclick="sortTable('net_pos')">Commercial Net</th>
-                    <th onclick="sortTable('net_change_wow')">WoW Change</th>
-                    <th onclick="sortTable('net_pct_oi')">Net % of OI</th>
-                    <th onclick="sortTable('net_pct_oi_pctile')">Hedge Intensity %ile</th>
-                    <th>Commercial Diagnosis</th>
-                </tr>`;
-            }
+            let posCol = 'Net Spec Pos';
+            if (currentEdition === 'prod') posCol = 'Commercial Net Pos';
+            else if (currentEdition === 'swap') posCol = 'Swap Dealer Net Pos';
+            else if (currentEdition === 'nonrept') posCol = 'Non-Reportable Net Pos';
+
+            thead.innerHTML = `<tr>
+                <th onclick="sortTable('commodity')">Commodity & Chart</th>
+                <th onclick="sortTable('sector')">Sector</th>
+                <th onclick="sortTable('net_pos')">${posCol}</th>
+                <th onclick="sortTable('net_change_wow')">WoW Change</th>
+                <th onclick="sortTable('net_pct_oi')">Net % of OI</th>
+                <th onclick="sortTable('net_pct_oi_pctile')">OI %ile</th>
+                <th onclick="sortTable('long_pos_pctile')">Long %ile</th>
+                <th onclick="sortTable('short_pos_pctile')">Short %ile</th>
+                <th>Diagnosis</th>
+            </tr>`;
         }
 
-        function getPctileColor(val) {
-            if (val >= 90) return '#ef4444';
-            if (val >= 70) return '#f59e0b';
-            if (val <= 10) return '#3b82f6';
-            if (val <= 30) return '#06b6d4';
-            return '#10b981';
+        // Exact lowest-red, highest-green spectrum with black in between
+        function getOiPctileColor(val) {
+            const p = Math.max(0, Math.min(100, Number(val) || 0));
+            if (p <= 50) {
+                // 0% -> Red rgb(220, 38, 38), 50% -> Black rgb(15, 23, 42)
+                const t = p / 50.0;
+                const r = Math.round(220 * (1 - t) + 15 * t);
+                const g = Math.round(38 * (1 - t) + 23 * t);
+                const b = Math.round(38 * (1 - t) + 42 * t);
+                return `rgb(${r}, ${g}, ${b})`;
+            } else {
+                // 50% -> Black rgb(15, 23, 42), 100% -> Green rgb(22, 163, 74)
+                const t = (p - 50.0) / 50.0;
+                const r = Math.round(15 * (1 - t) + 22 * t);
+                const g = Math.round(23 * (1 - t) + 163 * t);
+                const b = Math.round(42 * (1 - t) + 74 * t);
+                return `rgb(${r}, ${g}, ${b})`;
+            }
         }
 
         function renderTable() {
@@ -1256,67 +1130,39 @@
 
             let html = '';
             filtered.forEach(r => {
-                const wowColor = (r.net_change_wow || 0) >= 0 ? '#10b981' : '#ef4444';
+                const wowColor = (r.net_change_wow || 0) >= 0 ? '#16a34a' : '#dc2626';
                 const wowSign = (r.net_change_wow || 0) > 0 ? '+' : '';
                 const pctOi = r.net_pct_oi || 0;
-                const pctOiColor = pctOi >= 0 ? '#10b981' : '#ef4444';
+                const pctOiColor = pctOi >= 0 ? '#16a34a' : '#dc2626';
                 const pctOiPctile = r.net_pct_oi_pctile || 0;
-                const barColor = getPctileColor(pctOiPctile);
+                const pctColor = getOiPctileColor(pctOiPctile);
 
-                const chartTitle = currentEdition === 'mm' ? `${r.commodity} | Speculative Dry Powder` : `${r.commodity} | Producer Hedging Flow`;
+                let chartTitle = `${r.commodity} | Positioning Chart`;
+                if (currentEdition === 'mm') chartTitle = `${r.commodity} | Speculative Dry Powder`;
+                else if (currentEdition === 'prod') chartTitle = `${r.commodity} | Producer Hedging Flow`;
+                else if (currentEdition === 'swap') chartTitle = `${r.commodity} | Swap Dealers Index Positioning`;
+                else if (currentEdition === 'nonrept') chartTitle = `${r.commodity} | Non-Reportables Retail Positioning`;
+
                 const chartBtn = r.chart_img 
                     ? `<button class="chart-icon-btn" title="View Dual-Panel Chart" onclick="showChart('${chartTitle}', 'output_charts/${r.chart_img}')">📈 View Chart</button>`
                     : '';
 
-                if (currentEdition === 'mm') {
-                    html += `<tr>
-                        <td>
-                            <div class="commodity-name">
-                                <span>${r.commodity}</span>
-                                ${chartBtn}
-                            </div>
-                        </td>
-                        <td><span style="font-size: 11px; color: var(--text-sub);">${r.sector}</span></td>
-                        <td style="font-family: monospace; font-weight: 600;">${Number(r.net_pos || 0).toLocaleString()}</td>
-                        <td style="font-family: monospace; font-weight: 600; color: ${wowColor};">${wowSign}${Number(r.net_change_wow || 0).toLocaleString()}</td>
-                        <td style="font-family: monospace; font-weight: 700; color: ${pctOiColor};">${pctOi > 0 ? '+' : ''}${pctOi.toFixed(1)}%</td>
-                        <td>
-                            <div class="bar-wrap">
-                                <span style="font-family: monospace; width: 38px;">${pctOiPctile.toFixed(1)}%</span>
-                                <div class="pct-bar">
-                                    <div class="pct-fill" style="width: ${pctOiPctile}%; background: ${barColor};"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td style="font-family: monospace;">${Number(r.long_pos_pctile || 0).toFixed(1)}%</td>
-                        <td style="font-family: monospace;">${Number(r.short_pos_pctile || 0).toFixed(1)}%</td>
-                        <td>${r.badge_html}</td>
-                    </tr>`;
-                } else {
-                    html += `<tr>
-                        <td>
-                            <div class="commodity-name">
-                                <span>${r.commodity}</span>
-                                ${chartBtn}
-                            </div>
-                        </td>
-                        <td><span style="font-size: 11px; color: var(--text-sub);">${r.sector}</span></td>
-                        <td style="font-family: monospace;">${Number(r.curr_long_pos || 0).toLocaleString()}</td>
-                        <td style="font-family: monospace;">${Number(r.curr_short_pos || 0).toLocaleString()}</td>
-                        <td style="font-family: monospace; font-weight: 600;">${Number(r.net_pos || 0).toLocaleString()}</td>
-                        <td style="font-family: monospace; font-weight: 600; color: ${wowColor};">${wowSign}${Number(r.net_change_wow || 0).toLocaleString()}</td>
-                        <td style="font-family: monospace; font-weight: 700; color: ${pctOiColor};">${pctOi > 0 ? '+' : ''}${pctOi.toFixed(1)}%</td>
-                        <td>
-                            <div class="bar-wrap">
-                                <span style="font-family: monospace; width: 38px;">${pctOiPctile.toFixed(1)}%</span>
-                                <div class="pct-bar">
-                                    <div class="pct-fill" style="width: ${pctOiPctile}%; background: ${barColor};"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>${r.badge_html}</td>
-                    </tr>`;
-                }
+                html += `<tr>
+                    <td>
+                        <div class="commodity-name">
+                            <span>${r.commodity}</span>
+                            ${chartBtn}
+                        </div>
+                    </td>
+                    <td><span style="font-size: 11px; color: var(--text-sub);">${r.sector}</span></td>
+                    <td style="font-family: monospace; font-weight: 600;">${Number(r.net_pos || 0).toLocaleString()}</td>
+                    <td style="font-family: monospace; font-weight: 600; color: ${wowColor};">${wowSign}${Number(r.net_change_wow || 0).toLocaleString()}</td>
+                    <td style="font-family: monospace; font-weight: 700; color: ${pctOiColor};">${pctOi > 0 ? '+' : ''}${pctOi.toFixed(1)}%</td>
+                    <td style="font-family: monospace; font-weight: 700; color: ${pctColor};">${pctOiPctile.toFixed(1)}%</td>
+                    <td style="font-family: monospace;">${Number(r.long_pos_pctile || 0).toFixed(1)}%</td>
+                    <td style="font-family: monospace;">${Number(r.short_pos_pctile || 0).toFixed(1)}%</td>
+                    <td>${r.badge_html}</td>
+                </tr>`;
             });
 
             tbody.innerHTML = html;
