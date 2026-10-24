@@ -21298,7 +21298,7 @@
     },
     {
       "period": "2026-09",
-      "frequency": "Monthly",
+      "frequency": "MonthlyCompare",
       "marketing_year": "2026/27",
       "month_index_jul_jun": 3,
       "month_label": "Sep",
@@ -21314,7 +21314,7 @@
     },
     {
       "period": "2026-10",
-      "frequency": "Monthly",
+      "frequency": "MonthlyCompare",
       "marketing_year": "2026/27",
       "month_index_jul_jun": 4,
       "month_label": "Oct",
@@ -21330,7 +21330,7 @@
     },
     {
       "period": "2026-09",
-      "frequency": "Monthly",
+      "frequency": "MonthlyCompare",
       "marketing_year": "2026/27",
       "month_index_jul_jun": 3,
       "month_label": "Sep",

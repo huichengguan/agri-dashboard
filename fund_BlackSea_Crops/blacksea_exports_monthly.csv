@@ -447,9 +447,9 @@ period,frequency,marketing_year,month_index_jul_jun,month_label,country_iso,coun
 2026-10,Monthly,2026/27,4,Oct,RU,Russia,Barley,SovEcon,200.0,0.2,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
 2026-10,Monthly,2026/27,4,Oct,RU,Russia,Corn,SovEcon,100.0,0.1,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
 2026-10,Monthly,2026/27,4,Oct,RU,Russia,Total Grains,SovEcon,2800.0,2.8,All Russian Ports & Crossings,SovEcon Oct Est.,urn:newsml:reuters.com:20261012:nL8N45Y0GF:1
-2026-09,Monthly,2026/27,3,Sep,RU,Russia,Wheat,IKAR,2500.0,2.5,"All Russian Ports (1,400 kmt Baltic)",Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
-2026-10,Monthly,2026/27,4,Oct,RU,Russia,Wheat,IKAR,3000.0,3.0,"All Russian Ports (1,800 kmt Baltic)",Oct Outlook,urn:newsml:reuters.com:20261008:nL8N45T17D:3
-2026-09,Monthly,2026/27,3,Sep,RU,Russia,Wheat,Rusagrotrans,2700.0,2.7,All Russian Ports (60% Baltic + 20% Central Asia),Actual/Reported,urn:newsml:newsroom:20261007:nNRA28i13c:0
+2026-09,MonthlyCompare,2026/27,3,Sep,RU,Russia,Wheat,IKAR,2500.0,2.5,"All Russian Ports (1,400 kmt Baltic)",Actual/Reported,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-10,MonthlyCompare,2026/27,4,Oct,RU,Russia,Wheat,IKAR,3000.0,3.0,"All Russian Ports (1,800 kmt Baltic)",Oct Outlook,urn:newsml:reuters.com:20261008:nL8N45T17D:3
+2026-09,MonthlyCompare,2026/27,3,Sep,RU,Russia,Wheat,Rusagrotrans,2700.0,2.7,All Russian Ports (60% Baltic + 20% Central Asia),Actual/Reported,urn:newsml:newsroom:20261007:nNRA28i13c:0
 2026-Q1 (Jul-Sep),Quarterly,2026/27,3,Jul-Sep,RU,Russia,Wheat,Rusagrotrans,7000.0,7.0,"All Routes (Egypt 1.2M, AZ 0.5M, KZ 0.5M, NG 0.45M)",Actual/Reported,urn:newsml:newsroom:20261007:nNRA28i13c:0
 2025-Q1 (Jul-Sep),Quarterly,2025/26,3,Jul-Sep,RU,Russia,Wheat,Rusagrotrans,11300.0,11.3,All Routes,Actual,urn:newsml:newsroom:20261007:nNRA28i13c:0
 2026-Q1 (Jul-Sep),Quarterly,2026/27,3,Jul-Sep,RU,Russia,Barley,Rusagrotrans,1300.0,1.3,"All Routes (vs 2,400 kmt in Jul-Sep 2025)",Actual/Reported,urn:newsml:newsroom:20261001:nNRA25w7bz:0

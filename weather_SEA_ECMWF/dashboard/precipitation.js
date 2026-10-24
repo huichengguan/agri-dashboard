@@ -191,7 +191,8 @@ async function initDashboard() {
         document.getElementById("table-container").innerHTML = `
             <div style="padding: 40px; text-align: center; color: #ef4444;">
                 <h3>Failed to load precipitation data</h3>
-                <p>Please ensure data_cache.json is available.</p>
+                <p><strong>Error details:</strong> ${e.name}: ${e.message}</p>
+                <pre style="text-align: left; max-width: 800px; margin: 15px auto; background: #fee2e2; padding: 12px; border-radius: 6px; font-size: 11px; overflow-x: auto;">${e.stack || e}</pre>
             </div>
         `;
     }
@@ -276,11 +277,15 @@ function setMode(mode) {
     });
     
     document.getElementById("year-select-container").style.display = (mode === "monthly") ? "flex" : "none";
-    document.getElementById("region-filter-container").style.display = (mode === "state_matrix") ? "none" : "inline-flex";
+    document.getElementById("region-filter-container").style.display = (mode === "state_matrix" || mode === "model_trends") ? "none" : "inline-flex";
     document.getElementById("state-select-container").style.display = "none";
     document.getElementById("matrix-filter-bar").style.display = (mode === "state_matrix") ? "flex" : "none";
     const fcstToggle = document.getElementById("forecast-metric-toggle");
     if (fcstToggle) fcstToggle.style.display = (mode === "forecast_6mo" || mode === "state_matrix") ? "inline-flex" : "none";
+
+    // Hide color legend when in model_trends view since model trends uses its own distinct line chart
+    const legendSec = document.querySelector(".legend-card");
+    if (legendSec) legendSec.style.display = (mode === "model_trends") ? "none" : "block";
     
     if (mode === "state_matrix") {
         renderStatePills();
@@ -352,6 +357,8 @@ function renderTable() {
         renderWeeklyTable(locations);
     } else if (currentMode === "state_matrix") {
         renderStateYearByMonthMatrix(selectedStateId);
+    } else if (currentMode === "model_trends") {
+        renderModelRunTrendsView(locations);
     }
 }
 
@@ -2342,4 +2349,943 @@ if (document.readyState === "loading") {
     window.addEventListener("DOMContentLoaded", initDashboard);
 } else {
     initDashboard();
+}
+
+
+// =============================================================
+// Helper for rounding
+function round(val, dec = 1) {
+    if (val === null || val === undefined || isNaN(val)) return 0.0;
+    const factor = Math.pow(10, dec);
+    return Math.round(val * factor) / factor;
+}
+
+// 6. MODEL RUN DRIFT & TREND ANALYSIS (UNIFIED 2-TIER SLICER & STANDARDIZED COMPACT TABLES)
+// =========================================================================================
+let currentTrendWindow = 'all'; // 'all', 'past_d6_10', 'past_d1_5', 'd1_5', 'd6_10', 'd11_15'
+let currentTrendMetric = 'absolute'; // 'absolute' or 'delta'
+let selectedTrendTargets = ['ALL']; // e.g. ['ALL'], ['GRP_Sumatera'], ['MY-01'], ['GRP_Sumatera', 'GRP_Kalimantan']
+let activeTrendMacroRegion = 'Peninsular Malaysia'; // Controls which states appear in Row 2 of Slicer
+
+const WINDOW_META = {
+    'past_d6_10': { key: 'past_d6_10', label: 'Past Days 6–10', dates: 'Oct 14–18', color: '#0d9488', bg: 'rgba(13, 148, 136, 0.1)', isPast: true, actualDate: '2026-10-15' },
+    'past_d1_5':  { key: 'past_d1_5',  label: 'Past Days 1–5',  dates: 'Oct 19–23', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.1)', isPast: true, actualDate: '2026-10-20' },
+    'd1_5':       { key: 'd1_5',       label: 'Days 1–5',       dates: 'Oct 24–28', color: '#2563eb', bg: 'rgba(37, 99, 235, 0.1)', isPast: false, actualDate: null },
+    'd6_10':      { key: 'd6_10',      label: 'Days 6–10',      dates: 'Oct 29–Nov 02', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)', isPast: false, actualDate: null },
+    'd11_15':     { key: 'd11_15',     label: 'Days 11–15',     dates: 'Nov 03–07', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)', isPast: false, actualDate: null }
+};
+
+const MACRO_REGION_ORDER = [
+    "Peninsular Malaysia",
+    "Sabah & Sarawak",
+    "Sumatera",
+    "Kalimantan",
+    "Sulawesi",
+    "Papua",
+    "South Thailand",
+    "Copra (Philippines)",
+    "Mindanao (Copra)"
+];
+
+function setTrendWindow(win) {
+    currentTrendWindow = win;
+    renderModelRunTrendsView(getFilteredLocations());
+}
+
+function setTrendMetric(metric) {
+    currentTrendMetric = metric;
+    renderModelRunTrendsView(getFilteredLocations());
+}
+
+function handleTrendMacroClick(event, macroName) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    const isMulti = event && (event.ctrlKey || event.metaKey || event.shiftKey);
+
+    if (macroName === 'ALL') {
+        selectedTrendTargets = ['ALL'];
+    } else {
+        activeTrendMacroRegion = macroName;
+        const targetId = `GRP_${macroName}`;
+        if (isMulti) {
+            selectedTrendTargets = selectedTrendTargets.filter(t => t !== 'ALL');
+            if (selectedTrendTargets.includes(targetId)) {
+                if (selectedTrendTargets.length > 1) {
+                    selectedTrendTargets = selectedTrendTargets.filter(t => t !== targetId);
+                }
+            } else {
+                selectedTrendTargets.push(targetId);
+            }
+        } else {
+            selectedTrendTargets = [targetId];
+        }
+    }
+    renderModelRunTrendsView(getFilteredLocations());
+}
+
+function handleTrendStateClick(event, stateId, macroName) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    const isMulti = event && (event.ctrlKey || event.metaKey || event.shiftKey);
+    if (macroName) activeTrendMacroRegion = macroName;
+
+    if (isMulti) {
+        selectedTrendTargets = selectedTrendTargets.filter(t => t !== 'ALL' && t !== `GRP_${macroName}`);
+        if (selectedTrendTargets.includes(stateId)) {
+            if (selectedTrendTargets.length > 1) {
+                selectedTrendTargets = selectedTrendTargets.filter(t => t !== stateId);
+            }
+        } else {
+            selectedTrendTargets.push(stateId);
+        }
+    } else {
+        selectedTrendTargets = [stateId];
+    }
+    renderModelRunTrendsView(getFilteredLocations());
+}
+
+function renderModelRunTrendsView(locations) {
+    const container = document.getElementById("table-container");
+    if (!container) return;
+
+    if (!currentData || !currentData.model_run_trends) {
+        container.innerHTML = `
+            <div style="padding: 30px; text-align: center; color: var(--text-secondary);">
+                <h3>No Model Run Trend Data Available</h3>
+                <p>Please ensure data_cache.json is available.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const trends = currentData.model_run_trends;
+    const meta = trends.metadata || {};
+    const targetWindows = meta.target_windows || {};
+    const allLocations = currentData.locations || [];
+
+    // Master sorted list of all unique run dates (Oct 05 to Oct 23)
+    const allUniqueRuns = [];
+    Object.values(targetWindows).forEach(w => {
+        (w.runs || []).forEach(r => {
+            if (!allUniqueRuns.includes(r)) allUniqueRuns.push(r);
+        });
+    });
+    allUniqueRuns.sort();
+
+    // Sort macro regions strictly: Malaysia -> Indonesia -> Thailand -> Philippines
+    const sortedGroups = [...(trends.groups || [])].sort((a, b) => {
+        const idxA = MACRO_REGION_ORDER.indexOf(a);
+        const idxB = MACRO_REGION_ORDER.indexOf(b);
+        return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+    });
+
+    // Helper: compute all regions average across Southeast Asia
+    function getAllRegionsData() {
+        const result = { name: "All Regions (Southeast Asia Average)" };
+        const windowKeys = ['past_d6_10', 'past_d1_5', 'd1_5', 'd6_10', 'd11_15'];
+
+        windowKeys.forEach(wKey => {
+            const wConf = targetWindows[wKey];
+            if (!wConf) return;
+            const wRuns = wConf.runs || [];
+
+            let bSum = 0;
+            sortedGroups.forEach(g => {
+                const gd = trends.group_data[g];
+                if (gd && gd[wKey]) bSum += gd[wKey].baseline_mm || 0;
+            });
+            const avgBase = sortedGroups.length > 0 ? round(bSum / sortedGroups.length, 1) : 45.0;
+
+            const runPoints = [];
+            let prevRain = null;
+
+            wRuns.forEach((rDate, rIdx) => {
+                const isAct = (rDate === wConf.actual_date);
+                const vals = sortedGroups
+                    .map(g => trends.group_data[g] && trends.group_data[g][wKey] && trends.group_data[g][wKey].runs ? trends.group_data[g][wKey].runs[rIdx] : null)
+                    .filter(r => r && r.is_available && r.rainfall_mm !== null)
+                    .map(r => r.rainfall_mm);
+
+                const hasData = vals.length >= sortedGroups.length * 0.7;
+                const avgRain = hasData ? round(vals.reduce((a, b) => a + b, 0) / vals.length, 1) : null;
+                const delta = avgRain !== null && prevRain !== null ? round(avgRain - prevRain, 1) : 0.0;
+
+                runPoints.push({
+                    run_date: rDate,
+                    rainfall_mm: avgRain,
+                    delta_prev_mm: delta,
+                    pct_normal: null,
+                    is_available: hasData,
+                    is_estimated: false,
+                    is_actual: isAct
+                });
+                if (avgRain !== null) prevRain = avgRain;
+            });
+
+            result[wKey] = {
+                baseline_mm: avgBase,
+                runs: runPoints
+            };
+        });
+
+        return result;
+    }
+
+    // Resolve target data based on selectedTrendTargets (handles single and multi-selection combination)
+    let activeEntityName = "";
+    let entityData = {};
+
+    if (selectedTrendTargets.length === 0 || selectedTrendTargets.includes('ALL')) {
+        const allObj = getAllRegionsData();
+        activeEntityName = allObj.name;
+        entityData = allObj;
+    } else if (selectedTrendTargets.length === 1) {
+        const tId = selectedTrendTargets[0];
+        if (tId.startsWith('GRP_')) {
+            const grpName = tId.replace('GRP_', '');
+            activeEntityName = `${grpName} (Belt Average)`;
+            entityData = trends.group_data[grpName] || {};
+            activeTrendMacroRegion = grpName;
+        } else {
+            const locObj = allLocations.find(l => l.id === tId);
+            const td = trends.territory_data[tId] || {};
+            activeEntityName = locObj ? `${locObj.name} • ${locObj.major_group}` : (td.name || tId);
+            entityData = td;
+            if (locObj) activeTrendMacroRegion = locObj.major_group;
+        }
+    } else {
+        const targetObjects = [];
+        const targetNames = [];
+
+        selectedTrendTargets.forEach(tId => {
+            if (tId.startsWith('GRP_')) {
+                const grpName = tId.replace('GRP_', '');
+                if (trends.group_data[grpName]) {
+                    targetObjects.push(trends.group_data[grpName]);
+                    targetNames.push(grpName);
+                }
+            } else {
+                const locObj = allLocations.find(l => l.id === tId);
+                if (trends.territory_data[tId]) {
+                    targetObjects.push(trends.territory_data[tId]);
+                    targetNames.push(locObj ? locObj.name : tId);
+                }
+            }
+        });
+
+        if (targetNames.length <= 3) {
+            activeEntityName = `${targetNames.join(' + ')} (Combined)`;
+        } else {
+            activeEntityName = `${targetNames.length} Selected Regions (${targetNames.slice(0, 2).join(', ')} + ${targetNames.length - 2} more)`;
+        }
+
+        const windowKeys = ['past_d6_10', 'past_d1_5', 'd1_5', 'd6_10', 'd11_15'];
+        entityData = { name: activeEntityName };
+
+        windowKeys.forEach(wKey => {
+            const wConf = targetWindows[wKey];
+            if (!wConf) return;
+            const wRuns = wConf.runs || [];
+
+            let bSum = 0;
+            targetObjects.forEach(obj => {
+                if (obj[wKey]) bSum += obj[wKey].baseline_mm || 0;
+            });
+            const avgBase = targetObjects.length > 0 ? round(bSum / targetObjects.length, 1) : 45.0;
+
+            const runPoints = [];
+            let prevRain = null;
+
+            wRuns.forEach((rDate, rIdx) => {
+                const isAct = (rDate === wConf.actual_date);
+                const vals = targetObjects
+                    .map(obj => obj[wKey] && obj[wKey].runs ? obj[wKey].runs[rIdx] : null)
+                    .filter(r => r && r.is_available && r.rainfall_mm !== null)
+                    .map(r => r.rainfall_mm);
+
+                const hasData = vals.length > 0;
+                const avgRain = hasData ? round(vals.reduce((a, b) => a + b, 0) / vals.length, 1) : null;
+                const delta = avgRain !== null && prevRain !== null ? round(avgRain - prevRain, 1) : 0.0;
+
+                runPoints.push({
+                    run_date: rDate,
+                    rainfall_mm: avgRain,
+                    delta_prev_mm: delta,
+                    pct_normal: null,
+                    is_available: hasData,
+                    is_estimated: false,
+                    is_actual: isAct
+                });
+                if (avgRain !== null) prevRain = avgRain;
+            });
+
+            entityData[wKey] = {
+                baseline_mm: avgBase,
+                runs: runPoints
+            };
+        });
+    }
+
+    // =========================================================================
+    // Build Unified Slicer: Row 1 = Macro Regions, Row 2 = States below
+    // =========================================================================
+    let macroPillsHtml = '';
+    const isAllActive = selectedTrendTargets.includes('ALL');
+
+    macroPillsHtml += `<button class="segmented-btn ${isAllActive ? 'active' : ''}" onclick="handleTrendMacroClick(event, 'ALL')" style="font-size: 11px; padding: 3px 8px; font-weight: ${isAllActive ? '700' : '500'};">🌏 All Regions</button>`;
+
+    sortedGroups.forEach(g => {
+        const isSelected = selectedTrendTargets.includes(`GRP_${g}`);
+        const isCurrentMacro = (activeTrendMacroRegion === g);
+        let flag = "";
+        if (g.includes("Malaysia")) flag = "🇲🇾 ";
+        else if (g.includes("Thailand")) flag = "🇹🇭 ";
+        else if (g.includes("Philippines") || g.includes("Copra")) flag = "🇵🇭 ";
+        else flag = "🇮🇩 ";
+
+        macroPillsHtml += `
+            <button class="segmented-btn ${isSelected ? 'active' : (isCurrentMacro ? 'selected-group' : '')}" onclick="handleTrendMacroClick(event, '${g}')" style="font-size: 11px; padding: 3px 8px; font-weight: ${isSelected ? '700' : '500'}; ${isSelected ? 'box-shadow: 0 0 0 2px #0284c7;' : ''}">
+                ${flag}${g} ${isSelected ? '✓' : ''}
+            </button>
+        `;
+    });
+
+    // Row 2: States belonging to activeTrendMacroRegion
+    const statesForActiveMacro = allLocations.filter(l => l.major_group === activeTrendMacroRegion);
+    let statesPillsHtml = '';
+
+    if (statesForActiveMacro.length > 0) {
+        const isMacroAvgActive = selectedTrendTargets.includes(`GRP_${activeTrendMacroRegion}`);
+        statesPillsHtml += `
+            <button class="segmented-btn ${isMacroAvgActive ? 'active' : ''}" onclick="handleTrendMacroClick(event, '${activeTrendMacroRegion}')" style="font-size: 10.5px; padding: 2px 7px; font-weight: 700;">
+                ★ All ${activeTrendMacroRegion}
+            </button>
+        `;
+
+        statesForActiveMacro.forEach(st => {
+            const isStSelected = selectedTrendTargets.includes(st.id);
+            statesPillsHtml += `
+                <button class="segmented-btn ${isStSelected ? 'active' : ''}" onclick="handleTrendStateClick(event, '${st.id}', '${activeTrendMacroRegion}')" style="font-size: 10.5px; padding: 2px 7px; font-weight: ${isStSelected ? '700' : '500'};">
+                    ${st.name} ${isStSelected ? '✓' : ''}
+                </button>
+            `;
+        });
+    }
+
+    // Baseline Normal Summary in header
+    let baselineSummaryHtml = '';
+    if (currentTrendWindow === 'all') {
+        const pb1 = entityData.past_d6_10 ? entityData.past_d6_10.baseline_mm.toFixed(1) : '-';
+        const pb2 = entityData.past_d1_5 ? entityData.past_d1_5.baseline_mm.toFixed(1) : '-';
+        const b1 = entityData.d1_5 ? entityData.d1_5.baseline_mm.toFixed(1) : '-';
+        const b2 = entityData.d6_10 ? entityData.d6_10.baseline_mm.toFixed(1) : '-';
+        const b3 = entityData.d11_15 ? entityData.d11_15.baseline_mm.toFixed(1) : '-';
+        baselineSummaryHtml = `
+            2010–2025 Normal: 
+            <span style="color: #0d9488; font-weight: 700;">Past D6–10: ${pb1}mm</span> &nbsp;|&nbsp; 
+            <span style="color: #0284c7; font-weight: 700;">Past D1–5: ${pb2}mm</span> &nbsp;|&nbsp; 
+            <span style="color: #2563eb; font-weight: 700;">D1–5: ${b1}mm</span> &nbsp;|&nbsp; 
+            <span style="color: #8b5cf6; font-weight: 700;">D6–10: ${b2}mm</span> &nbsp;|&nbsp; 
+            <span style="color: #f59e0b; font-weight: 700;">D11–15: ${b3}mm</span>
+        `;
+    } else {
+        const wInfo = WINDOW_META[currentTrendWindow];
+        const wData = entityData[currentTrendWindow];
+        const bVal = wData && wData.baseline_mm !== undefined ? wData.baseline_mm.toFixed(1) : '-';
+        baselineSummaryHtml = `
+            2010–2025 Normal (${wInfo.dates}): 
+            <span style="color: ${wInfo.color}; font-weight: 700;">${bVal} mm</span>
+        `;
+    }
+
+    let chartSubTitle = "";
+    if (currentTrendWindow === 'all') {
+        chartSubTitle = `Complete 5-Window Suite Evolution (${formatShortDate(allUniqueRuns[0])} to ${formatShortDate(allUniqueRuns[allUniqueRuns.length - 1])})`;
+    } else {
+        const wInfo = WINDOW_META[currentTrendWindow];
+        const actLabel = wInfo.actualDate ? ` + ${formatShortDate(wInfo.actualDate)} Actual` : '';
+        chartSubTitle = `${wInfo.label} (${wInfo.dates}) — Model Run Evolution${actLabel}`;
+    }
+
+    let html = `
+        <div class="model-trends-view-container" style="padding: 2px 0;">
+            <!-- Unified 2-Tier Slicer Toolbar (Macro Regions on Top, States Directly Below) -->
+            <div style="margin-bottom: 10px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 7px 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
+                <!-- Row 1: Macro Regions -->
+                <div style="display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 6px;">
+                    <span style="font-size: 11px; font-weight: 700; color: #1e293b; text-transform: uppercase; letter-spacing: 0.5px; width: 55px;">
+                        Region:
+                    </span>
+                    <div class="segmented-control" style="flex-wrap: wrap; gap: 2px;">
+                        ${macroPillsHtml}
+                    </div>
+                </div>
+
+                <!-- Row 2: States below active region -->
+                ${statesPillsHtml ? `
+                    <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding-top: 5px; margin-top: 5px; border-top: 1px dashed #e2e8f0;">
+                        <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; width: 55px;">
+                            States:
+                        </span>
+                        <div class="segmented-control" style="flex-wrap: wrap; gap: 2px;">
+                            ${statesPillsHtml}
+                        </div>
+                    </div>
+                ` : ''}
+
+                <!-- Row 3: Metric Mode & Target Window Selector -->
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f1f5f9;">
+                    <div class="segmented-control">
+                        <button class="segmented-btn ${currentTrendMetric === 'absolute' ? 'active' : ''}" onclick="setTrendMetric('absolute')" style="font-size: 11px; padding: 3px 8px;">🌧️ Absolute (mm)</button>
+                        <button class="segmented-btn ${currentTrendMetric === 'delta' ? 'active' : ''}" onclick="setTrendMetric('delta')" style="font-size: 11px; padding: 3px 8px;">⚡ &Delta; vs Prev Run</button>
+                    </div>
+
+                    <div class="segmented-control" style="flex-wrap: wrap; gap: 2px;">
+                        <button class="segmented-btn ${currentTrendWindow === 'all' ? 'active' : ''}" onclick="setTrendWindow('all')" style="font-size: 10.5px; padding: 3px 7px; font-weight: 700;">📊 All 5 Windows</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'past_d6_10' ? 'active' : ''}" onclick="setTrendWindow('past_d6_10')" style="font-size: 10.5px; padding: 3px 7px; color: #0d9488;">⏪ Past D6–10 (Oct 14–18)</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'past_d1_5' ? 'active' : ''}" onclick="setTrendWindow('past_d1_5')" style="font-size: 10.5px; padding: 3px 7px; color: #0284c7;">◀ Past D1–5 (Oct 19–23)</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'd1_5' ? 'active' : ''}" onclick="setTrendWindow('d1_5')" style="font-size: 10.5px; padding: 3px 7px; color: #2563eb;">▶ Days 1–5 (Oct 24–28)</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'd6_10' ? 'active' : ''}" onclick="setTrendWindow('d6_10')" style="font-size: 10.5px; padding: 3px 7px; color: #8b5cf6;">▶▶ Days 6–10 (Oct 29–Nov 02)</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'd11_15' ? 'active' : ''}" onclick="setTrendWindow('d11_15')" style="font-size: 10.5px; padding: 3px 7px; color: #d97706;">⏭ Days 11–15 (Nov 03–07)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progression Line Chart -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 14px; font-weight: 700; color: #1e293b;">
+                            ${activeEntityName} — ${chartSubTitle}
+                        </h3>
+                        <p style="margin: 1px 0 0; font-size: 11px; color: #64748b;">
+                            X-Axis: Model Run Dates • Y-Axis: ${currentTrendMetric === 'absolute' ? 'Forecast / Actual Rainfall (mm)' : 'Change vs Previous Run (mm)'}
+                        </p>
+                    </div>
+                    <div style="font-size: 10.5px; font-weight: 600; color: #64748b; background: #f8fafc; padding: 3px 8px; border-radius: 4px; border: 1px solid #e2e8f0;">
+                        ${baselineSummaryHtml}
+                    </div>
+                </div>
+
+                <div style="position: relative; height: 320px; width: 100%;">
+                    <canvas id="model-trend-progression-chart"></canvas>
+                </div>
+            </div>
+    `;
+
+    // -------------------------------------------------------------
+    // Render Ledger Table (Standardized 17% Data Columns, Compact)
+    // -------------------------------------------------------------
+    if (currentTrendWindow === 'all') {
+        html += `
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); margin-bottom: 12px; width: fit-content; max-width: 100%; overflow-x: auto;">
+                <div style="margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+                    <h4 style="margin: 0; font-size: 13px; font-weight: 700; color: #1e293b;">
+                        Run-to-Run Progression Ledger: ${activeEntityName}
+                    </h4>
+                    <span style="font-size: 10.5px; color: #64748b;">
+                        <span style="background: #0284c7; color: #fff; font-weight: 700; padding: 1px 4px; border-radius: 2px; font-size: 9px;">(Actual)</span> = verified actualized rainfall &nbsp;|&nbsp; <span style="color:#d97706">*</span> = estimate
+                    </span>
+                </div>
+
+                <table style="width: 760px; max-width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed;">
+                    <thead>
+                        <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #334155;">
+                            <th style="width: 140px; text-align: left; padding: 5px 6px;">Run Date</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0d9488;">Past D6–10 (14–18)</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0284c7; border-left: 1px solid #e2e8f0;">Past D1–5 (19–23)</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #2563eb; border-left: 1px solid #e2e8f0;">Days 1–5 (24–28)</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #8b5cf6; border-left: 1px solid #e2e8f0;">Days 6–10 (29–02)</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #d97706; border-left: 1px solid #e2e8f0;">Days 11–15 (03–07)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        function formatCell(wKey, rDate) {
+            const wObj = entityData[wKey];
+            if (!wObj || !wObj.runs) return `<span style="color: #cbd5e1;">-</span>`;
+            const item = wObj.runs.find(r => r.run_date === rDate);
+            if (!item || !item.is_available || item.rainfall_mm === null) {
+                return `<span style="color: #cbd5e1;">-</span>`;
+            }
+            const rVal = item.rainfall_mm.toFixed(1);
+            const estMark = item.is_estimated ? '<sup style="color:#d97706">*</sup>' : '';
+
+            if (item.is_actual) {
+                return `
+                    <strong style="color: #0369a1;">${rVal}</strong>
+                    <span style="background: #0284c7; color: #fff; font-weight: 700; padding: 1px 4px; border-radius: 2px; font-size: 8.5px; margin-left: 2px;">(Actual)</span>
+                `;
+            }
+
+            const d = item.delta_prev_mm;
+            let deltaHtml = '';
+            if (d > 0) {
+                deltaHtml = `<span style="background: #dcfce7; color: #15803d; font-weight: 700; padding: 1px 3px; border-radius: 2px; font-size: 9.5px; margin-left: 3px;">+${d.toFixed(1)}</span>`;
+            } else if (d < 0) {
+                deltaHtml = `<span style="background: #fee2e2; color: #b91c1c; font-weight: 700; padding: 1px 3px; border-radius: 2px; font-size: 9.5px; margin-left: 3px;">${d.toFixed(1)}</span>`;
+            } else {
+                deltaHtml = `<span style="color: #94a3b8; font-size: 9.5px; margin-left: 3px;">0.0</span>`;
+            }
+
+            return `<strong>${rVal}${estMark}</strong>${deltaHtml}`;
+        }
+
+        const reversedAllRuns = [...allUniqueRuns].reverse();
+        reversedAllRuns.forEach(rDate => {
+            const isLatest = rDate === meta.active_run_date;
+
+            html += `
+                <tr style="border-bottom: 1px solid #f1f5f9; ${isLatest ? 'background: #f0fdf4; font-weight: 700;' : ''}">
+                    <td style="text-align: left; padding: 4px 6px; color: #1e293b; font-size: 11px;">
+                        ${rDate} ${isLatest ? '<span style="font-size: 8.5px; background: #16a34a; color: #fff; padding: 1px 3px; border-radius: 2px; margin-left: 2px; font-weight: 700;">LATEST</span>' : ''}
+                    </td>
+                    <td style="text-align: right; padding: 4px 6px;">${formatCell('past_d6_10', rDate)}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${formatCell('past_d1_5', rDate)}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${formatCell('d1_5', rDate)}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${formatCell('d6_10', rDate)}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${formatCell('d11_15', rDate)}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } else {
+        const wInfo = WINDOW_META[currentTrendWindow];
+        const wData = entityData[currentTrendWindow] || { runs: [] };
+        const wRuns = targetWindows[currentTrendWindow] ? targetWindows[currentTrendWindow].runs : [];
+        const reversedWRuns = [...wRuns].reverse();
+
+        html += `
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); margin-bottom: 12px; width: fit-content; max-width: 100%; overflow-x: auto;">
+                <div style="margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+                    <h4 style="margin: 0; font-size: 13px; font-weight: 700; color: #1e293b;">
+                        Run-to-Run Progression Ledger: ${activeEntityName} — <span style="color: ${wInfo.color};">${wInfo.label} (${wInfo.dates})</span>
+                    </h4>
+                </div>
+
+                <table style="width: 520px; max-width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed;">
+                    <thead>
+                        <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #334155;">
+                            <th style="width: 140px; text-align: left; padding: 5px 8px;">Run Date</th>
+                            <th style="width: 120px; text-align: right; padding: 5px 8px; color: ${wInfo.color};">Rainfall Total</th>
+                            <th style="width: 110px; text-align: right; padding: 5px 8px;">&Delta; vs Previous</th>
+                            <th style="width: 150px; text-align: center; padding: 5px 8px;">Status / Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        reversedWRuns.forEach(rDate => {
+            const item = wData.runs ? wData.runs.find(r => r.run_date === rDate) : null;
+            const isActual = item && item.is_actual;
+            const isLatest = !isActual && rDate === wRuns[wRuns.length - (wInfo.actualDate ? 2 : 1)];
+
+            let rainStr = '<span style="color: #94a3b8;">-</span>';
+            let deltaStr = '<span style="color: #cbd5e1;">-</span>';
+            let statusPill = '<span style="color: #94a3b8;">-</span>';
+
+            if (item && item.is_available && item.rainfall_mm !== null) {
+                if (isActual) {
+                    rainStr = `<strong style="color: #0369a1; font-size: 11.5px;">${item.rainfall_mm.toFixed(1)} mm</strong> <span style="background: #0284c7; color: #fff; font-size: 8.5px; padding: 1px 4px; border-radius: 2px; font-weight: 700;">(Actual)</span>`;
+                    const d = item.delta_prev_mm;
+                    deltaStr = `<span style="background: ${d >= 0 ? '#dcfce7' : '#fee2e2'}; color: ${d >= 0 ? '#15803d' : '#b91c1c'}; font-weight: 700; padding: 1px 5px; border-radius: 3px; font-size: 10.5px;">${d >= 0 ? '+' : ''}${d.toFixed(1)} mm</span>`;
+                    statusPill = `<span style="background: #0284c7; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 700;">VERIFIED ACTUAL</span>`;
+                } else {
+                    rainStr = `<strong style="color: #0f172a; font-size: 11px;">${item.rainfall_mm.toFixed(1)} mm${item.is_estimated ? '<sup style="color:#d97706">*</sup>' : ''}</strong>`;
+                    const d = item.delta_prev_mm;
+                    if (d === 0.0) {
+                        deltaStr = `<span style="color: #64748b;">0.0 mm</span>`;
+                        statusPill = `<span style="background: #f1f5f9; color: #475569; padding: 1px 5px; border-radius: 3px; font-size: 10px; font-weight: 600;">Steady</span>`;
+                    } else if (d > 0) {
+                        deltaStr = `<span style="background: #dcfce7; color: #15803d; font-weight: 700; padding: 1px 5px; border-radius: 3px; font-size: 10.5px;">+${d.toFixed(1)} mm</span>`;
+                        statusPill = `<span style="background: #dcfce7; color: #15803d; padding: 1px 5px; border-radius: 3px; font-size: 10px; font-weight: 700;">Wetting (+${d.toFixed(1)})</span>`;
+                    } else {
+                        deltaStr = `<span style="background: #fee2e2; color: #b91c1c; font-weight: 700; padding: 1px 5px; border-radius: 3px; font-size: 10.5px;">${d.toFixed(1)} mm</span>`;
+                        statusPill = `<span style="background: #fee2e2; color: #b91c1c; padding: 1px 5px; border-radius: 3px; font-size: 10px; font-weight: 700;">Drying (${d.toFixed(1)})</span>`;
+                    }
+                }
+            }
+
+            const rowBg = isActual ? 'background: #f0f9ff; font-weight: 700; border-bottom: 2px solid #bae6fd;' : (isLatest ? 'background: #f0fdf4; font-weight: 700; border-bottom: 1px solid #f1f5f9;' : 'border-bottom: 1px solid #f1f5f9;');
+
+            html += `
+                <tr style="${rowBg}">
+                    <td style="text-align: left; padding: 4px 8px; color: #1e293b; font-size: 11px;">
+                        ${rDate} ${isActual ? '<strong style="color: #0284c7;">(Actual)</strong>' : ''}
+                        ${isLatest ? '<span style="font-size: 8.5px; background: #16a34a; color: #fff; padding: 1px 3px; border-radius: 2px; margin-left: 3px; font-weight: 700;">LATEST</span>' : ''}
+                    </td>
+                    <td style="text-align: right; padding: 4px 8px;">${rainStr}</td>
+                    <td style="text-align: right; padding: 4px 8px;">${deltaStr}</td>
+                    <td style="text-align: center; padding: 4px 8px;">${statusPill}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    // -------------------------------------------------------------
+    // Render Cross-Regional Benchmark Table (Compact Left Aligned)
+    // -------------------------------------------------------------
+    html += `
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); width: fit-content; max-width: 100%; overflow-x: auto;">
+            <div style="margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+                <h4 style="margin: 0; font-size: 13px; font-weight: 700; color: #1e293b;">
+                    Cross-Regional Benchmark (${currentTrendWindow === 'all' ? 'Complete 5-Window Suite' : WINDOW_META[currentTrendWindow].label + ' ' + WINDOW_META[currentTrendWindow].dates})
+                </h4>
+            </div>
+
+            <table style="width: ${currentTrendWindow === 'all' ? '760px' : '520px'}; max-width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed;">
+    `;
+
+    if (currentTrendWindow === 'all') {
+        html += `
+            <thead>
+                <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #334155;">
+                    <th style="width: 140px; text-align: left; padding: 5px 6px;">Macro Region</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0d9488;">Past D6–10 (Actual)</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0284c7; border-left: 1px solid #e2e8f0;">Past D1–5 (Actual)</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #2563eb; border-left: 1px solid #e2e8f0;">Days 1–5 (24–28)</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #8b5cf6; border-left: 1px solid #e2e8f0;">Days 6–10 (29–02)</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #d97706; border-left: 1px solid #e2e8f0;">Days 11–15 (03–07)</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+
+        sortedGroups.forEach(gName => {
+            const gd = trends.group_data[gName];
+            if (!gd) return;
+
+            function lastVal(wKey) {
+                const w = gd[wKey];
+                if (!w || !w.runs || w.runs.length === 0) return '-';
+                const last = w.runs[w.runs.length - 1];
+                if (!last || last.rainfall_mm === null) return '-';
+                
+                if (last.is_actual) {
+                    return `<strong>${last.rainfall_mm.toFixed(1)}</strong> <span style="background:#0284c7;color:#fff;font-size:8.5px;padding:1px 3px;border-radius:2px;font-weight:700;">(Actual)</span>`;
+                }
+
+                const d = last.delta_prev_mm;
+                const dPill = d > 0 ? `<span style="background:#dcfce7;color:#15803d;padding:1px 3px;border-radius:2px;font-size:9.5px;margin-left:2px;">+${d.toFixed(1)}</span>`
+                            : (d < 0 ? `<span style="background:#fee2e2;color:#b91c1c;padding:1px 3px;border-radius:2px;font-size:9.5px;margin-left:2px;">${d.toFixed(1)}</span>` : '');
+                return `<strong>${last.rainfall_mm.toFixed(1)}</strong>${dPill}`;
+            }
+
+            const isCurrentActive = selectedTrendTargets.includes(`GRP_${gName}`);
+
+            let countryPrefix = "";
+            if (gName === "Peninsular Malaysia" || gName === "Sabah & Sarawak") countryPrefix = "🇲🇾 ";
+            else if (gName === "South Thailand") countryPrefix = "🇹🇭 ";
+            else if (gName === "Mindanao (Copra)") countryPrefix = "🇵🇭 ";
+            else countryPrefix = "🇮🇩 ";
+
+            html += `
+                <tr onclick="handleTrendMacroClick(event, '${gName}')" style="cursor: pointer; border-bottom: 1px solid #f1f5f9; ${isCurrentActive ? 'background: #eff6ff; font-weight: 700;' : ''}" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='${isCurrentActive ? '#eff6ff' : 'transparent'}'">
+                    <td style="text-align: left; padding: 4px 6px; color: ${isCurrentActive ? '#0284c7' : '#1e293b'}; font-weight: 700; font-size: 11px;">
+                        ${countryPrefix}${gName} ${isCurrentActive ? '✓' : ''}
+                    </td>
+                    <td style="text-align: right; padding: 4px 6px;">${lastVal('past_d6_10')}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${lastVal('past_d1_5')}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${lastVal('d1_5')}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${lastVal('d6_10')}</td>
+                    <td style="text-align: right; padding: 4px 6px; border-left: 1px solid #e2e8f0;">${lastVal('d11_15')}</td>
+                </tr>
+            `;
+        });
+    } else {
+        const wInfo = WINDOW_META[currentTrendWindow];
+        html += `
+            <thead>
+                <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #334155;">
+                    <th style="width: 160px; text-align: left; padding: 5px 8px;">Macro Region</th>
+                    <th style="width: 120px; text-align: right; padding: 5px 8px; color: ${wInfo.color};">${wInfo.actualDate ? 'Actual Rainfall' : 'Forecast Rainfall'}</th>
+                    <th style="width: 110px; text-align: right; padding: 5px 8px;">&Delta; vs Prev Run</th>
+                    <th style="width: 130px; text-align: right; padding: 5px 8px;">2010–2025 Normal</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+
+        sortedGroups.forEach(gName => {
+            const gd = trends.group_data[gName];
+            if (!gd || !gd[currentTrendWindow]) return;
+            const gRuns = gd[currentTrendWindow].runs || [];
+            const lastRun = gRuns.length > 0 ? gRuns[gRuns.length - 1] : null;
+            const bVal = gd[currentTrendWindow].baseline_mm || 0;
+            const isCurrentActive = selectedTrendTargets.includes(`GRP_${gName}`);
+
+            function pill(d) {
+                if (d === 0.0) return `<span style="color: #64748b;">0.0</span>`;
+                if (d > 0) return `<span style="background: #dcfce7; color: #15803d; font-weight: 700; padding: 1px 4px; border-radius: 2px; font-size: 9.5px;">+${d.toFixed(1)}</span>`;
+                return `<span style="background: #fee2e2; color: #b91c1c; font-weight: 700; padding: 1px 4px; border-radius: 2px; font-size: 9.5px;">${d.toFixed(1)}</span>`;
+            }
+
+            let countryPrefix = "";
+            if (gName === "Peninsular Malaysia" || gName === "Sabah & Sarawak") countryPrefix = "🇲🇾 ";
+            else if (gName === "South Thailand") countryPrefix = "🇹🇭 ";
+            else if (gName === "Mindanao (Copra)") countryPrefix = "🇵🇭 ";
+            else countryPrefix = "🇮🇩 ";
+
+            let cellValHtml = '-';
+            if (lastRun && lastRun.rainfall_mm !== null) {
+                if (lastRun.is_actual) {
+                    cellValHtml = `<strong style="color: #0369a1;">${lastRun.rainfall_mm.toFixed(1)} mm</strong> <span style="background:#0284c7;color:#fff;font-size:8.5px;padding:1px 3px;border-radius:2px;font-weight:700;">(Actual)</span>`;
+                } else {
+                    cellValHtml = `<strong>${lastRun.rainfall_mm.toFixed(1)} mm</strong>`;
+                }
+            }
+
+            html += `
+                <tr onclick="handleTrendMacroClick(event, '${gName}')" style="cursor: pointer; border-bottom: 1px solid #f1f5f9; ${isCurrentActive ? 'background: #eff6ff; font-weight: 700;' : ''}" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='${isCurrentActive ? '#eff6ff' : 'transparent'}'">
+                    <td style="text-align: left; padding: 4px 8px; color: ${isCurrentActive ? '#0284c7' : '#1e293b'}; font-weight: 700; font-size: 11px;">
+                        ${countryPrefix}${gName} ${isCurrentActive ? '✓' : ''}
+                    </td>
+                    <td style="text-align: right; padding: 4px 8px;">${cellValHtml}</td>
+                    <td style="text-align: right; padding: 4px 8px;">${lastRun ? pill(lastRun.delta_prev_mm) : '-'}</td>
+                    <td style="text-align: right; padding: 4px 8px; color: #64748b;">${bVal.toFixed(1)} mm</td>
+                </tr>
+            `;
+        });
+    }
+
+    html += `
+                </tbody>
+            </table>
+        </div>
+    </div>
+    `;
+
+    container.innerHTML = html;
+
+    setTimeout(() => {
+        drawModelTrendProgressionLineChart(entityData, targetWindows, allUniqueRuns);
+    }, 50);
+}
+
+function drawModelTrendProgressionLineChart(entityData, targetWindows, allUniqueRuns) {
+    const canvas = document.getElementById("model-trend-progression-chart");
+    if (!canvas) return;
+
+    if (window.trendChartInstance) {
+        window.trendChartInstance.destroy();
+    }
+
+    let activeRuns = [];
+    let datasets = [];
+
+    function getAlignedSeries(wKey, runsList) {
+        const wObj = entityData[wKey];
+        if (!wObj || !wObj.runs) return runsList.map(() => null);
+        return runsList.map(rDate => {
+            const item = wObj.runs.find(r => r.run_date === rDate);
+            if (!item || !item.is_available || item.rainfall_mm === null) return null;
+            return currentTrendMetric === 'delta' ? item.delta_prev_mm : item.rainfall_mm;
+        });
+    }
+
+    if (currentTrendWindow === 'all') {
+        activeRuns = allUniqueRuns;
+
+        const windowOrder = ['past_d6_10', 'past_d1_5', 'd1_5', 'd6_10', 'd11_15'];
+        windowOrder.forEach(wKey => {
+            const wInfo = WINDOW_META[wKey];
+            const wObj = entityData[wKey];
+            if (!wObj) return;
+
+            const alignedData = getAlignedSeries(wKey, activeRuns);
+
+            const pRadii = activeRuns.map(rDate => {
+                if (rDate === wInfo.actualDate) return 7.5;
+                const item = wObj.runs ? wObj.runs.find(r => r.run_date === rDate) : null;
+                return (item && item.rainfall_mm !== null) ? 4.5 : 0;
+            });
+
+            const pStyles = activeRuns.map(rDate => {
+                return (rDate === wInfo.actualDate) ? 'rectRot' : 'circle';
+            });
+
+            const pColors = activeRuns.map(rDate => {
+                return (rDate === wInfo.actualDate) ? '#0284c7' : wInfo.color;
+            });
+
+            datasets.push({
+                label: `${wInfo.label} (${wInfo.dates})`,
+                data: alignedData,
+                borderColor: wInfo.color,
+                backgroundColor: wInfo.bg,
+                borderWidth: 2.2,
+                pointRadius: pRadii,
+                pointHoverRadius: 7.5,
+                pointStyle: pStyles,
+                pointBackgroundColor: pColors,
+                tension: 0.25,
+                spanGaps: false
+            });
+
+            if (currentTrendMetric === 'absolute' && wObj.baseline_mm) {
+                const wRuns = targetWindows[wKey] ? targetWindows[wKey].runs : [];
+                const baseData = activeRuns.map(rDate => wRuns.includes(rDate) ? wObj.baseline_mm : null);
+                datasets.push({
+                    label: `${wInfo.label} Normal (${wObj.baseline_mm.toFixed(1)}mm)`,
+                    data: baseData,
+                    borderColor: wInfo.color,
+                    borderWidth: 1.5,
+                    borderDash: [4, 4],
+                    pointRadius: 0,
+                    fill: false,
+                    spanGaps: false
+                });
+            }
+        });
+    } else {
+        const wInfo = WINDOW_META[currentTrendWindow];
+        const wConf = targetWindows[currentTrendWindow];
+        activeRuns = wConf ? wConf.runs : [];
+
+        const targetData = entityData[currentTrendWindow];
+        if (targetData && targetData.runs) {
+            const alignedData = getAlignedSeries(currentTrendWindow, activeRuns);
+
+            const pRadii = activeRuns.map(rDate => {
+                if (rDate === wInfo.actualDate) return 8.5;
+                return 5;
+            });
+
+            const pStyles = activeRuns.map(rDate => {
+                return (rDate === wInfo.actualDate) ? 'rectRot' : 'circle';
+            });
+
+            const pColors = activeRuns.map(rDate => {
+                return (rDate === wInfo.actualDate) ? '#0284c7' : wInfo.color;
+            });
+
+            datasets.push({
+                label: `${wInfo.label} (${wInfo.dates})`,
+                data: alignedData,
+                borderColor: wInfo.color,
+                backgroundColor: wInfo.bg,
+                borderWidth: 2.2,
+                pointRadius: pRadii,
+                pointHoverRadius: 8.5,
+                pointStyle: pStyles,
+                pointBackgroundColor: pColors,
+                tension: 0.25,
+                spanGaps: true
+            });
+
+            if (currentTrendMetric === 'absolute' && targetData.baseline_mm) {
+                datasets.push({
+                    label: `${wInfo.label} Normal (${targetData.baseline_mm.toFixed(1)} mm)`,
+                    data: activeRuns.map(() => targetData.baseline_mm),
+                    borderColor: '#94a3b8',
+                    borderWidth: 1.5,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false
+                });
+            }
+        }
+    }
+
+    if (currentTrendMetric === 'delta') {
+        datasets.push({
+            label: 'Zero Drift',
+            data: activeRuns.map(() => 0),
+            borderColor: '#64748b',
+            borderWidth: 1.5,
+            borderDash: [4, 4],
+            pointRadius: 0,
+            fill: false
+        });
+    }
+
+    const xLabels = activeRuns.map(r => {
+        if (r === '2026-10-15') return 'Oct 15 (Act)';
+        if (r === '2026-10-20') return 'Oct 20 (Act)';
+        return formatShortDate(r);
+    });
+
+    const ctx = canvas.getContext("2d");
+
+    window.trendChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xLabels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: { boxWidth: 12, font: { size: 10.5, weight: '600' } }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const val = context.raw;
+                            if (val === null || val === undefined) return null;
+                            const rDate = activeRuns[context.dataIndex];
+                            const dsLabel = context.dataset.label;
+
+                            let target = null;
+                            if (dsLabel.includes('Past Days 6–10')) target = entityData.past_d6_10;
+                            else if (dsLabel.includes('Past Days 1–5')) target = entityData.past_d1_5;
+                            else if (dsLabel.includes('Days 1–5') && !dsLabel.includes('11–15')) target = entityData.d1_5;
+                            else if (dsLabel.includes('Days 6–10')) target = entityData.d6_10;
+                            else if (dsLabel.includes('Days 11–15')) target = entityData.d11_15;
+
+                            const rData = target && target.runs ? target.runs.find(r => r.run_date === rDate) : null;
+                            const isActual = rData && rData.is_actual;
+
+                            if (isActual) {
+                                if (currentTrendMetric === 'delta') {
+                                    return `${dsLabel} [ACTUAL]: ${val > 0 ? '+' : ''}${val.toFixed(1)} mm vs Final Forecast`;
+                                } else {
+                                    return `${dsLabel} [VERIFIED ACTUAL]: ${val.toFixed(1)} mm`;
+                                }
+                            }
+
+                            if (currentTrendMetric === 'delta') {
+                                return `${dsLabel}: ${val > 0 ? '+' : ''}${val.toFixed(1)} mm vs previous run`;
+                            } else {
+                                const deltaStr = rData && rData.delta_prev_mm !== 0.0 ? ` (${rData.delta_prev_mm > 0 ? '+' : ''}${rData.delta_prev_mm.toFixed(1)} mm vs prev)` : '';
+                                return `${dsLabel}: ${val.toFixed(1)} mm${deltaStr}`;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Model Run Dates & Actualization (Chronological)', font: { size: 11, weight: '700' } },
+                    grid: { color: '#f1f5f9' },
+                    ticks: { font: { size: 10, weight: '600' } }
+                },
+                y: {
+                    title: { display: true, text: currentTrendMetric === 'absolute' ? 'Rainfall (mm)' : 'Delta vs Prev Run (mm)', font: { size: 11, weight: '700' } },
+                    grid: { color: '#f1f5f9' },
+                    ticks: { font: { size: 10.5, weight: '600' } }
+                }
+            }
+        }
+    });
 }
