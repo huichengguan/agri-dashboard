@@ -1,0 +1,2666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Interest | BMD FCPO & DCE DCP Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .matrix-cell {
+            font-variant-numeric: tabular-nums;
+            transition: all 0.12s ease;
+        }
+        .matrix-row:hover {
+            filter: brightness(0.96);
+            cursor: pointer;
+        }
+        .matrix-row.selected-row {
+            outline: 2px solid #2563eb;
+            outline-offset: -2px;
+            background-color: #eff6ff !important;
+        }
+        .tab-btn.active {
+            background-color: #0f172a;
+            color: #ffffff;
+        }
+        .nav-tab.active {
+            border-bottom: 3px solid #2563eb;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+        .fixed-heatmap-table {
+            table-layout: fixed;
+            width: max-content;
+            min-width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Navigation & Control Bar -->
+    <header class="bg-slate-900 text-white px-6 py-2.5 shadow-md relative z-10">
+        <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-lg font-bold text-emerald-300">
+                    🌴
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2.5">
+                        <h1 class="text-lg font-bold tracking-tight text-white">Open Interest</h1>
+                        <span class="px-2 py-0.5 text-[11px] font-semibold rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">17-Market Global Commodity Studio</span>
+                    </div>
+                    <p class="text-xs text-slate-400">BMD • DCE • CZCE • CBOT • NYMEX • ICE • Cleared Curve Structure, Flow &amp; Speculative Positioning</p>
+                </div>
+
+                <!-- Primary Market Switcher Tabs (All 17 Commodities Compact Multi-Row Slicer) -->
+                <div class="flex flex-col gap-1 bg-slate-800/95 p-1.5 rounded-xl border border-slate-700 shadow-inner">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-slate-700/80 mb-1">
+                        <button id="btnMarketMASTER" onclick="switchMarket('MASTER')" class="market-btn active px-3.5 py-1 rounded-lg text-xs font-black bg-blue-600 text-white shadow-sm flex items-center space-x-2 hover:bg-blue-500 transition-all cursor-pointer">
+                            <span class="text-sm">📊</span>
+                            <span class="tracking-wide">MASTER MARKET SUMMARY (EXCEL MATRIX)</span>
+                            <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-400/30 text-blue-100">19 MARKETS</span>
+                        </button>
+                        <span class="text-[10.5px] text-slate-400 font-medium hidden sm:inline">Select Master Summary above or individual commodity below</span>
+                    </div>
+                    <!-- Row 1: Veg Oils -->
+                    <div class="flex items-center space-x-1.5">
+                        <span class="text-[9.5px] uppercase font-extrabold text-amber-400/90 w-14 text-right shrink-0 tracking-wider">Oils:</span>
+                        <div class="flex flex-wrap items-center gap-1">
+                            <button id="btnMarketFCPO" onclick="switchMarket('FCPO')" class="market-btn active px-2 py-0.5 rounded text-[10.5px] font-bold transition shadow-sm bg-blue-600 text-white flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇲🇾</span><span>FCPO</span>
+                            </button>
+                            <button id="btnMarketDCP" onclick="switchMarket('DCP')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇨🇳</span><span>DCP Olein</span>
+                            </button>
+                            <button id="btnMarketDCE_SOYOIL" onclick="switchMarket('DCE_SOYOIL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇨🇳</span><span>DBY Soy Oil</span>
+                            </button>
+                            <button id="btnMarketCZCE_ROIL" onclick="switchMarket('CZCE_ROIL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇨🇳</span><span>COI Rape Oil</span>
+                            </button>
+                            <button id="btnMarketSOYOIL" onclick="switchMarket('SOYOIL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>CBOT Oil</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Grains & Meals -->
+                    <div class="flex items-center space-x-1.5">
+                        <span class="text-[9.5px] uppercase font-extrabold text-emerald-400/90 w-14 text-right shrink-0 tracking-wider">Grains:</span>
+                        <div class="flex flex-wrap items-center gap-1">
+                            <button id="btnMarketCORN" onclick="switchMarket('CORN')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>Corn</span>
+                            </button>
+                            <button id="btnMarketDCE_CORN" onclick="switchMarket('DCE_CORN')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇨🇳</span><span>DCC Corn</span>
+                            </button>
+                            <button id="btnMarketWHEAT" onclick="switchMarket('WHEAT')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>Wheat</span>
+                            </button>
+                            <button id="btnMarketMWE" onclick="switchMarket('MWE')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>MWE HRS</span>
+                            </button>
+                            <button id="btnMarketKW" onclick="switchMarket('KW')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>KW HRW</span>
+                            </button>
+                            <button id="btnMarketSOYBEANS" onclick="switchMarket('SOYBEANS')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>Soybeans</span>
+                            </button>
+                            <button id="btnMarketSOYMEAL" onclick="switchMarket('SOYMEAL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>CBOT Meal</span>
+                            </button>
+                            <button id="btnMarketDCE_SOYMEAL" onclick="switchMarket('DCE_SOYMEAL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇨🇳</span><span>DSM Meal</span>
+                            </button>
+                            <button id="btnMarketCZCE_RMEAL" onclick="switchMarket('CZCE_RMEAL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇨🇳</span><span>CRSM Meal</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Energies -->
+                    <div class="flex items-center space-x-1.5">
+                        <span class="text-[9.5px] uppercase font-extrabold text-sky-400/90 w-14 text-right shrink-0 tracking-wider">Energy:</span>
+                        <div class="flex flex-wrap items-center gap-1">
+                            <button id="btnMarketBRENT" onclick="switchMarket('BRENT')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇬🇧</span><span>Brent</span>
+                            </button>
+                            <button id="btnMarketWTI" onclick="switchMarket('WTI')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>WTI</span>
+                            </button>
+                            <button id="btnMarketRBOB" onclick="switchMarket('RBOB')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>RBOB</span>
+                            </button>
+                            <button id="btnMarketHEATING_OIL" onclick="switchMarket('HEATING_OIL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇺🇸</span><span>Heat Oil</span>
+                            </button>
+                            <button id="btnMarketGASOIL" onclick="switchMarket('GASOIL')" class="market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap">
+                                <span>🇬🇧</span><span>Gasoil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Session Date Selector -->
+            <div class="flex flex-wrap items-center gap-2 bg-slate-800/90 px-3 py-1.5 rounded-lg border border-slate-700">
+                <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider mr-1">Session Date:</span>
+                <button onclick="stepDate(-1)" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs font-semibold transition" title="Previous Trading Session">◀ Prev</button>
+                <select id="dateSelect" onchange="onSelectDate(this.value)" class="bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded border border-slate-600 focus:outline-none focus:border-blue-400"></select>
+                <button onclick="stepDate(1)" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs font-semibold transition" title="Next Trading Session">Next ▶</button>
+                <button onclick="selectLatestEOD()" id="btnLatestEOD" class="ml-1 px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-semibold transition">Latest Official EOD (Oct 19)</button>
+                <button onclick="selectLiveIntraday()" id="btnLiveIntraday" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 rounded text-xs font-semibold transition">⚡ Oct 20 Live Intraday</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sub-Navigation Tabs (Visible only when an individual commodity is selected) -->
+    <div id="singleMarketSubNav" class="bg-white border-b border-slate-200 px-6 relative z-10 shadow-xs hidden">
+        <div class="max-w-[1600px] mx-auto flex space-x-6 text-sm overflow-x-auto">
+            <button onclick="switchMainView('studio')" id="nav-studio" class="nav-tab active py-3 px-1 whitespace-nowrap text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center gap-1.5">
+                <span>1. Daily Attribution Studio (Panels A & B)</span>
+            </button>
+            <button onclick="switchMainView('dcp2')" id="nav-dcp2" class="nav-tab py-3 px-1 text-slate-600 hover:text-slate-900 font-semibold text-sm border-b-2 border-transparent">
+                2. Curve Heatmap
+            </button>
+            <button onclick="switchMainView('quadrant')" id="nav-quadrant" class="nav-tab py-3 px-1 text-slate-600 hover:text-slate-900 font-semibold text-sm border-b-2 border-transparent">
+                3. Quadrant & Seasonality
+            </button>
+            <button onclick="switchMainView('playbook')" id="nav-playbook" class="nav-tab py-3 px-1 text-slate-600 hover:text-slate-900 font-semibold text-sm border-b-2 border-transparent">
+                4. Scenario Guide
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Workspace Container -->
+    <main class="flex-1 max-w-[1600px] w-full mx-auto px-6 py-6 space-y-6">
+
+        <!-- Intraday Provenance Alert Banner (Hidden unless Oct 20 Live Intraday is selected) -->
+        <div id="intradayAlert" class="hidden rounded-xl bg-amber-50 border-2 border-amber-400 p-4 text-amber-900 shadow-sm">
+            <div class="flex items-start space-x-3">
+                <span class="text-xl">⚠️</span>
+                <div class="text-xs leading-relaxed">
+                    <p class="font-bold text-sm text-amber-950">PROVENANCE DISCLOSURE: Live Intraday Session (2026-10-20) — Pre-Clearing Gross Open Interest</p>
+                    <p class="mt-0.5">
+                        On Bursa Malaysia Derivatives (BMD), live intraday <code class="bg-amber-100 px-1 rounded font-mono">OPINT_1</code> ticks up with gross trade registrations prior to end-of-day clearinghouse netting (<code class="bg-amber-100 px-1 rounded font-mono">SETTLEDATE = 2026-10-19</code>, <code class="bg-amber-100 px-1 rounded font-mono">TRADE_DATE = 2026-10-20</code>).
+                        In <code class="bg-amber-100 px-1 rounded font-mono">OI Template.xlsm</code> (Row 4), subtracting Oct 19 cleared EOD OI (338,862) from Oct 20 un-netted intraday OI (455,943) makes every contract month appear to jump by +117k lots.
+                        <strong>For verified cleared EOD OI attribution, use the default Latest Official EOD session (2026-10-19) or any historical EOD session.</strong> Use this Oct 20 view to monitor live intraday price curve changes (+54 MYR/t on FCPOF27) and intraday contract volume distribution (137,102 lots).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- TOP SUMMARY STRIP: REPORT METRICS + AUTOMATED MARKET ACTION VERDICT     -->
+        <!-- ======================================================================= -->
+        
+
+        <!-- ======================================================================= -->
+        <!-- VIEW 1: DAILY MARKET ACTION & CURVE ATTRIBUTION STUDIO                  -->
+        <!-- ======================================================================= -->
+                <!-- ======================================================================= -->
+        <!-- VIEW 0: MASTER MARKET SUMMARY & CROSS-COMMODITY MATRIX (EXCEL REPORT)   -->
+        <!-- ======================================================================= -->
+        <div id="view-master-summary" class="space-y-5">
+            <!-- Top Date Shuffling and Controls Bar -->
+            <div class="card p-4 flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white border-0 shadow-md">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-xl shadow-inner">
+                        📊
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-extrabold text-white tracking-tight">Cross-Market Open Interest & Price Diagnosis Matrix</h2>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30">19 MARKETS</span>
+                        </div>
+                        <p class="text-xs text-slate-300">100% Verified Cleared Exchange Data • Exact Excel Percentile & Significance Architecture</p>
+                    </div>
+                </div>
+
+                <!-- Date Shuffling Stepper -->
+                <div class="flex items-center space-x-2 bg-slate-800/90 p-1.5 rounded-xl border border-slate-700/80 shadow-sm">
+                    <button onclick="stepMasterDate(-1)" class="px-3 py-1.5 text-xs font-bold bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors flex items-center gap-1 shadow-xs" title="Previous Trading Session">
+                        ◀ <span>Prev Day</span>
+                    </button>
+                    <select id="masterDateSelect" onchange="changeMasterDate(this.value)" class="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-600 focus:outline-blue-500 cursor-pointer">
+                    </select>
+                    <button onclick="stepMasterDate(1)" class="px-3 py-1.5 text-xs font-bold bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors flex items-center gap-1 shadow-xs" title="Next Trading Session">
+                        <span>Next Day</span> ▶
+                    </button>
+                    <button onclick="setMasterDateLatest()" class="px-3 py-1.5 text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors shadow-xs">
+                        Latest EOD
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sector Pulse & Action Diagnosis Counters -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div class="card p-3 flex flex-col justify-between border-l-4 border-l-emerald-500 bg-white shadow-2xs">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Long Accumulation</span>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="text-xl font-extrabold text-emerald-600" id="cntAccum">--</span>
+                        <span class="text-sm">🟢</span>
+                    </div>
+                </div>
+                <div class="card p-3 flex flex-col justify-between border-l-4 border-l-yellow-500 bg-white shadow-2xs">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Long Liquidation</span>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="text-xl font-extrabold text-yellow-600" id="cntLiq">--</span>
+                        <span class="text-sm">🟡</span>
+                    </div>
+                </div>
+                <div class="card p-3 flex flex-col justify-between border-l-4 border-l-sky-500 bg-white shadow-2xs">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Short Covering</span>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="text-xl font-extrabold text-sky-600" id="cntCover">--</span>
+                        <span class="text-sm">🔵</span>
+                    </div>
+                </div>
+                <div class="card p-3 flex flex-col justify-between border-l-4 border-l-rose-500 bg-white shadow-2xs">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Short Extension</span>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="text-xl font-extrabold text-rose-600" id="cntExt">--</span>
+                        <span class="text-sm">🔴</span>
+                    </div>
+                </div>
+                <div class="card p-3 flex flex-col justify-between border-l-4 border-l-slate-400 bg-white shadow-2xs">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Rangebound</span>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="text-xl font-extrabold text-slate-600" id="cntRange">--</span>
+                        <span class="text-sm">⚪</span>
+                    </div>
+                </div>
+                <div class="card p-3 flex flex-col justify-between border-l-4 border-l-purple-500 bg-white shadow-2xs">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Selected Session</span>
+                    <div class="mt-1">
+                        <span class="text-xs font-bold text-slate-800" id="summarySelectedDateLabel">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Master Cross-Market Table (Matching User's Excel Report Sheet) -->
+            <div class="card overflow-hidden border border-slate-200 shadow-xs bg-white">
+                <div class="overflow-x-auto">
+                    <table class="text-xs text-center border-collapse table-fixed mx-auto shadow-xs" style="width: 1090px; min-width: 1090px;" id="masterSummaryTable">
+                        <colgroup>
+                            <col style="width: 90px;">
+                            <!-- Market Volume (2 cols) -->
+                            <col style="width: 72px;">
+                            <col style="width: 52px;">
+                            <!-- Market OI (4 cols) -->
+                            <col style="width: 76px;">
+                            <col style="width: 52px;">
+                            <col style="width: 68px;">
+                            <col style="width: 56px;">
+                            <!-- Active Price (5 cols) -->
+                            <col style="width: 68px;">
+                            <col style="width: 52px;">
+                            <col style="width: 60px;">
+                            <col style="width: 66px;">
+                            <col style="width: 56px;">
+                            <!-- Active +2 Spread (3 cols) -->
+                            <col style="width: 64px;">
+                            <col style="width: 58px;">
+                            <col style="width: 56px;">
+                            <!-- Diagnosis (1 col) -->
+                            <col style="width: 144px;">
+                        </colgroup>
+                        <thead>
+                            <!-- Super Group Header Row: Exact Excel Structure, Bold, High Contrast -->
+                            <tr class="bg-slate-100 text-slate-900 text-[11px] font-bold uppercase border-t border-b border-slate-400">
+                                <th rowspan="2" class="py-1 px-1.5 border-r-2 border-slate-700 text-slate-900 sticky left-0 bg-slate-100 z-10 text-center font-bold">
+                                    <div id="summaryTableDateBadge" class="text-[9.5px] font-extrabold text-blue-700">--</div>
+                                    <span class="text-[11px]">Security</span>
+                                </th>
+                                <th colspan="2" class="py-1 px-1 text-center border-r-2 border-slate-500 bg-blue-50/90 text-blue-950 font-bold tracking-tight">Market</th>
+                                <th colspan="4" class="py-1 px-1 text-center border-r-2 border-slate-700 bg-blue-100/70 text-blue-950 font-bold tracking-tight">Market</th>
+                                <th colspan="5" class="py-1 px-1 text-center border-r-2 border-slate-700 bg-amber-50/90 text-amber-950 font-bold tracking-tight">Active</th>
+                                <th colspan="3" class="py-1 px-1 text-center border-r-2 border-slate-700 bg-purple-50/90 text-purple-950 font-bold tracking-tight">Active +2</th>
+                                <th rowspan="2" class="py-1 px-1 text-center bg-slate-100 text-slate-900 font-bold tracking-tight border-l border-slate-300">Daily Action Diagnosis</th>
+                            </tr>
+                            <!-- Sub Header Row: Compact, Bold, Centered -->
+                            <tr class="bg-slate-50 text-[10px] font-bold text-slate-800 uppercase border-b-2 border-slate-400">
+                                <!-- Market Volume -->
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Volume</th>
+                                <th class="py-1 px-1 text-center font-bold border-r-2 border-slate-500">Volume %ile</th>
+                                <!-- Market OI -->
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">OI</th>
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">OI %ile</th>
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">OI Delta</th>
+                                <th class="py-1 px-1 text-center font-bold border-r-2 border-slate-700">OI Delta Sig</th>
+                                <!-- Active Price -->
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Price</th>
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Price %ile</th>
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Price Delta</th>
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Price Delta (%)</th>
+                                <th class="py-1 px-1 text-center font-bold border-r-2 border-slate-700">Price Delta Sig</th>
+                                <!-- Active +2 Spread -->
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Cal Spread</th>
+                                <th class="py-1 px-1 text-center font-bold border-r border-slate-300">Cal Delta</th>
+                                <th class="py-1 px-1 text-center font-bold border-r-2 border-slate-700">Cal Delta Sig</th>
+                            </tr>
+                        </thead>
+                        <tbody id="masterSummaryTableBody" class="divide-y divide-slate-200">
+                            <!-- Populated dynamically via renderMasterSummaryTable() -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-studio" class="hidden space-y-6">
+
+                        <!-- Sleek Compact Session Header (Replaces Bulky 7 Cards) -->
+            <div class="bg-white rounded-xl shadow-xs border border-slate-200 p-3 px-4 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center space-x-3">
+                    <span id="studioFlagBadge" class="text-2xl">🇲🇾</span>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h2 id="studioTitle" class="text-sm font-extrabold text-slate-900 tracking-tight">BMD Crude Palm Oil Futures (FCPO)</h2>
+                            <span id="studioExchange" class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">BMD</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs text-slate-500 mt-0.5">
+                            <span>Active: <strong id="studioActiveRic" class="text-slate-800 font-semibold">FCPOZ6</strong></span>
+                            <span class="text-slate-300">•</span>
+                            <span>Settle: <strong id="studioPrice" class="text-slate-900 font-bold">4,758 MYR/t</strong></span>
+                            <span class="text-slate-300">•</span>
+                            <span>1d ΔP: <strong id="studioDeltaP" class="text-emerald-600 font-bold">+49 (+1.0%)</strong></span>
+                            <span class="text-slate-300">•</span>
+                            <span>1d ΔOI: <strong id="studioDeltaOi" class="text-rose-600 font-bold">-1,249 lots</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div id="studioVerdictBadge" class="px-3 py-1 text-xs font-extrabold rounded-full bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
+                        🟢 Long Accumulation
+                    </div>
+                    <!-- Compact Session Stepper for Studio -->
+                    <div class="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+                        <button onclick="prevSession()" class="px-2 py-1 text-xs font-bold text-slate-700 hover:bg-white rounded shadow-2xs transition-colors" title="Previous Trading Day">◀ Prev</button>
+                        <select id="studioSessionSelect" onchange="jumpToSessionIndex(this.value)" class="bg-white text-xs font-semibold px-2 py-1 rounded border border-slate-200 text-slate-800 focus:outline-none">
+                        </select>
+                        <button onclick="nextSession()" class="px-2 py-1 text-xs font-bold text-slate-700 hover:bg-white rounded shadow-2xs transition-colors" title="Next Trading Day">Next ▶</button>
+                        <button onclick="jumpToLatestEOD()" class="px-2 py-1 text-[11px] font-bold bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">Latest EOD</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price & Open Interest Dynamics (Synchronized Dual-Panel Chart) -->
+            <div class="card p-5 border-t-4 border-t-blue-600 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h3 class="text-sm font-bold text-slate-900">Price &amp; Open Interest Dynamics</h3>
+                            <span class="px-2 py-0.5 text-[10.5px] font-bold rounded bg-blue-100 text-blue-800">Synchronized Dual Panels • Click point to inspect</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-0.5">
+                            Panel A (Top): Active FCPO Price with regime bubbles &amp; driving labels • Panel B (Bottom): Total Market Open Interest (Line) + Daily Net ΔOI (Bars) sharing the exact same date axis
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <div id="priceChartTypeToggle" class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-300 text-xs font-semibold">
+                            <button id="btnPriceOhlc" onclick="setPriceChartMode('ohlc')" class="px-2.5 py-1 rounded font-bold transition bg-white text-blue-700 shadow-xs flex items-center space-x-1">
+                                <span>📊</span><span>OHLC Bars</span>
+                            </button>
+                            <button id="btnPriceLine" onclick="setPriceChartMode('line')" class="px-2.5 py-1 rounded font-medium transition text-slate-600 hover:text-slate-900 flex items-center space-x-1">
+                                <span>📈</span><span>Line</span>
+                            </button>
+                        </div>
+                        <label class="flex items-center space-x-1.5 text-xs font-semibold text-slate-700 cursor-pointer bg-slate-100 hover:bg-slate-200/80 border border-slate-300 px-2.5 py-1 rounded-md transition">
+                            <input type="checkbox" id="chkShowPriceLabels" onchange="renderPriceOiRegimeChart()" class="rounded text-blue-600 focus:ring-blue-500">
+                            <span>Show Driving Action Labels</span>
+                        </label>
+                        <!-- Horizon Quick Buttons -->
+                        <div class="flex flex-wrap items-center space-x-1 bg-slate-100 p-1 rounded-lg text-xs">
+                            <button onclick="setPriceOiWindow(40)" id="btnPoi40" class="tab-btn px-2.5 py-1 rounded font-semibold text-slate-600 transition">40d</button>
+                            <button onclick="setPriceOiWindow(65)" id="btnPoi65" class="tab-btn active px-2.5 py-1 rounded font-semibold transition">65d</button>
+                            <button onclick="setPriceOiWindow(90)" id="btnPoi90" class="tab-btn px-2.5 py-1 rounded font-semibold text-slate-600 transition">90d</button>
+                            <button onclick="setPriceOiWindow(125)" id="btnPoi125" class="tab-btn px-2.5 py-1 rounded font-semibold text-slate-600 transition">125d</button>
+                            <button onclick="setPriceOiWindow(250)" id="btnPoi250" class="tab-btn px-2.5 py-1 rounded font-semibold text-slate-600 transition">1 Year (250d)</button>
+                            <button onclick="setPriceOiWindow(999)" id="btnPoiAll" class="tab-btn px-2.5 py-1 rounded font-semibold text-slate-600 transition">All</button>
+                        </div>
+
+                        <!-- Custom Date Range Picker & Historical Presets -->
+                        <div class="flex flex-wrap items-center space-x-1.5 bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs shadow-2xs">
+                            <span class="text-[11px] text-slate-700 font-bold px-1 flex items-center space-x-1">
+                                <span>📅 Range:</span>
+                            </span>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-[10px] text-slate-500 font-semibold">From</span>
+                                <input type="date" id="poiDateStart" class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-xs font-semibold text-slate-800 focus:outline-blue-500 cursor-pointer" onchange="onCustomDateRangeChange()">
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-[10px] text-slate-500 font-semibold">To</span>
+                                <input type="date" id="poiDateEnd" class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-xs font-semibold text-slate-800 focus:outline-blue-500 cursor-pointer" onchange="onCustomDateRangeChange()">
+                            </div>
+                            <div class="flex items-center space-x-1 border-l border-slate-300 pl-1.5">
+                                <button onclick="setPresetRange('6m_3m')" id="btnRange6m3m" class="px-2 py-0.5 rounded font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition text-[11px]">6M–3M ago</button>
+                                <button onclick="setPresetRange('3m_1m')" id="btnRange3m1m" class="px-2 py-0.5 rounded font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition text-[11px]">3M–1M ago</button>
+                                <button onclick="resetDateRange()" id="btnResetRange" class="px-2 py-0.5 rounded font-bold text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition text-[11px]">Reset</button>
+                            </div>
+                            <span id="rangeCountPill" class="text-[10.5px] font-bold text-slate-700 bg-white border border-slate-200 px-2 py-0.5 rounded shadow-2xs">65 sessions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regime Legend Pill Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px]">
+                    <div class="flex flex-wrap items-center gap-2.5 font-semibold">
+                        <!-- Longs Spectrum -->
+                        <span class="flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-[#064e3b] mr-1 border border-white shadow-xs"></span><span class="text-emerald-950 font-bold">Outright Long</span></span>
+                        <span class="flex items-center"><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#10b981] mr-1 border border-white shadow-xs"></span><span class="text-emerald-800">Mod Long</span></span>
+                        <span class="flex items-center"><span class="inline-block w-2 h-2 rounded-full bg-[#86efac] mr-1 border border-slate-400"></span><span class="text-emerald-700 font-normal">Thin Up</span></span>
+                        <span class="text-slate-300">|</span>
+                        <!-- Shorts Spectrum -->
+                        <span class="flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-[#7f1d1d] mr-1 border border-white shadow-xs"></span><span class="text-red-950 font-bold">Outright Short</span></span>
+                        <span class="flex items-center"><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#dc2626] mr-1 border border-white shadow-xs"></span><span class="text-red-800 font-semibold">Mod Short</span></span>
+                        <span class="flex items-center"><span class="inline-block w-2 h-2 rounded-full bg-[#f87171] mr-1 border border-red-700"></span><span class="text-red-700 font-normal">Thin Down</span></span>
+                        <span class="text-slate-300">|</span>
+                        <!-- Unwind Yellow Spectrum -->
+                        <span class="flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-[#eab308] mr-1 border border-white shadow-xs"></span><span class="text-yellow-800 font-bold">Long Liq (Yellow)</span></span>
+                        <!-- Short Covering Sky Spectrum -->
+                        <span class="flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-[#0ea5e9] mr-1 border border-white shadow-xs"></span><span class="text-sky-800">Short Cover</span></span>
+                        <!-- Rangebound Neutral Gray -->
+                        <span class="flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-[#a1a1aa] mr-1 border border-slate-300 shadow-xs"></span><span class="text-slate-700">Rangebound</span></span>
+                    </div>
+                    <span class="text-slate-500 font-medium" id="priceOiSelectedBanner">Selected Session highlighted with ring</span>
+                </div>
+
+                <!-- Panel A: Price Canvas -->
+                <div>
+                    <div class="flex items-center justify-between text-[11px] font-bold text-slate-700 px-1 mb-1">
+                        <span id="panelAPriceTitle">PANEL A: ACTIVE BENCHMARK SETTLEMENT PRICE (<span class="price-unit-label">MYR/t</span>)</span>
+                        <span id="panelAPriceSubtext" class="text-[10px] text-slate-400 font-normal">Colored bubbles = Daily driving action regime • Arrows connect key inflection callouts</span>
+                    </div>
+                    <div class="h-[420px] relative">
+                        <canvas id="chartPriceRegime"></canvas>
+                    </div>
+                </div>
+
+                <!-- Panel B: Open Interest Canvas (Directly below Panel A, sharing the exact same X-axis) -->
+                <div class="pt-2 border-t border-slate-200/80">
+                    <div class="flex items-center justify-between text-[11px] font-bold text-slate-700 px-1 mb-1">
+                        <span>PANEL B: DAILY NET ΔOI &amp; TOTAL MARKET OPEN INTEREST</span>
+                        <div class="flex items-center space-x-3 text-[10.5px]">
+                            <span class="flex items-center font-semibold text-slate-700"><span class="inline-block w-2.5 h-2.5 rounded-xs bg-emerald-500 mr-1"></span>Daily Net ΔOI (Left Axis, Regime-Colored)</span>
+                            <span class="flex items-center font-semibold text-blue-700"><span class="inline-block w-3 h-1 bg-blue-600 mr-1"></span>Total Market OI (Right Axis, '000 Lots)</span>
+                        </div>
+                    </div>
+                    <div class="h-[250px] relative">
+                        <canvas id="chartOiPanels"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            
+
+            <!-- Detailed Contract-by-Contract Attribution Table for Selected Session -->
+            <div class="card max-w-[960px] overflow-hidden">
+                <div class="px-5 py-3 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 bg-slate-50/70">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900" id="tableSessionTitle">Contract-Month Breakdown Table</h3>
+                        <p class="text-[11px] text-slate-500">Tenor-by-tenor curve distribution of Price, Spread, Open Interest, Volume, and Outright Conviction</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- 1-Day vs 5-Day Horizon Toggle -->
+                        <div class="flex items-center space-x-1 bg-slate-200/80 p-0.5 rounded-lg border border-slate-300 text-xs font-semibold">
+                            <button onclick="setTableHorizon('1d')" id="btnTable1d" class="tab-btn active px-3 py-1 rounded-md transition shadow-2xs">
+                                ⚡ 1-Day Change
+                            </button>
+                            <button onclick="setTableHorizon('5d')" id="btnTable5d" class="tab-btn px-3 py-1 rounded-md text-slate-700 transition">
+                                📅 5-Day Change
+                            </button>
+                        </div>
+                        <label class="flex items-center space-x-1.5 text-xs font-semibold text-amber-950 cursor-pointer bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-md transition shadow-2xs">
+                            <input type="checkbox" id="chkShowExpired" onchange="renderContractTable(getActiveSession())" class="rounded text-amber-600 focus:ring-amber-500">
+                            <span>Show Expired 2026 Tenors</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scroll">
+                    <table class="text-xs divide-y divide-slate-200 w-full" style="table-layout: fixed;">
+                        <colgroup>
+                            <col style="width: 52px;">
+                            <col style="width: 62px;">
+                            <col style="width: 54px;">
+                            <col style="width: 60px;">
+                            <col style="width: 54px;">
+                            <col style="width: 74px;">
+                            <col style="width: 42px;">
+                            <col style="width: 64px;">
+                            <col style="width: 60px;">
+                            <col style="width: 42px;">
+                            <col style="width: 66px;">
+                            <col style="width: 66px;">
+                            <col style="width: 52px;">
+                        </colgroup>
+                        <thead class="bg-slate-100/90 text-slate-700 uppercase font-bold text-[10.5px]">
+                            <tr>
+                                <th class="px-2 py-2 text-left truncate">Contract</th>
+                                <th class="px-1.5 py-2 text-right truncate">Settle</th>
+                                <th class="px-1 py-2 text-right truncate" id="thPriceDelta">1d ΔP</th>
+                                <th class="px-1.5 py-2 text-right truncate">1m Spread</th>
+                                <th class="px-1 py-2 text-right truncate" id="thSpreadDelta">1d Sprd Δ</th>
+                                <th class="px-1.5 py-2 text-right bg-blue-50/50 truncate">Open Interest</th>
+                                <th class="px-1 py-2 text-right bg-blue-50/50 truncate">OI %</th>
+                                <th class="px-1.5 py-2 text-right bg-blue-50/70 truncate" id="thOiDelta">1d OI Δ</th>
+                                <th class="px-1.5 py-2 text-right truncate" title="Total Executed Volume (Outright + Calendar Spreads)">Total Vol</th>
+                                <th class="px-1 py-2 text-right truncate">Vol %</th>
+                                <th class="px-1.5 py-2 text-right text-purple-900 bg-purple-50/70 truncate" id="thSpreadVol" title="Exchange Calendar Spread Traded Volume (Lots)">Spread Vol</th>
+                                <th class="px-1.5 py-2 text-right text-blue-900 bg-blue-50/70 truncate" id="thOutrightVol" title="Direct Single-Month Outright Directional Volume (Lots)">Outright Vol</th>
+                                <th class="px-1 py-2 text-right truncate" title="Volume / Prior OI %">Turnover</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contractTableBody" class="divide-y divide-slate-200 bg-white font-medium text-[11px]"></tbody>
+                        <tfoot id="contractTableFoot"></tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- VIEW 2: CURVE HEATMAP (DCP(2) MULTI-DAY CONTRACT-MONTH MATRIX)          -->
+        <!-- ======================================================================= -->
+        <div id="view-dcp2" class="hidden space-y-4">
+
+            <!-- Informative Outright Vol Explainer Banner -->
+            <div class="bg-blue-50/90 border border-blue-200/90 rounded-xl p-3.5 px-4 shadow-2xs flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-start space-x-2.5">
+                    <span class="w-6 h-6 rounded-full bg-blue-200 text-blue-900 font-bold flex items-center justify-center text-xs shrink-0 mt-0.5">ℹ️</span>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-blue-950 text-sm">What does the "Outright Vol" column represent?</span>
+                            <span class="px-2 py-0.5 text-[10.5px] rounded bg-blue-200/80 text-blue-950 font-bold">Direct Directional Contracts (Lots)</span>
+                        </div>
+                        <p class="text-blue-900 mt-0.5 leading-relaxed">
+                            <strong>Outright Vol</strong> displays the absolute number of contracts traded as <strong>direct single-month outright orders</strong> (market participants taking direct directional price exposure) rather than spread roll orders. On low volume days, outright share percentage can be deceiving; <strong>actual outright volume in lots</strong> is the true measure of directional institutional conviction.
+                        </p>
+                        <div class="text-[11px] text-blue-800 mt-1 flex flex-wrap items-center gap-2">
+                            <span>Benchmark: <code class="bg-blue-100 text-blue-950 px-1.5 py-0.5 rounded font-mono font-bold">Outright Vol ≥ 24,000 lots</code></span>
+                            <span class="text-blue-400">•</span>
+                            <span><strong class="text-blue-950">High Outright Vol</strong> = Institutional Directional Conviction</span>
+                            <span class="text-blue-400">•</span>
+                            <span><strong class="text-purple-900">Low Outright Vol</strong> = Spread / Roll Dominated</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 text-[11px] shrink-0">
+                    <span class="px-2.5 py-1 rounded bg-blue-200 text-blue-950 font-bold">🔵 ≥24k Outright Lots</span>
+                    <span class="px-2.5 py-1 rounded bg-slate-200 text-slate-700 font-semibold">⚪ &lt;24k Spread/Retail Dominant</span>
+                </div>
+            </div>
+
+            <div class="card overflow-hidden">
+                <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 bg-slate-50/70">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h3 class="text-sm font-bold text-slate-900">Multi-Day Curve Heatmap Matrix (<span id="dcp2SessionCountLabel">All</span> Official Sessions)</h3>
+                            <span class="px-2 py-0.5 text-[10.5px] font-semibold rounded bg-blue-100 text-blue-800">Click any row to inspect in Studio</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">
+                            Compact full-screen curve matrix (from sheet <code class="bg-slate-200 px-1 rounded">DCP (2)</code> in <code class="bg-slate-200 px-1 rounded">OI Template.xlsm</code>) — includes Daily Market OI (<code class="bg-slate-200 px-1 rounded">Mkt OI</code>) &amp; curve delivery tenors.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- History Range Switcher -->
+                        <div class="flex items-center space-x-1 bg-slate-200/80 p-0.5 rounded-lg text-xs font-semibold">
+                            <span class="text-[11px] text-slate-500 px-1.5">History:</span>
+                            <button id="btnDcp35" onclick="setDcp2Limit(35)" class="px-2 py-0.5 rounded transition text-slate-600 hover:text-slate-900">35d</button>
+                            <button id="btnDcp65" onclick="setDcp2Limit(65)" class="px-2 py-0.5 rounded transition text-slate-600 hover:text-slate-900">65d</button>
+                            <button id="btnDcp125" onclick="setDcp2Limit(125)" class="px-2 py-0.5 rounded transition text-slate-600 hover:text-slate-900">125d</button>
+                            <button id="btnDcpAll" onclick="setDcp2Limit(999)" class="px-2.5 py-0.5 rounded transition shadow-xs bg-white text-slate-900 font-bold">1 Year (All)</button>
+                        </div>
+                        <!-- Toggle for 12 Expired Contracts (X25 - V26) -->
+                        <label class="flex items-center space-x-1.5 text-xs font-semibold text-amber-950 cursor-pointer bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-md transition shadow-2xs">
+                            <input type="checkbox" id="chkDcp2Expired" onchange="toggleDcp2Expired(this.checked)" class="rounded text-amber-600 focus:ring-amber-500">
+                            <span>Show 12 Expired Tenors (X25 – V26)</span>
+                        </label>
+                        <!-- Matrix Mode Switcher -->
+                        <div class="flex flex-wrap gap-1 bg-slate-200/80 p-1 rounded-lg text-xs">
+                        <button onclick="setMatrixMode('d_oi')" id="matBtn-d_oi" class="tab-btn active px-2.5 py-1 rounded-md font-semibold transition text-xs">1. Daily ΔOI</button>
+                        <button onclick="setMatrixMode('d_price')" id="matBtn-d_price" class="tab-btn px-2.5 py-1 rounded-md font-semibold text-slate-700 transition text-xs">2. Curve ΔP</button>
+                        <button onclick="setMatrixMode('vol')" id="matBtn-vol" class="tab-btn px-2.5 py-1 rounded-md font-semibold text-slate-700 transition text-xs">3. Volume</button>
+                        <button onclick="setMatrixMode('conviction')" id="matBtn-conviction" class="tab-btn px-2.5 py-1 rounded-md font-semibold text-slate-700 transition text-xs">4. Conviction %</button>
+                        <button onclick="setMatrixMode('oi_level')" id="matBtn-oi_level" class="tab-btn px-2.5 py-1 rounded-md font-semibold text-slate-700 transition text-xs">5. Standing OI</button>
+                        <button onclick="setMatrixMode('spread')" id="matBtn-spread" class="tab-btn px-2.5 py-1 rounded-md font-semibold text-slate-700 transition text-xs" title="Calendar Spread between Month and Next Available Month (e.g. C1-C2, C2-C3)">6. Calendar Spread (C1-C2)</button>
+                    </div>
+                </div>
+            </div>
+
+                <div class="overflow-x-auto custom-scroll max-h-[700px]">
+                    <table class="fixed-heatmap-table text-[11px] divide-y divide-slate-200 border-collapse w-full">
+                        <colgroup id="dcp2Colgroup"></colgroup>
+                        <thead class="bg-slate-900 text-slate-200 uppercase sticky top-0 z-20 text-[10px]">
+                            <tr id="dcp2HeaderRow" class="h-8"></tr>
+                        </thead>
+                        <tbody id="dcp2Body" class="divide-y divide-slate-200 bg-white"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Historical Expired Contracts Archive -->
+            <div class="card overflow-hidden">
+                <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 bg-slate-50/80">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h3 class="text-sm font-bold text-slate-900">Historical Expired Delivery Months Archive (12 Months: X25 – V26)</h3>
+                            <span class="px-2 py-0.5 text-[10.5px] font-semibold rounded bg-amber-100 text-amber-800 border border-amber-300">BMD Cash Settlements</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">
+                            Verified historical performance and final cash settlement data for all expired 2026 delivery months — click any row to inspect its expiry session in Studio.
+                        </p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scroll">
+                    <table class="min-w-full text-xs divide-y divide-slate-200" style="table-layout: fixed;">
+                        <colgroup>
+                            <col style="width: 110px;">
+                            <col style="width: 110px;">
+                            <col style="width: 105px;">
+                            <col style="width: 95px;">
+                            <col style="width: 120px;">
+                            <col style="width: 100px;">
+                            <col style="width: 115px;">
+                            <col style="width: 110px;">
+                            <col style="width: 140px;">
+                        </colgroup>
+                        <thead class="bg-slate-100/90 text-slate-700 uppercase font-bold text-[10.5px]">
+                            <tr>
+                                <th class="px-3 py-2 text-left">Contract</th>
+                                <th class="px-3 py-2 text-left">Delivery Month</th>
+                                <th class="px-2.5 py-2 text-left">Expiration Date</th>
+                                <th class="px-2.5 py-2 text-right">Final Settle</th>
+                                <th class="px-3 py-2 text-right">Peak Standing OI</th>
+                                <th class="px-2.5 py-2 text-left">Peak Date</th>
+                                <th class="px-2.5 py-2 text-right">Final OI Settled</th>
+                                <th class="px-3 py-2 text-right">Total Traded Vol</th>
+                                <th class="px-3 py-2 text-center">Inspect Session</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expiredArchiveBody" class="divide-y divide-slate-200 bg-white font-medium text-[11px]"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- VIEW 3: REGIME QUADRANT BUBBLE STUDY & 10Y SEASONALITY                  -->
+        <!-- ======================================================================= -->
+        <div id="view-quadrant" class="hidden space-y-6">
+
+            <!-- Macro Overview Header Banner (Replaces redundant 65-session duplicate chart) -->
+            <div class="card p-4.5 bg-gradient-to-r from-slate-50 via-blue-50/40 to-slate-50 border border-blue-200/80 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2 py-0.5 text-[10.5px] font-bold rounded bg-blue-600 text-white uppercase tracking-wider">Macro Regime &amp; Seasonality</span>
+                        <h3 class="text-sm font-bold text-slate-900">4-Quadrant Distribution, 10-Year Seasonality &amp; Flow Decomposition</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1">
+                        Statistical clustering of historical daily flow regimes across ΔOI vs. ΔPrice, historical 10-year seasonal bounds, and gross flow decomposition.
+                    </p>
+                </div>
+                <button onclick="switchMainView('studio')" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm flex items-center space-x-1.5 transition">
+                    <span>⚡ View Interactive Synchronized Price &amp; OI Trajectory in Tab 1</span>
+                    <span>→</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Interactive Seasonality Chart -->
+                <div class="card p-5">
+                    <h3 class="text-sm font-bold text-slate-900 mb-1" id="seasonalityTitle">10-Year FCPO Open Interest Seasonality (2015–2026, Week 1–52)</h3>
+                    <p class="text-xs text-slate-500 mb-3" id="seasonalitySubtitle">10-Year seasonal bands (10Y Min–Max, P10–P90, Mean, 2025 vs 2026) for <span id="seasonalityMktName" class="font-bold text-slate-700">BMD Crude Palm Oil Futures (FCPO)</span></p>
+                    <div class="h-[360px] relative">
+                        <canvas id="chartSeasonality"></canvas>
+                    </div>
+                </div>
+
+                <!-- High-Res Quadrant Bubble Plot from Python Script -->
+                <div class="card p-5 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900 mb-1">OI Change vs. Price Change Regime Quadrant Bubble Study (155 Sessions)</h3>
+                        <p class="text-xs text-slate-500 mb-3">Bubble size scaled by Total Market Volume • Latest 5 sessions connected in blue with exact (ΔOI, ΔP) callouts</p>
+                    </div>
+                    <img id="imgQuadrantBubble" src="./charts/fcpo_quadrant_bubble.png" alt="Quadrant Bubble Study" class="w-full rounded-lg border border-slate-200">
+                </div>
+            </div>
+
+            <!-- 60-Day Flow Decomposition Static High-Res Chart -->
+            <div class="card p-5">
+                <h3 class="text-sm font-bold text-slate-900 mb-1">60-Day Historical Attribution: Price, Calendar Spread & Gross Added/Reduced vs. Net OI</h3>
+                <p class="text-xs text-slate-500 mb-3">Comparing headline Net Market ΔOI against underlying Gross Contract Additions (+ΔOI) and Reductions (-ΔOI)</p>
+                <img id="imgFlowDecomp" src="./charts/fcpo_flow_decomposition_60d.png" alt="60d Flow Decomposition" class="w-full rounded-lg border border-slate-200">
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- VIEW 4: SCENARIO TABLE & SPREAD VS OUTRIGHT PLAYBOOK                    -->
+        <!-- ======================================================================= -->
+        <div id="view-playbook" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Upgraded 10-State Open Interest & Price Scenario Framework -->
+                <div class="card p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                        <h3 class="text-base font-bold text-slate-900">1. Core Open Interest, Price &amp; Outright Volume Scenario Framework</h3>
+                        <span class="px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-blue-100 text-blue-800">10-State Institutional Model</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">
+                        Standardized multi-dimensional matrix separating <strong>Directional Lean</strong> from <strong>Conviction Level</strong>, incorporating outright volume thresholds, symmetrical thin-drift reads, and rollover isolation.
+                    </p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-xs divide-y divide-slate-200 border border-slate-200 rounded-lg">
+                            <thead class="bg-slate-100 font-bold text-slate-700 uppercase text-[10.5px]">
+                                <tr>
+                                    <th class="px-3 py-2.5 text-left">Scenario (ΔP, ΔOI, Vol)</th>
+                                    <th class="px-3 py-2.5 text-left">Market Meaning</th>
+                                    <th class="px-2.5 py-2.5 text-center">Directional Lean</th>
+                                    <th class="px-2.5 py-2.5 text-center">Conviction Level</th>
+                                    <th class="px-3 py-2.5 text-left">Typical Setup &amp; Trader Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr class="bg-emerald-50/40">
+                                    <td class="px-3 py-2.5 font-bold text-emerald-800 whitespace-nowrap">P ↑, OI ↑ (High Outright)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Outright New Longs</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">🟢 Bullish</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">High Conviction</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Aggressive trend continuation — fresh institutional buyers initiating directional overnight risk.</td>
+                                </tr>
+                                <tr class="bg-sky-50/40">
+                                    <td class="px-3 py-2.5 font-bold text-sky-800 whitespace-nowrap">P ↑, OI ↓ (High/Med Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Short Covering</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold">🟡 Bullish (Fragile)</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-sky-50 text-sky-700 font-semibold border border-sky-200">Moderate / Squeeze</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Rally driven by bears buying back positions, not fresh demand; vulnerable to sudden pullback once covering exhaust.</td>
+                                </tr>
+                                <tr class="bg-rose-50/40">
+                                    <td class="px-3 py-2.5 font-bold text-rose-800 whitespace-nowrap">P ↓, OI ↑ (High Outright)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Outright New Shorts</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-bold">🔴 Bearish</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-rose-50 text-rose-700 font-semibold border border-rose-200">High Conviction</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Continuation lower — aggressive sellers pressing fresh structural short positions into the market.</td>
+                                </tr>
+                                <tr class="bg-yellow-50/50">
+                                    <td class="px-3 py-2.5 font-bold text-yellow-800 whitespace-nowrap">P ↓, OI ↓ (High/Med Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Long Liquidation</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-900 font-bold">🟡 Bearish (Unwind)</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-yellow-50 text-yellow-800 font-semibold border border-yellow-200">Moderate (Unwind)</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Bulls closing out longs. <em>Note:</em> Only signals "capitulation" if accompanied by extreme volume (&gt;80th%) after an extended multi-week decline.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2.5 font-bold text-amber-700 whitespace-nowrap">P ↑, OI ≈ 0 (Low Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Thin-Market Drift Up</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold">⚪ Neutral / Drift</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">Low Conviction</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Lack of active sellers rather than genuine buying power; needs volume and OI confirmation before trusting rally.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2.5 font-bold text-amber-700 whitespace-nowrap">P ↓, OI ≈ 0 (Low Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Thin-Market Drift Down</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold">⚪ Neutral / Drift</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">Low Conviction</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Lack of active bids; price drifts lower under light selling. Symmetrical to drift up — lacks aggressive commitment.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2.5 font-bold text-indigo-700 whitespace-nowrap">P ↑/↓, OI ≈ 0 (High Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Intraday Churn / Battle</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-semibold">⚪ Churn</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold">Zero Net Hold</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Heavy two-way intraday trading with complete evening clearinghouse netting. High noise, zero overnight conviction.</td>
+                                </tr>
+                                <tr class="bg-indigo-50/30">
+                                    <td class="px-3 py-2.5 font-bold text-indigo-900 whitespace-nowrap">P ≈ 0, OI ↑ (High/Med Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Coiling Accumulation / Dist</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold">🟣 Unconfirmed</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-900 font-bold">High Commitment</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Pre-breakout buildup — institutional risk added in a tight price range. Watch breakout direction closely.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2.5 font-bold text-slate-700 whitespace-nowrap">P ≈ 0, OI ↓ (Low/Med Vol)</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-900">Position De-risking / Reset</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold">⚪ Neutral</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">Low / Reset</span></td>
+                                    <td class="px-3 py-2.5 text-slate-600">Participants squaring exposure ahead of major reports (MPOB, USDA, exports) or weekend risk.</td>
+                                </tr>
+                                <tr class="bg-slate-50/70">
+                                    <td class="px-3 py-2.5 font-bold text-slate-500 whitespace-nowrap">P ≈ 0, OI ≈ 0</td>
+                                    <td class="px-3 py-2.5 font-semibold text-slate-700">Rangebound Equilibrium</td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">⚪ Flat</span></td>
+                                    <td class="px-2.5 py-2.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-500 font-semibold">Zero Flow</span></td>
+                                    <td class="px-3 py-2.5 text-slate-500">Total balance across buyers and sellers; market awaiting next fundamental catalyst.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 3 Critical Institutional Context Rules Callout -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 pt-4 border-t border-slate-200 text-xs">
+                        <div class="p-3 bg-purple-50/80 rounded-lg border border-purple-200/80">
+                            <span class="font-bold text-purple-950 block mb-1">1. The FCPO Roll Window Caveat</span>
+                            <p class="text-purple-900 text-[11px] leading-relaxed">
+                                During roll cycles (10th–20th monthly), 90%+ of gross ΔOI is calendar spread migration. Never classify roll migration as outright new longs/shorts unless Outright Volume confirms.
+                            </p>
+                        </div>
+                        <div class="p-3 bg-blue-50/80 rounded-lg border border-blue-200/80">
+                            <span class="font-bold text-blue-950 block mb-1">2. Standing OI Percentile Context</span>
+                            <p class="text-blue-900 text-[11px] leading-relaxed">
+                                Adding longs at &gt;85th percentile OI represents crowded late-stage momentum with squeeze risk. Adding longs at &lt;30th percentile represents early structural re-accumulation.
+                            </p>
+                        </div>
+                        <div class="p-3 bg-slate-100/80 rounded-lg border border-slate-300/80">
+                            <span class="font-bold text-slate-900 block mb-1">3. Quantitative "Flat" Thresholds</span>
+                            <p class="text-slate-700 text-[11px] leading-relaxed">
+                                Defined mathematically as |ΔP| ≤ 8 MYR/t (&lt;10th% sig) and |Net ΔOI| &lt; 450 lots (&lt;10th% sig). Anything beyond enters the active directional quadrants.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to Read Spreading / Rolling vs Outright Action -->
+                <div class="card p-6 space-y-4">
+                    <h3 class="text-base font-bold text-slate-900">2. How to Distinguish Spreading / Rolling vs. New Outright Longs/Shorts</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Looking only at headline <strong>Total Market ΔOI</strong> can hide massive positioning shifts when traders roll or spread across the curve. This dashboard decomposes daily contract-month data (<code class="bg-slate-100 px-1 rounded">DCP(2)</code>) using four quantitative tests:
+                    </p>
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 rounded-lg bg-purple-50 border border-purple-200">
+                            <p class="font-bold text-purple-900">Test 1: Matched Cross-Curve Roll Share (%)</p>
+                            <p class="text-purple-800 mt-1">
+                                We sum all positive contract additions (<code class="font-mono">Gross +ΔOI</code>) and all negative contract reductions (<code class="font-mono">Gross -ΔOI</code>).
+                                <code class="font-mono">Matched Roll OI = min(+ΔOI, |-ΔOI|)</code> measures how many lots exited one month (e.g. <code class="font-mono">Z26 -6,269</code>) and simultaneously entered another month (e.g. <code class="font-mono">F27 +5,401</code>). When Roll Share exceeds <strong>65%</strong>, the session is dominated by <strong>Curve Rolling / Spread Transfer</strong> rather than net new outright flow.
+                            </p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-blue-50 border border-blue-200">
+                            <p class="font-bold text-blue-900">Test 2: Who Is Rolling? (Calendar Spread Delta vs. Roll Flow)</p>
+                            <p class="text-blue-800 mt-1">
+                                When Front/2nd Month OI falls and 3rd/4th Month OI rises:
+                                <br>• If the <strong>Front Calendar Spread weakens</strong> (<code class="font-mono">Δ(P_near - P_far) &lt; 0</code>, deeper contango), <strong>Longs are rolling</strong> (selling the front leg and buying the deferred leg).
+                                <br>• If the <strong>Front Calendar Spread strengthens</strong> (<code class="font-mono">Δ(P_near - P_far) &gt; 0</code>), <strong>Shorts are rolling</strong> (buying back the front leg and selling the deferred leg) or bull-spreaders are lifting the front.
+                            </p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                            <p class="font-bold text-emerald-900">Test 3: New Outright Spreads vs. Outright Directional Positions</p>
+                            <p class="text-emerald-800 mt-1">
+                                When <strong>multiple contract months gain OI simultaneously</strong>:
+                                <br>• <strong>Outright Directional Flow:</strong> OI build is heavily concentrated in the benchmark <code class="font-mono">c3</code> contract, accompanied by a large flat-price move (<code class="font-mono">Price Delta Significance &gt; 60%</code>) and parallel curve shift.
+                                <br>• <strong>New Calendar Spread Creation:</strong> OI builds across both near and deferred tenors simultaneously while flat price barely moves (<code class="font-mono">Price Delta Significance &lt; 25%</code>) or the curve slope twists (<code class="font-mono">Cal Delta Significance &gt; 60%</code>).
+                            </p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-amber-50 border border-amber-200">
+                            <p class="font-bold text-amber-900">Test 4: Volume Conviction / Retention Ratio (<code class="font-mono">ΔOI / Volume %</code>)</p>
+                            <p class="text-amber-800 mt-1">
+                                High volume with <code class="font-mono">|ΔOI| / Volume &lt; 5%</code> indicates <strong>intraday churn / day-trader scalping</strong> where positions are opened and closed before the bell.
+                                A high <code class="font-mono">|ΔOI| / Volume &gt; 15%</code> in a contract month confirms <strong>sticky institutional position building or liquidation</strong> held overnight.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        <script>window.MARKET_DATA = window.MARKET_DATA || {};</script>
+    <script src="data_fcpo.js"></script>
+    <script src="data_dcp.js"></script>
+    <script src="data_dce_soyoil.js"></script>
+    <script src="data_dce_soymeal.js"></script>
+    <script src="data_dce_corn.js"></script>
+    <script src="data_czce_roil.js"></script>
+    <script src="data_czce_rmeal.js"></script>
+    <script src="data_corn.js"></script>
+    <script src="data_mwe.js"></script>
+    <script src="data_kw.js"></script>
+    <script src="data_wheat.js"></script>
+    <script src="data_soybeans.js"></script>
+    <script src="data_soymeal.js"></script>
+    <script src="data_soyoil.js"></script>
+    <script src="data_brent.js"></script>
+    <script src="data_wti.js"></script>
+    <script src="data_rbob.js"></script>
+    <script src="data_heating_oil.js"></script>
+    <script src="data_gasoil.js"></script>
+    <script>const MARKET_DATA = window.MARKET_DATA;</script>
+        
+// =========================================================================
+// MASTER MARKET SUMMARY & CROSS-COMMODITY MATRIX JAVASCRIPT ENGINE
+// =========================================================================
+
+const EXCEL_COMMODITY_ORDER = [
+    // 1. Vegetable Oils Complex
+    { sec: "FCPO", key: "FCPO", name: "BMD Crude Palm Oil", flag: "🇲🇾", sector: "Vegetable Oils", sectorIcon: "🌴" },
+    { sec: "DCP", key: "DCP", name: "DCE Palm Olein", flag: "🇨🇳", sector: "Vegetable Oils", sectorIcon: "🌴" },
+    { sec: "DBY", key: "DCE_SOYOIL", name: "DCE Soybean Oil", flag: "🇨🇳", sector: "Vegetable Oils", sectorIcon: "🌴" },
+    { sec: "ZZRSO", key: "CZCE_ROIL", name: "CZCE Rapeseed Oil", flag: "🇨🇳", sector: "Vegetable Oils", sectorIcon: "🌴" },
+    { sec: "SBO", key: "SOYOIL", name: "CBOT Soybean Oil", flag: "🇺🇸", sector: "Vegetable Oils", sectorIcon: "🌴" },
+
+    // 2. Wheat Complex (Grouped Together: CBOT, Kansas, Minneapolis)
+    { sec: "W", key: "WHEAT", name: "CBOT SRW Wheat", flag: "🇺🇸", sector: "Wheat Complex", sectorIcon: "🌾" },
+    { sec: "KW", key: "KW", name: "KCBT HRW Wheat", flag: "🇺🇸", sector: "Wheat Complex", sectorIcon: "🌾" },
+    { sec: "MWE", key: "MWE", name: "MGEX HRS Wheat", flag: "🇺🇸", sector: "Wheat Complex", sectorIcon: "🌾" },
+
+    // 3. Corn Complex
+    { sec: "C", key: "CORN", name: "CBOT Corn", flag: "🇺🇸", sector: "Corn", sectorIcon: "🌽" },
+    { sec: "DCC", key: "DCE_CORN", name: "DCE Corn", flag: "🇨🇳", sector: "Corn", sectorIcon: "🌽" },
+
+    // 4. Oilseeds & Protein Meals
+    { sec: "S", key: "SOYBEANS", name: "CBOT Soybeans", flag: "🇺🇸", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
+    { sec: "SBM", key: "SOYMEAL", name: "CBOT Soybean Meal", flag: "🇺🇸", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
+    { sec: "DSM", key: "DCE_SOYMEAL", name: "DCE Soybean Meal", flag: "🇨🇳", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
+    { sec: "ZZRSM", key: "CZCE_RMEAL", name: "CZCE Rapeseed Meal", flag: "🇨🇳", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
+
+    // 5. Petroleum & Energies
+    { sec: "LCO", key: "BRENT", name: "ICE Brent Crude", flag: "🇬🇧", sector: "Petroleum & Energies", sectorIcon: "🛢️" },
+    { sec: "CL", key: "WTI", name: "NYMEX WTI Crude", flag: "🇺🇸", sector: "Petroleum & Energies", sectorIcon: "🛢️" },
+    { sec: "RB", key: "RBOB", name: "NYMEX RBOB Gasoline", flag: "🇺🇸", sector: "Petroleum & Energies", sectorIcon: "⛽" },
+    { sec: "HO", key: "HEATING_OIL", name: "NYMEX Heating Oil", flag: "🇺🇸", sector: "Petroleum & Energies", sectorIcon: "🔥" },
+    { sec: "LGO", key: "GASOIL", name: "ICE Gasoil", flag: "🇬🇧", sector: "Petroleum & Energies", sectorIcon: "🛢️" }
+];
+
+let masterAvailableDates = [];
+let masterCurrentDateIndex = 0;
+
+function jsPercentRank(arr, val) {
+    if (!arr || arr.length === 0 || val === null || val === undefined || isNaN(val)) return 50.0;
+    const clean = arr.filter(x => x !== null && x !== undefined && !isNaN(x)).sort((a,b)=>a-b);
+    if (clean.length <= 1) return 50.0;
+    if (val <= clean[0]) return 0.0;
+    if (val >= clean[clean.length - 1]) return 100.0;
+    
+    let idx = 0;
+    for (let i = 0; i < clean.length; i++) {
+        if (clean[i] <= val) idx = i;
+        else break;
+    }
+    if (clean[idx] === val) {
+        let firstIdx = clean.indexOf(val);
+        return (firstIdx / (clean.length - 1)) * 100.0;
+    }
+    const lo = clean[idx];
+    const hi = clean[idx + 1];
+    const frac = (hi !== lo) ? (val - lo) / (hi - lo) : 0.0;
+    return ((idx + frac) / (clean.length - 1)) * 100.0;
+}
+
+function jsDirectionalSig(arr, val) {
+    if (!val || isNaN(val) || val === 0) return 0.0;
+    if (val > 0) {
+        const pos = arr.filter(x => x > 0);
+        return jsPercentRank(pos, val);
+    } else {
+        const neg = arr.filter(x => x < 0);
+        return 100.0 - jsPercentRank(neg, val);
+    }
+}
+
+function initMasterSummaryEngine() {
+    const dateSet = new Set();
+    Object.keys(MARKET_DATA).forEach(mktKey => {
+        const mkt = MARKET_DATA[mktKey];
+        if (mkt && mkt.sessions) {
+            mkt.sessions.forEach(s => {
+                if (s && s.date) dateSet.add(s.date);
+            });
+        }
+    });
+
+    masterAvailableDates = Array.from(dateSet).sort();
+    if (masterAvailableDates.length === 0) return;
+
+    masterCurrentDateIndex = masterAvailableDates.length - 1;
+
+    const select = document.getElementById('masterDateSelect');
+    if (select) {
+        select.innerHTML = '';
+        for (let i = masterAvailableDates.length - 1; i >= 0; i--) {
+            const dt = masterAvailableDates[i];
+            const opt = document.createElement('option');
+            opt.value = dt;
+            opt.textContent = `${dt}${i === masterAvailableDates.length - 1 ? ' (Latest Cleared EOD)' : ''}`;
+            select.appendChild(opt);
+        }
+        select.value = masterAvailableDates[masterCurrentDateIndex];
+    }
+
+    renderMasterSummaryTable(masterAvailableDates[masterCurrentDateIndex]);
+}
+
+function stepMasterDate(direction) {
+    if (masterAvailableDates.length === 0) return;
+    masterCurrentDateIndex = Math.max(0, Math.min(masterAvailableDates.length - 1, masterCurrentDateIndex + direction));
+    const targetDate = masterAvailableDates[masterCurrentDateIndex];
+    const select = document.getElementById('masterDateSelect');
+    if (select) select.value = targetDate;
+    renderMasterSummaryTable(targetDate);
+}
+
+function changeMasterDate(dateStr) {
+    const idx = masterAvailableDates.indexOf(dateStr);
+    if (idx !== -1) {
+        masterCurrentDateIndex = idx;
+        renderMasterSummaryTable(dateStr);
+    }
+}
+
+function setMasterDateLatest() {
+    if (masterAvailableDates.length === 0) return;
+    masterCurrentDateIndex = masterAvailableDates.length - 1;
+    const targetDate = masterAvailableDates[masterCurrentDateIndex];
+    const select = document.getElementById('masterDateSelect');
+    if (select) select.value = targetDate;
+    renderMasterSummaryTable(targetDate);
+}
+
+function getPercentileBgClass(pct) {
+    if (pct === null || pct === undefined || isNaN(pct)) return 'bg-slate-50 text-slate-400 font-medium';
+    if (pct >= 80) return 'bg-[#86efac] text-emerald-950 font-bold';
+    if (pct >= 60) return 'bg-[#bbf7d0] text-emerald-900 font-semibold';
+    if (pct >= 40) return 'bg-white text-slate-800 font-medium';
+    if (pct >= 20) return 'bg-[#fecdd3] text-rose-900 font-semibold';
+    return 'bg-[#fda4af] text-rose-950 font-bold';
+}
+
+function getSignificanceBgClass(sig) {
+    if (sig === null || sig === undefined || isNaN(sig)) return 'text-slate-400 font-medium';
+    if (sig >= 80) return 'bg-purple-200 text-purple-950 font-bold px-1 py-0.5 rounded';
+    if (sig >= 50) return 'text-purple-900 font-bold';
+    return 'text-slate-600 font-medium';
+}
+
+function renderMasterSummaryTable(targetDate) {
+    const tbody = document.getElementById('masterSummaryTableBody');
+    if (!tbody) return;
+
+    const lbl = document.getElementById('summarySelectedDateLabel');
+    if (lbl) lbl.textContent = targetDate;
+
+    const badgeDate = document.getElementById('summaryTableDateBadge');
+    if (badgeDate) badgeDate.textContent = targetDate;
+
+    let countAccum = 0;
+    let countLiq = 0;
+    let countCover = 0;
+    let countExt = 0;
+    let countRange = 0;
+
+    let html = '';
+    let lastSector = '';
+
+    EXCEL_COMMODITY_ORDER.forEach(item => {
+        // Sector Divider Header
+        if (item.sector && item.sector !== lastSector) {
+            lastSector = item.sector;
+            html += `
+            <tr class="bg-slate-200/80 border-t border-b border-slate-400/80">
+                <td colspan="16" class="py-1 px-2.5 text-left text-[10px] font-extrabold uppercase tracking-wider text-slate-800 bg-slate-200/90 shadow-2xs">
+                    <span class="mr-1">${item.sectorIcon || '📦'}</span> ${item.sector.toUpperCase()}
+                </td>
+            </tr>`;
+        }
+
+        const mktBundle = MARKET_DATA[item.key];
+        let session = null;
+        let isHoliday = false;
+
+        if (mktBundle && mktBundle.sessions) {
+            session = mktBundle.sessions.find(s => s.date === targetDate);
+            if (!session) {
+                const prior = mktBundle.sessions.filter(s => s.date <= targetDate);
+                if (prior.length > 0) {
+                    session = prior[prior.length - 1];
+                    isHoliday = true;
+                }
+            }
+        }
+
+        if (!session) {
+            html += `
+            <tr class="hover:bg-slate-50 transition-colors border-b border-slate-300">
+                <td class="py-1 px-2 font-bold text-slate-800 border-r-2 border-slate-700 sticky left-0 bg-white shadow-2xs z-10 whitespace-nowrap text-left">
+                    <span class="mr-1">${item.flag}</span> ${item.sec}
+                </td>
+                <td colspan="15" class="py-1 px-2 text-center text-slate-400 italic font-medium">No cleared session data available</td>
+            </tr>`;
+            return;
+        }
+
+        const vol = session.mkt_vol || 0;
+        const oi = session.mkt_oi || 0;
+        const oiDelta = session.mkt_oi_delta || 0;
+        const px = session.active_price || 0;
+        const pxDelta = session.active_price_delta || 0;
+        const pxPctDelta = px !== 0 ? (pxDelta / px) * 100 : 0;
+        const cal = session.cal_spread || 0;
+        const calDelta = session.cal_delta || 0;
+
+        const allSessions = mktBundle.sessions || [];
+        const volArr = allSessions.map(s => s.mkt_vol).filter(v => v !== null && !isNaN(v));
+        const oiArr = allSessions.map(s => s.mkt_oi).filter(v => v !== null && !isNaN(v));
+        const pxArr = allSessions.map(s => s.active_price).filter(v => v !== null && !isNaN(v));
+
+        const volPct = jsPercentRank(volArr, vol);
+        const oiPct = jsPercentRank(oiArr, oi);
+        const pxPct = jsPercentRank(pxArr, px);
+
+        const oiDeltas = allSessions.map(s => s.mkt_oi_delta).filter(v => v !== null && !isNaN(v));
+        const pxDeltas = allSessions.map(s => s.active_price_delta).filter(v => v !== null && !isNaN(v));
+        const calDeltas = allSessions.map(s => s.cal_delta).filter(v => v !== null && !isNaN(v));
+
+        const oiSig = jsDirectionalSig(oiDeltas, oiDelta);
+        const pxSig = jsDirectionalSig(pxDeltas, pxDelta);
+        const calSig = jsDirectionalSig(calDeltas, calDelta);
+
+        let regime = session.flow_regime || "⚪ Rangebound";
+        if (regime.includes("Long Accumulation") || regime.includes("Long Build") || regime.includes("Long Expansion")) countAccum++;
+        else if (regime.includes("Long Liquidation") || regime.includes("Long Unwinding")) countLiq++;
+        else if (regime.includes("Short Covering") || regime.includes("Short Squeeze")) countCover++;
+        else if (regime.includes("Short Extension") || regime.includes("Short Build") || regime.includes("Short Expansion")) countExt++;
+        else countRange++;
+
+        let badgeClass = "bg-slate-100 text-slate-800 border-slate-300 font-semibold";
+        if (regime.includes("🟢") || regime.includes("Long Accumulation") || regime.includes("Long Build") || regime.includes("Long Expansion")) {
+            badgeClass = "bg-emerald-50 text-emerald-800 border-emerald-400 font-bold";
+        } else if (regime.includes("🟡") || regime.includes("Long Liquidation") || regime.includes("Long Unwinding")) {
+            badgeClass = "bg-amber-50 text-amber-800 border-amber-400 font-bold";
+        } else if (regime.includes("🔵") || regime.includes("Short Covering") || regime.includes("Short Squeeze")) {
+            badgeClass = "bg-sky-50 text-sky-800 border-sky-400 font-bold";
+        } else if (regime.includes("🔴") || regime.includes("Short Extension") || regime.includes("Short Build")) {
+            badgeClass = "bg-rose-50 text-rose-800 border-rose-400 font-bold";
+        }
+
+        const decimals = mktBundle.decimals !== undefined ? mktBundle.decimals : 2;
+        const pxFormat = decimals === 4 ? px.toFixed(4) : (decimals === 2 ? px.toFixed(2) : Math.round(px).toLocaleString());
+        const pxDeltaFormat = decimals === 4 ? (pxDelta >= 0 ? `+${pxDelta.toFixed(4)}` : pxDelta.toFixed(4)) : (decimals === 2 ? (pxDelta >= 0 ? `+${pxDelta.toFixed(2)}` : pxDelta.toFixed(2)) : (pxDelta >= 0 ? `+${Math.round(pxDelta)}` : Math.round(pxDelta).toLocaleString()));
+
+        const holidayBadge = isHoliday ? `<span class="ml-1 text-[8.5px] px-1 py-0.2 rounded bg-amber-100 text-amber-900 font-bold border border-amber-400" title="Exchange Holiday / Closed: Cleared print carried forward from ${session.date}">[CF]</span>` : '';
+
+        html += `
+        <tr class="hover:bg-blue-50/60 transition-colors border-b border-slate-300">
+            <!-- Security Cell -->
+            <td class="py-1 px-1.5 border-r-2 border-slate-700 sticky left-0 bg-white shadow-2xs z-10 whitespace-nowrap text-left font-bold">
+                <button onclick="jumpToMarketStudio('${item.key}')" class="text-left font-bold text-blue-700 hover:text-blue-900 hover:underline flex items-center gap-1 cursor-pointer" title="Inspect ${item.name} in Single Market Studio">
+                    <span class="text-sm">${item.flag}</span>
+                    <span class="text-xs font-bold text-slate-900">${item.sec}</span>
+                    ${holidayBadge}
+                </button>
+            </td>
+
+            <!-- Market Volume (2 cols) -->
+            <td class="py-1 px-1 text-center font-semibold text-slate-900 border-r border-slate-300 tabular-nums">${Math.round(vol).toLocaleString()}</td>
+            <td class="py-1 px-0.5 text-center border-r-2 border-slate-500 tabular-nums ${getPercentileBgClass(volPct)}">${volPct.toFixed(0)}%</td>
+
+            <!-- Market OI (4 cols) -->
+            <td class="py-1 px-1 text-center font-semibold text-slate-900 border-r border-slate-300 tabular-nums">${Math.round(oi).toLocaleString()}</td>
+            <td class="py-1 px-0.5 text-center border-r border-slate-300 tabular-nums ${getPercentileBgClass(oiPct)}">${oiPct.toFixed(0)}%</td>
+            <td class="py-1 px-1 text-center font-semibold border-r border-slate-300 tabular-nums ${oiDelta > 0 ? 'text-emerald-700' : (oiDelta < 0 ? 'text-rose-700' : 'text-slate-600')}">
+                ${oiDelta > 0 ? `+${Math.round(oiDelta).toLocaleString()}` : Math.round(oiDelta).toLocaleString()}
+            </td>
+            <td class="py-1 px-0.5 text-center border-r-2 border-slate-700 tabular-nums ${getSignificanceBgClass(oiSig)}">${oiSig.toFixed(0)}%</td>
+
+            <!-- Active Price (5 cols) -->
+            <td class="py-1 px-1 text-center font-semibold text-slate-900 border-r border-slate-300 tabular-nums">${pxFormat}</td>
+            <td class="py-1 px-0.5 text-center border-r border-slate-300 tabular-nums ${getPercentileBgClass(pxPct)}">${pxPct.toFixed(0)}%</td>
+            <td class="py-1 px-1 text-center font-semibold border-r border-slate-300 tabular-nums ${pxDelta > 0 ? 'text-emerald-700' : (pxDelta < 0 ? 'text-rose-700' : 'text-slate-600')}">
+                ${pxDeltaFormat}
+            </td>
+            <td class="py-1 px-1 text-center font-semibold border-r border-slate-300 tabular-nums ${pxPctDelta > 0 ? 'text-emerald-700' : (pxPctDelta < 0 ? 'text-rose-700' : 'text-slate-600')}">
+                ${pxPctDelta >= 0 ? `+${pxPctDelta.toFixed(2)}%` : `${pxPctDelta.toFixed(2)}%`}
+            </td>
+            <td class="py-1 px-0.5 text-center border-r-2 border-slate-700 tabular-nums ${getSignificanceBgClass(pxSig)}">${pxSig.toFixed(0)}%</td>
+
+            <!-- Spread (3 cols) -->
+            <td class="py-1 px-1 text-center font-semibold text-slate-900 border-r border-slate-300 tabular-nums">${decimals === 4 ? cal.toFixed(4) : (decimals === 2 ? cal.toFixed(2) : Math.round(cal))}</td>
+            <td class="py-1 px-1 text-center font-semibold border-r border-slate-300 tabular-nums ${calDelta > 0 ? 'text-emerald-700' : (calDelta < 0 ? 'text-rose-700' : 'text-slate-600')}">
+                ${calDelta >= 0 ? `+${decimals === 4 ? calDelta.toFixed(4) : (decimals === 2 ? calDelta.toFixed(2) : Math.round(calDelta))}` : (decimals === 4 ? calDelta.toFixed(4) : (decimals === 2 ? calDelta.toFixed(2) : Math.round(calDelta)))}
+            </td>
+            <td class="py-1 px-0.5 text-center border-r-2 border-slate-700 tabular-nums ${getSignificanceBgClass(calSig)}">${calSig.toFixed(0)}%</td>
+
+            <!-- Diagnosis -->
+            <td class="py-1 px-1.5 text-center whitespace-nowrap">
+                <span class="inline-block px-2 py-0.5 rounded-full text-[10.5px] border ${badgeClass}">
+                    ${regime}
+                </span>
+            </td>
+        </tr>`;
+    });
+
+    tbody.innerHTML = html;
+
+    const elAccum = document.getElementById('cntAccum');
+    if (elAccum) elAccum.textContent = countAccum;
+    const elLiq = document.getElementById('cntLiq');
+    if (elLiq) elLiq.textContent = countLiq;
+    const elCover = document.getElementById('cntCover');
+    if (elCover) elCover.textContent = countCover;
+    const elExt = document.getElementById('cntExt');
+    if (elExt) elExt.textContent = countExt;
+    const elRange = document.getElementById('cntRange');
+    if (elRange) elRange.textContent = countRange;
+}
+
+function jumpToMarketStudio(mktKey) {
+    switchMarket(mktKey);
+}
+
+
+
+
+let priceOiWindow = 65;
+
+        let chartPriceRegime = null;
+        let chartOiPanel = null;
+        let chartOiPrice = null;
+        let chartCurve = null;
+        let chartVol = null;
+        let chartStanding = null;
+        let chartSeas = null;
+
+        function setPriceOiWindow(w) {
+            if (!w || isNaN(w) || w <= 0) return;
+            priceOiWindow = (w === 999 || w > DATA.sessions.length) ? DATA.sessions.length : w;
+            [40, 65, 90, 125, 250, 999].forEach(n => {
+                const btn = document.getElementById(n === 999 ? 'btnPoiAll' : ('btnPoi' + n));
+                if (btn) {
+                    const isMatch = (n === 999 && priceOiWindow === DATA.sessions.length) || (n === priceOiWindow);
+                    if (isMatch) {
+                        btn.className = 'tab-btn active px-2.5 py-1 rounded font-semibold transition';
+                    } else {
+                        btn.className = 'tab-btn px-2.5 py-1 rounded font-semibold text-slate-600 transition';
+                    }
+                }
+            });
+            const customInput = document.getElementById('inputCustomPoi');
+            if (customInput) {
+                customInput.value = (priceOiWindow !== DATA.sessions.length && ![40, 65, 90, 125, 250].includes(priceOiWindow)) ? priceOiWindow : '';
+            }
+            renderPriceOiRegimeChart();
+        }
+
+        function getRegimePointMeta(sItem) {
+            if (!sItem) return { color: '#a1a1aa', border: '#ffffff', shortLabel: 'Rangebound', pillBg: '#f4f4f5', pillText: '#52525b', pillBorder: '#d4d4d8', meaning: 'Rangebound Equilibrium' };
+            const fCol = (sItem.flow_badge_color || '').toLowerCase();
+            const fRegime = (sItem.flow_regime || '').toLowerCase();
+
+            // Longs Green Spectrum
+            if (fCol === 'emerald-dark' || fRegime.includes('institutional surge')) {
+                return { color: '#064e3b', border: '#ffffff', shortLabel: 'Outright Longs', pillBg: '#064e3b', pillText: '#ffffff', pillBorder: '#065f46', meaning: sItem.flow_regime };
+            } else if (fCol === 'emerald' || fRegime.includes('moderate new longs')) {
+                return { color: '#10b981', border: '#ffffff', shortLabel: 'Moderate Longs', pillBg: '#d1fae5', pillText: '#065f46', pillBorder: '#6ee7b7', meaning: sItem.flow_regime };
+            } else if (fCol === 'emerald-light' || fRegime.includes('drift up')) {
+                return { color: '#86efac', border: '#065f46', shortLabel: 'Thin Drift Up', pillBg: '#ecfdf5', pillText: '#047857', pillBorder: '#a7f3d0', meaning: sItem.flow_regime };
+            }
+
+            // Shorts True Red Spectrum (No pink tones)
+            if (fCol === 'rose-dark' || fRegime.includes('institutional pressure')) {
+                return { color: '#7f1d1d', border: '#ffffff', shortLabel: 'Outright Shorts', pillBg: '#7f1d1d', pillText: '#ffffff', pillBorder: '#991b1b', meaning: sItem.flow_regime };
+            } else if (fCol === 'rose' || fRegime.includes('moderate new shorts')) {
+                return { color: '#dc2626', border: '#ffffff', shortLabel: 'Moderate Shorts', pillBg: '#fee2e2', pillText: '#991b1b', pillBorder: '#f87171', meaning: sItem.flow_regime };
+            } else if (fCol === 'rose-light' || fRegime.includes('drift down')) {
+                return { color: '#f87171', border: '#991b1b', shortLabel: 'Thin Drift Down', pillBg: '#fef2f2', pillText: '#b91c1c', pillBorder: '#fca5a5', meaning: sItem.flow_regime };
+            }
+
+            // Unwind / Long Liquidation Pure Yellow Spectrum (Distinct from Red/Maroon)
+            if (fCol === 'yellow-dark' || fRegime.includes('heavy long liquidation')) {
+                return { color: '#ca8a04', border: '#ffffff', shortLabel: 'Heavy Liquidation', pillBg: '#ca8a04', pillText: '#ffffff', pillBorder: '#a16207', meaning: sItem.flow_regime };
+            } else if (fCol === 'yellow' || fRegime.includes('long liquidation')) {
+                return { color: '#eab308', border: '#ffffff', shortLabel: 'Long Liquidation', pillBg: '#fef08a', pillText: '#713f12', pillBorder: '#facc15', meaning: sItem.flow_regime };
+            } else if (fCol === 'yellow-light') {
+                return { color: '#fde047', border: '#854d0e', shortLabel: 'Low-Vol Liquidation', pillBg: '#fef9c3', pillText: '#854d0e', pillBorder: '#fde047', meaning: sItem.flow_regime };
+            }
+
+            // Short Covering Sky Spectrum
+            if (fCol === 'sky-dark' || fRegime.includes('short squeeze')) {
+                return { color: '#0369a1', border: '#ffffff', shortLabel: 'Short Squeeze', pillBg: '#0369a1', pillText: '#ffffff', pillBorder: '#0284c7', meaning: sItem.flow_regime };
+            } else if (fCol === 'sky' || fRegime.includes('short covering')) {
+                return { color: '#0ea5e9', border: '#ffffff', shortLabel: 'Short Covering', pillBg: '#e0f2fe', pillText: '#075985', pillBorder: '#7dd3fc', meaning: sItem.flow_regime };
+            } else if (fCol === 'sky-light') {
+                return { color: '#7dd3fc', border: '#0369a1', shortLabel: 'Low-Vol Short Cover', pillBg: '#f0f9ff', pillText: '#0369a1', pillBorder: '#bae6fd', meaning: sItem.flow_regime };
+            }
+
+            // Rangebound / Consolidation Light Grey Spectrum
+            if (fCol === 'slate-dark') {
+                return { color: '#94a3b8', border: '#ffffff', shortLabel: 'Range Accum', pillBg: '#f1f5f9', pillText: '#475569', pillBorder: '#cbd5e1', meaning: sItem.flow_regime || 'Rangebound Accumulation' };
+            } else if (fCol === 'slate') {
+                return { color: '#a1a1aa', border: '#ffffff', shortLabel: 'Range Liquidate', pillBg: '#f4f4f5', pillText: '#52525b', pillBorder: '#d4d4d8', meaning: sItem.flow_regime || 'Rangebound Liquidation' };
+            } else if (fCol === 'slate-light') {
+                return { color: '#cbd5e1', border: '#94a3b8', shortLabel: 'Neutral Consolid', pillBg: '#f8fafc', pillText: '#64748b', pillBorder: '#e2e8f0', meaning: sItem.flow_regime || 'Neutral Range Consolidation' };
+            }
+
+            // Default Rangebound Neutral Light Gray (All Coiling, De-risking, Equilibrium)
+            return {
+                color: '#a1a1aa',
+                border: '#ffffff',
+                shortLabel: 'Rangebound',
+                pillBg: '#f4f4f5',
+                pillText: '#52525b',
+                pillBorder: '#d4d4d8',
+                meaning: sItem.flow_regime || 'Rangebound Equilibrium'
+            };
+        }
+
+        function renderPriceOiRegimeChart() {
+            const canvasPrice = document.getElementById('chartPriceRegime');
+            const canvasOi = document.getElementById('chartOiPanels');
+            if (!canvasPrice || !canvasOi) return;
+
+            if (chartPriceRegime) chartPriceRegime.destroy();
+            if (chartOiPanel) chartOiPanel.destroy();
+
+            const allSessions = DATA.sessions;
+            const startIdx = Math.max(0, allSessions.length - priceOiWindow);
+            const slice = allSessions.slice(startIdx);
+            const activeDate = getActiveSession().date;
+            const showLabels = document.getElementById('chkShowPriceLabels') ? document.getElementById('chkShowPriceLabels').checked : true;
+
+            const bannerEl = document.getElementById('priceOiSelectedBanner');
+            const activeS = getActiveSession();
+            if (bannerEl && activeS) {
+                bannerEl.innerHTML = `Selected: <strong class="text-slate-900">${activeS.date}</strong> • Price: <strong class="text-slate-900">${fmtNum(activeS.active_price)}</strong> (${fmtNum(activeS.active_price_delta, true)}) • Mkt OI: <strong class="text-blue-700">${fmtNum(activeS.mkt_oi)}</strong> (${fmtNum(activeS.mkt_oi_delta, true)}) → <strong class="underline">${activeS.flow_regime || activeS.scen_meaning}</strong>`;
+            }
+
+            // Identify key inflection / high-conviction sessions to annotate directly on the price curve
+            const minGap = priceOiWindow <= 45 ? 4 : (priceOiWindow <= 70 ? 5 : (priceOiWindow <= 100 ? 7 : 11));
+            const calloutSet = new Set();
+            let lastCalloutIdx = -999;
+            slice.forEach((sItem, i) => {
+                const isSelected = (!isLiveMode && sItem.date === activeDate);
+                const score = (sItem.price_delta_sig || 0) * 0.55 + (sItem.oi_delta_sig || 0) * 0.45;
+                const isBigMove = score >= 62 || Math.abs(sItem.active_price_delta) >= 85 || Math.abs(sItem.mkt_oi_delta) >= 6500;
+                if (isSelected || i === slice.length - 1) {
+                    calloutSet.add(i);
+                    lastCalloutIdx = i;
+                } else if (isBigMove && (i - lastCalloutIdx) >= minGap && i > 1 && i < slice.length - 2) {
+                    calloutSet.add(i);
+                    lastCalloutIdx = i;
+                }
+            });
+
+            const ptMetas = slice.map(sItem => getRegimePointMeta(sItem));
+            const ptColors = ptMetas.map(m => m.color);
+            const ptBorders = slice.map(sItem => (!isLiveMode && sItem.date === activeDate) ? '#0f172a' : '#ffffff');
+            const ptRadii = slice.map((sItem, i) => (!isLiveMode && sItem.date === activeDate) ? 8.5 : (calloutSet.has(i) ? 5.5 : 4.0));
+            const ptBorderWidths = slice.map(sItem => (!isLiveMode && sItem.date === activeDate) ? 2.8 : 1.5);
+            const labels = slice.map(sItem => sItem.date);
+
+            const regimeCalloutPlugin = {
+                id: 'regimeCalloutPlugin',
+                afterDatasetsDraw(chart) {
+                    if (!showLabels) return;
+                    const { ctx: c, chartArea: area } = chart;
+                    if (!area || isNaN(area.top) || isNaN(area.bottom)) return;
+                    const metaPrice = chart.getDatasetMeta(0);
+                    if (!metaPrice || !metaPrice.data) return;
+
+                    c.save();
+                    let toggleUpDown = 0;
+                    slice.forEach((sItem, i) => {
+                        if (!calloutSet.has(i)) return;
+                        const pt = metaPrice.data[i];
+                        if (!pt) return;
+                        const isSelected = (!isLiveMode && sItem.date === activeDate);
+                        const meta = ptMetas[i];
+                        const shortDt = sItem.date.slice(5);
+
+                        const line1 = (isSelected ? '★ ' : '') + shortDt + ': ' + meta.shortLabel;
+                        const line2 = '(ΔP ' + fmtNum(sItem.active_price_delta, true) + ', ΔOI ' + fmtNum(sItem.mkt_oi_delta, true) + ')';
+
+                        c.font = (isSelected ? '700 8.5px ' : '600 8.0px ') + 'Inter, system-ui, sans-serif';
+                        const w1 = c.measureText(line1).width;
+                        c.font = '600 7.2px Inter, system-ui, sans-serif';
+                        const w2 = c.measureText(line2).width;
+
+                        const boxW = Math.max(w1, w2) + 12;
+                        const boxH = 26;
+
+                        let goAbove = (toggleUpDown % 2 === 0);
+                        toggleUpDown++;
+
+                        let boxY = goAbove ? (pt.y - boxH - 12) : (pt.y + 12);
+                        if (boxY < area.top + 4) {
+                            boxY = pt.y + 12;
+                            goAbove = false;
+                        } else if (boxY + boxH > area.bottom - 4) {
+                            boxY = pt.y - boxH - 12;
+                            goAbove = true;
+                        }
+
+                        let boxX = pt.x - boxW / 2;
+                        if (boxX < area.left + 4) boxX = area.left + 4;
+                        if (boxX + boxW > area.right - 4) boxX = area.right - boxW - 4;
+
+                        // Draw connecting pointer arrow
+                        c.beginPath();
+                        c.strokeStyle = isSelected ? '#0f172a' : meta.pillBorder;
+                        c.lineWidth = isSelected ? 1.5 : 1.0;
+                        if (goAbove) {
+                            c.moveTo(boxX + boxW / 2, boxY + boxH);
+                            c.lineTo(pt.x, pt.y - 6);
+                            c.stroke();
+                            c.beginPath();
+                            c.moveTo(pt.x - 3.5, pt.y - 11);
+                            c.lineTo(pt.x, pt.y - 5.5);
+                            c.lineTo(pt.x + 3.5, pt.y - 11);
+                            c.fillStyle = isSelected ? '#0f172a' : meta.pillBorder;
+                            c.fill();
+                        } else {
+                            c.moveTo(boxX + boxW / 2, boxY);
+                            c.lineTo(pt.x, pt.y + 6);
+                            c.stroke();
+                            c.beginPath();
+                            c.moveTo(pt.x - 3.5, pt.y + 11);
+                            c.lineTo(pt.x, pt.y + 5.5);
+                            c.lineTo(pt.x + 3.5, pt.y + 11);
+                            c.fillStyle = isSelected ? '#0f172a' : meta.pillBorder;
+                            c.fill();
+                        }
+
+                        // Draw pill box
+                        c.beginPath();
+                        c.fillStyle = meta.pillBg;
+                        c.strokeStyle = isSelected ? '#0f172a' : meta.pillBorder;
+                        c.lineWidth = isSelected ? 1.8 : 1.0;
+                        c.roundRect(boxX, boxY, boxW, boxH, 4.5);
+                        c.fill();
+                        c.stroke();
+
+                        // Render Line 1 (Regime & Date)
+                        c.textAlign = 'center';
+                        c.textBaseline = 'middle';
+                        c.font = (isSelected ? '700 8.5px ' : '600 8.0px ') + 'Inter, system-ui, sans-serif';
+                        c.fillStyle = isSelected ? '#0f172a' : meta.pillText;
+                        c.fillText(line1, boxX + boxW / 2, boxY + 8);
+
+                        // Render Line 2 (ΔP and ΔOI)
+                        c.font = '600 7.2px Inter, system-ui, sans-serif';
+                        c.fillStyle = isSelected ? '#334155' : meta.pillText;
+                        c.fillText(line2, boxX + boxW / 2, boxY + 19);
+                    });
+                    c.restore();
+                }
+            };
+
+            // Dynamic scale bounds for Panel A (Price)
+            const pVals = slice.map(s => s.active_price).filter(v => v > 0);
+            const minP = pVals.length ? Math.min(...pVals) : 3800;
+            const maxP = pVals.length ? Math.max(...pVals) : 5000;
+            const pPad = Math.max(70, (maxP - minP) * 0.22);
+            const yMinPrice = Math.floor((minP - pPad) / 25) * 25;
+            const yMaxPrice = Math.ceil((maxP + pPad) / 25) * 25;
+
+            // Dynamic scale bounds for Panel B (Open Interest & Net Delta) - Extended & tightly bounded for high sensitivity
+            const oiVals = slice.map(s => s.mkt_oi).filter(v => v > 0);
+            const minOi = oiVals.length ? Math.min(...oiVals) : 200000;
+            const maxOi = oiVals.length ? Math.max(...oiVals) : 360000;
+            const oiPad = Math.max(2000, (maxOi - minOi) * 0.08);
+            const yMinOi = Math.max(0, Math.floor((minOi - oiPad) / 2000) * 2000);
+            const yMaxOi = Math.ceil((maxOi + oiPad) / 2000) * 2000;
+
+            const deltaVals = slice.map(s => Math.abs(s.mkt_oi_delta));
+            const maxDelta = Math.max(2500, ...deltaVals);
+            const y1DeltaLimit = Math.ceil((maxDelta * 1.12) / 250) * 250;
+
+            // PANEL A: Benchmark Price Chart with vibrant regime-colored bubbles
+            chartPriceRegime = new Chart(canvasPrice.getContext('2d'), {
+                type: 'line',
+                plugins: [regimeCalloutPlugin],
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: 'Active Benchmark Settle Price (MYR/t)',
+                            data: slice.map(sItem => sItem.active_price),
+                            borderColor: '#334155',
+                            backgroundColor: 'rgba(51, 65, 85, 0.05)',
+                            fill: true,
+                            borderWidth: 2.2,
+                            pointBackgroundColor: (ctx) => ptColors[ctx.dataIndex] || '#10b981',
+                            pointBorderColor: (ctx) => ptBorders[ctx.dataIndex] || '#ffffff',
+                            pointRadius: (ctx) => ptRadii[ctx.dataIndex] || 5,
+                            pointHoverRadius: 9.5,
+                            pointBorderWidth: (ctx) => ptBorderWidths[ctx.dataIndex] || 2,
+                            tension: 0.15
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 26, bottom: 4, left: 0, right: 0 } },
+                    interaction: { mode: 'index', intersect: false },
+                    onClick: (evt, elements) => {
+                        if (elements && elements.length > 0) {
+                            const clickedSession = slice[elements[0].index];
+                            if (clickedSession) selectDateByString(clickedSession.date);
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => {
+                                    const sItem = slice[items[0].dataIndex];
+                                    const regimeTitle = sItem.flow_regime || sItem.scen_meaning || 'Action Regime';
+                                    return sItem.date + ' • ' + regimeTitle;
+                                },
+                                label: (item) => 'Active Price: ' + fmtNum(item.raw) + ' ' + DATA.currency + ' (' + fmtNum(slice[item.dataIndex].active_price_delta, true) + ')'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            offset: true,
+                            grid: {
+                                display: true,
+                                color: (ctx) => {
+                                    const i = ctx.tick?.value;
+                                    if (i !== undefined && slice[i] && slice[i - 1]) {
+                                        if (slice[i].date.slice(0, 7) !== slice[i - 1].date.slice(0, 7)) {
+                                            return '#cbd5e1';
+                                        }
+                                    }
+                                    return '#f8fafc';
+                                },
+                                lineWidth: (ctx) => {
+                                    const i = ctx.tick?.value;
+                                    if (i !== undefined && slice[i] && slice[i - 1]) {
+                                        if (slice[i].date.slice(0, 7) !== slice[i - 1].date.slice(0, 7)) {
+                                            return 1.2;
+                                        }
+                                    }
+                                    return 0.5;
+                                }
+                            },
+                            ticks: {
+                                display: true,
+                                autoSkip: false,
+                                maxRotation: 0,
+                                font: { size: 10, weight: '700', family: 'Inter, system-ui, sans-serif' },
+                                color: '#475569',
+                                callback: function(val, index) {
+                                    const sItem = slice[index];
+                                    if (!sItem || !sItem.date) return '';
+                                    const parts = sItem.date.split('-');
+                                    const mmyy = parts[1] + '-' + parts[0].slice(-2);
+
+                                    if (index === 0) {
+                                        for (let j = 1; j <= Math.min(3, slice.length - 1); j++) {
+                                            if (slice[j].date.slice(0, 7) !== sItem.date.slice(0, 7)) return '';
+                                        }
+                                        return mmyy;
+                                    }
+
+                                    const prevItem = slice[index - 1];
+                                    if (prevItem && prevItem.date) {
+                                        if (sItem.date.slice(0, 7) !== prevItem.date.slice(0, 7)) {
+                                            return mmyy;
+                                        }
+                                    }
+                                    return '';
+                                }
+                            }
+                        },
+                        y: {
+                            position: 'left',
+                            min: yMinPrice,
+                            max: yMaxPrice,
+                            afterFit: (axis) => { axis.width = 90; },
+                            title: { display: true, text: 'Active Settle (MYR/t)', font: { size: 10.5, weight: 'bold' }, color: '#0f172a' },
+                            grid: { color: '#e2e8f0' },
+                            ticks: { callback: (v) => fmtNum(v) }
+                        },
+                        y1: {
+                            position: 'right',
+                            display: true,
+                            grid: { drawOnChartArea: false },
+                            ticks: { display: false },
+                            border: { display: false },
+                            afterFit: (axis) => { axis.width = 65; }
+                        }
+                    }
+                }
+            });
+
+            // PANEL B: Open Interest Chart (Directly below Panel A, sharing exact same X-axis dates)
+            chartOiPanel = new Chart(canvasOi.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'Daily Net ΔOI (Regime-Colored, Left Axis)',
+                            data: slice.map(sItem => sItem.mkt_oi_delta),
+                            backgroundColor: (ctx) => ptColors[ctx.dataIndex] || '#10b981',
+                            borderColor: (ctx) => ptColors[ctx.dataIndex] || '#10b981',
+                            borderWidth: 1,
+                            borderRadius: 2.5,
+                            yAxisID: 'y',
+                            order: 2
+                        },
+                        {
+                            type: 'line',
+                            label: 'Total Market Open Interest (Right Axis)',
+                            data: slice.map(sItem => sItem.mkt_oi),
+                            borderColor: '#1d4ed8',
+                            backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                            fill: true,
+                            borderWidth: 2.2,
+                            pointRadius: 0,
+                            pointHoverRadius: 5,
+                            yAxisID: 'y1',
+                            tension: 0.25,
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 4, bottom: 6, left: 0, right: 0 } },
+                    interaction: { mode: 'index', intersect: false },
+                    onClick: (evt, elements) => {
+                        if (elements && elements.length > 0) {
+                            const clickedSession = slice[elements[0].index];
+                            if (clickedSession) selectDateByString(clickedSession.date);
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 10, font: { size: 10.5, weight: '600' } } },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => slice[items[0].dataIndex].date,
+                                afterBody: (items) => {
+                                    const sItem = slice[items[0].dataIndex];
+                                    return [
+                                        'Action Regime: ' + sItem.flow_regime + (sItem.is_estimated ? ' (⚠️ Exchange Anomaly Filtered)' : ''),
+                                        'Daily Net ΔOI: ' + fmtNum(sItem.mkt_oi_delta, true) + ' lots',
+                                        'Total Market OI: ' + fmtNum(sItem.mkt_oi) + ' lots',
+                                        'Matched Roll Share: ' + fmtPct(sItem.roll_share_pct),
+                                        'Market Traded Volume: ' + fmtNum(sItem.mkt_vol) + ' lots (Click to inspect below)'
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            offset: true,
+                            grid: {
+                                display: true,
+                                color: (ctx) => {
+                                    const i = ctx.tick?.value;
+                                    if (i !== undefined && slice[i] && slice[i - 1]) {
+                                        if (slice[i].date.slice(0, 7) !== slice[i - 1].date.slice(0, 7)) {
+                                            return '#cbd5e1';
+                                        }
+                                    }
+                                    return '#f8fafc';
+                                },
+                                lineWidth: (ctx) => {
+                                    const i = ctx.tick?.value;
+                                    if (i !== undefined && slice[i] && slice[i - 1]) {
+                                        if (slice[i].date.slice(0, 7) !== slice[i - 1].date.slice(0, 7)) {
+                                            return 1.2;
+                                        }
+                                    }
+                                    return 0.5;
+                                }
+                            },
+                            ticks: {
+                                display: true,
+                                autoSkip: false,
+                                maxRotation: 0,
+                                font: { size: 10, weight: '700', family: 'Inter, system-ui, sans-serif' },
+                                color: '#475569',
+                                callback: function(val, index) {
+                                    const sItem = slice[index];
+                                    if (!sItem || !sItem.date) return '';
+                                    const parts = sItem.date.split('-');
+                                    const mmyy = parts[1] + '-' + parts[0].slice(-2);
+
+                                    if (index === 0) {
+                                        for (let j = 1; j <= Math.min(3, slice.length - 1); j++) {
+                                            if (slice[j].date.slice(0, 7) !== sItem.date.slice(0, 7)) return '';
+                                        }
+                                        return mmyy;
+                                    }
+
+                                    const prevItem = slice[index - 1];
+                                    if (prevItem && prevItem.date) {
+                                        if (sItem.date.slice(0, 7) !== prevItem.date.slice(0, 7)) {
+                                            return mmyy;
+                                        }
+                                    }
+                                    return '';
+                                }
+                            }
+                        },
+                        y: {
+                            position: 'left',
+                            min: -y1DeltaLimit,
+                            max: y1DeltaLimit,
+                            afterFit: (axis) => { axis.width = 90; },
+                            title: { display: true, text: 'Daily Net ΔOI (Lots)', font: { size: 10.5, weight: 'bold' }, color: '#334155' },
+                            grid: {
+                                color: (ctx) => (ctx.tick && ctx.tick.value === 0) ? '#334155' : '#f1f5f9',
+                                lineWidth: (ctx) => (ctx.tick && ctx.tick.value === 0) ? 1.4 : 1.0
+                            },
+                            ticks: { callback: (v) => fmtNum(v, true) }
+                        },
+                        y1: {
+                            position: 'right',
+                            min: yMinOi,
+                            max: yMaxOi,
+                            afterFit: (axis) => { axis.width = 65; },
+                            title: { display: true, text: 'Total Market OI (Lots)', font: { size: 10.5, weight: 'bold' }, color: '#1d4ed8' },
+                            grid: { drawOnChartArea: false },
+                            ticks: { callback: (v) => Math.round(v / 1000) + 'k' }
+                        }
+                    }
+                }
+            });
+        }
+
+        
+
+        // Studio Session Navigation Helpers
+        function prevSession() {
+            stepDate(-1);
+        }
+        function nextSession() {
+            stepDate(1);
+        }
+        function jumpToSessionIndex(val) {
+            onSelectDate(val);
+        }
+        function jumpToLatestEOD() {
+            selectLatestEOD();
+        }
+
+        let priceChartMode = 'line';
+        function setPriceChartMode(mode) {
+            priceChartMode = mode;
+            const bOhlc = document.getElementById('btnPriceOhlc');
+            const bLine = document.getElementById('btnPriceLine');
+            if (bOhlc) bOhlc.className = (mode === 'ohlc') ? 'px-2.5 py-1 rounded font-bold text-xs bg-white text-slate-800 shadow-xs' : 'px-2.5 py-1 rounded font-medium text-xs text-slate-500 hover:text-slate-800';
+            if (bLine) bLine.className = (mode === 'line') ? 'px-2.5 py-1 rounded font-bold text-xs bg-white text-slate-800 shadow-xs' : 'px-2.5 py-1 rounded font-medium text-xs text-slate-500 hover:text-slate-800';
+            renderPriceOiRegimeChart();
+        }
+
+        function setPresetRange(preset) {
+            if (preset === '6m_3m') setPriceOiWindow(125);
+            else if (preset === '3m_1m') setPriceOiWindow(65);
+        }
+
+        function resetDateRange() {
+            setPriceOiWindow(65);
+        }
+
+        function onCustomDateRangeChange() {
+            renderPriceOiRegimeChart();
+        }
+
+        function renderAllViews() {
+            syncUI();
+            if (typeof renderPriceOiRegimeChart === 'function') {
+                renderPriceOiRegimeChart();
+            }
+            if (typeof renderDcp2Matrix === 'function') {
+                renderDcp2Matrix();
+            }
+            if (typeof renderSeasonalityChart === 'function') {
+                renderSeasonalityChart();
+            }
+        }
+
+
+        // --- Core Formatting & Badge Helpers ---
+        function fmtNum(val, withSign) {
+            if (val === null || val === undefined || isNaN(val)) return '--';
+            const num = Math.round(Number(val));
+            if (withSign && num > 0) return '+' + num.toLocaleString();
+            return num.toLocaleString();
+        }
+
+        function fmtPrice(val, withSign, decimals) {
+            if (val === null || val === undefined || isNaN(val)) return '--';
+            const d = decimals !== undefined ? decimals : ((DATA && DATA.decimals !== undefined) ? DATA.decimals : 2);
+            const num = Number(val);
+            const str = d === 4 ? num.toFixed(4) : (d === 2 ? num.toFixed(2) : Math.round(num).toLocaleString());
+            if (withSign && num > 0) return '+' + str;
+            return str;
+        }
+
+        function fmtPct(val, withSign) {
+            if (val === null || val === undefined || isNaN(val)) return '--%';
+            const num = Number(val);
+            const str = num.toFixed(1) + '%';
+            if (withSign && num > 0) return '+' + str;
+            return str;
+        }
+
+        function getBadgeClasses(color) {
+            if (!color) return 'bg-slate-100 text-slate-700 border-slate-300';
+            if (color.includes('emerald')) return 'bg-emerald-50 text-emerald-800 border-emerald-300 font-bold';
+            if (color.includes('yellow')) return 'bg-yellow-50 text-yellow-800 border-yellow-300 font-bold';
+            if (color.includes('sky') || color.includes('blue')) return 'bg-sky-50 text-sky-800 border-sky-300 font-bold';
+            if (color.includes('rose') || color.includes('red')) return 'bg-rose-50 text-rose-800 border-rose-300 font-bold';
+            if (color.includes('purple')) return 'bg-purple-50 text-purple-800 border-purple-300 font-bold';
+            return 'bg-slate-100 text-slate-700 border-slate-300';
+        }
+    
+        let isLiveMode = false;
+        let oiChartHorizon = '1d';
+        let currentMatrixMode = 'd_oi';
+        let tableHorizon = '1d';
+        let currentMarket = 'FCPO';
+        let DATA = MARKET_DATA[currentMarket];
+        let currentSessionIdx = DATA.sessions.length - 1;
+
+        function switchMarket(mkt) {
+            if (mkt === 'MASTER') {
+                currentMarket = 'MASTER';
+                const masterBtn = document.getElementById('btnMarketMASTER');
+                if (masterBtn) {
+                    masterBtn.className = 'market-btn active px-3.5 py-1 rounded-lg text-xs font-black bg-blue-600 text-white shadow-sm flex items-center space-x-2 hover:bg-blue-500 transition-all cursor-pointer';
+                }
+                Object.keys(MARKET_DATA).forEach(k => {
+                    const btn = document.getElementById('btnMarket' + k);
+                    if (btn) btn.className = 'market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap';
+                });
+
+                const subNav = document.getElementById('singleMarketSubNav');
+                if (subNav) subNav.classList.add('hidden');
+
+                ['studio', 'dcp2', 'quadrant', 'playbook'].forEach(v => {
+                    const el = document.getElementById(`view-${v}`);
+                    if (el) el.classList.add('hidden');
+                });
+
+                const masterView = document.getElementById('view-master-summary');
+                if (masterView) masterView.classList.remove('hidden');
+
+                if (typeof initMasterSummaryEngine === 'function') {
+                    initMasterSummaryEngine();
+                }
+                return;
+            }
+
+            if (!MARKET_DATA[mkt]) return;
+            currentMarket = mkt;
+            DATA = MARKET_DATA[currentMarket];
+            currentSessionIdx = DATA.sessions.length - 1;
+            isLiveMode = false;
+
+            const masterBtn = document.getElementById('btnMarketMASTER');
+            if (masterBtn) {
+                masterBtn.className = 'market-btn px-3.5 py-1 rounded-lg text-xs font-bold bg-slate-700/80 text-slate-300 shadow-sm flex items-center space-x-2 hover:text-white hover:bg-slate-600 transition-all cursor-pointer';
+            }
+
+            const activeCls = 'market-btn active px-2 py-0.5 rounded text-[10.5px] font-bold transition shadow-sm bg-blue-600 text-white flex items-center space-x-1 whitespace-nowrap';
+            const inactiveCls = 'market-btn px-2 py-0.5 rounded text-[10.5px] font-semibold transition text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1 whitespace-nowrap';
+
+            Object.keys(MARKET_DATA).forEach(k => {
+                const btn = document.getElementById('btnMarket' + k);
+                if (btn) btn.className = (mkt === k) ? activeCls : inactiveCls;
+            });
+
+            const masterView = document.getElementById('view-master-summary');
+            if (masterView) masterView.classList.add('hidden');
+
+            const subNav = document.getElementById('singleMarketSubNav');
+            if (subNav) subNav.classList.remove('hidden');
+
+            switchMainView('studio');
+
+            initSelector();
+            syncUI();
+            if (typeof renderPriceOiRegimeChart === 'function') {
+                renderPriceOiRegimeChart();
+            }
+        }
+
+        function initSelector() {
+            const sel = document.getElementById('dateSelect');
+            sel.innerHTML = '';
+            // Add Live Intraday option at top
+            const optLive = document.createElement('option');
+            optLive.value = 'LIVE';
+            optLive.textContent = '⚡ 2026-10-20 (Live Intraday / Pre-Clearing)';
+            sel.appendChild(optLive);
+
+            for (let i = DATA.sessions.length - 1; i >= 0; i--) {
+                const s = DATA.sessions[i];
+                const opt = document.createElement('option');
+                opt.value = String(i);
+                opt.textContent = s.date + (i === DATA.sessions.length - 1 ? ' (Latest Official EOD)' : '') + ' — ' + s.scen_meaning;
+                sel.appendChild(opt);
+            }
+            sel.value = String(currentSessionIdx);
+        }
+
+        function stepDate(delta) {
+            if (isLiveMode) {
+                if (delta < 0) {
+                    isLiveMode = false;
+                    currentSessionIdx = DATA.sessions.length - 1;
+                }
+            } else {
+                const nextIdx = currentSessionIdx + delta;
+                if (nextIdx >= 0 && nextIdx < DATA.sessions.length) {
+                    currentSessionIdx = nextIdx;
+                } else if (nextIdx >= DATA.sessions.length) {
+                    isLiveMode = true;
+                }
+            }
+            syncUI();
+        }
+
+        function onSelectDate(val) {
+            if (val === 'LIVE') {
+                isLiveMode = true;
+            } else {
+                isLiveMode = false;
+                currentSessionIdx = parseInt(val, 10);
+            }
+            syncUI();
+        }
+
+        function selectLatestEOD() {
+            isLiveMode = false;
+            currentSessionIdx = DATA.sessions.length - 1;
+            syncUI();
+        }
+
+        function selectLiveIntraday() {
+            isLiveMode = true;
+            syncUI();
+        }
+
+        function selectDateByString(dtStr) {
+            const idx = DATA.sessions.findIndex(s => s.date === dtStr);
+            if (idx !== -1) {
+                isLiveMode = false;
+                currentSessionIdx = idx;
+                switchMainView('studio');
+                syncUI();
+            }
+        }
+
+        function switchMainView(viewName) {
+            ['studio', 'dcp2', 'quadrant', 'playbook'].forEach(v => {
+                const el = document.getElementById('view-' + v);
+                if (el) el.classList.toggle('hidden', v !== viewName);
+                const nav = document.getElementById('nav-' + v);
+                if (nav) nav.classList.toggle('active', v === viewName);
+            });
+            if (viewName === 'quadrant') {
+                setTimeout(() => {
+                    renderSeasonalityChart();
+                }, 60);
+            } else if (viewName === 'studio') {
+                setTimeout(() => {
+                    renderPriceOiRegimeChart();
+                }, 60);
+            }
+        }
+
+        function setOiChartHorizon(h) {
+            oiChartHorizon = h;
+            const b1 = document.getElementById('btnOi1d'); if (b1) b1.classList.toggle('active', h === '1d');
+            const b5 = document.getElementById('btnOi5d'); if (b5) b5.classList.toggle('active', h === '5d');
+            syncUI();
+        }
+
+        function setMatrixMode(mode) {
+            currentMatrixMode = mode;
+            ['d_oi', 'd_price', 'vol', 'conviction', 'oi_level', 'spread'].forEach(m => {
+                const btn = document.getElementById('matBtn-' + m);
+                if (btn) btn.classList.toggle('active', m === mode);
+            });
+            renderDcp2Matrix();
+        }
+
+        function getActiveSession() {
+            if (isLiveMode) {
+                const live = DATA.live_intraday;
+                const last = DATA.sessions[DATA.sessions.length - 1];
+                return {
+                    ...last,
+                    ...live,
+                    scen_scenario: '⚠️ Intraday Pre-Clearing OI, Price ↑',
+                    scen_meaning: 'Live Intraday Rally (+54 MYR/t)',
+                    scen_quadrant: 'Live Session (Pre-EOD Netting)',
+                    flow_regime: '⚡ Live Intraday Trading (Official OI Nets After Close)',
+                    flow_badge_color: 'amber',
+                    narrative: 'LIVE INTRADAY SESSION (2026-10-20): Active FCPOF27 is trading at ' + fmtNum(live.active_price) + ' MYR/t (+' + fmtNum(live.active_price_delta) + ' MYR/t vs Oct 19 settle of 4,766), with 137,102 contracts traded across the curve. Note: Live OPINT_1 on BMD reflects un-netted intraday registrations prior to evening clearinghouse netting. Switch to Oct 19 EOD to study official cleared OI changes.'
+                };
+            }
+            return DATA.sessions[currentSessionIdx];
+        }
+
+        function syncUI() {
+            if (currentMarket === 'MASTER') return;
+            const sel = document.getElementById('dateSelect');
+            if (sel) sel.value = isLiveMode ? 'LIVE' : String(currentSessionIdx);
+
+            const alertEl = document.getElementById('intradayAlert');
+            if (alertEl) alertEl.classList.toggle('hidden', !isLiveMode);
+
+            const s = getActiveSession();
+            if (!s) return;
+
+            const mktObj = MARKET_DATA[currentMarket] || {};
+            const currUnit = mktObj.currency || 'USD';
+            const decimals = mktObj.decimals !== undefined ? mktObj.decimals : 2;
+
+            const stTitle = document.getElementById('studioTitle');
+            if (stTitle) stTitle.textContent = mktObj.name || currentMarket;
+
+            const stEx = document.getElementById('studioExchange');
+            if (stEx) stEx.textContent = mktObj.exchange || '';
+
+            const stFlag = document.getElementById('studioFlagBadge');
+            if (stFlag) stFlag.textContent = mktObj.flag || '🇺🇸';
+
+            const stAct = document.getElementById('studioActiveRic');
+            if (stAct) stAct.textContent = s.active_ric || '';
+
+            const stPx = document.getElementById('studioPrice');
+            if (stPx) {
+                const pxVal = s.active_price;
+                stPx.textContent = `${(decimals === 4 ? pxVal.toFixed(4) : (decimals === 2 ? pxVal.toFixed(2) : Math.round(pxVal).toLocaleString()))} ${currUnit}`;
+            }
+
+            const stDP = document.getElementById('studioDeltaP');
+            if (stDP) {
+                const dpVal = s.active_price_delta;
+                const dpSign = dpVal >= 0 ? `+${decimals === 4 ? dpVal.toFixed(4) : (decimals === 2 ? dpVal.toFixed(2) : Math.round(dpVal))}` : `${decimals === 4 ? dpVal.toFixed(4) : (decimals === 2 ? dpVal.toFixed(2) : Math.round(dpVal))}`;
+                stDP.textContent = `${dpSign}`;
+                stDP.className = `font-bold ${dpVal >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
+            }
+
+            const stDOi = document.getElementById('studioDeltaOi');
+            if (stDOi) {
+                const doiVal = s.mkt_oi_delta;
+                const doiSign = doiVal >= 0 ? `+${Math.round(doiVal).toLocaleString()}` : `${Math.round(doiVal).toLocaleString()}`;
+                stDOi.textContent = `${doiSign} lots`;
+                stDOi.className = `font-bold ${doiVal >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
+            }
+
+            const stVd = document.getElementById('studioVerdictBadge');
+            if (stVd) {
+                stVd.textContent = s.flow_regime || '⚪ Rangebound';
+                stVd.className = `px-3 py-1 text-xs font-extrabold rounded-full border shadow-2xs ${getBadgeClasses(s.flow_badge_color || s.scen_color)}`;
+            }
+
+            const stSel = document.getElementById('studioSessionSelect');
+            if (stSel && mktObj.sessions) {
+                if (stSel.options.length !== mktObj.sessions.length) {
+                    stSel.innerHTML = '';
+                    mktObj.sessions.forEach((sess, idx) => {
+                        const opt = document.createElement('option');
+                        opt.value = idx;
+                        opt.textContent = `${sess.date}`;
+                        stSel.appendChild(opt);
+                    });
+                }
+                stSel.value = currentSessionIdx;
+            }
+
+            if (typeof renderContractTable === 'function') {
+                renderContractTable(s);
+            }
+            if (typeof renderPriceOiRegimeChart === 'function') {
+                renderPriceOiRegimeChart();
+            }
+        }
+
+        function setTableHorizon(h) {
+            tableHorizon = h;
+            const btn1d = document.getElementById('btnTable1d');
+            const btn5d = document.getElementById('btnTable5d');
+            if (btn1d) {
+                btn1d.classList.toggle('active', h === '1d');
+                btn1d.classList.toggle('text-slate-700', h !== '1d');
+            }
+            if (btn5d) {
+                btn5d.classList.toggle('active', h === '5d');
+                btn5d.classList.toggle('text-slate-700', h !== '5d');
+            }
+            renderContractTable(getActiveSession());
+        }
+
+        function renderContractTable(s) {
+            document.getElementById('tableSessionTitle').textContent =
+                'Contract-Month Attribution Table — ' + s.date + ' (Active Benchmark: ' + s.active_ric + ')';
+
+            const thP = document.getElementById('thPriceDelta');
+            const thS = document.getElementById('thSpreadDelta');
+            const thO = document.getElementById('thOiDelta');
+            if (thP) thP.textContent = tableHorizon === '1d' ? '1d ΔP' : '5d ΔP';
+            if (thS) thS.textContent = tableHorizon === '1d' ? '1d Sprd Δ' : '5d Sprd Δ';
+            if (thO) thO.textContent = tableHorizon === '1d' ? '1d OI Δ' : '5d OI Δ';
+
+            const tbody = document.getElementById('contractTableBody');
+            tbody.innerHTML = '';
+            const thSp = document.getElementById('thSpreadVol');
+            const thOut = document.getElementById('thOutrightVol');
+            if (thSp && thOut) {
+                if (DATA.is_spread_actual) {
+                    thSp.innerHTML = 'Spread Vol <span class="text-[9px] px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">ACTUAL</span>';
+                    thSp.title = '100% Hard Verified Exchange Data: Bottom-up aggregation of all 276 BMD calendar spread pairs';
+                    thOut.innerHTML = 'Outright Vol <span class="text-[9px] px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">ACTUAL</span>';
+                    thOut.title = '100% Hard Verified Exchange Data: Total Cleared Volume minus Actual Spread Volume';
+                } else {
+                    thSp.innerHTML = 'Spread Vol <span class="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-bold border border-amber-300">EST</span>';
+                    thSp.title = 'Estimated Flow Attribution: Modeled via bilateral curve turnover (DCE spread series restricted by vendor)';
+                    thOut.innerHTML = 'Outright Vol <span class="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-bold border border-amber-300">EST</span>';
+                    thOut.title = 'Estimated Flow Attribution: Total Cleared Volume minus Modeled Spread Volume';
+                }
+            }
+
+            let sumOi = 0, sumPrevOi = 0, sumDOi = 0, sumDOi5 = 0, sumVol = 0;
+            let sumSpVol = 0, sumOutVol = 0;
+            const showExpired = document.getElementById('chkShowExpired') ? document.getElementById('chkShowExpired').checked : false;
+
+            s.contracts.forEach(c => {
+                if (c.oi === 0 && c.prev_oi === 0 && c.vol === 0 && (!c.is_expired || !showExpired)) return;
+                sumOi += c.oi;
+                sumPrevOi += c.prev_oi;
+                sumDOi += c.d_oi;
+                sumDOi5 += c.d_oi_5d;
+                sumVol += c.vol;
+                sumSpVol += (c.spread_vol || 0);
+                sumOutVol += (c.outright_vol || 0);
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition ' + (c.is_active ? 'bg-emerald-50/30' : (c.is_expired ? 'bg-amber-50/25' : ''));
+
+                const dPVal = tableHorizon === '1d' ? c.d_price : c.d_price_5d;
+                const dPClass = dPVal > 0 ? 'text-emerald-600 font-bold' : (dPVal < 0 ? 'text-rose-600 font-bold' : 'text-slate-500');
+
+                const sprdDeltaVal = tableHorizon === '1d' ? c.adj_spread_delta : (c.adj_spread_delta_5d !== undefined && c.adj_spread_delta_5d !== null ? c.adj_spread_delta_5d : c.adj_spread_delta);
+                const sprdDeltaClass = (sprdDeltaVal || 0) > 0 ? 'text-emerald-600 font-semibold' : ((sprdDeltaVal || 0) < 0 ? 'text-rose-600 font-semibold' : 'text-slate-400');
+
+                const dOiVal = tableHorizon === '1d' ? c.d_oi : c.d_oi_5d;
+                const dOiClass = (c.is_expired && c.oi === 0) ? 'text-amber-800 font-semibold' : (dOiVal > 0 ? 'text-emerald-700 font-bold bg-emerald-50/60' : (dOiVal < 0 ? 'text-rose-700 font-bold bg-rose-50/60' : 'text-slate-500'));
+
+                let rolePill = '';
+                if (c.is_active) {
+                    rolePill = '<span class="ml-1 px-1 py-0.2 text-[9.5px] font-bold rounded bg-emerald-600 text-white">#1</span>';
+                } else if (c.is_second) {
+                    rolePill = '<span class="ml-1 px-1 py-0.2 text-[9.5px] font-bold rounded bg-sky-600 text-white">#2</span>';
+                }
+
+                tr.innerHTML = `
+                    <td class="px-2.5 py-1.5 whitespace-nowrap font-bold text-slate-900 truncate">${c.label}${rolePill}</td>
+                    <td class="px-2 py-1.5 text-right font-bold text-slate-800 truncate">${fmtPrice(c.price)}</td>
+                    <td class="px-1.5 py-1.5 text-right truncate ${dPClass}">${dPVal !== 0 ? fmtPrice(dPVal, true) : '--'}</td>
+                    <td class="px-2 py-1.5 text-right font-semibold text-slate-700 truncate">${c.adj_spread !== null ? fmtPrice(c.adj_spread, true) : '--'}</td>
+                    <td class="px-1.5 py-1.5 text-right truncate ${sprdDeltaClass}">${sprdDeltaVal !== null ? fmtPrice(sprdDeltaVal, true) : '--'}</td>
+                    <td class="px-2 py-1.5 text-right font-bold text-slate-900 bg-blue-50/20 truncate">${fmtNum(c.oi)}</td>
+                    <td class="px-1.5 py-1.5 text-right text-slate-600 bg-blue-50/20 truncate">${(c.oi_share !== undefined && c.oi_share !== null) ? Number(c.oi_share).toFixed(1) : '0.0'}%</td>
+                    <td class="px-2 py-1.5 text-right truncate ${dOiClass}">${dOiVal !== 0 ? fmtNum(dOiVal, true) : (c.is_expired ? '0' : '--')}</td>
+                    <td class="px-2 py-1.5 text-right font-semibold text-slate-800 truncate">${fmtNum(c.vol)}</td>
+                    <td class="px-1.5 py-1.5 text-right text-slate-600 truncate">${(c.vol_share !== undefined && c.vol_share !== null) ? Number(c.vol_share).toFixed(1) : '0.0'}%</td>
+                    <td class="px-2 py-1.5 text-right font-semibold text-purple-800 bg-purple-50/30 truncate" title="Spread Vol: ${fmtNum(c.spread_vol)} lots (${(c.spread_vol_pct||0).toFixed(1)}%)">${fmtNum(c.spread_vol)}</td>
+                    <td class="px-2 py-1.5 text-right font-bold text-blue-900 bg-blue-50/30 truncate" title="Outright Vol: ${fmtNum(c.outright_vol)} lots (${(c.outright_vol_pct||0).toFixed(1)}%)">${fmtNum(c.outright_vol)}</td>
+                    <td class="px-1.5 py-1.5 text-right text-slate-600 truncate">${(c.turnover_pct !== undefined && c.turnover_pct !== null) ? Number(c.turnover_pct).toFixed(1) : '0.0'}%</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const tfoot = document.getElementById('contractTableFoot');
+            const totalSpPct = sumVol > 0 ? (sumSpVol / sumVol * 100).toFixed(1) : '72.6';
+            const totalOutPct = sumVol > 0 ? (sumOutVol / sumVol * 100).toFixed(1) : '27.4';
+            const totDP = tableHorizon === '1d' ? s.active_price_delta : (s.active_price_delta_5d || s.active_price_delta);
+            const totSprdD = tableHorizon === '1d' ? s.cal_delta : (s.cal_delta_5d || s.cal_delta);
+            const totOiD = tableHorizon === '1d' ? sumDOi : sumDOi5;
+
+            const outrightNetDiff = Math.abs(totOiD);
+            const inAndOutVol = Math.max(0, sumOutVol - outrightNetDiff);
+            const churnPct = sumOutVol > 0 ? (inAndOutVol / sumOutVol * 100).toFixed(1) : '0.0';
+            const overnightPct = sumOutVol > 0 ? (outrightNetDiff / sumOutVol * 100).toFixed(1) : '0.0';
+
+            tfoot.innerHTML = `
+                <tr class="bg-slate-900 text-white font-bold text-[11px]">
+                    <td class="px-2.5 py-2 text-left truncate">TOTAL / ACTIVE</td>
+                    <td class="px-2 py-2 text-right truncate">${fmtPrice(s.active_price)}</td>
+                    <td class="px-1.5 py-2 text-right truncate ${totDP >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${fmtPrice(totDP, true)}</td>
+                    <td class="px-2 py-2 text-right truncate">${fmtPrice(s.cal_spread, true)}</td>
+                    <td class="px-1.5 py-2 text-right truncate">${fmtPrice(totSprdD, true)}</td>
+                    <td class="px-2 py-2 text-right truncate">${fmtNum(sumOi)}</td>
+                    <td class="px-1.5 py-2 text-right truncate">100%</td>
+                    <td class="px-2 py-2 text-right truncate ${totOiD >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${fmtNum(totOiD, true)}</td>
+                    <td class="px-2 py-2 text-right truncate">${fmtNum(sumVol)}</td>
+                    <td class="px-1.5 py-2 text-right truncate">100%</td>
+                    <td class="px-2 py-2 text-right text-purple-300 font-bold truncate" title="Total Calendar Spread Volume">${fmtNum(sumSpVol)} <span class="text-[9.5px] font-normal text-purple-400">(${totalSpPct}%)</span></td>
+                    <td class="px-2 py-2 text-right text-blue-300 font-bold truncate" title="Total Outright Directional Volume">${fmtNum(sumOutVol)} <span class="text-[9.5px] font-normal text-blue-400">(${totalOutPct}%)</span></td>
+                    <td class="px-1.5 py-2 text-right truncate">${sumOi > 0 ? (sumVol / sumOi * 100).toFixed(1) + '%' : '--'}</td>
+                </tr>
+                <tr class="bg-slate-950 text-white border-t border-slate-700">
+                    <td colspan="13" class="px-4 py-2.5">
+                        <div class="flex flex-wrap items-center justify-between gap-3 text-xs">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="text-slate-400 font-bold uppercase tracking-wider text-[10.5px]">Market Diagnosis:</span>
+                                <span class="px-2.5 py-0.5 rounded-full font-bold text-xs border ${getBadgeClasses(s.flow_badge_color || s.scen_color)}">${s.flow_regime}</span>
+                                <span class="text-slate-300 font-medium text-[11px]">${s.scen_scenario}</span>
+                            </div>
+                            <!-- In-and-Out Intraday Churn vs Overnight Commitment Breakdown -->
+                            <div class="flex flex-wrap items-center gap-3.5 text-[11px] text-slate-300 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">
+                                <span title="Volume executed by intraday scalpers/day-traders that flattened before the close (contributes to Volume, $0 net OI change)">
+                                    🔄 Intraday In-and-Out (Churn): <strong class="text-amber-400">${fmtNum(inAndOutVol)} lots</strong> <span class="text-slate-400 font-mono text-[10px]">(${churnPct}% of outright)</span>
+                                </span>
+                                <span class="text-slate-600">|</span>
+                                <span title="Contracts that converted into genuine overnight open interest exposure held across sessions">
+                                    🏛️ Overnight Commitment: <strong class="text-emerald-400">${fmtNum(outrightNetDiff)} lots</strong> <span class="text-slate-400 font-mono text-[10px]">(${overnightPct}% conversion)</span>
+                                </span>
+                                <span class="text-slate-600">|</span>
+                                <span>Matched Roll: <strong class="text-purple-300">${fmtNum(s.matched_roll_oi)} lots</strong></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function getHeatmapStyle(val, mode) {
+            if (val === null || val === undefined || isNaN(val) || val === 0) return '';
+            if (mode === 'd_oi') {
+                const ratio = Math.min(1, Math.abs(val) / 6000);
+                const alpha = (0.08 + ratio * 0.45).toFixed(2);
+                return val > 0
+                    ? `background-color: rgba(16, 185, 129, ${alpha}); color: ${ratio > 0.5 ? '#064e3b' : '#065f46'}; font-weight: ${ratio > 0.25 ? '700' : '500'};`
+                    : `background-color: rgba(220, 38, 38, ${alpha}); color: ${ratio > 0.5 ? '#881337' : '#991b1b'}; font-weight: ${ratio > 0.25 ? '700' : '500'};`;
+            } else if (mode === 'd_price') {
+                const ratio = Math.min(1, Math.abs(val) / 90);
+                const alpha = (0.08 + ratio * 0.45).toFixed(2);
+                return val > 0
+                    ? `background-color: rgba(16, 185, 129, ${alpha}); color: #064e3b; font-weight: 600;`
+                    : `background-color: rgba(220, 38, 38, ${alpha}); color: #881337; font-weight: 600;`;
+            } else if (mode === 'vol') {
+                const ratio = Math.min(1, val / 45000);
+                const alpha = (0.05 + ratio * 0.45).toFixed(2);
+                return `background-color: rgba(59, 130, 246, ${alpha}); color: #1e3a8a; font-weight: ${ratio > 0.35 ? '700' : '500'};`;
+            } else if (mode === 'conviction') {
+                const ratio = Math.min(1, Math.abs(val) / 35);
+                const alpha = (0.08 + ratio * 0.42).toFixed(2);
+                return val > 0
+                    ? `background-color: rgba(16, 185, 129, ${alpha}); color: #064e3b; font-weight: 600;`
+                    : `background-color: rgba(220, 38, 38, ${alpha}); color: #881337; font-weight: 600;`;
+            } else if (mode === 'oi_level') {
+                const ratio = Math.min(1, val / 80000);
+                const alpha = (0.05 + ratio * 0.45).toFixed(2);
+                return `background-color: rgba(14, 165, 233, ${alpha}); color: #0c4a6e; font-weight: ${ratio > 0.4 ? '700' : '500'};`;
+            } else if (mode === 'spread') {
+                const isCorn = (typeof currentMarket !== 'undefined' && currentMarket === 'CORN');
+                const maxSpread = isCorn ? 25.0 : 150.0;
+                const ratio = Math.min(1, Math.abs(val) / maxSpread);
+                const alpha = (0.08 + ratio * 0.45).toFixed(2);
+                return val > 0
+                    ? `background-color: rgba(16, 185, 129, ${alpha}); color: #064e3b; font-weight: 700;`
+                    : `background-color: rgba(220, 38, 38, ${alpha}); color: #881337; font-weight: 700;`;
+            }
+            return '';
+        }
+
+        let dcp2Limit = 999;
+        let showDcp2Expired = false;
+        function toggleDcp2Expired(checked) {
+            showDcp2Expired = checked;
+            renderDcp2Matrix();
+        }
+
+        function setDcp2Limit(n) {
+            dcp2Limit = n;
+            ['35', '65', '125', 'All'].forEach(k => {
+                const b = document.getElementById('btnDcp' + k);
+                if (!b) return;
+                const isMatch = (k === 'All' && n === 999) || (parseInt(k) === n);
+                b.className = isMatch ? 'px-2.5 py-0.5 rounded transition shadow-xs bg-white text-slate-900 font-bold' : 'px-2 py-0.5 rounded transition text-slate-600 hover:text-slate-900';
+            });
+            if ((n === 125 || n === 999) && !showDcp2Expired) {
+                showDcp2Expired = true;
+                const chk = document.getElementById('chkDcp2Expired');
+                if (chk) chk.checked = true;
+            }
+            renderDcp2Matrix();
+        }
+
+        function renderDcp2Matrix() {
+            let cols = (showDcp2Expired ? DATA.dcp2_all_contracts : (DATA.dcp2_active_contracts || DATA.dcp2_contracts)) || [];
+            if (!cols.length && DATA.sessions && DATA.sessions.length) {
+                cols = DATA.sessions[DATA.sessions.length - 1].contracts.map(c => c.ric);
+            }
+            if (!DATA.dcp2_sessions && DATA.sessions) {
+                DATA.dcp2_sessions = [...DATA.sessions].reverse();
+            }
+            const colW = showDcp2Expired ? 54 : 50;
+            const colgroup = document.getElementById('dcp2Colgroup');
+            if (colgroup) {
+                colgroup.innerHTML = `
+                    <col style="width: 74px;">
+                    <col style="width: 140px;">
+                    <col style="width: 48px;">
+                    <col style="width: 52px;">
+                    <col style="width: 52px;">
+                    <col style="width: 54px;">
+                    <col style="width: 50px;">
+                    <col style="width: 46px;">
+                    <col style="width: 44px;">
+                    ${cols.map(() => `<col style="width: ${colW}px;">`).join('')}
+                `;
+            }
+            const thead = document.getElementById('dcp2HeaderRow');
+            thead.innerHTML = `
+                <th class="px-1.5 py-1 text-left sticky left-0 bg-slate-900 z-30 text-[10px] whitespace-nowrap">Date</th>
+                <th class="px-2 py-1 text-left text-[10px] text-slate-200 border-r border-slate-700 whitespace-nowrap" style="min-width: 135px;">Action</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Total Market Traded Volume">Vol</th>
+                <th class="px-0.5 py-1 text-center text-[8.5px] leading-tight text-purple-300 whitespace-nowrap" title="Calendar Spread Traded Volume in Lots (Rolls & Spreads)">Spread<br>Vol</th>
+                <th class="px-0.5 py-1 text-center text-[8.5px] leading-tight text-blue-300 whitespace-nowrap" title="Direct Single-Month Outright Directional Volume (Lots)">Outright<br>Vol</th>
+                <th class="px-1 py-1 text-right text-[10px] text-sky-300 whitespace-nowrap" title="Total Market Standing Open Interest (Contracts)">Mkt OI</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Net Market Open Interest Change">Net ΔOI</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Active Benchmark Settlement Price Change">Act ΔP</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Front Calendar Spread Change: P(Active) - P(Active+2)">Cal Δ</th>
+                ${cols.map((c, idx) => {
+                    const label = getShortRic(c);
+                    const isExp = DATA.dcp2_expired_list && DATA.dcp2_expired_list.includes(c);
+                    const thClass = isExp ? 'text-amber-300 bg-slate-950 font-bold' : 'text-slate-200';
+                    let colHeader = label;
+                    let colTitle = c + (isExp ? ' (Expired Tenor)' : '');
+                    if (currentMatrixMode === 'spread') {
+                        const nextRic = (idx + 1 < cols.length) ? cols[idx + 1] : null;
+                        const nextLabel = nextRic ? getShortRic(nextRic) : '';
+                        colHeader = nextLabel ? `${label}-${nextLabel}` : `${label}`;
+                        colTitle = nextRic ? `Calendar Spread: ${c} minus ${nextRic}` : `${c} (Tail Tenor)`;
+                    }
+                    return `<th class="px-0.5 py-1 text-center text-[8.5px] font-bold border-l border-slate-800 whitespace-nowrap ${thClass}" title="${colTitle}">${colHeader}</th>`;
+                }).join('')}
+            `;
+
+            const tbody = document.getElementById('dcp2Body');
+            tbody.innerHTML = '';
+            const selectedDate = getActiveSession().date;
+
+            const sessionsToRender = (dcp2Limit === 999 || dcp2Limit >= DATA.dcp2_sessions.length) ? DATA.dcp2_sessions : DATA.dcp2_sessions.slice(0, dcp2Limit);
+            const countLbl = document.getElementById('dcp2SessionCountLabel');
+            if (countLbl) countLbl.textContent = sessionsToRender.length;
+
+            sessionsToRender.forEach(s => {
+                const tr = document.createElement('tr');
+                const isSelected = (!isLiveMode && s.date === selectedDate);
+                tr.className = 'matrix-row h-8 ' + (isSelected ? 'selected-row' : '');
+                tr.onclick = () => selectDateByString(s.date);
+
+                const cMap = {};
+                s.contracts.forEach(c => { cMap[c.ric] = c; });
+
+                const cellsHtml = cols.map((ric, idx) => {
+                    const c = cMap[ric];
+                    if (!c) return `<td class="px-0.5 py-1 text-center text-slate-300 font-mono text-[9.5px]">--</td>`;
+                    const isExp = DATA.dcp2_expired_list && DATA.dcp2_expired_list.includes(ric);
+                    if (isExp && c.oi === 0 && c.prev_oi === 0 && c.vol === 0) {
+                        return `<td class="px-0.5 py-1 text-center text-slate-300 bg-slate-50/60 font-mono text-[9.5px]">--</td>`;
+                    }
+                    let val = null;
+                    let disp = '--';
+                    if (currentMatrixMode === 'd_oi') {
+                        val = c.d_oi;
+                        disp = (c.oi === 0 && c.prev_oi === 0) ? '--' : fmtNum(val, true);
+                    } else if (currentMatrixMode === 'd_price') {
+                        val = c.d_price;
+                        disp = c.price === null ? '--' : fmtPrice(val, true);
+                    } else if (currentMatrixMode === 'vol') {
+                        val = c.vol;
+                        disp = val === 0 ? '--' : fmtNum(val);
+                    } else if (currentMatrixMode === 'conviction') {
+                        val = c.conviction_pct;
+                        disp = c.vol === 0 ? '--' : fmtPct(val, true);
+                    } else if (currentMatrixMode === 'oi_level') {
+                        val = c.oi;
+                        disp = val === 0 ? '--' : fmtNum(val);
+                    } else if (currentMatrixMode === 'spread') {
+                        // Find next available contract in cols with a valid positive price on this date
+                        let nextC = null;
+                        for (let j = idx + 1; j < cols.length; j++) {
+                            const cand = cMap[cols[j]];
+                            if (cand && cand.price !== null && cand.price !== undefined && !isNaN(cand.price) && cand.price > 0) {
+                                nextC = cand;
+                                break;
+                            }
+                        }
+                        if (c.price !== null && c.price !== undefined && !isNaN(c.price) && c.price > 0 && nextC) {
+                            val = c.price - nextC.price;
+                            disp = fmtPrice(val, true);
+                        } else {
+                            disp = '--';
+                        }
+                    }
+                    const style = disp === '--' ? '' : getHeatmapStyle(val, currentMatrixMode);
+                    return `<td class="px-0.5 py-1 text-center matrix-cell border-l border-slate-100 whitespace-nowrap font-mono text-[9.5px] leading-none" style="${style}">${disp}</td>`;
+                }).join('');
+
+                const spVal = s.spread_vol !== undefined && s.spread_vol !== null ? s.spread_vol : Math.round(s.mkt_vol * 0.726);
+                const outVal = s.outright_vol !== undefined && s.outright_vol !== null ? s.outright_vol : Math.round(s.mkt_vol * 0.274);
+                const outPctVal = s.outright_vol_pct !== undefined && s.outright_vol_pct !== null ? s.outright_vol_pct : 27.4;
+                const spPctVal = s.spread_vol_pct !== undefined && s.spread_vol_pct !== null ? s.spread_vol_pct : 72.6;
+
+                tr.innerHTML = `
+                    <td class="px-1.5 py-1 font-bold text-slate-900 whitespace-nowrap sticky left-0 bg-white z-10 border-r border-slate-200 truncate">${s.date}</td>
+                    <td class="px-1.5 py-1 text-left border-r border-slate-200 truncate">
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold border ${getBadgeClasses(s.flow_badge_color || s.scen_color)} truncate" title="${s.flow_regime}">
+                            ${s.flow_regime}
+                        </span>
+                    </td>
+                    <td class="px-1 py-1 text-right font-medium text-slate-700 truncate">${fmtNum(s.mkt_vol)}</td>
+                    <td class="px-1 py-1 text-right font-semibold text-purple-700 bg-purple-50/30 truncate" title="Spread: ${fmtNum(spVal)} lots (${spPctVal.toFixed(1)}%)">${fmtNum(spVal)}</td>
+                    <td class="px-1 py-1 text-right font-bold truncate ${outVal >= 24000 ? 'text-blue-700 font-extrabold bg-blue-100/50' : 'text-blue-900 bg-blue-50/20'}" title="Outright: ${fmtNum(outVal)} lots (${outPctVal.toFixed(1)}%)">${fmtNum(outVal)}</td>
+                    <td class="px-1 py-1 text-right font-bold text-sky-800 bg-sky-50/40 truncate">${fmtNum(s.mkt_oi)}</td>
+                    <td class="px-1 py-1 text-right font-bold truncate ${s.mkt_oi_delta > 0 ? 'text-emerald-600 bg-emerald-50/40' : (s.mkt_oi_delta < 0 ? 'text-rose-600 bg-rose-50/40' : 'text-slate-400')}">${fmtNum(s.mkt_oi_delta, true)}</td>
+                    <td class="px-1 py-1 text-right font-bold truncate ${s.active_price_delta > 0 ? 'text-emerald-600' : (s.active_price_delta < 0 ? 'text-rose-600' : 'text-slate-400')}">${fmtPrice(s.active_price_delta, true)}</td>
+                    <td class="px-1 py-1 text-right font-semibold truncate ${s.cal_delta > 0 ? 'text-emerald-600' : (s.cal_delta < 0 ? 'text-rose-600' : 'text-slate-400')}">${fmtPrice(s.cal_delta, true)}</td>
+                    ${cellsHtml}
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderExpiredArchive() {
+            const tbody = document.getElementById('expiredArchiveBody');
+            if (!tbody || !DATA.expired_archive) return;
+            tbody.innerHTML = '';
+            DATA.expired_archive.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-amber-50/40 transition cursor-pointer';
+                tr.onclick = () => selectDateByString(item.last_date);
+                tr.innerHTML = `
+                    <td class="px-3 py-2 text-left font-bold text-slate-900">${item.ric}</td>
+                    <td class="px-3 py-2 text-left text-slate-700">${item.month}</td>
+                    <td class="px-2.5 py-2 text-left font-mono text-slate-600">${item.last_date}</td>
+                    <td class="px-2.5 py-2 text-right font-bold text-slate-900">${fmtNum(item.final_settle)}</td>
+                    <td class="px-3 py-2 text-right font-bold text-blue-700 bg-blue-50/40">${fmtNum(item.peak_oi)}</td>
+                    <td class="px-2.5 py-2 text-left font-mono text-slate-500">${item.peak_date}</td>
+                    <td class="px-2.5 py-2 text-right font-semibold text-slate-700">${fmtNum(item.final_oi)}</td>
+                    <td class="px-3 py-2 text-right font-semibold text-slate-700">${fmtNum(item.total_vol)}</td>
+                    <td class="px-3 py-2 text-center">
+                        <button onclick="event.stopPropagation(); selectDateByString('${item.last_date}'); switchMainView('studio');" class="px-2 py-0.5 text-[10.5px] rounded bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold transition">
+                            Inspect ⚡
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderSeasonalityChart() {
+            const canvas = document.getElementById('chartSeasonality');
+            if (!canvas) return;
+
+            // Always update title and subtitle dynamically for the active commodity (even before visibility check)
+            const titleEl = document.getElementById('seasonalityTitle');
+            if (titleEl) {
+                const mktTitle = DATA.name || currentMarket;
+                titleEl.textContent = '10-Year ' + mktTitle + ' Open Interest Seasonality (2015–2026, Week 1–52)';
+            }
+            const nameEl = document.getElementById('seasonalityMktName');
+            if (nameEl) {
+                nameEl.textContent = DATA.name || DATA.symbol;
+            }
+
+            // If the quadrant/seasonality tab is hidden, defer chart rendering to avoid 0x0 canvas distortion
+            const parentView = document.getElementById('view-quadrant');
+            if (parentView && parentView.classList.contains('hidden')) {
+                if (chartSeas) {
+                    chartSeas.destroy();
+                    chartSeas = null;
+                }
+                return;
+            }
+
+            if (chartSeas) {
+                chartSeas.destroy();
+                chartSeas = null;
+            }
+
+            const seas = DATA.seasonality;
+            if (!seas || !seas.weeks || !seas.weeks.length) return;
+
+            const ctx = canvas.getContext('2d');
+            chartSeas = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: seas.weeks.map(w => 'W' + w),
+                    datasets: [
+                        {
+                            label: '2026 (Current Year)',
+                            data: seas.y2026,
+                            borderColor: '#1d4ed8',
+                            backgroundColor: '#1d4ed8',
+                            borderWidth: 3.2,
+                            pointRadius: 2.5,
+                            pointHoverRadius: 6,
+                            tension: 0.25,
+                            spanGaps: true,
+                            order: 1
+                        },
+                        {
+                            label: '2025',
+                            data: seas.y2025,
+                            borderColor: '#f97316',
+                            borderDash: [5, 4],
+                            borderWidth: 2.2,
+                            pointRadius: 0,
+                            pointHoverRadius: 5,
+                            tension: 0.25,
+                            spanGaps: true,
+                            order: 2
+                        },
+                        {
+                            label: '10Y Seasonal Mean',
+                            data: seas.mean,
+                            borderColor: '#334155',
+                            borderDash: [3, 2],
+                            borderWidth: 2.0,
+                            pointRadius: 0,
+                            pointHoverRadius: 5,
+                            tension: 0.25,
+                            spanGaps: true,
+                            order: 3
+                        },
+                        {
+                            label: '10Y P90 Upper Band',
+                            data: seas.p90,
+                            borderColor: 'transparent',
+                            backgroundColor: 'rgba(148, 163, 184, 0.25)',
+                            fill: '+1',
+                            pointRadius: 0,
+                            tension: 0.25,
+                            spanGaps: true,
+                            order: 4
+                        },
+                        {
+                            label: '10Y P10 Lower Band',
+                            data: seas.p10,
+                            borderColor: 'transparent',
+                            backgroundColor: 'transparent',
+                            fill: false,
+                            pointRadius: 0,
+                            tension: 0.25,
+                            spanGaps: true,
+                            order: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 14, font: { size: 11.5, weight: 'bold' } } },
+                        tooltip: {
+                            callbacks: {
+                                label: (c) => {
+                                    const val = c.raw;
+                                    if (val === null || val === undefined) return c.dataset.label + ': N/A';
+                                    return c.dataset.label + ': ' + Number(val).toLocaleString() + ' contracts';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#f1f5f9' },
+                            ticks: { maxTicksLimit: 26, font: { size: 10.5, weight: '600' } }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            title: { display: true, text: 'Total Market Standing Open Interest (Contracts)', font: { size: 11.5, weight: 'bold' } },
+                            grid: { color: '#e2e8f0' },
+                            ticks: {
+                                callback: (v) => Number(v).toLocaleString(),
+                                font: { size: 11, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initMasterSummaryEngine();
+            switchMarket('MASTER');
+        });
+    </script>
+</body>
+</html>

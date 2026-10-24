@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>South East Asia (Malaysia &amp; Indonesia) Rainfall vs. ENSO (RONI &amp; ONI) Correlation &amp; Lag Study (1990–2026)</title>
+  <script src="sea_all_regions_enso_data.js?v=20261019_1648"></script>
+  <style>
+    :root {
+      --bg-primary: #0b1120;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --bg-card-alt: #162032;
+      --border-color: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-rose: #f43f5e;
+      --accent-cyan: #06b6d4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      padding: 20px 28px 60px;
+    }
+
+    .container { max-width: 1720px; margin: 0 auto; }
+
+    /* Header */
+    .report-header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .header-title-block h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .header-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.91rem;
+      max-width: 1020px;
+    }
+
+    .provenance-badges {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.76rem;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .badge.emerald {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .badge.amber {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .badge.rose {
+      background: rgba(244, 63, 94, 0.14);
+      color: #fb7185;
+      border-color: rgba(244, 63, 94, 0.35);
+    }
+
+    /* Executive Summary Grid */
+    .exec-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 1250px) {
+      .exec-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .exec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exec-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-blue);
+    }
+
+    .exec-card.card-emerald::before { background: var(--accent-emerald); }
+    .exec-card.card-amber::before { background: var(--accent-amber); }
+    .exec-card.card-rose::before { background: var(--accent-rose); }
+
+    .exec-card-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .exec-card-value {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .exec-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.42;
+    }
+
+    /* Sticky Control Bar */
+    .control-bar {
+      background: rgba(30, 41, 59, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .control-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .btn-group {
+      display: inline-flex;
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .btn-toggle {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      font-size: 0.81rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-toggle:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-toggle.active {
+      background: var(--accent-blue);
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    select.ctrl-select {
+      background: #0f172a;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    select.ctrl-select:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .lag-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+
+    .lag-slider-wrap input[type="range"] {
+      width: 130px;
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .lag-pill {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      min-width: 85px;
+      text-align: center;
+    }
+
+    /* Section Containers */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    /* Data Tables */
+    .table-wrap {
+      overflow-x: hidden;
+      max-height: 520px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.74rem;
+      table-layout: fixed;
+    }
+
+    table.data-table th {
+      background: #0f172a;
+      color: var(--text-secondary);
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 6px;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    table.data-table th.num,
+    table.data-table td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    table.data-table th.center,
+    table.data-table td.center {
+      text-align: center;
+    }
+
+    table.data-table td {
+      padding: 5px 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.25;
+    }
+
+    table.data-table tbody tr {
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+
+    table.data-table tbody tr:hover {
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    table.data-table tbody tr.selected-row {
+      background: rgba(56, 189, 248, 0.18) !important;
+      outline: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    table.data-table tbody tr.composite-row {
+      font-weight: 700;
+      background: rgba(15, 23, 42, 0.65);
+      border-left: 3px solid var(--accent-amber);
+    }
+
+    .corr-pill {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 0.73rem;
+      min-width: 52px;
+      text-align: center;
+    }
+
+    /* SVG Containers */
+    .svg-container {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+      position: relative;
+    }
+
+    /* Diagnosis Callout Box */
+    .diagnosis-box {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+
+    .diagnosis-box strong { color: var(--text-primary); }
+
+    /* Tooltip */
+    #chart-tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-size: 0.8rem;
+      color: #f8fafc;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      display: none;
+      max-width: 320px;
+      line-height: 1.45;
+    }
+
+    /* Conclusions Section */
+    .conclusions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 1100px) {
+      .conclusions-grid { grid-template-columns: 1fr; }
+    }
+
+    .conclusion-card {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+
+    .conclusion-card h4 {
+      font-size: 0.95rem;
+      color: var(--accent-blue);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .conclusion-card p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    
+    /* Quadrant Analysis Cards */
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 1200px) {
+      .quadrant-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .quad-card {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .quad-card:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    .quad-card.active-quad {
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+    .quad-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quad-value {
+      font-size: 1.45rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+    }
+    .quad-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .macro-filter-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .pill-btn {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+    .pill-btn.active { background: rgba(56, 189, 248, 0.15); border-color: var(--accent-blue); color: var(--accent-blue); }
+  </style>
+</head>
+<body>
+  <div id="chart-tooltip"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="report-header">
+      <div class="header-title-block">
+        <h1>South East Asia (Malaysia &amp; Indonesia) Rainfall vs. ENSO (RONI &amp; ONI) Study</h1>
+        <p class="header-subtitle">
+          Long-horizon empirical climatology spanning <strong>36.75 years (1990–2026, <em>n</em> = 440 seasons / 441 months)</strong> evaluating NOAA CPC's <strong>Relative Oceanic Ni&ntilde;o Index (RONI)</strong> and <strong>Traditional ONI</strong> against ERA5 &amp; ECMWF actualized rainfall across <strong>all 39 plantation regions and 9 macro-composites</strong> in Malaysia and Indonesia.
+        </p>
+      </div>
+      <div class="provenance-badges">
+        <span class="badge">🌊 ENSO: NOAA CPC Official (RONI &amp; ONI)</span>
+        <span class="badge" style="background: rgba(168, 85, 247, 0.12); color: #c084fc; border-color: rgba(168, 85, 247, 0.3);">🧭 IOD: NOAA PSL HadISST DMI (1870–2026)</span>
+        <span class="badge emerald">🌧️ Rainfall: ERA5 (1990–2009) + ECMWF (2010–2026)</span>
+        <span class="badge amber">📅 Multi-Decadal: 1990–2026 (441 Months | 30-Yr WMO Baseline)</span>
+      </div>
+    </header>
+
+    <!-- Top Executive KPI Cards -->
+    <div class="exec-grid">
+      <div class="exec-card">
+        <div class="exec-card-label">1. Overall Indonesia vs. Malaysia</div>
+        <div class="exec-card-value" style="color: #38bdf8;">Indonesia Deeply Exposed</div>
+        <div class="exec-card-desc">
+          Dry Season (Jun–Oct, <em>n</em> = 184 mos) correlation reaches <strong>r = &minus;0.821</strong> for Overall Indonesia vs. <strong>r = &minus;0.331</strong> for Overall Malaysia. Indonesia sits on the active Walker Circulation subsidence axis.
+        </div>
+      </div>
+
+      <div class="exec-card card-emerald">
+        <div class="exec-card-label">2. 37-Year Climatological Power</div>
+        <div class="exec-card-value" style="color: #34d399;">n = 440 Seasons (1990–2026)</div>
+        <div class="exec-card-desc">
+          Captures every major ENSO event of the modern era (Super El Ni&ntilde;os 1997–98, 2015–16, 2023–24, and triple-dip La Ni&ntilde;as 1998–2001, 2020–22), raising statistical significance to <em>p</em> &lt; 10<sup>&minus;30</sup>.
+        </div>
+      </div>
+
+      <div class="exec-card card-amber">
+        <div class="exec-card-label">3. Malaysia's Seasonal Inversion</div>
+        <div class="exec-card-value" style="color: #fbbf24;">Wet Season Deficit (Nov–Apr)</div>
+        <div class="exec-card-desc">
+          While Indonesia dries out in <strong>Jun–Oct (r = &minus;0.821)</strong>, Northern Peninsular Malaysia (Perlis r = &minus;0.549, Kedah r = &minus;0.466, Pahang r = &minus;0.466) and Sabah (r = &minus;0.597) suffer droughts in the <strong>Northeast Monsoon (Nov–Apr)</strong>.
+        </div>
+      </div>
+
+      <div class="exec-card card-rose">
+        <div class="exec-card-label">4. Optimal Early Warning Lags</div>
+        <div class="exec-card-value" style="color: #fb7185;">Lag +1 to +3 Months</div>
+        <div class="exec-card-desc">
+          <strong>Dry Season</strong>: South Sumatra, Jambi, Bangka Belitung, Central &amp; South Kalimantan peak at <strong>Lag 0 to +1m (r = &minus;0.62 to &minus;0.74)</strong>. <strong>Northern Belts</strong> (North Kalimantan, Sabah) peak at <strong>Lag +1 to +3m (r = &minus;0.49 to &minus;0.69)</strong>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Control Bar -->
+    <div class="control-bar">
+      <div class="control-group">
+        <span class="control-label">1. Climate Index (Pacific &amp; Indian Ocean)</span>
+        <div class="btn-group" id="index-btn-group">
+          <button class="btn-toggle active" data-index="RONI" onclick="setIndex('RONI')">🌊 RONI (Pacific)</button>
+          <button class="btn-toggle" data-index="ONI" onclick="setIndex('ONI')">🌡️ Traditional ONI</button>
+          <button class="btn-toggle" data-index="IOD_DMI" onclick="setIndex('IOD_DMI')">🧭 IOD (Dipole Mode Index)</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">2. Seasonal Window</span>
+        <div class="btn-group" id="season-btn-group">
+          <button class="btn-toggle active" data-season="ALL" onclick="setSeason('ALL')">📅 Full Year (Jan–Dec)</button>
+          <button class="btn-toggle" data-season="DRY" onclick="setSeason('DRY')">☀️ Dry Season (Jun–Oct)</button>
+          <button class="btn-toggle" data-season="WET" onclick="setSeason('WET')">🌧️ Wet Season (Nov–Apr)</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">3. Time Horizon Filter</span>
+        <div class="btn-group" id="year-filter-btn-group">
+          <button class="btn-toggle active" data-years="ALL" onclick="setYearFilter('ALL')">🌟 Full Era (1990–2026, n=440)</button>
+          <button class="btn-toggle" data-years="RECENT" onclick="setYearFilter('RECENT')">⏱️ Modern (2010–2026, n=200)</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">4. Rainfall Metric</span>
+        <select class="ctrl-select" id="metric-select" onchange="setMetric(this.value)">
+          <option value="anom_3m_pct" selected>3-Month Seasonal Rainfall Anomaly (% vs. Normal)</option>
+          <option value="anom_1m_pct">Single-Month Deseasonalized Anomaly (% vs. Normal)</option>
+          <option value="anom_3m_mm">3-Month Seasonal Rainfall Anomaly (mm)</option>
+          <option value="anom_1m_mm">Single-Month Deseasonalized Anomaly (mm)</option>
+          <option value="raw_3m">Raw 3-Month Seasonal Total Rainfall (mm)</option>
+          <option value="raw_1m">Raw Single-Month Total Rainfall (mm)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">5. Active Region Focus</span>
+        <select class="ctrl-select" id="region-select" onchange="setRegion(this.value)"></select>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">6. Rainfall Lag (ENSO<sub>t</sub> &rarr; Rain<sub>t+k</sub>)</span>
+        <div class="lag-slider-wrap">
+          <input type="range" id="lag-slider" min="-3" max="12" step="1" value="0" oninput="setLag(parseInt(this.value, 10))" />
+          <span class="lag-pill" id="lag-display">Lag 0 Mo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Comprehensive Regional Correlation Table (All 48 Series) -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">1. Regional Correlation &amp; Optimal Lag Matrix (All 48 Regions &amp; Composites)</h2>
+          <p class="section-subtitle">
+            Evaluated over the full 1990–2026 meteorological record. Filter by macro territory or click any row to plot its charts below.
+          </p>
+        </div>
+        <span class="badge" id="active-filter-badge">RONI | Full Year | 3M Anomaly (%)</span>
+      </div>
+
+      <!-- Macro Group Filter Pills -->
+      <div class="macro-filter-pills" id="macro-filter-pills">
+        <button class="pill-btn active" onclick="setMacroFilter('ALL')">All 48 Series</button>
+        <button class="pill-btn" onclick="setMacroFilter('Composite')">Macro Composites (9)</button>
+        <button class="pill-btn" onclick="setMacroFilter('Peninsular Malaysia')">Peninsular Malaysia (12)</button>
+        <button class="pill-btn" onclick="setMacroFilter('Sabah & Sarawak')">East Malaysia (3)</button>
+        <button class="pill-btn" onclick="setMacroFilter('Sumatera')">Sumatera, ID (9)</button>
+        <button class="pill-btn" onclick="setMacroFilter('Kalimantan')">Kalimantan, ID (5)</button>
+        <button class="pill-btn" onclick="setMacroFilter('Sulawesi')">Sulawesi, ID (6)</button>
+        <button class="pill-btn" onclick="setMacroFilter('Papua')">Papua, ID (4)</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table" id="summary-corr-table">
+          <colgroup>
+            <col style="width: 17%;">
+            <col style="width: 12%;">
+            <col style="width: 7.5%;">
+            <col style="width: 7.5%;">
+            <col style="width: 8%;">
+            <col style="width: 9%;">
+            <col style="width: 7.5%;">
+            <col style="width: 6.5%;">
+            <col style="width: 8.5%;">
+            <col style="width: 9.5%;">
+            <col style="width: 7%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th title="Region or Macro Composite Name">Region / Province</th>
+              <th title="Territorial Classification">Territory</th>
+              <th class="num" title="Synchronous Pearson correlation (r)">Lag 0 <em>r</em></th>
+              <th class="num" title="Synchronous Spearman rank correlation (ρ)">Lag 0 <em>&rho;</em></th>
+              <th class="num" title="Statistical p-value at Lag 0"><em>p</em>-value</th>
+              <th class="center" title="Optimal forward lead/lag (k = 0 to 12 months)">Best Lag</th>
+              <th class="num" title="Pearson r at optimal lag">Best <em>r</em></th>
+              <th class="num" title="Explained variance R-squared"><em>R</em><sup>2</sup></th>
+              <th class="num" title="Pearson r at current slider lag"><span id="th-sel-lag">k=0</span> <em>r</em></th>
+              <th class="num" title="Comparison against alternative index"><span id="th-alt-idx">ONI</span> Lag 0</th>
+              <th class="center" title="Statistical significance (p < 0.05 / 0.01 / 0.001)">Sig.</th>
+            </tr>
+          </thead>
+          <tbody id="summary-corr-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="diagnosis-box" id="table1-diagnosis"></div>
+    </section>
+
+    <!-- Section 2: Macro Comparative Ranking & Lag Correlogram Curve -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">2. Macro Territorial Comparison &amp; Lead/Lag Profiles (1990–2026)</h2>
+          <p class="section-subtitle">
+            Comparing cross-correlation profiles across Indonesia's major islands vs. Malaysia from Lag &minus;3 to +12 months.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <h3 style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 10px;" id="correlogram-chart-title">
+          Cross-Correlation Profile Across Lags (&minus;3 to +12 Months)
+        </h3>
+        <div class="svg-container" id="correlogram-svg-wrap" style="height: 310px;"></div>
+      </div>
+    </section>
+
+    <!-- Section 3A: FULL-WIDTH SCATTER & REGRESSION EXPLORER -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="scatter-title">3A. Linear Regression &amp; Multi-Decadal Scatter Explorer (1990–2026)</h2>
+          <p class="section-subtitle" id="scatter-subtitle">
+            Full-width high-resolution view scaled with balanced margins so every point and historical regime is clearly legible.
+          </p>
+        </div>
+      </div>
+      <div class="svg-container" id="scatter-svg-wrap" style="height: 520px;"></div>
+      <div class="diagnosis-box" id="scatter-diagnosis"></div>
+    </section>
+
+    <!-- Section 3B: ENSO Phase Regime Breakdown -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="regime-title">3B. Multi-Decadal ENSO Regime Impact (1990–2026)</h2>
+          <p class="section-subtitle" id="regime-subtitle">
+            Observed monthly rainfall anomaly and drought frequency across El Ni&ntilde;o (&ge; +0.5&deg;C), Neutral, and La Ni&ntilde;a (&le; &minus;0.5&deg;C).
+          </p>
+        </div>
+      </div>
+      <div class="svg-container" id="regime-svg-wrap" style="height: 230px; margin-bottom: 16px;"></div>
+      <div class="table-wrap">
+        <table class="data-table" id="regime-table">
+          <thead>
+            <tr>
+              <th>ENSO Phase</th>
+              <th class="num">Months (<em>n</em>)</th>
+              <th class="num">Mean Rain (mm/mo)</th>
+              <th class="num">Mean Anom (mm)</th>
+              <th class="num">Mean Anom (%)</th>
+              <th class="num">% Months Below Normal</th>
+              <th class="num">% Severe Drought (&le;&minus;25%)</th>
+            </tr>
+          </thead>
+          <tbody id="regime-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- Section 3C: Compound ENSO × IOD Quadrant & Interaction Analysis -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="quadrant-section-title">3C. Compound Climate Interaction: Pacific ENSO (RONI) &times; Indian Ocean Dipole (IOD DMI)</h2>
+          <p class="section-subtitle" id="quadrant-section-subtitle">
+            Cross-basin coupling analysis across 37 years: Evaluating what happens when the Pacific Walker Cell and Indian Ocean Dipole reinforce each other (Compound ++ / --) vs. oppose each other (+- / -+).
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="badge amber" id="quadrant-season-badge">Dry Season (Jun–Oct)</span>
+          <button class="pill-btn active" id="quad-dry-btn" onclick="setQuadrantSeason('DRY')">Dry Season (Peak IOD)</button>
+          <button class="pill-btn" id="quad-all-btn" onclick="setQuadrantSeason('ALL')">Full Year</button>
+        </div>
+      </div>
+
+      <!-- 4 Quadrants + Pure IOD Cards -->
+      <div class="quadrant-grid">
+        <div class="quad-card active-quad" id="card-compound-pos" onclick="selectQuadrantKey('compound_pos')">
+          <div class="quad-title" style="color: #fb7185;">🔥 Compound Super-Drought</div>
+          <div class="quad-value" style="color: #f43f5e;" id="val-compound-pos">--%</div>
+          <div class="quad-sub"><strong>++ Double Positive</strong>: El Niño (RONI &ge; +0.5) &amp; +IOD (DMI &ge; +0.3)<br/><em>Analogs: 1994, 1997, 2006, 2015, 2023</em></div>
+        </div>
+
+        <div class="quad-card" id="card-compound-neg" onclick="selectQuadrantKey('compound_neg')">
+          <div class="quad-title" style="color: #38bdf8;">🌊 Compound Super-Deluge</div>
+          <div class="quad-value" style="color: #38bdf8;" id="val-compound-neg">--%</div>
+          <div class="quad-sub"><strong>-- Double Negative</strong>: La Niña (RONI &le; &minus;0.5) &amp; &minus;IOD (DMI &le; &minus;0.3)<br/><em>Analogs: 1998, 2010, 2016, 2022, 2025</em></div>
+        </div>
+
+        <div class="quad-card" id="card-el-nino-neg-iod" onclick="selectQuadrantKey('el_nino_neg_iod')">
+          <div class="quad-title" style="color: #34d399;">🛡️ Indian Ocean Buffer</div>
+          <div class="quad-value" style="color: #10b981;" id="val-el-nino-neg-iod">--%</div>
+          <div class="quad-sub"><strong>+- Opposing Mode</strong>: El Niño (RONI &ge; +0.5) &amp; &minus;IOD (DMI &le; &minus;0.3)<br/><em>Warm Sumatra waters counteract Pacific drought (1992, 2004)</em></div>
+        </div>
+
+        <div class="quad-card" id="card-la-nina-pos-iod" onclick="selectQuadrantKey('la_nina_pos_iod')">
+          <div class="quad-title" style="color: #fbbf24;">⚔️ Indian Ocean Interference</div>
+          <div class="quad-value" style="color: #f59e0b;" id="val-la-nina-pos-iod">--%</div>
+          <div class="quad-sub"><strong>-+ Opposing Mode</strong>: La Niña (RONI &le; &minus;0.5) &amp; +IOD (DMI &ge; +0.3)<br/><em>Sumatra coastal upwelling caps Pacific wet monsoon (2011, 2020)</em></div>
+        </div>
+      </div>
+
+      <!-- 2x2 Interactive Quadrant Diagram & Details Wrap -->
+      <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; margin-bottom: 14px;">
+        <div class="svg-container" id="quadrant-svg-wrap" style="height: 380px;"></div>
+        <div style="background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h4 style="font-size: 0.95rem; color: #f8fafc; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+              <span id="quad-detail-title">Selected Regime Details</span>
+              <span class="badge" id="quad-detail-count">n = 0</span>
+            </h4>
+            <div id="quad-detail-body" style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 12px;"></div>
+          </div>
+          <div>
+            <div style="font-size: 0.76rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">
+              Top Historical Analog Months in this Regime:
+            </div>
+            <div id="quad-detail-examples" style="font-size: 0.77rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="diagnosis-box" id="quadrant-diagnosis"></div>
+    </section>
+
+    <!-- Section 4: 37-Year Historical Time Series Overlay (1990–2026) -->
+    <section class="section-card">
+      <div class="section-header" style="flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h2 class="section-title" id="timeseries-title">4. 37-Year Historical Multi-Index Overlay: RONI, IOD &amp; Compounded Signal vs. Rainfall</h2>
+          <p class="section-subtitle">
+            Tracking every major climate event (1997–98, 2015–16, 2019, 2023–24). Stack Pacific RONI and Indian Ocean IOD DMI, or view the <strong>Compounded Sum (RONI + IOD)</strong> to see the total compounded forcing.
+          </p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <div class="btn-group" id="ts-mode-btn-group">
+            <button class="btn-toggle active" data-tsmode="ALL_3" onclick="setTimeSeriesMode('ALL_3')">📈 All 3 Lines (RONI + IOD + Sum)</button>
+            <button class="btn-toggle" data-tsmode="SUM_ONLY" onclick="setTimeSeriesMode('SUM_ONLY')">⚡ Compound Sum (RONI + IOD)</button>
+            <button class="btn-toggle" data-tsmode="DUAL_STACK" onclick="setTimeSeriesMode('DUAL_STACK')">📊 Dual Overlay (RONI &amp; IOD)</button>
+            <button class="btn-toggle" data-tsmode="RONI_ONLY" onclick="setTimeSeriesMode('RONI_ONLY')">🟡 RONI Only</button>
+            <button class="btn-toggle" data-tsmode="IOD_ONLY" onclick="setTimeSeriesMode('IOD_ONLY')">🟣 IOD DMI Only</button>
+          </div>
+          <button class="btn-toggle active" id="invert-enso-btn" onclick="toggleInvertEnso()" style="border: 1px solid var(--border-color);">
+            🔄 Invert Climate Axis
+          </button>
+        </div>
+      </div>
+
+      <!-- Multi-Line Chart Legend -->
+      <div style="display: flex; gap: 18px; align-items: center; margin-bottom: 12px; font-size: 0.8rem; flex-wrap: wrap;" id="timeseries-legend">
+        <span style="display: inline-flex; align-items: center; gap: 6px;">
+          <span style="width: 14px; height: 10px; background: #38bdf8; border-radius: 2px; opacity: 0.8;"></span> Regional Rainfall Anomaly
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px;" id="leg-roni">
+          <span style="width: 22px; height: 3px; background: #fbbf24; border-radius: 2px;"></span> <strong style="color: #fbbf24;">RONI</strong> (Pacific Niño 3.4)
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px;" id="leg-iod">
+          <span style="width: 22px; height: 3px; background: #c084fc; border-radius: 2px;"></span> <strong style="color: #c084fc;">IOD DMI</strong> (Indian Ocean Dipole)
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px;" id="leg-sum">
+          <span style="width: 22px; height: 4px; background: #f43f5e; border-radius: 2px;"></span> <strong style="color: #f43f5e;">⚡ Compound Sum</strong> (RONI + IOD)
+        </span>
+      </div>
+
+      <div class="svg-container" id="timeseries-svg-wrap" style="height: 380px;"></div>
+      <div class="diagnosis-box" id="timeseries-diagnosis"></div>
+    </section>
+
+    <!-- Section 5: Exhaustive Analytical Conclusions Across All South East Asia -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">5. Multi-Decadal Meteorological Conclusions: 1990–2026 Verification</h2>
+          <p class="section-subtitle">Comparing the 37-year multi-decadal record against the 2010–2026 subset.</p>
+        </div>
+      </div>
+
+      <div class="conclusions-grid">
+        <div class="conclusion-card">
+          <h4>1. Multi-Decadal Confirmation: Indonesia's Extreme Sensitivity</h4>
+          <p>
+            Extending the record to 1990 confirms beyond doubt that Indonesia's dry-season drought engine is permanent and robust across 37 years:<br/>
+            &bull; <strong>Overall Indonesia (1990–2026, n = 184 dry seasons)</strong>: <strong>r = &minus;0.821 (p = 4.6 &times; 10<sup>&minus;22</sup>)</strong>, almost identical to the 2010–2026 subset (r = &minus;0.829).<br/>
+            &bull; Capturing the <strong>1997–1998 Super El Ni&ntilde;o</strong> confirms the catastrophic vulnerability of <strong>South Sumatra, Bangka Belitung, and Kalimantan</strong>, where rainfall plunged by <strong>&minus;60% to &minus;75%</strong> below the 1991–2020 normal.
+          </p>
+        </div>
+
+        <div class="conclusion-card">
+          <h4>2. Malaysia's 37-Year Full Picture: Overall Correlation Emerges</h4>
+          <p>
+            When scaling back to 1990, <strong>Overall Malaysia's full-year correlation strengthens to r = &minus;0.387 (p &lt; 10<sup>&minus;15</sup>)</strong> compared to r = &minus;0.205 in the shorter 2010–2026 window:<br/>
+            &bull; The 1997–98 event demonstrated that while Peninsular Malaysia can buffer moderate El Ni&ntilde;os, extreme super El Ni&ntilde;os break through the Malacca moisture trap, dropping dry-season rainfall by &minus;28.5%.<br/>
+            &bull; <strong>Northeast Monsoon (Nov–Apr) vulnerability</strong> remains Malaysia's dominant vulnerability across all 37 years (Overall Malaysia wet-season r = &minus;0.434; Sabah r = &minus;0.597; Perlis r = &minus;0.549; Kedah r = &minus;0.466; Pahang r = &minus;0.466).
+          </p>
+        </div>
+
+        <div class="conclusion-card">
+          <h4>3. Indonesian Regional Vulnerability Hierarchy (37-Year Climatology)</h4>
+          <p>
+            Across 1990–2026, the dry-season ranking remains rock-solid:<br/>
+            1. <strong>Southwest Papua (r = &minus;0.777) &amp; North Sulawesi (r = &minus;0.745)</strong>.<br/>
+            2. <strong>Bangka Belitung (r = &minus;0.743) &amp; Southeast Sulawesi (r = &minus;0.741)</strong>.<br/>
+            3. <strong>South Kalimantan (r = &minus;0.729) &amp; East Kalimantan (r = &minus;0.722)</strong>.<br/>
+            4. <strong>Central Kalimantan (r = &minus;0.692) &amp; South Sumatra (r = &minus;0.670)</strong>.<br/>
+            5. <strong>North/West Sumatra (r = &minus;0.15 to &minus;0.29)</strong> remain largely decoupled from Pacific ENSO due to Indian Ocean Dipole (IOD) dominance.
+          </p>
+        </div>
+
+        <div class="conclusion-card">
+          <h4>4. Multi-Decadal Lag Recommendations</h4>
+          <p>
+            The 37-year record confirms the operational predictive windows:<br/>
+            &bull; <strong>Southern Indonesia (Sumatera &amp; Kalimantan Core Belts)</strong>: Rainfall is strongly synchronized at <strong>Lag 0 to +1 month (r = &minus;0.62 to &minus;0.74)</strong>.<br/>
+            &bull; <strong>Northern Tropical Belts (Sabah, North Kalimantan, Northern Peninsular)</strong>: Exhibit a <strong>+1 to +3 month lag</strong> following the winter solstice (Nov–Apr), giving plantation operators a reliable 60-to-90 day forward warning window to prepare soil conservation and irrigation protocols.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const DATA = window.SEA_ENSO_DATA;
+
+    const state = {
+      index: "RONI",
+      season: "ALL",
+      years: "ALL",      // "ALL" (1990-2026) or "RECENT" (2010-2026)
+      metric: "anom_3m_pct",
+      region: "COMP-ID-KAL", // Default to Kalimantan Core / Indonesia
+      macroFilter: "ALL",
+      lag: 0,
+      invertEnso: true,
+      quadrantSeason: "DRY",
+      quadrantKey: "compound_pos",
+      timeSeriesMode: "ALL_3" // "ALL_3", "SUM_ONLY", "DUAL_STACK", "RONI_ONLY", "IOD_ONLY"
+    };
+
+    function setQuadrantSeason(seas) {
+      state.quadrantSeason = seas;
+      document.getElementById("quad-dry-btn").classList.toggle("active", seas === "DRY");
+      document.getElementById("quad-all-btn").classList.toggle("active", seas === "ALL");
+      document.getElementById("quadrant-season-badge").textContent = seas === "DRY" ? "Dry Season (Jun–Oct) Focus" : "Full Year (Jan–Dec)";
+      renderQuadrantAnalysis();
+    }
+
+    function selectQuadrantKey(key) {
+      state.quadrantKey = key;
+      document.querySelectorAll(".quad-card").forEach(c => c.classList.remove("active-quad"));
+      const activeCard = document.getElementById(`card-${key.replace(/_/g, '-')}`);
+      if (activeCard) activeCard.classList.add("active-quad");
+      renderQuadrantDetails();
+    }
+
+    function setTimeSeriesMode(mode) {
+      state.timeSeriesMode = mode;
+      document.querySelectorAll("#ts-mode-btn-group .btn-toggle").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.tsmode === mode);
+      });
+      renderTimeSeriesChart();
+    }
+
+    const METRIC_LABELS = {
+      anom_3m_pct: "3-Month Seasonal Rainfall Anomaly (% vs. Normal)",
+      anom_1m_pct: "Single-Month Deseasonalized Anomaly (% vs. Normal)",
+      anom_3m_mm: "3-Month Seasonal Rainfall Anomaly (mm)",
+      anom_1m_mm: "Single-Month Deseasonalized Anomaly (mm)",
+      raw_3m: "Raw 3-Month Seasonal Total Rainfall (mm)",
+      raw_1m: "Raw Single-Month Total Rainfall (mm)"
+    };
+
+    const METRIC_UNITS = {
+      anom_3m_pct: "%",
+      anom_1m_pct: "%",
+      anom_3m_mm: "mm",
+      anom_1m_mm: "mm",
+      raw_3m: "mm",
+      raw_1m: "mm"
+    };
+
+    const SEASON_LABELS = {
+      ALL: "Full Year (Jan–Dec)",
+      DRY: "Dry Monsoon Season (Jun–Oct)",
+      WET: "Wet Monsoon Season (Nov–Apr)"
+    };
+
+    const SEASON_MONTHS = {
+      ALL: new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+      DRY: new Set([6, 7, 8, 9, 10]),
+      WET: new Set([11, 12, 1, 2, 3, 4])
+    };
+
+    function initRegionSelect() {
+      const sel = document.getElementById("region-select");
+      sel.innerHTML = "";
+      
+      const optGroups = {
+        "Macro Composites": [],
+        "Peninsular Malaysia": [],
+        "Sabah & Sarawak": [],
+        "Sumatera": [],
+        "Kalimantan": [],
+        "Sulawesi": [],
+        "Papua": []
+      };
+
+      DATA.regions.forEach(r => {
+        if (r.is_composite) {
+          optGroups["Macro Composites"].push(r);
+        } else if (optGroups[r.major_group]) {
+          optGroups[r.major_group].push(r);
+        }
+      });
+
+      for (const [grpName, regs] of Object.entries(optGroups)) {
+        if (!regs.length) continue;
+        const og = document.createElement("optgroup");
+        og.label = grpName;
+        regs.forEach(r => {
+          const opt = document.createElement("option");
+          opt.value = r.id;
+          opt.textContent = `${r.name} (${r.country === "Regional Composite" ? "SEA" : (r.country === "Malaysia" ? "MY" : "ID")})`;
+          if (r.id === state.region) opt.selected = true;
+          og.appendChild(opt);
+        });
+        sel.appendChild(og);
+      }
+    }
+
+    function setIndex(idx) {
+      state.index = idx;
+      document.querySelectorAll("#index-btn-group .btn-toggle").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.index === idx);
+      });
+      renderAll();
+    }
+
+    function setSeason(seas) {
+      state.season = seas;
+      document.querySelectorAll("#season-btn-group .btn-toggle").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.season === seas);
+      });
+      renderAll();
+    }
+
+    function setYearFilter(yFilter) {
+      state.years = yFilter;
+      document.querySelectorAll("#year-filter-btn-group .btn-toggle").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.years === yFilter);
+      });
+      renderAll();
+    }
+
+    function setMetric(m) {
+      state.metric = m;
+      renderAll();
+    }
+
+    function setRegion(r) {
+      state.region = r;
+      document.getElementById("region-select").value = r;
+      renderAll();
+    }
+
+    function setMacroFilter(filterVal) {
+      state.macroFilter = filterVal;
+      document.querySelectorAll("#macro-filter-pills .pill-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.textContent.includes(filterVal) || (filterVal === "ALL" && btn.textContent.includes("All")));
+      });
+      renderSummaryTable();
+    }
+
+    function setLag(k) {
+      state.lag = k;
+      document.getElementById("lag-slider").value = k;
+      const sign = k > 0 ? `+${k}` : `${k}`;
+      document.getElementById("lag-display").textContent = `Lag ${sign} Mo`;
+      renderAll();
+    }
+
+    function toggleInvertEnso() {
+      state.invertEnso = !state.invertEnso;
+      const btn = document.getElementById("invert-enso-btn");
+      btn.classList.toggle("active", state.invertEnso);
+      renderTimeSeriesChart();
+    }
+
+    function corrColor(r) {
+      const clamped = Math.max(-0.80, Math.min(0.80, r));
+      if (clamped < 0) {
+        const t = Math.min(1, Math.abs(clamped) / 0.75);
+        const rCol = Math.round(30 + t * (239 - 30));
+        const gCol = Math.round(41 + t * (68 - 41));
+        const bCol = Math.round(59 + t * (68 - 59));
+        return `rgb(${rCol}, ${gCol}, ${bCol})`;
+      } else {
+        const t = Math.min(1, clamped / 0.5);
+        const rCol = Math.round(30 + t * (16 - 30));
+        const gCol = Math.round(41 + t * (185 - 41));
+        const bCol = Math.round(59 + t * (129 - 59));
+        return `rgb(${rCol}, ${gCol}, ${bCol})`;
+      }
+    }
+
+    function formatPVal(p) {
+      if (p < 0.0001) return p.toExponential(2);
+      return p.toFixed(4);
+    }
+
+    function sigBadge(p) {
+      if (p < 0.001) return `<span class="badge rose">p &lt; 0.001 ***</span>`;
+      if (p < 0.01) return `<span class="badge amber">p &lt; 0.01 **</span>`;
+      if (p < 0.05) return `<span class="badge">p &lt; 0.05 *</span>`;
+      return `<span style="color: var(--text-muted); font-size: 0.74rem;">NS</span>`;
+    }
+
+    function addMonthsYM(yr, mo, delta) {
+      const total = yr * 12 + (mo - 1) + delta;
+      const ny = Math.floor(total / 12);
+      const nm = (total % 12) + 1;
+      return `${String(ny).padStart(4, "0")}-${String(nm).padStart(2, "0")}`;
+    }
+
+    function getRegionObj(rid) {
+      return DATA.regions.find(r => r.id === rid) || DATA.regions[0];
+    }
+
+    // 1. Render Summary Table
+    function renderSummaryTable() {
+      const altIdx = state.index === "RONI" ? "ONI" : (state.index === "ONI" ? "RONI" : "RONI");
+      const lagSign = state.lag > 0 ? `+${state.lag}` : `${state.lag}`;
+      document.getElementById("th-sel-lag").textContent = `k=${lagSign}`;
+      document.getElementById("th-alt-idx").textContent = altIdx;
+      document.getElementById("active-filter-badge").textContent = `${state.index} | ${SEASON_LABELS[state.season]} | ${state.years === "ALL" ? "1990–2026 (37 Yrs)" : "2010–2026"}`;
+
+      const tbody = document.getElementById("summary-corr-tbody");
+      let html = "";
+
+      const filteredRegions = DATA.regions.filter(r => {
+        if (state.macroFilter === "ALL") return true;
+        if (state.macroFilter === "Composite") return r.is_composite;
+        return r.major_group === state.macroFilter;
+      });
+
+      filteredRegions.forEach(reg => {
+        const rid = reg.id;
+        const cObj = DATA.correlations[state.index][rid][state.season][state.metric];
+        const altObj = DATA.correlations[altIdx][rid][state.season][state.metric];
+        const k0 = cObj.contemporaneous_k0;
+        const opt = cObj.optimal_lag_inverse;
+        const selLagStats = cObj.lags[String(state.lag)];
+        const altK0 = altObj.contemporaneous_k0;
+
+        const isSel = rid === state.region;
+        const rowClass = `${reg.is_composite ? "composite-row" : ""} ${isSel ? "selected-row" : ""}`.trim();
+
+        const optLagImproved = opt.lag > 0 && (opt.r < k0.r - 0.005);
+        const optLagBadge = opt.lag === 0
+          ? `<span style="color: var(--text-muted); font-size: 0.72rem;">Lag 0</span>`
+          : `<span class="badge amber" style="font-size:0.68rem; padding:1px 4px;">+${opt.lag}m${optLagImproved ? "▲" : ""}</span>`;
+
+        const territoryShort = reg.is_composite
+          ? `<span style="color: var(--accent-amber); font-weight:600;">Composite</span>`
+          : `${reg.country === "Malaysia" ? "MY" : "ID"} &bull; ${reg.major_group.replace("Peninsular Malaysia", "Peninsular").replace("Sabah & Sarawak", "E. Malaysia")}`;
+
+        html += `
+          <tr class="${rowClass}" onclick="setRegion('${rid}')" title="Click to view charts for ${reg.name}">
+            <td>
+              <div style="font-weight: 700; color: ${isSel ? "#38bdf8" : "#f8fafc"}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${reg.name}</div>
+            </td>
+            <td style="color: var(--text-muted); font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${territoryShort}</td>
+            <td class="num"><span class="corr-pill" style="background: ${corrColor(k0.r)}; color: #fff;">${k0.r >= 0 ? "+" : ""}${k0.r.toFixed(3)}</span></td>
+            <td class="num" style="color: var(--text-secondary); font-size: 0.72rem;">${k0.spearman_rho >= 0 ? "+" : ""}${k0.spearman_rho.toFixed(3)}</td>
+            <td class="num" style="font-family: monospace; font-size: 0.70rem; color: var(--text-secondary);">${formatPVal(k0.p_value)}</td>
+            <td class="center">${optLagBadge}</td>
+            <td class="num"><span class="corr-pill" style="background: ${corrColor(opt.r)}; color: #fff;">${opt.r >= 0 ? "+" : ""}${opt.r.toFixed(3)}</span></td>
+            <td class="num" style="font-size: 0.72rem;">${(opt.r2 * 100).toFixed(0)}%</td>
+            <td class="num"><span class="corr-pill" style="background: ${corrColor(selLagStats.r)}; color: #fff; border: 1px solid rgba(255,255,255,0.3);">${selLagStats.r >= 0 ? "+" : ""}${selLagStats.r.toFixed(3)}</span></td>
+            <td class="num" style="color: var(--text-muted); font-size: 0.72rem;">${altK0.r >= 0 ? "+" : ""}${altK0.r.toFixed(3)}</td>
+            <td class="center">${sigBadge(opt.p_value)}</td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+
+      // Active Diagnosis text
+      const activeReg = getRegionObj(state.region);
+      const activeC = DATA.correlations[state.index][state.region][state.season][state.metric];
+      const k0 = activeC.contemporaneous_k0;
+      const opt = activeC.optimal_lag_inverse;
+      const sel = activeC.lags[String(state.lag)];
+      const altK0 = DATA.correlations[altIdx][state.region][state.season][state.metric].contemporaneous_k0;
+
+      document.getElementById("table1-diagnosis").innerHTML = `
+        <strong>Active Focus — ${activeReg.name} (${activeReg.country}, ${activeReg.major_group}):</strong>
+        Evaluated across <strong>1990–2026 (n = ${k0.n} seasons)</strong> at <strong>Lag 0 (contemporaneous)</strong>: Pearson <strong>r = ${k0.r.toFixed(3)}</strong> (Spearman &rho; = ${k0.spearman_rho.toFixed(3)}, <em>p</em> = ${formatPVal(k0.p_value)}), vs. <strong>r = ${altK0.r.toFixed(3)}</strong> under ${altIdx}.
+        Peak forward inverse correlation occurs at <strong>Lag +${opt.lag} month(s)</strong> with <strong>r = ${opt.r.toFixed(3)}</strong> (explaining <strong>${(opt.r2 * 100).toFixed(1)}%</strong> of variance).
+        At selected <strong>Lag ${state.lag >= 0 ? "+" + state.lag : state.lag}m</strong>, <strong>r = ${sel.r.toFixed(3)}</strong> (slope = <strong>${sel.slope >= 0 ? "+" : ""}${sel.slope.toFixed(2)} ${METRIC_UNITS[state.metric]}/&deg;C</strong>).
+      `;
+    }
+
+    // 2. Render Macro Comparison & Correlogram Chart
+    function renderCorrelogramChart() {
+      const lags = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+      const wrap = document.getElementById("correlogram-svg-wrap");
+      const w = wrap.clientWidth - 24 || 1100;
+      const h = 280;
+      const pad = { top: 24, right: 140, bottom: 42, left: 64 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      const activeReg = getRegionObj(state.region);
+      document.getElementById("correlogram-chart-title").innerHTML = `
+        Cross-Correlation Profile: <span style="color:#38bdf8; font-weight:700;">${activeReg.name}</span> compared against Macro Territories — ${state.index} (${SEASON_LABELS[state.season]})
+      `;
+
+      const yMin = -0.85;
+      const yMax = 0.45;
+      const xScale = idx => pad.left + (idx / (lags.length - 1)) * plotW;
+      const yScale = val => pad.top + ((yMax - val) / (yMax - yMin)) * plotH;
+
+      let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+
+      // Grid
+      [-0.75, -0.50, -0.25, 0, 0.25].forEach(yv => {
+        const py = yScale(yv);
+        svg += `<line x1="${pad.left}" y1="${py}" x2="${w - pad.right}" y2="${py}" stroke="${yv === 0 ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.07)"}" stroke-width="${yv === 0 ? 1.5 : 1}" />`;
+        svg += `<text x="${pad.left - 10}" y="${py + 4}" text-anchor="end" fill="#94a3b8" font-size="11">r = ${yv > 0 ? "+" : ""}${yv.toFixed(2)}</text>`;
+      });
+
+      const benchmarks = [
+        { id: "COMP-MY", name: "Overall Malaysia", color: "#fbbf24", dash: "3,3" },
+        { id: "COMP-ID", name: "Overall Indonesia", color: "#f43f5e", dash: "4,3" },
+        { id: "COMP-ID-KAL", name: "Kalimantan", color: "#10b981", dash: "5,3" },
+        { id: "COMP-ID-SUM", name: "Sumatera", color: "#a855f7", dash: "5,3" },
+      ];
+
+      benchmarks.forEach(bm => {
+        if (bm.id !== state.region) {
+          const lagMap = DATA.correlations[state.index][bm.id][state.season][state.metric].lags;
+          const pts = lags.map((k, i) => `${xScale(i)},${yScale(lagMap[String(k)].r)}`).join(" ");
+          svg += `<polyline fill="none" stroke="${bm.color}" stroke-width="1.8" stroke-dasharray="${bm.dash}" opacity="0.65" points="${pts}" />`;
+          const lastPy = yScale(lagMap[String(lags[lags.length - 1])].r);
+          svg += `<text x="${w - pad.right + 8}" y="${lastPy + 4}" fill="${bm.color}" font-size="10" opacity="0.8">${bm.name}</text>`;
+        }
+      });
+
+      const xZero = xScale(lags.indexOf(0));
+      svg += `<line x1="${xZero}" y1="${pad.top}" x2="${xZero}" y2="${h - pad.bottom}" stroke="rgba(56,189,248,0.4)" stroke-dasharray="3,3" />`;
+
+      const actLags = DATA.correlations[state.index][state.region][state.season][state.metric].lags;
+      const actPts = lags.map((k, i) => `${xScale(i)},${yScale(actLags[String(k)].r)}`).join(" ");
+      svg += `<polyline fill="none" stroke="#38bdf8" stroke-width="3.5" points="${actPts}" />`;
+      svg += `<text x="${w - pad.right + 8}" y="${yScale(actLags[String(lags[lags.length - 1])].r) + 4}" fill="#38bdf8" font-size="11" font-weight="700">${activeReg.short_name}</text>`;
+
+      lags.forEach((k, i) => {
+        const px = xScale(i);
+        const st = actLags[String(k)];
+        const py = yScale(st.r);
+        const isSel = k === state.lag;
+
+        svg += `<circle cx="${px}" cy="${py}" r="${isSel ? 7 : 4.5}" fill="${isSel ? "#f59e0b" : "#38bdf8"}" stroke="#0f172a" stroke-width="1.5" style="cursor:pointer;" onclick="setLag(${k})" />`;
+        svg += `<text x="${px}" y="${py - 10}" text-anchor="middle" fill="${isSel ? "#fbbf24" : "#cbd5e1"}" font-size="${isSel ? "11" : "10"}" font-weight="${isSel ? "700" : "500"}">${st.r.toFixed(2)}</text>`;
+        svg += `<text x="${px}" y="${h - 14}" text-anchor="middle" fill="${isSel ? "#fbbf24" : "#94a3b8"}" font-size="11" font-weight="${isSel ? "700" : "500"}" style="cursor:pointer;" onclick="setLag(${k})">${k > 0 ? "+" + k : k}m</text>`;
+      });
+
+      svg += `</svg>`;
+      wrap.innerHTML = svg;
+    }
+
+    // 3A. RENDER PROPERLY SCALED FULL-WIDTH SCATTER & REGRESSION PLOT
+    function renderScatterPlot() {
+      const wrap = document.getElementById("scatter-svg-wrap");
+      const w = wrap.clientWidth - 24 || 1100;
+      const h = 480; // High resolution generous height
+      const pad = { top: 32, right: 48, bottom: 58, left: 84 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      const activeReg = getRegionObj(state.region);
+      const lagSign = state.lag > 0 ? `+${state.lag}` : `${state.lag}`;
+      const eraLabel = state.years === "ALL" ? "1990–2026 (37 Years, n ~ 440)" : "2010–2026 (Modern Subset)";
+      
+      document.getElementById("scatter-title").textContent = `3A. Scatter & Regression: ${activeReg.name} (Lag ${lagSign}m) — ${eraLabel}`;
+      document.getElementById("scatter-subtitle").textContent = `${state.index} at month t vs. ${METRIC_LABELS[state.metric]} at month t ${state.lag >= 0 ? "+ " + state.lag : "- " + Math.abs(state.lag)} (${SEASON_LABELS[state.season]})`;
+
+      const validMonths = SEASON_MONTHS[state.season];
+      const pts = [];
+      const isIOD = state.index === "IOD_DMI";
+      const idxKey = isIOD ? "dmi" : state.index.toLowerCase();
+
+      DATA.timeline.forEach(item => {
+        if (state.years === "RECENT" && item.year < 2010) return;
+        if (!validMonths.has(item.month)) return;
+        const rainVal = item.regions[state.region][state.metric];
+        if (rainVal === null || rainVal === undefined) return;
+        const ensoYM = addMonthsYM(item.year, item.month, -state.lag);
+        const ensoObj = DATA.enso_lookup[ensoYM];
+        if (!ensoObj || ensoObj[idxKey] === null || ensoObj[idxKey] === undefined) return;
+
+        const xVal = ensoObj[idxKey];
+        let phase = "Neutral";
+        if (isIOD) {
+          phase = xVal >= 0.3 ? "Positive IOD" : (xVal <= -0.3 ? "Negative IOD" : "Neutral");
+        } else {
+          phase = xVal >= 0.5 ? "El Niño" : (xVal <= -0.5 ? "La Niña" : "Neutral");
+        }
+        pts.push({
+          year: item.year,
+          rainYM: item.ym,
+          ensoYM: ensoYM,
+          ensoSeason: ensoObj.season,
+          x: xVal,
+          y: rainVal,
+          phase: phase
+        });
+      });
+
+      // Calculate dynamic regression stats for the filtered points
+      const n = pts.length;
+      let r = 0, pVal = 1, slope = 0, intercept = 0, r2 = 0, rho = 0;
+      if (n >= 5) {
+        const xs = pts.map(p => p.x);
+        const ys = pts.map(p => p.y);
+        const meanX = xs.reduce((a, b) => a + b, 0) / n;
+        const meanY = ys.reduce((a, b) => a + b, 0) / n;
+        let num = 0, denX = 0, denY = 0;
+        for (let i = 0; i < n; i++) {
+          const dx = xs[i] - meanX;
+          const dy = ys[i] - meanY;
+          num += dx * dy;
+          denX += dx * dx;
+          denY += dy * dy;
+        }
+        r = (denX > 0 && denY > 0) ? num / Math.sqrt(denX * denY) : 0;
+        slope = denX > 0 ? num / denX : 0;
+        intercept = meanY - slope * meanX;
+        r2 = r * r;
+        
+        // Approximate p-value via t-distribution
+        const tStat = Math.abs(r) * Math.sqrt((n - 2) / Math.max(1e-9, 1 - r2));
+        pVal = Math.exp(-0.717 * tStat - 0.416 * (tStat * tStat) / (n)); // fast t-prob approx
+      }
+
+      // X scale: generous range
+      const isIODMode = state.index === "IOD_DMI";
+      const xMin = isIODMode ? -1.6 : -2.4;
+      const xMax = isIODMode ? 1.6 : 2.8;
+
+      // Robust symmetrical or padded Y scale so points never clip and the chart is proportioned
+      const yVals = pts.map(p => p.y);
+      const rawMinY = yVals.length ? Math.min(...yVals) : -50;
+      const rawMaxY = yVals.length ? Math.max(...yVals) : 50;
+
+      let yMin, yMax;
+      if (state.metric.startsWith("raw_")) {
+        yMin = 0;
+        yMax = Math.ceil((rawMaxY * 1.15) / 50) * 50;
+      } else {
+        // For anomaly % or mm, pad cleanly to nice round numbers
+        const absLimit = Math.max(Math.abs(rawMinY), Math.abs(rawMaxY), 40) * 1.15;
+        yMin = -Math.ceil(absLimit / 10) * 10;
+        yMax = Math.ceil(absLimit / 10) * 10;
+      }
+
+      const xScale = xv => pad.left + ((xv - xMin) / (xMax - xMin)) * plotW;
+      const yScale = yv => pad.top + ((yMax - yv) / (yMax - yMin)) * plotH;
+
+      let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+
+      // Background regime shading
+      const threshPos = isIODMode ? 0.3 : 0.5;
+      const threshNeg = isIODMode ? -0.3 : -0.5;
+      const xNeg = xScale(threshNeg);
+      const xPos = xScale(threshPos);
+      const negLabel = isIODMode ? "💧 Negative IOD (&le; &minus;0.3&deg;C)" : "💧 La Ni&ntilde;a Regime (&le; &minus;0.5&deg;C)";
+      const posLabel = isIODMode ? "🔥 Positive IOD (&ge; +0.3&deg;C)" : "🔥 El Ni&ntilde;o Regime (&ge; +0.5&deg;C)";
+
+      svg += `<rect x="${pad.left}" y="${pad.top}" width="${xNeg - pad.left}" height="${plotH}" fill="rgba(56, 189, 248, 0.04)" />`;
+      svg += `<rect x="${xPos}" y="${pad.top}" width="${w - pad.right - xPos}" height="${plotH}" fill="rgba(244, 63, 94, 0.04)" />`;
+      svg += `<text x="${pad.left + 12}" y="${pad.top + 18}" fill="#38bdf8" font-size="11" font-weight="700">${negLabel}</text>`;
+      svg += `<text x="${w - pad.right - 12}" y="${pad.top + 18}" text-anchor="end" fill="#fb7185" font-size="11" font-weight="700">${posLabel}</text>`;
+
+      // Horizontal Y-axis grid lines (6 clean divisions)
+      const numYDivs = 6;
+      for (let i = 0; i <= numYDivs; i++) {
+        const yv = yMin + (i / numYDivs) * (yMax - yMin);
+        const py = yScale(yv);
+        svg += `<line x1="${pad.left}" y1="${py}" x2="${w - pad.right}" y2="${py}" stroke="rgba(255,255,255,0.08)" />`;
+        svg += `<text x="${pad.left - 10}" y="${py + 4}" text-anchor="end" fill="#94a3b8" font-size="11" font-variant-numeric="tabular-nums">${yv.toFixed(0)}${METRIC_UNITS[state.metric]}</text>`;
+      }
+
+      // 0 Anomaly dashed reference line
+      if (yMin < 0 && yMax > 0) {
+        const py0 = yScale(0);
+        svg += `<line x1="${pad.left}" y1="${py0}" x2="${w - pad.right}" y2="${py0}" stroke="rgba(255,255,255,0.35)" stroke-dasharray="5,4" stroke-width="1.5" />`;
+      }
+
+      // Vertical X-axis ticks
+      const ticks = isIODMode ? [-1.5, -1.0, -0.5, 0, 0.5, 1.0, 1.5] : [-2.0, -1.5, -1.0, -0.5, 0, 0.5, 1.0, 1.5, 2.0, 2.5];
+      ticks.forEach(xv => {
+        const px = xScale(xv);
+        svg += `<line x1="${px}" y1="${pad.top}" x2="${px}" y2="${h - pad.bottom}" stroke="${xv === 0 ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.06)"}" />`;
+        svg += `<text x="${px}" y="${h - pad.bottom + 20}" text-anchor="middle" fill="#94a3b8" font-size="11">${xv > 0 ? "+" : ""}${xv.toFixed(1)}&deg;C</text>`;
+      });
+
+      svg += `<text x="${pad.left + plotW / 2}" y="${h - 14}" text-anchor="middle" fill="#cbd5e1" font-size="12" font-weight="700">${state.index} Anomaly (&deg;C) at Month t</text>`;
+      svg += `<text x="${pad.left - 48}" y="${pad.top + plotH / 2}" text-anchor="middle" transform="rotate(-90 ${pad.left - 48} ${pad.top + plotH / 2})" fill="#cbd5e1" font-size="12" font-weight="700">${METRIC_LABELS[state.metric]}</text>`;
+
+      // Linear Regression Line
+      const rx1 = isIODMode ? -1.4 : -2.2;
+      const ry1 = slope * rx1 + intercept;
+      const rx2 = isIODMode ? 1.4 : 2.6;
+      const ry2 = slope * rx2 + intercept;
+      svg += `<line x1="${xScale(rx1)}" y1="${yScale(ry1)}" x2="${xScale(rx2)}" y2="${yScale(ry2)}" stroke="#fbbf24" stroke-width="3" />`;
+
+      // Scatter points with hover tooltips
+      pts.forEach(p => {
+        const cx = xScale(p.x);
+        const cy = yScale(p.y);
+        const col = p.phase === "El Niño" ? "#f43f5e" : (p.phase === "La Niña" ? "#38bdf8" : "#94a3b8");
+        const radius = n > 300 ? 3.8 : 4.5;
+        svg += `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${col}" fill-opacity="0.8" stroke="#0f172a" stroke-width="0.8"
+          onmousemove="showTooltip(event, '<strong>${p.rainYM}</strong> (${p.year})<br/>${state.index}: <strong>${p.x >= 0 ? "+" : ""}${p.x.toFixed(2)}&deg;C</strong> (${p.phase})<br/>${activeReg.short_name}: <strong>${p.y.toFixed(1)} ${METRIC_UNITS[state.metric]}</strong>')"
+          onmouseleave="hideTooltip()" />`;
+      });
+
+      svg += `</svg>`;
+      wrap.innerHTML = svg;
+
+      document.getElementById("scatter-diagnosis").innerHTML = `
+        <strong>Regression Diagnostics (${eraLabel}, n = ${n} observations):</strong>
+        <code>Y = ${slope >= 0 ? "+" : ""}${slope.toFixed(2)} &times; ${state.index} ${intercept >= 0 ? "+ " + intercept.toFixed(2) : "&minus; " + Math.abs(intercept).toFixed(2)}</code> |
+        <strong>Pearson r = ${r.toFixed(3)}</strong> (<em>R</em><sup>2</sup> = ${(r2 * 100).toFixed(1)}%, <em>p</em> ${pVal < 1e-4 ? "< 0.0001 ***" : "= " + pVal.toFixed(4)}).
+        For every <strong>+1.0&deg;C increase in ${state.index}</strong>, ${activeReg.name}'s rainfall departure shifts by <strong>${slope >= 0 ? "+" : ""}${slope.toFixed(2)} ${METRIC_UNITS[state.metric]}</strong>.
+      `;
+    }
+
+    // 3B. Render Regime Breakdown
+    function renderRegimeBreakdown() {
+      const activeReg = getRegionObj(state.region);
+      const kClamped = Math.max(0, Math.min(3, state.lag));
+      const regData = DATA.regime_summary[state.index][state.region][state.season][`lag_${kClamped}`];
+
+      document.getElementById("regime-title").textContent = `3B. ENSO Regime Impact — ${activeReg.name} (1990–2026, 37 Yrs)`;
+      document.getElementById("regime-subtitle").textContent = `Multi-decadal rainfall departures grouped by ${state.index} phase at Lag +${kClamped}m (${SEASON_LABELS[state.season]})`;
+
+      const isIOD = state.index === "IOD_DMI";
+      const phases = isIOD ? [
+        { key: "Positive IOD (+IOD)", label: "🔥 Positive IOD (≥ +0.3°C)", color: "#f43f5e" },
+        { key: "Neutral", label: "⚖️ Neutral (-0.3° to +0.3°C)", color: "#94a3b8" },
+        { key: "Negative IOD (-IOD)", label: "💧 Negative IOD (≤ -0.3°C)", color: "#38bdf8" }
+      ] : [
+        { key: "El Nino", label: "🔥 El Niño (≥ +0.5°C)", color: "#f43f5e" },
+        { key: "Neutral", label: "⚖️ Neutral (-0.5° to +0.5°C)", color: "#94a3b8" },
+        { key: "La Nina", label: "💧 La Niña (≤ -0.5°C)", color: "#38bdf8" }
+      ];
+
+      let tbodyHtml = "";
+      phases.forEach(ph => {
+        const d = regData[ph.key];
+        const anomSign = d.mean_anom_mm >= 0 ? "+" : "";
+        const pctSign = d.mean_anom_pct >= 0 ? "+" : "";
+        tbodyHtml += `
+          <tr>
+            <td style="font-weight: 700; color: ${ph.color};">${ph.label}</td>
+            <td class="num">${d.count}</td>
+            <td class="num">${d.mean_raw_mm.toFixed(1)} mm</td>
+            <td class="num" style="color: ${d.mean_anom_mm < 0 ? "#fb7185" : "#38bdf8"}; font-weight: 700;">${anomSign}${d.mean_anom_mm.toFixed(1)} mm</td>
+            <td class="num" style="color: ${d.mean_anom_pct < 0 ? "#fb7185" : "#38bdf8"}; font-weight: 700;">${pctSign}${d.mean_anom_pct.toFixed(1)}%</td>
+            <td class="num">${d.pct_months_below_normal.toFixed(1)}%</td>
+            <td class="num" style="font-weight: 700; color: ${d.pct_months_severe_drought_25pct > 30 ? "#fb7185" : "#cbd5e1"};">${d.pct_months_severe_drought_25pct.toFixed(1)}%</td>
+          </tr>
+        `;
+      });
+      document.getElementById("regime-tbody").innerHTML = tbodyHtml;
+
+      // Bar Chart
+      const wrap = document.getElementById("regime-svg-wrap");
+      const w = wrap.clientWidth - 24 || 1100;
+      const h = 205;
+      const pad = { top: 24, right: 30, bottom: 34, left: 60 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      const vals = phases.map(p => regData[p.key].mean_anom_pct);
+      const maxAbs = Math.max(30, ...vals.map(v => Math.abs(v))) * 1.2;
+      const yScale = v => pad.top + ((maxAbs - v) / (2 * maxAbs)) * plotH;
+      const py0 = yScale(0);
+
+      let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+      [-40, -20, 0, 20, 40].forEach(yv => {
+        if (Math.abs(yv) <= maxAbs) {
+          const py = yScale(yv);
+          svg += `<line x1="${pad.left}" y1="${py}" x2="${w - pad.right}" y2="${py}" stroke="${yv === 0 ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.07)"}" />`;
+          svg += `<text x="${pad.left - 8}" y="${py + 4}" text-anchor="end" fill="#94a3b8" font-size="10">${yv > 0 ? "+" : ""}${yv}%</text>`;
+        }
+      });
+
+      const barW = Math.min(110, plotW / 4.5);
+      phases.forEach((ph, i) => {
+        const v = regData[ph.key].mean_anom_pct;
+        const cx = pad.left + ((i + 0.5) / 3) * plotW;
+        const py = yScale(v);
+        const rectY = Math.min(py0, py);
+        const rectH = Math.max(2, Math.abs(py - py0));
+        svg += `<rect x="${cx - barW / 2}" y="${rectY}" width="${barW}" height="${rectH}" fill="${ph.color}" rx="4" opacity="0.88" />`;
+        svg += `<text x="${cx}" y="${v < 0 ? rectY + rectH + 14 : rectY - 6}" text-anchor="middle" fill="${ph.color}" font-size="11" font-weight="700">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</text>`;
+        svg += `<text x="${cx}" y="${h - 8}" text-anchor="middle" fill="#cbd5e1" font-size="11" font-weight="600">${ph.key} (n=${regData[ph.key].count})</text>`;
+      });
+
+      svg += `</svg>`;
+      wrap.innerHTML = svg;
+    }
+
+    // 4. Render 37-Year Historical Multi-Index & Rainfall Overlay
+    function renderTimeSeriesChart() {
+      const wrap = document.getElementById("timeseries-svg-wrap");
+      if (!wrap) return;
+      const w = wrap.clientWidth - 24 || 1200;
+      const h = 360;
+      const pad = { top: 28, right: 70, bottom: 42, left: 64 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      const activeReg = getRegionObj(state.region);
+      const titleEl = document.getElementById("timeseries-title");
+      if (titleEl) {
+        titleEl.textContent = `4. 1990–2026 Historical Multi-Index Overlay: ${activeReg.name}`;
+      }
+
+      const timelineData = state.years === "RECENT"
+        ? DATA.timeline.filter(d => d.year >= 2010)
+        : DATA.timeline;
+
+      const n = timelineData.length;
+      const yVals = timelineData.map(d => (d.regions && d.regions[state.region]) ? d.regions[state.region][state.metric] : null)
+        .filter(v => typeof v === "number" && !isNaN(v));
+      const yMaxAbs = yVals.length > 0 ? Math.max(...yVals.map(v => Math.abs(v)), 50) * 1.1 : 50;
+      const isRaw = state.metric.startsWith("raw_");
+      const yMin = isRaw ? 0 : -yMaxAbs;
+      const yMax = yMaxAbs;
+
+      const xScale = i => pad.left + (i / (n - 1)) * plotW;
+      const yRainScale = v => pad.top + ((yMax - v) / (yMax - yMin)) * plotH;
+
+      // Climate index scale: up to 3.8 deg C to accommodate Compound Sum (RONI + IOD)
+      const eMax = 3.6;
+      const yClimateScale = ev => {
+        const val = state.invertEnso ? -ev : ev;
+        return pad.top + ((eMax - val) / (2 * eMax)) * plotH;
+      };
+
+      let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+
+      // Left Y-Axis Grid Lines (Rainfall)
+      for (let i = 0; i <= 4; i++) {
+        const yv = yMin + (i / 4) * (yMax - yMin);
+        const py = yRainScale(yv);
+        svg += `<line x1="${pad.left}" y1="${py}" x2="${w - pad.right}" y2="${py}" stroke="rgba(255,255,255,0.07)" />`;
+        svg += `<text x="${pad.left - 8}" y="${py + 4}" text-anchor="end" fill="#94a3b8" font-size="10">${yv.toFixed(0)}${METRIC_UNITS[state.metric]}</text>`;
+      }
+
+      // Right Y-Axis Grid Lines (Climate Indices: RONI, IOD, Sum)
+      [-3, -2, -1, 0, 1, 2, 3].forEach(ev => {
+        const py = yClimateScale(ev);
+        svg += `<text x="${w - pad.right + 8}" y="${py + 4}" text-anchor="start" fill="#fbbf24" font-size="10" font-weight="${ev === 0 ? '700' : '400'}">${ev > 0 ? "+" : ""}${ev.toFixed(1)}&deg;C</text>`;
+      });
+
+      const pyZero = isRaw ? yRainScale(DATA.climatology_1m[state.region][1].mean) : yRainScale(0);
+      if (!isRaw) {
+        svg += `<line x1="${pad.left}" y1="${pyZero}" x2="${w - pad.right}" y2="${pyZero}" stroke="rgba(255,255,255,0.3)" />`;
+      }
+
+      // Year boundary markers
+      timelineData.forEach((d, i) => {
+        if (d.month === 1 && d.year % (state.years === "ALL" ? 4 : 2) === 0) {
+          const px = xScale(i);
+          svg += `<line x1="${px}" y1="${pad.top}" x2="${px}" y2="${h - pad.bottom}" stroke="rgba(255,255,255,0.06)" />`;
+          svg += `<text x="${px + 12}" y="${h - 14}" text-anchor="middle" fill="#94a3b8" font-size="10">${d.year}</text>`;
+        }
+      });
+
+      // 1. Draw Rainfall Bars
+      const barW = Math.max(1.4, plotW / n - 0.8);
+      timelineData.forEach((d, i) => {
+        const rv = d.regions[state.region][state.metric];
+        if (rv === null || rv === undefined) return;
+        const px = xScale(i);
+        const py = yRainScale(rv);
+        const basePy = isRaw ? (h - pad.bottom) : pyZero;
+        const rectY = Math.min(basePy, py);
+        const rectH = Math.max(1.2, Math.abs(py - basePy));
+        const col = isRaw ? "#38bdf8" : (rv < 0 ? "#f43f5e" : "#10b981");
+
+        const rVal = d.roni;
+        const dVal = d.dmi;
+        const sumVal = (rVal !== null && dVal !== null) ? rVal + dVal : null;
+
+        const ttContent = `<strong>${d.ym} (${d.season})</strong><br/>` +
+          `${activeReg.name}: <strong>${rv.toFixed(1)} ${METRIC_UNITS[state.metric]}</strong><br/>` +
+          `RONI: <strong>${rVal !== null ? (rVal >= 0 ? "+" : "") + rVal.toFixed(2) + "&deg;C" : "N/A"}</strong><br/>` +
+          `IOD DMI: <strong>${dVal !== null ? (dVal >= 0 ? "+" : "") + dVal.toFixed(2) + "&deg;C" : "N/A"}</strong><br/>` +
+          `Compound Sum (RONI+IOD): <strong>${sumVal !== null ? (sumVal >= 0 ? "+" : "") + sumVal.toFixed(2) + "&deg;C" : "N/A"}</strong>`;
+
+        svg += `<rect x="${px - barW / 2}" y="${rectY}" width="${barW}" height="${rectH}" fill="${col}" opacity="0.68"
+          onmousemove="showTooltip(event, '${ttContent}')"
+          onmouseleave="hideTooltip()" />`;
+      });
+
+      const mode = state.timeSeriesMode || "ALL_3";
+
+      // 2. Draw RONI Line (Gold)
+      if (mode === "ALL_3" || mode === "DUAL_STACK" || mode === "RONI_ONLY") {
+        const roniPts = [];
+        timelineData.forEach((d, i) => {
+          if (d.roni !== null && d.roni !== undefined) {
+            roniPts.push(`${xScale(i)},${yClimateScale(d.roni)}`);
+          }
+        });
+        svg += `<polyline fill="none" stroke="#fbbf24" stroke-width="2.2" opacity="0.9" points="${roniPts.join(" ")}" />`;
+      }
+
+      // 3. Draw IOD DMI Line (Purple)
+      if (mode === "ALL_3" || mode === "DUAL_STACK" || mode === "IOD_ONLY") {
+        const iodPts = [];
+        timelineData.forEach((d, i) => {
+          if (d.dmi !== null && d.dmi !== undefined) {
+            iodPts.push(`${xScale(i)},${yClimateScale(d.dmi)}`);
+          }
+        });
+        svg += `<polyline fill="none" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="4,2" opacity="0.9" points="${iodPts.join(" ")}" />`;
+      }
+
+      // 4. Draw Compound Sum Line (RONI + IOD) (Crimson/Coral, Bold 3.2px)
+      if (mode === "ALL_3" || mode === "SUM_ONLY") {
+        const sumPts = [];
+        timelineData.forEach((d, i) => {
+          if (d.roni !== null && d.dmi !== null && d.roni !== undefined && d.dmi !== undefined) {
+            const sumV = d.roni + d.dmi;
+            sumPts.push(`${xScale(i)},${yClimateScale(sumV)}`);
+          }
+        });
+        svg += `<polyline fill="none" stroke="#f43f5e" stroke-width="3.2" opacity="0.95" points="${sumPts.join(" ")}" />`;
+      }
+
+      svg += `</svg>`;
+      wrap.innerHTML = svg;
+
+      // Update Legend Visibility
+      const legRoni = document.getElementById("leg-roni");
+      if (legRoni) legRoni.style.display = (mode === "ALL_3" || mode === "DUAL_STACK" || mode === "RONI_ONLY") ? "inline-flex" : "none";
+      const legIod = document.getElementById("leg-iod");
+      if (legIod) legIod.style.display = (mode === "ALL_3" || mode === "DUAL_STACK" || mode === "IOD_ONLY") ? "inline-flex" : "none";
+      const legSum = document.getElementById("leg-sum");
+      if (legSum) legSum.style.display = (mode === "ALL_3" || mode === "SUM_ONLY") ? "inline-flex" : "none";
+
+      // Calculate dynamic correlation of Compound Sum (RONI + IOD) vs Rainfall for active region!
+      let validMonths = SEASON_MONTHS[state.season] || SEASON_MONTHS["ALL"];
+      let sumXs = [], roniXs = [], iodXs = [], rainYs = [];
+      timelineData.forEach(d => {
+        if (!validMonths.has(d.month)) return;
+        const rv = d.regions[state.region][state.metric];
+        if (rv !== null && d.roni !== null && d.dmi !== null) {
+          sumXs.push(d.roni + d.dmi);
+          roniXs.push(d.roni);
+          iodXs.push(d.dmi);
+          rainYs.push(rv);
+        }
+      });
+
+      function quickR(xs, ys) {
+        const len = xs.length;
+        if (len < 5) return 0;
+        const mx = xs.reduce((a, b) => a + b, 0) / len;
+        const my = ys.reduce((a, b) => a + b, 0) / len;
+        let num = 0, dx2 = 0, dy2 = 0;
+        for (let i = 0; i < len; i++) {
+          const dx = xs[i] - mx;
+          const dy = ys[i] - my;
+          num += dx * dy;
+          dx2 += dx * dx;
+          dy2 += dy * dy;
+        }
+        return (dx2 > 0 && dy2 > 0) ? num / Math.sqrt(dx2 * dy2) : 0;
+      }
+
+      const rSum = quickR(sumXs, rainYs);
+      const rRoni = quickR(roniXs, rainYs);
+      const rIod = quickR(iodXs, rainYs);
+
+      const diagEl = document.getElementById("timeseries-diagnosis");
+      if (diagEl) {
+        diagEl.innerHTML = `
+          <strong>Multi-Index Compounding Diagnostic for ${activeReg.name} (${SEASON_LABELS[state.season]}):</strong>
+          &bull; <strong>RONI Only (Pacific)</strong>: Pearson <em>r</em> = <strong>${rRoni.toFixed(3)}</strong> (<em>R</em><sup>2</sup> = ${(rRoni*rRoni*100).toFixed(1)}%).<br/>
+          &bull; <strong>IOD DMI Only (Indian Ocean)</strong>: Pearson <em>r</em> = <strong>${rIod.toFixed(3)}</strong> (<em>R</em><sup>2</sup> = ${(rIod*rIod*100).toFixed(1)}%).<br/>
+          &bull; <strong>⚡ Compound Compounded Sum (RONI + IOD)</strong>: Pearson <em>r</em> = <strong>${rSum.toFixed(3)}</strong> (<em>R</em><sup>2</sup> = <strong>${(rSum*rSum*100).toFixed(1)}%</strong>).
+          ${Math.abs(rSum) > Math.abs(rRoni) ? `<span style="color:#fbbf24; font-weight:700;">▲ Compounding both indices increases explained variance by +${((rSum*rSum - rRoni*rRoni)*100).toFixed(1)}% over RONI alone!</span>` : `<span style="color:#38bdf8;">(In this region, Indian Ocean forces oppose or buffer Pacific ENSO).</span>`}
+        `;
+      }
+    }
+
+    function showTooltip(evt, html) {
+      const tt = document.getElementById("chart-tooltip");
+      tt.innerHTML = html;
+      tt.style.display = "block";
+      tt.style.left = Math.min(window.innerWidth - 330, evt.clientX + 14) + "px";
+      tt.style.top = Math.max(10, evt.clientY - 20) + "px";
+    }
+
+    function hideTooltip() {
+      document.getElementById("chart-tooltip").style.display = "none";
+    }
+
+
+    // 3C. RENDER COMPOUND ENSO x IOD 2D SCATTER & QUADRANT ANALYSIS
+    function renderQuadrantAnalysis() {
+      if (!state.quadrantSeason) state.quadrantSeason = "DRY";
+      if (!state.quadrantKey) state.quadrantKey = "compound_pos";
+
+      const activeReg = getRegionObj(state.region);
+      if (!DATA.quadrant_analysis || !DATA.quadrant_analysis[state.region]) return;
+      const quadData = DATA.quadrant_analysis[state.region][state.quadrantSeason];
+      if (!quadData) return;
+
+      // Update Card Values
+      const cPos = quadData["compound_pos"] || { count: 0, mean_anom_pct: 0 };
+      const cNeg = quadData["compound_neg"] || { count: 0, mean_anom_pct: 0 };
+      const elNeg = quadData["el_nino_neg_iod"] || { count: 0, mean_anom_pct: 0 };
+      const laPos = quadData["la_nina_pos_iod"] || { count: 0, mean_anom_pct: 0 };
+
+      const fmtVal = d => d.count > 0 ? `${d.mean_anom_pct >= 0 ? "+" : ""}${d.mean_anom_pct.toFixed(1)}%` : "N/A";
+      const elPosEl = document.getElementById("val-compound-pos");
+      if (elPosEl) elPosEl.textContent = fmtVal(cPos);
+      const elNegEl = document.getElementById("val-compound-neg");
+      if (elNegEl) elNegEl.textContent = fmtVal(cNeg);
+      const elBufEl = document.getElementById("val-el-nino-neg-iod");
+      if (elBufEl) elBufEl.textContent = fmtVal(elNeg);
+      const elIntEl = document.getElementById("val-la-nina-pos-iod");
+      if (elIntEl) elIntEl.textContent = fmtVal(laPos);
+
+      // Render 2D Scatter Plot & Quadrants in SVG
+      const wrap = document.getElementById("quadrant-svg-wrap");
+      if (!wrap) return;
+      const w = wrap.clientWidth - 24 || 640;
+      const h = 360;
+      const pad = { top: 32, right: 36, bottom: 44, left: 58 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      // Coordinates
+      const xMin = -2.2, xMax = 2.6; // RONI range
+      const yMin = -1.2, yMax = 1.2; // IOD DMI range
+
+      const xScale = xv => pad.left + ((xv - xMin) / (xMax - xMin)) * plotW;
+      const yScale = yv => pad.top + ((yMax - yv) / (yMax - yMin)) * plotH;
+
+      const midX = xScale(0);
+      const midY = yScale(0);
+      const xRoniPos = xScale(0.5);
+      const xRoniNeg = xScale(-0.5);
+      const yIodPos = yScale(0.3);
+      const yIodNeg = yScale(-0.3);
+
+      let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+
+      // 4 Quadrants Background Shading
+      // Q1: Compound Pos (++ : RONI >= 0.5 & DMI >= 0.3)
+      svg += `<rect x="${xRoniPos}" y="${pad.top}" width="${w - pad.right - xRoniPos}" height="${yIodPos - pad.top}" fill="rgba(244, 63, 94, 0.10)" stroke="rgba(244, 63, 94, 0.25)" stroke-dasharray="3,3" style="cursor:pointer;" onclick="selectQuadrantKey('compound_pos')" />`;
+      // Q2: La Nina & +IOD (-+ : RONI <= -0.5 & DMI >= 0.3)
+      svg += `<rect x="${pad.left}" y="${pad.top}" width="${xRoniNeg - pad.left}" height="${yIodPos - pad.top}" fill="rgba(245, 158, 11, 0.09)" stroke="rgba(245, 158, 11, 0.25)" stroke-dasharray="3,3" style="cursor:pointer;" onclick="selectQuadrantKey('la_nina_pos_iod')" />`;
+      // Q3: Compound Neg (-- : RONI <= -0.5 & DMI <= -0.3)
+      svg += `<rect x="${pad.left}" y="${yIodNeg}" width="${xRoniNeg - pad.left}" height="${h - pad.bottom - yIodNeg}" fill="rgba(56, 189, 248, 0.10)" stroke="rgba(56, 189, 248, 0.25)" stroke-dasharray="3,3" style="cursor:pointer;" onclick="selectQuadrantKey('compound_neg')" />`;
+      // Q4: El Nino & -IOD (+- : RONI >= 0.5 & DMI <= -0.3)
+      svg += `<rect x="${xRoniPos}" y="${yIodNeg}" width="${w - pad.right - xRoniPos}" height="${h - pad.bottom - yIodNeg}" fill="rgba(16, 185, 129, 0.10)" stroke="rgba(16, 185, 129, 0.25)" stroke-dasharray="3,3" style="cursor:pointer;" onclick="selectQuadrantKey('el_nino_neg_iod')" />`;
+
+      // Neutral Center Box
+      svg += `<rect x="${xRoniNeg}" y="${yIodPos}" width="${xRoniPos - xRoniNeg}" height="${yIodNeg - yIodPos}" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.08)" />`;
+
+      // Main Reference Zero Axes
+      svg += `<line x1="${pad.left}" y1="${midY}" x2="${w - pad.right}" y2="${midY}" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />`;
+      svg += `<line x1="${midX}" y1="${pad.top}" x2="${midX}" y2="${h - pad.bottom}" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />`;
+
+      // Threshold lines
+      [0.5, -0.5].forEach(xv => {
+        svg += `<line x1="${xScale(xv)}" y1="${pad.top}" x2="${xScale(xv)}" y2="${h - pad.bottom}" stroke="rgba(255,255,255,0.15)" stroke-dasharray="4,4" />`;
+      });
+      [0.3, -0.3].forEach(yv => {
+        svg += `<line x1="${pad.left}" y1="${yScale(yv)}" x2="${w - pad.right}" y2="${yScale(yv)}" stroke="rgba(255,255,255,0.15)" stroke-dasharray="4,4" />`;
+      });
+
+      // Quadrant Headers & Summary Badges
+      svg += `<text x="${w - pad.right - 10}" y="${pad.top + 18}" text-anchor="end" fill="#fb7185" font-size="11" font-weight="700">🔥 ++ Compound Super-Drought (${fmtVal(cPos)})</text>`;
+      svg += `<text x="${pad.left + 10}" y="${pad.top + 18}" text-anchor="start" fill="#fbbf24" font-size="11" font-weight="700">⚔️ &minus;+ Indian Ocean Interference (${fmtVal(laPos)})</text>`;
+      svg += `<text x="${pad.left + 10}" y="${h - pad.bottom - 12}" text-anchor="start" fill="#38bdf8" font-size="11" font-weight="700">🌊 &minus;&minus; Compound Deluge (${fmtVal(cNeg)})</text>`;
+      svg += `<text x="${w - pad.right - 10}" y="${h - pad.bottom - 12}" text-anchor="end" fill="#34d399" font-size="11" font-weight="700">🛡️ +&minus; Indian Ocean Buffer (${fmtVal(elNeg)})</text>`;
+
+      // X-Axis Ticks (RONI)
+      [-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5].forEach(xv => {
+        const px = xScale(xv);
+        svg += `<line x1="${px}" y1="${midY - 3}" x2="${px}" y2="${midY + 3}" stroke="rgba(255,255,255,0.4)" />`;
+        svg += `<text x="${px}" y="${h - pad.bottom + 16}" text-anchor="middle" fill="#94a3b8" font-size="10">${xv > 0 ? "+" : ""}${xv}</text>`;
+      });
+
+      // Y-Axis Ticks (IOD DMI)
+      [-1.0, -0.6, -0.3, 0, 0.3, 0.6, 1.0].forEach(yv => {
+        const py = yScale(yv);
+        svg += `<line x1="${midX - 3}" y1="${py}" x2="${midX + 3}" y2="${py}" stroke="rgba(255,255,255,0.4)" />`;
+        svg += `<text x="${pad.left - 8}" y="${py + 3}" text-anchor="end" fill="#94a3b8" font-size="10">${yv > 0 ? "+" : ""}${yv.toFixed(1)}</text>`;
+      });
+
+      // Axis Titles
+      svg += `<text x="${pad.left + plotW/2}" y="${h - 8}" text-anchor="middle" fill="#cbd5e1" font-size="11" font-weight="700">&larr; La Ni&ntilde;a &mdash;&mdash; Pacific ENSO (RONI, &deg;C) &mdash;&mdash; El Ni&ntilde;o &rarr;</text>`;
+      svg += `<text x="${pad.left - 38}" y="${pad.top + plotH/2}" text-anchor="middle" transform="rotate(-90 ${pad.left - 38} ${pad.top + plotH/2})" fill="#cbd5e1" font-size="11" font-weight="700">&larr; &minus;IOD (Wet) &mdash;&mdash; Indian Ocean DMI (&deg;C) &mdash;&mdash; +IOD (Dry) &rarr;</text>`;
+
+      // PLOT HISTORICAL MONTHLY DATA POINTS
+      const validMonths = SEASON_MONTHS[state.quadrantSeason] || SEASON_MONTHS["ALL"];
+      const timelineData = state.years === "RECENT" ? DATA.timeline.filter(d => d.year >= 2010) : DATA.timeline;
+
+      timelineData.forEach(item => {
+        if (!validMonths.has(item.month)) return;
+        const r = item.roni;
+        const d = item.dmi;
+        if (r === null || r === undefined || d === null || d === undefined) return;
+        const rainRec = item.regions[state.region];
+        if (!rainRec) return;
+        const yVal = rainRec[state.metric];
+        if (yVal === null || yVal === undefined) return;
+
+        const cx = xScale(r);
+        const cy = yScale(d);
+        if (cx < pad.left || cx > w - pad.right || cy < pad.top || cy > h - pad.bottom) return;
+
+        // Color by rainfall anomaly %
+        let dotColor = "#94a3b8"; // normal
+        if (yVal <= -35) {
+          dotColor = "#ef4444"; // extreme drought
+        } else if (yVal <= -15) {
+          dotColor = "#f97316"; // moderate drought
+        } else if (yVal >= 35) {
+          dotColor = "#10b981"; // severe deluge
+        } else if (yVal >= 15) {
+          dotColor = "#06b6d4"; // moderate wet
+        }
+
+        const compSum = r + d;
+        const ttHtml = `<strong>${item.ym} (${item.season})</strong><br/>` +
+          `RONI: <strong>${r >= 0 ? "+" : ""}${r.toFixed(2)}&deg;C</strong><br/>` +
+          `IOD DMI: <strong>${d >= 0 ? "+" : ""}${d.toFixed(2)}&deg;C</strong><br/>` +
+          `Compound Sum (RONI+IOD): <strong>${compSum >= 0 ? "+" : ""}${compSum.toFixed(2)}&deg;C</strong><br/>` +
+          `${activeReg.name}: <strong>${yVal >= 0 ? "+" : ""}${yVal.toFixed(1)} ${METRIC_UNITS[state.metric]}</strong>`;
+
+        svg += `<circle cx="${cx}" cy="${cy}" r="4.2" fill="${dotColor}" fill-opacity="0.82" stroke="#0f172a" stroke-width="0.8" style="cursor:pointer;"
+          onmousemove="showTooltip(event, '${ttHtml}')"
+          onmouseleave="hideTooltip()" />`;
+      });
+
+      svg += `</svg>`;
+      wrap.innerHTML = svg;
+
+      renderQuadrantDetails();
+    }
+
+    function renderQuadrantDetails() {
+      const activeReg = getRegionObj(state.region);
+      if (!DATA.quadrant_analysis || !DATA.quadrant_analysis[state.region]) return;
+      const quadData = DATA.quadrant_analysis[state.region][state.quadrantSeason];
+      if (!quadData) return;
+      const qInfo = quadData[state.quadrantKey] || { count: 0, mean_anom_pct: 0, mean_anom_mm: 0, pct_below_normal: 0, pct_severe_drought: 0, pct_severe_deluge: 0, examples: [] };
+
+      const titles = {
+        compound_pos: "🔥 Compound Double Positive (++): El Niño & Positive IOD",
+        compound_neg: "🌊 Compound Double Negative (--): La Niña & Negative IOD",
+        el_nino_neg_iod: "🛡️ Opposing Phase (+-): El Niño with Negative IOD Buffer",
+        la_nina_pos_iod: "⚔️ Opposing Phase (-+): La Niña with Positive IOD Interference",
+        pure_pos_iod: "🧭 Pure Positive IOD with Neutral ENSO (e.g. 2019)"
+      };
+
+      const titleEl = document.getElementById("quad-detail-title");
+      if (titleEl) titleEl.textContent = titles[state.quadrantKey] || state.quadrantKey;
+      const countEl = document.getElementById("quad-detail-count");
+      if (countEl) countEl.textContent = `n = ${qInfo.count} mos (${state.quadrantSeason === "DRY" ? "Jun–Oct" : "Full Year"})`;
+
+      const descMap = {
+        compound_pos: `<strong>Both Climate Oscillations Synchronized for Drought:</strong> Sinking Walker circulation from the Pacific combines with suppressed convection over eastern Indian Ocean cold upwelling. For <strong>${activeReg.name}</strong>, rainfall averages <strong>${qInfo.mean_anom_pct >= 0 ? "+" : ""}${qInfo.mean_anom_pct.toFixed(1)}%</strong> (${qInfo.mean_anom_mm >= 0 ? "+" : ""}${qInfo.mean_anom_mm.toFixed(1)} mm/season). <strong>${qInfo.pct_below_normal.toFixed(1)}% of all months</strong> were below normal, with <strong>${qInfo.pct_severe_drought.toFixed(1)}% suffering severe drought (&le; &minus;25%)</strong>.`,
+        compound_neg: `<strong>Both Climate Oscillations Synchronized for Deluge:</strong> Rising Pacific air (La Niña) teams up with warm sea-surface pools off Sumatra (Negative IOD). For <strong>${activeReg.name}</strong>, rainfall surges by <strong>${qInfo.mean_anom_pct >= 0 ? "+" : ""}${qInfo.mean_anom_pct.toFixed(1)}%</strong> (${qInfo.mean_anom_mm >= 0 ? "+" : ""}${qInfo.mean_anom_mm.toFixed(1)} mm/season). Severe deluge occurred in <strong>${qInfo.pct_severe_deluge.toFixed(1)}%</strong> of months.`,
+        el_nino_neg_iod: `<strong>Indian Ocean Mitigation Mode:</strong> While Pacific El Niño attempts to dry the region, anomalously warm waters directly off Sumatra maintain strong localized convection and monsoon moisture. This effectively <strong>neutralizes Pacific drought</strong> for <strong>${activeReg.name}</strong>, bringing anomalies to <strong>${qInfo.mean_anom_pct >= 0 ? "+" : ""}${qInfo.mean_anom_pct.toFixed(1)}%</strong> compared to &minus;50% under compound drought!`,
+        la_nina_pos_iod: `<strong>Cross-Basin Conflict Mode:</strong> La Niña pushes warm water and moisture from the east, but cold upwelling off western Sumatra inhibits rainfall formation. For <strong>${activeReg.name}</strong>, anomalies average <strong>${qInfo.mean_anom_pct >= 0 ? "+" : ""}${qInfo.mean_anom_pct.toFixed(1)}%</strong>.`
+      };
+
+      const bodyEl = document.getElementById("quad-detail-body");
+      if (bodyEl) bodyEl.innerHTML = descMap[state.quadrantKey] || "";
+
+      // Examples Table
+      const exWrap = document.getElementById("quad-detail-examples");
+      if (exWrap) {
+        if (qInfo.examples && qInfo.examples.length > 0) {
+          let exHtml = `<table style="width:100%; border-collapse:collapse; font-size:0.75rem;">
+            <thead>
+              <tr style="color:var(--text-muted); border-bottom:1px solid rgba(255,255,255,0.1); text-align:left;">
+                <th style="padding:3px 4px;">Month</th>
+                <th style="padding:3px 4px;">RONI</th>
+                <th style="padding:3px 4px;">IOD DMI</th>
+                <th style="padding:3px 4px; text-align:right;">Rain Anom %</th>
+                <th style="padding:3px 4px; text-align:right;">Total (3M)</th>
+              </tr>
+            </thead>
+            <tbody>`;
+          qInfo.examples.forEach(ex => {
+            const col = ex.anom_pct < 0 ? "#fb7185" : "#38bdf8";
+            exHtml += `
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:3px 4px; font-weight:600; color:#f8fafc;">${ex.ym} (${ex.season})</td>
+                <td style="padding:3px 4px; color:#fbbf24;">${ex.roni >= 0 ? "+" : ""}${ex.roni.toFixed(2)}&deg;C</td>
+                <td style="padding:3px 4px; color:#c084fc;">${ex.dmi >= 0 ? "+" : ""}${ex.dmi.toFixed(2)}&deg;C</td>
+                <td style="padding:3px 4px; text-align:right; font-weight:700; color:${col};">${ex.anom_pct >= 0 ? "+" : ""}${ex.anom_pct.toFixed(1)}%</td>
+                <td style="padding:3px 4px; text-align:right; color:var(--text-secondary);">${ex.raw_mm.toFixed(0)} mm</td>
+              </tr>`;
+          });
+          exHtml += `</tbody></table>`;
+          exWrap.innerHTML = exHtml;
+        } else {
+          exWrap.innerHTML = `<span style="color:var(--text-muted);">No historical analog months recorded in this specific combination for the selected window.</span>`;
+        }
+      }
+
+      // Dynamic Diagnosis Box
+      const diagEl = document.getElementById("quadrant-diagnosis");
+      if (diagEl) {
+        const cPos = quadData["compound_pos"] || { mean_anom_pct: 0 };
+        const elNeg = quadData["el_nino_neg_iod"] || { mean_anom_pct: 0 };
+        diagEl.innerHTML = `
+          <strong>Cross-Basin Diagnostic for ${activeReg.name}:</strong>
+          Notice the stark contrast between <strong>Compound Super-Drought (++: ${cPos.mean_anom_pct >= 0 ? "+" : ""}${cPos.mean_anom_pct.toFixed(1)}%)</strong> versus <strong>Buffered Mode (+-: ${elNeg.mean_anom_pct >= 0 ? "+" : ""}${elNeg.mean_anom_pct.toFixed(1)}%)</strong>.
+          When Negative IOD occurs alongside El Niño, warm sea-surface temperatures in the eastern Indian Ocean directly off Sumatra pump moisture into the atmosphere, offsetting Pacific atmospheric subsidence.
+          Conversely, in <strong>North/West Sumatra</strong>, anomalous westerly moisture surges during +IOD events create orographic cloud build-up along the Barisan Range, insulating northern plantations from Pacific drought.
+        `;
+      }
+    }
+
+
+
+        function renderAll() {
+      try { renderSummaryTable(); } catch(e) { console.error("renderSummaryTable error:", e); }
+      try { renderQuadrantAnalysis(); } catch(e) { console.error("renderQuadrantAnalysis error:", e); }
+      try { renderCorrelogramChart(); } catch(e) { console.error("renderCorrelogramChart error:", e); }
+      try { renderScatterPlot(); } catch(e) { console.error("renderScatterPlot error:", e); }
+      try { renderRegimeBreakdown(); } catch(e) { console.error("renderRegimeBreakdown error:", e); }
+      try { renderTimeSeriesChart(); } catch(e) { console.error("renderTimeSeriesChart error:", e); }
+    }
+
+    window.addEventListener("resize", () => renderAll());
+    window.addEventListener("DOMContentLoaded", () => {
+      initRegionSelect();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
