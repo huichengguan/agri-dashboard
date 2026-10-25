@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24 17:14:25 UTC",
+  "generated_at": "2026-10-24 21:17:26 UTC",
   "model": "ECMWF IFS 0.25\u00b0 Operational & ERA5 Ag-Reanalysis",
   "forecast_window": "2026-10-24 to 2026-11-06",
   "past_14d_window": "2026-10-10 to 2026-10-23",

@@ -1,7 +1,7 @@
 {
   "season": "2026",
   "description": "Continuous daily ag-weather for the 2026 crop season (April 1, 2026 to ECMWF IFS 14-day forecast)",
-  "updated_at": "2026-10-24T17:14:28.821491+00:00",
+  "updated_at": "2026-10-24T21:17:30.054805+00:00",
   "forecast_start_date": "2026-10-24",
   "dates": [
     "2026-04-01",
