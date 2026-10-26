@@ -1387,6 +1387,7 @@ body {
 
 .daily-matrix-table .today-tag,
 .daily-matrix-table .fcst-tag,
+.daily-matrix-table .fcst-ens50-tag,
 .daily-matrix-table .fcst28-tag,
 .daily-matrix-table .obs-tag {
     font-size: 6.5px;
@@ -1545,6 +1546,18 @@ body {
 .fcst-tag {
     display: inline-block;
     background: #0284c7;
+    color: #ffffff;
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+}
+
+.fcst-ens50-tag {
+    display: inline-block;
+    background: #8b5cf6;
     color: #ffffff;
     font-size: 7.5px;
     font-weight: 800;

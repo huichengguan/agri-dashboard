@@ -201,7 +201,19 @@ async function initDashboard() {
 function renderHeaderKPIs() {
     if (!currentData || !currentData.kpis) return;
     const k = currentData.kpis;
-    document.getElementById("kpi-date").innerText = `Latest Day: ${k.latest_date}`;
+    const cycles = (currentData.metadata && currentData.metadata.model_cycles) || null;
+    let cycleText = '';
+    if (cycles) {
+        const ec = cycles.ecmwf ? cycles.ecmwf.formatted : 'ECMWF IFS';
+        const noaa = cycles.noaa_gefs ? cycles.noaa_gefs.formatted : 'NOAA GEFS';
+        const isMatched = cycles.is_matched;
+        const tag = isMatched ? `⚡ Matched ${cycles.ecmwf.cycle || '00Z'} Synoptic Run` : `⚠️ ${cycles.label || 'Lead Offset'}`;
+        cycleText = ` • 🇪🇺 ECMWF: ${ec} vs. 🇺🇸 NOAA: ${noaa} ${tag}`;
+    }
+    const dateEl = document.getElementById("kpi-date");
+    if (dateEl) {
+        dateEl.innerText = `Latest Day: ${k.latest_date}${cycleText}`;
+    }
     document.getElementById("kpi-my-val").innerText = `${k.malaysia_avg.toFixed(1)} mm/d`;
     document.getElementById("kpi-id-val").innerText = `${k.indonesia_avg.toFixed(1)} mm/d`;
     
@@ -757,6 +769,30 @@ function renderDailyTable(locations) {
 
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+    const getForecastModelTag = (d) => {
+        const fcIdx = fcDates.indexOf(d);
+        if (fcIdx === -1) return { tag: '<span class="fcst-tag">FCST</span>', model: 'ECMWF Forecast', bg: 'background:#f0f9ff;' };
+        if (fcIdx < 5) {
+            return {
+                tag: '<span class="fcst-tag" style="background:#0284c7; color:#fff;" title="ECMWF Operational HRES (Days 1–5)">HRES</span>',
+                model: 'ECMWF HRES',
+                bg: 'background:#f0f9ff;'
+            };
+        } else if (fcIdx < 14) {
+            return {
+                tag: '<span class="fcst-ens50-tag" style="background:#8b5cf6; color:#fff;" title="ECMWF 50-Member Ensemble Mean (Days 6–14)">ENS 50</span>',
+                model: 'ECMWF 50-ENS',
+                bg: 'background:#f5f3ff;'
+            };
+        } else {
+            return {
+                tag: '<span class="fcst28-tag" style="background:#6366f1; color:#fff;" title="ECMWF SEAS5 51-Member Ensemble (Days 15+)">ENS 51</span>',
+                model: 'ECMWF SEAS5 ENS',
+                bg: 'background:#faf5ff;'
+            };
+        }
+    };
+
     // 3. Build Table Headers
     let thead = "";
     if (isTimelineView) {
@@ -778,8 +814,9 @@ function renderDailyTable(locations) {
                 tag = '<span class="today-tag">TODAY</span>';
                 colBg = 'background:#f0fdf4;';
             } else if (d >= forecastStartDate) {
-                tag = (d <= (fcDates[13] || "")) ? '<span class="fcst-tag">HRES</span>' : '<span class="fcst28-tag">ENS 51</span>';
-                colBg = 'background:#f0f9ff;';
+                const info = getForecastModelTag(d);
+                tag = info.tag;
+                colBg = info.bg;
             }
             thead += `
                 <th class="day-head" style="${colBg}" title="${d} (${d < forecastStartDate ? 'Observed' : 'Forecast'})">
@@ -802,8 +839,9 @@ function renderDailyTable(locations) {
                 tag = '<span class="today-tag">TODAY</span>';
                 colBg = 'background:#f0fdf4;';
             } else if (d >= forecastStartDate) {
-                tag = (d <= (fcDates[13] || "")) ? '<span class="fcst-tag">HRES</span>' : '<span class="fcst28-tag">ENS 51</span>';
-                colBg = (d <= (fcDates[13] || "")) ? 'background:#f0f9ff;' : 'background:#faf5ff;';
+                const info = getForecastModelTag(d);
+                tag = info.tag;
+                colBg = info.bg;
             }
             thead += `
                 <th class="day-head" style="${colBg}" title="${d} (${d < forecastStartDate ? 'Observed' : 'Forecast'})">
@@ -846,12 +884,16 @@ function renderDailyTable(locations) {
                 <th style="min-width:105px;">Region / Island</th>
                 <th style="min-width:140px;">State / Province</th>
         `;
-        first14FcDates.forEach(d => {
+        first14FcDates.forEach((d, idx) => {
             const parts = d.split("-");
+            const tagHtml = (idx < 5)
+                ? '<div style="font-size:7.5px; color:#0284c7; font-weight:800;" title="ECMWF Operational HRES (Days 1–5)">HRES</div>'
+                : '<div style="font-size:7.5px; color:#8b5cf6; font-weight:800;" title="ECMWF 50-Member Ensemble Mean (Days 6–14)">ENS 50</div>';
+            const bgHeader = (idx < 5) ? 'background:#f0f9ff;' : 'background:#f5f3ff;';
             thead += `
-                <th style="text-align:center; font-size:10px; padding:4px 3px; min-width:42px; background:#f0fdf4;" title="ECMWF Forecast: ${d}">
+                <th style="text-align:center; font-size:10px; padding:4px 3px; min-width:42px; ${bgHeader}" title="ECMWF Forecast: ${d} (${idx < 5 ? 'Operational HRES' : '50-Member Ensemble Mean'})">
                     <div style="font-weight:700; color:#0f172a;">${parts[2]}/${parts[1]}</div>
-                    <div style="font-size:8px; color:#0284c7; font-weight:800;">FCST</div>
+                    ${tagHtml}
                 </th>
             `;
         });
@@ -888,7 +930,8 @@ function renderDailyTable(locations) {
                     sumSeg1 += val;
                     countSeg1++;
                     const c = getRainColor(val);
-                    const tip = (d < forecastStartDate) ? `Observed ${d}: ${val.toFixed(1)} mm` : `🔮 Forecast ${d}: ${val.toFixed(1)} mm`;
+                    const modelLabel = (d < forecastStartDate) ? `Observed ${d}` : `🔮 ${getForecastModelTag(d).model} ${d}`;
+                    const tip = `${modelLabel}: ${val.toFixed(1)} mm`;
                     const badgeClass = (d >= forecastStartDate) ? "rain-badge forecast-badge" : "rain-badge";
                     rowHtml += `
                         <td class="rain-cell">
@@ -925,8 +968,8 @@ function renderDailyTable(locations) {
                     sumSeg2 += val;
                     countSeg2++;
                     const c = getRainColor(val);
-                    const isEns = (d > (fcDates[13] || ""));
-                    const tip = (d < forecastStartDate) ? `Observed ${d}: ${val.toFixed(1)} mm` : (isEns ? `🔮 SEAS5 Ensemble ${d}: ${val.toFixed(1)} mm` : `🔮 HRES Forecast ${d}: ${val.toFixed(1)} mm`);
+                    const modelLabel = (d < forecastStartDate) ? `Observed ${d}` : `🔮 ${getForecastModelTag(d).model} ${d}`;
+                    const tip = `${modelLabel}: ${val.toFixed(1)} mm`;
                     const badgeClass = (d >= forecastStartDate) ? "rain-badge forecast-badge" : "rain-badge";
                     rowHtml += `
                         <td class="rain-cell">
@@ -1017,9 +1060,10 @@ function renderDailyTable(locations) {
                     sumFcst += fval;
                     countFcst++;
                     const c = getRainColor(fval);
+                    const tip = `🔮 ${getForecastModelTag(d).model} ${d}: ${fval.toFixed(1)} mm`;
                     rowHtml += `
                         <td class="rain-cell">
-                            <span class="rain-badge forecast-badge" style="background-color: ${c.bg}; color: ${c.text};" title="🔮 Forecast ${d}: ${fval.toFixed(1)} mm">
+                            <span class="rain-badge forecast-badge" style="background-color: ${c.bg}; color: ${c.text};" title="${tip}">
                                 ${fval.toFixed(1)}
                             </span>
                         </td>
