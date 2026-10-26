@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Crop Multi-Model Conviction &amp; Consensus Intelligence (ECMWF vs. NOAA)</title>
+    <style>
+        :root {
+            --bg-canvas: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --border-dark: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            line-height: 1.4;
+            padding: 12px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1720px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        /* Universal Navigation Bar */
+        .suite-nav-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+        }
+        .suite-nav-links {
+            display: flex;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #2563eb;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Header Card */
+        .header-card {
+            padding: 16px 28px 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-color);
+            background: #ffffff;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        .header-badge {
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+        .header-badge-consensus {
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+        .header-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+        .header-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .header-meta {
+            text-align: right;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* KPI Banner */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            padding: 12px 28px;
+            background: var(--bg-canvas);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .kpi-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .kpi-belt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10.5px;
+            font-weight: 700;
+        }
+        .kpi-belt-name {
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .kpi-status-badge {
+            font-size: 8.5px;
+            font-weight: 800;
+            padding: 1px 5px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        .badge-high { background: #dcfce7; color: #166534; }
+        .badge-mod { background: #fef3c7; color: #b45309; }
+        .badge-low { background: #fee2e2; color: #b91c1c; }
+
+        .kpi-metric-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-top: 2px;
+        }
+        .kpi-score-val {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .kpi-rates {
+            font-size: 9.5px;
+            color: var(--text-muted);
+            text-align: right;
+            line-height: 1.3;
+        }
+        .kpi-subtext {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Filter Controls Bar */
+        .controls-bar {
+            padding: 10px 28px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .ctrl-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .ctrl-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 2px;
+        }
+        .filter-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-dark);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .filter-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-primary);
+        }
+        .filter-btn.active {
+            background: #0f172a;
+            border-color: #0f172a;
+            color: #ffffff;
+        }
+        .search-input {
+            background: #ffffff;
+            border: 1px solid var(--border-dark);
+            color: var(--text-primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11.5px;
+            width: 170px;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #2563eb;
+        }
+
+        /* Table Structure & Dimensions */
+        .table-container {
+            overflow: auto;
+            max-height: 720px;
+            width: 100%;
+            background: #ffffff;
+            position: relative;
+        }
+        table.conviction-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            text-align: left;
+            min-width: 1160px;
+        }
+        table.conviction-table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f8fafc;
+            color: #334155;
+            padding: 8px 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-dark);
+            border-top: 1px solid var(--border-color);
+            z-index: 10;
+            line-height: 1.25;
+            white-space: nowrap;
+        }
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        .sortable:hover {
+            color: #2563eb;
+        }
+
+        /* 10 Standardized Column Widths & Alignments */
+        .col-state {
+            width: 170px;
+            min-width: 170px;
+            max-width: 170px;
+            text-align: left;
+            padding: 6px 12px !important;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            background: #ffffff;
+            border-right: 1px solid var(--border-color);
+        }
+        thead th.col-state {
+            z-index: 20;
+            background: #f8fafc;
+        }
+        .col-belt {
+            width: 140px;
+            min-width: 140px;
+            max-width: 140px;
+            text-align: center;
+            padding: 6px 4px !important;
+            border-right: 1px solid var(--border-color);
+        }
+        .col-num-data {
+            width: 96px;
+            min-width: 96px;
+            max-width: 96px;
+            text-align: center !important;
+            padding: 6px 4px !important;
+            border-right: 1px solid var(--border-color);
+            font-variant-numeric: tabular-nums;
+        }
+        .col-bar {
+            width: 160px;
+            min-width: 160px;
+            max-width: 160px;
+            text-align: center;
+            padding: 6px 8px !important;
+            border-right: 1px solid var(--border-color);
+        }
+        .col-diag {
+            width: 210px;
+            min-width: 210px;
+            text-align: left;
+            padding: 6px 10px !important;
+        }
+
+        /* Row Styling */
+        tr.conviction-row {
+            border-bottom: 1px solid var(--border-color);
+            background: #ffffff;
+            transition: background 0.1s;
+        }
+        tr.conviction-row:hover {
+            background-color: #f8fafc;
+        }
+        tr.conviction-row:hover td.col-state {
+            background-color: #f8fafc;
+        }
+
+        /* Belt Section Divider */
+        tr.belt-header-row td {
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-top: 2px solid var(--border-dark);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .belt-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .belt-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+        .belt-meta {
+            font-size: 9.5px;
+            color: var(--text-muted);
+        }
+
+        /* Cell Component Elements */
+        .state-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .state-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 11.5px;
+        }
+        .state-code {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 1px 4px;
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+        }
+        .centroid-count {
+            font-size: 9.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .belt-pill {
+            font-size: 9.5px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 130px;
+        }
+        .num-primary {
+            font-size: 11.5px;
+            font-weight: 700;
+        }
+        .iqr-range {
+            font-size: 10.5px;
+            color: #334155;
+            font-weight: 600;
+        }
+        .diff-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .diff-tight { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .diff-ec-wetter { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .diff-gfs-wetter { background: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }
+
+        .conviction-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        /* Spread Range Visual Track */
+        .spread-bar-container {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: visible;
+        }
+        .bar-iqr {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: #c7d2fe;
+            border-radius: 4px;
+        }
+        .bar-marker {
+            position: absolute;
+            top: 1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+        .marker-hybrid {
+            background: #0284c7;
+            border: 1.5px solid #ffffff;
+            z-index: 4;
+        }
+        .marker-ens {
+            background: #4f46e5;
+            border: 1.5px solid #ffffff;
+            z-index: 3;
+        }
+        .marker-noaa {
+            background: #ea580c;
+            border: 1.5px solid #ffffff;
+            z-index: 2;
+        }
+
+        /* Diagnostic Trigger & Teaser */
+        .diag-pill {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 195px;
+        }
+        .diag-pill:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #1d4ed8;
+        }
+
+        /* Viewport-Aware Floating Popover */
+        .global-diag-popover {
+            position: fixed;
+            z-index: 99999;
+            width: 380px;
+            max-width: 92vw;
+            background-color: #0f172a;
+            color: #f8fafc;
+            border-radius: 8px;
+            padding: 12px 14px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px #334155;
+            font-size: 11px;
+            line-height: 1.45;
+            display: none;
+            pointer-events: none;
+        }
+        .pop-title {
+            font-weight: 800;
+            color: #38bdf8;
+            font-size: 12px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 4px;
+        }
+        .pop-body {
+            color: #e2e8f0;
+            margin-bottom: 6px;
+        }
+        .pop-footer {
+            font-size: 9.5px;
+            color: #94a3b8;
+            border-top: 1px solid #1e293b;
+            padding-top: 4px;
+        }
+
+        /* Legend Bar */
+        .legend-card {
+            padding: 12px 28px;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 10.5px;
+        }
+        .legend-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .report-footer {
+            padding: 14px 28px;
+            background: #f8fafc;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <!-- Navigation Bar -->
+    <div class="suite-nav-bar">
+        <div class="suite-brand">🌱 US CROP AG-WEATHER INTELLIGENCE (ECMWF IFS)</div>
+        <div class="suite-nav-links">
+            <a href="US_Crop_2_Week_Outlook.html" class="nav-tab">📅 2-Week Daily Matrix</a>
+            <a href="US_Crop_Model_Conviction.html" class="nav-tab active">🎯 Model Conviction &amp; Consensus</a>
+            <a href="US_Crop_Soil_Moisture_Outlook.html" class="nav-tab">🌱 Soil Moisture Outlook</a>
+            <a href="US_Crop_Temperature_Outlook.html" class="nav-tab">☀️ Thermal Stress Outlook</a>
+            <a href="US_Crop_Weather_Matrix.html" class="nav-tab">📊 17-Year Historical Matrix (2010&ndash;2026)</a>
+        </div>
+    </div>
+
+    <!-- Header Card -->
+    <div class="header-card">
+        <div>
+            <div class="header-title-row">
+                <span class="header-badge">ECMWF HYBRID STANDARD (D1–5 HRES + D6–14 50-ENS)</span>
+                <span class="header-badge-consensus">NOAA 31-GEFS CONSENSUS BENCHMARK</span>
+                <h1 class="header-title">US Crop Multi-Model Conviction &amp; Consensus Report</h1>
+            </div>
+            <div class="header-subtitle">
+                Normalized mm/day daily rainfall rates across 21 core agricultural states. Evaluates European 50-member ensemble spread (P20–P80) against NOAA 31-member GEFS consensus.
+            </div>
+        </div>
+        <div class="header-meta">
+            <div>Models: <strong>ECMWF IFS 0.25° (HRES &amp; 50-ENS) &bull; NOAA GEFS 0.25° (31-ENS)</strong></div>
+            <div>Generated: <strong>2026-10-25 16:36:16 UTC</strong></div>
+            <div>Forecast Horizon: <strong>14-Day Forward Window (10 Standardized Columns)</strong></div>
+        </div>
+    </div>
+
+    <!-- Belt KPI Summary Row -->
+    <div class="kpi-row">
+        
+        <div class="kpi-card">
+            <div class="kpi-belt-header">
+                <span class="kpi-belt-name">Core Corn & Soybean Belt</span>
+                <span class="kpi-status-badge badge-low">LOW CONVICTION</span>
+            </div>
+            <div class="kpi-metric-row">
+                <div class="kpi-score-val">63%</div>
+                <div class="kpi-rates">
+                    <div>Hybrid: <strong>2.1</strong> mm/d</div>
+                    <div>EC ENS: <strong>2.1</strong> | GFS: <strong>2.8</strong></div>
+                </div>
+            </div>
+            <div class="kpi-subtext">5 Core Producing States</div>
+        </div>
+        
+        <div class="kpi-card">
+            <div class="kpi-belt-header">
+                <span class="kpi-belt-name">Northern Plains & Upper Midwest</span>
+                <span class="kpi-status-badge badge-mod">MODERATE</span>
+            </div>
+            <div class="kpi-metric-row">
+                <div class="kpi-score-val">67%</div>
+                <div class="kpi-rates">
+                    <div>Hybrid: <strong>2.4</strong> mm/d</div>
+                    <div>EC ENS: <strong>2.4</strong> | GFS: <strong>3.2</strong></div>
+                </div>
+            </div>
+            <div class="kpi-subtext">5 Core Producing States</div>
+        </div>
+        
+        <div class="kpi-card">
+            <div class="kpi-belt-header">
+                <span class="kpi-belt-name">Central & Southern Plains</span>
+                <span class="kpi-status-badge badge-low">LOW CONVICTION</span>
+            </div>
+            <div class="kpi-metric-row">
+                <div class="kpi-score-val">65%</div>
+                <div class="kpi-rates">
+                    <div>Hybrid: <strong>2.6</strong> mm/d</div>
+                    <div>EC ENS: <strong>2.7</strong> | GFS: <strong>2.4</strong></div>
+                </div>
+            </div>
+            <div class="kpi-subtext">5 Core Producing States</div>
+        </div>
+        
+        <div class="kpi-card">
+            <div class="kpi-belt-header">
+                <span class="kpi-belt-name">Pacific Northwest & Intermountain</span>
+                <span class="kpi-status-badge badge-mod">MODERATE</span>
+            </div>
+            <div class="kpi-metric-row">
+                <div class="kpi-score-val">79%</div>
+                <div class="kpi-rates">
+                    <div>Hybrid: <strong>1.6</strong> mm/d</div>
+                    <div>EC ENS: <strong>1.4</strong> | GFS: <strong>1.2</strong></div>
+                </div>
+            </div>
+            <div class="kpi-subtext">3 Core Producing States</div>
+        </div>
+        
+        <div class="kpi-card">
+            <div class="kpi-belt-header">
+                <span class="kpi-belt-name">Delta & Mid-South</span>
+                <span class="kpi-status-badge badge-low">LOW CONVICTION</span>
+            </div>
+            <div class="kpi-metric-row">
+                <div class="kpi-score-val">57%</div>
+                <div class="kpi-rates">
+                    <div>Hybrid: <strong>3.0</strong> mm/d</div>
+                    <div>EC ENS: <strong>3.0</strong> | GFS: <strong>2.5</strong></div>
+                </div>
+            </div>
+            <div class="kpi-subtext">3 Core Producing States</div>
+        </div>
+        
+    </div>
+
+    <!-- Filter Controls Toolbar -->
+    <div class="controls-bar">
+        <div class="ctrl-group">
+            <span class="ctrl-label">Macro Belt:</span>
+            <button class="filter-btn active" onclick="filterBelt('all', this)">All 5 Belts</button>
+            <button class="filter-btn" onclick="filterBelt('Core Corn &amp; Soybean Belt', this)">Core Corn &amp; Soy</button>
+            <button class="filter-btn" onclick="filterBelt('Northern Plains &amp; Upper Midwest', this)">Northern Plains</button>
+            <button class="filter-btn" onclick="filterBelt('Central &amp; Southern Plains', this)">Central / South Plains</button>
+            <button class="filter-btn" onclick="filterBelt('Pacific Northwest &amp; Intermountain', this)">Pacific NW</button>
+            <button class="filter-btn" onclick="filterBelt('Delta &amp; Mid-South', this)">Delta / Mid-South</button>
+        </div>
+        <div class="ctrl-group">
+            <span class="ctrl-label">Conviction:</span>
+            <button class="filter-btn active" onclick="filterClass('all', this)">All Scores</button>
+            <button class="filter-btn" onclick="filterClass('High', this)">🟢 High (&ge;80%)</button>
+            <button class="filter-btn" onclick="filterClass('Moderate', this)">🟡 Moderate (65–79%)</button>
+            <button class="filter-btn" onclick="filterClass('Low', this)">🔴 Low (&lt;65%)</button>
+            <input type="text" id="state-search" class="search-input" placeholder="🔍 Search state / code..." oninput="searchStates(this.value)">
+        </div>
+    </div>
+
+    <!-- 10-Column Standardized Table -->
+    <div class="table-container">
+        <table class="conviction-table" id="conviction-table">
+            <thead>
+                <tr>
+                    <th class="col-state sortable" onclick="sortRows('name')">Territory &#8645;</th>
+                    <th class="col-belt sortable" onclick="sortRows('belt')">Macro Belt &#8645;</th>
+                    <th class="col-num-data col-iqr sortable" onclick="sortRows('iqr')">
+                        EC ENS Spread<br><span style="font-size: 8px; opacity: 0.85; font-weight: 600;">(P20–P80)</span> &#8645;
+                    </th>
+                    <th class="col-num-data col-hybrid sortable" onclick="sortRows('hybrid')">
+                        EC Hybrid<br><span style="font-size: 8px; opacity: 0.85; font-weight: 600;">(mm/d)</span> &#8645;
+                    </th>
+                    <th class="col-num-data col-ens sortable" onclick="sortRows('ens')">
+                        EC ENS<br><span style="font-size: 8px; opacity: 0.85; font-weight: 600;">(mm/d)</span> &#8645;
+                    </th>
+                    <th class="col-num-data col-noaa sortable" onclick="sortRows('noaa')">
+                        NOAA ENS<br><span style="font-size: 8px; opacity: 0.85; font-weight: 600;">(mm/d)</span> &#8645;
+                    </th>
+                    <th class="col-num-data col-diff sortable" onclick="sortRows('diff')">
+                        &Delta; (EC - GFS)<br><span style="font-size: 8px; opacity: 0.85; font-weight: 600;">(mm/d)</span> &#8645;
+                    </th>
+                    <th class="col-num-data col-score sortable" onclick="sortRows('score')">
+                        Conviction<br><span style="font-size: 8px; opacity: 0.85; font-weight: 600;">(Score %)</span> &#8645;
+                    </th>
+                    <th class="col-bar">Spread Range</th>
+                    <th class="col-diag">Diagnostic</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+        <tr class="belt-header-row" data-belt="Core Corn & Soybean Belt">
+            <td colspan="10">
+                <div class="belt-divider">
+                    <span class="belt-title">🌾 Core Corn & Soybean Belt</span>
+                    <span class="belt-meta">5 States &bull; Macro Belt Consensus: <strong>63%</strong></span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="conviction-row" data-belt="Core Corn & Soybean Belt" data-class="Low" data-name="iowa ia">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Iowa</span>
+                        <span class="state-code">IA</span>
+                    </div>
+                    <div class="centroid-count">2 Centroids &bull; Central / Des Moines Lobe (Story/Boone)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Core Corn & Soybean Belt</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.08" title="ECMWF 50-ENS Spread: P20 0.2 to P80 4.2 mm/day">
+                    <span class="iqr-range">0.2–4.2</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.46" title="ECMWF Hybrid 14-Day Cumulative: 34.4 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.5</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.59" title="ECMWF 50-ENS 14-Day Cumulative: 36.2 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.6</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="3.44" title="NOAA 31-GEFS 14-Day Cumulative: 48.1 mm">
+                    <span class="num-primary" style="color: #ea580c;">3.4</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.85" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.8 mm/day">
+                    <span class="diff-badge diff-gfs-wetter">-0.8</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="57">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 57%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.5 | EC ENS: 2.6 | NOAA ENS: 3.4 | P20-P80: 0.2–4.2">
+                        <div class="bar-iqr" style="left: 2.0%; width: 51.0%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 43.0%;" title="NOAA 31-GEFS Mean: 3.4 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 32.375%;" title="ECMWF 50-ENS Mean: 2.6 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 30.75%;" title="ECMWF Hybrid: 2.5 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Iowa (IA) &bull; Diagnostic Assessment" 
+                          data-body="American model wetter: NOAA GEFS (3.4 mm/d) indicates more active precipitation than EC ENS (2.6 mm/d; Δ -0.9 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.2–4.2 mm/d; spread 4.1 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.5 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 34 mm, EC ENS 36 mm, NOAA ENS 48 mm &bull; Commodities: Corn (15.5%), Soybeans (13.5%)">
+                        🟠 NOAA GEFS Wetter Bias
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Core Corn & Soybean Belt" data-class="Low" data-name="illinois il">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Illinois</span>
+                        <span class="state-code">IL</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Central Grain Heartland (Champaign/McLean)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Core Corn & Soybean Belt</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.81" title="ECMWF 50-ENS Spread: P20 0.0 to P80 3.8 mm/day">
+                    <span class="iqr-range">0.0–3.8</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.01" title="ECMWF Hybrid 14-Day Cumulative: 28.1 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.0</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.01" title="ECMWF 50-ENS 14-Day Cumulative: 28.2 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.0</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.64" title="NOAA 31-GEFS 14-Day Cumulative: 36.9 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.6</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.63" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.6 mm/day">
+                    <span class="diff-badge diff-tight">-0.6</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="63">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 63%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.0 | EC ENS: 2.0 | NOAA ENS: 2.6 | P20-P80: 0.0–3.8">
+                        <div class="bar-iqr" style="left: 0.0%; width: 47.625%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 33.0%;" title="NOAA 31-GEFS Mean: 2.6 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 25.124999999999996%;" title="ECMWF 50-ENS Mean: 2.0 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 25.124999999999996%;" title="ECMWF Hybrid: 2.0 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Illinois (IL) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (2.0 mm/d) and NOAA GEFS (2.6 mm/d) agree closely (Δ -0.6 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–3.8 mm/d; spread 3.8 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.0 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 28 mm, EC ENS 28 mm, NOAA ENS 37 mm &bull; Commodities: Corn (14.1%), Soybeans (15.5%), SRW Wheat (2.7%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Core Corn & Soybean Belt" data-class="Moderate" data-name="indiana in">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Indiana</span>
+                        <span class="state-code">IN</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Central Corn & Soybean Belt (Tipton/Hamilton)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Core Corn & Soybean Belt</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.09" title="ECMWF 50-ENS Spread: P20 0.0 to P80 3.1 mm/day">
+                    <span class="iqr-range">0.0–3.1</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="1.94" title="ECMWF Hybrid 14-Day Cumulative: 27.1 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">1.9</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="1.94" title="ECMWF 50-ENS 14-Day Cumulative: 27.1 mm">
+                    <span class="num-primary" style="color: #4f46e5;">1.9</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.78" title="NOAA 31-GEFS 14-Day Cumulative: 38.9 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.8</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.84" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.8 mm/day">
+                    <span class="diff-badge diff-gfs-wetter">-0.8</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="65">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 65%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 1.9 | EC ENS: 1.9 | NOAA ENS: 2.8 | P20-P80: 0.0–3.1">
+                        <div class="bar-iqr" style="left: 0.0%; width: 38.625%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 34.75%;" title="NOAA 31-GEFS Mean: 2.8 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 24.25%;" title="ECMWF 50-ENS Mean: 1.9 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 24.25%;" title="ECMWF Hybrid: 1.9 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Indiana (IN) &bull; Diagnostic Assessment" 
+                          data-body="American model wetter: NOAA GEFS (2.8 mm/d) indicates more active precipitation than EC ENS (1.9 mm/d; Δ -0.8 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–3.1 mm/d; spread 3.1 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (1.9 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 27 mm, EC ENS 27 mm, NOAA ENS 39 mm &bull; Commodities: Corn (6.0%), Soybeans (7.8%), SRW Wheat (1.0%)">
+                        🟠 NOAA GEFS Wetter Bias
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Core Corn & Soybean Belt" data-class="Moderate" data-name="ohio oh">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Ohio</span>
+                        <span class="state-code">OH</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; West-Central / Plain City Heartland</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Core Corn & Soybean Belt</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.3" title="ECMWF 50-ENS Spread: P20 0.0 to P80 3.3 mm/day">
+                    <span class="iqr-range">0.0–3.3</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="1.9" title="ECMWF Hybrid 14-Day Cumulative: 26.6 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">1.9</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="1.9" title="ECMWF 50-ENS 14-Day Cumulative: 26.6 mm">
+                    <span class="num-primary" style="color: #4f46e5;">1.9</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.25" title="NOAA 31-GEFS 14-Day Cumulative: 31.5 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.2</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.35" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.3 mm/day">
+                    <span class="diff-badge diff-tight">-0.3</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="70">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 70%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 1.9 | EC ENS: 1.9 | NOAA ENS: 2.2 | P20-P80: 0.0–3.3">
+                        <div class="bar-iqr" style="left: 0.0%; width: 41.25%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 28.125%;" title="NOAA 31-GEFS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 23.75%;" title="ECMWF 50-ENS Mean: 1.9 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 23.75%;" title="ECMWF Hybrid: 1.9 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Ohio (OH) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (1.9 mm/d) and NOAA GEFS (2.2 mm/d) agree closely (Δ -0.4 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–3.3 mm/d; spread 3.3 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (1.9 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 27 mm, EC ENS 27 mm, NOAA ENS 32 mm &bull; Commodities: Corn (3.6%), Soybeans (6.0%), SRW Wheat (2.3%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Core Corn & Soybean Belt" data-class="Low" data-name="missouri mo">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Missouri</span>
+                        <span class="state-code">MO</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; North-Central Prairie (Chillicothe/Macon)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Core Corn & Soybean Belt</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.06" title="ECMWF 50-ENS Spread: P20 0.0 to P80 4.1 mm/day">
+                    <span class="iqr-range">0.0–4.1</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.13" title="ECMWF Hybrid 14-Day Cumulative: 29.8 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.1</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.22" title="ECMWF 50-ENS 14-Day Cumulative: 31.1 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.2</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.74" title="NOAA 31-GEFS 14-Day Cumulative: 38.3 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.7</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.52" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.5 mm/day">
+                    <span class="diff-badge diff-tight">-0.5</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="62">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 62%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.1 | EC ENS: 2.2 | NOAA ENS: 2.7 | P20-P80: 0.0–4.1">
+                        <div class="bar-iqr" style="left: 0.0%; width: 50.74999999999999%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 34.25%;" title="NOAA 31-GEFS Mean: 2.7 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 27.750000000000004%;" title="ECMWF 50-ENS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 26.625%;" title="ECMWF Hybrid: 2.1 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Missouri (MO) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (2.2 mm/d) and NOAA GEFS (2.7 mm/d) agree closely (Δ -0.5 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–4.1 mm/d; spread 4.1 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.1 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 30 mm, EC ENS 31 mm, NOAA ENS 38 mm &bull; Commodities: Corn (3.4%), Soybeans (6.5%), SRW Wheat (1.8%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+        <tr class="belt-header-row" data-belt="Northern Plains & Upper Midwest">
+            <td colspan="10">
+                <div class="belt-divider">
+                    <span class="belt-title">🌾 Northern Plains & Upper Midwest</span>
+                    <span class="belt-meta">5 States &bull; Macro Belt Consensus: <strong>67%</strong></span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="conviction-row" data-belt="Northern Plains & Upper Midwest" data-class="Low" data-name="minnesota mn">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Minnesota</span>
+                        <span class="state-code">MN</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; South-Central / Blue Earth Heartland</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Northern Plains & Upper Midwest</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.57" title="ECMWF 50-ENS Spread: P20 1.2 to P80 5.7 mm/day">
+                    <span class="iqr-range">1.2–5.7</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="3.75" title="ECMWF Hybrid 14-Day Cumulative: 52.5 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">3.8</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.64" title="ECMWF 50-ENS 14-Day Cumulative: 50.9 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.6</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="4.7" title="NOAA 31-GEFS 14-Day Cumulative: 65.8 mm">
+                    <span class="num-primary" style="color: #ea580c;">4.7</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-1.06" title="ECMWF 50-ENS minus NOAA 31-GEFS: -1.1 mm/day">
+                    <span class="diff-badge diff-gfs-wetter">-1.1</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="56">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 56%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 3.8 | EC ENS: 3.6 | NOAA ENS: 4.7 | P20-P80: 1.2–5.7">
+                        <div class="bar-iqr" style="left: 14.625%; width: 57.125%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 58.75%;" title="NOAA 31-GEFS Mean: 4.7 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 45.5%;" title="ECMWF 50-ENS Mean: 3.6 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 46.875%;" title="ECMWF Hybrid: 3.8 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Minnesota (MN) &bull; Diagnostic Assessment" 
+                          data-body="American model wetter: NOAA GEFS (4.7 mm/d) indicates more active precipitation than EC ENS (3.6 mm/d; Δ -1.1 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 1.2–5.7 mm/d; spread 4.6 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (3.8 mm/d) tracks seamlessly with the 14-day ensemble mean. Moderate to heavy rainfall events may cause temporary field delays and muddy machinery trafficability across Corn/Soybeans/HRS Wheat fields." 
+                          data-footer="14D Cumulative: Hybrid 52 mm, EC ENS 51 mm, NOAA ENS 66 mm &bull; Commodities: Corn (8.4%), Soybeans (8.2%), HRS Wheat (3.7%)">
+                        🟠 NOAA GEFS Wetter Bias
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Northern Plains & Upper Midwest" data-class="Moderate" data-name="south dakota sd">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">South Dakota</span>
+                        <span class="state-code">SD</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; East-Central Plains (Huron/Brookings)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Northern Plains & Upper Midwest</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.17" title="ECMWF 50-ENS Spread: P20 1.8 to P80 5.0 mm/day">
+                    <span class="iqr-range">1.8–5.0</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="3.61" title="ECMWF Hybrid 14-Day Cumulative: 50.6 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">3.6</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.79" title="ECMWF 50-ENS 14-Day Cumulative: 53.0 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.8</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="4.14" title="NOAA 31-GEFS 14-Day Cumulative: 57.9 mm">
+                    <span class="num-primary" style="color: #ea580c;">4.1</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.35" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.3 mm/day">
+                    <span class="diff-badge diff-tight">-0.3</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="73">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 73%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 3.6 | EC ENS: 3.8 | NOAA ENS: 4.1 | P20-P80: 1.8–5.0">
+                        <div class="bar-iqr" style="left: 23.0%; width: 39.625%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 51.74999999999999%;" title="NOAA 31-GEFS Mean: 4.1 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 47.375%;" title="ECMWF 50-ENS Mean: 3.8 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 45.125%;" title="ECMWF Hybrid: 3.6 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="South Dakota (SD) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (3.8 mm/d) and NOAA GEFS (4.1 mm/d) agree closely (Δ -0.3 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 1.8–5.0 mm/d; spread 3.2 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (3.6 mm/d) tracks seamlessly with the 14-day ensemble mean. Moderate to heavy rainfall events may cause temporary field delays and muddy machinery trafficability across Corn/Soybeans/Wheat (Spring/HRW) fields." 
+                          data-footer="14D Cumulative: Hybrid 51 mm, EC ENS 53 mm, NOAA ENS 58 mm &bull; Commodities: Corn (4.9%), Soybeans (5.3%), Wheat (Spring/HRW) (3.4%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Northern Plains & Upper Midwest" data-class="High" data-name="north dakota nd">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">North Dakota</span>
+                        <span class="state-code">ND</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Central Plains & Red River Valley</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Northern Plains & Upper Midwest</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="0.79" title="ECMWF 50-ENS Spread: P20 0.1 to P80 0.8 mm/day">
+                    <span class="iqr-range">0.1–0.8</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="0.49" title="ECMWF Hybrid 14-Day Cumulative: 6.9 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">0.5</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="0.67" title="ECMWF 50-ENS 14-Day Cumulative: 9.4 mm">
+                    <span class="num-primary" style="color: #4f46e5;">0.7</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="1.07" title="NOAA 31-GEFS 14-Day Cumulative: 15.0 mm">
+                    <span class="num-primary" style="color: #ea580c;">1.1</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.4" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.4 mm/day">
+                    <span class="diff-badge diff-tight">-0.4</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="87">
+                    <span class="conviction-badge" style="color: #15803d; background: #dcfce7; border: 1px solid #86efac;">
+                        🟢 87%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 0.5 | EC ENS: 0.7 | NOAA ENS: 1.1 | P20-P80: 0.1–0.8">
+                        <div class="bar-iqr" style="left: 0.625%; width: 9.874999999999998%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 13.375%;" title="NOAA 31-GEFS Mean: 1.1 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 8.375%;" title="ECMWF 50-ENS Mean: 0.7 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 6.125%;" title="ECMWF Hybrid: 0.5 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="North Dakota (ND) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (0.7 mm/d) and NOAA GEFS (1.1 mm/d) agree closely (Δ -0.4 mm/d). Tight European 50-member envelope (P20–P80: 0.1–0.8 mm/d; spread 0.8 mm/d), indicating high atmospheric predictability. EC Hybrid (0.5 mm/d) tracks seamlessly with the 14-day ensemble mean. Favorable for field operations &amp; harvest progress across HRS &amp; Durum Wheat/Soybeans/Corn acreage, though topsoil moisture will deplete rapidly." 
+                          data-footer="14D Cumulative: Hybrid 7 mm, EC ENS 9 mm, NOAA ENS 15 mm &bull; Commodities: HRS &amp; Durum Wheat (16.2%), Soybeans (4.9%), Corn (3.0%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Northern Plains & Upper Midwest" data-class="Low" data-name="wisconsin wi">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Wisconsin</span>
+                        <span class="state-code">WI</span>
+                    </div>
+                    <div class="centroid-count">2 Centroids &bull; South-Central / Columbia Grain Area</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Northern Plains & Upper Midwest</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.36" title="ECMWF 50-ENS Spread: P20 0.1 to P80 3.4 mm/day">
+                    <span class="iqr-range">0.1–3.4</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.3" title="ECMWF Hybrid 14-Day Cumulative: 32.2 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.3</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.19" title="ECMWF 50-ENS 14-Day Cumulative: 30.7 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.2</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="3.85" title="NOAA 31-GEFS 14-Day Cumulative: 53.9 mm">
+                    <span class="num-primary" style="color: #ea580c;">3.9</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-1.66" title="ECMWF 50-ENS minus NOAA 31-GEFS: -1.7 mm/day">
+                    <span class="diff-badge diff-gfs-wetter">-1.7</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="52">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 52%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.3 | EC ENS: 2.2 | NOAA ENS: 3.9 | P20-P80: 0.1–3.4">
+                        <div class="bar-iqr" style="left: 0.625%; width: 42.00000000000001%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 48.125%;" title="NOAA 31-GEFS Mean: 3.9 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 27.375%;" title="ECMWF 50-ENS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 28.749999999999996%;" title="ECMWF Hybrid: 2.3 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Wisconsin (WI) &bull; Diagnostic Assessment" 
+                          data-body="American model wetter: NOAA GEFS (3.9 mm/d) indicates more active precipitation than EC ENS (2.2 mm/d; Δ -1.7 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.1–3.4 mm/d; spread 3.4 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.3 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 32 mm, EC ENS 31 mm, NOAA ENS 54 mm &bull; Commodities: Corn (3.1%), Soybeans (2.4%)">
+                        🟠 NOAA GEFS Wetter Bias
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Northern Plains & Upper Midwest" data-class="Moderate" data-name="michigan mi">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Michigan</span>
+                        <span class="state-code">MI</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Central Thumb & Saginaw Basin</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Northern Plains & Upper Midwest</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.23" title="ECMWF 50-ENS Spread: P20 0.0 to P80 3.2 mm/day">
+                    <span class="iqr-range">0.0–3.2</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.0" title="ECMWF Hybrid 14-Day Cumulative: 28.0 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.0</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="1.91" title="ECMWF 50-ENS 14-Day Cumulative: 26.7 mm">
+                    <span class="num-primary" style="color: #4f46e5;">1.9</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.33" title="NOAA 31-GEFS 14-Day Cumulative: 32.6 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.3</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.42" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.4 mm/day">
+                    <span class="diff-badge diff-tight">-0.4</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="69">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 69%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.0 | EC ENS: 1.9 | NOAA ENS: 2.3 | P20-P80: 0.0–3.2">
+                        <div class="bar-iqr" style="left: 0.125%; width: 40.37500000000001%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 29.125%;" title="NOAA 31-GEFS Mean: 2.3 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 23.875%;" title="ECMWF 50-ENS Mean: 1.9 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 25.0%;" title="ECMWF Hybrid: 2.0 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Michigan (MI) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (1.9 mm/d) and NOAA GEFS (2.3 mm/d) agree closely (Δ -0.4 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–3.2 mm/d; spread 3.2 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.0 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 28 mm, EC ENS 27 mm, NOAA ENS 33 mm &bull; Commodities: Corn (2.0%), Soybeans (2.5%), SRW Wheat (2.3%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+        <tr class="belt-header-row" data-belt="Central & Southern Plains">
+            <td colspan="10">
+                <div class="belt-divider">
+                    <span class="belt-title">🌾 Central & Southern Plains</span>
+                    <span class="belt-meta">5 States &bull; Macro Belt Consensus: <strong>65%</strong></span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="conviction-row" data-belt="Central & Southern Plains" data-class="Moderate" data-name="kansas ks">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Kansas</span>
+                        <span class="state-code">KS</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Central Wheat Heartland (Salina/McPherson)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Central & Southern Plains</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.38" title="ECMWF 50-ENS Spread: P20 0.1 to P80 3.5 mm/day">
+                    <span class="iqr-range">0.1–3.5</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.07" title="ECMWF Hybrid 14-Day Cumulative: 29.0 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.1</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.21" title="ECMWF 50-ENS 14-Day Cumulative: 30.9 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.2</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="1.84" title="NOAA 31-GEFS 14-Day Cumulative: 25.7 mm">
+                    <span class="num-primary" style="color: #ea580c;">1.8</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.37" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.4 mm/day">
+                    <span class="diff-badge diff-tight">+0.4</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="68">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 68%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.1 | EC ENS: 2.2 | NOAA ENS: 1.8 | P20-P80: 0.1–3.5">
+                        <div class="bar-iqr" style="left: 1.375%; width: 42.25000000000001%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 23.0%;" title="NOAA 31-GEFS Mean: 1.8 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 27.625%;" title="ECMWF 50-ENS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 25.874999999999996%;" title="ECMWF Hybrid: 2.1 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Kansas (KS) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (2.2 mm/d) and NOAA GEFS (1.8 mm/d) agree closely (Δ +0.4 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.1–3.5 mm/d; spread 3.4 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.1 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 29 mm, EC ENS 31 mm, NOAA ENS 26 mm &bull; Commodities: HRW Wheat (15.4%), Corn (4.6%), Soybeans (3.0%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Central & Southern Plains" data-class="Low" data-name="nebraska ne">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Nebraska</span>
+                        <span class="state-code">NE</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Central Platte Valley (Grand Island/York)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Central & Southern Plains</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.2" title="ECMWF 50-ENS Spread: P20 0.9 to P80 5.1 mm/day">
+                    <span class="iqr-range">0.9–5.1</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.79" title="ECMWF Hybrid 14-Day Cumulative: 39.0 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.8</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.34" title="ECMWF 50-ENS 14-Day Cumulative: 46.7 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.3</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="3.2" title="NOAA 31-GEFS 14-Day Cumulative: 44.8 mm">
+                    <span class="num-primary" style="color: #ea580c;">3.2</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.14" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.1 mm/day">
+                    <span class="diff-badge diff-tight">+0.1</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="63">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 63%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.8 | EC ENS: 3.3 | NOAA ENS: 3.2 | P20-P80: 0.9–5.1">
+                        <div class="bar-iqr" style="left: 11.125%; width: 52.5%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 40.0%;" title="NOAA 31-GEFS Mean: 3.2 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 41.75%;" title="ECMWF 50-ENS Mean: 3.3 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 34.875%;" title="ECMWF Hybrid: 2.8 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Nebraska (NE) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (3.3 mm/d) and NOAA GEFS (3.2 mm/d) agree closely (Δ +0.1 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.9–5.1 mm/d; spread 4.2 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.8 mm/d) reflects drier near-term operational high pressure before Days 6–14 ensemble progression. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 39 mm, EC ENS 47 mm, NOAA ENS 45 mm &bull; Commodities: Corn (10.2%), Soybeans (6.2%), HRW Wheat (2.4%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Central & Southern Plains" data-class="Low" data-name="oklahoma ok">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Oklahoma</span>
+                        <span class="state-code">OK</span>
+                    </div>
+                    <div class="centroid-count">1 Centroids &bull; North-Central Wheat Belt (Enid/Garfield)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Central & Southern Plains</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.56" title="ECMWF 50-ENS Spread: P20 0.2 to P80 4.8 mm/day">
+                    <span class="iqr-range">0.2–4.8</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.98" title="ECMWF Hybrid 14-Day Cumulative: 41.7 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">3.0</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.01" title="ECMWF 50-ENS 14-Day Cumulative: 42.2 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.0</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.7" title="NOAA 31-GEFS 14-Day Cumulative: 37.8 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.7</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.31" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.3 mm/day">
+                    <span class="diff-badge diff-tight">+0.3</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="61">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 61%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 3.0 | EC ENS: 3.0 | NOAA ENS: 2.7 | P20-P80: 0.2–4.8">
+                        <div class="bar-iqr" style="left: 3.0%; width: 56.99999999999999%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 33.75%;" title="NOAA 31-GEFS Mean: 2.7 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 37.625%;" title="ECMWF 50-ENS Mean: 3.0 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 37.25%;" title="ECMWF Hybrid: 3.0 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Oklahoma (OK) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (3.0 mm/d) and NOAA GEFS (2.7 mm/d) agree closely (Δ +0.3 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.2–4.8 mm/d; spread 4.6 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (3.0 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 42 mm, EC ENS 42 mm, NOAA ENS 38 mm &bull; Commodities: HRW Wheat (5.4%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Central & Southern Plains" data-class="Low" data-name="texas tx">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Texas</span>
+                        <span class="state-code">TX</span>
+                    </div>
+                    <div class="centroid-count">2 Centroids &bull; High Plains / Panhandle (Plainview/Lubbock)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Central & Southern Plains</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.54" title="ECMWF 50-ENS Spread: P20 0.4 to P80 5.0 mm/day">
+                    <span class="iqr-range">0.4–5.0</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.82" title="ECMWF Hybrid 14-Day Cumulative: 39.5 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.8</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.17" title="ECMWF 50-ENS 14-Day Cumulative: 44.4 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.2</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.16" title="NOAA 31-GEFS 14-Day Cumulative: 30.2 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.2</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="1.01" title="ECMWF 50-ENS minus NOAA 31-GEFS: +1.0 mm/day">
+                    <span class="diff-badge diff-ec-wetter">+1.0</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="50">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 50%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.8 | EC ENS: 3.2 | NOAA ENS: 2.2 | P20-P80: 0.4–5.0">
+                        <div class="bar-iqr" style="left: 5.375%; width: 56.75%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 27.0%;" title="NOAA 31-GEFS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 39.625%;" title="ECMWF 50-ENS Mean: 3.2 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 35.25%;" title="ECMWF Hybrid: 2.8 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Texas (TX) &bull; Diagnostic Assessment" 
+                          data-body="European model wetter: EC ENS (3.2 mm/d) projects heavier moisture than NOAA GEFS (2.2 mm/d; Δ +1.0 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.4–5.0 mm/d; spread 4.5 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.8 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 40 mm, EC ENS 44 mm, NOAA ENS 30 mm &bull; Commodities: Corn (1.6%), HRW Wheat (3.4%)">
+                        🔵 ECMWF Wetter Bias
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Central & Southern Plains" data-class="High" data-name="colorado co">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Colorado</span>
+                        <span class="state-code">CO</span>
+                    </div>
+                    <div class="centroid-count">2 Centroids &bull; Eastern High Plains (Burlington/Yuma)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Central & Southern Plains</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="2.11" title="ECMWF 50-ENS Spread: P20 0.7 to P80 2.8 mm/day">
+                    <span class="iqr-range">0.7–2.8</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.15" title="ECMWF Hybrid 14-Day Cumulative: 30.1 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.1</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="1.96" title="ECMWF 50-ENS 14-Day Cumulative: 27.5 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.0</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="1.88" title="NOAA 31-GEFS 14-Day Cumulative: 26.3 mm">
+                    <span class="num-primary" style="color: #ea580c;">1.9</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.08" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.1 mm/day">
+                    <span class="diff-badge diff-tight">+0.1</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="82">
+                    <span class="conviction-badge" style="color: #15803d; background: #dcfce7; border: 1px solid #86efac;">
+                        🟢 82%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.1 | EC ENS: 2.0 | NOAA ENS: 1.9 | P20-P80: 0.7–2.8">
+                        <div class="bar-iqr" style="left: 8.625%; width: 26.375%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 23.5%;" title="NOAA 31-GEFS Mean: 1.9 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 24.5%;" title="ECMWF 50-ENS Mean: 2.0 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 26.875%;" title="ECMWF Hybrid: 2.1 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Colorado (CO) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (2.0 mm/d) and NOAA GEFS (1.9 mm/d) agree closely (Δ +0.1 mm/d). Moderate European ensemble spread (P20–P80: 0.7–2.8 mm/d; spread 2.1 mm/d), reflecting standard convective variance. EC Hybrid (2.1 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 30 mm, EC ENS 28 mm, NOAA ENS 26 mm &bull; Commodities: HRW Wheat (4.1%), Corn (0.8%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+        <tr class="belt-header-row" data-belt="Pacific Northwest & Intermountain">
+            <td colspan="10">
+                <div class="belt-divider">
+                    <span class="belt-title">🌾 Pacific Northwest & Intermountain</span>
+                    <span class="belt-meta">3 States &bull; Macro Belt Consensus: <strong>79%</strong></span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="conviction-row" data-belt="Pacific Northwest & Intermountain" data-class="Moderate" data-name="washington wa">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Washington</span>
+                        <span class="state-code">WA</span>
+                    </div>
+                    <div class="centroid-count">1 Centroids &bull; Palouse Hills & Big Bend (Colfax/Whitman)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Pacific Northwest & Intermountain</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="2.6" title="ECMWF 50-ENS Spread: P20 0.8 to P80 3.4 mm/day">
+                    <span class="iqr-range">0.8–3.4</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.8" title="ECMWF Hybrid 14-Day Cumulative: 39.2 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.8</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.21" title="ECMWF 50-ENS 14-Day Cumulative: 30.9 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.2</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="1.46" title="NOAA 31-GEFS 14-Day Cumulative: 20.4 mm">
+                    <span class="num-primary" style="color: #ea580c;">1.5</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.75" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.8 mm/day">
+                    <span class="diff-badge diff-tight">+0.8</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="66">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 66%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.8 | EC ENS: 2.2 | NOAA ENS: 1.5 | P20-P80: 0.8–3.4">
+                        <div class="bar-iqr" style="left: 10.125%; width: 32.5%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 18.25%;" title="NOAA 31-GEFS Mean: 1.5 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 27.625%;" title="ECMWF 50-ENS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 35.0%;" title="ECMWF Hybrid: 2.8 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Washington (WA) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (2.2 mm/d) and NOAA GEFS (1.5 mm/d) agree closely (Δ +0.8 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.8–3.4 mm/d; spread 2.6 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.8 mm/d) is elevated due to near-term Days 1–5 HRES convective frontal passage. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 39 mm, EC ENS 31 mm, NOAA ENS 20 mm &bull; Commodities: Soft White &amp; HRW Wheat (7.2%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Pacific Northwest & Intermountain" data-class="High" data-name="montana mt">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Montana</span>
+                        <span class="state-code">MT</span>
+                    </div>
+                    <div class="centroid-count">1 Centroids &bull; Golden Triangle (Great Falls/Chouteau)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Pacific Northwest & Intermountain</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="0.95" title="ECMWF 50-ENS Spread: P20 0.0 to P80 1.0 mm/day">
+                    <span class="iqr-range">0.0–1.0</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="0.53" title="ECMWF Hybrid 14-Day Cumulative: 7.4 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">0.5</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="0.71" title="ECMWF 50-ENS 14-Day Cumulative: 10.0 mm">
+                    <span class="num-primary" style="color: #4f46e5;">0.7</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="0.73" title="NOAA 31-GEFS 14-Day Cumulative: 10.2 mm">
+                    <span class="num-primary" style="color: #ea580c;">0.7</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.02" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.0 mm/day">
+                    <span class="diff-badge diff-tight">-0.0</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="91">
+                    <span class="conviction-badge" style="color: #15803d; background: #dcfce7; border: 1px solid #86efac;">
+                        🟢 91%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 0.5 | EC ENS: 0.7 | NOAA ENS: 0.7 | P20-P80: 0.0–1.0">
+                        <div class="bar-iqr" style="left: 0.5%; width: 11.875%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 9.125%;" title="NOAA 31-GEFS Mean: 0.7 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 8.875%;" title="ECMWF 50-ENS Mean: 0.7 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 6.625%;" title="ECMWF Hybrid: 0.5 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Montana (MT) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (0.7 mm/d) and NOAA GEFS (0.7 mm/d) agree closely (Δ -0.0 mm/d). Tight European 50-member envelope (P20–P80: 0.0–1.0 mm/d; spread 0.9 mm/d), indicating high atmospheric predictability. EC Hybrid (0.5 mm/d) tracks seamlessly with the 14-day ensemble mean. Favorable for field operations &amp; harvest progress across Spring &amp; HRW Wheat acreage, though topsoil moisture will deplete rapidly." 
+                          data-footer="14D Cumulative: Hybrid 7 mm, EC ENS 10 mm, NOAA ENS 10 mm &bull; Commodities: Spring &amp; HRW Wheat (8.9%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Pacific Northwest & Intermountain" data-class="High" data-name="idaho id">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Idaho</span>
+                        <span class="state-code">ID</span>
+                    </div>
+                    <div class="centroid-count">1 Centroids &bull; Snake River Plain & North Idaho</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Pacific Northwest & Intermountain</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="2.35" title="ECMWF 50-ENS Spread: P20 0.2 to P80 2.6 mm/day">
+                    <span class="iqr-range">0.2–2.6</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="1.34" title="ECMWF Hybrid 14-Day Cumulative: 18.8 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">1.3</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="1.37" title="ECMWF 50-ENS 14-Day Cumulative: 19.2 mm">
+                    <span class="num-primary" style="color: #4f46e5;">1.4</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="1.4" title="NOAA 31-GEFS 14-Day Cumulative: 19.6 mm">
+                    <span class="num-primary" style="color: #ea580c;">1.4</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="-0.03" title="ECMWF 50-ENS minus NOAA 31-GEFS: -0.0 mm/day">
+                    <span class="diff-badge diff-tight">-0.0</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="81">
+                    <span class="conviction-badge" style="color: #15803d; background: #dcfce7; border: 1px solid #86efac;">
+                        🟢 81%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 1.3 | EC ENS: 1.4 | NOAA ENS: 1.4 | P20-P80: 0.2–2.6">
+                        <div class="bar-iqr" style="left: 2.625%; width: 29.375%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 17.5%;" title="NOAA 31-GEFS Mean: 1.4 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 17.125%;" title="ECMWF 50-ENS Mean: 1.4 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 16.75%;" title="ECMWF Hybrid: 1.3 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Idaho (ID) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (1.4 mm/d) and NOAA GEFS (1.4 mm/d) agree closely (Δ -0.0 mm/d). Moderate European ensemble spread (P20–P80: 0.2–2.6 mm/d; spread 2.4 mm/d), reflecting standard convective variance. EC Hybrid (1.3 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 19 mm, EC ENS 19 mm, NOAA ENS 20 mm &bull; Commodities: Soft White &amp; Hard Wheat (5.1%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+        <tr class="belt-header-row" data-belt="Delta & Mid-South">
+            <td colspan="10">
+                <div class="belt-divider">
+                    <span class="belt-title">🌾 Delta & Mid-South</span>
+                    <span class="belt-meta">3 States &bull; Macro Belt Consensus: <strong>57%</strong></span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="conviction-row" data-belt="Delta & Mid-South" data-class="Low" data-name="arkansas ar">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Arkansas</span>
+                        <span class="state-code">AR</span>
+                    </div>
+                    <div class="centroid-count">2 Centroids &bull; Grand Prairie & Delta (Stuttgart)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Delta & Mid-South</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="4.83" title="ECMWF 50-ENS Spread: P20 0.0 to P80 4.8 mm/day">
+                    <span class="iqr-range">0.0–4.8</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="3.04" title="ECMWF Hybrid 14-Day Cumulative: 42.5 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">3.0</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.03" title="ECMWF 50-ENS 14-Day Cumulative: 42.4 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.0</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.58" title="NOAA 31-GEFS 14-Day Cumulative: 36.1 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.6</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.45" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.5 mm/day">
+                    <span class="diff-badge diff-tight">+0.5</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="57">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 57%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 3.0 | EC ENS: 3.0 | NOAA ENS: 2.6 | P20-P80: 0.0–4.8">
+                        <div class="bar-iqr" style="left: 0.0%; width: 60.375%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 32.25%;" title="NOAA 31-GEFS Mean: 2.6 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 37.875%;" title="ECMWF 50-ENS Mean: 3.0 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 38.0%;" title="ECMWF Hybrid: 3.0 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Arkansas (AR) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (3.0 mm/d) and NOAA GEFS (2.6 mm/d) agree closely (Δ +0.4 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–4.8 mm/d; spread 4.8 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (3.0 mm/d) tracks seamlessly with the 14-day ensemble mean. Moderate to heavy rainfall events may cause temporary field delays and muddy machinery trafficability across Soybeans/Corn fields." 
+                          data-footer="14D Cumulative: Hybrid 42 mm, EC ENS 42 mm, NOAA ENS 36 mm &bull; Commodities: Soybeans (3.8%), Corn (0.7%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Delta & Mid-South" data-class="Low" data-name="mississippi ms">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Mississippi</span>
+                        <span class="state-code">MS</span>
+                    </div>
+                    <div class="centroid-count">2 Centroids &bull; Yazoo/Mississippi Delta (Greenwood)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Delta & Mid-South</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="5.63" title="ECMWF 50-ENS Spread: P20 0.0 to P80 5.6 mm/day">
+                    <span class="iqr-range">0.0–5.6</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="3.34" title="ECMWF Hybrid 14-Day Cumulative: 46.8 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">3.3</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="3.34" title="ECMWF 50-ENS 14-Day Cumulative: 46.8 mm">
+                    <span class="num-primary" style="color: #4f46e5;">3.3</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.16" title="NOAA 31-GEFS 14-Day Cumulative: 30.3 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.2</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="1.18" title="ECMWF 50-ENS minus NOAA 31-GEFS: +1.2 mm/day">
+                    <span class="diff-badge diff-ec-wetter">+1.2</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="44">
+                    <span class="conviction-badge" style="color: #b91c1c; background: #fee2e2; border: 1px solid #fca5a5;">
+                        🔴 44%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 3.3 | EC ENS: 3.3 | NOAA ENS: 2.2 | P20-P80: 0.0–5.6">
+                        <div class="bar-iqr" style="left: 0.0%; width: 70.375%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 27.0%;" title="NOAA 31-GEFS Mean: 2.2 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 41.75%;" title="ECMWF 50-ENS Mean: 3.3 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 41.75%;" title="ECMWF Hybrid: 3.3 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Mississippi (MS) &bull; Diagnostic Assessment" 
+                          data-body="European model wetter: EC ENS (3.3 mm/d) projects heavier moisture than NOAA GEFS (2.2 mm/d; Δ +1.2 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–5.6 mm/d; spread 5.6 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (3.3 mm/d) tracks seamlessly with the 14-day ensemble mean. Moderate to heavy rainfall events may cause temporary field delays and muddy machinery trafficability across Soybeans/Corn fields." 
+                          data-footer="14D Cumulative: Hybrid 47 mm, EC ENS 47 mm, NOAA ENS 30 mm &bull; Commodities: Soybeans (2.6%), Corn (0.5%)">
+                        🔵 ECMWF Wetter Bias
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="conviction-row" data-belt="Delta & Mid-South" data-class="Moderate" data-name="kentucky ky">
+                <!-- Col 1: Territory (170px, Left) -->
+                <td class="col-state">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Kentucky</span>
+                        <span class="state-code">KY</span>
+                    </div>
+                    <div class="centroid-count">3 Centroids &bull; Western Grain Belt (Hopkinsville/Christian)</div>
+                </td>
+
+                <!-- Col 2: Macro Belt (140px, Center) -->
+                <td class="col-belt">
+                    <span class="belt-pill">Delta & Mid-South</span>
+                </td>
+
+                <!-- Col 3: EC ENS Spread (96px, Center !important) -->
+                <td class="col-num-data col-iqr" data-val="3.95" title="ECMWF 50-ENS Spread: P20 0.0 to P80 4.0 mm/day">
+                    <span class="iqr-range">0.0–4.0</span>
+                </td>
+
+                <!-- Col 4: EC Hybrid (96px, Center !important, #0284c7) -->
+                <td class="col-num-data col-hybrid" data-val="2.63" title="ECMWF Hybrid 14-Day Cumulative: 36.8 mm (Days 1–5 HRES + Days 6–14 50-ENS)">
+                    <span class="num-primary" style="color: #0284c7;">2.6</span>
+                </td>
+
+                <!-- Col 5: EC ENS (96px, Center !important, #4f46e5) -->
+                <td class="col-num-data col-ens" data-val="2.63" title="ECMWF 50-ENS 14-Day Cumulative: 36.8 mm">
+                    <span class="num-primary" style="color: #4f46e5;">2.6</span>
+                </td>
+
+                <!-- Col 6: NOAA ENS (96px, Center !important, #ea580c) -->
+                <td class="col-num-data col-noaa" data-val="2.6" title="NOAA 31-GEFS 14-Day Cumulative: 36.4 mm">
+                    <span class="num-primary" style="color: #ea580c;">2.6</span>
+                </td>
+
+                <!-- Col 7: Δ (EC - GFS) (96px, Center !important) -->
+                <td class="col-num-data col-diff" data-val="0.03" title="ECMWF 50-ENS minus NOAA 31-GEFS: +0.0 mm/day">
+                    <span class="diff-badge diff-tight">+0.0</span>
+                </td>
+
+                <!-- Col 8: Conviction (96px, Center !important) -->
+                <td class="col-num-data col-score" data-val="70">
+                    <span class="conviction-badge" style="color: #b45309; background: #fef3c7; border: 1px solid #fde68a;">
+                        🟡 70%
+                    </span>
+                </td>
+
+                <!-- Col 9: Spread Range (160px, Center) -->
+                <td class="col-bar">
+                    <div class="spread-bar-container" title="EC Hybrid: 2.6 | EC ENS: 2.6 | NOAA ENS: 2.6 | P20-P80: 0.0–4.0">
+                        <div class="bar-iqr" style="left: 0.0%; width: 49.375%;"></div>
+                        <div class="bar-marker marker-noaa" style="left: 32.5%;" title="NOAA 31-GEFS Mean: 2.6 mm/d"></div>
+                        <div class="bar-marker marker-ens" style="left: 32.875%;" title="ECMWF 50-ENS Mean: 2.6 mm/d"></div>
+                        <div class="bar-marker marker-hybrid" style="left: 32.875%;" title="ECMWF Hybrid: 2.6 mm/d"></div>
+                    </div>
+                </td>
+
+                <!-- Col 10: Diagnostic (210px, Left) -->
+                <td class="col-diag">
+                    <span class="diag-pill diag-trigger" 
+                          data-title="Kentucky (KY) &bull; Diagnostic Assessment" 
+                          data-body="Strong multi-model consensus: EC ENS (2.6 mm/d) and NOAA GEFS (2.6 mm/d) agree closely (Δ +0.0 mm/d). Wide ensemble dispersion across 50 members (P20–P80: 0.0–4.0 mm/d; spread 4.0 mm/d), signaling synoptic storm track uncertainty. EC Hybrid (2.6 mm/d) tracks seamlessly with the 14-day ensemble mean. Balanced moisture profile; optimal soil moisture retention for winter wheat establishment and post-harvest subsoil recharge." 
+                          data-footer="14D Cumulative: Hybrid 37 mm, EC ENS 37 mm, NOAA ENS 36 mm &bull; Commodities: Corn (1.6%), Soybeans (2.3%), SRW Wheat (1.6%)">
+                        🟢 High Multi-Model Consensus
+                    </span>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Legend Card -->
+    <div class="legend-card">
+        <div class="legend-group">
+            <span style="font-weight: 700; color: #475569;">Spread Range Visual Bar:</span>
+            <div class="legend-item"><span style="width: 14px; height: 8px; background: #c7d2fe; border-radius: 2px; display: inline-block;"></span> <span>EC 50-ENS (P20–P80)</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background: #0284c7;"></span> <span>EC Hybrid (D1–5 HRES + D6–14 ENS)</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background: #4f46e5;"></span> <span>EC 50-ENS Mean</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background: #ea580c;"></span> <span>NOAA 31-GEFS Mean</span></div>
+        </div>
+        <div class="legend-group">
+            <span style="font-weight: 700; color: #475569;">&Delta; (EC - GFS) Scale:</span>
+            <span class="diff-badge diff-tight">|&Delta;| &le; 0.8 mm/d (Consensus)</span>
+            <span class="diff-badge diff-ec-wetter">&Delta; &gt; +0.8 mm/d (EC Wetter)</span>
+            <span class="diff-badge diff-gfs-wetter">&Delta; &lt; -0.8 mm/d (GFS Wetter)</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="report-footer">
+        <div>ECMWF Hybrid Standard: Operational HRES (Days 1–5) + 50-Member Ensemble Mean (Days 6–14) with Open-Data trailing fallback protocol.</div>
+        <div>Offline Standalone Execution &bull; Zero CORS Dependency</div>
+    </div>
+</div>
+
+<!-- Floating Popover -->
+<div class="global-diag-popover" id="diag-popover">
+    <div class="pop-title" id="pop-title"></div>
+    <div class="pop-body" id="pop-body"></div>
+    <div class="pop-footer" id="pop-footer"></div>
+</div>
+
+<script>
+let activeBelt = 'all';
+let activeClass = 'all';
+let searchQuery = '';
+let sortOrder = {};
+
+function filterBelt(belt, btn) {
+    activeBelt = belt;
+    document.querySelectorAll('.controls-bar .ctrl-group:first-child .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+}
+
+function filterClass(cls, btn) {
+    activeClass = cls;
+    document.querySelectorAll('.controls-bar .ctrl-group:nth-child(2) .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+}
+
+function searchStates(query) {
+    searchQuery = query.toLowerCase().trim();
+    applyFilters();
+}
+
+function applyFilters() {
+    const rows = document.querySelectorAll('tr.conviction-row');
+    const beltHeaders = document.querySelectorAll('tr.belt-header-row');
+    const visibleBelts = new Set();
+
+    rows.forEach(r => {
+        const b = r.dataset.belt || '';
+        const c = r.dataset.class || '';
+        const n = r.dataset.name || '';
+
+        const matchBelt = (activeBelt === 'all' || b === activeBelt || b.replace('&amp;', '&') === activeBelt);
+        const matchClass = (activeClass === 'all' || c === activeClass);
+        const matchSearch = (!searchQuery || n.includes(searchQuery));
+
+        if (matchBelt && matchClass && matchSearch) {
+            r.style.display = '';
+            visibleBelts.add(b);
+        } else {
+            r.style.display = 'none';
+        }
+    });
+
+    beltHeaders.forEach(bh => {
+        const b = bh.dataset.belt || '';
+        if (visibleBelts.has(b)) {
+            bh.style.display = '';
+        } else {
+            bh.style.display = 'none';
+        }
+    });
+}
+
+function sortRows(field) {
+    const tbody = document.getElementById('table-body');
+    const dataRows = Array.from(tbody.querySelectorAll('tr.conviction-row'));
+    const isDesc = sortOrder[field] === 'desc';
+    sortOrder[field] = isDesc ? 'asc' : 'desc';
+
+    dataRows.sort((a, b) => {
+        let vA, vB;
+        if (field === 'name') {
+            vA = a.dataset.name || '';
+            vB = b.dataset.name || '';
+            return isDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+        } else if (field === 'belt') {
+            vA = a.dataset.belt || '';
+            vB = b.dataset.belt || '';
+            return isDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+        } else if (field === 'score') {
+            vA = parseFloat(a.querySelector('.col-score').dataset.val) || 0;
+            vB = parseFloat(b.querySelector('.col-score').dataset.val) || 0;
+        } else if (field === 'hybrid') {
+            vA = parseFloat(a.querySelector('.col-hybrid').dataset.val) || 0;
+            vB = parseFloat(b.querySelector('.col-hybrid').dataset.val) || 0;
+        } else if (field === 'ens') {
+            vA = parseFloat(a.querySelector('.col-ens').dataset.val) || 0;
+            vB = parseFloat(b.querySelector('.col-ens').dataset.val) || 0;
+        } else if (field === 'noaa') {
+            vA = parseFloat(a.querySelector('.col-noaa').dataset.val) || 0;
+            vB = parseFloat(b.querySelector('.col-noaa').dataset.val) || 0;
+        } else if (field === 'diff') {
+            vA = parseFloat(a.querySelector('.col-diff').dataset.val) || 0;
+            vB = parseFloat(b.querySelector('.col-diff').dataset.val) || 0;
+        } else if (field === 'iqr') {
+            vA = parseFloat(a.querySelector('.col-iqr').dataset.val) || 0;
+            vB = parseFloat(b.querySelector('.col-iqr').dataset.val) || 0;
+        } else {
+            return 0;
+        }
+        return isDesc ? (vB - vA) : (vA - vB);
+    });
+
+    // Detach and re-append
+    dataRows.forEach(r => tbody.appendChild(r));
+}
+
+// Viewport-Aware Floating Popover Handling
+const popover = document.getElementById('diag-popover');
+const popTitle = document.getElementById('pop-title');
+const popBody = document.getElementById('pop-body');
+const popFooter = document.getElementById('pop-footer');
+
+document.addEventListener('mouseover', e => {
+    const trigger = e.target.closest('.diag-trigger');
+    if (!trigger) {
+        popover.style.display = 'none';
+        return;
+    }
+    
+    popTitle.innerHTML = trigger.dataset.title || '';
+    popBody.innerHTML = trigger.dataset.body || '';
+    popFooter.innerHTML = trigger.dataset.footer || '';
+    
+    popover.style.display = 'block';
+    
+    const rect = trigger.getBoundingClientRect();
+    const popWidth = 380;
+    const popHeight = popover.offsetHeight;
+    
+    // Position below trigger by default
+    let top = rect.bottom + 8;
+    let left = rect.left - 100;
+    
+    // Flip above if near viewport bottom
+    if (top + popHeight > window.innerHeight - 15) {
+        top = Math.max(10, rect.top - popHeight - 8);
+    }
+    
+    // Prevent clipping on left / right
+    if (left + popWidth > window.innerWidth - 15) {
+        left = window.innerWidth - popWidth - 15;
+    }
+    if (left < 15) {
+        left = 15;
+    }
+    
+    popover.style.top = top + 'px';
+    popover.style.left = left + 'px';
+});
+
+document.addEventListener('mouseout', e => {
+    if (e.target.closest('.diag-trigger')) {
+        popover.style.display = 'none';
+    }
+});
+</script>
+
+</body>
+</html>
