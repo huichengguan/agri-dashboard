@@ -170,11 +170,11 @@
       "rv_20d": 10.95,
       "rv_10d": 6.79,
       "vrp_30d": 3.58,
-      "vrp_min": -3.0,
-      "vrp_max": 3.0,
+      "vrp_min": null,
+      "vrp_max": null,
       "vrp_mean": 0.0,
-      "vrp_pctile": 50.0,
-      "vrp_status": "Fair Value",
+      "vrp_pctile": null,
+      "vrp_status": "N/A (20c Strike Hist)",
       "atm_straddle": 124.62,
       "implied_move_pct": 9.67,
       "implied_low": 1164.6,
@@ -4212,7 +4212,8 @@
             "mean_band": 2.51
           }
         ],
-        "fwd_iv": null
+        "fwd_iv": null,
+        "skew_25d_1w": -0.5
       },
       "gex_sim_curve": [
         {
@@ -7952,7 +7953,8 @@
             "mean_band": -1.9
           }
         ],
-        "fwd_iv": 13.96
+        "fwd_iv": 13.96,
+        "skew_25d_1w": 0.56
       },
       "gex_sim_curve": [
         {
@@ -11692,7 +11694,8 @@
             "mean_band": -1.39
           }
         ],
-        "fwd_iv": 15.73
+        "fwd_iv": 15.73,
+        "skew_25d_1w": 1.77
       },
       "gex_sim_curve": [
         {
@@ -15202,7 +15205,8 @@
             "mean_band": -0.98
           }
         ],
-        "fwd_iv": 14.95
+        "fwd_iv": 14.95,
+        "skew_25d_1w": 2.04
       },
       "gex_sim_curve": [
         {
@@ -17720,16 +17724,17 @@
         "vrp_30d": 3.58,
         "vrp_bandwidth": {
           "curr": 3.58,
-          "min": -3.0,
-          "max": 3.0,
+          "min": null,
+          "max": null,
           "mean": 0.0,
           "std": 1.0,
           "upper_band": 2.0,
           "lower_band": -2.0,
-          "percentile": 50.0
+          "percentile": null
         },
         "vrp_history": [],
-        "fwd_iv": 15.78
+        "fwd_iv": 15.78,
+        "skew_25d_1w": 2.28
       },
       "gex_sim_curve": [
         {
@@ -20120,7 +20125,8 @@
             "mean_band": 0.91
           }
         ],
-        "fwd_iv": 18.62
+        "fwd_iv": 18.62,
+        "skew_25d_1w": 2.22
       },
       "gex_sim_curve": [
         {
@@ -22475,7 +22481,8 @@
             "mean_band": 2.56
           }
         ],
-        "fwd_iv": 14.34
+        "fwd_iv": 14.34,
+        "skew_25d_1w": 1.94
       },
       "gex_sim_curve": [
         {

@@ -1,3712 +1,2282 @@
 /**
- * MPOB Palm Oil Intelligence Dashboard Application
- * Handles API integration, Chart.js visualizations, filtering, and data explorer.
+ * Malaysia Palm Oil Supply & Demand Institutional Dashboard (app.js)
+ * Clean, modular, single-source-of-truth frontend controller.
  */
 
-let masterData = [];
-let filteredData = [];
-let metadata = {};
-let latestSnapshot = {};
-let seasonalBenchmarks = [];
-let isAnnualView = false;
-let bsViewMode = 'horizontal_matrix';
+const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const ALL_YEARS = Array.from({ length: 2027 - 1975 + 1 }, (_, i) => 1975 + i);
 
-// State and Export datasets
-let stateData = null;
-let exportProductsData = null;
-let annualExportsData = null;
-let annualBalanceSheetData = null;
-let stateMatrixData = null;
-let stateViewMode = 'snapshot';
-let exportSubTab = 'matrix';
-let yieldCadence = 'monthly';
-let yieldRegion = 'all';
-let exportCadence = 'monthly';
-let isExportAnnualView = false;
+const STATE = {
+  master: null,
+  userForecast: null,
+  selectedYears: new Set([2023, 2024, 2025, 2026, 2027]), // Default: Last 5 years
+  lastClickedYear: 2027,
+  activeTab: "tab-snd",
 
-// Chart instances
-let chartSD = null;
-let chartStocks = null;
-let chartStockUse = null;
-let chartFFBYield = null;
-let chartOER = null;
-let chartPrice = null;
-let chartSeasonality = null;
-let chartStateProd = null;
-let chartStateShare = null;
-let chartStateYields = null;
-let chartExportVol = null;
-let chartExportPie = null;
-let chartExportRev = null;
+  // Tab 1: S&D state
+  sndFcstMode: "model",     // "model" | "user" | "delta"
+  sndExpandedYears: new Set([2025, 2026, 2027]),
+  sndChartFreq: "monthly",
+  sndCompareAttr: "production", // "production" | "export" | "import" | "local_disappearance" | "end_stock" | "stocks_to_use"
 
-// Metric visibility state for main S&D chart
-const metricVisibility = {
-  cpo_production: true,
-  palm_oil_export: true,
-  palm_oil_stock: true,
-  domestic_disappearance: true
+  // Tab 2: Area state
+  areaViewMode: "regional", // "regional" | "states" | "category"
+  areaEntities: new Set(["Malaysia"]),
+
+  // Tab 3: Production state
+  prodAttr: "cpo_production",
+  prodState: "Malaysia",
+  prodExpandedYears: new Set([2026, 2027]),
+
+  // Tab 4: My Forecast state
+  myFcstStateMetric: "cpo_production",
+
+  // Tab 5: Imports state
+  impExpandedYears: new Set([2025, 2026, 2027]),
+
+  // Tab 6: Exports state
+  expSplitMode: "both",     // "both" | "ports" | "products"
+  expExpandedYears: new Set([2025, 2026]),
+
+  // Tab 7: Stocks state
+  stkExpandedYears: new Set([2025, 2026]),
+
+  // Tab 8: Seasonality state
+  seasonAttr: "snd.production",
+  seasonFcstMode: "model",
+
+  charts: {}
 };
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await loadInitialData();
-  setupYearSelectors();
-  renderKPIs();
-  renderAllCharts();
-  renderHorizontalMatrix();
-  renderYieldSummaryTable();
-  renderHeatmap();
-  renderExplorerTable();
-  updateSensitivitySimulation();
-  
-  // Load async secondary datasets
-  loadStateData();
-  loadExportProductsData();
-  loadAnnualExportsData();
-  loadAnnualBalanceSheetData();
-  loadStateMatrixData();
-  loadWorkdayData();
-  loadSppomaData();
+// ---------------------------------------------------------------------------
+// Formatting Helpers
+// ---------------------------------------------------------------------------
+function fmtNum(val, decimals = 0) {
+  if (val === null || val === undefined || Number.isNaN(Number(val))) return '<span class="text-muted">N/A</span>';
+  const n = Number(val);
+  return n.toLocaleString("en-US", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
 
-  if (window.lucide) lucide.createIcons();
-});
+function fmtDelta(val, decimals = 0) {
+  if (val === null || val === undefined || Number.isNaN(Number(val))) return '<span class="text-muted">--</span>';
+  const n = Number(val);
+  const sign = n > 0 ? "+" : "";
+  const cls = n > 0 ? "cell-pos" : n < 0 ? "cell-neg" : "";
+  return `<span class="${cls}">${sign}${n.toLocaleString("en-US", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  })}</span>`;
+}
 
-// Universal Fetch Helper (Works seamlessly on GitHub Pages, file://, and local API servers)
-async function fetchJsonData(apiPath, staticFile) {
-  const isStaticHost = window.location.protocol === "file:" ||
-                       window.location.hostname.endsWith("github.io") ||
-                       (window.location.hostname === "localhost" && window.location.pathname.includes("/dashboard/"));
-  if (isStaticHost) {
+function destroyChart(key) {
+  if (typeof Chart === "undefined") return;
+  if (STATE.charts[key]) {
     try {
-      const staticRes = await fetch(staticFile, { cache: "no-cache" });
-      if (staticRes.ok) return await staticRes.json();
+      STATE.charts[key].destroy();
     } catch (e) {
-      console.warn("Static fetch fallback:", e);
+      console.warn("Chart destroy error:", e);
+    }
+    delete STATE.charts[key];
+  }
+}
+
+function getSortedSelectedYears(minYear = 1975, maxYear = 2027) {
+  const arr = Array.from(STATE.selectedYears)
+    .filter(y => y >= minYear && y <= maxYear)
+    .sort((a, b) => a - b);
+  if (arr.length === 0) {
+    // Fallback if user selected only pre-2004 years on a monthly-only tab
+    return [2023, 2024, 2025, 2026, 2027].filter(y => y >= minYear && y <= maxYear);
+  }
+  return arr;
+}
+
+// ---------------------------------------------------------------------------
+// Recompute User S&D (Opening Stock, End Stock, Annual Totals) Dynamically
+// ---------------------------------------------------------------------------
+function getEffectiveSndData(mode = "model") {
+  const modelMonthly = STATE.master.snd.monthly;
+  const modelAnnual = STATE.master.snd.annual;
+  if (mode === "model") {
+    return { monthly: modelMonthly, annual: modelAnnual };
+  }
+
+  // Build User Monthly S&D by cloning actuals (2005-01..2026-09) and chaining Oct 2026..Dec 2027
+  const userMonthly = {};
+  for (const [p, rec] of Object.entries(modelMonthly)) {
+    if (!rec.is_forecast) {
+      userMonthly[p] = { ...rec };
     }
   }
 
+  let prevEndStock = userMonthly["2026-09"] ? userMonthly["2026-09"].end_stock : 3510897;
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  const uSndStore = (STATE.userForecast && STATE.userForecast.snd) ? STATE.userForecast.snd : {};
+
+  for (const p of fcstPeriods) {
+    const [yrStr, mStr] = p.split("-");
+    const yr = Number(yrStr);
+    const m = Number(mStr);
+    const mRec = modelMonthly[p] || {};
+    const uRec = uSndStore[p] || {};
+
+    const openStk = Math.round(prevEndStock);
+    const prod = Math.round(uRec.production ?? mRec.production ?? 0);
+    const imp = Math.round(uRec.import ?? mRec.import ?? 0);
+    const exp = Math.round(uRec.export ?? mRec.export ?? 0);
+    const ld = Math.round(uRec.local_disappearance ?? mRec.local_disappearance ?? 0);
+    // Formula: End Stock = Opening Stock + Production + Import - Export - Local Disappearance
+    const endStk = Math.round(openStk + prod + imp - exp - ld);
+    prevEndStock = endStk;
+
+    userMonthly[p] = {
+      period: p,
+      year: yr,
+      month: m,
+      opening_stock: openStk,
+      production: prod,
+      import: imp,
+      export: exp,
+      local_disappearance: ld,
+      end_stock: endStk,
+      is_forecast: true,
+      is_user_forecast: true
+    };
+  }
+
+  // Build User Annual S&D
+  const userAnnual = {};
+  for (const [yrKey, aRec] of Object.entries(modelAnnual)) {
+    const yr = Number(yrKey);
+    if (yr < 2026) {
+      userAnnual[yr] = { ...aRec };
+    } else {
+      const mList = [];
+      for (let m = 1; m <= 12; m++) {
+        const p = `${yr}-${String(m).padStart(2, "0")}`;
+        if (userMonthly[p]) mList.push(userMonthly[p]);
+      }
+      userAnnual[yr] = {
+        year: yr,
+        has_monthly: true,
+        is_forecast: true,
+        is_user_forecast: true,
+        opening_stock: mList[0].opening_stock,
+        production: mList.reduce((s, r) => s + r.production, 0),
+        import: mList.reduce((s, r) => s + r.import, 0),
+        export: mList.reduce((s, r) => s + r.export, 0),
+        local_disappearance: mList.reduce((s, r) => s + r.local_disappearance, 0),
+        end_stock: mList[mList.length - 1].end_stock
+      };
+    }
+  }
+
+  if (mode === "user") {
+    return { monthly: userMonthly, annual: userAnnual };
+  }
+
+  // Delta mode: User - Model
+  const deltaMonthly = {};
+  for (const [p, mRec] of Object.entries(modelMonthly)) {
+    const uRec = userMonthly[p] || mRec;
+    deltaMonthly[p] = {
+      period: p,
+      year: mRec.year,
+      month: mRec.month,
+      is_forecast: mRec.is_forecast,
+      opening_stock: uRec.opening_stock - mRec.opening_stock,
+      production: uRec.production - mRec.production,
+      import: uRec.import - mRec.import,
+      export: uRec.export - mRec.export,
+      local_disappearance: uRec.local_disappearance - mRec.local_disappearance,
+      end_stock: uRec.end_stock - mRec.end_stock
+    };
+  }
+  const deltaAnnual = {};
+  for (const [yrKey, mAnn] of Object.entries(modelAnnual)) {
+    const yr = Number(yrKey);
+    const uAnn = userAnnual[yr] || mAnn;
+    deltaAnnual[yr] = {
+      year: yr,
+      has_monthly: mAnn.has_monthly,
+      is_forecast: mAnn.is_forecast,
+      opening_stock: (uAnn.opening_stock ?? 0) - (mAnn.opening_stock ?? 0),
+      production: (uAnn.production ?? 0) - (mAnn.production ?? 0),
+      import: (uAnn.import ?? 0) - (mAnn.import ?? 0),
+      export: (uAnn.export ?? 0) - (mAnn.export ?? 0),
+      local_disappearance: (uAnn.local_disappearance ?? 0) - (mAnn.local_disappearance ?? 0),
+      end_stock: (uAnn.end_stock ?? 0) - (mAnn.end_stock ?? 0)
+    };
+  }
+  return { monthly: deltaMonthly, annual: deltaAnnual, isDelta: true };
+}
+
+// ---------------------------------------------------------------------------
+// Initialization & Global Slicer
+// ---------------------------------------------------------------------------
+async function initDashboard() {
   try {
-    const res = await fetch(apiPath);
-    if (res.ok) {
-      const ct = res.headers.get("content-type") || "";
-      if (ct.includes("application/json")) {
-        return await res.json();
+    let data = window.DASHBOARD_DATA;
+    if (!data) {
+      const res = await fetch("/api/master");
+      if (!res.ok) {
+        throw new Error(`Failed to load data: HTTP ${res.status}`);
+      }
+      data = await res.json();
+    }
+    STATE.master = data;
+
+    // Check localStorage for any saved custom user forecast when running standalone
+    const localSaved = localStorage.getItem("my_forecast_malaysia_palm");
+    if (localSaved) {
+      try {
+        STATE.userForecast = JSON.parse(localSaved);
+      } catch (e) {
+        STATE.userForecast = data.user_forecast || JSON.parse(JSON.stringify(data.user_forecast_defaults));
+      }
+    } else {
+      STATE.userForecast = data.user_forecast || JSON.parse(JSON.stringify(data.user_forecast_defaults));
+    }
+
+    updateHeaderKpis();
+    renderYearSlicer();
+    initControls();
+    renderActiveTab();
+  } catch (err) {
+    console.error("Dashboard initialization error:", err);
+    const mainEl = document.querySelector(".main-content");
+    if (mainEl) {
+      mainEl.innerHTML = `<div style="padding:24px;background:#fee2e2;color:#991b1b;border-radius:8px;margin:20px;font-family:sans-serif;">
+        <h3 style="margin-bottom:8px;">Dashboard Load Error</h3>
+        <p>${err.message}</p>
+        <p style="margin-top:8px;font-size:12px;">Please make sure dashboard_data.js is located in the same directory as index.html.</p>
+      </div>`;
+    }
+  }
+}
+
+function updateHeaderKpis() {
+  const sep26 = STATE.master.snd.monthly["2026-09"];
+  if (sep26) {
+    document.getElementById("kpi-sep-prod").textContent = `${fmtNum(sep26.production)} T`;
+    document.getElementById("kpi-sep-stock").textContent = `${fmtNum(sep26.end_stock)} T`;
+  }
+  const a26 = STATE.master.snd.annual["2026"];
+  const a27 = STATE.master.snd.annual["2027"];
+  if (a26) document.getElementById("kpi-2026-prod").textContent = `${fmtNum(a26.production)} T [FCST]`;
+  if (a27) document.getElementById("kpi-2027-prod").textContent = `${fmtNum(a27.production)} T [FCST]`;
+}
+
+function renderYearSlicer() {
+  const container = document.getElementById("year-pills-container");
+  container.innerHTML = "";
+  ALL_YEARS.forEach(yr => {
+    const pill = document.createElement("button");
+    pill.className = "year-pill";
+    if (STATE.selectedYears.has(yr)) pill.classList.add("selected");
+    if (yr >= 2026) pill.classList.add("is-fcst-year");
+    pill.textContent = yr === 2026 ? "2026*" : yr === 2027 ? "2027F" : String(yr);
+    pill.title = yr >= 2026
+      ? `${yr} (Includes Forecast Oct 2026–Dec 2027) — Click to select, Ctrl+Click to multi-select`
+      : `${yr} — Click to select single year, Ctrl+Click to multi-select, Shift+Click for range`;
+
+    pill.addEventListener("click", (e) => {
+      document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+      if (e.shiftKey && STATE.lastClickedYear !== null) {
+        const start = Math.min(STATE.lastClickedYear, yr);
+        const end = Math.max(STATE.lastClickedYear, yr);
+        if (!e.ctrlKey && !e.metaKey) STATE.selectedYears.clear();
+        for (let y = start; y <= end; y++) STATE.selectedYears.add(y);
+      } else if (e.ctrlKey || e.metaKey) {
+        if (STATE.selectedYears.has(yr)) {
+          if (STATE.selectedYears.size > 1) STATE.selectedYears.delete(yr);
+        } else {
+          STATE.selectedYears.add(yr);
+        }
+        STATE.lastClickedYear = yr;
+      } else {
+        // Click selects single year
+        STATE.selectedYears.clear();
+        STATE.selectedYears.add(yr);
+        STATE.lastClickedYear = yr;
+      }
+      syncYearPillsUI();
+      renderActiveTab();
+    });
+    container.appendChild(pill);
+  });
+}
+
+function syncYearPillsUI() {
+  const pills = document.querySelectorAll(".year-pill");
+  pills.forEach((pill, idx) => {
+    const yr = ALL_YEARS[idx];
+    pill.classList.toggle("selected", STATE.selectedYears.has(yr));
+  });
+}
+
+function initControls() {
+  // Preset buttons
+  document.querySelectorAll(".preset-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const preset = btn.dataset.preset;
+      STATE.selectedYears.clear();
+      if (preset === "last5") {
+        [2023, 2024, 2025, 2026, 2027].forEach(y => STATE.selectedYears.add(y));
+      } else if (preset === "actual5") {
+        [2022, 2023, 2024, 2025, 2026].forEach(y => STATE.selectedYears.add(y));
+      } else if (preset === "last10") {
+        for (let y = 2018; y <= 2027; y++) STATE.selectedYears.add(y);
+      } else if (preset === "last20") {
+        for (let y = 2008; y <= 2027; y++) STATE.selectedYears.add(y);
+      } else if (preset === "monthly_all") {
+        for (let y = 2004; y <= 2027; y++) STATE.selectedYears.add(y);
+      } else if (preset === "all") {
+        ALL_YEARS.forEach(y => STATE.selectedYears.add(y));
+      }
+      syncYearPillsUI();
+      renderActiveTab();
+    });
+  });
+
+  // Main Tabs
+  document.querySelectorAll("#main-tabs .tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#main-tabs .tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.activeTab = btn.dataset.tab;
+      document.getElementById(STATE.activeTab).classList.add("active");
+      renderActiveTab();
+    });
+  });
+
+  // Tab 1: S&D Controls
+  document.querySelectorAll("#snd-fcst-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#snd-fcst-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.sndFcstMode = btn.dataset.mode;
+      renderSndTab();
+    });
+  });
+  document.querySelectorAll("#snd-layout-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#snd-layout-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.sndLayout = btn.dataset.layout;
+      renderSndTab();
+    });
+  });
+  document.querySelectorAll("#snd-chart-freq .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#snd-chart-freq .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.sndChartFreq = btn.dataset.freq;
+      renderSndCharts();
+    });
+  });
+  document.querySelectorAll("#snd-compare-attr-select .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#snd-compare-attr-select .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.sndCompareAttr = btn.dataset.attr;
+      renderSndCharts();
+    });
+  });
+  document.getElementById("btn-snd-expand-all").addEventListener("click", () => {
+    getSortedSelectedYears().forEach(y => {
+      if (y >= 2005) STATE.sndExpandedYears.add(y);
+    });
+    renderSndTable();
+  });
+  document.getElementById("btn-snd-collapse-all").addEventListener("click", () => {
+    STATE.sndExpandedYears.clear();
+    renderSndTable();
+  });
+  document.getElementById("btn-snd-csv").addEventListener("click", exportSndCsv);
+
+  // Tab 2: Area Controls
+  document.querySelectorAll("#area-view-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#area-view-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.areaViewMode = btn.dataset.view;
+      renderAreaTab();
+    });
+  });
+
+  // Tab 3: Production Controls
+  const prodStateSelect = document.getElementById("prod-state-select");
+  prodStateSelect.innerHTML = STATE.master.metadata.entities.map(e => `<option value="${e}" ${e === "Malaysia" ? "selected" : ""}>${e}</option>`).join("");
+  prodStateSelect.addEventListener("change", () => {
+    STATE.prodState = prodStateSelect.value;
+    renderProdTab();
+  });
+  document.querySelectorAll("#prod-attr-select .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#prod-attr-select .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.prodAttr = btn.dataset.attr;
+      renderProdTab();
+    });
+  });
+  document.getElementById("btn-prod-expand-all").addEventListener("click", () => {
+    getSortedSelectedYears().forEach(y => { if (y >= 2005) STATE.prodExpandedYears.add(y); });
+    renderProdTab();
+  });
+  document.getElementById("btn-prod-collapse-all").addEventListener("click", () => {
+    STATE.prodExpandedYears.clear();
+    renderProdTab();
+  });
+
+  // Tab 4: My Forecast Controls
+  const trackerPeriodSel = document.getElementById("tracker-target-period");
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  trackerPeriodSel.innerHTML = fcstPeriods.map(p => `<option value="${p}">${p}</option>`).join("");
+
+  document.getElementById("btn-apply-prod-tracker").addEventListener("click", applyFrontMonthProdTracker);
+  document.getElementById("btn-apply-exp-tracker").addEventListener("click", applyFrontMonthExpTracker);
+  document.getElementById("btn-save-user-fcst").addEventListener("click", saveUserForecastToServer);
+  document.getElementById("btn-copy-model-to-user").addEventListener("click", () => resetUserForecast("model"));
+  document.getElementById("btn-reset-excel-fcst").addEventListener("click", () => resetUserForecast("excel"));
+  document.getElementById("btn-sync-states-to-snd").addEventListener("click", syncUserStatesToNationalSnd);
+
+  document.querySelectorAll("#my-fcst-state-metric .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#my-fcst-state-metric .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.myFcstStateMetric = btn.dataset.metric;
+      renderMyForecastStatesTable();
+    });
+  });
+
+  // Tab 5: Imports Controls
+  document.getElementById("btn-imp-expand-all").addEventListener("click", () => {
+    getSortedSelectedYears(1985, 2027).forEach(y => { if (y >= 2005) STATE.impExpandedYears.add(y); });
+    renderImportsTab();
+  });
+  document.getElementById("btn-imp-collapse-all").addEventListener("click", () => {
+    STATE.impExpandedYears.clear();
+    renderImportsTab();
+  });
+
+  // Tab 6: Exports Controls
+  document.querySelectorAll("#exports-split-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#exports-split-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.expSplitMode = btn.dataset.split;
+      renderExportsTab();
+    });
+  });
+  document.getElementById("btn-exp-expand-all").addEventListener("click", () => {
+    getSortedSelectedYears(1990, 2026).forEach(y => { if (y >= 2004) STATE.expExpandedYears.add(y); });
+    renderExportsTab();
+  });
+  document.getElementById("btn-exp-collapse-all").addEventListener("click", () => {
+    STATE.expExpandedYears.clear();
+    renderExportsTab();
+  });
+
+  // Tab 7: Stocks Controls
+  document.getElementById("btn-stk-expand-all").addEventListener("click", () => {
+    getSortedSelectedYears(1986, 2026).forEach(y => { if (y >= 2004) STATE.stkExpandedYears.add(y); });
+    renderStocksTab();
+  });
+  document.getElementById("btn-stk-collapse-all").addEventListener("click", () => {
+    STATE.stkExpandedYears.clear();
+    renderStocksTab();
+  });
+
+  // Tab 8: Seasonality Controls
+  document.getElementById("season-attr-select").addEventListener("change", (e) => {
+    STATE.seasonAttr = e.target.value;
+    renderSeasonalityTab();
+  });
+  document.querySelectorAll("#season-fcst-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#season-fcst-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.seasonFcstMode = btn.dataset.mode;
+      renderSeasonalityTab();
+    });
+  });
+}
+
+function renderActiveTab() {
+  switch (STATE.activeTab) {
+    case "tab-snd": renderSndTab(); break;
+    case "tab-area": renderAreaTab(); break;
+    case "tab-prod": renderProdTab(); break;
+    case "tab-my-fcst": renderMyForecastTab(); break;
+    case "tab-imports": renderImportsTab(); break;
+    case "tab-exports": renderExportsTab(); break;
+    case "tab-stocks": renderStocksTab(); break;
+    case "tab-seasonality": renderSeasonalityTab(); break;
+  }
+}
+
+// ===========================================================================
+// TAB 1: SUPPLY & DEMAND (S&D)
+// ===========================================================================
+const SND_ROWS = [
+  { key: "opening_stock", label: "Opening Stock", isCalc: false },
+  { key: "production", label: "Production", isCalc: false },
+  { key: "import", label: "Import", isCalc: false },
+  { key: "export", label: "Export", isCalc: false },
+  { key: "local_disappearance", label: "Local Disappearance [Formula]", isCalc: true },
+  { key: "end_stock", label: "End Stock", isCalc: false },
+  { key: "stocks_to_use", label: "Stocks-to-Use Ratio (%) [CALC]", isCalc: true, isRatio: true }
+];
+
+function renderSndTab() {
+  renderSndTable();
+  renderSndCharts();
+}
+
+function renderSndTable() {
+  const container = document.getElementById("snd-table-container");
+  const years = getSortedSelectedYears(1975, 2027);
+  const { monthly, annual, isDelta } = getEffectiveSndData(STATE.sndFcstMode);
+  const fmt = isDelta ? (v) => fmtDelta(v, 0) : (v) => fmtNum(v, 0);
+
+  // Attributes x Years Matrix (Columns expand/collapse by year) with standardized widths
+  let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Attribute (Tonnes)</th>`;
+  for (const yr of years) {
+    const canExp = yr >= 2005;
+    const isExp = canExp && STATE.sndExpandedYears.has(yr);
+    const fcstTag = yr >= 2026 ? " [FCST]" : "";
+    if (isExp) {
+      for (let m = 1; m <= 12; m++) {
+        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
-  } catch (e) {}
-
-  const fallbackRes = await fetch(staticFile);
-  if (!fallbackRes.ok) throw new Error(`Failed to load ${staticFile} (HTTP ${fallbackRes.status})`);
-  return await fallbackRes.json();
-}
-
-async function loadInitialData() {
-  try {
-    const json = await fetchJsonData("/api/data?start_year=2005&end_year=2026", "api_data.json");
-    masterData = json.data;
-    filteredData = [...masterData];
-    metadata = json.metadata;
-
-    const sumJson = await fetchJsonData("/api/summary", "api_summary.json");
-    latestSnapshot = sumJson.latest_snapshot;
-
-    const seasJson = await fetchJsonData("/api/seasonality", "api_seasonality.json");
-    seasonalBenchmarks = seasJson.seasonal_benchmarks;
-  } catch (err) {
-    console.error("Failed to load MPOB data:", err);
+    html += `<th class="col-year-header col-annual" data-year="${yr}" title="Click to ${isExp ? 'collapse' : 'expand'} ${yr}">
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${fcstTag}
+    </th>`;
   }
-}
+  html += `</tr></thead><tbody>`;
 
-function setupYearSelectors() {
-  const startSelect = document.getElementById("start-year-select");
-  const endSelect = document.getElementById("end-year-select");
-  if (!startSelect || !endSelect) return;
-
-  startSelect.innerHTML = "";
-  endSelect.innerHTML = "";
-
-  for (let y = 2005; y <= 2026; y++) {
-    const optStart = document.createElement("option");
-    optStart.value = y;
-    optStart.textContent = y;
-    if (y === 2005) optStart.selected = true;
-    startSelect.appendChild(optStart);
-
-    const optEnd = document.createElement("option");
-    optEnd.value = y;
-    optEnd.textContent = y;
-    if (y === 2026) optEnd.selected = true;
-    endSelect.appendChild(optEnd);
-  }
-}
-
-function renderKPIs() {
-  if (!latestSnapshot) return;
-
-  const s = latestSnapshot;
-  const pBadge = document.getElementById("latest-period-badge");
-  if (pBadge) pBadge.textContent = `${s.month_name} ${s.year}`;
-
-  const spanBadge = document.getElementById("hist-span-badge");
-  if (spanBadge) spanBadge.textContent = `${masterData.length} Months (${masterData[0].period} – ${s.period})`;
-
-  const setKPI = (id, val, formatFn = formatNumber) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val !== null && val !== undefined ? formatFn(val) : "--";
-  };
-
-  const setDelta = (id, pct, label) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (pct === null || pct === undefined) {
-      el.textContent = `${label}: --`;
-      el.className = "text-slate-500 font-medium";
-      return;
+  for (const rowDef of SND_ROWS) {
+    const isRatio = rowDef.isRatio;
+    const rCls = rowDef.key === "end_stock" ? "row-highlight" : isRatio ? "row-highlight" : rowDef.isCalc ? "row-subtotal" : "";
+    const styleAttr = isRatio ? 'style="color:#059669;font-weight:700;"' : '';
+    html += `<tr class="${rCls}"><td class="sticky-col" ${styleAttr}>${rowDef.label}</td>`;
+    for (const yr of years) {
+      const canExp = yr >= 2005;
+      const isExp = canExp && STATE.sndExpandedYears.has(yr);
+      if (isExp) {
+        for (let m = 1; m <= 12; m++) {
+          const p = `${yr}-${String(m).padStart(2, "0")}`;
+          const mRec = monthly[p];
+          const cCls = mRec && mRec.is_forecast ? "cell-fcst" : "";
+          let valStr;
+          if (isRatio) {
+            const use = (mRec?.export || 0) + (mRec?.local_disappearance || 0);
+            valStr = (use > 0 && mRec?.end_stock != null) ? (mRec.end_stock / use * 100).toFixed(1) + "%" : "--";
+          } else {
+            valStr = fmt(mRec ? mRec[rowDef.key] : null);
+          }
+          html += `<td class="num ${cCls}" ${styleAttr}>${valStr}</td>`;
+        }
+      }
+      const aRec = annual[yr];
+      let aValStr;
+      if (isRatio) {
+        const aUse = (aRec?.export || 0) + (aRec?.local_disappearance || 0);
+        aValStr = (aUse > 0 && aRec?.end_stock != null) ? (aRec.end_stock / aUse * 100).toFixed(1) + "%" : "--";
+      } else {
+        aValStr = fmt(aRec ? aRec[rowDef.key] : null);
+      }
+      html += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}" ${styleAttr}>${aValStr}</td>`;
     }
-    const isPos = pct >= 0;
-    el.textContent = `${label}: ${isPos ? '+' : ''}${pct.toFixed(1)}%`;
-    el.className = isPos ? "text-emerald-400 font-medium" : "text-rose-400 font-medium";
-  };
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+  container.innerHTML = html;
 
-  setKPI("kpi-cpo-prod", s.cpo_production);
-  setDelta("kpi-cpo-prod-mom", s.cpo_prod_mom_pct, "MoM");
-  setDelta("kpi-cpo-prod-yoy", s.cpo_prod_yoy_pct, "YoY");
-
-  setKPI("kpi-po-stock", s.palm_oil_stock);
-  setDelta("kpi-po-stock-mom", s.po_stock_mom_pct, "MoM");
-  setDelta("kpi-po-stock-yoy", s.po_stock_yoy_pct, "YoY");
-
-  setKPI("kpi-po-export", s.palm_oil_export);
-  setDelta("kpi-po-export-mom", s.po_export_mom_pct, "MoM");
-  setDelta("kpi-po-export-yoy", s.po_export_yoy_pct, "YoY");
-
-  setKPI("kpi-ffb-yield", s.ffb_yield_malaysia, v => v.toFixed(2) + " T/Ha");
-  setDelta("kpi-ffb-yield-mom", s.ffb_yield_mom_pct, "MoM");
-  setDelta("kpi-ffb-yield-yoy", s.ffb_yield_yoy_pct, "YoY");
-
-  setKPI("kpi-cpo-yield", s.cpo_yield_malaysia, v => v.toFixed(2) + " T/Ha");
-  setKPI("kpi-oer-rate", s.oer_malaysia, v => v.toFixed(2) + "%");
-
-  setKPI("kpi-dom-disapp", s.domestic_disappearance, v => formatNumber(v) + " T");
-  setKPI("kpi-stock-use", s.stock_to_use_pct, v => v.toFixed(1) + "% (" + (s.days_of_supply || '--') + " days)");
-  setKPI("kpi-po-import", s.palm_oil_import, v => formatNumber(v) + " T");
-  setKPI("kpi-ffb-price", s.ffb_price_1pct_oer, v => "RM " + v.toFixed(2));
+  container.querySelectorAll(".col-year-header").forEach(th => {
+    th.addEventListener("click", () => {
+      const yr = Number(th.dataset.year);
+      if (yr < 2005) return;
+      if (STATE.sndExpandedYears.has(yr)) STATE.sndExpandedYears.delete(yr);
+      else STATE.sndExpandedYears.add(yr);
+      renderSndTable();
+    });
+  });
 }
 
-function onDateRangeChange() {
-  const start = parseInt(document.getElementById("start-year-select").value);
-  const end = parseInt(document.getElementById("end-year-select").value);
-  if (start > end) return;
+function renderSndCharts() {
+  destroyChart("sndMain");
+  destroyChart("sndCompare");
 
-  filteredData = masterData.filter(r => r.year >= start && r.year <= end);
-  updateAllVisualizations();
-}
+  const { monthly, annual } = getEffectiveSndData(STATE.sndFcstMode === "delta" ? "user" : STATE.sndFcstMode);
+  const years = getSortedSelectedYears(1975, 2027);
 
-function setQuickRange(range) {
-  const endYear = 2026;
-  let startYear = 2005;
+  // -------------------------------------------------------------------------
+  // CHART 1: Palm Oil Stocks-to-Use Ratio (%) & Days of Supply Trajectory
+  // -------------------------------------------------------------------------
+  const labels1 = [];
+  const stuRatioData = [];
+  const daysSupplyData = [];
 
-  if (range === 'all') {
-    startYear = 2005;
+  if (STATE.sndChartFreq === "monthly") {
+    const mYears = years.filter(y => y >= 2005);
+    const useYears = mYears.length ? mYears : [2023, 2024, 2025, 2026, 2027];
+    for (const yr of useYears) {
+      for (let m = 1; m <= 12; m++) {
+        const p = `${yr}-${String(m).padStart(2, "0")}`;
+        const r = monthly[p];
+        if (!r) continue;
+        labels1.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${r.is_forecast ? 'F' : ''}`);
+        const totalUse = (r.export || 0) + (r.local_disappearance || 0);
+        const stu = (totalUse > 0 && r.end_stock != null) ? Number((r.end_stock / totalUse * 100).toFixed(2)) : null;
+        const days = (totalUse > 0 && r.end_stock != null) ? Number((r.end_stock / (totalUse / 30.417)).toFixed(1)) : null;
+        stuRatioData.push(stu);
+        daysSupplyData.push(days);
+      }
+    }
   } else {
-    startYear = Math.max(2005, endYear - parseInt(range) + 1);
-  }
-
-  document.getElementById("start-year-select").value = startYear;
-  document.getElementById("end-year-select").value = endYear;
-
-  document.querySelectorAll(".range-btn").forEach(b => {
-    if (b.getAttribute("data-range") == range) {
-      b.className = "range-btn px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition";
-    } else {
-      b.className = "range-btn px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition";
-    }
-  });
-
-  onDateRangeChange();
-}
-
-function switchTab(tabId) {
-  document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
-  document.querySelectorAll(".tab-btn").forEach(el => {
-    el.classList.remove("active", "border-emerald-500", "border-amber-500", "border-cyan-500", "border-indigo-500", "text-white", "text-amber-300", "text-cyan-300", "text-indigo-300");
-    el.classList.add("border-transparent", "text-slate-400");
-  });
-
-  const target = document.getElementById(`tab-${tabId}`);
-  const btn = document.getElementById(`tab-btn-${tabId}`);
-  if (target && btn) {
-    target.classList.remove("hidden");
-    if (tabId === 'projections') {
-      btn.classList.add("active", "border-amber-500", "text-amber-300");
-    } else if (tabId === 'workdays') {
-      btn.classList.add("active", "border-cyan-500", "text-cyan-300");
-    } else if (tabId === 'sppoma') {
-      btn.classList.add("active", "border-indigo-500", "text-indigo-300");
-    } else {
-      btn.classList.add("active", "border-emerald-500", "text-white");
-    }
-    btn.classList.remove("border-transparent", "text-slate-400");
-  }
-
-  // Trigger chart resize if needed
-  if (tabId === 'yields') {
-    if (chartFFBYield) chartFFBYield.resize();
-    if (chartOER) chartOER.resize();
-    if (chartPrice) chartPrice.resize();
-    if (chartStateProd) chartStateProd.resize();
-    if (chartStateShare) chartStateShare.resize();
-    if (chartStateYields) chartStateYields.resize();
-  }
-  if (tabId === 'exports') {
-    if (chartExportVol) chartExportVol.resize();
-    if (chartExportPie) chartExportPie.resize();
-    if (chartExportRev) chartExportRev.resize();
-  }
-  if (tabId === 'seasonality' && chartSeasonality) chartSeasonality.resize();
-  if (tabId === 'workdays') {
-    if (!workdayData) {
-      loadWorkdayData();
-    } else {
-      if (chartWorkdayRunRate) chartWorkdayRunRate.resize();
+    for (const yr of years) {
+      const r = annual[yr];
+      if (!r) continue;
+      labels1.push(`${yr}${r.is_forecast ? 'F' : ''}`);
+      const totalUse = (r.export || 0) + (r.local_disappearance || 0);
+      const stu = (totalUse > 0 && r.end_stock != null) ? Number((r.end_stock / totalUse * 100).toFixed(2)) : null;
+      const days = (totalUse > 0 && r.end_stock != null) ? Number((r.end_stock / (totalUse / 365.25)).toFixed(1)) : null;
+      stuRatioData.push(stu);
+      daysSupplyData.push(days);
     }
   }
-  if (tabId === 'sppoma') {
-    if (!sppomaData) {
-      loadSppomaData();
-    } else {
-      if (chartSppomaProgression) chartSppomaProgression.resize();
-      if (chartSppomaMultiYear) chartSppomaMultiYear.resize();
-    }
-  }
-  if (window.lucide) lucide.createIcons();
-}
 
-// -------------------------------------------------------------
-// Chart.js Visualizations
-// -------------------------------------------------------------
-
-function renderAllCharts() {
-  renderSupplyDemandChart();
-  renderStocksChart();
-  renderStockUseChart();
-  renderFFBYieldChart();
-  renderOERChart();
-  renderPriceChart();
-  renderSeasonalityCurveChart();
-}
-
-function updateAllVisualizations() {
-  renderAllCharts();
-  renderHorizontalMatrix();
-  renderFullGrid();
-  renderBalanceSheetTable();
-  renderYieldSummaryTable();
-  renderExplorerTable();
-  if (stateData) renderStateAnalytics();
-  if (exportProductsData) {
-    renderExportBreakdown();
-    renderExportProductsTable();
-    renderExportMatrix();
-  }
-  if (annualExportsData) {
-    renderAnnualExportTable();
-  }
-  if (annualBalanceSheetData) {
-    renderAnnualBalanceSheetTable();
-  }
-  if (stateMatrixData) {
-    renderStateMatrix();
-  }
-}
-
-function renderSupplyDemandChart() {
-  const ctx = document.getElementById("chart-supply-demand");
-  if (!ctx) return;
-
-  const labels = filteredData.map(r => r.period);
-  const prod = filteredData.map(r => r.cpo_production);
-  const exp = filteredData.map(r => r.palm_oil_export);
-  const stock = filteredData.map(r => r.palm_oil_stock);
-  const dom = filteredData.map(r => r.domestic_disappearance);
-
-  if (chartSD) chartSD.destroy();
-
-  chartSD = new Chart(ctx, {
+  const ctx1 = document.getElementById("chart-snd-main").getContext("2d");
+  STATE.charts.sndMain = new Chart(ctx1, {
     type: "line",
     data: {
-      labels: labels,
+      labels: labels1,
       datasets: [
         {
-          label: "CPO Production",
-          data: prod,
-          borderColor: "#22c55e", // brand emerald
-          backgroundColor: "rgba(34, 197, 94, 0.08)",
-          borderWidth: 2,
+          label: "Stocks-to-Use Ratio (%) - LHS",
+          data: stuRatioData,
+          borderColor: "#059669",
+          backgroundColor: "rgba(5, 150, 105, 0.12)",
+          borderWidth: 2.4,
+          pointRadius: 2.5,
+          tension: 0.25,
           fill: true,
-          tension: 0.2,
-          hidden: !metricVisibility.cpo_production,
-          pointRadius: filteredData.length > 60 ? 0 : 2
+          yAxisID: "y"
         },
         {
-          label: "Palm Oil Exports",
-          data: exp,
-          borderColor: "#3b82f6", // blue
-          borderWidth: 2,
-          tension: 0.2,
-          hidden: !metricVisibility.palm_oil_export,
-          pointRadius: filteredData.length > 60 ? 0 : 2
-        },
-        {
-          label: "Ending Stocks",
-          data: stock,
-          borderColor: "#f59e0b", // amber
+          label: "Days of Supply (Days) - RHS",
+          data: daysSupplyData,
+          borderColor: "#2563eb",
+          backgroundColor: "rgba(37, 99, 235, 0.1)",
           borderWidth: 2,
           borderDash: [4, 4],
-          tension: 0.2,
-          hidden: !metricVisibility.palm_oil_stock,
-          pointRadius: filteredData.length > 60 ? 0 : 2
-        },
-        {
-          label: "Domestic Disappearance",
-          data: dom,
-          borderColor: "#c084fc", // purple
-          borderWidth: 1.5,
-          tension: 0.2,
-          hidden: !metricVisibility.domestic_disappearance,
-          pointRadius: filteredData.length > 60 ? 0 : 2
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: {
-        legend: {
-          labels: { color: "#94a3b8", boxWidth: 12, font: { size: 11 } }
-        },
-        tooltip: {
-          backgroundColor: "rgba(15, 23, 42, 0.95)",
-          borderColor: "#334155",
-          borderWidth: 1,
-          titleColor: "#f8fafc",
-          bodyColor: "#cbd5e1",
-          callbacks: {
-            label: (ctx) => `${ctx.dataset.label}: ${formatNumber(ctx.parsed.y)} Tonnes`
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { color: "rgba(51, 65, 85, 0.2)" },
-          ticks: { color: "#64748b", maxTicksLimit: 14, font: { size: 10 } }
-        },
-        y: {
-          grid: { color: "rgba(51, 65, 85, 0.2)" },
-          ticks: {
-            color: "#64748b",
-            font: { size: 10 },
-            callback: (v) => (v / 1000000).toFixed(1) + "M"
-          }
-        }
-      }
-    }
-  });
-}
-
-function toggleChartMetric(metric) {
-  metricVisibility[metric] = !metricVisibility[metric];
-  renderSupplyDemandChart();
-}
-
-function renderStocksChart() {
-  const ctx = document.getElementById("chart-stocks");
-  if (!ctx) return;
-
-  const labels = filteredData.map(r => r.period);
-  const stocks = filteredData.map(r => r.palm_oil_stock);
-
-  if (chartStocks) chartStocks.destroy();
-
-  chartStocks = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Palm Oil Stocks",
-          data: stocks,
-          borderColor: "#f59e0b",
-          backgroundColor: "rgba(245, 158, 11, 0.1)",
-          borderWidth: 2,
-          fill: true,
+          pointRadius: 2,
           tension: 0.25,
-          pointRadius: filteredData.length > 60 ? 0 : 2
+          yAxisID: "y1"
         }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => `Stocks: ${formatNumber(ctx.parsed.y)} Tonnes`
-          }
-        }
-      },
+      ...chartOptionsCommon("Stocks-to-Use Ratio (%)"),
       scales: {
-        x: { ticks: { color: "#64748b", maxTicksLimit: 8, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
-        y: { ticks: { color: "#64748b", font: { size: 10 }, callback: v => (v / 1000000).toFixed(1) + "M" }, grid: { color: "rgba(51,65,85,0.15)" } }
-      }
-    }
-  });
-}
-
-function renderStockUseChart() {
-  const ctx = document.getElementById("chart-stock-use");
-  if (!ctx) return;
-
-  const labels = filteredData.map(r => r.period);
-  const stockUse = filteredData.map(r => r.stock_to_use_pct);
-  const daysSupply = filteredData.map(r => r.days_of_supply);
-
-  if (chartStockUse) chartStockUse.destroy();
-
-  chartStockUse = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Stock-to-Use (%)",
-          data: stockUse,
-          borderColor: "#a855f7",
-          backgroundColor: "rgba(168, 85, 247, 0.08)",
-          borderWidth: 2,
-          fill: true,
-          tension: 0.2,
-          yAxisID: "y",
-          pointRadius: filteredData.length > 60 ? 0 : 2
-        },
-        {
-          label: "Days of Supply",
-          data: daysSupply,
-          borderColor: "#06b6d4",
-          borderWidth: 1.5,
-          borderDash: [3, 3],
-          tension: 0.2,
-          yAxisID: "y1",
-          pointRadius: 0
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: {
-        legend: { labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } }
-      },
-      scales: {
-        x: { ticks: { color: "#64748b", maxTicksLimit: 8, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
+        x: { ticks: { color: "#64748b" }, grid: { color: "rgba(100,116,139,0.08)" } },
         y: {
-          type: "linear",
           position: "left",
-          ticks: { color: "#a855f7", font: { size: 10 }, callback: v => v + "%" },
-          grid: { color: "rgba(51,65,85,0.15)" }
+          title: { display: true, text: "Stocks-to-Use Ratio (%)", color: "#059669", font: { weight: "bold" } },
+          ticks: { color: "#059669", callback: v => v + "%" },
+          grid: { color: "rgba(100,116,139,0.08)" }
         },
         y1: {
-          type: "linear",
           position: "right",
-          ticks: { color: "#06b6d4", font: { size: 10 }, callback: v => v + "d" },
+          title: { display: true, text: "Days of Supply (Days)", color: "#2563eb", font: { weight: "bold" } },
+          ticks: { color: "#2563eb" },
           grid: { drawOnChartArea: false }
         }
       }
     }
   });
-}
 
-function renderFFBYieldChart() {
-  const ctx = document.getElementById("chart-ffb-yield");
-  if (!ctx) return;
+  // -------------------------------------------------------------------------
+  // CHART 2: 2026-2027 Forecast Comparison: Model vs My Forecast (Single Selected Attribute)
+  // -------------------------------------------------------------------------
+  const compareAttr = STATE.sndCompareAttr || "production";
+  const ATTR_META = {
+    production: { label: "CPO Production", unit: "Tonnes", decimals: 0, isRatio: false },
+    export: { label: "Exports", unit: "Tonnes", decimals: 0, isRatio: false },
+    import: { label: "Imports", unit: "Tonnes", decimals: 0, isRatio: false },
+    local_disappearance: { label: "Local Disappearance", unit: "Tonnes", decimals: 0, isRatio: false },
+    end_stock: { label: "Closing End Stock", unit: "Tonnes", decimals: 0, isRatio: false },
+    stocks_to_use: { label: "Stocks-to-Use Ratio", unit: "%", decimals: 1, isRatio: true }
+  };
+  const attrInfo = ATTR_META[compareAttr] || ATTR_META.production;
 
-  let labels = [];
-  let ffbMy = [], ffbPen = [], ffbSS = [], cpoYield = [];
+  const subEl = document.getElementById("snd-chart2-sub");
+  if (subEl) subEl.textContent = `${attrInfo.label} (${attrInfo.unit}): 2026-2027 Actuals vs Model & User Forecast`;
 
-  if (yieldCadence === 'annual') {
-    const years = [...new Set(filteredData.map(r => r.year))].sort((a, b) => a - b);
-    labels = years.map(y => `${y}${y === 2026 ? ' (YTD)' : ''}`);
-    
-    years.forEach(y => {
-      const yRecs = filteredData.filter(r => r.year === y);
-      const sum = (field) => {
-        const vals = yRecs.map(r => r[field]).filter(v => v !== null && v !== undefined);
-        return vals.length ? vals.reduce((a, b) => a + b, 0) : null;
-      };
-      const mySum = sum("ffb_yield_malaysia");
-      const penSum = sum("ffb_yield_peninsular");
-      const ssSum = sum("ffb_yield_sabah_sarawak");
-      const cpoSum = sum("cpo_yield_malaysia");
+  const modelSnd = getEffectiveSndData("model").monthly;
+  const userSnd = getEffectiveSndData("user").monthly;
 
-      ffbMy.push(mySum ? Number(mySum.toFixed(2)) : null);
-      ffbPen.push(penSum ? Number(penSum.toFixed(2)) : null);
-      ffbSS.push(ssSum ? Number(ssSum.toFixed(2)) : null);
-      cpoYield.push(cpoSum ? Number(cpoSum.toFixed(2)) : null);
-    });
+  const cLabels = [];
+  const actualData = [];
+  const modelFcstData = [];
+  const userFcstData = [];
 
-    const titleEl = document.getElementById("yield-chart-title");
-    if (titleEl) titleEl.textContent = "Annual Cumulative FFB & CPO Yields (Tonnes / Hectare)";
-    const subEl = document.getElementById("yield-chart-subtitle");
-    if (subEl) subEl.textContent = "Sum of monthly yields across calendar year (2026 is Year-to-Date through July)";
-  } else {
-    labels = filteredData.map(r => r.period);
-    ffbMy = filteredData.map(r => r.ffb_yield_malaysia);
-    ffbPen = filteredData.map(r => r.ffb_yield_peninsular);
-    ffbSS = filteredData.map(r => r.ffb_yield_sabah_sarawak);
-    cpoYield = filteredData.map(r => r.cpo_yield_malaysia);
-
-    const titleEl = document.getElementById("yield-chart-title");
-    if (titleEl) titleEl.textContent = "Monthly FFB Yield & Derived CPO Yield Evolution (2005 – 2026)";
-    const subEl = document.getElementById("yield-chart-subtitle");
-    if (subEl) subEl.textContent = "Monthly Fresh Fruit Bunches (FFB) and Crude Palm Oil (CPO) yield in Tonnes / Hectare";
-  }
-
-  const allDatasets = [
-    {
-      id: "national",
-      label: "FFB Yield (Malaysia)",
-      data: ffbMy,
-      borderColor: "#22c55e",
-      borderWidth: 2.5,
-      tension: 0.2,
-      pointRadius: labels.length > 60 ? 0 : 2
-    },
-    {
-      id: "peninsular",
-      label: "FFB Peninsular",
-      data: ffbPen,
-      borderColor: "#3b82f6",
-      borderWidth: 1.5,
-      borderDash: [2, 2],
-      tension: 0.2,
-      pointRadius: 0
-    },
-    {
-      id: "sabah_sarawak",
-      label: "FFB Sabah & Sarawak",
-      data: ffbSS,
-      borderColor: "#a855f7",
-      borderWidth: 1.5,
-      borderDash: [2, 2],
-      tension: 0.2,
-      pointRadius: 0
-    },
-    {
-      id: "cpo_yield",
-      label: "Derived CPO Yield (Malaysia)",
-      data: cpoYield,
-      borderColor: "#eab308",
-      backgroundColor: "rgba(234, 179, 8, 0.12)",
-      borderWidth: 2,
-      fill: true,
-      tension: 0.2,
-      pointRadius: labels.length > 60 ? 0 : 2
+  const getAttrVal = (r) => {
+    if (!r) return null;
+    if (compareAttr === "stocks_to_use") {
+      const u = (r.export || 0) + (r.local_disappearance || 0);
+      return (u > 0 && r.end_stock != null) ? Number((r.end_stock / u * 100).toFixed(1)) : null;
     }
-  ];
+    return r[compareAttr] != null ? r[compareAttr] : null;
+  };
 
-  let visibleDatasets = allDatasets;
-  if (yieldRegion === 'national') {
-    visibleDatasets = [allDatasets[0], allDatasets[3]];
-  } else if (yieldRegion === 'peninsular') {
-    visibleDatasets = [allDatasets[1], allDatasets[3]];
-  } else if (yieldRegion === 'sabah' || yieldRegion === 'sarawak') {
-    visibleDatasets = [allDatasets[2], allDatasets[3]];
-  }
+  for (const yr of [2026, 2027]) {
+    for (let m = 1; m <= 12; m++) {
+      const p = `${yr}-${String(m).padStart(2, "0")}`;
+      const mRec = modelSnd[p];
+      const uRec = userSnd[p];
+      if (!mRec) continue;
 
-  if (chartFFBYield) chartFFBYield.destroy();
+      const isActual = yr === 2026 && m <= 9;
+      const isFcst = !isActual;
+      cLabels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isFcst ? 'F' : ''}`);
 
-  chartFFBYield = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: visibleDatasets
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: {
-        legend: { labels: { color: "#94a3b8", boxWidth: 12, font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y ? ctx.parsed.y.toFixed(2) : '--'} T/Ha`
-          }
-        }
-      },
-      scales: {
-        x: { ticks: { color: "#64748b", maxTicksLimit: 14, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
-        y: { ticks: { color: "#64748b", font: { size: 10 }, callback: v => v.toFixed(2) + " T/Ha" }, grid: { color: "rgba(51,65,85,0.15)" } }
+      const vModel = getAttrVal(mRec);
+      const vUser = getAttrVal(uRec);
+
+      if (isActual) {
+        actualData.push(vModel);
+        modelFcstData.push(null);
+        userFcstData.push(null);
+      } else {
+        actualData.push(null);
+        modelFcstData.push(vModel);
+        userFcstData.push(vUser);
       }
     }
-  });
-}
-
-function renderOERChart() {
-  const ctx = document.getElementById("chart-oer");
-  if (!ctx) return;
-
-  let labels = [];
-  let oerMy = [], oerPen = [], oerSabah = [], oerSarawak = [];
-
-  if (yieldCadence === 'annual') {
-    const years = [...new Set(filteredData.map(r => r.year))].sort((a, b) => a - b);
-    labels = years.map(y => `${y}${y === 2026 ? ' (YTD)' : ''}`);
-
-    years.forEach(y => {
-      const yRecs = filteredData.filter(r => r.year === y);
-      const avg = (field) => {
-        const vals = yRecs.map(r => r[field]).filter(v => v !== null && v !== undefined);
-        return vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length) : null;
-      };
-      oerMy.push(avg("oer_malaysia") ? Number(avg("oer_malaysia").toFixed(2)) : null);
-      oerPen.push(avg("oer_peninsular") ? Number(avg("oer_peninsular").toFixed(2)) : null);
-      oerSabah.push(avg("oer_sabah") ? Number(avg("oer_sabah").toFixed(2)) : null);
-      oerSarawak.push(avg("oer_sarawak") ? Number(avg("oer_sarawak").toFixed(2)) : null);
-    });
-  } else {
-    labels = filteredData.map(r => r.period);
-    oerMy = filteredData.map(r => r.oer_malaysia);
-    oerPen = filteredData.map(r => r.oer_peninsular);
-    oerSabah = filteredData.map(r => r.oer_sabah);
-    oerSarawak = filteredData.map(r => r.oer_sarawak);
   }
 
-  if (chartOER) chartOER.destroy();
+  // Connect forecast lines continuously from 2026-09 actual
+  const sepIdx = 8; // 2026-09
+  if (actualData[sepIdx] !== null) {
+    modelFcstData[sepIdx] = actualData[sepIdx];
+    userFcstData[sepIdx] = actualData[sepIdx];
+  }
 
-  chartOER = new Chart(ctx, {
+  const ctx2 = document.getElementById("chart-snd-compare").getContext("2d");
+  STATE.charts.sndCompare = new Chart(ctx2, {
     type: "line",
     data: {
-      labels: labels,
-      datasets: [
-        { label: "OER Malaysia", data: oerMy, borderColor: "#eab308", borderWidth: 2, tension: 0.2, pointRadius: labels.length > 60 ? 0 : 2 },
-        { label: "Peninsular", data: oerPen, borderColor: "#3b82f6", borderWidth: 1.2, tension: 0.2, pointRadius: 0 },
-        { label: "Sabah", data: oerSabah, borderColor: "#22c55e", borderWidth: 1.2, tension: 0.2, pointRadius: 0 },
-        { label: "Sarawak", data: oerSarawak, borderColor: "#f97316", borderWidth: 1.2, tension: 0.2, pointRadius: 0 }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: {
-        legend: { labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } },
-        tooltip: {
-          callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y ? ctx.parsed.y.toFixed(2) : '--'}%` }
-        }
-      },
-      scales: {
-        x: { ticks: { color: "#64748b", maxTicksLimit: 8, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
-        y: { ticks: { color: "#64748b", font: { size: 10 }, callback: v => v + "%" }, grid: { color: "rgba(51,65,85,0.15)" } }
-      }
-    }
-  });
-}
-
-function renderPriceChart() {
-  const ctx = document.getElementById("chart-price");
-  if (!ctx) return;
-
-  const validPriceData = filteredData.filter(r => r.ffb_price_1pct_oer !== null);
-  const labels = validPriceData.map(r => r.period);
-  const prices = validPriceData.map(r => r.ffb_price_1pct_oer);
-
-  if (chartPrice) chartPrice.destroy();
-
-  chartPrice = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
+      labels: cLabels,
       datasets: [
         {
-          label: "FFB Price (1% OER)",
-          data: prices,
-          borderColor: "#10b981",
-          backgroundColor: "rgba(16, 185, 129, 0.1)",
-          borderWidth: 2,
-          fill: true,
-          tension: 0.2,
-          pointRadius: validPriceData.length > 60 ? 0 : 2
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: { label: ctx => `FFB Ref Price: RM ${ctx.parsed.y.toFixed(2)}` }
-        }
-      },
-      scales: {
-        x: { ticks: { color: "#64748b", maxTicksLimit: 8, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
-        y: { ticks: { color: "#64748b", font: { size: 10 }, callback: v => "RM " + v }, grid: { color: "rgba(51,65,85,0.15)" } }
-      }
-    }
-  });
-}
-
-function renderSeasonalityCurveChart() {
-  const ctx = document.getElementById("chart-seasonality-curve");
-  if (!ctx || !seasonalBenchmarks.length) return;
-
-  const months = seasonalBenchmarks.map(s => s.month_name.slice(0, 3));
-  const avgProd = seasonalBenchmarks.map(s => s.cpo_production_avg);
-  const avgStock = seasonalBenchmarks.map(s => s.palm_oil_stock_avg);
-
-  // 2026 data for overlay
-  const recs2026 = masterData.filter(r => r.year === 2026);
-  const curProd = months.map((m, idx) => {
-    const r = recs2026.find(x => x.month === idx + 1);
-    return r ? r.cpo_production : null;
-  });
-
-  if (chartSeasonality) chartSeasonality.destroy();
-
-  chartSeasonality = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: months,
-      datasets: [
-        {
-          label: "Historical Average Production (2005-2025)",
-          data: avgProd,
-          borderColor: "#64748b",
-          borderWidth: 2,
-          borderDash: [4, 4],
-          tension: 0.3,
-          pointRadius: 3
+          label: `Official Actual (Jan - Sep 2026)`,
+          data: actualData,
+          borderColor: "#0f172a",
+          backgroundColor: "#0f172a",
+          borderWidth: 2.8,
+          pointRadius: 4,
+          pointBackgroundColor: "#0f172a",
+          tension: 0.2
         },
         {
-          label: "Current 2026 Production",
-          data: curProd,
-          borderColor: "#22c55e",
-          backgroundColor: "rgba(34, 197, 94, 0.15)",
-          borderWidth: 3,
-          fill: true,
-          tension: 0.3,
-          pointRadius: 5
+          label: `Model Forecast (Oct 2026 - Dec 2027)`,
+          data: modelFcstData,
+          borderColor: "#2563eb",
+          backgroundColor: "rgba(37, 99, 235, 0.08)",
+          borderWidth: 2.5,
+          borderDash: [5, 4],
+          pointRadius: 3.5,
+          pointBackgroundColor: "#2563eb",
+          tension: 0.25,
+          fill: false
         },
         {
-          label: "Historical Average Stocks",
-          data: avgStock,
-          borderColor: "#f59e0b",
-          borderWidth: 1.5,
-          tension: 0.3,
-          pointRadius: 2
+          label: `My Forecast (Oct 2026 - Dec 2027)`,
+          data: userFcstData,
+          borderColor: "#d97706",
+          backgroundColor: "rgba(217, 119, 6, 0.08)",
+          borderWidth: 2.5,
+          borderDash: [2, 2],
+          pointRadius: 3.5,
+          pointBackgroundColor: "#d97706",
+          tension: 0.25,
+          fill: "-1" // Highlight difference between model and user
         }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
+      ...chartOptionsCommon(attrInfo.unit),
       plugins: {
-        legend: { labels: { color: "#94a3b8", boxWidth: 12, font: { size: 11 } } },
+        ...chartOptionsCommon(attrInfo.unit).plugins,
         tooltip: {
           callbacks: {
-            label: (ctx) => `${ctx.dataset.label}: ${formatNumber(ctx.parsed.y)} Tonnes`
+            label: (ctx) => {
+              const val = ctx.parsed.y;
+              if (val == null) return null;
+              return `${ctx.dataset.label}: ${attrInfo.isRatio ? val.toFixed(1) + '%' : fmtNum(val, 0) + ' ' + attrInfo.unit}`;
+            }
           }
         }
-      },
-      scales: {
-        x: { ticks: { color: "#94a3b8", font: { size: 11 } }, grid: { color: "rgba(51,65,85,0.2)" } },
-        y: { ticks: { color: "#64748b", font: { size: 10 }, callback: v => (v / 1000000).toFixed(2) + "M" }, grid: { color: "rgba(51,65,85,0.2)" } }
       }
     }
   });
 }
 
-// -------------------------------------------------------------
-// Tables & Heatmaps
-// -------------------------------------------------------------
-
-// -------------------------------------------------------------
-// Balance Sheet Multi-View (Horizontal Matrix & Multi-Year Grid)
-// -------------------------------------------------------------
-
-function setBalanceSheetViewMode(mode) {
-  bsViewMode = mode;
-  
-  const modes = ['horizontal_matrix', 'full_grid', 'vertical_table', 'annual_history'];
-  modes.forEach(m => {
-    let btnId = 'btn-mode-matrix';
-    let containerId = 'container-horizontal-matrix';
-    if (m === 'full_grid') { btnId = 'btn-mode-grid'; containerId = 'container-full-grid'; }
-    else if (m === 'vertical_table') { btnId = 'btn-mode-table'; containerId = 'container-vertical-table'; }
-    else if (m === 'annual_history') { btnId = 'btn-mode-annual-history'; containerId = 'container-annual-history'; }
-    
-    const btn = document.getElementById(btnId);
-    const container = document.getElementById(containerId);
-    
-    if (m === mode) {
-      if (btn) {
-        btn.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition flex items-center space-x-1.5";
-      }
-      if (container) container.classList.remove("hidden");
-    } else {
-      if (btn) {
-        btn.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5";
-      }
-      if (container) container.classList.add("hidden");
-    }
+function exportSndCsv() {
+  const { monthly } = getEffectiveSndData(STATE.sndFcstMode);
+  const rows = [["Period", "Year", "Month", "Opening Stock", "Production", "Import", "Export", "Local Disappearance", "End Stock", "Status"]];
+  Object.keys(monthly).sort().forEach(p => {
+    const r = monthly[p];
+    if (!STATE.selectedYears.has(r.year)) return;
+    rows.push([
+      r.period, r.year, r.month,
+      r.opening_stock, r.production, r.import, r.export, r.local_disappearance, r.end_stock,
+      r.is_forecast ? "Forecast" : "Actual"
+    ]);
   });
-
-  if (mode === 'horizontal_matrix') renderHorizontalMatrix();
-  else if (mode === 'full_grid') renderFullGrid();
-  else if (mode === 'vertical_table') renderBalanceSheetTable();
-  else if (mode === 'annual_history') {
-    if (!annualBalanceSheetData) loadAnnualBalanceSheetData();
-    else renderAnnualBalanceSheetTable();
-  }
-  if (window.lucide) lucide.createIcons();
+  const csv = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `Malaysia_Palm_SND_${STATE.sndFcstMode}.csv`;
+  a.click();
 }
 
-function renderHorizontalMatrix() {
-  const thead = document.getElementById("matrix-thead");
-  const tbody = document.getElementById("matrix-tbody");
-  if (!thead || !tbody) return;
+// ===========================================================================
+// TAB 2: AREA (MATURE VS IMMATURE)
+// ===========================================================================
+// Grouped geographically North-to-South
+const AREA_REGION_GROUPS = [
+  { group: "National & Belts", entities: ["Malaysia", "Peninsular Malaysia", "Sabah & Sarawak"] },
+  { group: "Northern Peninsular", entities: ["Kedah", "Pulau Pinang", "Perak"] },
+  { group: "Central & Southern", entities: ["Selangor", "Negeri Sembilan", "Melaka", "Johor"] },
+  { group: "Eastern Peninsular", entities: ["Kelantan", "Terengganu", "Pahang"] },
+  { group: "East Malaysia (Borneo)", entities: ["Sabah", "Sarawak"] }
+];
 
-  const metric = document.getElementById("matrix-metric-select") ? document.getElementById("matrix-metric-select").value : "cpo_production";
-  const years = [...new Set(masterData.map(r => r.year))].sort((a, b) => b - a); // 2026 .. 2005
+function renderAreaTab() {
+  destroyChart("areaStacked");
 
-  // Table Headers
-  let headHtml = `<tr>
-    <th class="py-2.5 px-3 whitespace-nowrap bg-slate-900/95 sticky left-0 z-20">Month</th>`;
-  years.forEach(y => {
-    headHtml += `<th class="py-2.5 px-3 text-right whitespace-nowrap ${y === 2026 ? 'text-emerald-400 font-bold' : ''}">${y}${y === 2026 ? ' (YTD)' : ''}</th>`;
-  });
-  headHtml += `<th class="py-2.5 px-3 text-right text-blue-400 font-bold bg-slate-900/90 whitespace-nowrap">5-Yr Avg</th>`;
-  headHtml += `<th class="py-2.5 px-3 text-right text-purple-400 font-bold bg-slate-900/90 whitespace-nowrap">10-Yr Avg</th>`;
-  headHtml += `<th class="py-2.5 px-3 text-right text-amber-400 font-bold bg-slate-900/90 whitespace-nowrap">20-Yr Avg</th>`;
-  headHtml += `</tr>`;
-  thead.innerHTML = headHtml;
+  const regArea = STATE.master.area.regional_1975_2025;
+  const stArea = STATE.master.area.state_2011_2025;
+  const catArea = STATE.master.area.category_summary;
+  const ffbStateHist = STATE.master.production.annual;
 
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
-  // Lookup map: (year, month) -> record
-  const map = {};
-  masterData.forEach(r => {
-    map[`${r.year}-${r.month}`] = r;
-  });
-
-  let bodyHtml = "";
-  const isPercent = metric === "stock_to_use_pct";
-  const isStock = metric === "palm_oil_stock" || metric === "beginning_stock";
-
-  // 12 month rows
-  for (let m = 1; m <= 12; m++) {
-    const mName = monthNames[m - 1];
-    bodyHtml += `<tr class="hover:bg-slate-800/40 transition">
-      <td class="py-2 px-3 font-semibold text-white whitespace-nowrap bg-slate-900/80 sticky left-0 z-10">${mName}</td>`;
-
-    const valsForAverages = [];
-    years.forEach(y => {
-      const rec = map[`${y}-${m}`];
-      let val = null;
-      if (rec && rec[metric] !== undefined && rec[metric] !== null) {
-        val = rec[metric];
-        valsForAverages.push({ year: y, val });
-      }
-
-      const formatted = val !== null ? (isPercent ? val.toFixed(1) + '%' : formatNumber(val)) : '<span class="text-slate-600">--</span>';
-      bodyHtml += `<td class="py-2 px-3 text-right whitespace-nowrap ${y === 2026 ? 'text-emerald-300 font-semibold' : 'text-slate-300'}">${formatted}</td>`;
+  // Render Region Slicer Grouped North-to-South
+  const slicerCard = document.getElementById("area-region-slicer-card");
+  const slicerContainer = document.getElementById("area-region-slicer-container");
+  if (STATE.areaViewMode === "regional") {
+    slicerCard.style.display = "block";
+    let sHtml = "";
+    AREA_REGION_GROUPS.forEach(grp => {
+      sHtml += `<div class="region-slicer-group">
+        <span class="region-group-label">${grp.group}:</span>`;
+      grp.entities.forEach(ent => {
+        const isSel = STATE.areaEntities.has(ent);
+        sHtml += `<button class="region-pill ${isSel ? 'selected' : ''}" data-entity="${ent}">${ent}</button>`;
+      });
+      sHtml += `</div>`;
     });
+    slicerContainer.innerHTML = sHtml;
 
-    // 5-Yr Avg (2021-2025 completed years)
-    const v5 = valsForAverages.filter(x => x.year >= 2021 && x.year <= 2025).map(x => x.val);
-    const avg5 = v5.length ? v5.reduce((a, b) => a + b, 0) / v5.length : null;
-
-    // 10-Yr Avg (2016-2025)
-    const v10 = valsForAverages.filter(x => x.year >= 2016 && x.year <= 2025).map(x => x.val);
-    const avg10 = v10.length ? v10.reduce((a, b) => a + b, 0) / v10.length : null;
-
-    // 20-Yr Avg (2005-2025)
-    const v20 = valsForAverages.filter(x => x.year >= 2005 && x.year <= 2025).map(x => x.val);
-    const avg20 = v20.length ? v20.reduce((a, b) => a + b, 0) / v20.length : null;
-
-    bodyHtml += `<td class="py-2 px-3 text-right text-blue-300 bg-slate-900/40 font-semibold whitespace-nowrap">${avg5 !== null ? (isPercent ? avg5.toFixed(1) + '%' : formatNumber(avg5)) : '--'}</td>`;
-    bodyHtml += `<td class="py-2 px-3 text-right text-purple-300 bg-slate-900/40 font-semibold whitespace-nowrap">${avg10 !== null ? (isPercent ? avg10.toFixed(1) + '%' : formatNumber(avg10)) : '--'}</td>`;
-    bodyHtml += `<td class="py-2 px-3 text-right text-amber-300 bg-slate-900/40 font-semibold whitespace-nowrap">${avg20 !== null ? (isPercent ? avg20.toFixed(1) + '%' : formatNumber(avg20)) : '--'}</td>`;
-    bodyHtml += `</tr>`;
-  }
-
-  // Summary Row (Total / Annual Avg)
-  bodyHtml += `<tr class="bg-slate-900/90 font-bold border-t-2 border-slate-700">
-    <td class="py-2.5 px-3 text-emerald-400 whitespace-nowrap sticky left-0 z-10 bg-slate-900">${isStock ? 'Year-End Stock' : (isPercent ? 'Annual Average' : 'Annual Total')}</td>`;
-
-  const annualTotalsForBenchmark = [];
-  years.forEach(y => {
-    const yRecs = masterData.filter(r => r.year === y);
-    let summaryVal = null;
-    if (yRecs.length > 0) {
-      if (isStock) {
-        // Last available month of the year
-        summaryVal = yRecs[yRecs.length - 1][metric];
-      } else if (isPercent) {
-        const pVals = yRecs.map(r => r[metric]).filter(v => v !== null && v !== undefined);
-        summaryVal = pVals.length ? pVals.reduce((a, b) => a + b, 0) / pVals.length : null;
-      } else {
-        summaryVal = yRecs.reduce((sum, r) => sum + (r[metric] || 0), 0);
-      }
-    }
-    if (summaryVal !== null) annualTotalsForBenchmark.push({ year: y, val: summaryVal });
-
-    const formatted = summaryVal !== null ? (isPercent ? summaryVal.toFixed(1) + '%' : formatNumber(summaryVal)) : '--';
-    bodyHtml += `<td class="py-2.5 px-3 text-right text-emerald-400 whitespace-nowrap">${formatted}</td>`;
-  });
-
-  const a5 = annualTotalsForBenchmark.filter(x => x.year >= 2021 && x.year <= 2025).map(x => x.val);
-  const sum5 = a5.length ? a5.reduce((a, b) => a + b, 0) / a5.length : null;
-
-  const a10 = annualTotalsForBenchmark.filter(x => x.year >= 2016 && x.year <= 2025).map(x => x.val);
-  const sum10 = a10.length ? a10.reduce((a, b) => a + b, 0) / a10.length : null;
-
-  const a20 = annualTotalsForBenchmark.filter(x => x.year >= 2005 && x.year <= 2025).map(x => x.val);
-  const sum20 = a20.length ? a20.reduce((a, b) => a + b, 0) / a20.length : null;
-
-  bodyHtml += `<td class="py-2.5 px-3 text-right text-blue-400 font-bold whitespace-nowrap">${sum5 !== null ? (isPercent ? sum5.toFixed(1) + '%' : formatNumber(sum5)) : '--'}</td>`;
-  bodyHtml += `<td class="py-2.5 px-3 text-right text-purple-400 font-bold whitespace-nowrap">${sum10 !== null ? (isPercent ? sum10.toFixed(1) + '%' : formatNumber(sum10)) : '--'}</td>`;
-  bodyHtml += `<td class="py-2.5 px-3 text-right text-amber-400 font-bold whitespace-nowrap">${sum20 !== null ? (isPercent ? sum20.toFixed(1) + '%' : formatNumber(sum20)) : '--'}</td>`;
-  bodyHtml += `</tr>`;
-
-  tbody.innerHTML = bodyHtml;
-}
-
-function renderFullGrid() {
-  const thead = document.getElementById("full-grid-thead");
-  const tbody = document.getElementById("full-grid-tbody");
-  if (!thead || !tbody) return;
-
-  const periodSelect = document.getElementById("grid-period-select") ? document.getElementById("grid-period-select").value : "annual";
-  const years = [...new Set(masterData.map(r => r.year))].sort((a, b) => b - a); // 2026 .. 2005
-
-  let headHtml = `<tr>
-    <th class="py-2.5 px-3 whitespace-nowrap bg-slate-900/95 sticky left-0 z-20">Balance Sheet Item (Tonnes)</th>`;
-  years.forEach(y => {
-    headHtml += `<th class="py-2.5 px-3 text-right whitespace-nowrap ${y === 2026 ? 'text-emerald-400 font-bold' : ''}">${y}${y === 2026 ? ' (YTD)' : ''}</th>`;
-  });
-  headHtml += `<th class="py-2.5 px-3 text-right text-blue-400 font-bold whitespace-nowrap">5-Yr Avg</th>`;
-  headHtml += `<th class="py-2.5 px-3 text-right text-purple-400 font-bold whitespace-nowrap">10-Yr Avg</th>`;
-  headHtml += `</tr>`;
-  thead.innerHTML = headHtml;
-
-  const balanceSheetRows = [
-    { key: "beginning_stock", label: "Beginning Stocks", type: "stock", color: "text-slate-300" },
-    { key: "cpo_production", label: "(+) CPO Production", type: "flow", color: "text-emerald-400 font-semibold" },
-    { key: "palm_oil_import", label: "(+) Palm Oil Imports", type: "flow", color: "text-slate-300" },
-    { key: "total_supply", label: "(=) Total Supply", type: "calc_supply", color: "text-white font-bold bg-slate-900/50" },
-    { key: "palm_oil_export", label: "(-) Palm Oil Exports", type: "flow", color: "text-blue-400 font-medium" },
-    { key: "domestic_disappearance", label: "(-) Domestic Disappearance", type: "flow", color: "text-purple-400" },
-    { key: "total_use", label: "(=) Total Disappearance / Use", type: "calc_use", color: "text-white font-bold bg-slate-900/50" },
-    { key: "palm_oil_stock", label: "(=) Ending Stocks", type: "stock", color: "text-amber-400 font-bold" },
-    { key: "stock_to_use_pct", label: "Stock-to-Use Ratio (%)", type: "pct", color: "text-amber-300" },
-    { key: "days_of_supply", label: "Days of Supply (Days)", type: "num", color: "text-cyan-300" }
-  ];
-
-  let bodyHtml = "";
-
-  balanceSheetRows.forEach(row => {
-    bodyHtml += `<tr class="hover:bg-slate-800/40 transition">
-      <td class="py-2 px-3 font-semibold ${row.color} whitespace-nowrap bg-slate-900/80 sticky left-0 z-10">${row.label}</td>`;
-
-    const yearVals = [];
-    years.forEach(y => {
-      let val = null;
-      if (periodSelect === "annual") {
-        const yRecs = masterData.filter(r => r.year === y);
-        if (yRecs.length > 0) {
-          if (row.key === "beginning_stock") {
-            val = yRecs[0].beginning_stock;
-          } else if (row.key === "palm_oil_stock") {
-            val = yRecs[yRecs.length - 1].palm_oil_stock;
-          } else if (row.key === "cpo_production" || row.key === "palm_oil_import" || row.key === "palm_oil_export" || row.key === "domestic_disappearance") {
-            val = yRecs.reduce((sum, r) => sum + (r[row.key] || 0), 0);
-          } else if (row.key === "total_supply") {
-            const b = yRecs[0].beginning_stock || 0;
-            const p = yRecs.reduce((sum, r) => sum + (r.cpo_production || 0), 0);
-            const imp = yRecs.reduce((sum, r) => sum + (r.palm_oil_import || 0), 0);
-            val = b + p + imp;
-          } else if (row.key === "total_use") {
-            const exp = yRecs.reduce((sum, r) => sum + (r.palm_oil_export || 0), 0);
-            const dom = yRecs.reduce((sum, r) => sum + (r.domestic_disappearance || 0), 0);
-            val = exp + dom;
-          } else if (row.key === "stock_to_use_pct") {
-            const exp = yRecs.reduce((sum, r) => sum + (r.palm_oil_export || 0), 0);
-            const dom = yRecs.reduce((sum, r) => sum + (r.domestic_disappearance || 0), 0);
-            const endS = yRecs[yRecs.length - 1].palm_oil_stock || 0;
-            const use = exp + dom;
-            val = use > 0 ? (endS / use) * 100 : 0;
-          } else if (row.key === "days_of_supply") {
-            const exp = yRecs.reduce((sum, r) => sum + (r.palm_oil_export || 0), 0);
-            const dom = yRecs.reduce((sum, r) => sum + (r.domestic_disappearance || 0), 0);
-            const endS = yRecs[yRecs.length - 1].palm_oil_stock || 0;
-            const use = exp + dom;
-            const daysInY = yRecs.length * 30.4;
-            val = use > 0 ? (endS / (use / daysInY)) : 0;
-          }
-        }
-      } else {
-        // Specific Month
-        const mNum = parseInt(periodSelect);
-        const rec = masterData.find(r => r.year === y && r.month === mNum);
-        if (rec) {
-          if (row.key === "total_supply") {
-            val = (rec.beginning_stock || 0) + (rec.cpo_production || 0) + (rec.palm_oil_import || 0);
-          } else if (row.key === "total_use") {
-            val = (rec.palm_oil_export || 0) + (rec.domestic_disappearance || 0);
+    slicerContainer.querySelectorAll(".region-pill").forEach(pill => {
+      pill.addEventListener("click", (e) => {
+        const ent = pill.dataset.entity;
+        if (e.ctrlKey || e.metaKey || e.shiftKey) {
+          if (STATE.areaEntities.has(ent)) {
+            if (STATE.areaEntities.size > 1) STATE.areaEntities.delete(ent);
           } else {
-            val = rec[row.key];
+            STATE.areaEntities.add(ent);
+          }
+        } else {
+          // Normal click toggles, or sets single if clicked another
+          if (STATE.areaEntities.has(ent) && STATE.areaEntities.size > 1) {
+            STATE.areaEntities.delete(ent);
+          } else {
+            STATE.areaEntities.clear();
+            STATE.areaEntities.add(ent);
           }
         }
-      }
-
-      if (val !== null && val !== undefined) yearVals.push({ year: y, val });
-
-      let formatted = '<span class="text-slate-600">--</span>';
-      if (val !== null && val !== undefined) {
-        if (row.type === "pct") formatted = val.toFixed(1) + "%";
-        else if (row.type === "num") formatted = val.toFixed(1);
-        else formatted = formatNumber(val);
-      }
-
-      bodyHtml += `<td class="py-2 px-3 text-right whitespace-nowrap ${row.color}">${formatted}</td>`;
-    });
-
-    const v5 = yearVals.filter(x => x.year >= 2021 && x.year <= 2025).map(x => x.val);
-    const avg5 = v5.length ? v5.reduce((a, b) => a + b, 0) / v5.length : null;
-
-    const v10 = yearVals.filter(x => x.year >= 2016 && x.year <= 2025).map(x => x.val);
-    const avg10 = v10.length ? v10.reduce((a, b) => a + b, 0) / v10.length : null;
-
-    let f5 = '--', f10 = '--';
-    if (avg5 !== null) {
-      if (row.type === "pct") f5 = avg5.toFixed(1) + "%";
-      else if (row.type === "num") f5 = avg5.toFixed(1);
-      else f5 = formatNumber(avg5);
-    }
-    if (avg10 !== null) {
-      if (row.type === "pct") f10 = avg10.toFixed(1) + "%";
-      else if (row.type === "num") f10 = avg10.toFixed(1);
-      else f10 = formatNumber(avg10);
-    }
-
-    bodyHtml += `<td class="py-2 px-3 text-right text-blue-300 font-semibold bg-slate-900/40 whitespace-nowrap">${f5}</td>`;
-    bodyHtml += `<td class="py-2 px-3 text-right text-purple-300 font-semibold bg-slate-900/40 whitespace-nowrap">${f10}</td>`;
-    bodyHtml += `</tr>`;
-  });
-
-  tbody.innerHTML = bodyHtml;
-}
-
-function renderBalanceSheetTable() {
-  const tbody = document.getElementById("balance-sheet-tbody");
-  if (!tbody) return;
-  tbody.innerHTML = "";
-
-  let records = [];
-
-  if (isAnnualView) {
-    const byYear = {};
-    filteredData.forEach(r => {
-      if (!byYear[r.year]) {
-        byYear[r.year] = {
-          year: r.year,
-          beg_stock: r.beginning_stock,
-          cpo_production: 0,
-          palm_oil_import: 0,
-          total_supply: 0,
-          palm_oil_export: 0,
-          domestic_disappearance: 0,
-          total_use: 0,
-          palm_oil_stock: r.palm_oil_stock,
-          stock_to_use_pct: 0,
-          months_count: 0
-        };
-      }
-      const y = byYear[r.year];
-      y.cpo_production += (r.cpo_production || 0);
-      y.palm_oil_import += (r.palm_oil_import || 0);
-      y.palm_oil_export += (r.palm_oil_export || 0);
-      y.domestic_disappearance += (r.domestic_disappearance || 0);
-      y.palm_oil_stock = r.palm_oil_stock;
-      y.months_count++;
-    });
-
-    Object.values(byYear).forEach(y => {
-      y.total_supply = (y.beg_stock || 0) + y.cpo_production + y.palm_oil_import;
-      y.total_use = y.palm_oil_export + y.domestic_disappearance;
-      y.stock_to_use_pct = y.total_use > 0 ? (y.palm_oil_stock / y.total_use * 100) : 0;
-      records.push({
-        period: `${y.year} (Annual${y.months_count < 12 ? ' YTD' : ''})`,
-        ...y
+        renderAreaTab();
       });
     });
   } else {
-    records = [...filteredData].reverse();
+    slicerCard.style.display = "none";
   }
 
-  records.forEach(r => {
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
-    tr.innerHTML = `
-      <td class="py-2 px-3 font-semibold text-white whitespace-nowrap">${r.period}</td>
-      <td class="py-2 px-3 text-right text-slate-400">${formatNumber(r.beginning_stock)}</td>
-      <td class="py-2 px-3 text-right text-emerald-400 font-semibold">${formatNumber(r.cpo_production)}</td>
-      <td class="py-2 px-3 text-right text-slate-400">${formatNumber(r.palm_oil_import)}</td>
-      <td class="py-2 px-3 text-right font-bold text-slate-200">${formatNumber(r.total_supply)}</td>
-      <td class="py-2 px-3 text-right text-blue-400 font-medium">${formatNumber(r.palm_oil_export)}</td>
-      <td class="py-2 px-3 text-right text-purple-400">${formatNumber(r.domestic_disappearance)}</td>
-      <td class="py-2 px-3 text-right font-bold text-slate-200">${formatNumber(r.total_use)}</td>
-      <td class="py-2 px-3 text-right text-amber-400 font-bold">${formatNumber(r.palm_oil_stock)}</td>
-      <td class="py-2 px-3 text-right text-slate-300">${r.stock_to_use_pct ? r.stock_to_use_pct.toFixed(1) + '%' : '--'}</td>
-      <td class="py-2 px-3 text-center">
-        <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800">Balanced</span>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
+  const container = document.getElementById("area-table-container");
 
-function toggleAnnualView() {
-  isAnnualView = !isAnnualView;
-  const btn = document.getElementById("btn-toggle-annual");
-  if (btn) btn.textContent = isAnnualView ? "Switch to Monthly Breakdown" : "Switch to Annual Totals";
-  renderBalanceSheetTable();
-}
+  if (STATE.areaViewMode === "regional") {
+    const selectedEnts = Array.from(STATE.areaEntities);
+    const minYr = selectedEnts.some(e => !["Malaysia", "Peninsular Malaysia", "Sabah & Sarawak", "Sabah", "Sarawak"].includes(e)) ? 2011 : 1975;
+    const years = getSortedSelectedYears(minYr, 2025);
 
-function setYieldCadence(cadence) {
-  yieldCadence = cadence;
-  const btnM = document.getElementById("btn-yield-monthly");
-  const btnA = document.getElementById("btn-yield-annual");
-  if (btnM && btnA) {
-    if (cadence === 'monthly') {
-      btnM.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition";
-      btnA.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition";
-    } else {
-      btnA.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition";
-      btnM.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition";
-    }
-  }
-  renderFFBYieldChart();
-  renderOERChart();
-}
+    const labels = years.map(y => String(y));
+    const matTotalByYear = [];
+    const immTotalByYear = [];
+    const ffbYieldByYear = [];
 
-function onYieldRegionChange() {
-  const el = document.getElementById("yield-region-select");
-  if (el) yieldRegion = el.value;
-  renderFFBYieldChart();
-  renderOERChart();
-}
+    years.forEach(yr => {
+      const yrStr = String(yr);
+      let yMat = 0, yImm = 0;
+      let ffbSum = 0, ffbHa = 0;
 
-// -------------------------------------------------------------
-// State-by-State Production & Yield Analytics
-// -------------------------------------------------------------
-
-async function loadStateData() {
-  try {
-    stateData = await fetchJsonData("/api/state-data?start_year=2005&end_year=2026", "api_state_data.json");
-    populateStateYearSelect();
-    renderStateAnalytics();
-  } catch (err) {
-    console.error("Failed to load state data:", err);
-  }
-}
-
-function populateStateYearSelect() {
-  const select = document.getElementById("state-year-select");
-  if (!select) return;
-  select.innerHTML = "";
-
-  const years = (stateData && stateData.annual) ? stateData.annual.map(a => a.year).sort((a, b) => b - a) : [];
-  if (!years.length) {
-    for (let y = 2026; y >= 2005; y--) years.push(y);
-  }
-
-  years.forEach(y => {
-    const opt = document.createElement("option");
-    opt.value = y;
-    opt.textContent = `${y}${y === 2026 ? ' (YTD)' : ''}`;
-    if (y === 2025 || (y === 2026 && !years.includes(2025))) opt.selected = true;
-    select.appendChild(opt);
-  });
-}
-
-function renderStateAnalytics() {
-  if (!stateData) return;
-
-  const select = document.getElementById("state-year-select");
-  const targetYear = select ? parseInt(select.value) : 2025;
-
-  // Find annual record for target year
-  let annualRec = stateData.annual ? stateData.annual.find(a => a.year === targetYear) : null;
-  let statesObj = annualRec ? annualRec.states : {};
-
-  // If not found in annual (e.g. newly fetched monthly), compute on fly from monthly
-  if (!annualRec && stateData.monthly) {
-    const mRecs = stateData.monthly.filter(m => m.year === targetYear);
-    statesObj = {};
-    mRecs.forEach(m => {
-      Object.entries(m.states || {}).forEach(([sName, sVal]) => {
-        if (!statesObj[sName]) {
-          statesObj[sName] = {
-            state_name: sName,
-            state_code: sVal.state_code,
-            annual_cpo_production: 0,
-            annual_ffb_processed: 0,
-            ffb_vals: [],
-            oer_vals: []
-          };
+      selectedEnts.forEach(ent => {
+        const obj = (yr >= 2011 && stArea[yrStr] && stArea[yrStr][ent])
+          ? stArea[yrStr][ent]
+          : (regArea[yrStr] ? regArea[yrStr][ent] : null);
+        if (obj) {
+          yMat += obj.mature_ha || 0;
+          yImm += obj.immature_ha || 0;
         }
-        const st = statesObj[sName];
-        st.annual_cpo_production += (sVal.cpo_production || 0);
-        st.annual_ffb_processed += (sVal.ffb_processed || 0);
-        if (sVal.ffb_yield) st.ffb_vals.push(sVal.ffb_yield);
-        if (sVal.oer) st.oer_vals.push(sVal.oer);
+        const aProd = ffbStateHist[yr]?.entities?.[ent];
+        if (aProd?.ffb_yield && obj?.mature_ha) {
+          ffbSum += aProd.ffb_yield * obj.mature_ha;
+          ffbHa += obj.mature_ha;
+        }
       });
+      matTotalByYear.push(yMat);
+      immTotalByYear.push(yImm);
+      ffbYieldByYear.push(ffbHa > 0 ? Number((ffbSum / ffbHa).toFixed(2)) : (ffbStateHist[yr]?.entities?.[selectedEnts[0]]?.ffb_yield ?? null));
     });
 
-    Object.values(statesObj).forEach(st => {
-      st.annual_ffb_yield = st.ffb_vals.length ? Number(st.ffb_vals.reduce((a, b) => a + b, 0).toFixed(2)) : null;
-      st.annual_avg_oer = st.oer_vals.length ? Number((st.oer_vals.reduce((a, b) => a + b, 0) / st.oer_vals.length).toFixed(2)) : null;
-      st.annual_cpo_yield = st.annual_ffb_yield && st.annual_avg_oer ? Number((st.annual_ffb_yield * st.annual_avg_oer / 100).toFixed(2)) : null;
-    });
-  }
+    const entTitle = selectedEnts.length === 1 ? selectedEnts[0] : `${selectedEnts.length} Selected Regions (${selectedEnts.slice(0, 3).join(", ")}${selectedEnts.length > 3 ? "..." : ""})`;
+    document.getElementById("area-chart1-title").textContent = `${entTitle}: Mature vs Immature Planted Area (Ha) & FFB Yield (T/Ha)`;
 
-  // Convert to array and calculate total CPO production
-  const statesArr = Object.values(statesObj);
-  const totalCPO = statesArr.reduce((sum, s) => sum + (s.annual_cpo_production || 0), 0);
-
-  // Sort descending by CPO Production
-  statesArr.sort((a, b) => (b.annual_cpo_production || 0) - (a.annual_cpo_production || 0));
-
-  // 1. Chart: State CPO Production Bar Chart
-  const ctxProd = document.getElementById("chart-state-production");
-  if (ctxProd) {
-    if (chartStateProd) chartStateProd.destroy();
-    chartStateProd = new Chart(ctxProd, {
+    const ctx1 = document.getElementById("chart-area-stacked").getContext("2d");
+    STATE.charts.areaStacked = new Chart(ctx1, {
       type: "bar",
       data: {
-        labels: statesArr.map(s => s.state_name),
-        datasets: [{
-          label: "CPO Production (Tonnes)",
-          data: statesArr.map(s => s.annual_cpo_production || 0),
-          backgroundColor: statesArr.map(s => {
-            if (s.state_name === "Sabah") return "#22c55e";
-            if (s.state_name === "Sarawak") return "#10b981";
-            if (s.state_name === "Pahang") return "#3b82f6";
-            if (s.state_name === "Johor") return "#6366f1";
-            if (s.state_name === "Perak") return "#a855f7";
-            return "#64748b";
-          }),
-          borderRadius: 4
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: ctx => `CPO: ${formatNumber(ctx.parsed.x)} Tonnes (${totalCPO > 0 ? (ctx.parsed.x / totalCPO * 100).toFixed(1) : 0}%)`
-            }
-          }
-        },
-        scales: {
-          x: { ticks: { color: "#64748b", font: { size: 10 }, callback: v => (v / 1000000).toFixed(2) + "M" }, grid: { color: "rgba(51,65,85,0.15)" } },
-          y: { ticks: { color: "#cbd5e1", font: { size: 11, weight: '500' } }, grid: { display: false } }
-        }
-      }
-    });
-  }
-
-  // 2. Chart: State Market Share Donut
-  const ctxShare = document.getElementById("chart-state-share");
-  if (ctxShare) {
-    if (chartStateShare) chartStateShare.destroy();
-    
-    // Top 5 states + Others
-    const top5 = statesArr.slice(0, 5);
-    const othersVol = statesArr.slice(5).reduce((sum, s) => sum + (s.annual_cpo_production || 0), 0);
-    const shareLabels = [...top5.map(s => s.state_name), "Others"];
-    const shareData = [...top5.map(s => s.annual_cpo_production || 0), othersVol];
-
-    chartStateShare = new Chart(ctxShare, {
-      type: "doughnut",
-      data: {
-        labels: shareLabels,
-        datasets: [{
-          data: shareData,
-          backgroundColor: ["#22c55e", "#10b981", "#3b82f6", "#6366f1", "#a855f7", "#475569"],
-          borderWidth: 1,
-          borderColor: "#0f172a"
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "60%",
-        plugins: {
-          legend: { position: "right", labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } },
-          tooltip: {
-            callbacks: {
-              label: ctx => `${ctx.label}: ${totalCPO > 0 ? (ctx.parsed / totalCPO * 100).toFixed(1) : 0}% (${formatNumber(ctx.parsed)} T)`
-            }
-          }
-        }
-      }
-    });
-  }
-
-  // 3. Chart: State FFB Yield & OER Grouped Bar Chart
-  const ctxYields = document.getElementById("chart-state-yields");
-  if (ctxYields) {
-    if (chartStateYields) chartStateYields.destroy();
-    
-    // Filter states that have valid yields
-    const validYieldStates = statesArr.filter(s => s.annual_ffb_yield !== null && s.annual_ffb_yield > 0);
-
-    chartStateYields = new Chart(ctxYields, {
-      type: "bar",
-      data: {
-        labels: validYieldStates.map(s => s.state_name),
+        labels,
         datasets: [
-          {
-            label: "FFB Yield (T/Ha)",
-            data: validYieldStates.map(s => s.annual_ffb_yield),
-            backgroundColor: "#3b82f6",
-            yAxisID: "y",
-            borderRadius: 4
-          },
-          {
-            label: "Mill OER (%)",
-            data: validYieldStates.map(s => s.annual_avg_oer),
-            backgroundColor: "#eab308",
-            yAxisID: "y1",
-            borderRadius: 4
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } },
-          tooltip: {
-            callbacks: {
-              label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} ${ctx.dataset.label.includes('%') ? '%' : 'T/Ha'}`
-            }
-          }
-        },
-        scales: {
-          x: { ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
-          y: {
-            type: "linear",
-            position: "left",
-            ticks: { color: "#3b82f6", font: { size: 10 }, callback: v => v + " T" },
-            grid: { color: "rgba(51,65,85,0.15)" }
-          },
-          y1: {
-            type: "linear",
-            position: "right",
-            ticks: { color: "#eab308", font: { size: 10 }, callback: v => v + "%" },
-            grid: { drawOnChartArea: false }
-          }
-        }
-      }
-    });
-  }
-
-  // 4. Populate State Ranking Table
-  const tbody = document.getElementById("state-ranking-tbody");
-  if (!tbody) return;
-  tbody.innerHTML = "";
-
-  const regionLookup = {
-    "Johor": "Peninsular (South)",
-    "Kedah": "Peninsular (North)",
-    "Kelantan": "Peninsular (East)",
-    "Melaka": "Peninsular (Central)",
-    "Negeri Sembilan": "Peninsular (Central)",
-    "Pahang": "Peninsular (East)",
-    "Perak": "Peninsular (North)",
-    "Perlis": "Peninsular (North)",
-    "Pulau Pinang": "Peninsular (North)",
-    "Selangor": "Peninsular (Central)",
-    "Terengganu": "Peninsular (East)",
-    "Sabah": "Sabah",
-    "Sarawak": "Sarawak"
-  };
-
-  statesArr.forEach((s, idx) => {
-    const share = totalCPO > 0 ? (s.annual_cpo_production / totalCPO * 100) : 0;
-    const region = regionLookup[s.state_name] || "Peninsular";
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
-    tr.innerHTML = `
-      <td class="py-2 px-3 text-center font-bold ${idx < 3 ? 'text-amber-400' : 'text-slate-400'}">#${idx + 1}</td>
-      <td class="py-2 px-3 font-semibold text-white whitespace-nowrap">${s.state_name}</td>
-      <td class="py-2 px-3 text-slate-400 whitespace-nowrap">${region}</td>
-      <td class="py-2 px-3 text-right font-bold text-emerald-400 font-mono">${formatNumber(s.annual_cpo_production)}</td>
-      <td class="py-2 px-3 text-right font-semibold text-slate-200 font-mono">${share > 0 ? share.toFixed(2) + '%' : '--'}</td>
-      <td class="py-2 px-3 text-right text-slate-400 font-mono">${formatNumber(s.annual_ffb_processed)}</td>
-      <td class="py-2 px-3 text-right text-blue-400 font-medium font-mono">${s.annual_ffb_yield ? s.annual_ffb_yield.toFixed(2) : '--'}</td>
-      <td class="py-2 px-3 text-right text-amber-400 font-bold font-mono">${s.annual_avg_oer ? s.annual_avg_oer.toFixed(2) + '%' : '--'}</td>
-      <td class="py-2 px-3 text-right text-purple-400 font-bold font-mono">${s.annual_cpo_yield ? s.annual_cpo_yield.toFixed(2) : '--'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// -------------------------------------------------------------
-// State Multi-Year Matrix & Sub-View Switcher
-// -------------------------------------------------------------
-
-function setStateViewMode(mode) {
-  stateViewMode = mode;
-  const btnSnap = document.getElementById("btn-state-view-snapshot");
-  const btnMat = document.getElementById("btn-state-view-matrix");
-  const viewSnap = document.getElementById("state-view-snapshot");
-  const viewMat = document.getElementById("state-view-matrix");
-  const controlsSnap = document.getElementById("state-snapshot-controls");
-
-  if (mode === 'snapshot') {
-    if (btnSnap) btnSnap.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition flex items-center space-x-1.5";
-    if (btnMat) btnMat.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5";
-    if (viewSnap) viewSnap.classList.remove("hidden");
-    if (viewMat) viewMat.classList.add("hidden");
-    if (controlsSnap) controlsSnap.classList.remove("hidden");
-    renderStateAnalytics();
-  } else {
-    if (btnMat) btnMat.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition flex items-center space-x-1.5";
-    if (btnSnap) btnSnap.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1.5";
-    if (viewMat) viewMat.classList.remove("hidden");
-    if (viewSnap) viewSnap.classList.add("hidden");
-    if (controlsSnap) controlsSnap.classList.add("hidden");
-    if (!stateMatrixData) {
-      loadStateMatrixData();
-    } else {
-      renderStateMatrix();
-    }
-  }
-  if (window.lucide) lucide.createIcons();
-}
-
-async function loadStateMatrixData() {
-  try {
-    stateMatrixData = await fetchJsonData("/api/state-matrix", "api_state_matrix.json");
-    renderStateMatrix();
-  } catch (err) {
-    console.error("Failed to load state matrix data:", err);
-  }
-}
-
-function renderStateMatrix() {
-  const thead = document.getElementById("state-matrix-thead");
-  const tbody = document.getElementById("state-matrix-tbody");
-  if (!thead || !tbody || !stateMatrixData || !stateMatrixData.matrix) return;
-
-  const select = document.getElementById("state-matrix-metric");
-  const metric = select ? select.value : "cpo_production";
-
-  const matrix = stateMatrixData.matrix;
-  const years = stateMatrixData.years || Object.keys(matrix).map(Number).sort((a, b) => b - a);
-
-  const orderedEntities = [
-    "Total Malaysia",
-    "Peninsular Malaysia",
-    "Sabah",
-    "Sarawak",
-    "Johor",
-    "Pahang",
-    "Perak",
-    "Selangor",
-    "Terengganu",
-    "Kelantan",
-    "Kedah",
-    "Negeri Sembilan",
-    "Melaka",
-    "Pulau Pinang",
-    "Perlis"
-  ];
-
-  const fmt = (val) => {
-    if (val === null || val === undefined || isNaN(val)) return '<span class="text-slate-600 font-mono">-</span>';
-    if (metric === "national_share_pct" || metric === "oer") {
-      return Number(val).toFixed(2) + "%";
-    }
-    if (metric === "ffb_yield" || metric === "cpo_yield") {
-      return Number(val).toFixed(2);
-    }
-    return Math.round(Number(val)).toLocaleString("en-US");
-  };
-
-  let theadHtml = `<tr><th class="py-2.5 px-3 whitespace-nowrap bg-slate-950 sticky left-0 z-30 border-r border-slate-800">State / Region</th>`;
-  years.forEach(y => {
-    const isYtd = matrix[y] && matrix[y].is_ytd;
-    const yearLabel = isYtd ? `${y} <span class="text-[9px] text-amber-400 font-normal">YTD</span>` : y;
-    theadHtml += `<th class="py-2.5 px-2.5 text-right whitespace-nowrap">${yearLabel}</th>`;
-  });
-  theadHtml += `</tr>`;
-  thead.innerHTML = theadHtml;
-
-  tbody.innerHTML = "";
-
-  orderedEntities.forEach(ent => {
-    const tr = document.createElement("tr");
-    const isTotal = ent === "Total Malaysia";
-    const isRegional = ent === "Peninsular Malaysia" || ent === "Sabah" || ent === "Sarawak";
-
-    let rowClass = "hover:bg-slate-800/40 transition border-b border-slate-800/40";
-    let nameClass = "font-semibold text-white";
-    let cellColor = "text-slate-300";
-
-    if (isTotal) {
-      rowClass = "bg-slate-900/90 font-bold border-b border-slate-700 sticky bottom-0 z-10";
-      nameClass = "text-emerald-400 font-bold";
-      cellColor = "text-emerald-300 font-bold";
-    } else if (isRegional) {
-      rowClass = "bg-slate-950/60 font-semibold border-b border-slate-800";
-      nameClass = ent === "Peninsular Malaysia" ? "text-blue-300" : (ent === "Sabah" ? "text-emerald-400" : "text-cyan-300");
-      cellColor = ent === "Peninsular Malaysia" ? "text-blue-200" : (ent === "Sabah" ? "text-emerald-300" : "text-cyan-200");
-    }
-
-    tr.className = rowClass;
-
-    let rowHtml = `<td class="py-2.5 px-3 whitespace-nowrap bg-slate-950 sticky left-0 z-10 border-r border-slate-800 ${nameClass}">${ent}</td>`;
-
-    years.forEach(y => {
-      const yData = matrix[y];
-      const entData = yData && yData.entities ? yData.entities[ent] : null;
-      const val = entData ? entData[metric] : null;
-      rowHtml += `<td class="py-2.5 px-2.5 text-right font-mono ${cellColor}">${fmt(val)}</td>`;
-    });
-
-    tr.innerHTML = rowHtml;
-    tbody.appendChild(tr);
-  });
-}
-
-// -------------------------------------------------------------
-// Product Export Breakdown (Report 34)
-// -------------------------------------------------------------
-
-async function loadExportProductsData() {
-  try {
-    exportProductsData = await fetchJsonData("/api/export-products?start_year=2005&end_year=2026", "api_export_products.json");
-    renderExportBreakdown();
-    renderExportProductsTable();
-    renderExportMatrix();
-  } catch (err) {
-    console.error("Failed to load export products data:", err);
-  }
-}
-
-function renderExportBreakdown() {
-  if (!exportProductsData || !exportProductsData.data || !exportProductsData.data.length) return;
-
-  const data = exportProductsData.data;
-  const latest = data[data.length - 1];
-
-  // 1. KPI Cards
-  const elTotVol = document.getElementById("exp-kpi-total-vol");
-  if (elTotVol) elTotVol.textContent = formatNumber(latest.palm_oil_total_tonnes) + " T";
-  
-  const elTotVolSub = document.getElementById("exp-kpi-total-vol-sub");
-  if (elTotVolSub) elTotVolSub.textContent = `All Products: ${formatNumber(latest.total_all_products_tonnes)} T`;
-
-  const elTotRm = document.getElementById("exp-kpi-total-rm");
-  if (elTotRm) elTotRm.textContent = "RM " + formatNumber(latest.total_all_products_rm_mil) + " Mil";
-
-  const elTotRmSub = document.getElementById("exp-kpi-total-rm-sub");
-  if (elTotRmSub) elTotRmSub.textContent = `Palm Oil Only: RM ${formatNumber(latest.palm_oil_total_rm_mil)} Mil`;
-
-  const elAvgPrice = document.getElementById("exp-kpi-avg-price");
-  if (elAvgPrice) elAvgPrice.textContent = "RM " + formatNumber(latest.total_all_products_unit_price_rm_tonne);
-
-  const elDownShare = document.getElementById("exp-kpi-downstream-share");
-  if (elDownShare) {
-    const ppo = latest.ppo_tonnes || 0;
-    const oleo = latest.oleochemicals_tonnes || 0;
-    const bio = latest.biodiesel_tonnes || 0;
-    const fin = latest.finished_products_tonnes || 0;
-    const tot = latest.total_all_products_tonnes || 1;
-    const pct = ((ppo + oleo + bio + fin) / tot) * 100;
-    elDownShare.textContent = pct.toFixed(1) + "%";
-  }
-
-  // 2. Chart: Export Volume Breakdown (Stacked)
-  const ctxVol = document.getElementById("chart-export-volume");
-  if (ctxVol) {
-    if (chartExportVol) chartExportVol.destroy();
-
-    let labels = [];
-    let cpo = [], ppo = [], oleo = [], bio = [], pko = [], pkc = [];
-
-    if (exportCadence === 'annual') {
-      const years = [...new Set(data.map(r => r.year))].sort((a, b) => a - b);
-      labels = years.map(y => `${y}${y === 2026 ? ' (YTD)' : ''}`);
-
-      years.forEach(y => {
-        const yRecs = data.filter(r => r.year === y);
-        const sum = field => yRecs.reduce((s, r) => s + (r[field] || 0), 0);
-        cpo.push(sum("cpo_tonnes"));
-        ppo.push(sum("ppo_tonnes"));
-        oleo.push(sum("oleochemicals_tonnes"));
-        bio.push(sum("biodiesel_tonnes"));
-        pko.push(sum("pko_total_tonnes"));
-        pkc.push(sum("palm_kernel_cake_tonnes"));
-      });
-    } else {
-      labels = data.map(r => r.period);
-      cpo = data.map(r => r.cpo_tonnes);
-      ppo = data.map(r => r.ppo_tonnes);
-      oleo = data.map(r => r.oleochemicals_tonnes);
-      bio = data.map(r => r.biodiesel_tonnes);
-      pko = data.map(r => r.pko_total_tonnes);
-      pkc = data.map(r => r.palm_kernel_cake_tonnes);
-    }
-
-    chartExportVol = new Chart(ctxVol, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [
-          { label: "Processed Palm Oil (PPO)", data: ppo, backgroundColor: "#10b981", stack: "export" },
-          { label: "Crude Palm Oil (CPO)", data: cpo, backgroundColor: "#3b82f6", stack: "export" },
-          { label: "Oleochemicals", data: oleo, backgroundColor: "#a855f7", stack: "export" },
-          { label: "Palm Kernel Cake (PKC)", data: pkc, backgroundColor: "#f97316", stack: "export" },
-          { label: "Palm Kernel Oil (PKO)", data: pko, backgroundColor: "#eab308", stack: "export" },
-          { label: "Biodiesel", data: bio, backgroundColor: "#06b6d4", stack: "export" }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } },
-          tooltip: {
-            callbacks: {
-              label: ctx => `${ctx.dataset.label}: ${formatNumber(ctx.parsed.y)} Tonnes`
-            }
-          }
-        },
-        scales: {
-          x: { stacked: true, ticks: { color: "#64748b", maxTicksLimit: 14, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
-          y: { stacked: true, ticks: { color: "#64748b", font: { size: 10 }, callback: v => (v / 1000000).toFixed(1) + "M" }, grid: { color: "rgba(51,65,85,0.15)" } }
-        }
-      }
-    });
-  }
-
-  // 3. Chart: Product Mix Donut
-  const ctxPie = document.getElementById("chart-export-pie");
-  if (ctxPie) {
-    if (chartExportPie) chartExportPie.destroy();
-
-    const pieLabels = ["PPO", "CPO", "Oleochemicals", "PKC", "PKO", "Biodiesel", "Others"];
-    const pieData = [
-      latest.ppo_tonnes || 0,
-      latest.cpo_tonnes || 0,
-      latest.oleochemicals_tonnes || 0,
-      latest.palm_kernel_cake_tonnes || 0,
-      latest.pko_total_tonnes || 0,
-      latest.biodiesel_tonnes || 0,
-      latest.others_tonnes || 0
-    ];
-
-    chartExportPie = new Chart(ctxPie, {
-      type: "doughnut",
-      data: {
-        labels: pieLabels,
-        datasets: [{
-          data: pieData,
-          backgroundColor: ["#10b981", "#3b82f6", "#a855f7", "#f97316", "#eab308", "#06b6d4", "#64748b"],
-          borderWidth: 1,
-          borderColor: "#0f172a"
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "60%",
-        plugins: {
-          legend: { position: "right", labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } },
-          tooltip: {
-            callbacks: {
-              label: ctx => {
-                const tot = latest.total_all_products_tonnes || 1;
-                return `${ctx.label}: ${(ctx.parsed / tot * 100).toFixed(1)}% (${formatNumber(ctx.parsed)} T)`;
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
-  // 4. Chart: Revenue & Realized Unit Price
-  const ctxRev = document.getElementById("chart-export-revenue");
-  if (ctxRev) {
-    if (chartExportRev) chartExportRev.destroy();
-
-    const labels = data.map(r => r.period);
-    const revenue = data.map(r => r.total_all_products_rm_mil);
-    const unitPrice = data.map(r => r.total_all_products_unit_price_rm_tonne);
-
-    chartExportRev = new Chart(ctxRev, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            type: "bar",
-            label: "Export Revenue (RM Mil)",
-            data: revenue,
-            backgroundColor: "rgba(16, 185, 129, 0.3)",
-            borderColor: "#10b981",
-            borderWidth: 1,
-            yAxisID: "y",
-            borderRadius: 2
-          },
           {
             type: "line",
-            label: "Average Export Realization (RM / Tonne)",
-            data: unitPrice,
-            borderColor: "#f59e0b",
-            borderWidth: 2,
-            tension: 0.2,
-            pointRadius: labels.length > 60 ? 0 : 2,
+            label: "Annual FFB Yield (Tonnes/Ha) - RHS",
+            data: ffbYieldByYear,
+            borderColor: "#2563eb",
+            backgroundColor: "#2563eb",
+            borderWidth: 2.6,
+            pointRadius: 3,
+            tension: 0.25,
             yAxisID: "y1"
+          },
+          {
+            type: "bar",
+            label: "Mature Area (Ha) - LHS",
+            data: matTotalByYear,
+            backgroundColor: "rgba(5, 150, 105, 0.82)",
+            stack: "area",
+            yAxisID: "y"
+          },
+          {
+            type: "bar",
+            label: "Immature Area (Ha) - LHS",
+            data: immTotalByYear,
+            backgroundColor: "rgba(217, 119, 6, 0.82)",
+            stack: "area",
+            yAxisID: "y"
           }
         ]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: "index", intersect: false },
-        plugins: {
-          legend: { labels: { color: "#94a3b8", boxWidth: 10, font: { size: 10 } } },
-          tooltip: {
-            callbacks: {
-              label: ctx => ctx.dataset.label.includes('RM Mil') ? `Revenue: RM ${formatNumber(ctx.parsed.y)} Mil` : `Realization: RM ${formatNumber(ctx.parsed.y)} / Tonne`
-            }
-          }
-        },
+        ...chartOptionsCommon("Hectares (Ha)"),
         scales: {
-          x: { ticks: { color: "#64748b", maxTicksLimit: 14, font: { size: 10 } }, grid: { color: "rgba(51,65,85,0.15)" } },
+          x: { stacked: true, ticks: { color: "#64748b" }, grid: { color: "rgba(100,116,139,0.08)" } },
           y: {
-            type: "linear",
             position: "left",
-            ticks: { color: "#10b981", font: { size: 10 }, callback: v => "RM " + (v / 1000).toFixed(1) + "B" },
-            grid: { color: "rgba(51,65,85,0.15)" }
+            stacked: true,
+            title: { display: true, text: "Planted Area (Ha)", color: "#059669", font: { weight: "bold" } },
+            ticks: { color: "#64748b" },
+            grid: { color: "rgba(100,116,139,0.08)" }
           },
           y1: {
-            type: "linear",
             position: "right",
-            ticks: { color: "#f59e0b", font: { size: 10 }, callback: v => "RM " + v },
+            title: { display: true, text: "FFB Yield (Tonnes/Ha)", color: "#2563eb", font: { weight: "bold" } },
+            ticks: { color: "#2563eb", font: { family: "'JetBrains Mono', monospace" } },
             grid: { drawOnChartArea: false }
           }
         }
       }
     });
-  }
-}
 
-function toggleExportCadence(cadence) {
-  exportCadence = cadence;
-  const btnM = document.getElementById("btn-exp-monthly");
-  const btnA = document.getElementById("btn-exp-annual");
-  if (btnM && btnA) {
-    if (cadence === 'monthly') {
-      btnM.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition";
-      btnA.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition";
-    } else {
-      btnA.className = "px-2.5 py-1 rounded bg-emerald-600 font-semibold text-white transition";
-      btnM.className = "px-2.5 py-1 rounded hover:bg-slate-700 text-slate-300 transition";
-    }
-  }
-  renderExportBreakdown();
-}
+    // Multi-Region Table (standardized column widths)
+    let html = `<table class="data-table"><thead><tr>
+      <th style="min-width:220px;width:220px;">Region / State</th>
+      <th class="col-metric">Metric</th>
+      ${years.map(y => `<th class="col-annual">${y}</th>`).join("")}
+    </tr></thead><tbody>`;
 
-function toggleExportTableView() {
-  isExportAnnualView = !isExportAnnualView;
-  const btn = document.getElementById("btn-toggle-exp-view");
-  if (btn) btn.textContent = isExportAnnualView ? "Switch to Monthly Detailed" : "Switch to Annual Totals";
-  renderExportProductsTable();
-}
+    selectedEnts.forEach(ent => {
+      const isReg = ent.includes("Malaysia") || ent.includes("Sabah & Sarawak");
+      const rCls = isReg ? "row-subtotal" : "";
 
-function filterExportTable() {
-  renderExportProductsTable();
-}
-
-function renderExportProductsTable() {
-  const tbody = document.getElementById("export-products-tbody");
-  if (!tbody || !exportProductsData || !exportProductsData.data) return;
-  tbody.innerHTML = "";
-
-  const query = document.getElementById("export-search-input") ? document.getElementById("export-search-input").value.toLowerCase().trim() : "";
-  let records = [];
-
-  if (isExportAnnualView) {
-    const byYear = {};
-    exportProductsData.data.forEach(r => {
-      if (!byYear[r.year]) {
-        byYear[r.year] = {
-          year: r.year,
-          months_count: 0,
-          total_all_products_tonnes: 0,
-          total_all_products_rm_mil: 0,
-          cpo_tonnes: 0,
-          ppo_tonnes: 0,
-          oleochemicals_tonnes: 0,
-          biodiesel_tonnes: 0,
-          pko_total_tonnes: 0,
-          palm_kernel_cake_tonnes: 0,
-          finished_products_tonnes: 0
-        };
-      }
-      const y = byYear[r.year];
-      y.months_count++;
-      y.total_all_products_tonnes += (r.total_all_products_tonnes || 0);
-      y.total_all_products_rm_mil += (r.total_all_products_rm_mil || 0);
-      y.cpo_tonnes += (r.cpo_tonnes || 0);
-      y.ppo_tonnes += (r.ppo_tonnes || 0);
-      y.oleochemicals_tonnes += (r.oleochemicals_tonnes || 0);
-      y.biodiesel_tonnes += (r.biodiesel_tonnes || 0);
-      y.pko_total_tonnes += (r.pko_total_tonnes || 0);
-      y.palm_kernel_cake_tonnes += (r.palm_kernel_cake_tonnes || 0);
-      y.finished_products_tonnes += (r.finished_products_tonnes || 0);
-    });
-
-    Object.values(byYear).forEach(y => {
-      const avgPrice = y.total_all_products_tonnes > 0 ? (y.total_all_products_rm_mil * 1000000 / y.total_all_products_tonnes) : 0;
-      records.push({
-        period: `${y.year} (Annual${y.months_count < 12 ? ' YTD' : ''})`,
-        ...y,
-        total_all_products_unit_price_rm_tonne: avgPrice
+      // 1. Mature Area row
+      html += `<tr class="${rCls}"><td class="sticky-col" rowspan="5" style="vertical-align:top;font-weight:700;">${ent}</td>
+        <td class="col-metric">Mature Area (Ha)</td>`;
+      years.forEach(yr => {
+        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
+        html += `<td class="num col-annual">${fmtNum(obj?.mature_ha, 0)}</td>`;
       });
-    });
-    records.sort((a, b) => b.year - a.year);
-  } else {
-    records = [...exportProductsData.data].reverse();
-  }
-
-  const filtered = records.filter(r => !query || r.period.toLowerCase().includes(query));
-
-  filtered.slice(0, 100).forEach(r => {
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
-    tr.innerHTML = `
-      <td class="py-2 px-3 font-semibold text-white whitespace-nowrap">${r.period}</td>
-      <td class="py-2 px-3 text-right text-emerald-400 font-bold">${formatNumber(r.total_all_products_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-emerald-300 font-bold">${r.total_all_products_rm_mil ? r.total_all_products_rm_mil.toFixed(2) : '--'}</td>
-      <td class="py-2 px-3 text-right text-amber-400 font-medium">RM ${formatNumber(r.total_all_products_unit_price_rm_tonne)}</td>
-      <td class="py-2 px-3 text-right text-blue-400">${formatNumber(r.cpo_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-blue-300">${formatNumber(r.ppo_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-purple-400 font-medium">${formatNumber(r.oleochemicals_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-cyan-400">${formatNumber(r.biodiesel_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-yellow-400">${formatNumber(r.pko_total_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-orange-400">${formatNumber(r.palm_kernel_cake_tonnes)}</td>
-      <td class="py-2 px-3 text-right text-pink-400">${formatNumber(r.finished_products_tonnes)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-
-// -------------------------------------------------------------
-// Export Sub-Tabs & Seasonality Matrix
-// -------------------------------------------------------------
-
-function switchExportSubTab(tab) {
-  exportSubTab = tab;
-  const tabs = ['matrix', 'annual', 'ledger'];
-  tabs.forEach(t => {
-    const btn = document.getElementById(`btn-exp-subtab-${t}`);
-    const view = document.getElementById(`export-view-${t}`);
-    if (t === tab) {
-      if (btn) {
-        btn.className = "px-3 py-1.5 rounded-lg bg-emerald-600 font-bold text-white transition shadow flex items-center space-x-1.5";
-      }
-      if (view) view.classList.remove("hidden");
-    } else {
-      if (btn) {
-        btn.className = "px-3 py-1.5 rounded-lg hover:bg-slate-800 text-slate-300 transition flex items-center space-x-1.5";
-      }
-      if (view) view.classList.add("hidden");
-    }
-  });
-
-  if (tab === 'matrix') {
-    renderExportMatrix();
-  } else if (tab === 'annual') {
-    if (!annualExportsData) {
-      loadAnnualExportsData();
-    } else {
-      renderAnnualExportTable();
-    }
-  } else if (tab === 'ledger') {
-    renderExportProductsTable();
-  }
-  if (window.lucide) lucide.createIcons();
-}
-
-function renderExportMatrix() {
-  const tbody = document.getElementById("export-matrix-tbody");
-  const tfoot = document.getElementById("export-matrix-tfoot");
-  if (!tbody || !exportProductsData || !exportProductsData.data) return;
-
-  const select = document.getElementById("export-matrix-metric");
-  const metric = select ? select.value : "palm_oil_total_tonnes";
-
-  tbody.innerHTML = "";
-  if (tfoot) tfoot.innerHTML = "";
-
-  // Group by year and month
-  const byYear = {};
-  exportProductsData.data.forEach(r => {
-    const y = r.year;
-    const m = r.month;
-    if (!byYear[y]) byYear[y] = { year: y, months: {}, rawRecords: [] };
-    byYear[y].months[m] = r[metric];
-    byYear[y].rawRecords.push(r);
-  });
-
-  const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
-  if (!years.length) return;
-
-  const isPrice = metric.includes("unit_price");
-  const isRev = metric.includes("rm_mil");
-
-  // Helper for formatting matrix value
-  const fmt = (v) => {
-    if (v === null || v === undefined || isNaN(v)) return '<span class="text-slate-600 font-mono">-</span>';
-    if (isRev) {
-      return Number(v).toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    }
-    return Math.round(Number(v)).toLocaleString("en-US");
-  };
-
-  // Helper for volume-weighted price calculation if metric is price
-  const calcYearTotal = (yData) => {
-    const recs = yData.rawRecords;
-    if (isPrice) {
-      let volField = null;
-      let revField = null;
-      if (metric === "cpo_unit_price_rm_tonne") { volField = "cpo_tonnes"; revField = "cpo_rm_mil"; }
-      else if (metric === "ppo_unit_price_rm_tonne") { volField = "ppo_tonnes"; revField = "ppo_rm_mil"; }
-      else if (metric === "total_all_products_unit_price_rm_tonne") { volField = "total_all_products_tonnes"; revField = "total_all_products_rm_mil"; }
-
-      if (volField && revField) {
-        const totVol = recs.reduce((acc, r) => acc + (r[volField] || 0), 0);
-        const totRev = recs.reduce((acc, r) => acc + (r[revField] || 0), 0);
-        return totVol > 0 ? (totRev * 1000000 / totVol) : null;
-      }
-      const validPrices = Object.values(yData.months).filter(v => v !== null && v !== undefined && !isNaN(v));
-      return validPrices.length ? (validPrices.reduce((a, b) => a + b, 0) / validPrices.length) : null;
-    }
-    const validVals = Object.values(yData.months).filter(v => v !== null && v !== undefined && !isNaN(v));
-    return validVals.length ? validVals.reduce((a, b) => a + b, 0) : null;
-  };
-
-  // Pre-calculate totals for YoY comparison
-  const yearTotals = {};
-  const yearMonthlyCounts = {};
-  years.forEach(y => {
-    yearTotals[y] = calcYearTotal(byYear[y]);
-    yearMonthlyCounts[y] = Object.keys(byYear[y].months).length;
-  });
-
-  // Render rows
-  years.forEach(y => {
-    const yData = byYear[y];
-    const totalVal = yearTotals[y];
-    const numMonths = yearMonthlyCounts[y];
-    const isYtd = numMonths < 12;
-
-    // Calculate YoY comparison (comparing same available months M1..Mn)
-    let yoyHtml = '<span class="text-slate-500 font-mono">--</span>';
-    const prevYear = y - 1;
-    if (byYear[prevYear]) {
-      const prevMonths = byYear[prevYear].months;
-      let currSum = 0, prevSum = 0, validMonthsCount = 0;
-      
-      for (let m = 1; m <= 12; m++) {
-        if (yData.months[m] !== undefined && yData.months[m] !== null) {
-          if (prevMonths[m] !== undefined && prevMonths[m] !== null) {
-            currSum += yData.months[m];
-            prevSum += prevMonths[m];
-            validMonthsCount++;
-          }
-        }
-      }
-
-      if (validMonthsCount > 0 && prevSum > 0) {
-        const yoyPct = ((currSum - prevSum) / prevSum) * 100;
-        const isPos = yoyPct >= 0;
-        yoyHtml = `<span class="${isPos ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'} font-mono">${isPos ? '+' : ''}${yoyPct.toFixed(1)}%</span>`;
-      }
-    }
-
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition border-b border-slate-800/40";
-
-    const yearDisplay = isYtd
-      ? `<span class="font-bold text-white">${y}</span> <span class="text-[10px] text-amber-400 font-normal px-1 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">YTD (${numMonths}M)</span>`
-      : `<span class="font-bold text-white">${y}</span>`;
-
-    let cellsHtml = `<td class="py-2.5 px-3 whitespace-nowrap bg-slate-950/90 sticky left-0 z-10 border-r border-slate-800">${yearDisplay}</td>`;
-
-    for (let m = 1; m <= 12; m++) {
-      const val = yData.months[m];
-      cellsHtml += `<td class="py-2.5 px-2 text-right text-slate-300 font-mono">${fmt(val)}</td>`;
-    }
-
-    // Total/YTD column
-    cellsHtml += `<td class="py-2.5 px-3 text-right bg-slate-900/90 text-emerald-400 font-bold font-mono border-l border-slate-800">${fmt(totalVal)}</td>`;
-    // YoY column
-    cellsHtml += `<td class="py-2.5 px-2.5 text-right bg-slate-900/90 border-l border-slate-800">${yoyHtml}</td>`;
-
-    tr.innerHTML = cellsHtml;
-    tbody.appendChild(tr);
-  });
-
-  // Calculate seasonal benchmarks for tfoot
-  if (tfoot) {
-    const calcAvgRow = (label, startYear, endYear, badgeClass) => {
-      const eligibleYears = years.filter(y => y >= startYear && y <= endYear && yearMonthlyCounts[y] === 12);
-      if (!eligibleYears.length) return "";
-
-      let html = `<tr class="border-t border-slate-800 bg-slate-950/95 font-mono">`;
-      html += `<td class="py-2.5 px-3 whitespace-nowrap sticky left-0 z-10 bg-slate-950 border-r border-slate-800 font-semibold ${badgeClass}">${label}</td>`;
-
-      let totalSum = 0;
-      for (let m = 1; m <= 12; m++) {
-        const vals = eligibleYears.map(y => byYear[y].months[m]).filter(v => v !== null && v !== undefined && !isNaN(v));
-        const avg = vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length) : null;
-        if (avg !== null && !isPrice) totalSum += avg;
-        html += `<td class="py-2.5 px-2 text-right ${badgeClass} font-semibold">${fmt(avg)}</td>`;
-      }
-
-      const totAvg = isPrice
-        ? eligibleYears.map(y => yearTotals[y]).filter(v => v !== null && !isNaN(v)).reduce((a, b) => a + b, 0) / eligibleYears.length
-        : totalSum;
-
-      html += `<td class="py-2.5 px-3 text-right bg-slate-900 ${badgeClass} font-bold border-l border-slate-800">${fmt(totAvg)}</td>`;
-      html += `<td class="py-2.5 px-2.5 text-right bg-slate-900 text-slate-500 border-l border-slate-800">--</td>`;
       html += `</tr>`;
-      return html;
-    };
 
-    let footHtml = "";
-    footHtml += calcAvgRow("5-Yr Normal (2021-2025)", 2021, 2025, "text-emerald-400");
-    footHtml += calcAvgRow("10-Yr Normal (2016-2025)", 2016, 2025, "text-blue-400");
-    footHtml += calcAvgRow("All-Time Avg (2005-2025)", 2005, 2025, "text-amber-400");
-    tfoot.innerHTML = footHtml;
-  }
-}
+      // 2. Immature Area row
+      html += `<tr class="${rCls}"><td class="col-metric">Immature Area (Ha)</td>`;
+      years.forEach(yr => {
+        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
+        html += `<td class="num col-annual">${fmtNum(obj?.immature_ha, 0)}</td>`;
+      });
+      html += `</tr>`;
 
-// -------------------------------------------------------------
-// Annual Multi-Decade Export History (1964 - 2026)
-// -------------------------------------------------------------
+      // 3. Total Area (Ha)
+      html += `<tr class="${rCls}"><td class="col-metric" style="font-weight:700;">Total Area (Ha)</td>`;
+      years.forEach(yr => {
+        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
+        html += `<td class="num col-annual" style="font-weight:700;">${fmtNum(obj?.total_ha, 0)}</td>`;
+      });
+      html += `</tr>`;
 
-async function loadAnnualExportsData() {
-  try {
-    annualExportsData = await fetchJsonData("/api/annual-exports", "api_annual_exports.json");
-    renderAnnualExportTable();
-  } catch (err) {
-    console.error("Failed to load annual exports history:", err);
-  }
-}
+      // 4. % Mature row
+      html += `<tr class="${rCls}"><td class="col-metric" style="color:#059669;font-weight:600;">% Mature</td>`;
+      years.forEach(yr => {
+        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
+        const pct = obj?.mature_pct ?? (obj?.total_ha && obj?.mature_ha ? Number((obj.mature_ha / obj.total_ha * 100).toFixed(1)) : null);
+        html += `<td class="num col-annual" style="color:#059669;font-weight:600;">${pct !== null && pct !== undefined ? pct.toFixed(1) + '%' : '--'}</td>`;
+      });
+      html += `</tr>`;
 
-function filterAnnualExportTable() {
-  renderAnnualExportTable();
-}
+      // 5. Annual FFB Yield row (RHS metric)
+      html += `<tr class="${rCls}" style="border-bottom:2px solid var(--border-strong);">
+        <td class="col-metric" style="color:#2563eb;font-weight:600;">FFB Yield (T/Ha)</td>`;
+      years.forEach(yr => {
+        const yld = ffbStateHist[yr]?.entities?.[ent]?.ffb_yield;
+        html += `<td class="num col-annual" style="color:#2563eb;font-weight:700;">${fmtNum(yld, 2)}</td>`;
+      });
+      html += `</tr>`;
+    });
 
-function renderAnnualExportTable() {
-  const tbody = document.getElementById("export-annual-tbody");
-  if (!tbody || !annualExportsData || !annualExportsData.data) return;
-  tbody.innerHTML = "";
+    html += `</tbody></table>`;
+    container.innerHTML = html;
 
-  const query = document.getElementById("export-annual-search") ? document.getElementById("export-annual-search").value.toLowerCase().trim() : "";
-  const records = [...annualExportsData.data].reverse();
+  } else if (STATE.areaViewMode === "states") {
+    // All 13 States Matrix (2011 - 2025)
+    const stYears = getSortedSelectedYears(2011, 2025);
+    const allEnts = [...STATE.master.metadata.states, "Peninsular Malaysia", "Sabah & Sarawak", "Malaysia"];
+    let html = `<table class="data-table"><thead><tr><th style="min-width:200px;width:200px;">State / Region</th>`;
+    stYears.forEach(yr => {
+      html += `<th colspan="3" style="text-align:center;">${yr}</th>`;
+    });
+    html += `</tr><tr><th></th>`;
+    stYears.forEach(() => {
+      html += `<th>Mature</th><th>Immature</th><th>Total Ha</th>`;
+    });
+    html += `</tr></thead><tbody>`;
 
-  const filtered = records.filter(r => !query || r.year.toString().includes(query) || (r.source && r.source.toLowerCase().includes(query)));
+    allEnts.forEach(s => {
+      const isReg = s.includes("Malaysia") || s.includes("Sabah & Sarawak");
+      html += `<tr class="${isReg ? 'row-subtotal' : ''}"><td class="sticky-col">${s}</td>`;
+      stYears.forEach(yr => {
+        const d = stArea[String(yr)]?.[s] || {};
+        html += `<td class="num">${fmtNum(d.mature_ha)}</td>
+                 <td class="num">${fmtNum(d.immature_ha)}</td>
+                 <td class="num"><strong>${fmtNum(d.total_ha)}</strong></td>`;
+      });
+      html += `</tr>`;
+    });
+    html += `</tbody></table>`;
+    container.innerHTML = html;
 
-  filtered.forEach(r => {
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
+  } else {
+    // Producer Category View (2015-2025)
+    const cYears = Object.keys(catArea).sort();
+    const cats = ["Independent Smallholders", "Organised Smallholders", "Private Estates", "Govt/State Agencies"];
+    const colors = ["#d97706", "#2563eb", "#059669", "#9333ea"];
 
-    let yoyHtml = '<span class="text-slate-500 font-mono">--</span>';
-    if (r.yoy_pct !== null && r.yoy_pct !== undefined) {
-      const isPos = r.yoy_pct >= 0;
-      yoyHtml = `<span class="${isPos ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'} font-mono">${isPos ? '+' : ''}${r.yoy_pct.toFixed(2)}%</span>`;
-    }
-
-    let ppoShareHtml = '<span class="text-slate-500 font-mono">--</span>';
-    if (r.ppo_share_pct !== null && r.ppo_share_pct !== undefined) {
-      ppoShareHtml = `<span class="font-mono text-cyan-300 font-semibold">${r.ppo_share_pct.toFixed(1)}%</span>`;
-    }
-
-    const yearLabel = r.is_ytd
-      ? `<span class="font-bold text-white">${r.year}</span> <span class="text-[10px] px-1 py-0.5 rounded bg-amber-500/20 text-amber-300 font-normal">YTD Aug</span>`
-      : `<span class="font-bold text-white">${r.year}</span>`;
-
-    tr.innerHTML = `
-      <td class="py-2.5 px-3 font-semibold text-white whitespace-nowrap">${yearLabel}</td>
-      <td class="py-2.5 px-3 text-right text-emerald-400 font-bold font-mono">${formatNumber(r.palm_oil_total_tonnes)}</td>
-      <td class="py-2.5 px-2.5 text-right font-mono">${yoyHtml}</td>
-      <td class="py-2.5 px-3 text-right text-blue-400 font-mono">${formatNumber(r.cpo_tonnes)}</td>
-      <td class="py-2.5 px-3 text-right text-emerald-300 font-mono">${formatNumber(r.ppo_tonnes)}</td>
-      <td class="py-2.5 px-2.5 text-right bg-slate-900/40">${ppoShareHtml}</td>
-      <td class="py-2.5 px-3 text-right text-yellow-400 font-mono">${formatNumber(r.pko_total_tonnes)}</td>
-      <td class="py-2.5 px-3 text-right text-orange-400 font-mono">${formatNumber(r.palm_kernel_cake_tonnes)}</td>
-      <td class="py-2.5 px-3 text-right text-amber-400 font-bold font-mono">${r.total_all_products_rm_mil ? formatNumber(r.total_all_products_rm_mil) : '--'}</td>
-      <td class="py-2.5 px-2.5 text-right text-slate-300 font-mono">${r.unit_price_rm_tonne ? 'RM ' + formatNumber(r.unit_price_rm_tonne) : '--'}</td>
-      <td class="py-2.5 px-3 text-center text-[11px] text-slate-400 max-w-[200px] truncate" title="${r.source || ''}">${r.source || '--'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// -------------------------------------------------------------
-// Annual Multi-Decade Balance Sheet History (1980 - 2026)
-// -------------------------------------------------------------
-
-async function loadAnnualBalanceSheetData() {
-  try {
-    annualBalanceSheetData = await fetchJsonData("/api/annual-balance-sheet", "api_annual_balance_sheet.json");
-    renderAnnualBalanceSheetTable();
-  } catch (err) {
-    console.error("Failed to load annual balance sheet data:", err);
-  }
-}
-
-function filterAnnualBalanceSheetTable() {
-  renderAnnualBalanceSheetTable();
-}
-
-function renderAnnualBalanceSheetTable() {
-  const tbody = document.getElementById("annual-bs-tbody");
-  if (!tbody || !annualBalanceSheetData || !annualBalanceSheetData.data) return;
-  tbody.innerHTML = "";
-
-  const query = document.getElementById("annual-bs-search") ? document.getElementById("annual-bs-search").value.toLowerCase().trim() : "";
-  const records = [...annualBalanceSheetData.data].reverse();
-
-  const filtered = records.filter(r => !query || r.year.toString().includes(query) || (r.source && r.source.toLowerCase().includes(query)));
-
-  filtered.forEach(r => {
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
-
-    const formatYoY = (v) => {
-      if (v === null || v === undefined || isNaN(v)) return '<span class="text-slate-500 font-mono">--</span>';
-      const isPos = v >= 0;
-      return `<span class="${isPos ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'} font-mono">${isPos ? '+' : ''}${v.toFixed(1)}%</span>`;
-    };
-
-    const yearLabel = r.is_ytd
-      ? `<span class="font-bold text-white">${r.year}</span> <span class="text-[10px] px-1 py-0.5 rounded bg-amber-500/20 text-amber-300 font-normal">YTD (${r.months_count}M)</span>`
-      : `<span class="font-bold text-white">${r.year}</span>`;
-
-    tr.innerHTML = `
-      <td class="py-2.5 px-3 font-semibold text-white whitespace-nowrap">${yearLabel}</td>
-      <td class="py-2.5 px-3 text-right font-mono text-slate-300">${formatNumber(r.beginning_stocks)}</td>
-      <td class="py-2.5 px-3 text-right text-emerald-400 font-bold font-mono">${formatNumber(r.production)}</td>
-      <td class="py-2.5 px-2 text-right">${formatYoY(r.production_yoy_pct)}</td>
-      <td class="py-2.5 px-2.5 text-right font-mono text-slate-300">${formatNumber(r.imports)}</td>
-      <td class="py-2.5 px-3 text-right font-bold font-mono text-slate-200">${formatNumber(r.total_supply)}</td>
-      <td class="py-2.5 px-3 text-right text-blue-400 font-bold font-mono">${formatNumber(r.exports)}</td>
-      <td class="py-2.5 px-2 text-right">${formatYoY(r.export_yoy_pct)}</td>
-      <td class="py-2.5 px-3 text-right text-purple-400 font-mono">${formatNumber(r.domestic_disappearance)}</td>
-      <td class="py-2.5 px-3 text-right font-bold font-mono text-slate-200">${formatNumber(r.total_use)}</td>
-      <td class="py-2.5 px-3 text-right text-amber-400 font-bold font-mono">${formatNumber(r.ending_stocks)}</td>
-      <td class="py-2.5 px-2 text-right">${formatYoY(r.ending_stock_yoy_pct)}</td>
-      <td class="py-2.5 px-2.5 text-right font-bold text-slate-200 font-mono">${r.stock_to_use_pct ? r.stock_to_use_pct.toFixed(2) + '%' : '--'}</td>
-      <td class="py-2.5 px-3 text-right text-cyan-300 font-mono">${r.area_planted_ha ? formatNumber(r.area_planted_ha) : '--'}</td>
-      <td class="py-2.5 px-2.5 text-right text-emerald-300 font-bold font-mono">${r.ffb_yield_t_ha ? r.ffb_yield_t_ha.toFixed(2) : '--'}</td>
-      <td class="py-2.5 px-2.5 text-right text-yellow-300 font-bold font-mono">${r.oer_pct ? r.oer_pct.toFixed(2) + '%' : '--'}</td>
-      <td class="py-2.5 px-3 text-center text-[11px] text-slate-400 max-w-[200px] truncate" title="${r.source || ''}">${r.source || '--'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-
-function renderYieldSummaryTable() {
-  const tbody = document.getElementById("yield-summary-tbody");
-  if (!tbody) return;
-  tbody.innerHTML = "";
-
-  // Group by year to show annual averages
-  const years = [...new Set(filteredData.map(r => r.year))].sort((a, b) => b - a);
-
-  years.forEach(y => {
-    const yRecs = filteredData.filter(r => r.year === y);
-    const avg = (field) => {
-      const vals = yRecs.map(r => r[field]).filter(v => v !== null && v !== undefined);
-      return vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length) : null;
-    };
-    const sum = (field) => {
-      const vals = yRecs.map(r => r[field]).filter(v => v !== null && v !== undefined);
-      return vals.length ? vals.reduce((a, b) => a + b, 0) : null;
-    };
-
-    const ffbMy = avg("ffb_yield_malaysia");
-    const ffbPen = avg("ffb_yield_peninsular");
-    const ffbSS = avg("ffb_yield_sabah_sarawak");
-    const oer = avg("oer_malaysia");
-    const cpoYield = avg("cpo_yield_malaysia");
-    const totProd = sum("cpo_production");
-
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
-    tr.innerHTML = `
-      <td class="py-2.5 px-4 font-bold text-white">${y}</td>
-      <td class="py-2.5 px-4 text-right text-emerald-400">${ffbMy ? ffbMy.toFixed(2) : '--'}</td>
-      <td class="py-2.5 px-4 text-right text-slate-300">${ffbPen ? ffbPen.toFixed(2) : '--'}</td>
-      <td class="py-2.5 px-4 text-right text-slate-300">${ffbSS ? ffbSS.toFixed(2) : '--'}</td>
-      <td class="py-2.5 px-4 text-right text-amber-400 font-bold">${oer ? oer.toFixed(2) + '%' : '--'}</td>
-      <td class="py-2.5 px-4 text-right text-emerald-300 font-bold">${cpoYield ? cpoYield.toFixed(2) : '--'}</td>
-      <td class="py-2.5 px-4 text-right text-blue-400 font-medium">${formatNumber(totProd)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function renderHeatmap() {
-  const container = document.getElementById("heatmap-container");
-  if (!container) return;
-
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const years = [...new Set(masterData.map(r => r.year))].sort((a, b) => b - a);
-
-  let html = `<div class="heatmap-grid pb-2 border-b border-slate-800 mb-1">
-    <div class="heatmap-header text-left">Year</div>
-    ${months.map(m => `<div class="heatmap-header">${m}</div>`).join('')}
-    <div class="heatmap-header text-right">Total</div>
-  </div>`;
-
-  years.forEach(y => {
-    const yRecs = masterData.filter(r => r.year === y);
-    const yTotal = yRecs.reduce((sum, r) => sum + (r.cpo_production || 0), 0);
-
-    html += `<div class="heatmap-grid items-center py-0.5">
-      <div class="font-bold text-slate-300 text-xs">${y}</div>`;
-
-    for (let m = 1; m <= 12; m++) {
-      const rec = yRecs.find(r => r.month === m);
-      const prod = rec ? rec.cpo_production : null;
-      let bg = "background: rgba(30, 41, 59, 0.3); color: #475569;";
-      let title = "No data";
-
-      if (prod !== null && prod !== undefined) {
-        title = `${months[m-1]} ${y}: ${formatNumber(prod)} Tonnes`;
-        // Normalize between 1.0M and 2.1M tonnes
-        const ratio = Math.max(0, Math.min(1, (prod - 1000000) / 1100000));
-        if (ratio < 0.25) {
-          bg = "background: rgba(6, 78, 59, 0.4); color: #a7f3d0;";
-        } else if (ratio < 0.5) {
-          bg = "background: rgba(6, 95, 70, 0.7); color: #d1fae5;";
-        } else if (ratio < 0.75) {
-          bg = "background: rgba(16, 185, 129, 0.85); color: #022c22; font-weight: bold;";
-        } else {
-          bg = "background: rgba(52, 211, 153, 1); color: #022c22; font-weight: bold;";
+    const ctx1 = document.getElementById("chart-area-stacked").getContext("2d");
+    STATE.charts.areaStacked = new Chart(ctx1, {
+      type: "bar",
+      data: {
+        labels: cYears,
+        datasets: cats.map((c, idx) => ({
+          label: c,
+          data: cYears.map(y => catArea[y][c]?.hectares ?? null),
+          backgroundColor: colors[idx],
+          stack: "cat"
+        }))
+      },
+      options: {
+        ...chartOptionsCommon("Hectares"),
+        scales: {
+          x: { stacked: true, ticks: { color: "#64748b" } },
+          y: { stacked: true, ticks: { color: "#64748b" } }
         }
       }
+    });
 
-      html += `<div class="heatmap-cell" style="${bg}" title="${title}">
-        ${prod ? (prod / 1000000).toFixed(2) : '-'}
-      </div>`;
-    }
-
-    html += `<div class="text-right font-semibold text-xs text-emerald-400">${(yTotal / 1000000).toFixed(2)}M</div>
-    </div>`;
-  });
-
-  container.innerHTML = html;
+    let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Category</th>`;
+    cYears.forEach(y => { html += `<th>${y} (Ha)</th><th>${y} (%)</th>`; });
+    html += `</tr></thead><tbody>`;
+    [...cats, "Total"].forEach(c => {
+      html += `<tr class="${c === 'Total' ? 'row-highlight' : ''}"><td class="sticky-col">${c}</td>`;
+      cYears.forEach(y => {
+        const d = catArea[y][c] || {};
+        html += `<td class="num">${fmtNum(d.hectares)}</td><td class="num">${d.pct ?? '--'}%</td>`;
+      });
+      html += `</tr>`;
+    });
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+  }
 }
 
-function renderExplorerTable(filterText = "") {
-  const tbody = document.getElementById("explorer-tbody");
-  if (!tbody) return;
-  tbody.innerHTML = "";
-
-  const q = filterText.toLowerCase().trim();
-  const matched = filteredData.filter(r => {
-    if (!q) return true;
-    return r.period.toLowerCase().includes(q) || r.month_name.toLowerCase().includes(q);
-  });
-
-  matched.slice(0, 100).forEach(r => {
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/40 transition";
-    tr.innerHTML = `
-      <td class="py-2 px-3 font-semibold text-white whitespace-nowrap">${r.period}</td>
-      <td class="py-2 px-3 text-right text-emerald-400 font-medium">${formatNumber(r.cpo_production)}</td>
-      <td class="py-2 px-3 text-right text-amber-400">${formatNumber(r.palm_oil_stock)}</td>
-      <td class="py-2 px-3 text-right text-blue-400">${formatNumber(r.palm_oil_export)}</td>
-      <td class="py-2 px-3 text-right text-slate-400">${formatNumber(r.palm_oil_import)}</td>
-      <td class="py-2 px-3 text-right text-purple-400">${formatNumber(r.domestic_disappearance)}</td>
-      <td class="py-2 px-3 text-right text-emerald-300">${r.ffb_yield_malaysia ? r.ffb_yield_malaysia.toFixed(3) : '--'}</td>
-      <td class="py-2 px-3 text-right text-amber-300">${r.oer_malaysia ? r.oer_malaysia.toFixed(2) + '%' : '--'}</td>
-      <td class="py-2 px-3 text-right text-emerald-400 font-bold">${r.cpo_yield_malaysia ? r.cpo_yield_malaysia.toFixed(3) : '--'}</td>
-      <td class="py-2 px-3 text-right text-slate-200">${r.ffb_price_1pct_oer ? 'RM ' + r.ffb_price_1pct_oer.toFixed(2) : '--'}</td>
-      <td class="py-2 px-3 text-right text-slate-400">${formatNumber(r.palm_kernel_production)}</td>
-      <td class="py-2 px-3 text-right text-slate-400">${formatNumber(r.palm_kernel_oil_production)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function filterExplorerTable() {
-  const query = document.getElementById("explorer-search").value;
-  renderExplorerTable(query);
-}
-
-function formatNumber(num) {
-  if (num === null || num === undefined) return "--";
-  return Number(num).toLocaleString("en-US", { maximumFractionDigits: 0 });
-}
-
-// -------------------------------------------------------------
-// Forward Projections & Interactive Simulator (September 2026 Forward)
-// -------------------------------------------------------------
-
-const PROJ_BASE = {
-  begStock: 2824488,
-  augProd: 1817499,
-  augExp: 1294664,
-  baseProdPct: 6.50,
-  baseExpTonnes: 1105000,
-  baseDomTonnes: 355000,
-  baseImpTonnes: 45000
+// ===========================================================================
+// TAB 3: PRODUCTION BREAKDOWN BY STATE & MODEL FORECAST
+// ===========================================================================
+const PROD_ATTR_META = {
+  cpo_production: { label: "CPO Production (Tonnes)", decimals: 0 },
+  ffb_yield: { label: "FFB Yield (Tonnes/Ha)", decimals: 2 },
+  cpo_yield: { label: "CPO Yield (Tonnes/Ha)", decimals: 3 },
+  oer: { label: "Oil Extraction Rate - OER (%)", decimals: 2 },
+  derived_hectarage: { label: "Derived Producing Hectarage [CALC: Production / CPO Yield] (Ha)", decimals: 0 }
 };
 
-function updateSensitivitySimulation() {
-  const prodPctInput = document.getElementById("slider-prod-pct");
-  const expInput = document.getElementById("slider-exp");
-  const domInput = document.getElementById("slider-dom");
-  if (!prodPctInput || !expInput || !domInput) return;
+function renderProdTab() {
+  const attr = STATE.prodAttr;
+  const meta = PROD_ATTR_META[attr];
+  document.getElementById("prod-matrix-title").textContent = `State Breakdown Matrix: ${meta.label}`;
 
-  const prodPct = parseFloat(prodPctInput.value);
-  const expTonnes = parseFloat(expInput.value);
-  const domTonnes = parseFloat(domInput.value);
-  const impTonnes = PROJ_BASE.baseImpTonnes;
+  const years = getSortedSelectedYears(1975, 2027);
+  const prodAnn = STATE.master.production.annual;
+  const prodMon = STATE.master.production.monthly;
+  const entities = STATE.master.metadata.entities;
 
-  // Calculate implied values for September 2026
-  const prodTonnes = Math.round(PROJ_BASE.augProd * (1 + prodPct / 100));
-  const expMoMPct = ((expTonnes - PROJ_BASE.augExp) / PROJ_BASE.augExp) * 100;
-
-  // Ending Stock = Beg Stock + Prod + Imp - Exp - Dom
-  const endingStock = PROJ_BASE.begStock + prodTonnes + impTonnes - expTonnes - domTonnes;
-  const buildTonnes = endingStock - PROJ_BASE.begStock;
-  const buildPct = (buildTonnes / PROJ_BASE.begStock) * 100;
-
-  const totalUse = expTonnes + domTonnes;
-  const stockToUse = totalUse > 0 ? (endingStock / totalUse) * 100 : 0;
-  const daysSupply = totalUse > 0 ? (endingStock / (totalUse / 30.5)).toFixed(1) : "--";
-
-  // Update DOM elements
-  const elProdPct = document.getElementById("slider-prod-pct-val");
-  if (elProdPct) elProdPct.textContent = (prodPct >= 0 ? "+" : "") + prodPct.toFixed(2) + "%";
-
-  const elSimProdT = document.getElementById("sim-prod-tonnes");
-  if (elSimProdT) elSimProdT.textContent = formatNumber(prodTonnes);
-
-  const elExpVal = document.getElementById("slider-exp-val");
-  if (elExpVal) elExpVal.textContent = formatNumber(expTonnes) + " T";
-
-  const elSimExpPct = document.getElementById("sim-exp-pct");
-  if (elSimExpPct) elSimExpPct.textContent = (expMoMPct >= 0 ? "+" : "") + expMoMPct.toFixed(2) + "%";
-
-  const elDomVal = document.getElementById("slider-dom-val");
-  if (elDomVal) elDomVal.textContent = formatNumber(domTonnes) + " T";
-
-  const elSimStock = document.getElementById("sim-result-stock");
-  if (elSimStock) elSimStock.textContent = formatNumber(endingStock) + " Tonnes";
-
-  const elSimBuild = document.getElementById("sim-result-build");
-  if (elSimBuild) {
-    const isBuild = buildTonnes >= 0;
-    elSimBuild.textContent = `${isBuild ? "+" : ""}${formatNumber(buildTonnes)} T (${isBuild ? "+" : ""}${buildPct.toFixed(2)}% MoM)`;
-    elSimBuild.className = isBuild ? "font-bold text-amber-400 font-mono" : "font-bold text-emerald-400 font-mono";
-  }
-
-  const elSimStu = document.getElementById("sim-result-stu");
-  if (elSimStu) elSimStu.textContent = stockToUse.toFixed(1) + "%";
-
-  const elSimDays = document.getElementById("sim-result-days");
-  if (elSimDays) elSimDays.textContent = daysSupply + " Days";
-}
-
-function resetSensitivitySimulator() {
-  const prodPctInput = document.getElementById("slider-prod-pct");
-  const expInput = document.getElementById("slider-exp");
-  const domInput = document.getElementById("slider-dom");
-  if (prodPctInput) prodPctInput.value = PROJ_BASE.baseProdPct;
-  if (expInput) expInput.value = PROJ_BASE.baseExpTonnes;
-  if (domInput) domInput.value = PROJ_BASE.baseDomTonnes;
-  updateSensitivitySimulation();
-}
-
-// -------------------------------------------------------------
-// Workday Analytics & Labor Calendar Implementation
-// -------------------------------------------------------------
-
-let workdayData = null;
-let chartWorkdayRunRate = null;
-
-async function loadWorkdayData() {
-  try {
-    const json = await fetchJsonData("/api/workdays?start_year=2010&end_year=2027", "api_workdays.json");
-    workdayData = json.data;
-    setupWorkdaySelectors();
-    renderWorkdayMonthDetail(2026, 9); // default to September 2026
-    renderWorkdayRunRateChart();
-    renderWorkdayHeatmap();
-    renderWorkdayTable();
-    if (window.lucide) lucide.createIcons();
-  } catch (err) {
-    console.error("Failed to load workday analytics:", err);
-  }
-}
-
-function setupWorkdaySelectors() {
-  const ySelect = document.getElementById("workday-year-select");
-  const mSelect = document.getElementById("workday-month-select");
-  if (!ySelect || !mSelect) return;
-
-  ySelect.innerHTML = "";
-  mSelect.innerHTML = "";
-
-  for (let y = 2010; y <= 2027; y++) {
-    const opt = document.createElement("option");
-    opt.value = y;
-    opt.textContent = y;
-    if (y === 2026) opt.selected = true;
-    ySelect.appendChild(opt);
-  }
-
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  monthNames.forEach((name, idx) => {
-    const opt = document.createElement("option");
-    opt.value = idx + 1;
-    opt.textContent = `${idx + 1} - ${name}`;
-    if (idx + 1 === 9) opt.selected = true; // September default
-    mSelect.appendChild(opt);
-  });
-}
-
-function onWorkdayMonthChange() {
-  const ySelect = document.getElementById("workday-year-select");
-  const mSelect = document.getElementById("workday-month-select");
-  if (!ySelect || !mSelect) return;
-  const y = parseInt(ySelect.value);
-  const m = parseInt(mSelect.value);
-  renderWorkdayMonthDetail(y, m);
-}
-
-function renderWorkdayMonthDetail(year, month) {
-  if (!workdayData) return;
-  const rec = workdayData.find(r => r.year === year && r.month === month);
-  if (!rec) return;
-
-  const cardsContainer = document.getElementById("workday-month-cards");
-  if (cardsContainer) {
-    cardsContainer.innerHTML = `
-      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-        <span class="text-slate-400 block text-[11px]">Calendar Days</span>
-        <span class="text-lg font-bold text-white font-mono mt-0.5">${rec.calendar_days}</span>
-        <span class="text-[10px] text-slate-500 block">Total month days</span>
-      </div>
-      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-        <span class="text-slate-400 block text-[11px]">Sundays (Rest)</span>
-        <span class="text-lg font-bold text-slate-300 font-mono mt-0.5">${rec.sundays_count}</span>
-        <span class="text-[10px] text-slate-500 block">Statutory rest</span>
-      </div>
-      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-        <span class="text-slate-400 block text-[11px]">Public Holidays</span>
-        <span class="text-lg font-bold text-rose-400 font-mono mt-0.5">${rec.national_holidays_count}</span>
-        <span class="text-[10px] text-slate-500 block">Gazetted (Mon-Sat)</span>
-      </div>
-      <div class="bg-cyan-950/30 p-3 rounded-lg border border-cyan-500/30">
-        <span class="text-cyan-300 block text-[11px] font-semibold">National Workdays</span>
-        <span class="text-xl font-black text-cyan-300 font-mono mt-0.5">${rec.workdays_national}</span>
-        <span class="text-[10px] text-cyan-400/80 block">${rec.workdays_mom_diff ? (rec.workdays_mom_diff >= 0 ? '+' : '') + rec.workdays_mom_diff + ' vs Prev Month' : '--'}</span>
-      </div>
-      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-        <span class="text-slate-400 block text-[11px]">CPO Production</span>
-        <span class="text-lg font-bold text-emerald-400 font-mono mt-0.5">${rec.cpo_production ? formatNumber(rec.cpo_production) + ' T' : (rec.is_projected ? 'Projected' : '--')}</span>
-        <span class="text-[10px] text-slate-500 block">${rec.cpo_prod_mom_pct !== null && rec.cpo_prod_mom_pct !== undefined ? (rec.cpo_prod_mom_pct >= 0 ? '+' : '') + rec.cpo_prod_mom_pct.toFixed(1) + '% MoM' : '--'}</span>
-      </div>
-      <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-        <span class="text-slate-400 block text-[11px]">CPO / Workday</span>
-        <span class="text-lg font-bold text-amber-300 font-mono mt-0.5">${rec.cpo_per_workday ? formatNumber(rec.cpo_per_workday) + ' T/D' : '--'}</span>
-        <span class="text-[10px] text-slate-500 block">${rec.run_rate_mom_pct !== null && rec.run_rate_mom_pct !== undefined ? (rec.run_rate_mom_pct >= 0 ? '+' : '') + rec.run_rate_mom_pct.toFixed(1) + '% Run Rate' : '--'}</span>
-      </div>
-    `;
-  }
-
-  // Non-working schedule
-  const summaryEl = document.getElementById("workday-nonworking-summary");
-  if (summaryEl) {
-    const totalOff = rec.sundays_count + rec.national_holidays_count;
-    summaryEl.textContent = `${totalOff} Total Non-Working Days (${rec.workdays_national} Effective Harvesting Days)`;
-  }
-
-  const listEl = document.getElementById("workday-nonworking-list");
-  if (listEl) {
-    if (!rec.non_working_days_detail || rec.non_working_days_detail.length === 0) {
-      listEl.innerHTML = `<div class="text-slate-500 text-xs py-2">No non-working days recorded for this month.</div>`;
-    } else {
-      listEl.innerHTML = rec.non_working_days_detail.map(item => {
-        const isSun = item.type === 'rest_day';
-        const badgeClass = isSun 
-          ? "bg-slate-800 text-slate-300 border-slate-700" 
-          : (item.type === 'regional_holiday' ? "bg-blue-950/60 text-blue-300 border-blue-800/50" : "bg-rose-950/60 text-rose-300 border-rose-800/50");
-        return `
-          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80 text-xs">
-            <div class="flex items-center space-x-2">
-              <span class="font-mono font-bold text-white w-6 text-center">${item.day}</span>
-              <div>
-                <span class="font-medium text-slate-200 block">${item.reason}</span>
-                <span class="text-[10px] text-slate-400">${item.day_of_week} &bull; ${item.scope}</span>
-              </div>
-            </div>
-            <span class="px-2 py-0.5 rounded text-[10px] border font-mono font-semibold ${badgeClass}">
-              ${isSun ? 'Sunday' : 'Holiday'}
-            </span>
-          </div>
-        `;
-      }).join("");
+  // Build State x Year Expandable Matrix
+  let html = `<table class="data-table"><thead><tr><th style="min-width:200px;width:200px;">State / Region</th>`;
+  for (const yr of years) {
+    const canExp = yr >= 2005;
+    const isExp = canExp && STATE.prodExpandedYears.has(yr);
+    if (isExp) {
+      for (let m = 1; m <= 12; m++) {
+        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+      }
+    }
+    html += `<th class="col-year-header col-annual" data-year="${yr}">
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? ' [FCST]' : ''}
+    </th>`;
+    if (attr === "derived_hectarage") {
+      html += `<th class="col-derived-ha">${yr} Official Mature Ha</th>`;
     }
   }
+  html += `</tr></thead><tbody>`;
+
+  for (const ent of entities) {
+    const isReg = ent === "Peninsular Malaysia" || ent === "Sabah & Sarawak" || ent === "Malaysia";
+    const rCls = ent === "Malaysia" ? "row-highlight" : isReg ? "row-subtotal" : "";
+    html += `<tr class="${rCls}"><td class="sticky-col">${ent}</td>`;
+
+    for (const yr of years) {
+      const canExp = yr >= 2005;
+      const isExp = canExp && STATE.prodExpandedYears.has(yr);
+      if (isExp) {
+        for (let m = 1; m <= 12; m++) {
+          const p = `${yr}-${String(m).padStart(2, "0")}`;
+          const mEnt = prodMon[p]?.entities?.[ent];
+          const val = mEnt ? mEnt[attr] : null;
+          const isF = prodMon[p]?.is_forecast;
+          html += `<td class="num ${isF ? 'cell-fcst' : ''}">${fmtNum(val, meta.decimals)}</td>`;
+        }
+      }
+      const aEnt = prodAnn[yr]?.entities?.[ent];
+      const aVal = aEnt ? aEnt[attr] : null;
+      html += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${fmtNum(aVal, meta.decimals)}</td>`;
+      if (attr === "derived_hectarage") {
+        html += `<td class="num col-derived-ha" style="color:#059669;font-weight:700;">${fmtNum(aEnt?.official_mature_ha, 0)}</td>`;
+      }
+    }
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+
+  const container = document.getElementById("prod-matrix-container");
+  container.innerHTML = html;
+  container.querySelectorAll(".col-year-header").forEach(th => {
+    th.addEventListener("click", () => {
+      const yr = Number(th.dataset.year);
+      if (yr < 2005) return;
+      if (STATE.prodExpandedYears.has(yr)) STATE.prodExpandedYears.delete(yr);
+      else STATE.prodExpandedYears.add(yr);
+      renderProdTab();
+    });
+  });
+
+  renderProdChartsAndWeather();
 }
 
-function renderWorkdayRunRateChart() {
-  const ctx = document.getElementById("chartWorkdayRunRate");
-  if (!ctx || !workdayData) return;
+function renderProdChartsAndWeather() {
+  destroyChart("prodState");
+  destroyChart("prodWeather");
 
-  const dataSlice = workdayData.filter(r => r.year <= 2026 && r.cpo_production);
-  const labels = dataSlice.map(r => r.period);
-  const cpoProd = dataSlice.map(r => r.cpo_production);
-  const runRate = dataSlice.map(r => r.cpo_per_workday);
-  const workdays = dataSlice.map(r => r.workdays_national);
+  const st = STATE.prodState;
+  const mYears = getSortedSelectedYears(2005, 2027);
+  const useYears = mYears.length ? mYears : [2023, 2024, 2025, 2026, 2027];
+  const prodMon = STATE.master.production.monthly;
+  const wMon = STATE.master.weather.monthly;
 
-  if (chartWorkdayRunRate) {
-    chartWorkdayRunRate.destroy();
+  const labels = [];
+  const cpoData = [];
+  const derHaData = [];
+  const offHaData = [];
+  const ffbYieldData = [];
+  const rainData = [];
+  const smData = [];
+
+  for (const yr of useYears) {
+    for (let m = 1; m <= 12; m++) {
+      const p = `${yr}-${String(m).padStart(2, "0")}`;
+      const ed = prodMon[p]?.entities?.[st];
+      if (!ed) continue;
+      labels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${prodMon[p].is_forecast ? 'F' : ''}`);
+      cpoData.push(ed.cpo_production);
+      derHaData.push(ed.derived_hectarage);
+      offHaData.push(ed.official_mature_ha);
+      ffbYieldData.push(ed.ffb_yield);
+
+      const wd = wMon[p]?.states?.[st] || {};
+      rainData.push(wd.rainfall_mm ?? null);
+      smData.push(wd.soil_moisture_m3m3 ? Number((wd.soil_moisture_m3m3 * 100).toFixed(1)) : null);
+    }
   }
 
-  chartWorkdayRunRate = new Chart(ctx, {
-    type: 'bar',
+  document.getElementById("prod-chart1-title").textContent = `${st}: Monthly CPO Production & Derived Hectarage [CALC] vs Official Mature Area`;
+  const ctx1 = document.getElementById("chart-prod-state").getContext("2d");
+  STATE.charts.prodState = new Chart(ctx1, {
+    type: "bar",
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
-          type: 'bar',
-          label: 'Monthly CPO Production (Tonnes)',
-          data: cpoProd,
-          backgroundColor: 'rgba(16, 185, 129, 0.4)',
-          borderColor: '#10b981',
-          borderWidth: 1,
-          yAxisID: 'y'
+          type: "bar",
+          label: "CPO Production (T)",
+          data: cpoData,
+          backgroundColor: "rgba(16, 185, 129, 0.72)",
+          yAxisID: "y"
         },
         {
-          type: 'line',
-          label: 'Daily CPO Run-Rate (Tonnes / Workday)',
-          data: runRate,
-          borderColor: '#06b6d4',
-          backgroundColor: '#06b6d4',
+          type: "line",
+          label: "Derived Hectarage [Prod / CPO Yield] (Ha)",
+          data: derHaData,
+          borderColor: "#60a5fa",
+          borderWidth: 2,
+          pointRadius: 1.5,
+          tension: 0.25,
+          yAxisID: "y1"
+        },
+        {
+          type: "line",
+          label: "Official MPOB Mature Area (Ha)",
+          data: offHaData,
+          borderColor: "#f59e0b",
+          borderDash: [5, 4],
           borderWidth: 2,
           pointRadius: 0,
-          pointHoverRadius: 4,
-          tension: 0.2,
-          yAxisID: 'y1'
+          yAxisID: "y1"
         }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
+      ...chartOptionsCommon("Tonnes"),
       scales: {
-        x: {
-          grid: { color: 'rgba(51, 65, 85, 0.2)' },
-          ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 24 }
-        },
-        y: {
-          type: 'linear',
-          display: true,
-          position: 'left',
-          grid: { color: 'rgba(51, 65, 85, 0.3)' },
-          ticks: {
-            color: '#10b981',
-            font: { size: 10 },
-            callback: v => (v / 1e6).toFixed(1) + 'M'
-          },
-          title: { display: true, text: 'Monthly Production (Tonnes)', color: '#10b981', font: { size: 11 } }
-        },
-        y1: {
-          type: 'linear',
-          display: true,
-          position: 'right',
-          grid: { drawOnChartArea: false },
-          ticks: {
-            color: '#06b6d4',
-            font: { size: 10 },
-            callback: v => (v / 1000).toFixed(0) + 'k'
-          },
-          title: { display: true, text: 'Daily Output / Workday (Tonnes)', color: '#06b6d4', font: { size: 11 } }
-        }
-      },
-      plugins: {
-        legend: {
-          labels: { color: '#e2e8f0', font: { size: 11 } }
-        },
-        tooltip: {
-          backgroundColor: '#0f172a',
-          borderColor: '#334155',
-          borderWidth: 1,
-          callbacks: {
-            afterBody: function(items) {
-              const idx = items[0].dataIndex;
-              const w = workdays[idx];
-              return `Harvesting Workdays: ${w} Days`;
-            }
-          }
-        }
+        x: { ticks: { color: "#94a3b8", maxTicksLimit: 18 }, grid: { color: "rgba(148,163,184,0.08)" } },
+        y: { position: "left", title: { display: true, text: "Production (T)", color: "#10b981" }, ticks: { color: "#94a3b8" } },
+        y1: { position: "right", title: { display: true, text: "Hectares (Ha)", color: "#60a5fa" }, ticks: { color: "#94a3b8" }, grid: { drawOnChartArea: false } }
       }
     }
   });
+
+  document.getElementById("prod-chart2-title").textContent = `${st}: FFB Yield vs ECMWF Monthly Rainfall & Soil Moisture`;
+  const ctx2 = document.getElementById("chart-prod-weather").getContext("2d");
+  STATE.charts.prodWeather = new Chart(ctx2, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          type: "line",
+          label: "FFB Yield (T/Ha)",
+          data: ffbYieldData,
+          borderColor: "#10b981",
+          borderWidth: 2.3,
+          pointRadius: 2,
+          tension: 0.25,
+          yAxisID: "y"
+        },
+        {
+          type: "line",
+          label: "Soil Moisture (0-28cm %)",
+          data: smData,
+          borderColor: "#a855f7",
+          borderWidth: 1.8,
+          pointRadius: 0,
+          tension: 0.3,
+          yAxisID: "y1"
+        },
+        {
+          type: "bar",
+          label: "ECMWF Monthly Rainfall (mm)",
+          data: rainData,
+          backgroundColor: "rgba(59, 130, 246, 0.45)",
+          yAxisID: "y1"
+        }
+      ]
+    },
+    options: {
+      ...chartOptionsCommon("FFB Yield (T/Ha)"),
+      scales: {
+        x: { ticks: { color: "#94a3b8", maxTicksLimit: 18 } },
+        y: { position: "left", title: { display: true, text: "FFB Yield (T/Ha)", color: "#10b981" }, ticks: { color: "#94a3b8" } },
+        y1: { position: "right", title: { display: true, text: "Rainfall (mm) / Soil Moisture", color: "#60a5fa" }, ticks: { color: "#94a3b8" }, grid: { drawOnChartArea: false } }
+      }
+    }
+  });
+
+  // Weather & Model Drivers Table for Forecast Horizon
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  let wHtml = `<table class="data-table table-weather"><thead><tr>
+    <th>Forecast Month</th>
+    <th>${st} Model FFB Yield (T/Ha)</th>
+    <th>${st} Model OER (%)</th>
+    <th>${st} Model CPO Yield (T/Ha)</th>
+    <th>10-12m Lag Soil Moisture Anom (%)</th>
+    <th>22-24m Lag Soil Moisture Anom (%)</th>
+    <th>Weather Yield Multiplier</th>
+    <th>${st} Model Production [FCST] (T)</th>
+    <th>Derived Hectarage [CALC] (Ha)</th>
+  </tr></thead><tbody>`;
+
+  fcstPeriods.forEach(p => {
+    const ed = prodMon[p]?.entities?.[st] || {};
+    wHtml += `<tr>
+      <td class="sticky-col">${p} <span class="badge badge-fcst">[FCST]</span></td>
+      <td class="num cell-fcst">${fmtNum(ed.ffb_yield, 2)}</td>
+      <td class="num cell-fcst">${fmtNum(ed.oer, 2)}%</td>
+      <td class="num cell-fcst">${fmtNum(ed.cpo_yield, 4)}</td>
+      <td class="num">${fmtDelta(ed.lag12m_sm_anom_pct, 1)}%</td>
+      <td class="num">${fmtDelta(ed.lag24m_sm_anom_pct, 1)}%</td>
+      <td class="num"><strong>${ed.weather_multiplier ? ed.weather_multiplier.toFixed(4) + 'x' : '--'}</strong></td>
+      <td class="num cell-fcst"><strong>${fmtNum(ed.cpo_production, 0)}</strong></td>
+      <td class="num cell-calc">${fmtNum(ed.derived_hectarage, 0)}</td>
+    </tr>`;
+  });
+  wHtml += `</tbody></table>`;
+  document.getElementById("prod-weather-table-container").innerHTML = wHtml;
 }
 
-function renderWorkdayHeatmap() {
-  const container = document.getElementById("workday-heatmap-grid");
-  if (!container || !workdayData) return;
+// ===========================================================================
+// TAB 4: MY PRODUCTION & S&D FORECAST (DUPLICATE INTERACTIVE FORECAST TAB)
+// ===========================================================================
+function renderMyForecastTab() {
+  renderMyForecastSndTable();
+  renderMyForecastStatesTable();
+  renderMyForecastCharts();
+}
 
-  const years = Array.from(new Set(workdayData.map(r => r.year))).sort((a,b) => b - a);
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const monthHeaders = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function renderMyForecastSndTable() {
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  const modelData = getEffectiveSndData("model").monthly;
+  const userData = getEffectiveSndData("user").monthly;
 
-  let html = `
-    <table class="w-full text-xs font-mono border-collapse">
-      <thead>
-        <tr class="bg-slate-950 text-slate-400">
-          <th class="py-2 px-2 text-left font-sans">Year</th>
-          ${monthHeaders.map(m => `<th class="py-2 px-1 text-center font-sans">${m}</th>`).join('')}
-          <th class="py-2 px-2 text-right font-sans text-white">Annual Total</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-800/60">
-  `;
+  // Include Sep 2026 actual anchor + 15 forecast months (Oct 2026 - Dec 2027)
+  const cols = ["2026-09", ...fcstPeriods];
 
-  years.forEach(y => {
-    const yearRecords = workdayData.filter(r => r.year === y);
-    const totalYearWorkdays = yearRecords.reduce((sum, r) => sum + r.workdays_national, 0).toFixed(1);
+  let html = `<table class="data-table"><thead><tr>
+    <th style="min-width:240px">S&amp;D Attribute (Tonnes)</th>
+    ${cols.map(p => `<th class="${p === '2026-09' ? '' : 'cell-user-fcst'}">${p}${p === '2026-09' ? ' (Actual)' : ' [FCST]'}</th>`).join("")}
+    <th>2026 Full Year</th>
+    <th>2027 Full Year</th>
+  </tr></thead><tbody>`;
 
-    html += `<tr>`;
-    html += `<td class="py-1.5 px-2 font-bold text-white font-sans bg-slate-900/60">${y}</td>`;
+  const uAnn = getEffectiveSndData("user").annual;
+  const mAnn = getEffectiveSndData("model").annual;
 
-    months.forEach(m => {
-      const rec = yearRecords.find(r => r.month === m);
-      if (!rec) {
-        html += `<td class="py-1.5 px-1 text-center text-slate-600">--</td>`;
+  const editableKeys = new Set(["production", "import", "export", "local_disappearance"]);
+
+  SND_ROWS.forEach(rowDef => {
+    const isEditable = editableKeys.has(rowDef.key);
+    const isStock = rowDef.key === "opening_stock" || rowDef.key === "end_stock";
+    html += `<tr class="${rowDef.key === 'end_stock' ? 'row-highlight' : ''}">
+      <td class="sticky-col">
+        <strong>My ${rowDef.label}</strong>
+        ${isStock ? ' <span class="badge badge-calc">[Auto Formula]</span>' : ' <span class="badge badge-user">[Editable]</span>'}
+      </td>`;
+
+    cols.forEach(p => {
+      const uRec = userData[p];
+      if (p === "2026-09" || !isEditable) {
+        html += `<td class="num ${p !== '2026-09' ? 'cell-calc' : ''}"><strong>${fmtNum(uRec[rowDef.key], 0)}</strong></td>`;
       } else {
-        const w = rec.workdays_national;
-        let colorClass = "bg-slate-900 text-slate-300";
-        if (w < 18) colorClass = "bg-rose-950/70 text-rose-300 font-bold border border-rose-800/40";
-        else if (w <= 20) colorClass = "bg-amber-950/70 text-amber-300 border border-amber-800/40";
-        else if (w <= 22) colorClass = "bg-emerald-950/70 text-emerald-300 border border-emerald-800/40";
-        else colorClass = "bg-cyan-950/70 text-cyan-300 font-black border border-cyan-800/50";
-
-        html += `
-          <td class="py-1.5 px-1 text-center">
-            <span class="inline-block w-8 py-0.5 rounded text-[11px] ${colorClass} cursor-pointer" 
-                  title="${y}-${m < 10 ? '0' + m : m}: ${w} Workdays, Sundays: ${rec.sundays_count}, Hols: ${rec.national_holidays_count}"
-                  onclick="selectWorkdayCalendar(${y}, ${m})">
-              ${w}
-            </span>
-          </td>
-        `;
+        html += `<td class="num cell-user-fcst">
+          <input type="number" step="1000" class="cell-edit-input snd-user-input"
+                 data-period="${p}" data-key="${rowDef.key}" value="${Math.round(uRec[rowDef.key])}" />
+        </td>`;
       }
     });
+    html += `<td class="num" style="font-weight:700">${fmtNum(uAnn[2026][rowDef.key], 0)}</td>
+             <td class="num" style="font-weight:700">${fmtNum(uAnn[2027][rowDef.key], 0)}</td></tr>`;
 
-    html += `<td class="py-1.5 px-2 text-right font-bold text-cyan-400 font-mono bg-slate-900/60">${totalYearWorkdays}d</td>`;
-    html += `</tr>`;
+    // Model reference sub-row
+    html += `<tr style="color:#94a3b8;font-size:11px;">
+      <td class="sticky-col" style="padding-left:22px;color:#94a3b8;">&#8627; Model ${rowDef.label} (&Delta;)</td>`;
+    cols.forEach(p => {
+      const mVal = modelData[p][rowDef.key];
+      const diff = userData[p][rowDef.key] - mVal;
+      html += `<td class="num">${fmtNum(mVal, 0)} ${p !== '2026-09' ? `(${fmtDelta(diff, 0)})` : ''}</td>`;
+    });
+    html += `<td class="num">${fmtNum(mAnn[2026][rowDef.key], 0)} (${fmtDelta(uAnn[2026][rowDef.key] - mAnn[2026][rowDef.key], 0)})</td>
+             <td class="num">${fmtNum(mAnn[2027][rowDef.key], 0)} (${fmtDelta(uAnn[2027][rowDef.key] - mAnn[2027][rowDef.key], 0)})</td></tr>`;
   });
 
   html += `</tbody></table>`;
+  const container = document.getElementById("my-fcst-snd-container");
   container.innerHTML = html;
-}
 
-function selectWorkdayCalendar(y, m) {
-  const ySelect = document.getElementById("workday-year-select");
-  const mSelect = document.getElementById("workday-month-select");
-  if (ySelect) ySelect.value = y;
-  if (mSelect) mSelect.value = m;
-  renderWorkdayMonthDetail(y, m);
-}
-
-let workdayTableSortOrder = 'desc'; // default 'desc' for most recent first
-
-function toggleWorkdayTableSort() {
-  workdayTableSortOrder = workdayTableSortOrder === 'desc' ? 'asc' : 'desc';
-  const icon = document.getElementById("workday-sort-icon");
-  if (icon) icon.textContent = workdayTableSortOrder === 'desc' ? '▼' : '▲';
-  filterWorkdayTable();
-}
-
-function renderWorkdayTable(filterQuery = "") {
-  const tbody = document.getElementById("workday-table-body");
-  if (!tbody || !workdayData) return;
-
-  const q = filterQuery.toLowerCase().trim();
-  let filtered = workdayData.filter(r => {
-    if (!q) return true;
-    return r.period.includes(q) || r.month_name.toLowerCase().includes(q) || String(r.year).includes(q);
-  });
-
-  filtered.sort((a, b) => {
-    return workdayTableSortOrder === 'desc'
-      ? b.period.localeCompare(a.period)
-      : a.period.localeCompare(b.period);
-  });
-
-  tbody.innerHTML = filtered.map(r => {
-    const diff = r.workdays_mom_diff;
-    const diffStr = diff !== null && diff !== undefined 
-      ? `<span class="${diff >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${diff >= 0 ? '+' : ''}${diff}</span>` 
-      : '--';
-    
-    const cpoStr = r.cpo_production ? formatNumber(r.cpo_production) : (r.is_projected ? '<span class="text-amber-400">Proj</span>' : '--');
-    const rateStr = r.cpo_per_workday ? formatNumber(r.cpo_per_workday) : '--';
-    const rateMom = r.run_rate_mom_pct !== null && r.run_rate_mom_pct !== undefined 
-      ? `<span class="${r.run_rate_mom_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${r.run_rate_mom_pct >= 0 ? '+' : ''}${r.run_rate_mom_pct.toFixed(1)}%</span>`
-      : '--';
-
-    return `
-      <tr class="hover:bg-slate-800/40 transition">
-        <td class="py-2 px-3 font-sans font-medium text-white">${r.period}</td>
-        <td class="py-2 px-3 text-right">${r.calendar_days}</td>
-        <td class="py-2 px-3 text-right text-slate-400">${r.sundays_count}</td>
-        <td class="py-2 px-3 text-right text-rose-400 font-bold">${r.national_holidays_count}</td>
-        <td class="py-2 px-3 text-right font-black text-cyan-300 bg-slate-900/50">${r.workdays_national}</td>
-        <td class="py-2 px-3 text-right text-slate-400">${r.workdays_sabah}</td>
-        <td class="py-2 px-3 text-right text-slate-400">${r.workdays_sarawak}</td>
-        <td class="py-2 px-3 text-right">${diffStr}</td>
-        <td class="py-2 px-3 text-right text-emerald-400 font-bold">${cpoStr}</td>
-        <td class="py-2 px-3 text-right text-amber-300 font-black bg-slate-900/50">${rateStr}</td>
-        <td class="py-2 px-3 text-right">${rateMom}</td>
-      </tr>
-    `;
-  }).join("");
-}
-
-function filterWorkdayTable() {
-  const input = document.getElementById("workday-table-search");
-  if (input) {
-    renderWorkdayTable(input.value);
-  }
-}
-
-// -------------------------------------------------------------
-// TAB 8: SPPOMA & MPOA Intra-Month Survey Tracker
-// -------------------------------------------------------------
-
-let sppomaData = null;
-let sppomaMetadata = null;
-let chartSppomaProgression = null;
-let chartSppomaMultiYear = null;
-
-async function loadSppomaData() {
-  try {
-    const json = await fetchJsonData("/api/sppoma-mpoa?start_year=2010&end_year=2026", "api_sppoma_mpoa.json");
-    sppomaData = json.data;
-    sppomaMetadata = json.metadata;
-
-    setupSppomaSelectors();
-    renderSppomaProgression(2026, 9);
-    renderSppomaHistoryChart();
-    renderSppomaTable();
-    renderMpoaTable();
-  } catch (err) {
-    console.error("Failed to load SPPOMA & MPOA data:", err);
-  }
-}
-
-function setupSppomaSelectors() {
-  const ySelect = document.getElementById("sppoma-prog-year");
-  const mSelect = document.getElementById("sppoma-prog-month");
-  if (!ySelect || !mSelect || !sppomaData) return;
-
-  ySelect.innerHTML = "";
-  mSelect.innerHTML = "";
-
-  const years = Array.from(new Set(sppomaData.map(r => r.year))).sort((a,b) => b - a);
-  years.forEach(y => {
-    const opt = document.createElement("option");
-    opt.value = y;
-    opt.textContent = y;
-    if (y === 2026) opt.selected = true;
-    ySelect.appendChild(opt);
-  });
-
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  monthNames.forEach((name, idx) => {
-    const opt = document.createElement("option");
-    opt.value = idx + 1;
-    opt.textContent = `${idx + 1} - ${name}`;
-    if (idx + 1 === 9) opt.selected = true; // September default
-    mSelect.appendChild(opt);
+  container.querySelectorAll(".snd-user-input").forEach(inp => {
+    inp.addEventListener("change", () => {
+      const p = inp.dataset.period;
+      const k = inp.dataset.key;
+      const val = Number(inp.value) || 0;
+      if (!STATE.userForecast.snd[p]) STATE.userForecast.snd[p] = { period: p };
+      STATE.userForecast.snd[p][k] = val;
+      renderMyForecastTab();
+    });
   });
 }
 
-function onSppomaProgressionChange() {
-  const ySelect = document.getElementById("sppoma-prog-year");
-  const mSelect = document.getElementById("sppoma-prog-month");
-  if (!ySelect || !mSelect) return;
-  const y = parseInt(ySelect.value);
-  const m = parseInt(mSelect.value);
-  renderSppomaProgression(y, m);
-}
+function renderMyForecastStatesTable() {
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  const metric = STATE.myFcstStateMetric;
+  const states = STATE.master.metadata.states;
+  const uStatesStore = STATE.userForecast.production_states || {};
 
-function renderSppomaProgression(year, month) {
-  if (!sppomaData) return;
-  const rec = sppomaData.find(r => r.year === year && r.month === month);
-  if (!rec) return;
+  let html = `<table class="data-table"><thead><tr>
+    <th style="min-width:170px">State (${metric})</th>
+    ${fcstPeriods.map(p => `<th class="cell-user-fcst">${p}</th>`).join("")}
+  </tr></thead><tbody>`;
 
-  const sp = rec.sppoma;
-  const mp = rec.mpoa;
-  const act = rec.mpob_actual;
+  states.forEach(st => {
+    html += `<tr><td class="sticky-col">${st}</td>`;
+    fcstPeriods.forEach(p => {
+      const stObj = uStatesStore[p]?.[st] || {};
+      const val = stObj[metric];
+      if (st === "Perlis" && metric !== "ffb_yield") {
+        html += `<td class="num text-muted">N/A</td>`;
+      } else {
+        const step = metric === "cpo_production" ? "500" : "0.01";
+        html += `<td class="num">
+          <input type="number" step="${step}" class="cell-edit-input state-user-input"
+                 data-period="${p}" data-state="${st}" data-metric="${metric}"
+                 value="${val ?? 0}" />
+        </td>`;
+      }
+    });
+    html += `</tr>`;
+  });
 
-  // 1. Populate the 7 Progression Flow Cards
-  const cardsContainer = document.getElementById("sppoma-progression-cards");
-  if (cardsContainer) {
-    const fmtPct = (val) => {
-      if (val === null || val === undefined) return '<span class="text-slate-500 font-normal">--</span>';
-      const cls = val >= 0 ? 'text-emerald-400' : 'text-rose-400';
-      return `<span class="${cls} font-mono font-bold">${val >= 0 ? '+' : ''}${val.toFixed(2)}%</span>`;
-    };
+  // Bottom row: Sum of 13 States CPO Production
+  html += `<tr class="row-highlight"><td class="sticky-col">Sum of 13 States Prod (T)</td>`;
+  fcstPeriods.forEach(p => {
+    let sumP = 0;
+    states.forEach(st => {
+      sumP += Number(uStatesStore[p]?.[st]?.cpo_production || 0);
+    });
+    html += `<td class="num"><strong>${fmtNum(sumP, 0)}</strong></td>`;
+  });
+  html += `</tr></tbody></table>`;
 
-    const fmtSub = (v, unit = '%') => {
-      if (v === null || v === undefined) return '<span class="text-slate-500">--</span>';
-      return `${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}${unit}`;
-    };
+  const container = document.getElementById("my-fcst-states-container");
+  container.innerHTML = html;
 
-    cardsContainer.innerHTML = `
-      <!-- Step 1: Day 1-5 -->
-      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-white">Day 1–5</span>
-          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
-        </div>
-        <div class="text-base font-black">${fmtPct(sp['1-5'].cpo_prod_mom_pct)}</div>
-        <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${fmtSub(sp['1-5'].ffb_yield_mom_pct)}<br>
-          OER: ${fmtSub(sp['1-5'].oer_diff_pts, ' pts')}
-        </div>
-      </div>
+  container.querySelectorAll(".state-user-input").forEach(inp => {
+    inp.addEventListener("change", () => {
+      const p = inp.dataset.period;
+      const st = inp.dataset.state;
+      const m = inp.dataset.metric;
+      const v = Number(inp.value) || 0;
+      if (!STATE.userForecast.production_states[p]) STATE.userForecast.production_states[p] = {};
+      if (!STATE.userForecast.production_states[p][st]) STATE.userForecast.production_states[p][st] = {};
+      const stRec = STATE.userForecast.production_states[p][st];
+      stRec[m] = v;
 
-      <!-- Step 2: Day 1-10 -->
-      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-white">Day 1–10</span>
-          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
-        </div>
-        <div class="text-base font-black">${fmtPct(sp['1-10'].cpo_prod_mom_pct)}</div>
-        <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${fmtSub(sp['1-10'].ffb_yield_mom_pct)}<br>
-          OER: ${fmtSub(sp['1-10'].oer_diff_pts, ' pts')}
-        </div>
-      </div>
-
-      <!-- Step 3: Day 1-15 -->
-      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-white">Day 1–15</span>
-          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
-        </div>
-        <div class="text-base font-black">${fmtPct(sp['1-15'].cpo_prod_mom_pct)}</div>
-        <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${fmtSub(sp['1-15'].ffb_yield_mom_pct)}<br>
-          OER: ${fmtSub(sp['1-15'].oer_diff_pts, ' pts')}
-        </div>
-      </div>
-
-      <!-- Step 4: Day 1-20 (SPPOMA & MPOA) -->
-      <div class="bg-indigo-950/30 p-3 rounded-xl border border-indigo-500/40 space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-indigo-200">Day 1–20</span>
-          <span class="text-[9px] uppercase px-1 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">Anchor</span>
-        </div>
-        <div class="text-base font-black">
-          ${fmtPct(sp['1-20'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-indigo-300 font-sans">SPP</span>
-          <span class="text-slate-600 mx-1">|</span>
-          <span class="text-cyan-300 font-mono font-bold">${fmtPct(mp['1-20'].total_malaysia_mom_pct)}</span> <span class="text-[10px] font-normal text-cyan-400 font-sans">MPOA</span>
-        </div>
-        <div class="text-[10px] text-slate-300 leading-tight">
-          ${mp['1-20'].total_malaysia_mom_pct !== null && mp['1-20'].total_malaysia_mom_pct !== undefined ? `
-          Pen: <span class="font-mono text-white">${fmtSub(mp['1-20'].peninsular_mom_pct)}</span> &bull; Sab: <span class="font-mono text-white">${fmtSub(mp['1-20'].sabah_mom_pct)}</span><br>
-          Sar: <span class="font-mono text-white">${fmtSub(mp['1-20'].sarawak_mom_pct)}</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">${fmtSub(mp['1-20'].east_malaysia_mom_pct)}</span>
-          ` : `FFB: ${fmtSub(sp['1-20'].ffb_yield_mom_pct)} &bull; OER: ${fmtSub(sp['1-20'].oer_diff_pts, ' pts')}<br><span class="text-slate-500 text-[9px]">MPOA 1-20: Unverified</span>`}
-        </div>
-      </div>
-
-      <!-- Step 5: Day 1-25 -->
-      <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800 space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-white">Day 1–25</span>
-          <span class="text-[9px] uppercase px-1 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">SPPOMA</span>
-        </div>
-        <div class="text-base font-black">${fmtPct(sp['1-25'].cpo_prod_mom_pct)}</div>
-        <div class="text-[10px] text-slate-400 leading-tight">
-          FFB: ${fmtSub(sp['1-25'].ffb_yield_mom_pct)}<br>
-          OER: ${fmtSub(sp['1-25'].oer_diff_pts, ' pts')}
-        </div>
-      </div>
-
-      <!-- Step 6: Full Month Surveys -->
-      <div class="${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/30 border-cyan-500/50' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold text-white">Full Month Surveys</span>
-          <span class="text-[9px] uppercase px-1 rounded ${mp['full_month'].total_malaysia_mom_pct !== null ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/40' : 'bg-indigo-950/80 text-indigo-300 border border-indigo-800/40'}">${mp['full_month'].total_malaysia_mom_pct !== null ? 'Both Released' : 'SPPOMA Bulletin'}</span>
-        </div>
-        <div class="text-base font-black">
-          ${fmtPct(sp['full_month'].cpo_prod_mom_pct)} <span class="text-[10px] font-normal text-indigo-300 font-sans">SPP</span>
-          <span class="text-slate-600 mx-1">|</span>
-          <span class="text-cyan-300 font-mono font-bold">${fmtPct(mp['full_month'].total_malaysia_mom_pct)}</span> <span class="text-[10px] font-normal text-cyan-400 font-sans">MPOA</span>
-        </div>
-        <div class="text-[10px] text-slate-300 leading-tight">
-          ${mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
-            ? `Pen: <span class="font-mono text-white">${fmtSub(mp['full_month'].peninsular_mom_pct)}</span> &bull; Sab: <span class="font-mono text-white">${fmtSub(mp['full_month'].sabah_mom_pct)}</span><br>Sar: <span class="font-mono text-white">${fmtSub(mp['full_month'].sarawak_mom_pct)}</span> &bull; Borneo: <span class="font-mono text-cyan-300 font-semibold">${fmtSub(mp['full_month'].east_malaysia_mom_pct)}</span>`
-            : (sp['full_month'].cpo_prod_mom_pct !== null ? `FFB: ${fmtSub(sp['full_month'].ffb_yield_mom_pct)} &bull; OER: ${fmtSub(sp['full_month'].oer_diff_pts, ' pts')}<br><span class="text-slate-500 text-[9px]">MPOA Full: Unverified</span>` : `<span class="text-slate-500 text-[9px]">Awaiting Survey Data</span>`)
-          }
-        </div>
-      </div>
-
-      <!-- Step 7: Official MPOB Actual -->
-      <div class="${act.cpo_mom_pct !== null ? 'bg-emerald-950/30 border-emerald-500/40' : 'bg-slate-950/70 border-slate-800'} p-3 rounded-xl border space-y-1">
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="font-bold ${act.cpo_mom_pct !== null ? 'text-emerald-300' : 'text-slate-300'}">Official MPOB</span>
-          <span class="text-[9px] uppercase px-1 rounded ${act.cpo_mom_pct !== null ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">${act.cpo_mom_pct !== null ? 'Final' : 'Pending'}</span>
-        </div>
-        <div class="text-base font-black ${act.cpo_mom_pct === null ? 'text-amber-400' : ''}">
-          ${act.cpo_mom_pct !== null ? fmtPct(act.cpo_mom_pct) : '<span class="text-xs font-mono font-bold tracking-tight">Pending Release</span>'}
-        </div>
-        <div class="text-[10px] text-slate-300 leading-tight">
-          ${act.cpo_production_tonnes ? formatNumber(act.cpo_production_tonnes) + ' T' : '<span class="text-slate-400">Due Oct 10, 2026</span>'}<br>
-          <span class="text-[9px] text-slate-400">${act.status}</span>
-        </div>
-      </div>
-    `;
-  }
-
-  // 2. Plot Progression Line Chart
-  const ctx = document.getElementById("chartSppomaProgression");
-  if (!ctx) return;
-
-  const labels = ['Day 1–5', 'Day 1–10', 'Day 1–15', 'Day 1–20', 'Day 1–25', 'Full Month', 'Official MPOB'];
-  const sppomaVals = [
-    sp['1-5'].cpo_prod_mom_pct,
-    sp['1-10'].cpo_prod_mom_pct,
-    sp['1-15'].cpo_prod_mom_pct,
-    sp['1-20'].cpo_prod_mom_pct,
-    sp['1-25'].cpo_prod_mom_pct,
-    sp['full_month'].cpo_prod_mom_pct,
-    null
-  ];
-  const mpoaVals = [
-    null, null, null,
-    mp['1-20'].total_malaysia_mom_pct,
-    null,
-    mp['full_month'].total_malaysia_mom_pct,
-    null
-  ];
-  const mpobVal = act.cpo_mom_pct;
-
-  if (chartSppomaProgression) {
-    chartSppomaProgression.destroy();
-  }
-
-  chartSppomaProgression = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: 'SPPOMA CPO MoM % (Southern Peninsular)',
-          data: sppomaVals,
-          borderColor: '#818cf8',
-          backgroundColor: '#818cf8',
-          borderWidth: 2.5,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          tension: 0.15,
-          spanGaps: true
-        },
-        {
-          label: 'MPOA Total Malaysia MoM % (National Estates)',
-          data: mpoaVals,
-          borderColor: '#06b6d4',
-          backgroundColor: '#06b6d4',
-          borderWidth: 2.5,
-          pointRadius: 6,
-          pointHoverRadius: 8,
-          pointStyle: 'rectRot',
-          tension: 0.15,
-          spanGaps: true
-        },
-        {
-          label: `Official MPOB Final Outcome: ${mpobVal !== null ? (mpobVal >= 0 ? '+' : '') + mpobVal + '%' : 'Pending (Due Oct 10, 2026)'}`,
-          data: mpobVal !== null ? [mpobVal, mpobVal, mpobVal, mpobVal, mpobVal, mpobVal, mpobVal] : [null, null, null, null, null, null, null],
-          borderColor: '#10b981',
-          backgroundColor: 'transparent',
-          borderWidth: 2,
-          borderDash: [6, 4],
-          pointRadius: mpobVal !== null ? [0, 0, 0, 0, 0, 0, 7] : [0, 0, 0, 0, 0, 0, 0],
-          pointBackgroundColor: '#10b981',
-          pointHoverRadius: 9
+      // If user edited ffb_yield or oer, recompute cpo_yield and scale cpo_production using derived hectarage
+      if (m === "ffb_yield" || m === "oer") {
+        const modelEd = STATE.master.production.monthly[p]?.entities?.[st] || {};
+        const effHa = modelEd.derived_hectarage || modelEd.official_mature_ha || 0;
+        const fy = Number(stRec.ffb_yield || 0);
+        const oer = Number(stRec.oer || 0);
+        stRec.cpo_yield = Number((fy * oer / 100.0).toFixed(4));
+        if (effHa > 0) {
+          stRec.cpo_production = Math.round(effHa * stRec.cpo_yield);
         }
+      }
+      renderMyForecastStatesTable();
+    });
+  });
+}
+
+function syncUserStatesToNationalSnd() {
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  const states = STATE.master.metadata.states;
+  fcstPeriods.forEach(p => {
+    let sumP = 0;
+    states.forEach(st => {
+      sumP += Number(STATE.userForecast.production_states?.[p]?.[st]?.cpo_production || 0);
+    });
+    if (sumP > 0) {
+      STATE.userForecast.snd[p].production = Math.round(sumP);
+    }
+  });
+  renderMyForecastTab();
+}
+
+function applyFrontMonthProdTracker() {
+  const targetP = document.getElementById("tracker-target-period").value;
+  const mpoa = parseFloat(document.getElementById("input-mpoa-mom").value);
+  const sppoma = parseFloat(document.getElementById("input-sppoma-mom").value);
+  const valid = [mpoa, sppoma].filter(x => !Number.isNaN(x));
+  if (valid.length === 0) return;
+
+  // Give MPOA 70% weight and SPPOMA 30% weight if both entered
+  const momPct = (!Number.isNaN(mpoa) && !Number.isNaN(sppoma))
+    ? (0.7 * mpoa + 0.3 * sppoma)
+    : valid[0];
+
+  const userSnd = getEffectiveSndData("user").monthly;
+  const allPeriods = Object.keys(userSnd).sort();
+  const idx = allPeriods.indexOf(targetP);
+  if (idx <= 0) return;
+  const prevP = allPeriods[idx - 1];
+  const prevProd = userSnd[prevP].production;
+  const newProd = Math.round(prevProd * (1 + momPct / 100.0));
+
+  STATE.userForecast.snd[targetP].production = newProd;
+  document.getElementById("fcst-save-status").textContent = `Applied ${momPct.toFixed(2)}% MoM to ${targetP} Production (${fmtNum(newProd)} T)`;
+  renderMyForecastTab();
+}
+
+function applyFrontMonthExpTracker() {
+  const targetP = document.getElementById("tracker-target-period").value;
+  const its = parseFloat(document.getElementById("input-its-mom").value);
+  const amspec = parseFloat(document.getElementById("input-amspec-mom").value);
+  const sgs = parseFloat(document.getElementById("input-sgs-mom").value);
+  const valid = [its, amspec, sgs].filter(x => !Number.isNaN(x));
+  if (valid.length === 0) return;
+
+  const avgMom = valid.reduce((a, b) => a + b, 0) / valid.length;
+  const userSnd = getEffectiveSndData("user").monthly;
+  const allPeriods = Object.keys(userSnd).sort();
+  const idx = allPeriods.indexOf(targetP);
+  if (idx <= 0) return;
+  const prevP = allPeriods[idx - 1];
+  const prevExp = userSnd[prevP].export;
+  const newExp = Math.round(prevExp * (1 + avgMom / 100.0));
+
+  STATE.userForecast.snd[targetP].export = newExp;
+  document.getElementById("fcst-save-status").textContent = `Applied Cargo Surveyor Avg (${avgMom.toFixed(2)}% MoM) to ${targetP} Export (${fmtNum(newExp)} T)`;
+  renderMyForecastTab();
+}
+
+async function saveUserForecastToServer() {
+  const statusEl = document.getElementById("fcst-save-status");
+  statusEl.textContent = "Saving...";
+  try {
+    localStorage.setItem("my_forecast_malaysia_palm", JSON.stringify(STATE.userForecast));
+    if (window.location.protocol.startsWith("http")) {
+      await fetch("/api/user-forecast", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_forecast: STATE.userForecast })
+      });
+    }
+    statusEl.textContent = "Saved to your browser!";
+    setTimeout(() => { statusEl.textContent = ""; }, 3500);
+  } catch (e) {
+    statusEl.textContent = "Saved locally!";
+    setTimeout(() => { statusEl.textContent = ""; }, 3500);
+  }
+}
+
+async function resetUserForecast(mode) {
+  const statusEl = document.getElementById("fcst-save-status");
+  const defaults = STATE.master.user_forecast_defaults || {};
+
+  if (mode === "model") {
+    const modelCopy = JSON.parse(JSON.stringify(defaults));
+    for (const [p, m_sd] of Object.entries(STATE.master.snd.monthly)) {
+      if (m_sd.is_forecast && modelCopy.snd && modelCopy.snd[p]) {
+        modelCopy.snd[p].production = m_sd.production;
+        modelCopy.snd[p].import = m_sd.import;
+        modelCopy.snd[p].export = m_sd.export;
+        modelCopy.snd[p].local_disappearance = m_sd.local_disappearance;
+      }
+    }
+    STATE.userForecast = modelCopy;
+    statusEl.textContent = "Copied Model Forecast into My Forecast!";
+  } else {
+    STATE.userForecast = JSON.parse(JSON.stringify(defaults));
+    statusEl.textContent = "Reset to Malaysia SND.xlsx Forecast Baseline!";
+  }
+
+  localStorage.setItem("my_forecast_malaysia_palm", JSON.stringify(STATE.userForecast));
+  if (window.location.protocol.startsWith("http")) {
+    try {
+      await fetch("/api/user-forecast", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset", mode })
+      });
+    } catch (e) {}
+  }
+  renderMyForecastTab();
+  setTimeout(() => { statusEl.textContent = ""; }, 3500);
+}
+
+function renderMyForecastCharts() {
+  destroyChart("myVsModelStock");
+  destroyChart("myVsModelProd");
+
+  const modelSnd = getEffectiveSndData("model").monthly;
+  const userSnd = getEffectiveSndData("user").monthly;
+  const periods = Object.keys(modelSnd).filter(p => p >= "2026-01").sort();
+
+  const labels = periods.map(p => `${p}${modelSnd[p].is_forecast ? 'F' : ''}`);
+  const mStk = periods.map(p => modelSnd[p].end_stock);
+  const uStk = periods.map(p => userSnd[p].end_stock);
+  const mProd = periods.map(p => modelSnd[p].production);
+  const uProd = periods.map(p => userSnd[p].production);
+
+  const ctx1 = document.getElementById("chart-my-vs-model-stock").getContext("2d");
+  STATE.charts.myVsModelStock = new Chart(ctx1, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "Model Forecast End Stock (T)", data: mStk, borderColor: "#10b981", borderWidth: 2.4, tension: 0.25 },
+        { label: "My Forecast End Stock (T)", data: uStk, borderColor: "#a855f7", borderDash: [5, 4], borderWidth: 2.4, tension: 0.25 }
+      ]
+    },
+    options: chartOptionsCommon("Tonnes")
+  });
+
+  const ctx2 = document.getElementById("chart-my-vs-model-prod").getContext("2d");
+  STATE.charts.myVsModelProd = new Chart(ctx2, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { label: "Model Production (T)", data: mProd, backgroundColor: "rgba(16, 185, 129, 0.75)" },
+        { label: "My Forecast Production (T)", data: uProd, backgroundColor: "rgba(168, 85, 247, 0.75)" }
+      ]
+    },
+    options: chartOptionsCommon("Tonnes")
+  });
+}
+
+// ===========================================================================
+// TAB 5: IMPORTS
+// ===========================================================================
+const IMPORT_ROWS = [
+  { key: "cpo_import", label: "Crude Palm Oil (CPO)" },
+  { key: "ppo_import", label: "Processed Palm Oil (PPO)" },
+  { key: "palm_oil_import", label: "Total Palm Oil (CPO + PPO)", highlight: true },
+  { key: "pko_import", label: "Total Palm Kernel Oil (PKO)" }
+];
+
+function renderImportsTab() {
+  const years = getSortedSelectedYears(1985, 2027);
+  const impAnn = STATE.master.imports.annual;
+  const impMon = STATE.master.imports.monthly;
+
+  let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Import Product (Tonnes)</th>`;
+  for (const yr of years) {
+    const canExp = yr >= 2005;
+    const isExp = canExp && STATE.impExpandedYears.has(yr);
+    if (isExp) {
+      for (let m = 1; m <= 12; m++) {
+        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+      }
+    }
+    html += `<th class="col-year-header col-annual" data-year="${yr}">
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? ' [FCST]' : ''}
+    </th>`;
+  }
+  html += `</tr></thead><tbody>`;
+
+  for (const rowDef of IMPORT_ROWS) {
+    html += `<tr class="${rowDef.highlight ? 'row-highlight' : ''}"><td class="sticky-col">${rowDef.label}</td>`;
+    for (const yr of years) {
+      const canExp = yr >= 2005;
+      const isExp = canExp && STATE.impExpandedYears.has(yr);
+      if (isExp) {
+        for (let m = 1; m <= 12; m++) {
+          const p = `${yr}-${String(m).padStart(2, "0")}`;
+          const mRec = impMon[p];
+          html += `<td class="num ${mRec?.is_forecast ? 'cell-fcst' : ''}">${fmtNum(mRec ? mRec[rowDef.key] : null, 0)}</td>`;
+        }
+      }
+      const aRec = impAnn[yr];
+      html += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${fmtNum(aRec ? aRec[rowDef.key] : null, 0)}</td>`;
+    }
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+
+  const container = document.getElementById("imports-table-container");
+  container.innerHTML = html;
+  container.querySelectorAll(".col-year-header").forEach(th => {
+    th.addEventListener("click", () => {
+      const yr = Number(th.dataset.year);
+      if (yr < 2005) return;
+      if (STATE.impExpandedYears.has(yr)) STATE.impExpandedYears.delete(yr);
+      else STATE.impExpandedYears.add(yr);
+      renderImportsTab();
+    });
+  });
+
+  // Charts
+  destroyChart("impPo");
+  destroyChart("impPko");
+  const mYears = years.filter(y => y >= 2008);
+  const useYears = mYears.length ? mYears : [2022, 2023, 2024, 2025, 2026];
+  const labels = [], cpoD = [], ppoD = [], poD = [], pkoD = [];
+  useYears.forEach(yr => {
+    for (let m = 1; m <= 12; m++) {
+      const p = `${yr}-${String(m).padStart(2, "0")}`;
+      const r = impMon[p];
+      if (!r) continue;
+      labels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${r.is_forecast ? 'F' : ''}`);
+      cpoD.push(r.cpo_import);
+      ppoD.push(r.ppo_import);
+      poD.push(r.palm_oil_import);
+      pkoD.push(r.pko_import);
+    }
+  });
+
+  STATE.charts.impPo = new Chart(document.getElementById("chart-imports-po").getContext("2d"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { label: "Crude Palm Oil (CPO)", data: cpoD, backgroundColor: "#f59e0b", stack: "po" },
+        { label: "Processed Palm Oil (PPO)", data: ppoD, backgroundColor: "#3b82f6", stack: "po" }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: { color: '#e2e8f0', font: { size: 11 } }
-        },
-        tooltip: {
-          backgroundColor: '#0f172a',
-          borderColor: '#334155',
-          borderWidth: 1,
-          callbacks: {
-            label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y !== null ? ctx.parsed.y.toFixed(2) + '%' : '--'}`
-          }
+      ...chartOptionsCommon("Tonnes"),
+      scales: { x: { stacked: true, ticks: { color: "#94a3b8" } }, y: { stacked: true, ticks: { color: "#94a3b8" } } }
+    }
+  });
+
+  STATE.charts.impPko = new Chart(document.getElementById("chart-imports-pko").getContext("2d"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "Total Palm Oil Imports (T)", data: poD, borderColor: "#10b981", borderWidth: 2, tension: 0.25 },
+        { label: "Total Palm Kernel Oil Imports (T)", data: pkoD, borderColor: "#a855f7", borderWidth: 2, tension: 0.25 }
+      ]
+    },
+    options: chartOptionsCommon("Tonnes")
+  });
+}
+
+// ===========================================================================
+// TAB 6: EXPORTS (SPLIT BY PORTS & SPLIT BY PRODUCTS)
+// ===========================================================================
+const EXPORT_PORT_ROWS = [
+  { key: "butterworth", label: "Butterworth" },
+  { key: "port_klang", label: "Port Klang" },
+  { key: "pasir_gudang", label: "Pasir Gudang" },
+  { key: "others_peninsular", label: "Others (Peninsular)" },
+  { key: "peninsular_total", label: "Peninsular Malaysia Total", subtotal: true },
+  { key: "lahad_datu", label: "Lahad Datu" },
+  { key: "sandakan", label: "Sandakan" },
+  { key: "others_sabah_sarawak", label: "Others (Sabah & Sarawak)" },
+  { key: "sabah_sarawak_total", label: "Sabah & Sarawak Total", subtotal: true },
+  { key: "malaysia_total", label: "Malaysia Total Palm Oil Exports", highlight: true }
+];
+
+const EXPORT_PROD_ROWS = [
+  { key: "cpo", label: "Crude Palm Oil (CPO)" },
+  { key: "ppo", label: "Processed Palm Oil (PPO)" },
+  { key: "palm_oil_total", label: "Total Palm Oil (CPO + PPO)", subtotal: true },
+  { key: "cpko", label: "Crude Palm Kernel Oil (CPKO)" },
+  { key: "ppko", label: "Processed Palm Kernel Oil (PPKO)" },
+  { key: "pko_total", label: "Total Palm Kernel Oil (PKO)", subtotal: true },
+  { key: "palm_kernel_cake", label: "Palm Kernel Cake (PKC)" },
+  { key: "oleochemicals", label: "Oleochemicals" },
+  { key: "biodiesel", label: "Biodiesel" },
+  { key: "finished_products", label: "Finished Products" },
+  { key: "others", label: "Other Oil Palm Products" },
+  { key: "total_all_products", label: "Total Oil Palm Products", highlight: true }
+];
+
+function renderExportsTab() {
+  const portsSec = document.getElementById("exports-ports-section");
+  const prodsSec = document.getElementById("exports-products-section");
+  portsSec.style.display = (STATE.expSplitMode === "both" || STATE.expSplitMode === "ports") ? "block" : "none";
+  prodsSec.style.display = (STATE.expSplitMode === "both" || STATE.expSplitMode === "products") ? "block" : "none";
+
+  // 1. Render Ports Table (2004 - 2026)
+  const portYears = getSortedSelectedYears(2004, 2026);
+  const portsAnn = STATE.master.exports.by_port.annual;
+  const portsMon = STATE.master.exports.by_port.monthly;
+  renderExpandableMatrixTable(
+    "exports-ports-table-container",
+    "Port / Region (Tonnes)",
+    EXPORT_PORT_ROWS,
+    portYears,
+    2004,
+    STATE.expExpandedYears,
+    portsAnn,
+    portsMon,
+    renderExportsTab
+  );
+
+  // 2. Render Products Table (1990 - 2026)
+  const prodYears = getSortedSelectedYears(1990, 2026);
+  const prodAnn = STATE.master.exports.by_product.annual;
+  const prodMon = STATE.master.exports.by_product.monthly;
+  renderExpandableMatrixTable(
+    "exports-products-table-container",
+    "Product Category (Tonnes)",
+    EXPORT_PROD_ROWS,
+    prodYears,
+    2004,
+    STATE.expExpandedYears,
+    prodAnn,
+    prodMon,
+    renderExportsTab
+  );
+
+  // Charts
+  destroyChart("expPorts");
+  destroyChart("expProds");
+
+  const pLabels = portYears.map(y => y === 2026 ? "2026 YTD" : String(y));
+  STATE.charts.expPorts = new Chart(document.getElementById("chart-exports-ports").getContext("2d"), {
+    type: "bar",
+    data: {
+      labels: pLabels,
+      datasets: [
+        { label: "Pasir Gudang", data: portYears.map(y => portsAnn[y]?.pasir_gudang), backgroundColor: "#10b981", stack: "p" },
+        { label: "Port Klang", data: portYears.map(y => portsAnn[y]?.port_klang), backgroundColor: "#3b82f6", stack: "p" },
+        { label: "Butterworth", data: portYears.map(y => portsAnn[y]?.butterworth), backgroundColor: "#60a5fa", stack: "p" },
+        { label: "Lahad Datu", data: portYears.map(y => portsAnn[y]?.lahad_datu), backgroundColor: "#f59e0b", stack: "p" },
+        { label: "Sandakan", data: portYears.map(y => portsAnn[y]?.sandakan), backgroundColor: "#a855f7", stack: "p" },
+        { label: "Other Ports", data: portYears.map(y => (portsAnn[y]?.others_peninsular || 0) + (portsAnn[y]?.others_sabah_sarawak || 0)), backgroundColor: "#64748b", stack: "p" }
+      ]
+    },
+    options: {
+      ...chartOptionsCommon("Tonnes"),
+      scales: { x: { stacked: true, ticks: { color: "#94a3b8" } }, y: { stacked: true, ticks: { color: "#94a3b8" } } }
+    }
+  });
+
+  const prLabels = prodYears.map(y => y === 2026 ? "2026 YTD" : String(y));
+  STATE.charts.expProds = new Chart(document.getElementById("chart-exports-products").getContext("2d"), {
+    type: "bar",
+    data: {
+      labels: prLabels,
+      datasets: [
+        { label: "Processed Palm Oil (PPO)", data: prodYears.map(y => prodAnn[y]?.ppo), backgroundColor: "#10b981", stack: "pr" },
+        { label: "Crude Palm Oil (CPO)", data: prodYears.map(y => prodAnn[y]?.cpo), backgroundColor: "#f59e0b", stack: "pr" },
+        { label: "Oleochemicals", data: prodYears.map(y => prodAnn[y]?.oleochemicals), backgroundColor: "#3b82f6", stack: "pr" },
+        { label: "Palm Kernel Cake (PKC)", data: prodYears.map(y => prodAnn[y]?.palm_kernel_cake), backgroundColor: "#a855f7", stack: "pr" },
+        { label: "Total PKO", data: prodYears.map(y => prodAnn[y]?.pko_total), backgroundColor: "#ec4899", stack: "pr" },
+        { label: "Biodiesel & Finished", data: prodYears.map(y => (prodAnn[y]?.biodiesel || 0) + (prodAnn[y]?.finished_products || 0)), backgroundColor: "#06b6d4", stack: "pr" }
+      ]
+    },
+    options: {
+      ...chartOptionsCommon("Tonnes"),
+      scales: { x: { stacked: true, ticks: { color: "#94a3b8" } }, y: { stacked: true, ticks: { color: "#94a3b8" } } }
+    }
+  });
+}
+
+// ===========================================================================
+// TAB 7: STOCKS BY PRODUCTS
+// ===========================================================================
+const STOCK_ROWS = [
+  { key: "cpo_peninsular", label: "CPO - Peninsular Malaysia" },
+  { key: "cpo_sabah", label: "CPO - Sabah" },
+  { key: "cpo_sarawak", label: "CPO - Sarawak" },
+  { key: "cpo_total", label: "Total Crude Palm Oil (CPO)", subtotal: true },
+  { key: "ppo_total", label: "Total Processed Palm Oil (PPO)", subtotal: true },
+  { key: "palm_oil_total", label: "Total Palm Oil (CPO + PPO)", highlight: true },
+  { key: "cp_stearin", label: "↳ Refinery: Crude Palm Stearin" },
+  { key: "cp_olein", label: "↳ Refinery: Crude Palm Olein" },
+  { key: "rbd_palm_oil", label: "↳ Refinery: RBD Palm Oil" },
+  { key: "rbd_palm_olein", label: "↳ Refinery: RBD Palm Olein" },
+  { key: "rbd_palm_stearin", label: "↳ Refinery: RBD Palm Stearin" },
+  { key: "pfad", label: "↳ Refinery: PFAD" },
+  { key: "cooking_oil", label: "↳ Refinery: Cooking Oil" },
+  { key: "palm_kernel", label: "Palm Kernel (PK)" },
+  { key: "cpko", label: "Crude Palm Kernel Oil (CPKO)" },
+  { key: "ppko", label: "Processed Palm Kernel Oil (PPKO)" },
+  { key: "pko_total", label: "Total Palm Kernel Oil (PKO)", subtotal: true },
+  { key: "palm_kernel_cake", label: "Palm Kernel Cake (PKC)" }
+];
+
+function renderStocksTab() {
+  const stkYears = getSortedSelectedYears(1986, 2026);
+  const stkAnn = STATE.master.stocks.annual;
+  const stkMon = STATE.master.stocks.monthly;
+
+  renderExpandableMatrixTable(
+    "stocks-table-container",
+    "Stock Category / Product (Tonnes)",
+    STOCK_ROWS,
+    stkYears,
+    2004,
+    STATE.stkExpandedYears,
+    stkAnn,
+    stkMon,
+    renderStocksTab
+  );
+
+  destroyChart("stkMain");
+  destroyChart("stkRef");
+
+  const mYears = stkYears.filter(y => y >= 2004);
+  const useYears = mYears.length ? mYears : [2022, 2023, 2024, 2025, 2026];
+  const labels = [], penD = [], sabD = [], sarD = [], ppoD = [];
+  const rbdOlein = [], rbdPo = [], rbdStearin = [], pfad = [], cook = [];
+
+  useYears.forEach(yr => {
+    for (let m = 1; m <= 12; m++) {
+      const p = `${yr}-${String(m).padStart(2, "0")}`;
+      const r = stkMon[p];
+      if (!r || r.palm_oil_total == null) continue;
+      labels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}`);
+      penD.push(r.cpo_peninsular);
+      sabD.push(r.cpo_sabah);
+      sarD.push(r.cpo_sarawak);
+      ppoD.push(r.ppo_total);
+
+      rbdOlein.push(r.rbd_palm_olein);
+      rbdPo.push(r.rbd_palm_oil);
+      rbdStearin.push(r.rbd_palm_stearin);
+      pfad.push(r.pfad);
+      cook.push(r.cooking_oil);
+    }
+  });
+
+  STATE.charts.stkMain = new Chart(document.getElementById("chart-stocks-main").getContext("2d"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { label: "CPO Peninsular", data: penD, backgroundColor: "#10b981", stack: "s" },
+        { label: "CPO Sabah", data: sabD, backgroundColor: "#f59e0b", stack: "s" },
+        { label: "CPO Sarawak", data: sarD, backgroundColor: "#a855f7", stack: "s" },
+        { label: "Processed Palm Oil (PPO)", data: ppoD, backgroundColor: "#3b82f6", stack: "s" }
+      ]
+    },
+    options: {
+      ...chartOptionsCommon("Tonnes"),
+      scales: { x: { stacked: true, ticks: { color: "#94a3b8", maxTicksLimit: 18 } }, y: { stacked: true, ticks: { color: "#94a3b8" } } }
+    }
+  });
+
+  STATE.charts.stkRef = new Chart(document.getElementById("chart-stocks-refinery").getContext("2d"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "RBD Palm Olein", data: rbdOlein, borderColor: "#10b981", borderWidth: 2, pointRadius: 0 },
+        { label: "RBD Palm Oil", data: rbdPo, borderColor: "#3b82f6", borderWidth: 2, pointRadius: 0 },
+        { label: "RBD Palm Stearin", data: rbdStearin, borderColor: "#f59e0b", borderWidth: 2, pointRadius: 0 },
+        { label: "PFAD", data: pfad, borderColor: "#a855f7", borderWidth: 1.8, pointRadius: 0 },
+        { label: "Cooking Oil", data: cook, borderColor: "#ec4899", borderWidth: 1.8, pointRadius: 0 }
+      ]
+    },
+    options: chartOptionsCommon("Tonnes")
+  });
+}
+
+// Generic reusable builder for Expandable Year Columns Matrix (used in Exports & Stocks)
+function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years, minMonthlyYear, expandedSet, annMap, monMap, onToggle) {
+  let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">${firstColTitle}</th>`;
+  for (const yr of years) {
+    const canExp = yr >= minMonthlyYear;
+    const isExp = canExp && expandedSet.has(yr);
+    if (isExp) {
+      for (let m = 1; m <= 12; m++) {
+        const p = `${yr}-${String(m).padStart(2, "0")}`;
+        if (!monMap[p]) continue;
+        html += `<th>${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}</th>`;
+      }
+    }
+    const ytdTag = annMap[yr]?.is_ytd ? " (YTD)" : "";
+    html += `<th class="col-year-header col-annual" data-year="${yr}">
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${ytdTag}
+    </th>`;
+  }
+  html += `</tr></thead><tbody>`;
+
+  for (const rDef of rowDefs) {
+    const rCls = rDef.highlight ? "row-highlight" : rDef.subtotal ? "row-subtotal" : "";
+    html += `<tr class="${rCls}"><td class="sticky-col">${rDef.label}</td>`;
+    for (const yr of years) {
+      const canExp = yr >= minMonthlyYear;
+      const isExp = canExp && expandedSet.has(yr);
+      if (isExp) {
+        for (let m = 1; m <= 12; m++) {
+          const p = `${yr}-${String(m).padStart(2, "0")}`;
+          if (!monMap[p]) continue;
+          html += `<td class="num">${fmtNum(monMap[p][rDef.key], 0)}</td>`;
         }
+      }
+      const aRec = annMap[yr];
+      html += `<td class="num col-annual">${fmtNum(aRec ? aRec[rDef.key] : null, 0)}</td>`;
+    }
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+  const container = document.getElementById(containerId);
+  container.innerHTML = html;
+  container.querySelectorAll(".col-year-header").forEach(th => {
+    th.addEventListener("click", () => {
+      const yr = Number(th.dataset.year);
+      if (yr < minMonthlyYear) return;
+      if (expandedSet.has(yr)) expandedSet.delete(yr);
+      else expandedSet.add(yr);
+      onToggle();
+    });
+  });
+}
+
+// ===========================================================================
+// TAB 8: SEASONALITY (CHART & TABLE)
+// ===========================================================================
+function getSeasonalityValue(period, attrPath) {
+  const [group, field] = attrPath.split(".");
+  if (group === "snd") {
+    const snd = getEffectiveSndData(STATE.seasonFcstMode).monthly;
+    return snd[period] ? snd[period][field] : null;
+  }
+  if (group === "prod") {
+    return STATE.master.production.monthly[period]?.entities?.["Malaysia"]?.[field] ?? null;
+  }
+  if (group === "prod_pen") {
+    return STATE.master.production.monthly[period]?.entities?.["Peninsular Malaysia"]?.[field] ?? null;
+  }
+  if (group === "prod_ss") {
+    return STATE.master.production.monthly[period]?.entities?.["Sabah & Sarawak"]?.[field] ?? null;
+  }
+  if (group === "prod_sabah") {
+    return STATE.master.production.monthly[period]?.entities?.["Sabah"]?.[field] ?? null;
+  }
+  if (group === "prod_sarawak") {
+    return STATE.master.production.monthly[period]?.entities?.["Sarawak"]?.[field] ?? null;
+  }
+  if (group === "imp") {
+    return STATE.master.imports.monthly[period]?.[field] ?? null;
+  }
+  if (group === "exp_prod") {
+    return STATE.master.exports.by_product.monthly[period]?.[field] ?? null;
+  }
+  if (group === "exp_port") {
+    return STATE.master.exports.by_port.monthly[period]?.[field] ?? null;
+  }
+  if (group === "stk") {
+    return STATE.master.stocks.monthly[period]?.[field] ?? null;
+  }
+  return null;
+}
+
+function renderSeasonalityTab() {
+  destroyChart("seasonality");
+
+  const attrSel = document.getElementById("season-attr-select");
+  const attrLabel = attrSel.options[attrSel.selectedIndex].text;
+  const attrPath = STATE.seasonAttr;
+  const isDecimal = attrPath.includes("yield") || attrPath.includes("oer");
+  const decimals = attrPath.includes("cpo_yield") ? 3 : isDecimal ? 2 : 0;
+
+  document.getElementById("season-chart-title").textContent = `Seasonality Curve (Jan – Dec): ${attrLabel}`;
+  document.getElementById("season-table-title").textContent = `Monthly Seasonality Matrix & Heatmap: ${attrLabel}`;
+
+  const years = getSortedSelectedYears(2004, 2027);
+
+  // Compute 5Y (2021-2025) and 10Y (2016-2025) monthly averages
+  const avg5Y = [];
+  const avg10Y = [];
+  for (let m = 1; m <= 12; m++) {
+    const v5 = [], v10 = [];
+    for (let y = 2016; y <= 2025; y++) {
+      const v = getSeasonalityValue(`${y}-${String(m).padStart(2, "0")}`, attrPath);
+      if (v !== null && v !== undefined) {
+        v10.push(v);
+        if (y >= 2021) v5.push(v);
+      }
+    }
+    avg5Y.push(v5.length ? Number((v5.reduce((a, b) => a + b, 0) / v5.length).toFixed(decimals)) : null);
+    avg10Y.push(v10.length ? Number((v10.reduce((a, b) => a + b, 0) / v10.length).toFixed(decimals)) : null);
+  }
+
+  const palette = ["#3b82f6", "#06b6d4", "#a855f7", "#ec4899", "#eab308", "#10b981", "#f97316", "#6366f1", "#14b8a6"];
+  const datasets = [
+    {
+      label: "5Y Average (2021–2025)",
+      data: avg5Y,
+      borderColor: "#94a3b8",
+      backgroundColor: "rgba(148, 163, 184, 0.12)",
+      borderWidth: 2.5,
+      borderDash: [6, 4],
+      pointRadius: 2,
+      fill: true,
+      tension: 0.25
+    }
+  ];
+
+  years.forEach((yr, idx) => {
+    const mVals = [];
+    for (let m = 1; m <= 12; m++) {
+      mVals.push(getSeasonalityValue(`${yr}-${String(m).padStart(2, "0")}`, attrPath));
+    }
+    if (mVals.every(v => v === null)) return;
+    const isCurrent = yr === 2026;
+    const isFcst = yr === 2027;
+    datasets.push({
+      label: yr === 2026 ? "2026 (Actual + Q4 FCST)" : yr === 2027 ? "2027 (Forecast)" : String(yr),
+      data: mVals,
+      borderColor: isCurrent ? "#10b981" : isFcst ? "#f59e0b" : palette[idx % palette.length],
+      borderWidth: isCurrent || isFcst ? 3.2 : 1.9,
+      borderDash: isFcst ? [4, 3] : [],
+      pointRadius: isCurrent || isFcst ? 4 : 2.5,
+      tension: 0.25
+    });
+  });
+
+  const ctx = document.getElementById("chart-seasonality").getContext("2d");
+  STATE.charts.seasonality = new Chart(ctx, {
+    type: "line",
+    data: { labels: MONTH_SHORT, datasets },
+    options: chartOptionsCommon(attrLabel)
+  });
+
+  // Render Seasonality Heatmap Table
+  const allVals = [];
+  years.forEach(yr => {
+    for (let m = 1; m <= 12; m++) {
+      const v = getSeasonalityValue(`${yr}-${String(m).padStart(2, "0")}`, attrPath);
+      if (v !== null) allVals.push(v);
+    }
+  });
+  const minV = allVals.length ? Math.min(...allVals) : 0;
+  const maxV = allVals.length ? Math.max(...allVals) : 1;
+
+  function heatBg(val, isFcstCell) {
+    if (val === null || val === undefined || maxV <= minV) return "";
+    const ratio = (val - minV) / (maxV - minV);
+    if (isFcstCell) {
+      return `background: rgba(245, 158, 11, ${(0.08 + ratio * 0.25).toFixed(2)});`;
+    }
+    return `background: rgba(16, 185, 129, ${(0.05 + ratio * 0.28).toFixed(2)});`;
+  }
+
+  let html = `<table class="data-table"><thead><tr>
+    <th style="min-width:150px">Year / Benchmark</th>
+    ${MONTH_SHORT.map(m => `<th>${m}</th>`).join("")}
+    <th>Annual Total / Avg</th>
+  </tr></thead><tbody>`;
+
+  // 5Y and 10Y benchmark rows
+  [
+    { name: "5Y Avg (2021–2025)", arr: avg5Y },
+    { name: "10Y Avg (2016–2025)", arr: avg10Y }
+  ].forEach(bRow => {
+    const valid = bRow.arr.filter(x => x !== null);
+    const agg = valid.length
+      ? (isDecimal || attrPath.includes("stock")
+          ? valid.reduce((a, b) => a + b, 0) / valid.length
+          : valid.reduce((a, b) => a + b, 0))
+      : null;
+    html += `<tr class="row-subtotal"><td class="sticky-col">${bRow.name}</td>`;
+    bRow.arr.forEach(v => { html += `<td class="num">${fmtNum(v, decimals)}</td>`; });
+    html += `<td class="num"><strong>${fmtNum(agg, decimals)}</strong></td></tr>`;
+  });
+
+  // Year rows
+  years.forEach(yr => {
+    const rowVals = [];
+    for (let m = 1; m <= 12; m++) {
+      rowVals.push(getSeasonalityValue(`${yr}-${String(m).padStart(2, "0")}`, attrPath));
+    }
+    if (rowVals.every(v => v === null)) return;
+    const valid = rowVals.filter(x => x !== null);
+    const agg = valid.length
+      ? (isDecimal || attrPath.includes("stock")
+          ? valid.reduce((a, b) => a + b, 0) / valid.length
+          : valid.reduce((a, b) => a + b, 0))
+      : null;
+
+    html += `<tr><td class="sticky-col">${yr}${yr >= 2026 ? ' <span class="badge badge-fcst">[FCST]</span>' : ''}</td>`;
+    rowVals.forEach((v, mIdx) => {
+      const isF = (yr === 2026 && mIdx >= 9) || yr === 2027;
+      html += `<td class="num ${isF ? 'cell-fcst' : ''}" style="${heatBg(v, isF)}">${fmtNum(v, decimals)}</td>`;
+    });
+    html += `<td class="num" style="font-weight:700">${fmtNum(agg, decimals)}</td></tr>`;
+  });
+
+  html += `</tbody></table>`;
+  document.getElementById("seasonality-table-container").innerHTML = html;
+}
+
+// ---------------------------------------------------------------------------
+// Chart.js Shared Options
+// ---------------------------------------------------------------------------
+function chartOptionsCommon(yTitle) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: {
+        labels: { color: "#334155", font: { family: "'Inter', sans-serif", size: 11.5 } }
       },
-      scales: {
-        x: {
-          ticks: { color: '#94a3b8', font: { size: 11 } },
-          grid: { color: 'rgba(51, 65, 85, 0.2)' }
-        },
-        y: {
-          ticks: {
-            color: '#cbd5e1',
-            font: { size: 11 },
-            callback: v => (v >= 0 ? '+' : '') + v + '%'
-          },
-          grid: { color: 'rgba(51, 65, 85, 0.3)' },
-          title: { display: true, text: 'Production MoM Rate of Change (%)', color: '#94a3b8', font: { size: 11 } }
-        }
+      tooltip: {
+        backgroundColor: "rgba(255, 255, 255, 0.96)",
+        titleColor: "#0f172a",
+        bodyColor: "#334155",
+        borderColor: "#cbd5e1",
+        borderWidth: 1
       }
-    }
-  });
-}
-
-let sppomaChartMode = 'deviation'; // 'deviation' or 'absolute'
-let sppomaTableSortOrder = 'desc'; // default 'desc' for most recent first
-
-function setSppomaChartMode(mode) {
-  sppomaChartMode = mode;
-  const btnDev = document.getElementById("btn-sppoma-mode-dev");
-  const btnAbs = document.getElementById("btn-sppoma-mode-abs");
-  if (btnDev && btnAbs) {
-    if (mode === 'deviation') {
-      btnDev.className = "px-2.5 py-1 rounded bg-indigo-600 font-semibold text-white transition";
-      btnAbs.className = "px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition";
-    } else {
-      btnDev.className = "px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition";
-      btnAbs.className = "px-2.5 py-1 rounded bg-indigo-600 font-semibold text-white transition";
-    }
-  }
-
-  const titleEl = document.getElementById("sppoma-multiyear-title");
-  const subEl = document.getElementById("sppoma-multiyear-subtitle");
-  if (titleEl && subEl) {
-    if (mode === 'deviation') {
-      titleEl.textContent = "Multi-Year Survey Deviation vs MPOB Actual Benchmark (2010 – 2026)";
-      subEl.textContent = "Tracking deviation (% points): SPPOMA & MPOA Survey Estimates minus Official MPOB Final Outcome (0.00% = Exact Match)";
-    } else {
-      titleEl.textContent = "Multi-Year Intra-Month Estimate vs MPOB Final Benchmark (2010 – 2026)";
-      subEl.textContent = "Compare historical SPPOMA and MPOA monthly rate of change against final official MPOB outcome";
-    }
-  }
-
-  renderSppomaHistoryChart();
-}
-
-function renderSppomaHistoryChart(interval = 'full_month') {
-  const ctx = document.getElementById("chartSppomaMultiYear");
-  if (!ctx || !sppomaData) return;
-
-  const sel = document.getElementById("sppoma-chart-interval");
-  if (sel) {
-    interval = sel.value;
-  }
-
-  const slice = sppomaData.filter(r => r.year >= 2010);
-  const labels = slice.map(r => r.period);
-
-  if (sppomaChartMode === 'deviation') {
-    // -------------------------------------------------------------
-    // Deviation Mode: (Survey Estimate - MPOB Actual) in % points
-    // -------------------------------------------------------------
-    const sppomaDevVals = slice.map(r => {
-      const sp = r.sppoma[interval];
-      const act = r.mpob_actual ? r.mpob_actual.cpo_mom_pct : null;
-      if (sp && sp.cpo_prod_mom_pct !== null && act !== null) {
-        return Number((sp.cpo_prod_mom_pct - act).toFixed(2));
-      }
-      return null;
-    });
-
-    const mpoaDevVals = slice.map(r => {
-      const act = r.mpob_actual ? r.mpob_actual.cpo_mom_pct : null;
-      if (act === null) return null;
-      let mVal = null;
-      if (interval === '1-20' && r.mpoa['1-20']) {
-        mVal = r.mpoa['1-20'].total_malaysia_mom_pct;
-      } else if (interval === 'full_month' && r.mpoa['full_month']) {
-        mVal = r.mpoa['full_month'].total_malaysia_mom_pct;
-      } else {
-        mVal = null; // MPOA only provides 1-20 and full month
-      }
-      if (mVal !== null) {
-        return Number((mVal - act).toFixed(2));
-      }
-      return null;
-    });
-
-    const baselineVals = slice.map(() => 0.0);
-
-    // Dynamic stats computation across realized historical periods
-    const validSppDev = sppomaDevVals.filter(v => v !== null);
-    const validMpoaDev = mpoaDevVals.filter(v => v !== null);
-
-    const sppMAE = validSppDev.length ? (validSppDev.reduce((a, b) => a + Math.abs(b), 0) / validSppDev.length).toFixed(2) : '--';
-    const mpoaMAE = validMpoaDev.length ? (validMpoaDev.reduce((a, b) => a + Math.abs(b), 0) / validMpoaDev.length).toFixed(2) : '--';
-    const sppBias = validSppDev.length ? (validSppDev.reduce((a, b) => a + b, 0) / validSppDev.length).toFixed(2) : '--';
-    const mpoaWithin2 = validMpoaDev.length ? ((validMpoaDev.filter(v => Math.abs(v) <= 2.0).length / validMpoaDev.length) * 100).toFixed(1) : '--';
-    const sppWithin2 = validSppDev.length ? ((validSppDev.filter(v => Math.abs(v) <= 2.0).length / validSppDev.length) * 100).toFixed(1) : '--';
-
-    const statsBar = document.getElementById("sppoma-dev-stats-bar");
-    if (statsBar) {
-      statsBar.style.display = 'grid';
-      statsBar.innerHTML = `
-        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
-          <div class="text-[11px] text-slate-400 font-medium">SPPOMA MAE (${interval.toUpperCase()})</div>
-          <div class="text-base font-bold text-indigo-400 font-mono">&plusmn;${sppMAE}% pts</div>
-          <div class="text-[10px] text-slate-400">Mean Abs Deviation vs MPOB</div>
-        </div>
-        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
-          <div class="text-[11px] text-slate-400 font-medium">MPOA MAE (${interval === '1-20' ? '1-20' : 'Full Month'})</div>
-          <div class="text-base font-bold text-cyan-400 font-mono">${validMpoaDev.length ? `&plusmn;${mpoaMAE}% pts` : 'N/A for Interval'}</div>
-          <div class="text-[10px] text-slate-400">${validMpoaDev.length ? 'National estate error margin' : 'MPOA only reports 1-20 & Full'}</div>
-        </div>
-        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
-          <div class="text-[11px] text-slate-400 font-medium">Within &plusmn;2.0% Tolerance</div>
-          <div class="text-base font-bold text-emerald-400 font-mono">SPP: ${sppWithin2}% &bull; MPOA: ${mpoaWithin2}%</div>
-          <div class="text-[10px] text-slate-400">Low tracking error rate</div>
-        </div>
-        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
-          <div class="text-[11px] text-slate-400 font-medium">SPPOMA Net Bias</div>
-          <div class="text-base font-bold text-amber-400 font-mono">${Number(sppBias) >= 0 ? '+' : ''}${sppBias}% pts</div>
-          <div class="text-[10px] text-slate-400">${Number(sppBias) >= 0 ? 'Slight Southern Overestimation' : 'Underestimating'}</div>
-        </div>
-      `;
-    }
-
-    if (chartSppomaMultiYear) {
-      chartSppomaMultiYear.destroy();
-    }
-
-    const datasets = [
-      {
-        label: `SPPOMA (${interval === 'full_month' ? 'Final %' : interval.toUpperCase()}) − MPOB % Change (% pts)`,
-        data: sppomaDevVals,
-        borderColor: '#818cf8',
-        backgroundColor: 'rgba(129, 140, 248, 0.08)',
-        borderWidth: 2,
-        pointRadius: 0,
-        pointHoverRadius: 5,
-        tension: 0.15,
-        fill: false
-      }
-    ];
-
-    if (validMpoaDev.length > 0) {
-      datasets.push({
-        label: `MPOA (${interval === 'full_month' ? 'Final %' : 'Day 1-20'}) − MPOB % Change (% pts)`,
-        data: mpoaDevVals,
-        borderColor: '#06b6d4',
-        backgroundColor: 'rgba(6, 182, 212, 0.08)',
-        borderWidth: 2,
-        pointRadius: 0,
-        pointHoverRadius: 5,
-        tension: 0.15,
-        fill: false
-      });
-    }
-
-    chartSppomaMultiYear = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: datasets
+    },
+    scales: {
+      x: {
+        ticks: { color: "#64748b", maxTicksLimit: 20, font: { size: 11 } },
+        grid: { color: "rgba(100, 116, 139, 0.1)" }
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: {
-            labels: { color: '#e2e8f0', font: { size: 11 } }
-          },
-          tooltip: {
-            backgroundColor: '#0f172a',
-            borderColor: '#334155',
-            borderWidth: 1,
-            callbacks: {
-              label: (ctx) => {
-                const idx = ctx.dataIndex;
-                const rec = slice[idx];
-                const act = rec.mpob_actual ? rec.mpob_actual.cpo_mom_pct : null;
-                const val = ctx.parsed.y;
-                if (val === null || val === undefined) return `${ctx.dataset.label}: --`;
-                const sign = val >= 0 ? '+' : '';
-                if (ctx.dataset.label.includes('SPPOMA')) {
-                  const spVal = rec.sppoma[interval] ? rec.sppoma[interval].cpo_prod_mom_pct : null;
-                  return `SPPOMA Deviation: ${sign}${val.toFixed(2)}% pts (SPP: ${spVal !== null ? (spVal >= 0 ? '+' : '') + spVal + '%' : '--'}, MPOB: ${act !== null ? (act >= 0 ? '+' : '') + act + '%' : '--'})`;
-                } else if (ctx.dataset.label.includes('MPOA')) {
-                  const mpVal = interval === '1-20' ? (rec.mpoa['1-20'] ? rec.mpoa['1-20'].total_malaysia_mom_pct : null) : (rec.mpoa['full_month'] ? rec.mpoa['full_month'].total_malaysia_mom_pct : null);
-                  return `MPOA Deviation: ${sign}${val.toFixed(2)}% pts (MPOA: ${mpVal !== null ? (mpVal >= 0 ? '+' : '') + mpVal + '%' : '--'}, MPOB: ${act !== null ? (act >= 0 ? '+' : '') + act + '%' : '--'})`;
-                }
-                return `${ctx.dataset.label}: ${sign}${val.toFixed(2)}% pts`;
-              }
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 20 },
-            grid: { color: 'rgba(51, 65, 85, 0.2)' }
-          },
-          y: {
-            ticks: {
-              color: '#cbd5e1',
-              font: { size: 10 },
-              callback: v => (v > 0 ? '+' : '') + v.toFixed(1) + '% pts'
-            },
-            grid: {
-              color: (context) => (context.tick && context.tick.value === 0 ? 'rgba(16, 185, 129, 0.5)' : 'rgba(51, 65, 85, 0.25)'),
-              lineWidth: (context) => (context.tick && context.tick.value === 0 ? 2 : 1)
-            },
-            title: { display: true, text: 'Tracking Deviation vs MPOB Actual (% points)', color: '#94a3b8', font: { size: 11 } }
-          }
-        }
+      y: {
+        title: { display: Boolean(yTitle), text: yTitle, color: "#475569", font: { size: 11, weight: 'bold' } },
+        ticks: { color: "#64748b", font: { family: "'JetBrains Mono', monospace", size: 11 } },
+        grid: { color: "rgba(100, 116, 139, 0.1)" }
       }
-    });
-
-  } else {
-    // -------------------------------------------------------------
-    // Absolute Mode: Raw MoM % Comparison
-    // -------------------------------------------------------------
-    const statsBar = document.getElementById("sppoma-dev-stats-bar");
-    if (statsBar) statsBar.style.display = 'none';
-
-    const sppomaVals = slice.map(r => {
-      const sp = r.sppoma[interval];
-      return sp ? sp.cpo_prod_mom_pct : null;
-    });
-
-    const mpoaVals = slice.map(r => {
-      if (interval === '1-20') return r.mpoa['1-20'].total_malaysia_mom_pct;
-      return r.mpoa['full_month'] ? r.mpoa['full_month'].total_malaysia_mom_pct : null;
-    });
-
-    const mpobVals = slice.map(r => r.mpob_actual ? r.mpob_actual.cpo_mom_pct : null);
-
-    if (chartSppomaMultiYear) {
-      chartSppomaMultiYear.destroy();
     }
-
-    chartSppomaMultiYear = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: `SPPOMA (${interval.toUpperCase()}) CPO MoM %`,
-            data: sppomaVals,
-            borderColor: '#818cf8',
-            borderWidth: 1.8,
-            pointRadius: 0,
-            pointHoverRadius: 4,
-            tension: 0.1
-          },
-          {
-            label: `MPOA (${interval === '1-20' ? '1-20' : 'Full Month'}) Total MoM %`,
-            data: mpoaVals,
-            borderColor: '#06b6d4',
-            borderWidth: 1.8,
-            pointRadius: 0,
-            pointHoverRadius: 4,
-            tension: 0.1
-          },
-          {
-            label: 'Official MPOB Final MoM %',
-            data: mpobVals,
-            borderColor: '#10b981',
-            borderWidth: 2.2,
-            pointRadius: 0,
-            pointHoverRadius: 5,
-            tension: 0.1
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: {
-            labels: { color: '#e2e8f0', font: { size: 11 } }
-          },
-          tooltip: {
-            backgroundColor: '#0f172a',
-            borderColor: '#334155',
-            borderWidth: 1,
-            callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y !== null ? (ctx.parsed.y >= 0 ? '+' : '') + ctx.parsed.y.toFixed(2) + '%' : '--'}`
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 20 },
-            grid: { color: 'rgba(51, 65, 85, 0.2)' }
-          },
-          y: {
-            ticks: {
-              color: '#cbd5e1',
-              font: { size: 10 },
-              callback: v => (v >= 0 ? '+' : '') + v + '%'
-            },
-            grid: { color: 'rgba(51, 65, 85, 0.25)' },
-            title: { display: true, text: 'MoM % Change', color: '#94a3b8', font: { size: 11 } }
-          }
-        }
-      }
-    });
-  }
-}
-
-function toggleSppomaTableSort() {
-  sppomaTableSortOrder = sppomaTableSortOrder === 'desc' ? 'asc' : 'desc';
-  const icon = document.getElementById("sppoma-sort-icon");
-  if (icon) icon.textContent = sppomaTableSortOrder === 'desc' ? '▼' : '▲';
-  filterSppomaTable();
-}
-
-function renderSppomaTable(filterQuery = "") {
-  const tbody = document.getElementById("sppoma-table-body");
-  if (!tbody || !sppomaData) return;
-
-  const q = filterQuery.toLowerCase().trim();
-  let filtered = sppomaData.filter(r => {
-    if (!q) return true;
-    return r.period.includes(q) || r.month_name.toLowerCase().includes(q) || String(r.year).includes(q);
-  });
-
-  // Sort by period: default 'desc' (most recent dates at the top)
-  filtered.sort((a, b) => {
-    return sppomaTableSortOrder === 'desc'
-      ? b.period.localeCompare(a.period)
-      : a.period.localeCompare(b.period);
-  });
-
-  const fmt = (v) => {
-    if (v === null || v === undefined) return '--';
-    const cls = v >= 0 ? 'text-emerald-400' : 'text-rose-400';
-    return `<span class="${cls}">${v >= 0 ? '+' : ''}${v.toFixed(2)}%</span>`;
   };
-
-  tbody.innerHTML = filtered.map(r => {
-    const sp = r.sppoma;
-    const mp = r.mpoa;
-    const act = r.mpob_actual;
-    const an = r.analytics;
-
-    const err = an.sppoma_full_month_error_pct;
-    const errStr = err !== null && err !== undefined
-      ? `<span class="${Math.abs(err) <= 2.0 ? 'text-slate-300' : 'text-amber-400'} font-mono">${err >= 0 ? '+' : ''}${err.toFixed(2)}%</span>`
-      : '<span class="text-slate-500 italic text-[11px]">-- (Pending)</span>';
-
-    const cpoTonnes = act.cpo_production_tonnes ? formatNumber(act.cpo_production_tonnes) : '<span class="text-slate-500 italic text-[11px]">Pending</span>';
-    const mpoaFullStr = mp['full_month'].total_malaysia_mom_pct !== null && mp['full_month'].total_malaysia_mom_pct !== undefined
-      ? fmt(mp['full_month'].total_malaysia_mom_pct)
-      : '<span class="text-amber-400/80 text-[11px] font-sans italic">Pending (~Oct 7)</span>';
-    const mpobMomStr = act.cpo_mom_pct !== null && act.cpo_mom_pct !== undefined
-      ? fmt(act.cpo_mom_pct)
-      : '<span class="text-amber-400/80 text-[11px] font-sans italic">Pending (Oct 10)</span>';
-
-    return `
-      <tr class="hover:bg-slate-800/40 transition">
-        <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
-        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-5'].cpo_prod_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-10'].cpo_prod_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-15'].cpo_prod_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono font-bold">${fmt(sp['1-20'].cpo_prod_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono">${fmt(sp['1-25'].cpo_prod_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/60">${fmt(sp['full_month'].cpo_prod_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono text-slate-400">${sp['full_month'].oer_diff_pts !== null ? (sp['full_month'].oer_diff_pts >= 0 ? '+' : '') + sp['full_month'].oer_diff_pts.toFixed(2) : '--'}</td>
-        <td class="py-2 px-2 text-right font-mono font-bold">${fmt(mp['1-20'].total_malaysia_mom_pct)}</td>
-        <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/60">${mpoaFullStr}</td>
-        <td class="py-2 px-2 text-right font-mono font-bold">${mpobMomStr}</td>
-        <td class="py-2 px-3 text-right font-mono text-slate-200">${cpoTonnes}</td>
-        <td class="py-2 px-2 text-right font-mono">${errStr}</td>
-      </tr>
-    `;
-  }).join("");
 }
 
-function filterSppomaTable() {
-  const input = document.getElementById("sppoma-table-search");
-  if (input) {
-    renderSppomaTable(input.value);
-  }
-}
-
-// =========================================================================
-// TAB 8: Dedicated MPOA Regional Production Survey Ledger (Peninsular, Sabah, Sarawak & Borneo)
-// =========================================================================
-
-let mpoaTableInterval = 'full_month'; // 'full_month', '1-20', or 'combined'
-let mpoaTableSortOrder = 'desc'; // default 'desc' for most recent first
-
-function setMpoaTableInterval(interval) {
-  mpoaTableInterval = interval;
-  const btnFull = document.getElementById("btn-mpoa-tbl-full");
-  const btn20 = document.getElementById("btn-mpoa-tbl-20");
-  const btnComb = document.getElementById("btn-mpoa-tbl-comb");
-  [btnFull, btn20, btnComb].forEach(btn => {
-    if (btn) btn.className = "px-2.5 py-1 rounded hover:bg-slate-800 text-slate-400 transition";
-  });
-  if (interval === 'full_month' && btnFull) {
-    btnFull.className = "px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition";
-  } else if (interval === '1-20' && btn20) {
-    btn20.className = "px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition";
-  } else if (interval === 'combined' && btnComb) {
-    btnComb.className = "px-2.5 py-1 rounded bg-cyan-600 font-semibold text-white transition";
-  }
-  filterMpoaTable();
-}
-
-function toggleMpoaTableSort() {
-  mpoaTableSortOrder = mpoaTableSortOrder === 'desc' ? 'asc' : 'desc';
-  const icon = document.getElementById("mpoa-sort-icon");
-  if (icon) icon.textContent = mpoaTableSortOrder === 'desc' ? '▼' : '▲';
-  filterMpoaTable();
-}
-
-function filterMpoaTable() {
-  const input = document.getElementById("mpoa-table-search");
-  renderMpoaTable(input ? input.value : "");
-}
-
-function renderMpoaTable(filterQuery = "") {
-  const thead = document.getElementById("mpoa-table-head");
-  const tbody = document.getElementById("mpoa-table-body");
-  if (!thead || !tbody || !sppomaData) return;
-
-  const q = filterQuery.toLowerCase().trim();
-  let filtered = sppomaData.filter(r => {
-    if (!q) return true;
-    return r.period.includes(q) || r.month_name.toLowerCase().includes(q) || String(r.year).includes(q);
-  });
-
-  filtered.sort((a, b) => {
-    return mpoaTableSortOrder === 'desc'
-      ? b.period.localeCompare(a.period)
-      : a.period.localeCompare(b.period);
-  });
-
-  const fmt = (v) => {
-    if (v === null || v === undefined) return '<span class="text-slate-500 italic">--</span>';
-    const cls = v >= 0 ? 'text-emerald-400' : 'text-rose-400';
-    return `<span class="${cls} font-mono font-semibold">${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}%</span>`;
-  };
-
-  const badge = (status, isBulletin) => {
-    if (isBulletin) {
-      return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 font-sans font-medium whitespace-nowrap">Official Bulletin</span>';
-    }
-    if (status && status.includes('Pending')) {
-      return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-950/80 text-amber-300 border border-amber-800/60 font-sans whitespace-nowrap">Pending Release</span>';
-    }
-    return '<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-500 font-sans whitespace-nowrap">Unverified</span>';
-  };
-
-  const sortIcon = `<span id="mpoa-sort-icon" class="text-xs text-cyan-400 font-mono font-bold">${mpoaTableSortOrder === 'desc' ? '▼' : '▲'}</span>`;
-
-  if (mpoaTableInterval === 'full_month') {
-    thead.innerHTML = `
-      <tr>
-        <th class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleMpoaTableSort()" title="Click to toggle sort order">
-          <span class="inline-flex items-center space-x-1">
-            <span>Period</span>
-            ${sortIcon}
-          </span>
-        </th>
-        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Peninsular MoM</th>
-        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sabah MoM</th>
-        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sarawak MoM</th>
-        <th class="py-2.5 px-2 text-right text-cyan-400 font-mono font-bold bg-slate-900/60">Borneo State (East)</th>
-        <th class="py-2.5 px-2 text-right text-white font-mono font-bold bg-slate-900/90">Overall Malaysia</th>
-        <th class="py-2.5 px-2 text-right text-amber-300 font-mono font-bold">MPOB Actual</th>
-        <th class="py-2.5 px-2 text-center text-slate-400">Bulletin Verification</th>
-      </tr>
-    `;
-
-    tbody.innerHTML = filtered.map(r => {
-      const mp = r.mpoa.full_month;
-      const act = r.mpob_actual;
-      const mpobStr = act.cpo_mom_pct !== null && act.cpo_mom_pct !== undefined
-        ? fmt(act.cpo_mom_pct)
-        : '<span class="text-amber-400/80 text-[11px] font-sans italic">Pending (Oct 10)</span>';
-
-      return `
-        <tr class="hover:bg-slate-800/40 transition">
-          <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
-          <td class="py-2 px-2 text-right font-mono">${fmt(mp.peninsular_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sabah_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sarawak_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/50 text-cyan-300">${fmt(mp.east_malaysia_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/80 text-white">${fmt(mp.total_malaysia_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono font-bold">${mpobStr}</td>
-          <td class="py-2 px-2 text-center">${badge(mp.status, mp.is_verified_bulletin)}</td>
-        </tr>
-      `;
-    }).join("");
-
-  } else if (mpoaTableInterval === '1-20') {
-    thead.innerHTML = `
-      <tr>
-        <th class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleMpoaTableSort()" title="Click to toggle sort order">
-          <span class="inline-flex items-center space-x-1">
-            <span>Period</span>
-            ${sortIcon}
-          </span>
-        </th>
-        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Peninsular (1-20)</th>
-        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sabah (1-20)</th>
-        <th class="py-2.5 px-2 text-right text-cyan-300 font-mono">Sarawak (1-20)</th>
-        <th class="py-2.5 px-2 text-right text-cyan-400 font-mono font-bold bg-slate-900/60">Borneo State (1-20)</th>
-        <th class="py-2.5 px-2 text-right text-white font-mono font-bold bg-slate-900/90">Overall Malaysia (1-20)</th>
-        <th class="py-2.5 px-2 text-center text-slate-400">Bulletin Verification</th>
-      </tr>
-    `;
-
-    tbody.innerHTML = filtered.map(r => {
-      const mp = r.mpoa['1-20'];
-      return `
-        <tr class="hover:bg-slate-800/40 transition">
-          <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
-          <td class="py-2 px-2 text-right font-mono">${fmt(mp.peninsular_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sabah_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono">${fmt(mp.sarawak_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/50 text-cyan-300">${fmt(mp.east_malaysia_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono font-bold bg-slate-900/80 text-white">${fmt(mp.total_malaysia_mom_pct)}</td>
-          <td class="py-2 px-2 text-center">${badge(mp.status, mp.is_verified_bulletin)}</td>
-        </tr>
-      `;
-    }).join("");
-
-  } else {
-    // Combined / Side-by-Side view
-    thead.innerHTML = `
-      <tr>
-        <th rowspan="2" class="py-2.5 px-3 text-left cursor-pointer hover:text-white transition select-none" onclick="toggleMpoaTableSort()" title="Click to toggle sort order">
-          <span class="inline-flex items-center space-x-1">
-            <span>Period</span>
-            ${sortIcon}
-          </span>
-        </th>
-        <th colspan="2" class="py-1 px-2 text-center text-cyan-300 border-b border-slate-800">Peninsular</th>
-        <th colspan="2" class="py-1 px-2 text-center text-cyan-300 border-b border-slate-800">Sabah</th>
-        <th colspan="2" class="py-1 px-2 text-center text-cyan-300 border-b border-slate-800">Sarawak</th>
-        <th colspan="2" class="py-1 px-2 text-center text-cyan-400 font-bold bg-slate-900/60 border-b border-slate-800">Borneo State</th>
-        <th colspan="2" class="py-1 px-2 text-center text-white font-bold bg-slate-900/90 border-b border-slate-800">Overall Malaysia</th>
-        <th rowspan="2" class="py-2.5 px-2 text-right text-amber-300 font-mono font-bold">MPOB Actual</th>
-      </tr>
-      <tr>
-        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px]">1-20</th>
-        <th class="py-1.5 px-1.5 text-right text-cyan-300 font-mono text-[10px] font-bold">Full</th>
-        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px]">1-20</th>
-        <th class="py-1.5 px-1.5 text-right text-cyan-300 font-mono text-[10px] font-bold">Full</th>
-        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px]">1-20</th>
-        <th class="py-1.5 px-1.5 text-right text-cyan-300 font-mono text-[10px] font-bold">Full</th>
-        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px] bg-slate-900/60">1-20</th>
-        <th class="py-1.5 px-1.5 text-right text-cyan-400 font-mono text-[10px] font-bold bg-slate-900/60">Full</th>
-        <th class="py-1.5 px-1.5 text-right text-slate-400 font-mono text-[10px] bg-slate-900/90">1-20</th>
-        <th class="py-1.5 px-1.5 text-right text-emerald-400 font-mono text-[10px] font-bold bg-slate-900/90">Full</th>
-      </tr>
-    `;
-
-    tbody.innerHTML = filtered.map(r => {
-      const m20 = r.mpoa['1-20'];
-      const mFull = r.mpoa.full_month;
-      const act = r.mpob_actual;
-      const mpobStr = act.cpo_mom_pct !== null && act.cpo_mom_pct !== undefined
-        ? fmt(act.cpo_mom_pct)
-        : '<span class="text-amber-400/80 text-[10px] font-sans italic">Pending (Oct 10)</span>';
-
-      return `
-        <tr class="hover:bg-slate-800/40 transition">
-          <td class="py-2 px-3 font-sans font-medium text-white whitespace-nowrap">${r.period}</td>
-          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs">${fmt(m20.peninsular_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs">${fmt(mFull.peninsular_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs">${fmt(m20.sabah_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs">${fmt(mFull.sabah_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs">${fmt(m20.sarawak_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs">${fmt(mFull.sarawak_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs bg-slate-900/50">${fmt(m20.east_malaysia_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs bg-slate-900/50 text-cyan-300">${fmt(mFull.east_malaysia_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono text-slate-400 text-xs bg-slate-900/80">${fmt(m20.total_malaysia_mom_pct)}</td>
-          <td class="py-2 px-1.5 text-right font-mono font-bold text-xs bg-slate-900/80 text-white">${fmt(mFull.total_malaysia_mom_pct)}</td>
-          <td class="py-2 px-2 text-right font-mono font-bold">${mpobStr}</td>
-        </tr>
-      `;
-    }).join("");
-  }
-}
-
-
-
+document.addEventListener("DOMContentLoaded", initDashboard);

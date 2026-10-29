@@ -1,389 +1,451 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    color: #222222;
-    background-color: #f7f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #1e293b;
+    background-color: #f8fafc;
     margin: 0;
     padding: 20px;
   }
   .container {
-    max-width: 960px;
+    max-width: 920px;
     margin: 0 auto;
-    background: #ffffff;
-    border: 1px solid #e1e4e8;
-    border-radius: 8px;
-    padding: 32px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
   }
   .header {
-    border-bottom: 2px solid #005a36;
-    padding-bottom: 16px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    background-color: #ffffff;
+    color: #0f172a;
+    padding: 24px 32px;
+    border-bottom: 3px solid #166534;
   }
-  .logo {
-    max-height: 55px;
-    width: auto;
+  .header-text h1 {
+    margin: 0 0 6px 0;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0f172a;
   }
-  h1 {
-    color: #005a36;
-    font-size: 24px;
-    margin: 0 0 8px 0;
-  }
-  .date-meta {
+  .header-meta {
     font-size: 13px;
-    color: #586069;
-    font-weight: 500;
+    color: #475569;
+  }
+  .content {
+    padding: 28px 32px;
   }
   h2 {
-    color: #1a365d;
     font-size: 18px;
-    border-bottom: 1px solid #eaecef;
-    padding-bottom: 8px;
-    margin-top: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+    margin-top: 30px;
     margin-bottom: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  }
+  h2:first-of-type {
+    margin-top: 0;
   }
   h3 {
-    color: #2c3e50;
     font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
     margin-top: 18px;
     margin-bottom: 8px;
   }
   h4 {
-    color: #4a5568;
     font-size: 14px;
+    font-weight: 700;
+    color: #334155;
     margin-top: 14px;
     margin-bottom: 6px;
   }
-  p, li {
-    font-size: 13.5px;
-    color: #24292e;
+  .bull-case {
+    background-color: #f0fdf4;
+    border-left: 4px solid #16a34a;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 0 6px 6px 0;
+  }
+  .bull-case strong:first-child {
+    color: #15803d;
+  }
+  .bear-case {
+    background-color: #fef2f2;
+    border-left: 4px solid #dc2626;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 0 6px 6px 0;
+  }
+  .bear-case strong:first-child {
+    color: #b91c1c;
+  }
+  .divergences {
+    background-color: #fffbeb;
+    border-left: 4px solid #d97706;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    border-radius: 0 6px 6px 0;
+  }
+  .conclusion {
+    background-color: #f1f5f9;
+    border-left: 4px solid #3b82f6;
+    padding: 12px 16px;
+    margin-top: 10px;
+    margin-bottom: 22px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
   }
   ul {
-    margin-top: 4px;
-    margin-bottom: 12px;
-    padding-left: 22px;
+    margin: 6px 0;
+    padding-left: 20px;
   }
   li {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    font-size: 14px;
   }
-  strong {
-    color: #111;
-  }
-  .bull-badge {
-    background-color: #e6ffed;
-    color: #22863a;
-    border: 1px solid #34d058;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 12px;
-  }
-  .bear-badge {
-    background-color: #ffeef0;
-    color: #cb2431;
-    border: 1px solid #f97583;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 12px;
-  }
-  .divergence-box {
-    background-color: #f1f8ff;
-    border-left: 4px solid #0366d6;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    border-radius: 0 4px 4px 0;
+  li:last-child {
+    margin-bottom: 0;
   }
   .footer {
-    margin-top: 36px;
-    padding-top: 16px;
-    border-top: 1px solid #eaecef;
-    font-size: 12px;
-    color: #6a737d;
+    background-color: #f1f5f9;
+    padding: 16px 32px;
     text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #475569;
+    border-top: 1px solid #e2e8f0;
   }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <div>
-      <h1>First Resources Trading | Daily Intelligence Dossier</h1>
-      <div class="date-meta">Trade Date: Friday, 23 October 2026 | Directional bias is AI-generated and to be taken with discretion.</div>
-    </div>
-    <img src="cid:first_resources_logo" alt="First Resources Logo" class="logo" />
+    <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+      <tr>
+        <td valign="middle" style="width: 50px; padding-right: 18px;">
+          <img src="cid:first_resources_logo" alt="First Resources" width="45" height="80" style="width: 45px; height: 80px; display: block; border: 0;" />
+        </td>
+        <td class="header-text" valign="middle">
+          <h1>First Resources Trading | Daily Commodity Intelligence Dossier</h1>
+          <div class="header-meta"><strong>Trade Date:</strong> Friday, 23 October 2026 &nbsp;|&nbsp; <strong>Note: Directional bias is AI-generated and to be taken with discretion.</strong></div>
+        </td>
+      </tr>
+    </table>
   </div>
-  
-<h2>Key Cross-Source Analytical Divergences</h2>
-<div class="divergence-box">
-<ul>
-<li><strong>Extreme Palm Oil Undervaluation vs. Fossil Gasoil (-$330/t Discount) & Soaring Malaysian Oct Exports (+78% MoM) vs. Black Sea Sunoil Supply Shock:</strong> <em>Oil World</em> and <em>Argus</em> highlight an unprecedented structural disconnect across the global energy and vegetable oil complex: while ICE gasoil futures climbed to $1,488/t ($1,492/t prompt settle; Brent at a 6-month high of $116.72/bbl), BMD CPO traded near 4,731 MYR/t ($1,159/t)—establishing an unprecedented ~$330/t discount of palm oil to fossil gasoil (with the January POGO spread widening to -$212.25/t). Simultaneously, <em>Oil World</em> notes that a severe collapse in combined Russian/Ukrainian sunoil exports to an 11-year low of ~2.0 mn t in Sept/Dec 2026 (down 0.8M t YoY and 1.7M t below 2024 due to intense Black Sea commercial vessel attacks) is forcing price-sensitive destination buyers in India, the Middle East, and North Africa to aggressively substitute into palm oil. This substitution dynamic drove Amspec Malaysian Oct 1–20 exports up 78% MoM (+12% YoY) to 1.08 mn t, with full-month shipments headed for a 12-month high near 1.6 mn t. However, <em>Argus</em> cautions that India's domestic edible oil pipeline remains comfortably supplied following record pre-Diwali restocking (port stocks at an 8-month high of 1.99 mn t), while <em>Sernatinger</em> notes Indian banking restrictions preventing back-end currency hedging are creating execution friction for fresh import commitments.</li>
-<li><strong>Aggressive Chinese Commercial Soybean Accumulation (35 Cargoes on Week; 1.374M T Flash Sales) vs. Collapsing US Crush Margins ($2.40/bu) & Rapid Brazilian Planting:</strong> <em>Sernatinger</em> and <em>Taffel</em> document massive, price-insensitive Chinese state and commercial import buying, with COFCO and private crushers securing 35 cargoes globally across the week (including 9 new-crop Brazilian cargoes on Friday alone and 13 US Gulf/PNW cargoes earlier in the week), underpinned by 1.374 mn t of USDA daily flash sales queued for next week's export report. Furthermore, <em>Sernatinger</em> notes that Trump announced up to $150M in federal funding under the Defense Production Act to expand domestic US refining, while record federal farm subsidies totaling $55 billion ($8 billion in Harvest Fuel Relief diesel aid hitting accounts in late November) provide US producers substantial financial flexibility to resist low bids. In stark contrast, <em>Sernatinger</em> warns that US domestic board crush margins are deteriorating rapidly—collapsing from $4.17/bu five months ago to just ~$2.40/bu—triggering the classic market adage: <em>"in a bear market with falling crush margins, you short products, not beans."</em> This domestic margin squeeze coincides with <em>Argus</em> reporting that Brazilian 2026/27 soybean sowing accelerated to 30.1% nationwide (well ahead of last year's 21.4%), led by Mato Grosso reaching 51.9% (vs. 43.6% in 2024), maintaining Conab's record national harvest forecast of 181.6 mn t.</li>
-<li><strong>Surging US Renewable Diesel Margins (382¢/USG) & Narrowing BOHO Spread (2.81¢/USG) vs. Section 45Z Feedstock Eligibility & Mass-Balance Complexities:</strong> <em>Argus</em> reports that a 5.21¢/gal rally in Nymex ULSD to 498.42¢/gal ($4.9842/gal), combined with an 8-session low in CBOT soybean oil basis relative to heating oil, drove the bean oil-heating oil (BOHO) spread down to just 2.81¢/USG—its tightest level since September 18—bolstering US Gulf Coast RD reference margins to 382.28¢/USG (DCO-based margins hitting 396.26¢/USG). Furthermore, 2026 D4 biomass-based diesel RINs rebounded +3.75¢ to 184.25¢/RIN (+5.50¢ on D6 to 173.75¢/RIN) as refiners positioned for a structural D4 short heading into 2027. However, <em>Argus</em> features an in-depth analysis warning that the upcoming Clean Fuel Production Credit (Section 45Z) poses severe operational hurdles: the $1.00/USG maximum credit guarantees $0.60/gal for domestic SBO-based renewable diesel, leaving only $0.40/gal to be shared with crushers and farmers for climate-smart practices, while the rigid "Mass Balance" chain-of-custody requirement risks stranding upstream farmer premiums compared to an unapproved "Book and Claim" model. Additionally, <em>Argus</em> notes Valero revealed that third-quarter foreign feedstocks diverted during storms proved entirely ineligible for 45Z domestic incentives, reinforcing a structural pivot toward domestic North American vegetable oils.</li>
-<li><strong>Egyptian State Buyer (FOE) Shifting Wheat Origination to Northern Europe & Poland vs. Divergent Argentine Harvest Prospects & Danube Canal Gridlock:</strong> <em>Argus</em> reports that Egypt's state procurement agency Futures of Egypt (FOE) and private millers (planning up to 2.0 mn t of imports for Nov–Dec) are aggressively shifting tenders toward French and Polish wheat (Elewarr deal)—the first significant Polish shipments to Egypt since 2019—to circumvent high war-risk premiums and commercial shipping attacks at Russian and Ukrainian Black Sea terminals. At the same time, <em>Argus</em> highlights that extensive vessel congestion at the Sulina canal is paralyzing Ukrainian Danube exports (Reni/Izmail), forcing Romanian/Bulgarian CVB 12.5% wheat to hold firm at $292.50/t FOB. In the Southern Hemisphere, Argentine wheat production estimates are sharply diverging: the Rosario Board of Trade (BCR) raised its 2026/27 crop outlook to 23.8 mn t (the second-largest in 17 years), whereas the Buenos Aires Grain Exchange (BAGE) warns of 10–15% localized crop damage across central and eastern belts following severe mid-October frosts and persistent low solar radiation.</li>
-</ul>
-</div>
+  <div class="content">
+    
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
+<h2>Key Cross-Source Analytical Divergences</h2>
+<div class="divergences">
+<ul>
+<li><strong>Extreme Palm Oil Undervaluation vs. Fossil Gasoil (-$330/t Discount) & Surging Oct Exports (+46.9% to +78% MoM) vs. Black Sea Sunoil Deficit:</strong> <em>Oil World</em>, <em>Argus</em>, and <em>UOB</em> highlight an unprecedented structural disconnect across the global energy and vegetable oil complex: while ICE gasoil futures rallied to $1,488–$1,492/t (prompt settle at $1,492.00/t, up $47.25/t; Brent at a 6-month high of $116.72/bbl), BMD CPO traded near 4,731–4,818 MYR/t ($1,159–$1,181/t)—establishing an unprecedented ~$330/t discount of palm oil to fossil diesel fuel (with the January POGO spread plunging to -$212.25 to -$213.74/t). Simultaneously, <em>Oil World</em> notes that an 11-year low in combined Russian/Ukrainian sunoil exports (~2.0 mn t in Sept/Dec 2026, down 0.8M t YoY due to Black Sea vessel missile strikes) has driven CIF Mumbai sunflower oil to $1,510/t (a massive $270/t premium over CPO and $177/t over SBO), forcing price-sensitive destination buyers in India, China, and North Africa to aggressively substitute into palm oil. This dynamic is confirmed by physical export metrics: <em>Oil World</em> / Amspec pegged Oct 1–20 exports up 78% MoM to 1.08 mn t (full month seen near 1.6 mn t), while <em>UOB</em> / ITS reports Oct 1–25 exports surged 46.89% MoM to 1.304 mn t (+416,146 t vs. Sept 1–25). MPOA also reported Oct 1–20 Malaysian production rose 6.00% MoM (Peninsular +1.94%, Borneo +11.81%, Sabah +12.45%). However, <em>Argus</em> notes India's domestic edible oil pipeline remains comfortably supplied following pre-Diwali restocking (stocks at an 8-month high of 1.99 mn t), while <em>Sernatinger</em> warns Indian central banking restrictions preventing back-end currency hedging are creating execution friction.</li>
+<li><strong>Massive Speculative Fund Liquidation (CFTC: -84.6K Corn, -30.6K Soybeans, -19.5K SBO) vs. Aggressive Chinese Commercial Buying (35 Cargoes on Week; 1.374M T Flashed):</strong> Official CFTC Commitment of Traders data reveals violent managed money liquidation across the agricultural complex in the week ended Oct 20: hedge funds dumped 84,620 contracts of corn (-36.65% to 146,257 lots), 30,555 contracts of soybeans (-12.87% to 206,936 lots), and 19,470 contracts of soybean oil (-21.80% to 69,858 lots), while expanding net short wheat positions by 18,096 contracts (+54.77% to -51,134 lots). Yet, this speculative dump was aggressively absorbed by Chinese state and commercial hedgers: <em>Sernatinger</em>, <em>Taffel</em>, and <em>Agrinvest</em> confirm China booked approximately 35 cargoes globally across the week (including 20–25 new-crop Brazilian cargoes, marking the best week in two months, with 9 booked Friday alone at +125¢ to +138¢ over CBOT, locking in gross crush margins above $30/t). This was anchored by 1.374 mn t in USDA daily flash sales. While <em>Agrinvest</em> notes the US export book has reached 26.2 mn t (17.8 mn t to China, ~70% of its 25 mn t commitment), non-China US sales lag at 10 mn t (-6.12M t YoY) as Brazil's non-China program captures 30.5–32 mn t due to wide price discounts.</li>
+<li><strong>Brazilian Crush Expansion to 66M T on March 2027 B16 Mandate vs. Collapsing US Board Crush Margins ($2.40/bu) & EUDR Trade Diversion:</strong> <em>Agrinvest</em> reports that Abiove raised its 2027 Brazilian soybean crush forecast to a record 66.0 mn t (+3.8% YoY), driven by the scheduled arrival of the <strong>B16 biodiesel mandate in March 2027</strong>, which will expand domestic meal output to 50.8 mn t and meal exports by 4% to 26.3 mn t. Furthermore, <em>Agrinvest</em> highlights the looming impact of EUDR (EU Deforestation Regulation) in 2027: moving EUDR-compliant beans from the US to Europe appears significantly cheaper and operationally easier than certifying Brazilian origins, potentially redirecting US export flows to Europe while China circumvents Northern Arc ports (due to low liquidity and logistics costs). In stark contrast, <em>Sernatinger</em> warns that US board crush margins have deteriorated from $4.17/bu five months ago to just ~$2.40/bu, reiterating the classic market directive: <em>"in a bear market with falling crush margins, you short products, not beans."</em></li>
+<li><strong>Surging US Renewable Diesel Margins (382¢/USG) & Narrowing BOHO Spread (2.81¢/USG) vs. Section 45Z Feedstock Eligibility Hurdles:</strong> <em>Argus</em> reports that a 5.21¢/gal rally in Nymex ULSD to 498.42¢/gal ($4.9842/gal), combined with an 8-session low in CBOT soybean oil basis relative to heating oil, drove the bean oil-heating oil (BOHO) spread down to 2.81¢/USG—its tightest level since September 18—bolstering US Gulf Coast RD reference margins to 382.28¢/USG (DCO-based margins hitting 396.26¢/USG). Furthermore, 2026 D4 biomass-based diesel RINs rebounded +3.75¢ to 184.25¢/RIN (+5.50¢ on D6 to 173.75¢/RIN) as refiners positioned for a structural D4 short heading into 2027. However, <em>Argus</em> features an in-depth analysis warning that the upcoming Clean Fuel Production Credit (Section 45Z) poses severe operational hurdles: the $1.00/USG maximum credit guarantees $0.60/gal for domestic SBO-based renewable diesel, leaving only $0.40/gal to be shared with crushers and farmers for climate-smart practices under rigid "Mass Balance" accounting. Additionally, Valero revealed that third-quarter foreign feedstocks diverted during storms proved entirely ineligible for 45Z domestic incentives, reinforcing a structural pivot toward domestic North American vegetable oils.</li>
+</ul></div>
+
 
 <h2>1. Palm Oil</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
-<li><strong>Unprecedented ~$330/t Discount to Fossil Gasoil & Surging POGO Inversion (-$212.25/t):</strong> <em>Oil World</em> emphasizes that palm oil has reached extreme historic undervaluation relative to energy markets: ICE gasoil futures climbed to $1,488/t (November gasoil settling at $1,492.00/t, up $47.25/t), while BMD December CPO traded at 4,731 MYR/t ($1,159/t)—placing crude palm oil at an unprecedented ~$330/t discount to fossil diesel fuel. <em>Argus</em> reports the January Palm Oil–Gasoil (POGO) spread plunged an additional $26.75/t deeper into inversion to -$212.25/t (Prompt FOB Indonesian olein at $1,147.50–$1,157.50/t vs. ICE gasoil at $1,467.39/t). This enormous economic discount is creating massive discretionary blending and energy substitution incentives across Southeast Asia.</li>
-<li><strong>Malaysian Oct 1–20 Exports Surge 78% MoM (Amspec) Toward 12-Month High (1.6M T):</strong> <em>Oil World</em> reports that Malaysian palm oil exports accelerated aggressively in early October, with Amspec estimating Oct 1–20 shipments up 78% MoM (+12% YoY) to 1.08 mn t. <em>Oil World</em> projects full-month October Malaysian exports will reach approximately 1.6 mn t, marking a 12-month high driven by competitive pricing against sunoil and soyoil.</li>
-<li><strong>Black Sea Sunoil Export Deficit Forcing Destination Shift to Palm Oil:</strong> <em>Oil World</em> analysis details that combined Russian and Ukrainian sunoil exports will drop by 800,000 t YoY (-1.7 mn t vs. 2024) to an 11-year low of ~2.0 mn t in Sept/Dec 2026 due to maritime security risks and missile strikes on port terminals. With CIF Mumbai sunflower oil rising to $1,510/t (widening its premium over CPO to an expansive $270/t and over SBO to $177/t), price-sensitive destination buyers in India, China, the Middle East, and North Africa are actively redirecting volume into palm oil.</li>
-<li><strong>Spot Physical Purchases by China & India & Tight Residue Availability:</strong> <em>Sernatinger</em> reports that China purchased an October shipment of palm olein on Friday, while India booked two prompt November CPO cargoes. In the residue sector, <em>Argus</em> notes refined POME FOB Indonesia gained $10/t to $1,130–$1,150/t FOB, with surveyed Indonesian refiners reporting zero export volume available for November–December loading. Indonesian PFAD FOB rose to $970–$990/t and Malaysian PFAD to $1,020–$1,040/t FOB (+5/t).</li>
-<li><strong>Technical Buy Watch Maintained:</strong> <em>Korzenecki</em> maintains palm oil on <strong>Buy Watch</strong>, noting underlying demand momentum and tightening forward balance sheets.</li>
-</ul>
+<li><strong>Unprecedented ~$330/t Discount to Fossil Gasoil & Surging POGO Inversion (-$212.25 to -$213.74/t):</strong> <em>Oil World</em> and <em>UOB</em> emphasize that palm oil has reached extreme historic undervaluation relative to energy markets: ICE gasoil futures climbed to $1,488–$1,492/t (settling at $1,492.00/t, up $47.25/t; 1000-day mean at +$148.52/t), while BMD CPO traded near 4,731–4,818 MYR/t ($1,159–$1,181/t)—placing crude palm oil at an unprecedented ~$330/t discount to fossil diesel fuel. <em>Argus</em> and <em>UOB</em> report the rolling third-month Palm Oil–Gasoil (POGO) spread stands at -$212.25 to -$213.74/t. This immense discount creates irresistible discretionary blending and industrial energy substitution incentives across Southeast Asia.</li>
+<li><strong>Malaysian Oct 1–25 Exports Surge +46.89% MoM (ITS 1.30M T) / Oct 1–20 +78% (Amspec 1.08M T):</strong> <em>UOB</em> reports ITS estimated Malaysian Oct 1–25 palm oil exports jumped 46.89% MoM to 1,303,703 t (up 416,146 t vs. 887,557 t in Sept 1–25). This aligns with <em>Oil World</em> / Amspec data showing Oct 1–20 exports up 78% MoM to 1.08 mn t, with full-month October shipments projected near a 12-month high of 1.6 mn t.</li>
+<li><strong>Black Sea Sunoil Export Deficit Forcing Destination Shift to Palm Oil:</strong> <em>Oil World</em> analysis details that combined Russian and Ukrainian sunoil exports will plunge to an 11-year low of ~2.0 mn t in Sept/Dec 2026 (-0.8 mn t YoY and -1.7 mn t vs. 2024) due to Black Sea missile attacks on commercial vessels and port infrastructure. With CIF Mumbai sunflower oil asking prices rising to $1,510/t (widening its premium over CPO to an expansive $270/t and over SBO to $177/t), price-sensitive buyers in India, China, the Middle East, and North Africa are actively redirecting volume into palm oil.</li>
+<li><strong>Moderate Production Growth (+6.0% MoM per MPOA) & Zero Spot Indonesian POME:</strong> <em>UOB</em> reports MPOA pegged Malaysian palm oil production up 6.00% in the first 20 days of October (Peninsular +1.94%, Borneo +11.81%, Sabah +12.45%, Sarawak +10.38%), decelerating from September's +21–25% pace. In the residue market, <em>Argus</em> notes refined POME FOB Indonesia gained $10/t to $1,130–$1,150/t FOB, with surveyed Indonesian refiners reporting zero export volume available for November–December loading. Indonesian PFAD FOB rose to $970–$990/t and Malaysian PFAD to $1,020–$1,040/t FOB (+5/t).</li>
+<li><strong>Technical Bullish Posture & Buy Watch Maintained:</strong> <em>UOB</em> notes BMD Jan27 closed up 26 points at 4,818 MYR/t, holding above the 4,800 psychological mark and 50-day SMA (4,786). Prices are testing the 61.8% Fibonacci retracement at 4,835; a breakout targets 4,900. <em>UOB</em> advises holding long positions with a stop at 4,650 MYR/t. <em>Korzenecki</em> maintains palm oil on <strong>Buy Watch</strong>. In China, <em>UOB</em> notes DCE Palm Olein Jan27 settled at 9,567 yuan/t, maintaining a short-term bullish pattern targeting 10,000 yuan/t (stop below 9,435).</li>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
-<li><strong>High Indian Domestic Edible Oil Stocks (1.99M T) & Absence of Currency Hedging:</strong> <em>Oil World</em> and <em>Argus</em> report that India entered late October with total domestic port and pipeline edible oil stocks at an 8-month high of 1.99 mn t (including over 1.03 mn t at ports), indicating that post-Diwali replenishment needs will slow seasonally into November. Furthermore, <em>Sernatinger</em> highlights that Indian central banking regulations prohibiting currency hedging on the back end of trade financing are restraining aggressive long-term import commitments.</li>
-<li><strong>Potential Easing of Malaysian Export Tax Structure Weighing on Sentiment (High-Priority Policy Trigger):</strong> <em>Argus</em> reports that international vegoil market participants are closely monitoring discussions within the Malaysian Ministry of Plantation and Commodities regarding potential downward revisions or restructuring of the crude palm oil export tax/duty bands, which has induced some hesitation among forward buyers anticipating cheaper origin offers.</li>
-<li><strong>Indonesian FOB POME & UCO Price Assessments Remain Formally Suspended:</strong> <em>Argus</em> announced that its benchmark FOB Indonesia POME oil and UCO price assessments remain officially suspended due to ongoing Indonesian government export licensing restrictions and domestic utilization enforcement.</li>
-</ul>
+<li><strong>High Indian Domestic Edible Oil Stocks (1.99M T) & Absence of Currency Hedging:</strong> <em>Oil World</em> and <em>Argus</em> report that India entered late October with total domestic port and pipeline edible oil stocks at an 8-month high of 1.99 mn t (including over 1.03 mn t at ports), indicating post-Diwali replenishment needs will slow seasonally into November. Furthermore, <em>Sernatinger</em> highlights that Indian central banking regulations prohibiting currency hedging on the back end of trade financing are restraining aggressive long-term import commitments.</li>
+<li><strong>Sri Lanka Palm Oil Import Ban Defense (High-Priority Policy Trigger):</strong> <em>UOB</em> reports Sri Lanka's National Movement for Consumer Rights Protection urged the President to maintain the palm oil import ban in place since 2021, strongly opposing a Finance Ministry budget proposal to lift the restrictions.</li>
+<li><strong>Potential Easing of Malaysian Export Tax Structure Weighing on Sentiment (High-Priority Policy Trigger):</strong> <em>Argus</em> reports international vegoil participants are closely tracking Malaysian Ministry discussions regarding potential downward restructuring of CPO export tax/duty bands, creating temporary wait-and-see behavior among buyers.</li>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Strongly Bullish (Targeting 4,850–4,900 MYR/t).</strong> Benchmark third-month BMD palm oil futures rallied 55 ringgit on Friday to close at 4,826 ringgit/t ($1,181/t; December contract at 4,731 ringgit/t). The explosive combination of an unprecedented ~$330/t discount to fossil gasoil, a collapsing Black Sea sunoil surplus forcing destination substitution, robust Oct 1–20 export momentum (+78% MoM per Amspec), and zero available spot POME export supplies in Indonesia heavily outweighs high Indian port inventories and export tax policy debates.</p>
+<p><strong>Directional Bias: Strongly Bullish (Targeting 4,850–4,900 MYR/t).</strong> Benchmark third-month BMD palm oil futures rallied 26–55 ringgit on Friday to close at 4,818–4,826 ringgit/t ($1,181/t; December contract at 4,731–4,733 ringgit/t). An unprecedented ~$330/t discount to fossil gasoil, a collapsing Black Sea sunoil surplus forcing destination substitution, robust export momentum (+46.9% to +78% MoM), and zero spot Indonesian POME export availability heavily outweigh high Indian port inventories and export tax policy debates.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>2. Soybean Complex</h2>
 
 <h3>2A. Soybeans</h3>
 
-<h4><span class="bull-badge">BULL CASE</span> </h4>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
-<li><strong>Massive Chinese Commercial Buying Spree (35 Cargoes on Week; 9 Brazilian Friday):</strong> <em>Sernatinger</em> and <em>Taffel</em> report extraordinary Chinese commercial buying into the weekend, with crushers taking advantage of November options expiration to secure approximately 35 cargoes globally across the week. On Friday alone, Chinese buyers booked 9 new-crop Brazilian cargoes (March at +125¢/bu, May at +127¢/bu, June at +138¢/bu over CBOT) and 1 old-crop US Gulf parcel. <em>Argus</em> confirms China's CFR premium over CBOT held firm at +325¢/bu for December and +307.5¢/bu for January.</li>
-<li><strong>USDA Flash Sales Accumulate to 1.374M T Ahead of Weekly Export Report:</strong> <em>Sernatinger</em> notes that USDA confirmed daily export flash sales totaling 1.374 mn t of soybeans during the week for delivery to China and unknown destinations, which will be formally credited in next week's export ledger, verifying robust physical pipeline absorption.</li>
-<li><strong>Record $55B Federal Farm Subsidies & Pre-Election Real Strength (High-Priority Policy Trigger):</strong> <em>Sernatinger</em> highlights that total US direct farm assistance programs have reached a record $55 billion (anchored by the newly announced $8 billion Harvest Fuel Relief diesel program), providing Midwest growers ample balance sheet liquidity to place cash soybeans into on-farm storage bins rather than accepting commercial elevator discounts. In Brazil, <em>Argus</em> notes the Brazilian Real appreciated to its strongest level against the US dollar since October 6 ahead of Sunday's presidential runoff election, discouraging farmer spot selling.</li>
-<li><strong>Paraguay Production Boom Channeling Into Argentine Processing Hub:</strong> <em>Oil World</em> reports Paraguay produced a record 12.5 mn t soybean crop, with 8.4 mn t slated for export—including 7.0 mn t transshipped directly by barge to crush facilities in Argentina's Upriver hub, bolstering South American commercial operations.</li>
-</ul>
+<li><strong>Commercial Buying Absorbs Fund Liquidation (35 Cargoes on Week; 20–25 Brazilian NC):</strong> <em>Sernatinger</em>, <em>Taffel</em>, and <em>Agrinvest</em> report extraordinary commercial buying absorbed Friday's November options expiration and CFTC managed money liquidation (-30,555 lots). Chinese crushers booked 35 cargoes globally across the week—including 20–25 new-crop Brazilian cargoes (the best weekly volume in two months, with 9 booked Friday alone at +125¢ to +138¢ over CBOT) and 13 US Gulf/PNW cargoes. <em>Agrinvest</em> notes the Chinese board crush improved, pulling gross margins for Feb–Jun shipments to $30/t, triggering aggressive commercial hedging.</li>
+<li><strong>USDA Flash Sales Hit 1.374M T as US Commitments Reach 26.2M T:</strong> <em>Sernatinger</em> notes USDA confirmed daily export flash sales totaling 1.374 mn t of soybeans during the week. <em>Agrinvest</em> calculates the US export book has reached 26.2 mn t (vs. 14.7 mn t LY), with China accounting for 13.5 mn t named and an estimated 17.8 mn t total (~70% of its 25 mn t commitment).</li>
+<li><strong>Record $55B Federal Farm Subsidies & Pre-Election Real Strength (High-Priority Policy Trigger):</strong> <em>Sernatinger</em> highlights that total US direct farm assistance programs have reached a record $55 billion (anchored by the newly announced $8 billion Harvest Fuel Relief diesel program), providing Midwest growers ample liquidity to store grain on-farm. In Brazil, <em>Argus</em> and <em>Agrinvest</em> note the Brazilian Real appreciated to its strongest level since October 6 ahead of Sunday's presidential runoff election, discouraging farmer spot selling. <em>Agrinvest</em> estimates Brazilian farmer selling at 950,000 t for the week (40% Old Crop, 60% New Crop), with producers holding out for better flat prices.</li>
+<li><strong>Paraguay Production Boom & EUDR Trade Flow Shifts in 2027:</strong> <em>Oil World</em> reports Paraguay produced a record 12.5 mn t soybean crop, with 7.0 mn t transshipped directly to Argentine river crushers. Looking ahead to 2027, <em>Agrinvest</em> notes EUDR compliance will make US soybeans far easier and cheaper to certify into Europe than Brazilian beans, which will structurally redirect US exports to Europe while Brazil dominates non-China and Asian destinations.</li>
+</ul></div>
 
-<h4><span class="bear-badge">BEAR CASE</span> </h4>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
+<li><strong>CFTC Managed Money Slashes Soybean Net Long by 12.9% (-30,555 Lots):</strong> CFTC data confirms speculative funds liquidated 30,555 net long contracts in the week to Oct 20, dropping net length to 206,936 lots.</li>
 <li><strong>Rapid Brazilian Planting Progress (30.1% National; 51.9% Mato Grosso):</strong> <em>Argus</em> reports that Brazilian national soybean planting reached 30.1% of the projected 49.3 mn ha by October 16 (per Conab), significantly outpacing last season's 21.4% (14.8 mn ha vs. 10.4 mn ha). In Mato Grosso, sowing reached 51.9% (vs. 43.6% in 2024 and 43.0% 5-year avg). Despite localized heavy rains in Parana (47% vs. 52% last year) and Rio Grande do Sul (3%), Conab projects an expanded planted area (+1.4%) will push total Brazilian harvest to a record 181.6 mn t.</li>
-<li><strong>China September Soybean Imports Ease MoM (11.88M T):</strong> <em>Argus</em> and <em>Oil World</em> report Chinese customs data showed September soybean imports fell to 11.88 mn t (down from 12.14 mn t in August and 12.87 mn t in Sept 2025). While full-year 2025/26 imports reached a record 111.81 mn t (Brazil supplying 90% and US only 3%), near-term port arrivals are entering a seasonal transition window.</li>
-<li><strong>Options Expiration Exits & Resistance at $12.60/bu:</strong> <em>Taffel</em> notes Friday's November options expiration pinned prices near $12.56 1/2/bu, with managed money funds reluctant to build fresh net-long positions ahead of the South American growing season.</li>
-</ul>
+<li><strong>China September Soybean Imports Ease MoM (11.88M T) & Smaller 2027 Brazil Program:</strong> <em>Argus</em> and <em>Oil World</em> report Chinese customs data showed September soybean imports fell to 11.88 mn t (down from 12.14 mn t in August and 12.87 mn t in Sept 2025). <em>Agrinvest</em> projects China will run a smaller Brazilian program in 2027 (78–79 mn t vs. 80 mn t in 2026 and 87 mn t in 2025) due to domestic reserve auctions, high logistics costs, and contracting hog herds.</li>
+</ul></div>
 
-<h4>Directional Conclusion</h4>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Moderately Bullish / Firm Grounding ($12.50–$12.75 Range).</strong> November CBOT soybeans settled 3 1/2¢ higher on Friday at $12.56 1/2/bu (January at $12.68 1/2/bu; US Gulf FOB up $1.29/t to $505.78/t). Relentless Chinese cargo accumulation (35 cargoes on the week; 1.374 mn t flashed), record US farm subsidies ($55B) curbing harvest commercial selling, and a firm Brazilian currency offset rapid early Mato Grosso planting progress (51.9%).</p>
+<p><strong>Directional Bias: Moderately Bullish / Firm Grounding ($12.50–$12.75 Range).</strong> November CBOT soybeans settled 3.5¢ higher on Friday at $12.56 1/2/bu (January at $12.68 1/2/bu; US Gulf FOB up $1.29/t to $505.78/t). Relentless Chinese cargo accumulation (35 cargoes on the week; 1.374 mn t flashed), record US farm subsidies ($55B), and a strong Brazilian currency successfully absorbed heavy speculative fund liquidation (-30,555 lots).</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h3>2B. Soybean Meal</h3>
 
-<h4><span class="bull-badge">BULL CASE</span> </h4>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
+<li><strong>Abiove Projects Record 66M T Crush & 50.8M T Meal Output on March 2027 B16 Mandate (High-Priority Policy Trigger):</strong> <em>Agrinvest</em> and <em>Argus</em> report Abiove raised its 2027 Brazilian crush forecast to a record 66.0 mn t (+3.8% YoY) to supply soybean oil for Brazil's <strong>B16 biodiesel mandate starting in March 2027</strong>. This will lift Brazilian meal output to 50.8 mn t and meal exports by 4% to 26.3 mn t.</li>
 <li><strong>Argentine Mill Stocks Tightened to 0.68M T Following Heavy September Exports (3.0M T):</strong> <em>Oil World</em> reports that Argentina exported a robust 3.0 mn t of soybean meal in September, which drew down domestic mill meal inventories to a lean 0.68 mn t entering the fourth quarter. <em>Argus</em> notes Argentina's weekly meal export registrations nearly doubled to 181,000 t (with 175,000 t registered for November loading).</li>
-<li><strong>Paraguayan Bean Transshipments Bolstering Upriver Utilization:</strong> <em>Oil World</em> highlights that 7.0 mn t of Paraguayan record soybean production is moving directly to Argentine river plants, supporting high-protein processing runs and keeping Argentine FOB meal steady at $409.51/t (371.50 $/st).</li>
 <li><strong>Indian Domestic Meal Prices Surge +8.4% on Export Parity:</strong> <em>Oil World</em> price survey indicates Yellow 48% Soymeal Ex-Kandla surged 8.4% WoW from $595/t to $645/t FAS on firm domestic poultry consumption and regional export demand.</li>
-</ul>
+</ul></div>
 
-<h4><span class="bear-badge">BEAR CASE</span> </h4>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
 <li><strong>Collapsing US Board Crush Margins ($2.40/bu) Triggers Product Selling Recommendation:</strong> <em>Sernatinger</em> highlights that US board crush margins have deteriorated severely from $4.17/bu five months ago to just ~$2.40/bu. In response, <em>Sernatinger</em> issues a firm market directive: <em>"in a bear market with falling crush margins, you short products, not beans."</em></li>
-<li><strong>Managed Money Maintaining Short SMZ Bias & Softening European Basis:</strong> December CBOT meal fell $1.20/st on Friday to settle at $346.10/st (breaking below Reinschreiber's $347.20 support line). <em>Korzenecki</em> remains actively short SMZ, categorizing recent flat-price stability as a dead-cat bounce. In Europe, <em>Oil World</em> reports 44/45% meal FOB ex-mill Hamburg dropped 3.5% WoW to $469/t, while Brazilian 48% pellets FOB fell 5.4% to $403/t and Argentine 47% pellets dropped 3.5% to $415/t.</li>
-<li><strong>Chinese Hog Breeding Sow Reductions (36.02M Head):</strong> <em>Argus</em> reports China's breeding sow inventory at the end of September fell to 36.02 mn head—the lowest level since September 2020 (9.62 mn head below the June 2021 peak). While improved production efficiency (PSY 27–28 head) and heavier slaughter weights (85.25 kg/head pork) keep meat output adequate, feed compounders continue trimming inclusion rates amid cheaper grain alternatives.</li>
-</ul>
+<li><strong>Paranagua Port Congestion (15-Day Waiting Time) & Weak Brazilian Meal Basis:</strong> <em>Agrinvest</em> reports Paranagua meal basis remains under severe pressure, trading at a wide discount to Argentina due to a massive shipping lineup and vessel waiting times reaching <strong>15 days</strong> at Paranagua (vs. 4 days at Santos and 3 days at Barcarena). Paranagua bids softened to R$1,950/t (Nov at +18/+13 $/st; Dec at +16/+15 $/st; interior commercialization at +33 SMZ). In the US, South Korea bought 66,000 t of US meal as European imports lag due to EUDR uncertainty.</li>
+<li><strong>Managed Money Maintaining Short SMZ Bias & Chinese Sow Herd Reductions:</strong> December CBOT meal fell $1.20/st on Friday to settle at $346.10/st. <em>Korzenecki</em> remains actively short SMZ. In Europe, <em>Oil World</em> reports 44/45% meal FOB ex-mill Hamburg dropped 3.5% WoW to $469/t. In China, <em>Argus</em> reports breeding sow inventories fell to 36.02 mn head (lowest since late 2020), keeping meal demand constrained by feed substitution.</li>
+</ul></div>
 
-<h4>Directional Conclusion</h4>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Bearish (Testing $340–$344/st Support).</strong> December CBOT meal closed down $1.20/st at $346.10/st. Collapsing US board crush margins ($2.40/bu), technical breaks below key support, fund short positioning, and lower European meal import prices outweigh lean Argentine processor inventories.</p>
+<p><strong>Directional Bias: Bearish (Testing $340–$344/st Support).</strong> December CBOT meal closed down $1.20/st at $346.10/st. Collapsing US board crush margins ($2.40/bu), 15-day waiting times at Paranagua, and fund short positioning outweigh lean Argentine processor inventories.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h3>2C. Soybean Oil (SBO)</h3>
 
-<h4><span class="bull-badge">BULL CASE</span> </h4>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
 <li><strong>BOHO Spread Narrows to 1-Month Low (2.81¢/USG) as Nymex ULSD Surges Past $4.98/gal:</strong> <em>Argus</em> reports that the bean oil-heating oil (BOHO) spread contracted by 4.0¢/USG on Friday to settle at just 2.81¢/USG—its tightest level since September 18 (when it touched 1.97¢/USG). November Nymex ULSD futures rallied 5.21¢ to 498.42¢/gal ($4.9842/gal), while December CBOT soybean oil ticked up 0.09¢/lb to 66.83¢/lb (fob Iowa spot degummed at 68.83¢/lb). The collapsing BOHO spread substantially enhances the economic competitiveness of biomass-based diesel against petroleum fuels.</li>
+<li><strong>Brazil March 2027 B16 Mandate Structurally Bullish for Domestic SBO Absorption (High-Priority Policy Trigger):</strong> <em>Agrinvest</em> highlights that the Brazilian National Energy Policy Council (CNPE) mandate moving to B16 in March 2027 will structurally absorb domestic soybean oil, driving crush expansion to 66 mn t and supporting FOB premiums. <em>UOB</em> notes Brazil Dec26 FOB SBO holds a $55.20/t premium over Malaysian Dec26 RBD Olein ($1,237.70 vs. $1,182.50/t).</li>
 <li><strong>US Gulf Coast RD Margins Expand to 361.27¢/USG on Vegetable Oil Runs:</strong> <em>Argus</em> assessments show USGC SBO-based renewable diesel margins widened to 361.27¢/USG (up 2.42¢ on the session; average reference margin at 382.28¢/USG). Valero's operational pivot to maximize domestic vegetable oil feedstocks at Diamond Green Diesel into a persistent 2027 D4 RIN deficit continues to provide structural flat-price support.</li>
-<li><strong>Divergent South American SBO Export Disposals & Firm Cash Premiums:</strong> <em>Oil World</em> notes Argentine September soyoil exports were unusually low at 557,000 t (down 14% YoY), keeping physical export offers scarce. On Friday, <em>Argus</em> confirmed a 2,000 t cargo of Argentine SBO traded for year-end loading at CBOT -11.0¢/lb, while waterborne FOB upriver prices firmed to $1,230.85/t (+7.50/t for Dec). Brazilian Paranagua waterborne FOB rose $13.50/t to $1,238.00/t (prompt basis at -9.85¢/lb).</li>
-<li><strong>Trump Defense Production Act Funding for Domestic Refining Expansion (High-Priority Policy Trigger):</strong> <em>Sernatinger</em> reports that Trump announced up to $150 million in federal financing under the Defense Production Act to expand domestic US refining operations, signaling strong bipartisan commitment to domestic liquid fuel production capacity.</li>
-</ul>
+<li><strong>Trump Defense Production Act Funding for Domestic Refining Expansion (High-Priority Policy Trigger):</strong> <em>Sernatinger</em> reports that Trump announced up to $150 million in federal financing under the Defense Production Act to expand domestic US refining operations.</li>
+</ul></div>
 
-<h4><span class="bear-badge">BEAR CASE</span> </h4>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
-<li><strong>Section 45Z Administrative Bottlenecks & Farmer Credit Dilution (High-Priority Policy Trigger):</strong> <em>Argus</em> analysis reveals that the Section 45Z Clean Fuel Production Credit could fail to pass value back to farmers: SBO receives a base credit of $0.60/USG (capped at $1.00/USG), leaving only $0.40/USG to incentivize carbon-intensity reductions. Biofuel producers' compliance costs, crusher capture (with SBO representing <20% of bean mass), and mandatory "Mass Balance" accounting are creating major supply chain friction.</li>
-<li><strong>Sluggish Near-Term Indian Import Commitments:</strong> <em>Argus</em> notes that Indian buying interest for South American SBO remained subdued through Friday, as Indian buyers prioritized cheaper palm oil cargoes given CPO's steep discount.</li>
-<li><strong>Stable Domestic Feedstock Supplies:</strong> <em>Argus</em> reports US animal fat and grease prices held steady without following crude oil higher (USGC UCO at 71.25¢/lb; BFT at 70.75¢/lb; CWG at 52.00¢/lb).</li>
-</ul>
+<li><strong>CFTC Managed Money Slashes SBO Net Long by 21.8% (-19,470 Lots):</strong> CFTC data reveals managed money funds aggressively liquidated 19,470 net long contracts of soybean oil in the week to Oct 20, cutting net length to 69,858 contracts.</li>
+<li><strong>FOB Paranagua Cash Basis Weakens 100–200 Points:</strong> <em>Agrinvest</em> reports FOB Paranagua SBO basis fell 100 to 200 points for December, standing at -1,000 to -1,220 pts (-10.0 to -12.2¢/lb; Dec offer at -9.5¢, bid at -10.8¢/lb). Argentine FOB basis eased 80 points on offers and 80–130 points on bids.</li>
+<li><strong>Section 45Z Administrative Bottlenecks & Farmer Credit Dilution (High-Priority Policy Trigger):</strong> <em>Argus</em> analysis reveals that the Section 45Z Clean Fuel Production Credit guarantees $0.60/USG to SBO renewable diesel, leaving only $0.40/USG for carbon-intensity reductions under complex Mass Balance accounting.</li>
+</ul></div>
 
-<h4>Directional Conclusion</h4>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Moderately Bullish (Targeting 67.50–68.50¢/lb).</strong> December CBOT soybean oil settled up 0.09¢ at 66.83¢/lb. A sharply compressing BOHO spread (2.81¢/USG), surging ULSD futures ($4.98/gal), rising USGC RD margins (361¢/USG), and scarce Argentine physical export offers outweigh 45Z implementation concerns and sluggish Indian spot demand.</p>
+<p><strong>Directional Bias: Moderately Bullish (Targeting 67.50–68.50¢/lb).</strong> December CBOT soybean oil settled up 0.09¢ at 66.83¢/lb. A compressing BOHO spread (2.81¢/USG), surging ULSD futures ($4.98/gal), Brazil's upcoming B16 mandate, and rising USGC RD margins outweigh CFTC fund liquidation (-19,470 lots) and softer cash basis.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>3. Sunflower Complex</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
 <li><strong>Black Sea Sunoil Exports to Plunge to 11-Year Low (~2.0M T in Sept/Dec 2026):</strong> <em>Oil World</em> publishes a major feature projecting combined Russian and Ukrainian sunoil exports will drop to an 11-year low of only 2.0 mn t in Sept/Dec 2026—a steep decline of 800,000 t YoY and 1.7 mn t below 2024 levels. Continued Russian missile and drone attacks on Ukrainian port infrastructure and commercial vessels have severely damaged processing and loading facilities, with industry experts agreeing a safe maritime export corridor is highly unlikely to materialize before December at the earliest.</li>
 <li><strong>CIF Mumbai Sunoil Spikes to $1,510/t (Widening Premium to SBO and CPO):</strong> <em>Oil World</em> reports CIF Mumbai sunflower oil asking prices climbed to $1,510/t. This widened the price premium of sunoil over crude palm oil to an extraordinary $270/t, and over soybean oil to $177/t. In Europe, Northwest European FOB sunoil closed at $1,470/t (+2.4% WoW), while Black Sea FOB asking prices rose 2.0% WoW to $1,290/t.</li>
 <li><strong>Argentine Sunoil Exports Fill Deficit With Record 2.03M T in CY2026:</strong> <em>Oil World</em> reports Argentina has become the indispensable alternative supplier, with Sept/Dec 2026 exports projected to rise by 100,000 t to 610,000 t, lifting calendar year 2026 exports to an all-time record of 2.03 mn t. <em>Argus</em> confirms 28,000 t of Argentine forward vegetable oil export registrations were booked this week for 2027 (including 18,000 t of SFO for January and 10,000 t for February). FOB Argentina sunoil held firm at $1,390/t (+1.1% WoW).</li>
-<li><strong>EU September Sunflower Seed Crush Jumps +85% MoM:</strong> <em>Argus</em> reports Fediol data showed EU and UK sunflower seed processing surged to 459,000 t in September (up sharply from 248,000 t in August and 392,000 t a year ago) as crushers ramped up processing of a larger domestic crop (estimated by Argus at 9.4 mn t, +1.0 mn t YoY on higher Romanian and Bulgarian yields) to offset missing Ukrainian oil imports.</li>
-</ul>
+<li><strong>EU September Sunflower Seed Crush Jumps +85% MoM:</strong> <em>Argus</em> and <em>Agrinvest</em> cite Fediol data showing EU and UK sunflower seed processing surged to 459,000–685,000 t in September (+85.08% MoM) as crushers ramped up processing of a larger domestic crop (estimated by Argus at 9.4 mn t, +1.0 mn t YoY) to offset missing Ukrainian oil imports.</li>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
 <li><strong>Central European Crush Supply Competition & Argentine Planting Advance:</strong> <em>Argus</em> notes that higher Romanian and Bulgarian seed availability is satisfying nearby Mediterranean and Northwest European demand. In Argentina, <em>Argus</em> reports sunflower planting reached 50.3% of BAGE's projected 3.1 mn ha, with soil moisture conditions improving across northern zones.</li>
 <li><strong>Kazakhstan Doubles Sunoil Exports (880K T):</strong> <em>Oil World</em> reports that Kazakhstan has doubled its exportable surplus of sunflower oil to 880,000 t in 2025/26, expanding rail and truck shipments into Central Asia and China.</li>
 <li><strong>High Destination Premiums Destroying Marginal Demand:</strong> At a $270/t premium over CPO and $177/t over SBO, price-sensitive Asian vanaspati and consumer packagers are actively switching formulations away from sunflower oil.</li>
-</ul>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
 <p><strong>Directional Bias: Bullish Flat Price / Widening Spread to Vegetable Oils.</strong> The acute structural shortage of Black Sea commercial export loadings (collapsing to an 11-year low of ~2.0 mn t) will keep global sunflower oil prices heavily supported at a premium over competing vegetable oils through Q4 2026, anchoring CIF Mumbai near $1,500–$1,520/t.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>4. Rapeseed / Canola</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
 <li><strong>European RSO Rallies on Energy Spike & Persistent Low Rhine Water Levels:</strong> <em>Argus</em> reports prompt RSO FOB Dutch Mill rose €14.50/t on Friday to €1,265.00/t ($1,416.58/t, with NDJ strip at €1,255/t), supported by rising crude/gasoil futures and inland waterway logistics bottlenecks. While rainfall may lift Kaub water levels to ~50cm by October 26, standard 110m barges will still be restricted to ~600 t (roughly 25% of capacity), continuing to choke rapeseed shipments to Rhine crushers.</li>
-<li><strong>EU September Rapeseed Crush Drops 100K T as German Farmers Withhold Seed:</strong> <em>Argus</em> and Fediol data confirm EU/UK September rapeseed processing fell to 1.5 mn t (down 100,000 t MoM and below 1.6 mn t last year). German farmers are refusing to sell remaining 2026 rapeseed crops at current bids, while Ukrainian seed arrivals have slowed amid Black Sea rail/port logistics friction.</li>
+<li><strong>EU September Rapeseed Crush Drops 100K T (-5.93% MoM) as Farmers Withhold Seed:</strong> <em>Argus</em> and <em>Agrinvest</em> (citing Fediol) confirm EU/UK September rapeseed processing fell to 1.5–2.05 mn t (down 5.93% MoM). German farmers are refusing to sell remaining 2026 rapeseed crops at current bids, while Ukrainian seed arrivals have slowed amid Black Sea rail/port logistics friction.</li>
 <li><strong>Severe Australian Canola Harvest Rain Delays (60% of Output at Risk):</strong> <em>Argus</em> reports that heavy, above-average rainfall forecast over the next two weeks across New South Wales, Victoria, and South Australia threatens to disrupt early harvest operations and delay port arrivals. These three states account for over 60% of total Australian canola production. The Bureau of Meteorology also forecasts above-average precipitation across Western Australia through November.</li>
 <li><strong>Canadian Canola Exports Surge +51% YoY (1.62M T Cumulative):</strong> <em>Argus</em> reports Canadian Grains Commission data showed weekly canola exports jumped 35% WoW to 248,000 t, lifting cumulative 2026/27 shipments to 1.62 mn t (+51% YoY), reflecting strong international demand.</li>
 <li><strong>RME Biodiesel Outright Prices Jump to $1,867/t:</strong> <em>Argus</em> reports Rapeseed Oil Methyl Ester (RME) FOB ARA outright values jumped $22/t to $1,867.00/t (traded premium at +$400/t over ICE gasoil), maintaining a substantial premium over FAME 0 and UCOME ahead of winter cold-flow blending requirements.</li>
-</ul>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
 <li><strong>Matif Rapeseed Front-Month Discount to Forward Contracts:</strong> <em>Argus</em> notes that Euronext rapeseed futures saw front-month November contracts gain, yet November continues to trade at a discount to deferred 2027 contracts.</li>
 <li><strong>Western Australian FOB Canola Prices Soften:</strong> <em>Argus</em> reports WA Canola 44% FOB export indications eased to $636.00/t for Dec (-$16.50/t) and $640.00/t for Jan (-$14.00/t) as Asian buyers await harvest clarity.</li>
 <li><strong>Australian Carbon Safeguard Mechanism & CBAM Fertilizer Threats:</strong> <em>Argus</em> reports Australian grower groups (Grain Growers, NFF) submitted formal warnings that proposed carbon compliance baseline cuts (from 100k t to 25k t CO2e) and an ammonia Carbon Border Adjustment Mechanism (CBAM) would inflate imported fertilizer costs (Australia imports 2.77 mn t of urea), undermining global export competitiveness.</li>
-</ul>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
 <p><strong>Directional Bias: Strongly Bullish (Targeting €1,280/t Dutch Mill RSO).</strong> RSO FOB Dutch Mill gained €14.50 to €1,265/t. Severe Rhine barging constraints (Kaub at 25% capacity), reluctant German farmer selling, heavy Australian harvest rains threatening 60% of the crop, and surging Canadian export demand (+51% YoY) reinforce tight spot European balances.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>5. Corn</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
 <li><strong>Non-GM Corn Demand Sparks CVB Export Premium (FOB CVB at $273/t):</strong> <em>Argus</em> reports FOB CVB (Constanta-Varna-Burgas) corn prices rose to $273.00/t (+1.00/t; bids up $2 to $271/t), driven by aggressive demand for non-GM feed corn from Turkey, Greece, and Cyprus. Lower aflatoxin levels in this season's Romanian/Bulgarian harvest allowed CVB to capture substantial market share from Ukraine, where Sulina canal gridlock and war risks have paralyzed Danube coaster loadings.</li>
 <li><strong>Argentina Weekly Corn Export Registrations Jump 60% to 743,000 T:</strong> <em>Argus</em> reports Argentine corn export registrations surged 60% WoW to 743,000 t (compared to just 67,500 t in the same week last year), with 500,000 t scheduled for December and 243,000 t for November. Cumulative export bookings for loading by end-December reached 2.05 mn t (vs. 1.59 mn t last year).</li>
-<li><strong>Brazil Center-South Corn Ethanol Output Climbs +8.5% Cumulative:</strong> <em>Argus</em> reports Unica data showed Brazilian corn ethanol production reached 812.7 mn liters in August (+5% YoY), accounting for 16.6% of total ethanol output. Crop-year cumulative corn ethanol reached 4.0 bn liters (+8.5% YoY), cementing domestic processing demand.</li>
-<li><strong>El Niño Threatens Brazilian 2026/27 Safrinha Winter Corn Window:</strong> <em>Argus</em> Ask Argus analysis highlights that El Niño dry risks in the Center-West could compress the second-crop safrinha planting window; Mato Grosso's 2026/27 corn production is projected to drop 7.9% YoY.</li>
-</ul>
+<li><strong>Brazilian DDG Exports Surge +36% to 889K T & Corn Ethanol Expands:</strong> <em>Agrinvest</em> reports Brazil's DDG export program reached 889.4 thousand tonnes year-to-date (+36% vs. 2025; +56% from Feb to date at 809.3k t), driven by China (479.6k t) and Turkey (216.8k t). Furthermore, <em>Argus</em> notes Brazil Center-South August corn ethanol output rose 5% YoY to 812.7 mn liters (cumulative at 4.0 bn liters, +8.5% YoY).</li>
+<li><strong>Rapid Soybean Sowing Reduces Safrinha Planting Delay Risk:</strong> <em>Agrinvest</em> highlights that the accelerated pace of soybean planting across Mato Grosso (51.9%) significantly reduces the risk of an unfavorable planting window for the 2027 second corn crop, encouraging producers to price lots ahead.</li>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
-<li><strong>Alternative Feed Grains Displacing Corn in Chinese Rations (Corn Feed Share Down to 30.2%):</strong> <em>Argus</em> and Chinese Customs (GAC) data reveal that China's combined imports of alternative feed grains (barley and sorghum) reached 25.2 mn t in 2025/26 (+43% YoY), driven by tariff-free Australian barley (14.04 mn t, +3.8M t) and US/Brazilian sorghum (7.33 mn t). China's Feed Industry Association reported corn's inclusion share in compound feed formulations dropped to 30.2% in September (down 3.4 percentage points YoY, marking 9 consecutive months of declines). As domestic new-crop corn arrives at southern ports (at 2,300–2,310 yuan/t, a 30–50 yuan discount to imported grains), imported corn demand remains depressed (CFR southern ports fell $5 to $275/t).</li>
-<li><strong>Lagging US Export Commitments (26% of USDA Forecast vs. 38% 5-Yr Avg):</strong> <em>Argus</em> notes that despite recent CBOT price dips, cumulative US corn export sales stand at just 26% of USDA's 2026/27 annual target, lagging the 5-year average pace of 38%. December CBOT corn fell 4 1/2¢ on Friday to settle at $4.56/bu (March at $4.70 1/4/bu; US Gulf FOB down $1.77/t to $220.07/t).</li>
-<li><strong>Tunisian Tender Attracts Low-Priced Offers ($285.30/t CFR):</strong> <em>Argus</em> reports Tunisian state buyer ONF received offers for 26,500 t of corn down to $285.30/t CFR (from Garsan), with trading houses favoring competitive South American origins over US Gulf.</li>
-</ul>
+<li><strong>CFTC Managed Money Liquidates Massive 84,620 Net Long Contracts (-36.65%):</strong> Official CFTC data confirms speculative funds executed a massive liquidation of 84,620 net long corn contracts in the week to Oct 20, reducing net length to 146,257 contracts.</li>
+<li><strong>Heavy Brazilian Farmer Selling (1.5M T) & Depressed Brazil Export Book (-13% YoY):</strong> <em>Agrinvest</em> estimates Brazilian corn farmer selling reached 1.5 mn t this week as producers capitulated to lower flat prices. Brazil's committed 2026 corn export program stands at 28.7 mn t (-13% YoY), pressured by steep declines from China (-30%) and Iran (-50%).</li>
+<li><strong>Alternative Feed Grains Displacing Corn in Chinese Rations (Corn Feed Share Down to 30.2%):</strong> <em>Argus</em> and Chinese Customs (GAC) data reveal that China's combined imports of alternative feed grains (barley and sorghum) reached 25.2 mn t in 2025/26 (+43% YoY), driven by tariff-free Australian barley (14.04 mn t) and sorghum (7.33 mn t). Corn's inclusion share in Chinese compound feed formulations dropped to 30.2% in September (down 3.4 percentage points YoY, marking 9 consecutive months of declines). CFR southern China corn fell $5 to $275/t.</li>
+<li><strong>Lagging US Export Commitments (26% of USDA Forecast vs. 38% 5-Yr Avg):</strong> <em>Argus</em> notes cumulative US corn export sales stand at just 26% of USDA's annual target. December CBOT corn fell 4.5¢ on Friday to settle at $4.56/bu (US Gulf FOB down $1.77/t to $220.07/t).</li>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Neutral-to-Bearish (Consolidating $4.50–$4.65/bu).</strong> December CBOT corn fell 4 1/2¢ to $4.56/bu. Cheap alternative grain substitution in China (feed inclusion at 30.2%), rapid Midwest harvest progress, and lagging total US export commitments (26% of USDA target) offset firm Romanian non-GM CVB export demand ($273/t) and surging Argentine export registrations (743k t).</p>
+<p><strong>Directional Bias: Bearish / Rangebound Consolidation ($4.50–$4.65/bu).</strong> December CBOT corn fell 4.5¢ to $4.56/bu. A violent CFTC fund liquidation (-84,620 contracts), active Brazilian farmer capitulation (1.5 mn t sold), and cheap alternative feed grain substitution in China keep corn under persistent harvest pressure.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>6. Wheat</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
 <li><strong>Egypt State Buyer (FOE) & Private Sector Target Northern Europe (Polish & French Deals):</strong> <em>Argus</em> reports Egypt's state agency Futures of Egypt (FOE) is finalizing a landmark supply deal with Polish state-owned Elewarr to import Polish 11.5% milling wheat (min 160W dough strength)—the first major Polish shipments to Egypt since 2019—alongside recent French purchases. Egypt will receive 650,000 t of wheat in October (up from 256,000 t in September), and private importers are projected to book up to 2.0 mn t for Nov–Dec. Sourcing is shifting entirely to Northern Europe due to severe Black Sea vessel attacks and Russian export floor enforcement.</li>
 <li><strong>Severe Romanian/Bulgarian and Baltic Cash Premiums Over Russian Novorossiysk:</strong> <em>Argus</em> assessments highlight a massive quality and geopolitical risk spread: FOB CVB 12.5% wheat held firm at $292.50/t and EU Baltic 12.5% at $271.40/t, while Russian Novorossiysk was quoted at just $180.50/t FOB due to extreme war-risk insurance and cargo vessel reticence. In France, FOB Rouen 11% stood at €236.00/t ($264.28/t).</li>
 <li><strong>Argentine Frost Damage & Low Solar Radiation Yield Threats:</strong> <em>Argus</em> reports that while the Rosario Board of Trade (BCR) optimistically raised its 2026/27 Argentine wheat crop forecast to 23.8 mn t, the Buenos Aires Grain Exchange (BAGE) reports 10–15% localized crop losses across central/eastern belts following repeated September/mid-October frosts. High humidity, limited solar radiation, and El Niño wetness are sparking fungal disease risks and low protein content (<11.5%). Argentine FOB upriver wheat rose $4.00/t to $249.50/t.</li>
 <li><strong>Danube River Loading Obstacles & Black Sea Disruption:</strong> <em>Argus</em> reports extensive transit delays at the Sulina canal and execution risks have paralyzed Danube export flows (Reni/Izmail wheat 11.5% FOB at $189.50/t).</li>
-</ul>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
+<li><strong>CFTC Managed Money Expands Net Short Position by 54.8% (-18,096 Lots):</strong> CFTC data confirms speculative funds increased their net short position in CBOT wheat by 18,096 contracts to -51,134 lots.</li>
 <li><strong>CBOT Flat Price Weakness & US Export Competition:</strong> CBOT December SRW futures fell to settle at $263/t FOB Gulf equivalent (SRW month 1 Nov at $270.98/t, HRW at $301.11/t). Canadian CWRS 13.5% FOB Vancouver eased to $289.73/t.</li>
-<li><strong>Canadian Cumulative Soft Wheat Exports Slow:</strong> <em>Argus</em> reports Canadian soft wheat exports slumped 24% WoW to 490,000 t (durum down 17% to 78,100 t), although marketing-year exports (5.57 mn t) remain 17% ahead of last season.</li>
 <li><strong>BCR Projecting 23.8M T Argentine Crop:</strong> If BCR's 23.8 mn t forecast materializes, Argentina will harvest its second-largest wheat crop in 17 years, providing heavy low-cost Southern Cone export competition to Brazil and North Africa from December.</li>
-</ul>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Neutral / Two-Tiered Market (Firm Northern European Cash vs. Rangebound CBOT).</strong> Euronext and Northern European FOB wheat remain supported by urgent Egyptian FOE/private procurement and Black Sea logistical paralysis. However, heavy global crop projections from Argentina (23.8 mn t) and weak US export sales keep CBOT SRW capped near $5.70–$5.90/bu.</p>
+<p><strong>Directional Bias: Neutral / Two-Tiered Market (Firm Northern European Cash vs. Rangebound CBOT).</strong> Euronext and Northern European FOB wheat remain supported by urgent Egyptian FOE/private procurement and Black Sea logistical paralysis. However, heavy global crop projections from Argentina (23.8 mn t) and massive speculative net short positioning (-51,134 lots) keep CBOT SRW capped near $5.70–$5.90/bu.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>7. Biodiesel & Renewable Diesel</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
 <li><strong>Nymex ULSD Surges to $4.98/gal, Narrowing BOHO to 2.81¢/USG:</strong> <em>Argus</em> reports November Nymex ULSD jumped 5.21¢ to 498.42¢/gal ($4.9842/gal), while CBOT SBO rose 0.09¢ to 66.83¢/lb. The BOHO spread compressed by 4.0¢ to 2.81¢/USG (lowest since Sept 18), dramatically improving the economics of biomass-based diesel blending over fossil diesel.</li>
 <li><strong>Rebounding 2026 D4/D6 RIN Credits & Widening USGC RD Margins:</strong> 2026 D4 biomass-based diesel RINs gained 3.75¢ to 184.25¢/RIN (D6 up 5.50¢ to 173.75¢/RIN; D3 up 2.50¢ to 213.00¢/RIN), lifting the Renewable Volume Obligation (RVO) up 0.73¢ to 27.83¢/USG. Average USGC renewable diesel margins widened to 382.28¢/USG (DCO-based 396.26¢, UCO-based 389.93¢, BFT-based 381.64¢, SBO-based 361.27¢).</li>
 <li><strong>European HVO Surges +$102.93/t to $2,865/t; Class IV (POME) Premium Up $80/m³:</strong> <em>Argus</em> reports European HVO Class II (UCO-based) FOB ARA outright surged $102.93/t to $2,865.31/t (traded premium up $45/m³ to $995/m³; gasoil escalated +$45.24/t). POME-based HVO Class IV premium surged $80/m³ to $1,220.00/m³ (outright $3,160.18/t) and German Advanced Class V premium rose $55/m³ to $1,225.00/m³ (outright $3,166.59/t) as German refiners rushed to cover year-end compliance deficits.</li>
-<li><strong>EU Approaching E20 Approval Within Months (High-Priority Policy Trigger):</strong> <em>Argus</em> reports from the London Biofuels Conference that ePURE Secretary General Laurent Donceel confirmed the European Commission could authorize up to 20% ethanol (E20) in gasoline within months via a Q1 2027 Fuel Quality Directive (FQD) revision. Furthermore, the European Parliament ENVI committee votes Nov 4 on a compromise allowing ICE vehicles post-2035 using renewable e-fuels/biofuels with low-carbon steel.</li>
+<li><strong>Brazil March 2027 B16 Mandate Structurally Expanding Biofuel Demand (High-Priority Policy Trigger):</strong> <em>Agrinvest</em> and <em>Argus</em> report Brazil's implementation of the B16 biodiesel blending mandate in March 2027 will require record domestic crushing of 66 mn t, cementing strong domestic uptake of soybean oil.</li>
+<li><strong>EU Approaching E20 Approval Within Months (High-Priority Policy Trigger):</strong> <em>Argus</em> reports from the London Biofuels Conference that ePURE Secretary General Laurent Donceel confirmed the European Commission could authorize up to 20% ethanol (E20) in gasoline within months via a Q1 2027 Fuel Quality Directive (FQD) revision.</li>
 <li><strong>JetBio Launches World-First $2B Commercial Ethanol-to-Diesel/SAF Biorefinery:</strong> <em>Argus</em> reports JetBio announced a $2 billion biorefinery in Paulinia (Sao Paulo, Brazil) using Honeywell UOP technology to convert 1.4 mn t/yr of sugarcane ethanol into up to 700,000 t/yr of renewable diesel or 770,000 t/yr of SAF with zero co-products, directly targeting marine bunkering and mining diesel substitution.</li>
-<li><strong>Active Waterborne Logistics:</strong> <em>Argus</em> notes <em>Nord Vision</em> discharged 304,000 bl of USGC RD at Long Beach; <em>Challenge Prime</em> is arriving Nov 5 from Singapore with SAF/RD; while USGC exported 251,000 bl to Montreal (<em>Seychelles Prelude</em>) and 219,000 bl to Vancouver (<em>Pacific Pride</em>).</li>
-</ul>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
-<li><strong>Section 45Z Administrative & Supply Chain Hurdles Diluting Farmer Value (High-Priority Policy Trigger):</strong> <em>Argus</em> detailed analysis reveals that the 45Z credit ($1.00/gal cap) guarantees $0.60/gal to SBO renewable diesel, leaving only $0.40/gal to cover farm-level carbon intensity reductions, which must pass through crushers and biofuel producers under complex Mass Balance accounting. Valero confirmed that Q3 foreign feedstocks were disqualified from 45Z, forcing reliance on North American origin.</li>
+<li><strong>Section 45Z Administrative & Supply Chain Hurdles Diluting Farmer Value (High-Priority Policy Trigger):</strong> <em>Argus</em> detailed analysis reveals that the 45Z credit ($1.00/gal cap) guarantees $0.60/gal to SBO renewable diesel, leaving only $0.40/gal to cover farm-level carbon intensity reductions under complex Mass Balance accounting. Valero confirmed that Q3 foreign feedstocks were disqualified from 45Z, forcing reliance on North American origin.</li>
 <li><strong>British Columbia LCFS Credits Drop C$5 Ahead of Provincial Election:</strong> <em>Argus</em> reports BC LCFS fell to C$210.00/t ($149.98/t) as polls showed the Conservative Party (which pledged to repeal the CleanBC carbon framework) gaining support ahead of Saturday's vote. California LCFS held flat at $89.25/t.</li>
 <li><strong>German Mandate Excludes POME Effective January 1, 2027 (High-Priority Policy Trigger):</strong> <em>Argus</em> announced that effective Jan 1, 2027, its FOB ARA Class IV HVO assessment will no longer require German mandate compliance because German legislation officially disqualifies POME from the national GHG quota.</li>
-</ul>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
-<p><strong>Directional Bias: Strongly Bullish.</strong> Spurred by soaring fossil gasoil ($1,488/t) and ULSD ($4.98/gal), a compressed BOHO spread (2.81¢/USG), recovering D4 RINs (184.25¢), and surging European HVO Class II/IV outright values (surpassing $2,865–$3,160/t), renewable fuels maintain exceptionally strong pricing power despite regulatory 45Z compliance hurdles.</p>
+<p><strong>Directional Bias: Strongly Bullish.</strong> Spurred by soaring fossil gasoil ($1,488/t) and ULSD ($4.98/gal), a compressed BOHO spread (2.81¢/USG), recovering D4 RINs (184.25¢), Brazil's scheduled B16 mandate, and surging European HVO Class II/IV outright values (surpassing $2,865–$3,160/t), renewable fuels maintain exceptionally strong pricing power.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
 <h2>8. Energy & Crudes</h2>
 
-<h3><span class="bull-badge">BULL CASE</span> </h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
 <ul>
-<li><strong>Brent Crudes Surge 6.24% on Week to 6-Month High ($116.72/bbl):</strong> <em>RaboResearch</em> and <em>Bloomberg</em> report ICE Brent crude climbed 6.24% across the week to settle at $116.72/bbl (intraday $117/bbl; December Singapore Brent at $114.15/bbl; Nymex WTI up $3.80 to $103.27/bbl). Severe geopolitical escalation across the Middle East, attacks on maritime shipping, and refinery infrastructure risks continue driving an intense risk premium.</li>
+<li><strong>Brent Crudes Surge 6.24% on Week to 6-Month High ($116.72/bbl):</strong> <em>RaboResearch</em>, <em>Bloomberg</em>, and <em>UOB</em> report ICE Brent crude climbed 6.24% across the week to settle at $116.72/bbl (intraday $117/bbl; December Singapore Brent at $114.15/bbl; Nymex WTI up $3.80 to $103.27/bbl). Severe geopolitical escalation across the Middle East following Houthi strikes on Saudi energy facilities, attacks on maritime shipping, and refinery infrastructure risks continue driving an intense risk premium.</li>
 <li><strong>Iran On-Water Oil Reserves Completely Depleted (Kpler):</strong> <em>Bloomberg</em> reports Kpler vessel-tracking data confirms that Iran's floating storage reserves on the water have been entirely depleted. With zero buffer left in offshore storage, any military strike or infrastructure disruption will immediately reduce physical export flows.</li>
-<li><strong>Gasoil Settles at Extreme High ($1,492/t):</strong> <em>Argus</em> reports November ICE gasoil futures rallied $47.25/t on Friday to settle at $1,492.00/t ($1,467.39/t 7–28 day forward), providing immense support to all bio-based distillates.</li>
+<li><strong>Gasoil Settles at Extreme High ($1,492/t) / Managed Money Adds Length:</strong> <em>Argus</em> and <em>UOB</em> report November ICE gasoil futures rallied $47.25/t on Friday to settle at $1,492.00/t ($1,467.39/t 7–28 day forward). CFTC data shows managed money expanded Brent net length by 8,852 contracts (+3.80%) to 241,881 contracts and gasoil net length to 75,622 contracts.</li>
 <li><strong>Winter LNG Procurement Escalates:</strong> <em>Bloomberg</em> notes spot LNG prices extended gains for a third consecutive week in Europe and Northeast Asia due to winter pre-procurement and pipeline feed interruptions.</li>
-</ul>
+</ul></div>
 
-<h3><span class="bear-badge">BEAR CASE</span> </h3>
+<div class="bear-case">
+<strong>Bear Case</strong>
 <ul>
 <li><strong>IDF Chief Zamir Resisted Pre-Election Strikes on Iran:</strong> <em>RaboResearch</em> reports Israeli IDF Chief Eyal Zamir reportedly resisted directives from Prime Minister Netanyahu to launch immediate strikes against Iranian oil and nuclear facilities prior to Tuesday's Israeli election, deferring military action until post-US midterms.</li>
 <li><strong>First Russian Diesel Cargo (43,000 T) Dispatched to New York Under Special Deal (High-Priority Policy Trigger):</strong> <em>Bloomberg</em> and <em>Sernatinger</em> report the first tanker carrying 43,000 t of Russian ultra-low sulfur diesel departed Primorsk signaling New York as its destination—the first delivery under the 500,000 t Trump-Putin diesel waiver agreement to relieve East Coast distillate shortages.</li>
 <li><strong>Hedge Funds Hold Record Net Short in US Natural Gas:</strong> <em>Bloomberg</em> reports CFTC positioning data showed money managers expanded their net short position in US natural gas futures and options to a record 192,728 contracts.</li>
-</ul>
+</ul></div>
 
-<h3>Directional Conclusion</h3>
+<div class="conclusion">
 
 <p><strong>Directional Bias: Bullish Volatility (Testing $118–$120/bbl Brent).</strong> Depleted Iranian floating storage, Middle East wartime shipping risks, and a $47/t surge in ICE gasoil to $1,492/t keep energy markets on a steep upward trajectory, despite temporary Israeli strike deferrals and Russian diesel waiver shipments.</p>
+</div>
 
-<hr style='border: 0; border-top: 1px solid #eaecef; margin: 20px 0;'>
 
-<h2>9. Macro & Geopolitics</h2>
+<h2>9. Fixed Income</h2>
 
-<h3>Key Macro Drivers</h3>
+<div class="bull-case">
+<strong>Bull Case</strong>
+<ul>
+<li><strong>US 10-Year Yield Consolidates Below 5.0% (4.99%) Following Historic Short-Covering:</strong> <em>UOB</em> reports the US 10-year Treasury yield rose 3.7 bps on Friday to settle at 4.99%, consolidating safely below the 5.00% psychological threshold after Thursday's sharpest one-day rally in almost four years. Ahead of next week's October 28 FOMC meeting, markets expect the Federal Reserve to hold benchmark rates steady, providing temporary relief across sovereign curves.</li>
+<li><strong>Flight-to-Quality Safe Haven & Potential 4.50% Yield Downside Target:</strong> Goll (<em>TMG</em>) highlights that an eventual de-escalation of Middle East and Black Sea hostilities combined with Federal Reserve monetary normalization could see US 10-year Treasury yields decline toward 4.50%, making long-duration Treasuries attractive on sharp spikes above 5.00%.</li>
+</ul></div>
+
+<div class="bear-case">
+<strong>Bear Case</strong>
+<ul>
+<li><strong>French Sovereign Risk Premium Blows Out to 2011 Eurozone Crisis Highs:</strong> <em>UOB</em> reports French government bond yields came under intense selling pressure due to acute budget deficits, political instability, and widespread street protests, widening France's debt risk premium to its highest level since the <strong>2011 Eurozone sovereign debt crisis</strong>. The Euro weakened 0.21% on Friday to $1.1191 (down 4.62% YTD).</li>
+<li><strong>Elevated 2027 Inflation Regime Threatens 5.50%–6.00% Yield Peak:</strong> Goll (<em>TMG</em>) warns that persistent supply-chain dislocations, $1,492/t fossil gasoil, and Middle East conflict risks could force benchmark 10-year Treasury yields to hover between 5.00% and 5.50% throughout 2027. If wartime disruptions drive diesel to $10–$11/gal, 10-year yields could surge toward 5.75%–6.00%, fueling protracted cross-asset volatility.</li>
+</ul></div>
+
+<div class="conclusion">
+
+<p><strong>Directional Bias: Volatile Consolidation / Yields Anchored Near 5.00% Pre-FOMC; Bearish European Sovereigns.</strong> US 10-year Treasuries settled at 4.99% as pre-FOMC pause positioning and flight-to-safety flows absorbed headline geopolitical risks. However, French debt spreads exploding to 2011 Eurozone crisis extremes and long-term stagflationary energy risks ($1,492/t gasoil) prevent sustained yield compressions, cementing a high-rate environment heading into November.</p>
+</div>
+
+
+<h2>10. Key Macro Drivers</h2>
 <ul>
 <li><strong>Brazil Presidential Runoff Standoff & Extended Polling (High-Priority Policy Trigger):</strong> <em>RaboResearch</em>, <em>Argus</em>, and <em>Sernatinger</em> report Brazil went to the polls on Sunday, October 25, in an intensely polarized presidential runoff between incumbent Luiz Inacio Lula da Silva and Senator Flavio Bolsonaro. The Supreme Court extended voting hours by two hours in several states, shifting betting probabilities (Kalshi/Polymarket) and fueling accusations of institutional bias. Bolsonaro's platform pledges R900bn in private infrastructure (Ferrograo railway to Northern Arc; Transnordestina railway) and fiscal cuts of R200–250bn, while Lula champions state-subsidized credit (Plano Safra >R516bn) and biofuel mandate expansion (Fuel of the Future law). The tight race has temporarily frozen Brazilian forward agribusiness contracting.</li>
+<li><strong>EUDR Implementation & Global Trade Route Bifurcation (High-Priority Policy Trigger):</strong> <em>Agrinvest</em> highlights that upcoming EUDR enforcement in 2027 is already distorting trade flows: US soybeans are far simpler and cheaper to certify as deforestation-free for European buyers, while Brazil's complex inland supply chains face compliance bottlenecks, driving European crushers toward US beans while Brazilian origin dominates non-EU Asian buyers.</li>
 <li><strong>Trump Midterm Strategy, Defense Production Act & $55B Farm Aid (High-Priority Policy Trigger):</strong> <em>Sernatinger</em> reports Trump announced up to $150M under the Defense Production Act to expand domestic refining, while total direct federal farm subsidies have reached a record $55 billion ($8 billion in diesel fuel relief hitting farmer accounts in late Nov/early Dec). US-Israeli planners are reportedly preparing decisive operations regarding Iran following the November 3 midterm elections.</li>
 <li><strong>Indonesia Cuts Pipeline Gas Exports to Singapore by 14% (High-Priority Policy Trigger):</strong> <em>Bloomberg</em> reports Indonesia reduced pipeline natural gas exports to Singapore by 31 MMSCFD (representing ~14% of Indonesian supply to Singapore and <2% of Singapore's total power consumption) to prioritize domestic fertilizer and industrial plants. Simultaneously, Singapore appointed Keppel, Sembcorp, and Tuas Power to import biomethane under a 300MW sandbox.</li>
 <li><strong>India Excludes Sugarcane Feedstocks From 11 Billion-Liter Ethanol Tender (High-Priority Policy Trigger):</strong> <em>Argus</em> reports Indian Oil Marketing Companies (OMCs) issued their annual tender for 11 billion liters of ethanol for 2026/27, explicitly excluding sugarcane-based feedstocks to protect domestic food sugar supplies, redirecting demand toward grain and opening an import window for US/Pakistani industrial ethanol ($775–$795/t CFR Mumbai).</li>
+<li><strong>Sri Lanka Palm Oil Import Ban Debate (High-Priority Policy Trigger):</strong> <em>UOB</em> notes Sri Lankan consumer protection groups are lobbying to preserve the 2021 palm oil import ban against Ministry of Finance proposals to reopen the trade via the national budget.</li>
 <li><strong>Peru Anchovy Fishing Season Closed Due to Juveniles (High-Priority Policy Trigger):</strong> <em>Oil World</em> reports Peru officially closed its commercial anchovy fishing operations after exploratory catches showed an excessively high percentage of juvenile fish. The sudden closure sent Peruvian fish oil asking prices to an astronomical $9,500/t FOB and Super Prime fishmeal to $3,150/t FOB, forcing global aquaculture feed millers to substitute into plant-based lipids and proteins.</li>
 </ul>
 
+  </div>
   <div class="footer">
-    First Resources Trading Pte Ltd &copy; 2026. Strictly for internal trading desk evaluation.
+    CONFIDENTIAL
   </div>
 </div>
 </body>

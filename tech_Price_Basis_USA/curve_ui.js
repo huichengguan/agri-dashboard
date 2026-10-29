@@ -89,6 +89,32 @@ function seriesName(s, suffix) {
     return `${s.label} ${suffix}` + (s.tag ? ` (${s.tag})` : '');
 }
 
+function buildCurvePoints(months, arr, asofMap) {
+    const x = [];
+    const y = [];
+    const customdata = [];
+    let lastValidIdx = -1;
+
+    for (let i = 0; i < months.length; i++) {
+        const val = (arr && arr[i] !== null && arr[i] !== undefined) ? arr[i] : null;
+        if (val !== null) {
+            if (lastValidIdx !== -1 && (i - lastValidIdx) > 2) {
+                // Gap is strictly greater than 2 months apart: break line
+                x.push(months[lastValidIdx + 1]);
+                y.push(null);
+                customdata.push('');
+            }
+            // Gaps of 1 or 2 months are kept adjacent in the trace array,
+            // so Plotly connects the 2 dots into a line without breaking
+            x.push(months[i]);
+            y.push(val);
+            customdata.push(cfText(asofMap, i));
+            lastValidIdx = i;
+        }
+    }
+    return { x, y, customdata };
+}
+
 function updateCurveChart() {
     const data = getCurveData();
     const noteEl = document.getElementById('curve-asof-note');
@@ -198,21 +224,22 @@ function updateCurveChart() {
         }
     }
 
-    // 2. Origins (USA, Brazil, Argentina) — connect month-by-month; gaps stay as isolated dots
+    // 2. Origins (USA, Brazil, Argentina) — connect if <= 2 months apart; gaps > 2 stay isolated
     const originSeries = data.series.filter(s => s.loc_type !== 'dest');
     let firstOrigin = true;
     originSeries.forEach(s => {
         const arr = showFlat ? s.flat : s.basis;
         if (!hasVals(arr)) return;
         const asof = showFlat ? s.flat_asof : s.basis_asof;
+        const pts = buildCurvePoints(data.months, arr, asof);
         const trace = {
-            x: data.months, y: arr, mode: 'lines+markers',
+            x: pts.x, y: pts.y, mode: 'lines+markers',
             name: seriesName(s, showFlat ? 'Flat' : 'Basis'),
             legendgroup: 'origin',
             line: { color: s.color, width: 2.5 },
             marker: { size: 6, color: s.color },
             connectgaps: false,
-            customdata: arr.map((v, i) => cfText(asof, i)),
+            customdata: pts.customdata,
             hovertemplate: `<b>${s.label} ${showFlat ? 'Flat' : 'Basis'}</b>: %{y} ${unit}%{customdata}<extra></extra>`,
         };
         if (firstOrigin) {
@@ -222,21 +249,22 @@ function updateCurveChart() {
         traces.push(trace);
     });
 
-    // 3. Destinations (Europe, China) — connect month-by-month; gaps stay as isolated dots
+    // 3. Destinations (Europe, China) — connect if <= 2 months apart; gaps > 2 stay isolated
     const destSeries = data.series.filter(s => s.loc_type === 'dest');
     let firstDest = true;
     destSeries.forEach(s => {
         const arr = showFlat ? s.flat : s.basis;
         if (!hasVals(arr)) return;
         const asof = showFlat ? s.flat_asof : s.basis_asof;
+        const pts = buildCurvePoints(data.months, arr, asof);
         const trace = {
-            x: data.months, y: arr, mode: 'lines+markers',
+            x: pts.x, y: pts.y, mode: 'lines+markers',
             name: seriesName(s, showFlat ? 'Flat' : 'Basis'),
             legendgroup: 'dest',
             line: { color: s.color, width: 2.5 },
             marker: { size: 6, color: s.color },
             connectgaps: false,
-            customdata: arr.map((v, i) => cfText(asof, i)),
+            customdata: pts.customdata,
             hovertemplate: `<b>${s.label} ${showFlat ? 'Flat' : 'Basis'}</b>: %{y} ${unit}%{customdata}<extra></extra>`,
         };
         if (firstDest) {
@@ -247,7 +275,13 @@ function updateCurveChart() {
     });
 
     const layout = {
-        xaxis: { title: 'Contract Delivery Month / Tenor', showgrid: true, gridcolor: '#f1f5f9' },
+        xaxis: {
+            title: 'Contract Delivery Month / Tenor',
+            categoryorder: 'array',
+            categoryarray: data.months,
+            showgrid: true,
+            gridcolor: '#f1f5f9'
+        },
         yaxis: { title: (showFlat ? 'Flat Price / CBOT' : 'Cash Basis') + ` (${unit})`, showgrid: true, gridcolor: '#e2e8f0', zeroline: true, zerolinecolor: '#cbd5e1' },
         plot_bgcolor: 'white', paper_bgcolor: 'white', hovermode: 'x unified',
         legend: {

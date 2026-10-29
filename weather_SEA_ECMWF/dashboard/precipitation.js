@@ -23,15 +23,17 @@ let currentDailySubView = "all"; // 'all' (28-day sliding window), 'fcst28' (nex
 let dailyTimelineStartIndex = null;
 
 function getDailyTimelineDates() {
-    if (!currentData) return { obsDates: [], fcDates: [], allDates: [], todayDate: "", forecastStartDate: "" };
+    if (!currentData) return { obsDates: [], fcDates: [], allDates: [], todayDate: "", forecastStartDate: "", lastObsDate: "" };
     const obsDates = currentData.recent_daily_dates || [];
-    const todayDate = obsDates.length > 0 ? obsDates[obsDates.length - 1] : "";
+    const lastObsDate = obsDates.length > 0 ? obsDates[obsDates.length - 1] : "";
     const rawFcDates = currentData.forecast_daily_dates || [];
-    // Strictly filter forecast dates to only those AFTER todayDate so there is zero overlap/repetition
-    const fcDates = todayDate ? rawFcDates.filter(d => d > todayDate) : rawFcDates;
+    // Strictly filter forecast dates to only those AFTER lastObsDate so there is zero overlap/repetition
+    const fcDates = lastObsDate ? rawFcDates.filter(d => d > lastObsDate) : rawFcDates;
     const allDates = [...obsDates, ...fcDates];
     const forecastStartDate = fcDates.length > 0 ? fcDates[0] : "";
-    return { obsDates, fcDates, allDates, todayDate, forecastStartDate };
+    // Today is the forecast start date (or fallback to lastObsDate if no forecast)
+    const todayDate = forecastStartDate || lastObsDate;
+    return { obsDates, fcDates, allDates, todayDate, forecastStartDate, lastObsDate };
 }
 
 function shiftDailyWindowTo(idx) {
@@ -636,7 +638,7 @@ function render6MonthForecastTable(locations) {
 // 2. DAILY MATRIX VIEW (28-DAY TIMELINE SLIDER + EXTENDED ECMWF FORECAST)
 // -------------------------------------------------------------
 function renderDailyTable(locations) {
-    const { obsDates, fcDates, allDates, todayDate, forecastStartDate } = getDailyTimelineDates();
+    const { obsDates, fcDates, allDates, todayDate, forecastStartDate, lastObsDate } = getDailyTimelineDates();
     const totalDays = allDates.length;
     
     if (totalDays === 0) {
@@ -682,7 +684,7 @@ function renderDailyTable(locations) {
     const presets = [
         { label: `🔮 Next 28 Days Forward Forecast (${formatShortDate(fcDates[0])} – ${formatShortDate(fcDates[27] || fcDates[fcDates.length - 1])})`, value: maxForwardIndex },
         { label: `⚡ Current Live Window (14D Obs + 14D ECMWF) (${formatShortDate(allDates[defaultLiveIndex])} – ${formatShortDate(allDates[defaultLiveIndex + 27])})`, value: defaultLiveIndex },
-        { label: `🌧️ Trailing 28 Days Observed Actuals (${formatShortDate(allDates[Math.max(0, obsDates.length - 28)])} – ${formatShortDate(todayDate)})`, value: Math.max(0, obsDates.length - 28) }
+        { label: `🌧️ Trailing 28 Days Observed Actuals (${formatShortDate(allDates[Math.max(0, obsDates.length - 28)])} – ${formatShortDate(lastObsDate)})`, value: Math.max(0, obsDates.length - 28) }
     ];
     if (obsDates.length >= 40) {
         presets.push({ label: `📅 September 2026 Window (Aug 27 – Sep 23)`, value: Math.max(0, obsDates.length - 42) });
@@ -758,7 +760,7 @@ function renderDailyTable(locations) {
             </div>
             <div style="display:flex; align-items:center; gap:8px; font-size:11px; flex-wrap:wrap;">
                 <span style="background:#f1f5f9; padding:3px 8px; border-radius:4px; border:1px solid #e2e8f0; color:#334155; font-weight:600;">
-                    Observed: <strong>${formatShortDate(obsDates[0])} – ${formatShortDate(todayDate)}</strong>
+                    Observed: <strong>${formatShortDate(obsDates[0])} – ${formatShortDate(lastObsDate)}</strong>
                 </span>
                 <span style="background:#eff6ff; padding:3px 8px; border-radius:4px; border:1px solid #bfdbfe; color:#1d4ed8; font-weight:600;">
                     Forecast Horizon: <strong>${formatShortDate(fcDates[0])} – ${formatShortDate(fcDates[fcDates.length - 1])} (${fcDates.length} Days)</strong>
@@ -2411,13 +2413,25 @@ let currentTrendMetric = 'absolute'; // 'absolute' or 'delta'
 let selectedTrendTargets = ['ALL']; // e.g. ['ALL'], ['GRP_Sumatera'], ['MY-01'], ['GRP_Sumatera', 'GRP_Kalimantan']
 let activeTrendMacroRegion = 'Peninsular Malaysia'; // Controls which states appear in Row 2 of Slicer
 
-const WINDOW_META = {
-    'past_d6_10': { key: 'past_d6_10', label: 'Past Days 6–10', dates: 'Oct 14–18', color: '#0d9488', bg: 'rgba(13, 148, 136, 0.1)', isPast: true, actualDate: '2026-10-15' },
-    'past_d1_5':  { key: 'past_d1_5',  label: 'Past Days 1–5',  dates: 'Oct 19–23', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.1)', isPast: true, actualDate: '2026-10-20' },
-    'd1_5':       { key: 'd1_5',       label: 'Days 1–5',       dates: 'Oct 24–28', color: '#2563eb', bg: 'rgba(37, 99, 235, 0.1)', isPast: false, actualDate: null },
-    'd6_10':      { key: 'd6_10',      label: 'Days 6–10',      dates: 'Oct 29–Nov 02', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)', isPast: false, actualDate: null },
-    'd11_15':     { key: 'd11_15',     label: 'Days 11–15',     dates: 'Nov 03–07', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)', isPast: false, actualDate: null }
+let WINDOW_META = {
+    'past_d6_10': { key: 'past_d6_10', label: 'Past Days 6–10', dates: 'Oct 17–21', color: '#0d9488', bg: 'rgba(13, 148, 136, 0.1)', isPast: true, actualDate: null },
+    'past_d1_5':  { key: 'past_d1_5',  label: 'Past Days 1–5',  dates: 'Oct 22–26', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.1)', isPast: true, actualDate: null },
+    'd1_5':       { key: 'd1_5',       label: 'Days 1–5',       dates: 'Oct 28–Nov 01', color: '#2563eb', bg: 'rgba(37, 99, 235, 0.1)', isPast: false, actualDate: null },
+    'd6_10':      { key: 'd6_10',      label: 'Days 6–10',      dates: 'Nov 02–06', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)', isPast: false, actualDate: null },
+    'd11_15':     { key: 'd11_15',     label: 'Days 11–15',     dates: 'Nov 07–11', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)', isPast: false, actualDate: null }
 };
+
+function refreshWindowMetaFromData() {
+    const raw = window.WEATHER_DATA && window.WEATHER_DATA.model_run_trends && window.WEATHER_DATA.model_run_trends.metadata && window.WEATHER_DATA.model_run_trends.metadata.target_windows;
+    if (!raw) return;
+    Object.keys(WINDOW_META).forEach(k => {
+        if (raw[k]) {
+            if (raw[k].name) WINDOW_META[k].label = raw[k].name;
+            if (raw[k].dates_label) WINDOW_META[k].dates = raw[k].dates_label;
+            if (raw[k].actual_date) WINDOW_META[k].actualDate = raw[k].actual_date;
+        }
+    });
+}
 
 const MACRO_REGION_ORDER = [
     "Peninsular Malaysia",
@@ -2506,6 +2520,7 @@ function renderModelRunTrendsView(locations) {
         return;
     }
 
+    refreshWindowMetaFromData();
     const trends = currentData.model_run_trends;
     const meta = trends.metadata || {};
     const targetWindows = meta.target_windows || {};
@@ -2790,11 +2805,11 @@ function renderModelRunTrendsView(locations) {
 
                     <div class="segmented-control" style="flex-wrap: wrap; gap: 2px;">
                         <button class="segmented-btn ${currentTrendWindow === 'all' ? 'active' : ''}" onclick="setTrendWindow('all')" style="font-size: 10.5px; padding: 3px 7px; font-weight: 700;">📊 All 5 Windows</button>
-                        <button class="segmented-btn ${currentTrendWindow === 'past_d6_10' ? 'active' : ''}" onclick="setTrendWindow('past_d6_10')" style="font-size: 10.5px; padding: 3px 7px; color: #0d9488;">⏪ Past D6–10 (Oct 14–18)</button>
-                        <button class="segmented-btn ${currentTrendWindow === 'past_d1_5' ? 'active' : ''}" onclick="setTrendWindow('past_d1_5')" style="font-size: 10.5px; padding: 3px 7px; color: #0284c7;">◀ Past D1–5 (Oct 19–23)</button>
-                        <button class="segmented-btn ${currentTrendWindow === 'd1_5' ? 'active' : ''}" onclick="setTrendWindow('d1_5')" style="font-size: 10.5px; padding: 3px 7px; color: #2563eb;">▶ Days 1–5 (Oct 24–28)</button>
-                        <button class="segmented-btn ${currentTrendWindow === 'd6_10' ? 'active' : ''}" onclick="setTrendWindow('d6_10')" style="font-size: 10.5px; padding: 3px 7px; color: #8b5cf6;">▶▶ Days 6–10 (Oct 29–Nov 02)</button>
-                        <button class="segmented-btn ${currentTrendWindow === 'd11_15' ? 'active' : ''}" onclick="setTrendWindow('d11_15')" style="font-size: 10.5px; padding: 3px 7px; color: #d97706;">⏭ Days 11–15 (Nov 03–07)</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'past_d6_10' ? 'active' : ''}" onclick="setTrendWindow('past_d6_10')" style="font-size: 10.5px; padding: 3px 7px; color: #0d9488;">⏪ Past D6–10 (${WINDOW_META.past_d6_10.dates})</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'past_d1_5' ? 'active' : ''}" onclick="setTrendWindow('past_d1_5')" style="font-size: 10.5px; padding: 3px 7px; color: #0284c7;">◀ Past D1–5 (${WINDOW_META.past_d1_5.dates})</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'd1_5' ? 'active' : ''}" onclick="setTrendWindow('d1_5')" style="font-size: 10.5px; padding: 3px 7px; color: #2563eb;">▶ Days 1–5 (${WINDOW_META.d1_5.dates})</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'd6_10' ? 'active' : ''}" onclick="setTrendWindow('d6_10')" style="font-size: 10.5px; padding: 3px 7px; color: #8b5cf6;">▶▶ Days 6–10 (${WINDOW_META.d6_10.dates})</button>
+                        <button class="segmented-btn ${currentTrendWindow === 'd11_15' ? 'active' : ''}" onclick="setTrendWindow('d11_15')" style="font-size: 10.5px; padding: 3px 7px; color: #d97706;">⏭ Days 11–15 (${WINDOW_META.d11_15.dates})</button>
                     </div>
                 </div>
             </div>
@@ -2840,11 +2855,11 @@ function renderModelRunTrendsView(locations) {
                     <thead>
                         <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #334155;">
                             <th style="width: 140px; text-align: left; padding: 5px 6px;">Run Date</th>
-                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0d9488;">Past D6–10 (14–18)</th>
-                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0284c7; border-left: 1px solid #e2e8f0;">Past D1–5 (19–23)</th>
-                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #2563eb; border-left: 1px solid #e2e8f0;">Days 1–5 (24–28)</th>
-                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #8b5cf6; border-left: 1px solid #e2e8f0;">Days 6–10 (29–02)</th>
-                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #d97706; border-left: 1px solid #e2e8f0;">Days 11–15 (03–07)</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0d9488;">Past D6–10 (${WINDOW_META.past_d6_10.dates})</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0284c7; border-left: 1px solid #e2e8f0;">Past D1–5 (${WINDOW_META.past_d1_5.dates})</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #2563eb; border-left: 1px solid #e2e8f0;">Days 1–5 (${WINDOW_META.d1_5.dates})</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #8b5cf6; border-left: 1px solid #e2e8f0;">Days 6–10 (${WINDOW_META.d6_10.dates})</th>
+                            <th style="width: 124px; text-align: right; padding: 5px 6px; color: #d97706; border-left: 1px solid #e2e8f0;">Days 11–15 (${WINDOW_META.d11_15.dates})</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3003,9 +3018,9 @@ function renderModelRunTrendsView(locations) {
                     <th style="width: 140px; text-align: left; padding: 5px 6px;">Macro Region</th>
                     <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0d9488;">Past D6–10 (Actual)</th>
                     <th style="width: 124px; text-align: right; padding: 5px 6px; color: #0284c7; border-left: 1px solid #e2e8f0;">Past D1–5 (Actual)</th>
-                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #2563eb; border-left: 1px solid #e2e8f0;">Days 1–5 (24–28)</th>
-                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #8b5cf6; border-left: 1px solid #e2e8f0;">Days 6–10 (29–02)</th>
-                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #d97706; border-left: 1px solid #e2e8f0;">Days 11–15 (03–07)</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #2563eb; border-left: 1px solid #e2e8f0;">Days 1–5 (${WINDOW_META.d1_5.dates})</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #8b5cf6; border-left: 1px solid #e2e8f0;">Days 6–10 (${WINDOW_META.d6_10.dates})</th>
+                    <th style="width: 124px; text-align: right; padding: 5px 6px; color: #d97706; border-left: 1px solid #e2e8f0;">Days 11–15 (${WINDOW_META.d11_15.dates})</th>
                 </tr>
             </thead>
             <tbody>
@@ -3259,9 +3274,9 @@ function drawModelTrendProgressionLineChart(entityData, targetWindows, allUnique
         });
     }
 
+    const actDates = [WINDOW_META.past_d6_10.actualDate, WINDOW_META.past_d1_5.actualDate].filter(Boolean);
     const xLabels = activeRuns.map(r => {
-        if (r === '2026-10-15') return 'Oct 15 (Act)';
-        if (r === '2026-10-20') return 'Oct 20 (Act)';
+        if (actDates.includes(r)) return `${formatShortDate(r)} (Act)`;
         return formatShortDate(r);
     });
 

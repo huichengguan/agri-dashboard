@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Commodity Volatility, VaR & 10-Year Seasonality Dashboard | First Resources</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         :root {
             --bg-body: #f8fafc;
@@ -96,6 +97,88 @@
             border-radius: 50%;
             background: var(--green);
             box-shadow: 0 0 6px rgba(22, 163, 74, 0.6);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-outlook {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #ffffff;
+            color: #0f172a;
+            border: 1px solid var(--border-strong);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn-outlook:hover {
+            background: #f8fafc;
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-outlook:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #f1f5f9;
+        }
+
+        .btn-outlook svg {
+            color: var(--primary);
+            transition: transform 0.2s;
+        }
+
+        .btn-outlook:hover svg {
+            transform: translateY(-1px);
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.25s ease;
+            pointer-events: none;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Category Filter Tabs & Search */
@@ -476,9 +559,18 @@
         <header class="header">
             <div class="header-title-box">
                 <h1>Global Commodity Volatility, VaR & Seasonality Intelligence</h1>
-                <p>21-Commodity Master Dashboard: Parametric VaR Matrix (n=60) & 10-Year Volatility Seasonality Fan Charts (Jan to Dec)</p>
+                <p>21-Commodity Master Dashboard: Parametric VaR Matrix (n=60) &amp; Seasonality Charts</p>
             </div>
-            <div class="badge-live">LSEG Live Verified (10-Yr Continuous)</div>
+            <div class="header-actions">
+                <button class="btn-outlook" id="btn-outlook" onclick="exportToOutlook()" title="Create draft in Outlook Classic (Volatility Report)">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="16" x="2" y="4" rx="2"/>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                    <span>Outlook Snapshot</span>
+                </button>
+                <div class="badge-live">LSEG Live Verified (10-Yr Continuous)</div>
+            </div>
         </header>
 
         <!-- Filter Bar -->
@@ -538,10 +630,10 @@
             </div>
         </div>
 
-        <!-- BOTTOM SECTION: 10-Year Seasonality Fan Charts Grid -->
+        <!-- BOTTOM SECTION: Seasonality Charts Grid -->
         <div class="seasonality-header-box">
             <div>
-                <h2>🗓️ 10-Year Volatility Seasonality Fan Charts (January to December)</h2>
+                <h2>🗓️ Seasonality Charts</h2>
                 <p>Normalized calendar year fan charts (Weeks 1 to 52) based on up to 10 years of continuous active contract data from LSEG</p>
             </div>
             <div class="legend-bar">
@@ -848,14 +940,19 @@
                             },
                             scales: {
                                 x: {
-                                    grid: { color: '#f1f5f9' },
+                                    grid: {
+                                        color: function(ctx) {
+                                            const mIdx = [0, 4, 8, 13, 17, 21, 26, 30, 35, 39, 43, 48];
+                                            return mIdx.includes(ctx.index) ? '#e2e8f0' : 'transparent';
+                                        }
+                                    },
                                     ticks: {
-                                        color: '#64748b',
-                                        maxTicksLimit: 6,
-                                        font: { size: 9 },
+                                        color: '#475569',
+                                        autoSkip: false,
+                                        font: { size: 8.5, weight: '600' },
                                         callback: function(val, idx) {
-                                            const l = labels[idx];
-                                            return l && l.includes('W1') ? l.split(' ')[0] : '';
+                                            const monthMap = {0:'Jan', 4:'Feb', 8:'Mar', 13:'Apr', 17:'May', 21:'Jun', 26:'Jul', 30:'Aug', 35:'Sep', 39:'Oct', 43:'Nov', 48:'Dec'};
+                                            return monthMap[idx] || '';
                                         }
                                     }
                                 },
@@ -911,6 +1008,141 @@
             document.getElementById('modal-overlay').style.display = 'none';
         }
 
+        function showToast(message, duration = 4500) {
+            let toast = document.getElementById('toast-notification');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast-notification';
+                toast.className = 'toast-notification';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        function generateEmlBlob(base64Png) {
+            const boundary = "----=_Part_Snap_" + Math.random().toString(36).substring(2);
+            const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            const cleanB64 = base64Png.replace(/^data:image\/png;base64,/, '');
+            const wrappedB64 = cleanB64.match(/.{1,76}/g).join('\r\n');
+
+            const eml = 
+`X-Unsent: 1\r
+Subject: Volatility Report\r
+MIME-Version: 1.0\r
+Content-Type: multipart/related; boundary="${boundary}"\r
+\r
+--${boundary}\r
+Content-Type: text/html; charset="utf-8"\r
+Content-Transfer-Encoding: 7bit\r
+\r
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 10px;">
+  <div style="margin: 0; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+    <img src="cid:dashboard_snapshot" alt="Volatility Report" style="max-width: 100%; height: auto; display: block;" />
+  </div>
+</body>
+</html>\r
+\r
+--${boundary}\r
+Content-Type: image/png; name="Commodity_Volatility_Snapshot.png"\r
+Content-Transfer-Encoding: base64\r
+Content-ID: <dashboard_snapshot>\r
+Content-Disposition: inline; filename="Commodity_Volatility_Snapshot.png"\r
+\r
+${wrappedB64}\r
+\r
+--${boundary}--\r
+`;
+            return new Blob([eml], { type: 'message/rfc822' });
+        }
+
+        async function exportToOutlook() {
+            const btn = document.getElementById('btn-outlook');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `
+                <svg class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+                </svg>
+                <span>Generating PNG...</span>
+            `;
+
+            try {
+                const container = document.querySelector('.container');
+                const canvas = await html2canvas(container, {
+                    scale: 1.5,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#f8fafc',
+                    ignoreElements: (el) => el.id === 'btn-outlook' || el.classList.contains('search-box')
+                });
+
+                const base64Data = canvas.toDataURL('image/png');
+
+                // 1. Copy image to Clipboard as actual PNG image
+                canvas.toBlob(async (blob) => {
+                    if (blob && navigator.clipboard && navigator.clipboard.write) {
+                        try {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({ 'image/png': blob })
+                            ]);
+                        } catch (e) {
+                            console.warn("Clipboard write:", e);
+                        }
+                    }
+                }, 'image/png');
+
+                // 2. Send to local Outlook service
+                let opened = false;
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3500);
+                    const resp = await fetch('http://127.0.0.1:8765/open_outlook', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image: base64Data }),
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+                    if (resp.ok) {
+                        opened = true;
+                        showToast('Draft created in Outlook Classic: Volatility Report! (Image also on clipboard)');
+                    }
+                } catch (fetchErr) {
+                    console.log('Local service offline or slow, falling back to .eml file download');
+                }
+
+                // 3. Fallback: generate and trigger .eml download + mailto
+                if (!opened) {
+                    const emlBlob = generateEmlBlob(base64Data);
+                    const url = URL.createObjectURL(emlBlob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Volatility_Report.eml';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+                    showToast('Draft downloaded & copied to clipboard! Opening Outlook Classic...');
+                    window.location.href = 'mailto:?subject=Volatility%20Report';
+                }
+            } catch (err) {
+                console.error("Snapshot error:", err);
+                showToast("Snapshot error: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+            }
+        }
+
         function renderDashboard() {
             try {
                 renderTable();
@@ -930,5 +1162,6 @@
             renderDashboard();
         }
     </script>
+    <div class="toast-notification" id="toast-notification"></div>
 </body>
 </html>

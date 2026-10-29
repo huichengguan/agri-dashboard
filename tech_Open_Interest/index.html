@@ -420,7 +420,7 @@
                             <span class="px-2 py-0.5 text-[10.5px] font-bold rounded bg-blue-100 text-blue-800">Synchronized Dual Panels • Click point to inspect</span>
                         </div>
                         <p class="text-xs text-slate-500 mt-0.5">
-                            Panel A (Top): Active FCPO Price with regime bubbles &amp; driving labels • Panel B (Bottom): Total Market Open Interest (Line) + Daily Net ΔOI (Bars) sharing the exact same date axis
+                            Panel A (Top): Active Settlement Price with regime bubbles &amp; driving labels • Panel B (Bottom): Total Market Open Interest (Line) + Daily Net ΔOI (Bars) sharing the exact same date axis
                         </p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2.5">
@@ -495,7 +495,7 @@
                 <!-- Panel A: Price Canvas -->
                 <div>
                     <div class="flex items-center justify-between text-[11px] font-bold text-slate-700 px-1 mb-1">
-                        <span id="panelAPriceTitle">PANEL A: ACTIVE BENCHMARK SETTLEMENT PRICE (<span class="price-unit-label">MYR/t</span>)</span>
+                        <span id="panelAPriceTitle">Active Settlement Price</span>
                         <span id="panelAPriceSubtext" class="text-[10px] text-slate-400 font-normal">Colored bubbles = Daily driving action regime • Arrows connect key inflection callouts</span>
                     </div>
                     <div class="h-[420px] relative">
@@ -956,34 +956,32 @@
 // =========================================================================
 
 const EXCEL_COMMODITY_ORDER = [
-    // 1. Vegetable Oils Complex
-    { sec: "FCPO", key: "FCPO", name: "BMD Crude Palm Oil", flag: "🇲🇾", sector: "Vegetable Oils", sectorIcon: "🌴" },
-    { sec: "DCP", key: "DCP", name: "DCE Palm Olein", flag: "🇨🇳", sector: "Vegetable Oils", sectorIcon: "🌴" },
-    { sec: "DBY", key: "DCE_SOYOIL", name: "DCE Soybean Oil", flag: "🇨🇳", sector: "Vegetable Oils", sectorIcon: "🌴" },
-    { sec: "ZZRSO", key: "CZCE_ROIL", name: "CZCE Rapeseed Oil", flag: "🇨🇳", sector: "Vegetable Oils", sectorIcon: "🌴" },
-    { sec: "SBO", key: "SOYOIL", name: "CBOT Soybean Oil", flag: "🇺🇸", sector: "Vegetable Oils", sectorIcon: "🌴" },
+    // 1. Palm Oil
+    { sec: "FCPO", key: "FCPO", name: "BMD Crude Palm Oil", flag: "🇲🇾", sector: "Palm Oil", sectorIcon: "🌴" },
 
-    // 2. Wheat Complex (Grouped Together: CBOT, Kansas, Minneapolis)
-    { sec: "W", key: "WHEAT", name: "CBOT SRW Wheat", flag: "🇺🇸", sector: "Wheat Complex", sectorIcon: "🌾" },
-    { sec: "KW", key: "KW", name: "KCBT HRW Wheat", flag: "🇺🇸", sector: "Wheat Complex", sectorIcon: "🌾" },
-    { sec: "MWE", key: "MWE", name: "MGEX HRS Wheat", flag: "🇺🇸", sector: "Wheat Complex", sectorIcon: "🌾" },
+    // 2. Chinese Domestic Ags (DCE / CZCE)
+    { sec: "DCP", key: "DCP", name: "DCE Palm Olein", flag: "🇨🇳", sector: "Chinese Domestic Ags (DCE / CZCE)", sectorIcon: "🇨🇳" },
+    { sec: "DBY", key: "DCE_SOYOIL", name: "DCE Soybean Oil", flag: "🇨🇳", sector: "Chinese Domestic Ags (DCE / CZCE)", sectorIcon: "🇨🇳" },
+    { sec: "ZZRSO", key: "CZCE_ROIL", name: "CZCE Rapeseed Oil", flag: "🇨🇳", sector: "Chinese Domestic Ags (DCE / CZCE)", sectorIcon: "🇨🇳" },
+    { sec: "DSM", key: "DCE_SOYMEAL", name: "DCE Soybean Meal", flag: "🇨🇳", sector: "Chinese Domestic Ags (DCE / CZCE)", sectorIcon: "🇨🇳" },
+    { sec: "ZZRSM", key: "CZCE_RMEAL", name: "CZCE Rapeseed Meal", flag: "🇨🇳", sector: "Chinese Domestic Ags (DCE / CZCE)", sectorIcon: "🇨🇳" },
+    { sec: "DCC", key: "DCE_CORN", name: "DCE Corn", flag: "🇨🇳", sector: "Chinese Domestic Ags (DCE / CZCE)", sectorIcon: "🇨🇳" },
 
-    // 3. Corn Complex
-    { sec: "C", key: "CORN", name: "CBOT Corn", flag: "🇺🇸", sector: "Corn", sectorIcon: "🌽" },
-    { sec: "DCC", key: "DCE_CORN", name: "DCE Corn", flag: "🇨🇳", sector: "Corn", sectorIcon: "🌽" },
+    // 3. US Grains & Oilseeds (CBOT / MGEX)
+    { sec: "MWE", key: "MWE", name: "MGEX HRS Wheat", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌾" },
+    { sec: "KW", key: "KW", name: "KCBT HRW Wheat", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌾" },
+    { sec: "W", key: "WHEAT", name: "CBOT SRW Wheat", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌾" },
+    { sec: "C", key: "CORN", name: "CBOT Corn", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌽" },
+    { sec: "S", key: "SOYBEANS", name: "CBOT Soybeans", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌱" },
+    { sec: "SBM", key: "SOYMEAL", name: "CBOT Soybean Meal", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌱" },
+    { sec: "SBO", key: "SOYOIL", name: "CBOT Soybean Oil", flag: "🇺🇸", sector: "US Grains & Oilseeds (CBOT / MGEX)", sectorIcon: "🌱" },
 
-    // 4. Oilseeds & Protein Meals
-    { sec: "S", key: "SOYBEANS", name: "CBOT Soybeans", flag: "🇺🇸", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
-    { sec: "SBM", key: "SOYMEAL", name: "CBOT Soybean Meal", flag: "🇺🇸", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
-    { sec: "DSM", key: "DCE_SOYMEAL", name: "DCE Soybean Meal", flag: "🇨🇳", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
-    { sec: "ZZRSM", key: "CZCE_RMEAL", name: "CZCE Rapeseed Meal", flag: "🇨🇳", sector: "Oilseeds & Meals", sectorIcon: "🌱" },
-
-    // 5. Petroleum & Energies
-    { sec: "LCO", key: "BRENT", name: "ICE Brent Crude", flag: "🇬🇧", sector: "Petroleum & Energies", sectorIcon: "🛢️" },
-    { sec: "CL", key: "WTI", name: "NYMEX WTI Crude", flag: "🇺🇸", sector: "Petroleum & Energies", sectorIcon: "🛢️" },
-    { sec: "RB", key: "RBOB", name: "NYMEX RBOB Gasoline", flag: "🇺🇸", sector: "Petroleum & Energies", sectorIcon: "⛽" },
-    { sec: "HO", key: "HEATING_OIL", name: "NYMEX Heating Oil", flag: "🇺🇸", sector: "Petroleum & Energies", sectorIcon: "🔥" },
-    { sec: "LGO", key: "GASOIL", name: "ICE Gasoil", flag: "🇬🇧", sector: "Petroleum & Energies", sectorIcon: "🛢️" }
+    // 4. Global Petroleum & Energies (NYMEX / ICE)
+    { sec: "LCO", key: "BRENT", name: "ICE Brent Crude", flag: "🇬🇧", sector: "Global Petroleum & Energies", sectorIcon: "🛢️" },
+    { sec: "CL", key: "WTI", name: "NYMEX WTI Crude", flag: "🇺🇸", sector: "Global Petroleum & Energies", sectorIcon: "🛢️" },
+    { sec: "RB", key: "RBOB", name: "NYMEX RBOB Gasoline", flag: "🇺🇸", sector: "Global Petroleum & Energies", sectorIcon: "⛽" },
+    { sec: "HO", key: "HEATING_OIL", name: "NYMEX Heating Oil", flag: "🇺🇸", sector: "Global Petroleum & Energies", sectorIcon: "🔥" },
+    { sec: "LGO", key: "GASOIL", name: "ICE Gasoil", flag: "🇬🇧", sector: "Global Petroleum & Energies", sectorIcon: "🛢️" }
 ];
 
 let masterAvailableDates = [];
@@ -1508,13 +1506,33 @@ let priceOiWindow = 65;
                 }
             };
 
-            // Dynamic scale bounds for Panel A (Price)
-            const pVals = slice.map(s => s.active_price).filter(v => v > 0);
-            const minP = pVals.length ? Math.min(...pVals) : 3800;
-            const maxP = pVals.length ? Math.max(...pVals) : 5000;
-            const pPad = Math.max(70, (maxP - minP) * 0.22);
-            const yMinPrice = Math.floor((minP - pPad) / 25) * 25;
-            const yMaxPrice = Math.ceil((maxP + pPad) / 25) * 25;
+            // Dynamic scale bounds for Panel A (Price) - Auto-adjusts for any commodity price magnitude (e.g. CBOT BO ~50, RBOB ~2.5, FCPO ~4500)
+            const pVals = slice.map(s => s.active_price).filter(v => v !== null && v !== undefined && !isNaN(v) && v > 0);
+            let yMinPrice, yMaxPrice;
+            if (pVals.length > 0) {
+                const minP = Math.min(...pVals);
+                const maxP = Math.max(...pVals);
+                const pRange = maxP - minP;
+                const pPad = Math.max(pRange * 0.12, minP * 0.015);
+                let rawMin = Math.max(0, minP - pPad);
+                let rawMax = maxP + pPad;
+                if (maxP > 1000) {
+                    yMinPrice = Math.floor(rawMin / 25) * 25;
+                    yMaxPrice = Math.ceil(rawMax / 25) * 25;
+                } else if (maxP > 100) {
+                    yMinPrice = Math.floor(rawMin / 5) * 5;
+                    yMaxPrice = Math.ceil(rawMax / 5) * 5;
+                } else if (maxP > 10) {
+                    yMinPrice = Math.floor(rawMin * 2) / 2;
+                    yMaxPrice = Math.ceil(rawMax * 2) / 2;
+                } else {
+                    yMinPrice = Math.floor(rawMin * 20) / 20;
+                    yMaxPrice = Math.ceil(rawMax * 20) / 20;
+                }
+            } else {
+                yMinPrice = 0;
+                yMaxPrice = 100;
+            }
 
             // Dynamic scale bounds for Panel B (Open Interest & Net Delta) - Extended & tightly bounded for high sensitivity
             const oiVals = slice.map(s => s.mkt_oi).filter(v => v > 0);
@@ -1537,7 +1555,7 @@ let priceOiWindow = 65;
                     datasets: [
                         {
                             type: 'line',
-                            label: 'Active Benchmark Settle Price (MYR/t)',
+                            label: 'Active Settlement Price',
                             data: slice.map(sItem => sItem.active_price),
                             borderColor: '#334155',
                             backgroundColor: 'rgba(51, 65, 85, 0.05)',
@@ -1633,10 +1651,14 @@ let priceOiWindow = 65;
                             position: 'left',
                             min: yMinPrice,
                             max: yMaxPrice,
-                            afterFit: (axis) => { axis.width = 90; },
-                            title: { display: true, text: 'Active Settle (MYR/t)', font: { size: 10.5, weight: 'bold' }, color: '#0f172a' },
+                            afterFit: (axis) => { axis.width = 75; },
+                            title: { display: false },
                             grid: { color: '#e2e8f0' },
-                            ticks: { callback: (v) => fmtNum(v) }
+                            ticks: {
+                                font: { size: 10, weight: '600' },
+                                color: '#475569',
+                                callback: (v) => fmtPrice(v, false)
+                            }
                         },
                         y1: {
                             position: 'right',
@@ -1945,6 +1967,10 @@ let priceOiWindow = 65;
 
             initSelector();
             syncUI();
+            updateQuadrantImages();
+            if (typeof renderDcp2Matrix === 'function') {
+                renderDcp2Matrix();
+            }
             if (typeof renderPriceOiRegimeChart === 'function') {
                 renderPriceOiRegimeChart();
             }
@@ -2017,6 +2043,18 @@ let priceOiWindow = 65;
             }
         }
 
+        function updateQuadrantImages() {
+            const pfx = (DATA.prefix || DATA.pfx || DATA.symbol || currentMarket).toLowerCase();
+            const qImg = document.getElementById('imgQuadrantBubble');
+            if (qImg) qImg.src = `./charts/${pfx}_quadrant_bubble.png`;
+            const fImg = document.getElementById('imgFlowDecomp');
+            if (fImg) fImg.src = `./charts/${pfx}_flow_decomposition_60d.png`;
+            const nameEl = document.getElementById('seasonalityMktName');
+            if (nameEl) nameEl.textContent = DATA.name || DATA.symbol;
+            const titleEl = document.getElementById('seasonalityTitle');
+            if (titleEl) titleEl.textContent = '10-Year ' + (DATA.name || currentMarket) + ' Open Interest Seasonality (2015-2026, Week 1-52)';
+        }
+
         function switchMainView(viewName) {
             ['studio', 'dcp2', 'quadrant', 'playbook'].forEach(v => {
                 const el = document.getElementById('view-' + v);
@@ -2024,14 +2062,19 @@ let priceOiWindow = 65;
                 const nav = document.getElementById('nav-' + v);
                 if (nav) nav.classList.toggle('active', v === viewName);
             });
-            if (viewName === 'quadrant') {
+            if (viewName === 'dcp2') {
                 setTimeout(() => {
-                    renderSeasonalityChart();
-                }, 60);
+                    if (typeof renderDcp2Matrix === 'function') renderDcp2Matrix();
+                }, 40);
+            } else if (viewName === 'quadrant') {
+                setTimeout(() => {
+                    updateQuadrantImages();
+                    if (typeof renderSeasonalityChart === 'function') renderSeasonalityChart();
+                }, 40);
             } else if (viewName === 'studio') {
                 setTimeout(() => {
-                    renderPriceOiRegimeChart();
-                }, 60);
+                    if (typeof renderPriceOiRegimeChart === 'function') renderPriceOiRegimeChart();
+                }, 40);
             }
         }
 
@@ -2356,6 +2399,20 @@ let priceOiWindow = 65;
                 if (chk) chk.checked = true;
             }
             renderDcp2Matrix();
+        }
+
+        function getShortRic(ric) {
+            if (!ric) return '';
+            if (DATA && DATA.sessions && DATA.sessions.length) {
+                const lastSession = DATA.sessions[DATA.sessions.length - 1];
+                if (lastSession && lastSession.contracts) {
+                    const match = lastSession.contracts.find(c => c.ric === ric);
+                    if (match && (match.label || match.short)) return match.label || match.short;
+                }
+            }
+            const sym = (DATA && (DATA.symbol || DATA.mkt)) ? (DATA.symbol || DATA.mkt) : '';
+            if (sym && ric.startsWith(sym)) return ric.slice(sym.length);
+            return ric;
         }
 
         function renderDcp2Matrix() {
