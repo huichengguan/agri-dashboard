@@ -1,0 +1,6757 @@
+{
+  "dates": {
+    "date1": "2026-10-01",
+    "date2": "2026-10-28",
+    "date3": "2026-10-29"
+  },
+  "last_updated": "2026-10-30 02:58:55",
+  "total_curves": 66,
+  "curves": [
+    {
+      "id": "curve_16",
+      "title": "WTI",
+      "category": "Energy",
+      "sheet": "CL",
+      "exchange": "NYMEX",
+      "description": "Usd/bbl",
+      "unit": "USD/bbl",
+      "metrics": {
+        "active_contract": "Jan 27",
+        "prompt_price": 100.45,
+        "change_1d": -0.54,
+        "change_1d_pct": -0.53,
+        "change_1m": 11.69,
+        "change_1m_pct": 13.17,
+        "structure": "Backwardation",
+        "spread_prompt_back": -19.07
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/CLF27",
+          "label": "CLF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 88.76,
+          "v2": 100.99,
+          "v3": 100.45
+        },
+        {
+          "row": 6,
+          "ric": "/CLG27",
+          "label": "CLG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 86.64,
+          "v2": 98.99,
+          "v3": 98.33
+        },
+        {
+          "row": 7,
+          "ric": "/CLH27",
+          "label": "CLH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 84.76,
+          "v2": 96.85,
+          "v3": 96.06
+        },
+        {
+          "row": 8,
+          "ric": "/CLJ27",
+          "label": "CLJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 83.16,
+          "v2": 94.77,
+          "v3": 93.83
+        },
+        {
+          "row": 9,
+          "ric": "/CLK27",
+          "label": "CLK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 81.79,
+          "v2": 92.82,
+          "v3": 91.81
+        },
+        {
+          "row": 10,
+          "ric": "/CLM27",
+          "label": "CLM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 80.6,
+          "v2": 90.94,
+          "v3": 89.93
+        },
+        {
+          "row": 11,
+          "ric": "/CLN27",
+          "label": "CLN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 79.53,
+          "v2": 89.13,
+          "v3": 88.13
+        },
+        {
+          "row": 12,
+          "ric": "/CLQ27",
+          "label": "CLQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 78.54,
+          "v2": 87.41,
+          "v3": 86.48
+        },
+        {
+          "row": 13,
+          "ric": "/CLU27",
+          "label": "CLU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 77.65,
+          "v2": 85.83,
+          "v3": 84.95
+        },
+        {
+          "row": 14,
+          "ric": "/CLV27",
+          "label": "CLV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 76.84,
+          "v2": 84.42,
+          "v3": 83.73
+        },
+        {
+          "row": 15,
+          "ric": "/CLX27",
+          "label": "CLX27",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 76.12,
+          "v2": 83.15,
+          "v3": 82.54
+        },
+        {
+          "row": 16,
+          "ric": "/CLZ27",
+          "label": "CLZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 75.44,
+          "v2": 82.0,
+          "v3": 81.38
+        }
+      ]
+    },
+    {
+      "id": "curve_60",
+      "title": "Brent",
+      "category": "Energy",
+      "sheet": "LCO",
+      "exchange": "ICE EU",
+      "description": "Usd/bbl",
+      "unit": "USD/bbl",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 115.2,
+        "change_1d": -0.12,
+        "change_1d_pct": -0.1,
+        "change_1m": 12.89,
+        "change_1m_pct": 12.6,
+        "structure": "Backwardation",
+        "spread_prompt_back": -23.92
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/LCOZ6",
+          "label": "LCOZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 102.31,
+          "v2": 115.32,
+          "v3": 115.2
+        },
+        {
+          "row": 6,
+          "ric": "/LCOF7",
+          "label": "LCOF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 98.43,
+          "v2": 111.64,
+          "v3": 111.04
+        },
+        {
+          "row": 7,
+          "ric": "/LCOG7",
+          "label": "LCOG7",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 95.38,
+          "v2": 108.02,
+          "v3": 107.3
+        },
+        {
+          "row": 8,
+          "ric": "/LCOH7",
+          "label": "LCOH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 93.1,
+          "v2": 104.95,
+          "v3": 104.18
+        },
+        {
+          "row": 9,
+          "ric": "/LCOJ7",
+          "label": "LCOJ7",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 91.2,
+          "v2": 102.32,
+          "v3": 101.45
+        },
+        {
+          "row": 10,
+          "ric": "/LCOK7",
+          "label": "LCOK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 89.53,
+          "v2": 99.98,
+          "v3": 99.0
+        },
+        {
+          "row": 11,
+          "ric": "/LCOM7",
+          "label": "LCOM7",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 88.03,
+          "v2": 97.82,
+          "v3": 96.84
+        },
+        {
+          "row": 12,
+          "ric": "/LCON7",
+          "label": "LCON7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 86.67,
+          "v2": 95.8,
+          "v3": 94.74
+        },
+        {
+          "row": 13,
+          "ric": "/LCOQ7",
+          "label": "LCOQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 85.43,
+          "v2": 93.94,
+          "v3": 92.97
+        },
+        {
+          "row": 14,
+          "ric": "/LCOU7",
+          "label": "LCOU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 84.32,
+          "v2": 92.24,
+          "v3": 91.28
+        }
+      ]
+    },
+    {
+      "id": "curve_63",
+      "title": "Shanghai Crude",
+      "category": "Energy",
+      "sheet": "ISC",
+      "exchange": "INE",
+      "description": "",
+      "unit": "CNY/bbl",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 753.0,
+        "change_1d": 25.5,
+        "change_1d_pct": 3.51,
+        "change_1m": 56.9,
+        "change_1m_pct": 8.17,
+        "structure": "Backwardation",
+        "spread_prompt_back": -104.6
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/ISCX6",
+          "label": "ISCX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 696.1,
+          "v2": 727.5,
+          "v3": 753.0
+        },
+        {
+          "row": 5,
+          "ric": "/ISCZ6",
+          "label": "ISCZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 666.1,
+          "v2": 722.4,
+          "v3": 721.5
+        },
+        {
+          "row": 6,
+          "ric": "/ISCF7",
+          "label": "ISCF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 640.2,
+          "v2": 715.8,
+          "v3": 713.8
+        },
+        {
+          "row": 7,
+          "ric": "/ISCG7",
+          "label": "ISCG7",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 622.1,
+          "v2": 706.0,
+          "v3": 706.9
+        },
+        {
+          "row": 8,
+          "ric": "/ISCH7",
+          "label": "ISCH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 612.3,
+          "v2": 690.6,
+          "v3": 693.3
+        },
+        {
+          "row": 9,
+          "ric": "/ISCJ7",
+          "label": "ISCJ7",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 604.0,
+          "v2": 677.4,
+          "v3": 678.8
+        },
+        {
+          "row": 10,
+          "ric": "/ISCK7",
+          "label": "ISCK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 594.0,
+          "v2": 664.5,
+          "v3": 680.1
+        },
+        {
+          "row": 11,
+          "ric": "/ISCM7",
+          "label": "ISCM7",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 588.9,
+          "v2": 655.5,
+          "v3": 659.6
+        },
+        {
+          "row": 12,
+          "ric": "/ISCN7",
+          "label": "ISCN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 588.6,
+          "v2": 636.0,
+          "v3": 654.7
+        },
+        {
+          "row": 13,
+          "ric": "/ISCQ7",
+          "label": "ISCQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 569.1,
+          "v2": 641.6,
+          "v3": 648.4
+        }
+      ]
+    },
+    {
+      "id": "curve_17",
+      "title": "Heating Oil",
+      "category": "Energy",
+      "sheet": "HO",
+      "exchange": "NYMEX",
+      "description": "Usd/gal",
+      "unit": "USD/gal",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 4.7145,
+        "change_1d": -0.1007,
+        "change_1d_pct": -2.09,
+        "change_1m": 0.0725,
+        "change_1m_pct": 1.56,
+        "structure": "Backwardation",
+        "spread_prompt_back": -1.0472
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/HOX26",
+          "label": "HOX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 4.642,
+          "v2": 4.8152,
+          "v3": 4.7145
+        },
+        {
+          "row": 5,
+          "ric": "/HOZ26",
+          "label": "HOZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 4.4906,
+          "v2": 4.6639,
+          "v3": 4.5817
+        },
+        {
+          "row": 6,
+          "ric": "/HOF27",
+          "label": "HOF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 4.3839,
+          "v2": 4.5733,
+          "v3": 4.4943
+        },
+        {
+          "row": 7,
+          "ric": "/HOG27",
+          "label": "HOG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 4.269,
+          "v2": 4.4801,
+          "v3": 4.4028
+        },
+        {
+          "row": 8,
+          "ric": "/HOH27",
+          "label": "HOH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 4.1348,
+          "v2": 4.3651,
+          "v3": 4.3008
+        },
+        {
+          "row": 9,
+          "ric": "/HOJ27",
+          "label": "HOJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 3.9914,
+          "v2": 4.2371,
+          "v3": 4.1711
+        },
+        {
+          "row": 10,
+          "ric": "/HOK27",
+          "label": "HOK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 3.8567,
+          "v2": 4.1203,
+          "v3": 4.0604
+        },
+        {
+          "row": 11,
+          "ric": "/HOM27",
+          "label": "HOM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 3.732,
+          "v2": 4.0113,
+          "v3": 3.9549
+        },
+        {
+          "row": 12,
+          "ric": "/HON27",
+          "label": "HON27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 3.6534,
+          "v2": 3.9396,
+          "v3": 3.8838
+        },
+        {
+          "row": 13,
+          "ric": "/HOQ27",
+          "label": "HOQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 3.5919,
+          "v2": 3.8778,
+          "v3": 3.8341
+        },
+        {
+          "row": 14,
+          "ric": "/HOU27",
+          "label": "HOU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 3.5445,
+          "v2": 3.8257,
+          "v3": 3.782
+        },
+        {
+          "row": 15,
+          "ric": "/HOV27",
+          "label": "HOV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 3.5005,
+          "v2": 3.7742,
+          "v3": 3.731
+        },
+        {
+          "row": 16,
+          "ric": "/HOX27",
+          "label": "HOX27",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 3.4423,
+          "v2": 3.7094,
+          "v3": 3.6673
+        }
+      ]
+    },
+    {
+      "id": "curve_15",
+      "title": "ICE Gasoil",
+      "category": "Energy",
+      "sheet": "LGO",
+      "exchange": "ICE EU",
+      "description": "Usd/MT",
+      "unit": "USD/MT",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 1375.75,
+        "change_1d": -37.0,
+        "change_1d_pct": -2.62,
+        "change_1m": 40.0,
+        "change_1m_pct": 2.99,
+        "structure": "Backwardation",
+        "spread_prompt_back": -289.25
+      },
+      "points": [
+        {
+          "row": 6,
+          "ric": "/LGOZ6",
+          "label": "LGOZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 1335.75,
+          "v2": 1412.75,
+          "v3": 1375.75
+        },
+        {
+          "row": 7,
+          "ric": "/LGOF7",
+          "label": "LGOF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 1283.5,
+          "v2": 1369.5,
+          "v3": 1335.5
+        },
+        {
+          "row": 8,
+          "ric": "/LGOG7",
+          "label": "LGOG7",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 1239.5,
+          "v2": 1332.5,
+          "v3": 1301.5
+        },
+        {
+          "row": 9,
+          "ric": "/LGOH7",
+          "label": "LGOH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 1200.0,
+          "v2": 1296.0,
+          "v3": 1269.25
+        },
+        {
+          "row": 10,
+          "ric": "/LGOJ7",
+          "label": "LGOJ7",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 1158.0,
+          "v2": 1255.5,
+          "v3": 1229.5
+        },
+        {
+          "row": 11,
+          "ric": "/LGOK7",
+          "label": "LGOK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 1119.75,
+          "v2": 1218.0,
+          "v3": 1195.0
+        },
+        {
+          "row": 12,
+          "ric": "/LGOM7",
+          "label": "LGOM7",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 1084.0,
+          "v2": 1183.25,
+          "v3": 1163.0
+        },
+        {
+          "row": 13,
+          "ric": "/LGON7",
+          "label": "LGON7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 1053.75,
+          "v2": 1153.25,
+          "v3": 1133.5
+        },
+        {
+          "row": 14,
+          "ric": "/LGOQ7",
+          "label": "LGOQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 1028.75,
+          "v2": 1126.5,
+          "v3": 1109.25
+        },
+        {
+          "row": 15,
+          "ric": "/LGOU7",
+          "label": "LGOU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 1008.75,
+          "v2": 1103.25,
+          "v3": 1086.5
+        }
+      ]
+    },
+    {
+      "id": "curve_59",
+      "title": "RBOB Gasoline",
+      "category": "Energy",
+      "sheet": "RB",
+      "exchange": "NYMEX",
+      "description": "Usd/gal",
+      "unit": "USD/gal",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 3.1845,
+        "change_1d": 0.0111,
+        "change_1d_pct": 0.35,
+        "change_1m": -0.2181,
+        "change_1m_pct": -6.41,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.2533
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/RBX26",
+          "label": "RBX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 3.4026,
+          "v2": 3.1734,
+          "v3": 3.1845
+        },
+        {
+          "row": 5,
+          "ric": "/RBZ26",
+          "label": "RBZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 3.1729,
+          "v2": 3.1087,
+          "v3": 3.0903
+        },
+        {
+          "row": 6,
+          "ric": "/RBF27",
+          "label": "RBF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 3.0166,
+          "v2": 3.0661,
+          "v3": 3.0322
+        },
+        {
+          "row": 7,
+          "ric": "/RBG27",
+          "label": "RBG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 2.9336,
+          "v2": 3.0404,
+          "v3": 3.0049
+        },
+        {
+          "row": 8,
+          "ric": "/RBH27",
+          "label": "RBH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 2.9232,
+          "v2": 3.042,
+          "v3": 3.0052
+        },
+        {
+          "row": 9,
+          "ric": "/RBJ27",
+          "label": "RBJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 3.1238,
+          "v2": 3.2494,
+          "v3": 3.2046
+        },
+        {
+          "row": 10,
+          "ric": "/RBK27",
+          "label": "RBK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 3.0769,
+          "v2": 3.2208,
+          "v3": 3.1722
+        },
+        {
+          "row": 11,
+          "ric": "/RBM27",
+          "label": "RBM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 3.0167,
+          "v2": 3.1682,
+          "v3": 3.1218
+        },
+        {
+          "row": 12,
+          "ric": "/RBN27",
+          "label": "RBN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 2.9514,
+          "v2": 3.1011,
+          "v3": 3.0613
+        },
+        {
+          "row": 13,
+          "ric": "/RBQ27",
+          "label": "RBQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 2.8906,
+          "v2": 3.0337,
+          "v3": 2.9994
+        },
+        {
+          "row": 14,
+          "ric": "/RBU27",
+          "label": "RBU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 2.8219,
+          "v2": 2.96,
+          "v3": 2.9312
+        }
+      ]
+    },
+    {
+      "id": "curve_64",
+      "title": "SG Jetfuel",
+      "category": "Energy",
+      "sheet": "SGJet",
+      "exchange": "SGX / OTC",
+      "description": "",
+      "unit": "USD/bbl",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 167.8,
+        "change_1d": -12.68,
+        "change_1d_pct": -7.03,
+        "change_1m": -0.5,
+        "change_1m_pct": -0.3,
+        "structure": "Backwardation",
+        "spread_prompt_back": -34.64
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "JETSGSWMX6",
+          "label": "2026-10",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 168.3,
+          "v2": 180.48,
+          "v3": 167.8
+        },
+        {
+          "row": 6,
+          "ric": "JETSGSWMZ6",
+          "label": "2026-11",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 165.42,
+          "v2": 178.83,
+          "v3": 167.36
+        },
+        {
+          "row": 7,
+          "ric": "JETSGSWMF7",
+          "label": "2026-12",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 160.74,
+          "v2": 174.45,
+          "v3": 165.56
+        },
+        {
+          "row": 8,
+          "ric": "JETSGSWMG7",
+          "label": "2027-01",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 155.33,
+          "v2": 169.57,
+          "v3": 161.73
+        },
+        {
+          "row": 9,
+          "ric": "JETSGSWMH7",
+          "label": "2027-02",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 149.81,
+          "v2": 164.29,
+          "v3": 157.32
+        },
+        {
+          "row": 10,
+          "ric": "JETSGSWMJ7",
+          "label": "2027-03",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 144.37,
+          "v2": 159.11,
+          "v3": 153.27
+        },
+        {
+          "row": 11,
+          "ric": "JETSGSWMK7",
+          "label": "2027-04",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 139.48,
+          "v2": 154.18,
+          "v3": 149.44
+        },
+        {
+          "row": 12,
+          "ric": "JETSGSWMM7",
+          "label": "2027-05",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 135.35,
+          "v2": 149.97,
+          "v3": 145.77
+        },
+        {
+          "row": 13,
+          "ric": "JETSGSWMN7",
+          "label": "2027-06",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 131.99,
+          "v2": 146.43,
+          "v3": 142.66
+        },
+        {
+          "row": 14,
+          "ric": "JETSGSWMQ7",
+          "label": "2027-07",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 129.79,
+          "v2": 143.71,
+          "v3": 140.39
+        },
+        {
+          "row": 15,
+          "ric": "JETSGSWMU7",
+          "label": "2027-08",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 127.64,
+          "v2": 141.0,
+          "v3": 137.46
+        },
+        {
+          "row": 16,
+          "ric": "JETSGSWMV7",
+          "label": "2027-09",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 125.81,
+          "v2": 138.75,
+          "v3": 135.16
+        },
+        {
+          "row": 17,
+          "ric": "JETSGSWMX7",
+          "label": "2027-10",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 124.03,
+          "v2": 136.46,
+          "v3": 133.16
+        }
+      ]
+    },
+    {
+      "id": "curve_58",
+      "title": "Henry Hub Natural Gas",
+      "category": "Energy",
+      "sheet": "NG",
+      "exchange": "NYMEX",
+      "description": "Usd/MMBTU",
+      "unit": "USD/MMBtu",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 2.817,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -0.15,
+        "change_1m_pct": -5.06,
+        "structure": "Contango",
+        "spread_prompt_back": 0.188
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/NGX26",
+          "label": "NGX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 2.967,
+          "v2": 2.817,
+          "v3": 2.817
+        },
+        {
+          "row": 5,
+          "ric": "/NGZ26",
+          "label": "NGZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 3.305,
+          "v2": 3.032,
+          "v3": 2.935
+        },
+        {
+          "row": 6,
+          "ric": "/NGF27",
+          "label": "NGF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 3.691,
+          "v2": 3.47,
+          "v3": 3.384
+        },
+        {
+          "row": 7,
+          "ric": "/NGG27",
+          "label": "NGG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 3.369,
+          "v2": 3.134,
+          "v3": 3.054
+        },
+        {
+          "row": 8,
+          "ric": "/NGH27",
+          "label": "NGH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 2.719,
+          "v2": 2.483,
+          "v3": 2.438
+        },
+        {
+          "row": 9,
+          "ric": "/NGJ27",
+          "label": "NGJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 2.631,
+          "v2": 2.425,
+          "v3": 2.386
+        },
+        {
+          "row": 10,
+          "ric": "/NGK27",
+          "label": "NGK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 2.66,
+          "v2": 2.485,
+          "v3": 2.445
+        },
+        {
+          "row": 11,
+          "ric": "/NGM27",
+          "label": "NGM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 2.818,
+          "v2": 2.644,
+          "v3": 2.608
+        },
+        {
+          "row": 12,
+          "ric": "/NGN27",
+          "label": "NGN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 3.061,
+          "v2": 2.885,
+          "v3": 2.85
+        },
+        {
+          "row": 13,
+          "ric": "/NGQ27",
+          "label": "NGQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 3.135,
+          "v2": 2.971,
+          "v3": 2.933
+        },
+        {
+          "row": 14,
+          "ric": "/NGU27",
+          "label": "NGU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 3.116,
+          "v2": 2.96,
+          "v3": 2.92
+        },
+        {
+          "row": 15,
+          "ric": "/NGV27",
+          "label": "NGV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 3.197,
+          "v2": 3.048,
+          "v3": 3.005
+        }
+      ]
+    },
+    {
+      "id": "curve_18",
+      "title": "CBOT Wheat SRW",
+      "category": "Grains & Oilseeds",
+      "sheet": "W",
+      "exchange": "CBOT",
+      "description": "Usc/bu",
+      "unit": "USc/bu",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 603.25,
+        "change_1d": 4.25,
+        "change_1d_pct": 0.71,
+        "change_1m": -79.5,
+        "change_1m_pct": -11.64,
+        "structure": "Contango",
+        "spread_prompt_back": 48.5
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/WZ26",
+          "label": "WZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 682.75,
+          "v2": 599.0,
+          "v3": 603.25
+        },
+        {
+          "row": 5,
+          "ric": "/WH27",
+          "label": "WH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 697.0,
+          "v2": 613.25,
+          "v3": 616.75
+        },
+        {
+          "row": 6,
+          "ric": "/WK27",
+          "label": "WK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 703.5,
+          "v2": 620.5,
+          "v3": 622.25
+        },
+        {
+          "row": 7,
+          "ric": "/WN27",
+          "label": "WN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 704.75,
+          "v2": 626.25,
+          "v3": 626.75
+        },
+        {
+          "row": 8,
+          "ric": "/WU27",
+          "label": "WU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 709.75,
+          "v2": 636.5,
+          "v3": 636.75
+        },
+        {
+          "row": 9,
+          "ric": "/WZ27",
+          "label": "WZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 719.75,
+          "v2": 651.75,
+          "v3": 651.75
+        }
+      ]
+    },
+    {
+      "id": "curve_19",
+      "title": "KC Wheat HRW",
+      "category": "Grains & Oilseeds",
+      "sheet": "W",
+      "exchange": "CBOT",
+      "description": "Usc/bu",
+      "unit": "USc/bu",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 644.25,
+        "change_1d": 1.25,
+        "change_1d_pct": 0.19,
+        "change_1m": -93.25,
+        "change_1m_pct": -12.64,
+        "structure": "Contango",
+        "spread_prompt_back": 28.25
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/KWZ26",
+          "label": "KWZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 737.5,
+          "v2": 643.0,
+          "v3": 644.25
+        },
+        {
+          "row": 5,
+          "ric": "/KWH27",
+          "label": "KWH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 751.0,
+          "v2": 653.25,
+          "v3": 653.5
+        },
+        {
+          "row": 6,
+          "ric": "/KWK27",
+          "label": "KWK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 756.0,
+          "v2": 658.5,
+          "v3": 658.5
+        },
+        {
+          "row": 7,
+          "ric": "/KWN27",
+          "label": "KWN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 751.75,
+          "v2": 662.25,
+          "v3": 662.0
+        },
+        {
+          "row": 8,
+          "ric": "/KWU27",
+          "label": "KWU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 755.75,
+          "v2": 672.0,
+          "v3": 672.5
+        }
+      ]
+    },
+    {
+      "id": "curve_20",
+      "title": "MGEX Wheat HRS",
+      "category": "Grains & Oilseeds",
+      "sheet": "W",
+      "exchange": "MGEX",
+      "description": "Usc/bu",
+      "unit": "USD/bu",
+      "metrics": {
+        "active_contract": "Mar 27",
+        "prompt_price": 653.5,
+        "change_1d": 0.25,
+        "change_1d_pct": 0.04,
+        "change_1m": -97.5,
+        "change_1m_pct": -12.98,
+        "structure": "Contango",
+        "spread_prompt_back": 33.0
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/KWH27",
+          "label": "KWH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 751.0,
+          "v2": 653.25,
+          "v3": 653.5
+        },
+        {
+          "row": 6,
+          "ric": "/KWK27",
+          "label": "KWK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 756.0,
+          "v2": 658.5,
+          "v3": 658.5
+        },
+        {
+          "row": 7,
+          "ric": "/KWN27",
+          "label": "KWN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 751.75,
+          "v2": 662.25,
+          "v3": 662.0
+        },
+        {
+          "row": 8,
+          "ric": "/KWU27",
+          "label": "KWU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 755.75,
+          "v2": 672.0,
+          "v3": 672.5
+        },
+        {
+          "row": 9,
+          "ric": "/KWZ27",
+          "label": "KWZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 764.75,
+          "v2": 685.75,
+          "v3": 686.5
+        }
+      ]
+    },
+    {
+      "id": "curve_25",
+      "title": "ICE UK Feed Wheat",
+      "category": "Grains & Oilseeds",
+      "sheet": "ICEW",
+      "exchange": "ICE EU",
+      "description": "Gbp/MT",
+      "unit": "GBP/MT",
+      "metrics": {
+        "active_contract": "LWBX6",
+        "prompt_price": 193.0,
+        "change_1d": 1.0,
+        "change_1d_pct": 0.52,
+        "change_1m": -12.25,
+        "change_1m_pct": -5.97,
+        "structure": "Contango",
+        "spread_prompt_back": 6.0
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/LWBX6",
+          "label": "LWBX6",
+          "display_label": "LWBX6",
+          "contract_code": "LWBX6",
+          "v1": 205.25,
+          "v2": 192.0,
+          "v3": 193.0
+        },
+        {
+          "row": 6,
+          "ric": "/LWBF7",
+          "label": "LWBF7",
+          "display_label": "LWBF7",
+          "contract_code": "LWBF7",
+          "v1": 206.5,
+          "v2": 195.75,
+          "v3": 195.75
+        },
+        {
+          "row": 7,
+          "ric": "/LWBH7",
+          "label": "LWBH7",
+          "display_label": "LWBH7",
+          "contract_code": "LWBH7",
+          "v1": 208.5,
+          "v2": 199.5,
+          "v3": 199.5
+        },
+        {
+          "row": 8,
+          "ric": "/LWBK7",
+          "label": "LWBK7",
+          "display_label": "LWBK7",
+          "contract_code": "LWBK7",
+          "v1": 211.25,
+          "v2": 203.25,
+          "v3": 202.25
+        },
+        {
+          "row": 9,
+          "ric": "/LWBN7",
+          "label": "LWBN7",
+          "display_label": "LWBN7",
+          "contract_code": "LWBN7",
+          "v1": 214.0,
+          "v2": 207.0,
+          "v3": 207.0
+        },
+        {
+          "row": 10,
+          "ric": "/LWBX7",
+          "label": "LWBX7",
+          "display_label": "LWBX7",
+          "contract_code": "LWBX7",
+          "v1": 202.25,
+          "v2": 193.5,
+          "v3": 193.0
+        },
+        {
+          "row": 11,
+          "ric": "/LWBF8",
+          "label": "LWBF8",
+          "display_label": "LWBF8",
+          "contract_code": "LWBF8",
+          "v1": 204.5,
+          "v2": 196.25,
+          "v3": 196.25
+        },
+        {
+          "row": 12,
+          "ric": "/LWBH8",
+          "label": "LWBH8",
+          "display_label": "LWBH8",
+          "contract_code": "LWBH8",
+          "v1": 206.75,
+          "v2": 199.0,
+          "v3": 199.0
+        }
+      ]
+    },
+    {
+      "id": "curve_65",
+      "title": "Euronext Milling Wheat",
+      "category": "Grains & Oilseeds",
+      "sheet": "ICEW",
+      "exchange": "Euronext",
+      "description": "Gbp/MT",
+      "unit": "EUR/MT",
+      "metrics": {
+        "active_contract": "BL2Z6",
+        "prompt_price": 227.0,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -12.0,
+        "change_1m_pct": -5.02,
+        "structure": "Contango",
+        "spread_prompt_back": 0.5
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/BL2Z6",
+          "label": "BL2Z6",
+          "display_label": "BL2Z6",
+          "contract_code": "BL2Z6",
+          "v1": 239.0,
+          "v2": 227.0,
+          "v3": 227.0
+        },
+        {
+          "row": 5,
+          "ric": "/BL2H7",
+          "label": "BL2H7",
+          "display_label": "BL2H7",
+          "contract_code": "BL2H7",
+          "v1": 241.0,
+          "v2": 225.75,
+          "v3": 226.0
+        },
+        {
+          "row": 6,
+          "ric": "/BL2K7",
+          "label": "BL2K7",
+          "display_label": "BL2K7",
+          "contract_code": "BL2K7",
+          "v1": 241.5,
+          "v2": 226.25,
+          "v3": 226.25
+        },
+        {
+          "row": 7,
+          "ric": "/BL2U7",
+          "label": "BL2U7",
+          "display_label": "BL2U7",
+          "contract_code": "BL2U7",
+          "v1": 232.75,
+          "v2": 220.75,
+          "v3": 221.0
+        },
+        {
+          "row": 8,
+          "ric": "/BL2Z7",
+          "label": "BL2Z7",
+          "display_label": "BL2Z7",
+          "contract_code": "BL2Z7",
+          "v1": 236.25,
+          "v2": 227.25,
+          "v3": 227.5
+        }
+      ]
+    },
+    {
+      "id": "curve_21",
+      "title": "Rough Rice",
+      "category": "Grains & Oilseeds",
+      "sheet": "RR",
+      "exchange": "CBOT",
+      "description": "USD/cwt",
+      "unit": "USD/cwt",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 17.41,
+        "change_1d": 0.02,
+        "change_1d_pct": 0.12,
+        "change_1m": 0.895,
+        "change_1m_pct": 5.42,
+        "structure": "Backwardation",
+        "spread_prompt_back": -1.11
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/RRX26",
+          "label": "RRX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 16.515,
+          "v2": 17.39,
+          "v3": 17.41
+        },
+        {
+          "row": 5,
+          "ric": "/RRF27",
+          "label": "RRF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 16.975,
+          "v2": 17.91,
+          "v3": 17.915
+        },
+        {
+          "row": 6,
+          "ric": "/RRH27",
+          "label": "RRH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 17.285,
+          "v2": 18.29,
+          "v3": 18.305
+        },
+        {
+          "row": 7,
+          "ric": "/RRK27",
+          "label": "RRK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 17.57,
+          "v2": 18.535,
+          "v3": 18.55
+        },
+        {
+          "row": 8,
+          "ric": "/RRN27",
+          "label": "RRN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 17.585,
+          "v2": 18.62,
+          "v3": 18.635
+        },
+        {
+          "row": 9,
+          "ric": "/RRU27",
+          "label": "RRU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 15.15,
+          "v2": 16.195,
+          "v3": 16.3
+        }
+      ]
+    },
+    {
+      "id": "curve_22",
+      "title": "Oats",
+      "category": "Grains & Oilseeds",
+      "sheet": "O",
+      "exchange": "CBOT",
+      "description": "Usc/bu",
+      "unit": "USc/bu",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 343.0,
+        "change_1d": -4.5,
+        "change_1d_pct": -1.29,
+        "change_1m": -67.75,
+        "change_1m_pct": -16.49,
+        "structure": "Contango",
+        "spread_prompt_back": 27.75
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/OZ26",
+          "label": "OZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 410.75,
+          "v2": 347.5,
+          "v3": 343.0
+        },
+        {
+          "row": 5,
+          "ric": "/OH27",
+          "label": "OH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 420.5,
+          "v2": 364.0,
+          "v3": 361.75
+        },
+        {
+          "row": 6,
+          "ric": "/OK27",
+          "label": "OK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 424.5,
+          "v2": 369.75,
+          "v3": 367.5
+        },
+        {
+          "row": 7,
+          "ric": "/ON27",
+          "label": "ON27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 421.25,
+          "v2": 370.0,
+          "v3": 367.75
+        },
+        {
+          "row": 8,
+          "ric": "/OU27",
+          "label": "OU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 415.5,
+          "v2": 364.25,
+          "v3": 362.0
+        },
+        {
+          "row": 9,
+          "ric": "/OZ27",
+          "label": "OZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 425.75,
+          "v2": 369.5,
+          "v3": 367.25
+        },
+        {
+          "row": 10,
+          "ric": "/OH28",
+          "label": "OH28",
+          "display_label": "Mar 28",
+          "contract_code": "H28",
+          "v1": 429.25,
+          "v2": 373.0,
+          "v3": 370.75
+        }
+      ]
+    },
+    {
+      "id": "curve_24",
+      "title": "CBOT Corn",
+      "category": "Grains & Oilseeds",
+      "sheet": "C",
+      "exchange": "CBOT",
+      "description": "Usc/bu",
+      "unit": "USc/bu",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 451.25,
+        "change_1d": -0.5,
+        "change_1d_pct": -0.11,
+        "change_1m": -51.0,
+        "change_1m_pct": -10.15,
+        "structure": "Contango",
+        "spread_prompt_back": 37.75
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CZ26",
+          "label": "CZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 502.25,
+          "v2": 451.75,
+          "v3": 451.25
+        },
+        {
+          "row": 5,
+          "ric": "/CH27",
+          "label": "CH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 516.75,
+          "v2": 465.0,
+          "v3": 464.5
+        },
+        {
+          "row": 6,
+          "ric": "/CK27",
+          "label": "CK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 523.75,
+          "v2": 472.75,
+          "v3": 472.75
+        },
+        {
+          "row": 7,
+          "ric": "/CN27",
+          "label": "CN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 528.0,
+          "v2": 479.0,
+          "v3": 479.0
+        },
+        {
+          "row": 8,
+          "ric": "/CU27",
+          "label": "CU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 508.75,
+          "v2": 475.5,
+          "v3": 475.0
+        },
+        {
+          "row": 9,
+          "ric": "/CZ27",
+          "label": "CZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 517.75,
+          "v2": 490.0,
+          "v3": 489.0
+        }
+      ]
+    },
+    {
+      "id": "curve_26",
+      "title": "Euronext Corn",
+      "category": "Grains & Oilseeds",
+      "sheet": "ICEC",
+      "exchange": "Euronext",
+      "description": "Eur/MT",
+      "unit": "EUR/MT",
+      "metrics": {
+        "active_contract": "Mar 27",
+        "prompt_price": 259.5,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -3.5,
+        "change_1m_pct": -1.33,
+        "structure": "Backwardation",
+        "spread_prompt_back": -25.0
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/EMAH7",
+          "label": "EMAH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 263.0,
+          "v2": 259.5,
+          "v3": 259.5
+        },
+        {
+          "row": 6,
+          "ric": "/EMAM7",
+          "label": "EMAM7",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 262.25,
+          "v2": 257.25,
+          "v3": 256.75
+        },
+        {
+          "row": 7,
+          "ric": "/EMAQ7",
+          "label": "EMAQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 261.25,
+          "v2": 256.75,
+          "v3": 257.5
+        },
+        {
+          "row": 8,
+          "ric": "/EMAX7",
+          "label": "EMAX7",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 230.25,
+          "v2": 226.25,
+          "v3": 225.0
+        },
+        {
+          "row": 9,
+          "ric": "/EMAH8",
+          "label": "EMAH8",
+          "display_label": "Mar 28",
+          "contract_code": "H28",
+          "v1": 233.0,
+          "v2": 228.75,
+          "v3": 228.75
+        },
+        {
+          "row": 10,
+          "ric": "/EMAM8",
+          "label": "EMAM8",
+          "display_label": "Jun 28",
+          "contract_code": "M28",
+          "v1": 223.5,
+          "v2": 234.5,
+          "v3": 234.5
+        }
+      ]
+    },
+    {
+      "id": "curve_27",
+      "title": "CME Ethanol",
+      "category": "Grains & Oilseeds",
+      "sheet": "CUU",
+      "exchange": "CBOT",
+      "description": "Usd/gal",
+      "unit": "USD/gal",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 2.015,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -0.1,
+        "change_1m_pct": -4.73,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.1875
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CUUV26",
+          "label": "CUUV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 2.115,
+          "v2": 2.015,
+          "v3": 2.015
+        },
+        {
+          "row": 5,
+          "ric": "/CUUX26",
+          "label": "CUUX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 2.0225,
+          "v2": 1.845,
+          "v3": 1.845
+        },
+        {
+          "row": 6,
+          "ric": "/CUUZ26",
+          "label": "CUUZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 1.935,
+          "v2": 1.775,
+          "v3": 1.775
+        },
+        {
+          "row": 7,
+          "ric": "/CUUF27",
+          "label": "CUUF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 1.885,
+          "v2": 1.725,
+          "v3": 1.725
+        },
+        {
+          "row": 8,
+          "ric": "/CUUG27",
+          "label": "CUUG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 1.895,
+          "v2": 1.74,
+          "v3": 1.74
+        },
+        {
+          "row": 9,
+          "ric": "/CUUH27",
+          "label": "CUUH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 1.9175,
+          "v2": 1.765,
+          "v3": 1.765
+        },
+        {
+          "row": 10,
+          "ric": "/CUUJ27",
+          "label": "CUUJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 1.945,
+          "v2": 1.795,
+          "v3": 1.795
+        },
+        {
+          "row": 11,
+          "ric": "/CUUK27",
+          "label": "CUUK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 1.965,
+          "v2": 1.815,
+          "v3": 1.815
+        },
+        {
+          "row": 12,
+          "ric": "/CUUM27",
+          "label": "CUUM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 1.975,
+          "v2": 1.8275,
+          "v3": 1.8275
+        },
+        {
+          "row": 13,
+          "ric": "/CUUN27",
+          "label": "CUUN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 1.975,
+          "v2": 1.8275,
+          "v3": 1.8275
+        }
+      ]
+    },
+    {
+      "id": "curve_0",
+      "title": "CBOT Soybeans",
+      "category": "Grains & Oilseeds",
+      "sheet": "SB",
+      "exchange": "CBOT",
+      "description": "Usc/bu",
+      "unit": "USc/bu",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 1220.5,
+        "change_1d": -4.0,
+        "change_1d_pct": -0.33,
+        "change_1m": -63.5,
+        "change_1m_pct": -4.95,
+        "structure": "Contango",
+        "spread_prompt_back": 2.25
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/SX26",
+          "label": "SX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 1284.0,
+          "v2": 1224.5,
+          "v3": 1220.5
+        },
+        {
+          "row": 5,
+          "ric": "/SF27",
+          "label": "SF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 1300.75,
+          "v2": 1238.0,
+          "v3": 1234.5
+        },
+        {
+          "row": 6,
+          "ric": "/SH27",
+          "label": "SH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 1310.75,
+          "v2": 1246.0,
+          "v3": 1242.75
+        },
+        {
+          "row": 7,
+          "ric": "/SK27",
+          "label": "SK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 1319.5,
+          "v2": 1254.5,
+          "v3": 1252.0
+        },
+        {
+          "row": 8,
+          "ric": "/SN27",
+          "label": "SN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 1325.0,
+          "v2": 1260.75,
+          "v3": 1259.25
+        },
+        {
+          "row": 9,
+          "ric": "/SQ27",
+          "label": "SQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 1308.75,
+          "v2": 1245.5,
+          "v3": 1245.0
+        },
+        {
+          "row": 10,
+          "ric": "/SU27",
+          "label": "SU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 1269.0,
+          "v2": 1214.25,
+          "v3": 1214.5
+        },
+        {
+          "row": 11,
+          "ric": "/SX27",
+          "label": "SX27",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 1256.25,
+          "v2": 1206.75,
+          "v3": 1208.75
+        },
+        {
+          "row": 12,
+          "ric": "/SF28",
+          "label": "SF28",
+          "display_label": "Jan 28",
+          "contract_code": "F28",
+          "v1": 1267.0,
+          "v2": 1218.25,
+          "v3": 1222.75
+        }
+      ]
+    },
+    {
+      "id": "curve_1",
+      "title": "CBOT Soybean Meal",
+      "category": "Grains & Oilseeds",
+      "sheet": "SBM",
+      "exchange": "CBOT",
+      "description": "USD/st",
+      "unit": "USD/ton",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 329.2,
+        "change_1d": -6.5,
+        "change_1d_pct": -1.94,
+        "change_1m": -24.1,
+        "change_1m_pct": -6.82,
+        "structure": "Contango",
+        "spread_prompt_back": 5.1
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/SMZ26",
+          "label": "SMZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 353.3,
+          "v2": 335.7,
+          "v3": 329.2
+        },
+        {
+          "row": 5,
+          "ric": "/SMF27",
+          "label": "SMF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 353.3,
+          "v2": 334.8,
+          "v3": 329.7
+        },
+        {
+          "row": 6,
+          "ric": "/SMH27",
+          "label": "SMH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 354.4,
+          "v2": 334.7,
+          "v3": 330.8
+        },
+        {
+          "row": 7,
+          "ric": "/SMK27",
+          "label": "SMK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 355.9,
+          "v2": 337.1,
+          "v3": 334.0
+        },
+        {
+          "row": 8,
+          "ric": "/SMN27",
+          "label": "SMN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 358.3,
+          "v2": 340.7,
+          "v3": 338.1
+        },
+        {
+          "row": 9,
+          "ric": "/SMQ27",
+          "label": "SMQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 355.3,
+          "v2": 339.1,
+          "v3": 337.3
+        },
+        {
+          "row": 10,
+          "ric": "/SMU27",
+          "label": "SMU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 350.9,
+          "v2": 336.5,
+          "v3": 335.5
+        },
+        {
+          "row": 11,
+          "ric": "/SMV27",
+          "label": "SMV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 345.3,
+          "v2": 332.9,
+          "v3": 332.3
+        },
+        {
+          "row": 12,
+          "ric": "/SMZ27",
+          "label": "SMZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 346.7,
+          "v2": 335.2,
+          "v3": 334.3
+        }
+      ]
+    },
+    {
+      "id": "curve_2",
+      "title": "CBOT Soybean Oil",
+      "category": "Grains & Oilseeds",
+      "sheet": "SBO",
+      "exchange": "CBOT",
+      "description": "Usc/lb",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 65.69,
+        "change_1d": 0.13,
+        "change_1d_pct": 0.2,
+        "change_1m": -1.69,
+        "change_1m_pct": -2.51,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.38
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/BOZ26",
+          "label": "BOZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 67.38,
+          "v2": 65.56,
+          "v3": 65.69
+        },
+        {
+          "row": 5,
+          "ric": "/BOF27",
+          "label": "BOF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 67.62,
+          "v2": 65.82,
+          "v3": 65.93
+        },
+        {
+          "row": 6,
+          "ric": "/BOH27",
+          "label": "BOH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 67.86,
+          "v2": 66.22,
+          "v3": 66.32
+        },
+        {
+          "row": 7,
+          "ric": "/BOK27",
+          "label": "BOK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 68.05,
+          "v2": 66.56,
+          "v3": 66.63
+        },
+        {
+          "row": 8,
+          "ric": "/BON27",
+          "label": "BON27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 68.09,
+          "v2": 66.62,
+          "v3": 66.74
+        },
+        {
+          "row": 9,
+          "ric": "/BOQ27",
+          "label": "BOQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 67.68,
+          "v2": 66.22,
+          "v3": 66.33
+        },
+        {
+          "row": 10,
+          "ric": "/BOU27",
+          "label": "BOU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 67.21,
+          "v2": 65.78,
+          "v3": 65.89
+        },
+        {
+          "row": 11,
+          "ric": "/BOV27",
+          "label": "BOV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 66.64,
+          "v2": 65.3,
+          "v3": 65.45
+        },
+        {
+          "row": 12,
+          "ric": "/BOZ27",
+          "label": "BOZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 66.38,
+          "v2": 65.15,
+          "v3": 65.31
+        }
+      ]
+    },
+    {
+      "id": "curve_3",
+      "title": "CBOT Oil Share",
+      "category": "Grains & Oilseeds",
+      "sheet": "OilShare",
+      "exchange": "CBOT",
+      "description": "%",
+      "unit": "Ratio",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 0.4994,
+        "change_1d": 0.005,
+        "change_1d_pct": 1.01,
+        "change_1m": 0.0108,
+        "change_1m_pct": 2.21,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.0053
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/OILSHRMZ6",
+          "label": "OILSHRMZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 0.4886,
+          "v2": 0.4944,
+          "v3": 0.4994
+        },
+        {
+          "row": 5,
+          "ric": "/OILSHRMF7",
+          "label": "OILSHRMF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 0.4894,
+          "v2": 0.496,
+          "v3": 0.5
+        },
+        {
+          "row": 6,
+          "ric": "/OILSHRMH7",
+          "label": "OILSHRMH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 0.4895,
+          "v2": 0.4974,
+          "v3": 0.5006
+        },
+        {
+          "row": 7,
+          "ric": "/OILSHRMK7",
+          "label": "OILSHRMK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 0.489,
+          "v2": 0.4968,
+          "v3": 0.4994
+        },
+        {
+          "row": 8,
+          "ric": "/OILSHRMN7",
+          "label": "OILSHRMN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 0.4874,
+          "v2": 0.4943,
+          "v3": 0.4967
+        },
+        {
+          "row": 9,
+          "ric": "/OILSHRMQ7",
+          "label": "OILSHRMQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 0.4879,
+          "v2": 0.494,
+          "v3": 0.4958
+        },
+        {
+          "row": 10,
+          "ric": "/OILSHRMU7",
+          "label": "OILSHRMU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 0.4892,
+          "v2": 0.4945,
+          "v3": 0.4955
+        },
+        {
+          "row": 11,
+          "ric": "/OILSHRMV7",
+          "label": "OILSHRMV7",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 0.4901,
+          "v2": 0.4951,
+          "v3": 0.4962
+        },
+        {
+          "row": 12,
+          "ric": "/OILSHRMZ7",
+          "label": "OILSHRMZ7",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 0.4891,
+          "v2": 0.4927,
+          "v3": 0.4941
+        }
+      ]
+    },
+    {
+      "id": "curve_4",
+      "title": "CBOT Crush Margin",
+      "category": "Grains & Oilseeds",
+      "sheet": "BoardMargin",
+      "exchange": "CBOT",
+      "description": "Usc/bu",
+      "unit": "USc/bu",
+      "metrics": {
+        "active_contract": "CRUSH-1=R",
+        "prompt_price": 216.07,
+        "change_1d": -6.51,
+        "change_1d_pct": -2.92,
+        "change_1m": -4.26,
+        "change_1m_pct": -1.93,
+        "structure": "Contango",
+        "spread_prompt_back": 16.81
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CRUSH-1=R",
+          "label": "CRUSH-1=R",
+          "display_label": "CRUSH-1=R",
+          "contract_code": "CRUSH-1=R",
+          "v1": 220.33,
+          "v2": 222.58,
+          "v3": 216.07
+        },
+        {
+          "row": 5,
+          "ric": "/CRUSH-2=R",
+          "label": "CRUSH-2=R",
+          "display_label": "CRUSH-2=R",
+          "contract_code": "CRUSH-2=R",
+          "v1": 215.39,
+          "v2": 218.76,
+          "v3": 214.53
+        },
+        {
+          "row": 6,
+          "ric": "/CRUSH-3=R",
+          "label": "CRUSH-3=R",
+          "display_label": "CRUSH-3=R",
+          "contract_code": "CRUSH-3=R",
+          "v1": 212.03,
+          "v2": 219.28,
+          "v3": 215.73
+        },
+        {
+          "row": 7,
+          "ric": "/CRUSH-4=R",
+          "label": "CRUSH-4=R",
+          "display_label": "CRUSH-4=R",
+          "contract_code": "CRUSH-4=R",
+          "v1": 212.25,
+          "v2": 221.61,
+          "v3": 218.71
+        },
+        {
+          "row": 8,
+          "ric": "/CRUSH-5=R",
+          "label": "CRUSH-5=R",
+          "display_label": "CRUSH-5=R",
+          "contract_code": "CRUSH-5=R",
+          "v1": 217.39,
+          "v2": 228.94,
+          "v3": 226.69
+        },
+        {
+          "row": 9,
+          "ric": "/CRUSH-6=R",
+          "label": "CRUSH-6=R",
+          "display_label": "CRUSH-6=R",
+          "contract_code": "CRUSH-6=R",
+          "v1": 242.29,
+          "v2": 249.63,
+          "v3": 248.39
+        },
+        {
+          "row": 10,
+          "ric": "/CRUSH-7=R",
+          "label": "CRUSH-7=R",
+          "display_label": "CRUSH-7=R",
+          "contract_code": "CRUSH-7=R",
+          "v1": 224.05,
+          "v2": 235.95,
+          "v3": 232.88
+        }
+      ]
+    },
+    {
+      "id": "curve_5",
+      "title": "BMD Palm Oil (CPO)",
+      "category": "Grains & Oilseeds",
+      "sheet": "CPO",
+      "exchange": "BMD",
+      "description": "Myr/MT",
+      "unit": "MYR/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 4433.0,
+        "change_1d": -21.0,
+        "change_1d_pct": -0.47,
+        "change_1m": -28.0,
+        "change_1m_pct": -0.63,
+        "structure": "Contango",
+        "spread_prompt_back": 310.0
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/FCPOX26",
+          "label": "FCPOX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 4461.0,
+          "v2": 4454.0,
+          "v3": 4433.0
+        },
+        {
+          "row": 6,
+          "ric": "/FCPOZ26",
+          "label": "FCPOZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 4554.0,
+          "v2": 4591.0,
+          "v3": 4543.0
+        },
+        {
+          "row": 7,
+          "ric": "/FCPOF27",
+          "label": "FCPOF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 4652.0,
+          "v2": 4685.0,
+          "v3": 4630.0
+        },
+        {
+          "row": 8,
+          "ric": "/FCPOG27",
+          "label": "FCPOG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 4745.0,
+          "v2": 4777.0,
+          "v3": 4708.0
+        },
+        {
+          "row": 9,
+          "ric": "/FCPOH27",
+          "label": "FCPOH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 4834.0,
+          "v2": 4855.0,
+          "v3": 4778.0
+        },
+        {
+          "row": 10,
+          "ric": "/FCPOJ27",
+          "label": "FCPOJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 4913.0,
+          "v2": 4910.0,
+          "v3": 4825.0
+        },
+        {
+          "row": 11,
+          "ric": "/FCPOK27",
+          "label": "FCPOK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 4967.0,
+          "v2": 4934.0,
+          "v3": 4841.0
+        },
+        {
+          "row": 12,
+          "ric": "/FCPOM27",
+          "label": "FCPOM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 4987.0,
+          "v2": 4927.0,
+          "v3": 4827.0
+        },
+        {
+          "row": 13,
+          "ric": "/FCPON27",
+          "label": "FCPON27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 4975.0,
+          "v2": 4896.0,
+          "v3": 4789.0
+        },
+        {
+          "row": 14,
+          "ric": "/FCPOQ27",
+          "label": "FCPOQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 4943.0,
+          "v2": 4851.0,
+          "v3": 4743.0
+        }
+      ]
+    },
+    {
+      "id": "curve_7",
+      "title": "DCE Soybeans",
+      "category": "Grains & Oilseeds",
+      "sheet": "DSB",
+      "exchange": "DCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 3959.0,
+        "change_1d": 10.0,
+        "change_1d_pct": 0.25,
+        "change_1m": -95.0,
+        "change_1m_pct": -2.34,
+        "structure": "Backwardation",
+        "spread_prompt_back": -306.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/DSBX6",
+          "label": "DSBX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 4054.0,
+          "v2": 3949.0,
+          "v3": 3959.0
+        },
+        {
+          "row": 5,
+          "ric": "/DSBZ6",
+          "label": "DSBZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 4104.0,
+          "v2": 3999.0,
+          "v3": 3962.0
+        },
+        {
+          "row": 6,
+          "ric": "/DSBF7",
+          "label": "DSBF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 4123.0,
+          "v2": 3987.0,
+          "v3": 3946.0
+        },
+        {
+          "row": 7,
+          "ric": "/DSBG7",
+          "label": "DSBG7",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 4099.0,
+          "v2": 3970.0,
+          "v3": 3928.0
+        },
+        {
+          "row": 8,
+          "ric": "/DSBH7",
+          "label": "DSBH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 4051.0,
+          "v2": 3937.0,
+          "v3": 3888.0
+        },
+        {
+          "row": 9,
+          "ric": "/DSBJ7",
+          "label": "DSBJ7",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 3902.0,
+          "v2": 3810.0,
+          "v3": 3766.0
+        },
+        {
+          "row": 10,
+          "ric": "/DSBK7",
+          "label": "DSBK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 3793.0,
+          "v2": 3680.0,
+          "v3": 3631.0
+        },
+        {
+          "row": 11,
+          "ric": "/DSBM7",
+          "label": "DSBM7",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 3748.0,
+          "v2": 3630.0,
+          "v3": 3581.0
+        },
+        {
+          "row": 12,
+          "ric": "/DSBN7",
+          "label": "DSBN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 3737.0,
+          "v2": 3621.0,
+          "v3": 3576.0
+        },
+        {
+          "row": 13,
+          "ric": "/DSBQ7",
+          "label": "DSBQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 3803.0,
+          "v2": 3697.0,
+          "v3": 3653.0
+        }
+      ]
+    },
+    {
+      "id": "curve_43",
+      "title": "DCE Soybean Meal",
+      "category": "Grains & Oilseeds",
+      "sheet": "DSM",
+      "exchange": "DCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 3053.0,
+        "change_1d": -78.0,
+        "change_1d_pct": -2.49,
+        "change_1m": -288.0,
+        "change_1m_pct": -8.62,
+        "structure": "Backwardation",
+        "spread_prompt_back": -137.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/DSMX6",
+          "label": "DSMX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 3341.0,
+          "v2": 3131.0,
+          "v3": 3053.0
+        },
+        {
+          "row": 5,
+          "ric": "/DSMZ6",
+          "label": "DSMZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 3376.0,
+          "v2": 3220.0,
+          "v3": 3152.0
+        },
+        {
+          "row": 6,
+          "ric": "/DSMF7",
+          "label": "DSMF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 3369.0,
+          "v2": 3209.0,
+          "v3": 3152.0
+        },
+        {
+          "row": 7,
+          "ric": "/DSMH7",
+          "label": "DSMH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 3307.0,
+          "v2": 3168.0,
+          "v3": 3109.0
+        },
+        {
+          "row": 8,
+          "ric": "/DSMK7",
+          "label": "DSMK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 2984.0,
+          "v2": 2855.0,
+          "v3": 2815.0
+        },
+        {
+          "row": 9,
+          "ric": "/DSMN7",
+          "label": "DSMN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 2942.0,
+          "v2": 2809.0,
+          "v3": 2778.0
+        },
+        {
+          "row": 10,
+          "ric": "/DSMQ7",
+          "label": "DSMQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 3079.0,
+          "v2": 2941.0,
+          "v3": 2916.0
+        }
+      ]
+    },
+    {
+      "id": "curve_8",
+      "title": "DCE Soybean Oil",
+      "category": "Grains & Oilseeds",
+      "sheet": "DBY",
+      "exchange": "DCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 8955.0,
+        "change_1d": 106.0,
+        "change_1d_pct": 1.2,
+        "change_1m": 112.0,
+        "change_1m_pct": 1.27,
+        "structure": "Backwardation",
+        "spread_prompt_back": -455.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/DBYX6",
+          "label": "DBYX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 8843.0,
+          "v2": 8849.0,
+          "v3": 8955.0
+        },
+        {
+          "row": 5,
+          "ric": "/DBYZ6",
+          "label": "DBYZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 8940.0,
+          "v2": 8963.0,
+          "v3": 8917.0
+        },
+        {
+          "row": 6,
+          "ric": "/DBYF7",
+          "label": "DBYF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 8934.0,
+          "v2": 8965.0,
+          "v3": 8916.0
+        },
+        {
+          "row": 7,
+          "ric": "/DBYH7",
+          "label": "DBYH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 8891.0,
+          "v2": 8879.0,
+          "v3": 8809.0
+        },
+        {
+          "row": 8,
+          "ric": "/DBYK7",
+          "label": "DBYK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 8733.0,
+          "v2": 8726.0,
+          "v3": 8637.0
+        },
+        {
+          "row": 9,
+          "ric": "/DBYN7",
+          "label": "DBYN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 8651.0,
+          "v2": 8580.0,
+          "v3": 8487.0
+        },
+        {
+          "row": 10,
+          "ric": "/DBYQ7",
+          "label": "DBYQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 8657.0,
+          "v2": 8583.0,
+          "v3": 8500.0
+        }
+      ]
+    },
+    {
+      "id": "curve_56",
+      "title": "DCE Corn",
+      "category": "Grains & Oilseeds",
+      "sheet": "DCC",
+      "exchange": "DCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 2181.0,
+        "change_1d": -3.0,
+        "change_1d_pct": -0.14,
+        "change_1m": -5.0,
+        "change_1m_pct": -0.23,
+        "structure": "Contango",
+        "spread_prompt_back": 119.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/DCCX6",
+          "label": "DCCX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 2186.0,
+          "v2": 2184.0,
+          "v3": 2181.0
+        },
+        {
+          "row": 5,
+          "ric": "/DCCF7",
+          "label": "DCCF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 2215.0,
+          "v2": 2219.0,
+          "v3": 2216.0
+        },
+        {
+          "row": 6,
+          "ric": "/DCCH7",
+          "label": "DCCH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 2241.0,
+          "v2": 2245.0,
+          "v3": 2242.0
+        },
+        {
+          "row": 7,
+          "ric": "/DCCK7",
+          "label": "DCCK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 2287.0,
+          "v2": 2288.0,
+          "v3": 2285.0
+        },
+        {
+          "row": 8,
+          "ric": "/DCCN7",
+          "label": "DCCN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 2309.0,
+          "v2": 2304.0,
+          "v3": 2300.0
+        }
+      ]
+    },
+    {
+      "id": "curve_13",
+      "title": "ZCE Rapeseed Meal",
+      "category": "Grains & Oilseeds",
+      "sheet": "ZRSM",
+      "exchange": "CZCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 2222.0,
+        "change_1d": 1.0,
+        "change_1d_pct": 0.05,
+        "change_1m": -80.0,
+        "change_1m_pct": -3.48,
+        "structure": "Contango",
+        "spread_prompt_back": 90.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CRSMX6",
+          "label": "CRSMX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 2302.0,
+          "v2": 2221.0,
+          "v3": 2222.0
+        },
+        {
+          "row": 5,
+          "ric": "/CRSMF7",
+          "label": "CRSMF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 2332.0,
+          "v2": 2238.0,
+          "v3": 2234.0
+        },
+        {
+          "row": 6,
+          "ric": "/CRSMH7",
+          "label": "CRSMH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 2318.0,
+          "v2": 2213.0,
+          "v3": 2205.0
+        },
+        {
+          "row": 7,
+          "ric": "/CRSMK7",
+          "label": "CRSMK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 2349.0,
+          "v2": 2249.0,
+          "v3": 2234.0
+        },
+        {
+          "row": 8,
+          "ric": "/CRSMN7",
+          "label": "CRSMN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 2338.0,
+          "v2": 2238.0,
+          "v3": 2226.0
+        },
+        {
+          "row": 9,
+          "ric": "/CRSMQ7",
+          "label": "CRSMQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 2418.0,
+          "v2": 2314.0,
+          "v3": 2312.0
+        }
+      ]
+    },
+    {
+      "id": "curve_9",
+      "title": "ZCE Rapeseed Oil",
+      "category": "Grains & Oilseeds",
+      "sheet": "ZRSO",
+      "exchange": "CZCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 10571.0,
+        "change_1d": 86.0,
+        "change_1d_pct": 0.82,
+        "change_1m": 168.0,
+        "change_1m_pct": 1.61,
+        "structure": "Backwardation",
+        "spread_prompt_back": -776.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/COIX6",
+          "label": "COIX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 10403.0,
+          "v2": 10485.0,
+          "v3": 10571.0
+        },
+        {
+          "row": 5,
+          "ric": "/COIF7",
+          "label": "COIF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 10217.0,
+          "v2": 10215.0,
+          "v3": 10247.0
+        },
+        {
+          "row": 6,
+          "ric": "/COIH7",
+          "label": "COIH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 10084.0,
+          "v2": 9965.0,
+          "v3": 9920.0
+        },
+        {
+          "row": 7,
+          "ric": "/COIK7",
+          "label": "COIK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 9962.0,
+          "v2": 9871.0,
+          "v3": 9809.0
+        },
+        {
+          "row": 8,
+          "ric": "/COIN7",
+          "label": "COIN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 9968.0,
+          "v2": 9831.0,
+          "v3": 9795.0
+        }
+      ]
+    },
+    {
+      "id": "curve_11",
+      "title": "MATIF Rapeseed",
+      "category": "Grains & Oilseeds",
+      "sheet": "MatifRS",
+      "exchange": "Euronext",
+      "description": "Eur/MT",
+      "unit": "EUR/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 515.0,
+        "change_1d": -13.25,
+        "change_1d_pct": -2.51,
+        "change_1m": -23.25,
+        "change_1m_pct": -4.32,
+        "structure": "Contango",
+        "spread_prompt_back": 18.25
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/COMX6",
+          "label": "COMX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 538.25,
+          "v2": 528.25,
+          "v3": 515.0
+        },
+        {
+          "row": 5,
+          "ric": "/COMG7",
+          "label": "COMG7",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 551.75,
+          "v2": 553.0,
+          "v3": 553.5
+        },
+        {
+          "row": 6,
+          "ric": "/COMK7",
+          "label": "COMK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 552.25,
+          "v2": 554.0,
+          "v3": 555.25
+        },
+        {
+          "row": 7,
+          "ric": "/COMQ7",
+          "label": "COMQ7",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 529.75,
+          "v2": 531.75,
+          "v3": 533.0
+        },
+        {
+          "row": 8,
+          "ric": "/COMX7",
+          "label": "COMX7",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 534.0,
+          "v2": 534.75,
+          "v3": 535.25
+        },
+        {
+          "row": 9,
+          "ric": "/COMG8",
+          "label": "COMG8",
+          "display_label": "Feb 28",
+          "contract_code": "G28",
+          "v1": 535.0,
+          "v2": 534.5,
+          "v3": 533.25
+        }
+      ]
+    },
+    {
+      "id": "curve_10",
+      "title": "ICE Canola",
+      "category": "Softs",
+      "sheet": "ICERS",
+      "exchange": "ICE CA",
+      "description": "Cad/MT",
+      "unit": "CAD/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 775.3,
+        "change_1d": 1.5,
+        "change_1d_pct": 0.19,
+        "change_1m": -36.4,
+        "change_1m_pct": -4.48,
+        "structure": "Contango",
+        "spread_prompt_back": 15.6
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/RSX6",
+          "label": "RSX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 811.7,
+          "v2": 773.8,
+          "v3": 775.3
+        },
+        {
+          "row": 5,
+          "ric": "/RSF7",
+          "label": "RSF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 825.2,
+          "v2": 785.7,
+          "v3": 783.5
+        },
+        {
+          "row": 6,
+          "ric": "/RSH7",
+          "label": "RSH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 833.5,
+          "v2": 797.2,
+          "v3": 795.2
+        },
+        {
+          "row": 7,
+          "ric": "/RSK7",
+          "label": "RSK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 836.2,
+          "v2": 805.5,
+          "v3": 803.3
+        },
+        {
+          "row": 8,
+          "ric": "/RSN7",
+          "label": "RSN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 833.1,
+          "v2": 807.9,
+          "v3": 806.3
+        },
+        {
+          "row": 9,
+          "ric": "/RSU7",
+          "label": "RSU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 799.3,
+          "v2": 790.9,
+          "v3": 790.9
+        }
+      ]
+    },
+    {
+      "id": "curve_57",
+      "title": "DCE Palm Olein",
+      "category": "Grains & Oilseeds",
+      "sheet": "DCP",
+      "exchange": "DCE",
+      "description": "Cny/MT",
+      "unit": "CNY/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 9058.0,
+        "change_1d": -84.0,
+        "change_1d_pct": -0.92,
+        "change_1m": -266.0,
+        "change_1m_pct": -2.85,
+        "structure": "Contango",
+        "spread_prompt_back": 661.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/DCPX6",
+          "label": "DCPX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 9324.0,
+          "v2": 9142.0,
+          "v3": 9058.0
+        },
+        {
+          "row": 5,
+          "ric": "/DCPZ6",
+          "label": "DCPZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 9460.0,
+          "v2": 9185.0,
+          "v3": 9074.0
+        },
+        {
+          "row": 6,
+          "ric": "/DCPF7",
+          "label": "DCPF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 9593.0,
+          "v2": 9312.0,
+          "v3": 9175.0
+        },
+        {
+          "row": 7,
+          "ric": "/DCPG7",
+          "label": "DCPG7",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 9756.0,
+          "v2": 9487.0,
+          "v3": 9312.0
+        },
+        {
+          "row": 8,
+          "ric": "/DCPH7",
+          "label": "DCPH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 9915.0,
+          "v2": 9622.0,
+          "v3": 9430.0
+        },
+        {
+          "row": 9,
+          "ric": "/DCPJ7",
+          "label": "DCPJ7",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 10063.0,
+          "v2": 9768.0,
+          "v3": 9563.0
+        },
+        {
+          "row": 10,
+          "ric": "/DCPK7",
+          "label": "DCPK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 10136.0,
+          "v2": 9874.0,
+          "v3": 9653.0
+        },
+        {
+          "row": 11,
+          "ric": "/DCPM7",
+          "label": "DCPM7",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 10164.0,
+          "v2": 9913.0,
+          "v3": 9719.0
+        }
+      ]
+    },
+    {
+      "id": "curve_12",
+      "title": "Lean Hogs",
+      "category": "Livestock & Dairy",
+      "sheet": "LH",
+      "exchange": "CME",
+      "description": "Usc/lb",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 60.025,
+        "change_1d": 1.425,
+        "change_1d_pct": 2.43,
+        "change_1m": -8.9,
+        "change_1m_pct": -12.91,
+        "structure": "Contango",
+        "spread_prompt_back": 29.65
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/LHZ26",
+          "label": "LHZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 68.925,
+          "v2": 58.6,
+          "v3": 60.025
+        },
+        {
+          "row": 5,
+          "ric": "/LHG27",
+          "label": "LHG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 69.75,
+          "v2": 64.175,
+          "v3": 64.675
+        },
+        {
+          "row": 6,
+          "ric": "/LHJ27",
+          "label": "LHJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 74.825,
+          "v2": 70.625,
+          "v3": 70.575
+        },
+        {
+          "row": 7,
+          "ric": "/LHK27",
+          "label": "LHK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 79.625,
+          "v2": 76.9,
+          "v3": 76.95
+        },
+        {
+          "row": 8,
+          "ric": "/LHM27",
+          "label": "LHM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 88.4,
+          "v2": 86.225,
+          "v3": 86.1
+        },
+        {
+          "row": 9,
+          "ric": "/LHN27",
+          "label": "LHN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 90.5,
+          "v2": 88.95,
+          "v3": 88.975
+        },
+        {
+          "row": 10,
+          "ric": "/LHQ27",
+          "label": "LHQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 90.7,
+          "v2": 89.375,
+          "v3": 89.675
+        }
+      ]
+    },
+    {
+      "id": "curve_6",
+      "title": "Live Cattle",
+      "category": "Livestock & Dairy",
+      "sheet": "LC",
+      "exchange": "CME",
+      "description": "Usc/lb",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 227.275,
+        "change_1d": -0.1,
+        "change_1d_pct": -0.04,
+        "change_1m": 7.975,
+        "change_1m_pct": 3.64,
+        "structure": "Backwardation",
+        "spread_prompt_back": -4.4
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/LCV26",
+          "label": "LCV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 219.3,
+          "v2": 227.375,
+          "v3": 227.275
+        },
+        {
+          "row": 5,
+          "ric": "/LCZ26",
+          "label": "LCZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 223.175,
+          "v2": 227.325,
+          "v3": 226.25
+        },
+        {
+          "row": 6,
+          "ric": "/LCG27",
+          "label": "LCG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 225.45,
+          "v2": 230.5,
+          "v3": 229.375
+        },
+        {
+          "row": 7,
+          "ric": "/LCJ27",
+          "label": "LCJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 227.15,
+          "v2": 232.7,
+          "v3": 232.025
+        },
+        {
+          "row": 8,
+          "ric": "/LCM27",
+          "label": "LCM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 222.375,
+          "v2": 227.175,
+          "v3": 226.725
+        },
+        {
+          "row": 9,
+          "ric": "/LCQ27",
+          "label": "LCQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 219.15,
+          "v2": 223.25,
+          "v3": 222.875
+        }
+      ]
+    },
+    {
+      "id": "curve_14",
+      "title": "Feeder Cattle",
+      "category": "Livestock & Dairy",
+      "sheet": "FC",
+      "exchange": "CME",
+      "description": "Usc/lb",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 351.1,
+        "change_1d": -0.325,
+        "change_1d_pct": -0.09,
+        "change_1m": 12.225,
+        "change_1m_pct": 3.61,
+        "structure": "Backwardation",
+        "spread_prompt_back": -17.9
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/FCV26",
+          "label": "FCV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 338.875,
+          "v2": 351.425,
+          "v3": 351.1
+        },
+        {
+          "row": 5,
+          "ric": "/FCX26",
+          "label": "FCX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 336.35,
+          "v2": 346.75,
+          "v3": 346.075
+        },
+        {
+          "row": 6,
+          "ric": "/FCF27",
+          "label": "FCF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 329.7,
+          "v2": 342.1,
+          "v3": 341.725
+        },
+        {
+          "row": 7,
+          "ric": "/FCH27",
+          "label": "FCH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 325.675,
+          "v2": 337.275,
+          "v3": 337.725
+        },
+        {
+          "row": 8,
+          "ric": "/FCJ27",
+          "label": "FCJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 325.425,
+          "v2": 335.6,
+          "v3": 336.2
+        },
+        {
+          "row": 9,
+          "ric": "/FCK27",
+          "label": "FCK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 324.4,
+          "v2": 332.95,
+          "v3": 333.75
+        },
+        {
+          "row": 10,
+          "ric": "/FCQ27",
+          "label": "FCQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 325.375,
+          "v2": 333.1,
+          "v3": 333.2
+        }
+      ]
+    },
+    {
+      "id": "curve_28",
+      "title": "B3 Corn",
+      "category": "Grains & Oilseeds",
+      "sheet": "BrzC",
+      "exchange": "B3",
+      "description": "Brl/60kg",
+      "unit": "BRL/bag",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 67.38,
+        "change_1d": 0.65,
+        "change_1d_pct": 0.97,
+        "change_1m": -4.74,
+        "change_1m_pct": -6.57,
+        "structure": "Contango",
+        "spread_prompt_back": 10.02
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CCMX26",
+          "label": "CCMX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 72.12,
+          "v2": 66.73,
+          "v3": 67.38
+        },
+        {
+          "row": 5,
+          "ric": "/CCMF27",
+          "label": "CCMF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 76.52,
+          "v2": 70.55,
+          "v3": 70.69
+        },
+        {
+          "row": 6,
+          "ric": "/CCMH27",
+          "label": "CCMH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 79.16,
+          "v2": 75.11,
+          "v3": 75.2
+        },
+        {
+          "row": 7,
+          "ric": "/CCMK27",
+          "label": "CCMK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 77.75,
+          "v2": 74.61,
+          "v3": 74.7
+        },
+        {
+          "row": 8,
+          "ric": "/CCMN27",
+          "label": "CCMN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 77.63,
+          "v2": 74.43,
+          "v3": 74.42
+        },
+        {
+          "row": 9,
+          "ric": "/CCMU27",
+          "label": "CCMU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 77.89,
+          "v2": 75.4,
+          "v3": 75.13
+        },
+        {
+          "row": 10,
+          "ric": "/CCMX27",
+          "label": "CCMX27",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 80.32,
+          "v2": 77.89,
+          "v3": 77.4
+        }
+      ]
+    },
+    {
+      "id": "curve_29",
+      "title": "B3 Ethanol",
+      "category": "Grains & Oilseeds",
+      "sheet": "BrzEthanol",
+      "exchange": "B3",
+      "description": "Brl/m3",
+      "unit": "BRL/m3",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 2941.5,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": 226.5,
+        "change_1m_pct": 8.34,
+        "structure": "Backwardation",
+        "spread_prompt_back": -164.5
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/ETHV26",
+          "label": "ETHV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 2715.0,
+          "v2": 2941.5,
+          "v3": 2941.5
+        },
+        {
+          "row": 5,
+          "ric": "/ETHX26",
+          "label": "ETHX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 2776.5,
+          "v2": 3025.0,
+          "v3": 3110.0
+        },
+        {
+          "row": 6,
+          "ric": "/ETHZ26",
+          "label": "ETHZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 2820.5,
+          "v2": 3100.0,
+          "v3": 3140.0
+        },
+        {
+          "row": 7,
+          "ric": "/ETHF27",
+          "label": "ETHF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 2840.0,
+          "v2": 3158.0,
+          "v3": 3180.0
+        },
+        {
+          "row": 8,
+          "ric": "/ETHG27",
+          "label": "ETHG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 2840.5,
+          "v2": 3160.5,
+          "v3": 3180.0
+        },
+        {
+          "row": 9,
+          "ric": "/ETHH27",
+          "label": "ETHH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 2695.0,
+          "v2": 3014.5,
+          "v3": 3100.0
+        },
+        {
+          "row": 10,
+          "ric": "/ETHJ27",
+          "label": "ETHJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 2652.0,
+          "v2": 2777.0,
+          "v3": 2777.0
+        }
+      ]
+    },
+    {
+      "id": "curve_23",
+      "title": "Class III Milk",
+      "category": "Livestock & Dairy",
+      "sheet": "Milk",
+      "exchange": "CME",
+      "description": "Usc/lb",
+      "unit": "USD/cwt",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 17.9,
+        "change_1d": -0.41,
+        "change_1d_pct": -2.24,
+        "change_1m": 1.94,
+        "change_1m_pct": 12.16,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.16
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/DCSX26",
+          "label": "DCSX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 15.96,
+          "v2": 18.31,
+          "v3": 17.9
+        },
+        {
+          "row": 6,
+          "ric": "/DCSZ26",
+          "label": "DCSZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 16.3,
+          "v2": 16.8,
+          "v3": 16.87
+        },
+        {
+          "row": 7,
+          "ric": "/DCSF27",
+          "label": "DCSF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 16.5,
+          "v2": 16.59,
+          "v3": 16.75
+        },
+        {
+          "row": 8,
+          "ric": "/DCSG27",
+          "label": "DCSG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 16.85,
+          "v2": 16.64,
+          "v3": 16.85
+        },
+        {
+          "row": 9,
+          "ric": "/DCSH27",
+          "label": "DCSH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 17.06,
+          "v2": 16.91,
+          "v3": 17.08
+        },
+        {
+          "row": 10,
+          "ric": "/DCSJ27",
+          "label": "DCSJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 17.1,
+          "v2": 16.99,
+          "v3": 17.1
+        },
+        {
+          "row": 11,
+          "ric": "/DCSK27",
+          "label": "DCSK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 17.15,
+          "v2": 17.12,
+          "v3": 17.27
+        },
+        {
+          "row": 12,
+          "ric": "/DCSM27",
+          "label": "DCSM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 17.25,
+          "v2": 17.28,
+          "v3": 17.44
+        },
+        {
+          "row": 13,
+          "ric": "/DCSN27",
+          "label": "DCSN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 17.48,
+          "v2": 17.6,
+          "v3": 17.65
+        },
+        {
+          "row": 14,
+          "ric": "/DCSQ27",
+          "label": "DCSQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 17.53,
+          "v2": 17.7,
+          "v3": 17.77
+        },
+        {
+          "row": 15,
+          "ric": "/DCSU27",
+          "label": "DCSU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 17.65,
+          "v2": 17.78,
+          "v3": 17.85
+        },
+        {
+          "row": 16,
+          "ric": "/DCSV27",
+          "label": "DCSV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 17.63,
+          "v2": 17.95,
+          "v3": 17.95
+        },
+        {
+          "row": 17,
+          "ric": "/DCSX27",
+          "label": "DCSX27",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 17.63,
+          "v2": 17.95,
+          "v3": 17.95
+        },
+        {
+          "row": 18,
+          "ric": "/DCSZ27",
+          "label": "DCSZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 17.35,
+          "v2": 17.74,
+          "v3": 17.74
+        }
+      ]
+    },
+    {
+      "id": "curve_30",
+      "title": "US Cocoa",
+      "category": "Softs",
+      "sheet": "Cocoa",
+      "exchange": "ICE US",
+      "description": "Usd/MT Gbp/MT",
+      "unit": "USD/MT",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 5459.0,
+        "change_1d": 3.0,
+        "change_1d_pct": 0.05,
+        "change_1m": 78.0,
+        "change_1m_pct": 1.45,
+        "structure": "Contango",
+        "spread_prompt_back": 137.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CCZ6",
+          "label": "CCZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 5381.0,
+          "v2": 5456.0,
+          "v3": 5459.0
+        },
+        {
+          "row": 5,
+          "ric": "/CCH7",
+          "label": "CCH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 5448.0,
+          "v2": 5575.0,
+          "v3": 5565.0
+        },
+        {
+          "row": 6,
+          "ric": "/CCK7",
+          "label": "CCK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 5492.0,
+          "v2": 5633.0,
+          "v3": 5622.0
+        },
+        {
+          "row": 7,
+          "ric": "/CCN7",
+          "label": "CCN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 5535.0,
+          "v2": 5659.0,
+          "v3": 5653.0
+        },
+        {
+          "row": 8,
+          "ric": "/CCU7",
+          "label": "CCU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 5538.0,
+          "v2": 5652.0,
+          "v3": 5648.0
+        },
+        {
+          "row": 9,
+          "ric": "/CCZ7",
+          "label": "CCZ7",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 5483.0,
+          "v2": 5605.0,
+          "v3": 5596.0
+        }
+      ]
+    },
+    {
+      "id": "curve_31",
+      "title": "Arabica Coffee",
+      "category": "Softs",
+      "sheet": "Coffee",
+      "exchange": "ICE US",
+      "description": "Usc/lb Usd/MT",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 286.55,
+        "change_1d": -0.2,
+        "change_1d_pct": -0.07,
+        "change_1m": -1.7,
+        "change_1m_pct": -0.59,
+        "structure": "Backwardation",
+        "spread_prompt_back": -22.4
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/KCZ6",
+          "label": "KCZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 288.25,
+          "v2": 286.75,
+          "v3": 286.55
+        },
+        {
+          "row": 5,
+          "ric": "/KCH7",
+          "label": "KCH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 279.6,
+          "v2": 276.2,
+          "v3": 277.35
+        },
+        {
+          "row": 6,
+          "ric": "/KCK7",
+          "label": "KCK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 276.4,
+          "v2": 272.25,
+          "v3": 273.6
+        },
+        {
+          "row": 7,
+          "ric": "/KCN7",
+          "label": "KCN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 274.35,
+          "v2": 269.5,
+          "v3": 270.4
+        },
+        {
+          "row": 8,
+          "ric": "/KCU7",
+          "label": "KCU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 272.35,
+          "v2": 266.9,
+          "v3": 267.5
+        },
+        {
+          "row": 9,
+          "ric": "/KCZ7",
+          "label": "KCZ7",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 270.25,
+          "v2": 263.85,
+          "v3": 264.15
+        }
+      ]
+    },
+    {
+      "id": "curve_32",
+      "title": "Sugar No.11",
+      "category": "Softs",
+      "sheet": "Sugar",
+      "exchange": "ICE US",
+      "description": "Usc/lb Usd/MT",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Mar 27",
+        "prompt_price": 19.52,
+        "change_1d": 0.18,
+        "change_1d_pct": 0.93,
+        "change_1m": 0.58,
+        "change_1m_pct": 3.06,
+        "structure": "Backwardation",
+        "spread_prompt_back": -2.03
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/SBH7",
+          "label": "SBH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 18.94,
+          "v2": 19.34,
+          "v3": 19.52
+        },
+        {
+          "row": 5,
+          "ric": "/SBK7",
+          "label": "SBK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 18.38,
+          "v2": 18.81,
+          "v3": 18.98
+        },
+        {
+          "row": 6,
+          "ric": "/SBN7",
+          "label": "SBN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 18.07,
+          "v2": 18.42,
+          "v3": 18.56
+        },
+        {
+          "row": 7,
+          "ric": "/SBV7",
+          "label": "SBV7",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 18.09,
+          "v2": 18.33,
+          "v3": 18.42
+        },
+        {
+          "row": 8,
+          "ric": "/SBH8",
+          "label": "SBH8",
+          "display_label": "Mar 28",
+          "contract_code": "H28",
+          "v1": 18.45,
+          "v2": 18.59,
+          "v3": 18.64
+        },
+        {
+          "row": 9,
+          "ric": "/SBK8",
+          "label": "SBK8",
+          "display_label": "May 28",
+          "contract_code": "K28",
+          "v1": 17.7,
+          "v2": 17.48,
+          "v3": 17.49
+        }
+      ]
+    },
+    {
+      "id": "curve_33",
+      "title": "London Cocoa",
+      "category": "Softs",
+      "sheet": "Cocoa",
+      "exchange": "ICE Europe",
+      "description": "ICE Europe London Cocoa Futures settlement curve (1-year horizon: Dec 26 to Dec 27)",
+      "unit": "GBP/MT",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 4156.0,
+        "change_1d": -11.0,
+        "change_1d_pct": -0.26,
+        "change_1m": 124.0,
+        "change_1m_pct": 3.08,
+        "structure": "Backwardation",
+        "spread_prompt_back": -29.0
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/LCCZ6",
+          "label": "LCCZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z6",
+          "v1": 4032.0,
+          "v2": 4167.0,
+          "v3": 4156.0
+        },
+        {
+          "row": 6,
+          "ric": "/LCCH7",
+          "label": "LCCH7",
+          "display_label": "Mar 27",
+          "contract_code": "H7",
+          "v1": 4150.0,
+          "v2": 4270.0,
+          "v3": 4253.0
+        },
+        {
+          "row": 7,
+          "ric": "/LCCK7",
+          "label": "LCCK7",
+          "display_label": "May 27",
+          "contract_code": "K7",
+          "v1": 4178.0,
+          "v2": 4288.0,
+          "v3": 4269.0
+        },
+        {
+          "row": 8,
+          "ric": "/LCCN7",
+          "label": "LCCN7",
+          "display_label": "Jul 27",
+          "contract_code": "N7",
+          "v1": 4219.0,
+          "v2": 4304.0,
+          "v3": 4285.0
+        },
+        {
+          "row": 9,
+          "ric": "/LCCU7",
+          "label": "LCCU7",
+          "display_label": "Sep 27",
+          "contract_code": "U7",
+          "v1": 4176.0,
+          "v2": 4250.0,
+          "v3": 4233.0
+        },
+        {
+          "row": 10,
+          "ric": "/LCCZ7",
+          "label": "LCCZ7",
+          "display_label": "Dec 27",
+          "contract_code": "Z7",
+          "v1": 4098.0,
+          "v2": 4157.0,
+          "v3": 4127.0
+        }
+      ]
+    },
+    {
+      "id": "curve_34",
+      "title": "Robusta Coffee",
+      "category": "Softs",
+      "sheet": "Coffee",
+      "exchange": "ICE Europe",
+      "description": "ICE Europe Robusta Coffee Futures settlement curve",
+      "unit": "USD/MT",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 3164.0,
+        "change_1d": -36.0,
+        "change_1d_pct": -1.12,
+        "change_1m": -284.0,
+        "change_1m_pct": -8.24,
+        "structure": "Backwardation",
+        "spread_prompt_back": -1.0
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/LRCX6",
+          "label": "LRCX6",
+          "display_label": "Nov 26",
+          "contract_code": "X6",
+          "v1": 3448.0,
+          "v2": 3200.0,
+          "v3": 3164.0
+        },
+        {
+          "row": 6,
+          "ric": "/LRCF7",
+          "label": "LRCF7",
+          "display_label": "Jan 27",
+          "contract_code": "F7",
+          "v1": 3403.0,
+          "v2": 3199.0,
+          "v3": 3168.0
+        },
+        {
+          "row": 7,
+          "ric": "/LRCH7",
+          "label": "LRCH7",
+          "display_label": "Mar 27",
+          "contract_code": "H7",
+          "v1": 3375.0,
+          "v2": 3183.0,
+          "v3": 3160.0
+        },
+        {
+          "row": 8,
+          "ric": "/LRCK7",
+          "label": "LRCK7",
+          "display_label": "May 27",
+          "contract_code": "K7",
+          "v1": 3358.0,
+          "v2": 3175.0,
+          "v3": 3153.0
+        },
+        {
+          "row": 9,
+          "ric": "/LRCN7",
+          "label": "LRCN7",
+          "display_label": "Jul 27",
+          "contract_code": "N7",
+          "v1": 3344.0,
+          "v2": 3163.0,
+          "v3": 3145.0
+        },
+        {
+          "row": 10,
+          "ric": "/LRCU7",
+          "label": "LRCU7",
+          "display_label": "Sep 27",
+          "contract_code": "U7",
+          "v1": 3333.0,
+          "v2": 3146.0,
+          "v3": 3144.0
+        },
+        {
+          "row": 11,
+          "ric": "/LRCX7",
+          "label": "LRCX7",
+          "display_label": "Nov 27",
+          "contract_code": "X7",
+          "v1": 3316.0,
+          "v2": 3132.0,
+          "v3": 3129.0
+        },
+        {
+          "row": 12,
+          "ric": "/LRCF8",
+          "label": "LRCF8",
+          "display_label": "Jan 28",
+          "contract_code": "F8",
+          "v1": 3311.0,
+          "v2": 3126.0,
+          "v3": 3166.0
+        },
+        {
+          "row": 13,
+          "ric": "/LRCH8",
+          "label": "LRCH8",
+          "display_label": "Mar 28",
+          "contract_code": "H8",
+          "v1": 3306.0,
+          "v2": 3124.0,
+          "v3": 3167.0
+        },
+        {
+          "row": 14,
+          "ric": "/LRCK8",
+          "label": "LRCK8",
+          "display_label": "May 28",
+          "contract_code": "K8",
+          "v1": 3306.0,
+          "v2": 3120.0,
+          "v3": 3163.0
+        }
+      ]
+    },
+    {
+      "id": "curve_35",
+      "title": "White Sugar No.5",
+      "category": "Softs",
+      "sheet": "Sugar",
+      "exchange": "ICE EU",
+      "description": "Usc/lb Usd/MT",
+      "unit": "USD/MT",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 527.2,
+        "change_1d": 1.5,
+        "change_1d_pct": 0.29,
+        "change_1m": 19.9,
+        "change_1m_pct": 3.92,
+        "structure": "Backwardation",
+        "spread_prompt_back": -24.4
+      },
+      "points": [
+        {
+          "row": 5,
+          "ric": "/LSUZ6",
+          "label": "Dec 26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 507.3,
+          "v2": 525.7,
+          "v3": 527.2
+        },
+        {
+          "row": 6,
+          "ric": "/LSUH7",
+          "label": "Mar 27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 521.1,
+          "v2": 538.7,
+          "v3": 542.3
+        },
+        {
+          "row": 7,
+          "ric": "/LSUK7",
+          "label": "May 27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 527.6,
+          "v2": 543.5,
+          "v3": 547.3
+        },
+        {
+          "row": 8,
+          "ric": "/LSUQ7",
+          "label": "Aug 27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 524.1,
+          "v2": 538.0,
+          "v3": 542.0
+        },
+        {
+          "row": 9,
+          "ric": "/LSUV7",
+          "label": "Oct 27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 519.4,
+          "v2": 529.9,
+          "v3": 534.3
+        },
+        {
+          "row": 10,
+          "ric": "/LSUZ7",
+          "label": "Dec 27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 516.3,
+          "v2": 523.6,
+          "v3": 528.9
+        },
+        {
+          "row": 11,
+          "ric": "/LSUH8",
+          "label": "Mar 28",
+          "display_label": "Mar 28",
+          "contract_code": "H28",
+          "v1": 514.3,
+          "v2": 519.1,
+          "v3": 525.0
+        },
+        {
+          "row": 12,
+          "ric": "/LSUK8",
+          "label": "May 28",
+          "display_label": "May 28",
+          "contract_code": "K28",
+          "v1": 507.9,
+          "v2": 509.7,
+          "v3": 515.2
+        },
+        {
+          "row": 13,
+          "ric": "/LSUQ8",
+          "label": "Aug 28",
+          "display_label": "Aug 28",
+          "contract_code": "Q28",
+          "v1": 498.5,
+          "v2": 498.2,
+          "v3": 502.8
+        }
+      ]
+    },
+    {
+      "id": "curve_36",
+      "title": "Cotton No.2",
+      "category": "Softs",
+      "sheet": "Cotton",
+      "exchange": "ICE US",
+      "description": "Usc/lb",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Dec 26",
+        "prompt_price": 78.5,
+        "change_1d": 0.35,
+        "change_1d_pct": 0.45,
+        "change_1m": 0.74,
+        "change_1m_pct": 0.95,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.13
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/CTZ6",
+          "label": "CTZ6",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 77.76,
+          "v2": 78.15,
+          "v3": 78.5
+        },
+        {
+          "row": 5,
+          "ric": "/CTH7",
+          "label": "CTH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 80.61,
+          "v2": 81.9,
+          "v3": 82.25
+        },
+        {
+          "row": 6,
+          "ric": "/CTK7",
+          "label": "CTK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 82.29,
+          "v2": 83.54,
+          "v3": 83.89
+        },
+        {
+          "row": 7,
+          "ric": "/CTN7",
+          "label": "CTN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 82.76,
+          "v2": 84.05,
+          "v3": 84.36
+        },
+        {
+          "row": 8,
+          "ric": "/CTV7",
+          "label": "CTV7",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 76.88,
+          "v2": 78.0,
+          "v3": 78.0
+        },
+        {
+          "row": 9,
+          "ric": "/CTZ7",
+          "label": "CTZ7",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 76.71,
+          "v2": 77.55,
+          "v3": 77.72
+        },
+        {
+          "row": 10,
+          "ric": "/CTH8",
+          "label": "CTH8",
+          "display_label": "Mar 28",
+          "contract_code": "H28",
+          "v1": 77.34,
+          "v2": 78.15,
+          "v3": 78.37
+        }
+      ]
+    },
+    {
+      "id": "curve_37",
+      "title": "Orange Juice",
+      "category": "Softs",
+      "sheet": "OJ",
+      "exchange": "ICE US",
+      "description": "Usc/lb",
+      "unit": "USc/lb",
+      "metrics": {
+        "active_contract": "Nov 26",
+        "prompt_price": 128.55,
+        "change_1d": -10.0,
+        "change_1d_pct": -7.22,
+        "change_1m": -13.15,
+        "change_1m_pct": -9.28,
+        "structure": "Contango",
+        "spread_prompt_back": 27.15
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/OJX6",
+          "label": "OJX6",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 141.7,
+          "v2": 138.55,
+          "v3": 128.55
+        },
+        {
+          "row": 5,
+          "ric": "/OJF7",
+          "label": "OJF7",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 145.55,
+          "v2": 144.25,
+          "v3": 137.2
+        },
+        {
+          "row": 6,
+          "ric": "/OJH7",
+          "label": "OJH7",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 148.5,
+          "v2": 146.75,
+          "v3": 140.0
+        },
+        {
+          "row": 7,
+          "ric": "/OJK7",
+          "label": "OJK7",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 151.3,
+          "v2": 149.8,
+          "v3": 144.65
+        },
+        {
+          "row": 8,
+          "ric": "/OJN7",
+          "label": "OJN7",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 153.8,
+          "v2": 152.4,
+          "v3": 147.0
+        },
+        {
+          "row": 9,
+          "ric": "/OJU7",
+          "label": "OJU7",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 156.55,
+          "v2": 154.15,
+          "v3": 154.15
+        },
+        {
+          "row": 10,
+          "ric": "/OJX7",
+          "label": "OJX7",
+          "display_label": "Nov 27",
+          "contract_code": "X27",
+          "v1": 159.55,
+          "v2": 155.7,
+          "v3": 155.7
+        }
+      ]
+    },
+    {
+      "id": "curve_61",
+      "title": "US Treasury Yields",
+      "category": "FX & Rates",
+      "sheet": "Yields",
+      "exchange": "CME / GovPX",
+      "description": "",
+      "unit": "Yield %",
+      "metrics": {
+        "active_contract": "1M",
+        "prompt_price": 3.9649,
+        "change_1d": -0.0132,
+        "change_1d_pct": -0.33,
+        "change_1m": 0.0917,
+        "change_1m_pct": 2.37,
+        "structure": "Contango",
+        "spread_prompt_back": 1.3626
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "US1MT=RR",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 3.8732,
+          "v2": 3.9781,
+          "v3": 3.9649
+        },
+        {
+          "row": 5,
+          "ric": "US6WK=RR",
+          "label": "1.5M",
+          "display_label": "1.5M",
+          "contract_code": "1.5M",
+          "v1": 3.9974,
+          "v2": 4.0004,
+          "v3": 3.9846
+        },
+        {
+          "row": 7,
+          "ric": "US3MT=RR",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 4.0939,
+          "v2": 4.1022,
+          "v3": 4.1043
+        },
+        {
+          "row": 8,
+          "ric": "US4MT=RR",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 4.1932,
+          "v2": 4.2027,
+          "v3": 4.2088
+        },
+        {
+          "row": 9,
+          "ric": "US6MT=RR",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 4.2788,
+          "v2": 4.3322,
+          "v3": 4.2973
+        },
+        {
+          "row": 10,
+          "ric": "US1YT=RR",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 4.4391,
+          "v2": 4.4639,
+          "v3": 4.4202
+        },
+        {
+          "row": 11,
+          "ric": "US2YT=RR",
+          "label": "2Y",
+          "display_label": "2Y",
+          "contract_code": "2Y",
+          "v1": 4.7914,
+          "v2": 4.685,
+          "v3": 4.656
+        },
+        {
+          "row": 12,
+          "ric": "US3YT=RR",
+          "label": "3Y",
+          "display_label": "3Y",
+          "contract_code": "3Y",
+          "v1": 4.9059,
+          "v2": 4.7599,
+          "v3": 4.7326
+        },
+        {
+          "row": 13,
+          "ric": "US5YT=RR",
+          "label": "5Y",
+          "display_label": "5Y",
+          "contract_code": "5Y",
+          "v1": 5.0089,
+          "v2": 4.8211,
+          "v3": 4.8015
+        },
+        {
+          "row": 14,
+          "ric": "US7YT=RR",
+          "label": "7Y",
+          "display_label": "7Y",
+          "contract_code": "7Y",
+          "v1": 5.1262,
+          "v2": 4.9025,
+          "v3": 4.885
+        },
+        {
+          "row": 15,
+          "ric": "US10YT=RR",
+          "label": "10Y",
+          "display_label": "10Y",
+          "contract_code": "10Y",
+          "v1": 5.2428,
+          "v2": 5.003,
+          "v3": 4.9886
+        },
+        {
+          "row": 16,
+          "ric": "US20YT=RR",
+          "label": "20Y",
+          "display_label": "20Y",
+          "contract_code": "20Y",
+          "v1": 5.6478,
+          "v2": 5.3723,
+          "v3": 5.3658
+        },
+        {
+          "row": 17,
+          "ric": "US30YT=RR",
+          "label": "30Y",
+          "display_label": "30Y",
+          "contract_code": "30Y",
+          "v1": 5.6126,
+          "v2": 5.3307,
+          "v3": 5.3275
+        }
+      ]
+    },
+    {
+      "id": "curve_45",
+      "title": "USD/IDR",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 18125.0,
+        "change_1d": -55.0,
+        "change_1d_pct": -0.3,
+        "change_1m": 180.0,
+        "change_1m_pct": 1.0,
+        "structure": "Contango",
+        "spread_prompt_back": 332.0
+      },
+      "points": [
+        {
+          "row": 16,
+          "ric": "IDR=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 17945.0,
+          "v2": 18180.0,
+          "v3": 18125.0
+        },
+        {
+          "row": 17,
+          "ric": "IDR1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 17979.5,
+          "v2": 18211.0,
+          "v3": 18205.0
+        },
+        {
+          "row": 18,
+          "ric": "IDR2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 18022.5,
+          "v2": 18241.75,
+          "v3": 18236.5
+        },
+        {
+          "row": 19,
+          "ric": "IDR3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 18036.0,
+          "v2": 18272.5,
+          "v3": 18265.0
+        },
+        {
+          "row": 20,
+          "ric": "IDR6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 18100.0,
+          "v2": 18355.0,
+          "v3": 18345.0
+        },
+        {
+          "row": 21,
+          "ric": "IDR1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 18192.5,
+          "v2": 18471.0,
+          "v3": 18457.0
+        }
+      ]
+    },
+    {
+      "id": "curve_46",
+      "title": "USD/THB",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 33.69,
+        "change_1d": -0.015,
+        "change_1d_pct": -0.04,
+        "change_1m": 0.035,
+        "change_1m_pct": 0.1,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.7369
+      },
+      "points": [
+        {
+          "row": 52,
+          "ric": "THB=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 33.655,
+          "v2": 33.705,
+          "v3": 33.69
+        },
+        {
+          "row": 53,
+          "ric": "THB1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 33.6416,
+          "v2": 33.6756,
+          "v3": 33.6263
+        },
+        {
+          "row": 54,
+          "ric": "THB2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 33.6065,
+          "v2": 33.6467,
+          "v3": 33.5971
+        },
+        {
+          "row": 55,
+          "ric": "THB3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 33.5577,
+          "v2": 33.6052,
+          "v3": 33.5752
+        },
+        {
+          "row": 56,
+          "ric": "THB4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 33.5235,
+          "v2": 33.5639,
+          "v3": 33.5289
+        },
+        {
+          "row": 57,
+          "ric": "THB5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 33.4781,
+          "v2": 33.5141,
+          "v3": 33.4791
+        },
+        {
+          "row": 58,
+          "ric": "THB6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 33.4068,
+          "v2": 33.4673,
+          "v3": 33.3763
+        },
+        {
+          "row": 59,
+          "ric": "THB9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 33.2039,
+          "v2": 33.2747,
+          "v3": 33.2296
+        },
+        {
+          "row": 60,
+          "ric": "THB1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 33.0112,
+          "v2": 33.084,
+          "v3": 32.9531
+        }
+      ]
+    },
+    {
+      "id": "curve_62",
+      "title": "USD/JPY",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 157.93,
+        "change_1d": 0.095,
+        "change_1d_pct": 0.06,
+        "change_1m": -0.145,
+        "change_1m_pct": -0.09,
+        "structure": "Backwardation",
+        "spread_prompt_back": -4.7129
+      },
+      "points": [
+        {
+          "row": 28,
+          "ric": "JPY=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 158.075,
+          "v2": 157.835,
+          "v3": 157.93
+        },
+        {
+          "row": 29,
+          "ric": "JPY1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 157.6896,
+          "v2": 157.4526,
+          "v3": 157.4446
+        },
+        {
+          "row": 30,
+          "ric": "JPY2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 157.2884,
+          "v2": 157.0686,
+          "v3": 157.0596
+        },
+        {
+          "row": 31,
+          "ric": "JPY3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 156.8899,
+          "v2": 156.6662,
+          "v3": 156.6428
+        },
+        {
+          "row": 32,
+          "ric": "JPY4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 156.5047,
+          "v2": 156.3145,
+          "v3": 156.3015
+        },
+        {
+          "row": 33,
+          "ric": "JPY5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 156.1565,
+          "v2": 155.8966,
+          "v3": 155.8841
+        },
+        {
+          "row": 34,
+          "ric": "JPY6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 155.7637,
+          "v2": 155.5158,
+          "v3": 155.4958
+        },
+        {
+          "row": 35,
+          "ric": "JPY9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 154.595,
+          "v2": 154.369,
+          "v3": 154.3468
+        },
+        {
+          "row": 36,
+          "ric": "JPY1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 153.435,
+          "v2": 153.2466,
+          "v3": 153.2171
+        }
+      ]
+    },
+    {
+      "id": "curve_50",
+      "title": "USD/SGD",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 1.2801,
+        "change_1d": -0.0012,
+        "change_1d_pct": -0.09,
+        "change_1m": -0.0004,
+        "change_1m_pct": -0.03,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.0343
+      },
+      "points": [
+        {
+          "row": 64,
+          "ric": "SGD=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 1.2805,
+          "v2": 1.2813,
+          "v3": 1.2801
+        },
+        {
+          "row": 65,
+          "ric": "SGD1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 1.2786,
+          "v2": 1.2788,
+          "v3": 1.2787
+        },
+        {
+          "row": 66,
+          "ric": "SGD2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 1.2752,
+          "v2": 1.276,
+          "v3": 1.2759
+        },
+        {
+          "row": 67,
+          "ric": "SGD3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 1.2725,
+          "v2": 1.2733,
+          "v3": 1.2732
+        },
+        {
+          "row": 68,
+          "ric": "SGD4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 1.2697,
+          "v2": 1.2707,
+          "v3": 1.2705
+        },
+        {
+          "row": 69,
+          "ric": "SGD5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 1.2671,
+          "v2": 1.2677,
+          "v3": 1.2674
+        },
+        {
+          "row": 70,
+          "ric": "SGD6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 1.2642,
+          "v2": 1.2648,
+          "v3": 1.2646
+        },
+        {
+          "row": 71,
+          "ric": "SGD9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 1.2551,
+          "v2": 1.2557,
+          "v3": 1.2555
+        },
+        {
+          "row": 72,
+          "ric": "SGD1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 1.2462,
+          "v2": 1.2465,
+          "v3": 1.2458
+        }
+      ]
+    },
+    {
+      "id": "curve_44",
+      "title": "USD/MYR",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 4.057,
+        "change_1d": -0.02,
+        "change_1d_pct": -0.49,
+        "change_1m": -0.0275,
+        "change_1m_pct": -0.67,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.0445
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "MYR=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 4.0845,
+          "v2": 4.077,
+          "v3": 4.057
+        },
+        {
+          "row": 5,
+          "ric": "MYR1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 4.0799,
+          "v2": 4.0731,
+          "v3": 4.0699
+        },
+        {
+          "row": 6,
+          "ric": "MYR2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 4.0746,
+          "v2": 4.0685,
+          "v3": 4.0651
+        },
+        {
+          "row": 7,
+          "ric": "MYR3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 4.0693,
+          "v2": 4.0631,
+          "v3": 4.0595
+        },
+        {
+          "row": 8,
+          "ric": "MYR4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 4.0635,
+          "v2": 4.0584,
+          "v3": 4.0546
+        },
+        {
+          "row": 9,
+          "ric": "MYR5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 4.0583,
+          "v2": 4.053,
+          "v3": 4.049
+        },
+        {
+          "row": 10,
+          "ric": "MYR6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 4.0525,
+          "v2": 4.0477,
+          "v3": 4.044
+        },
+        {
+          "row": 11,
+          "ric": "MYR9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 4.036,
+          "v2": 4.0312,
+          "v3": 4.027
+        },
+        {
+          "row": 12,
+          "ric": "MYR1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 4.019,
+          "v2": 4.017,
+          "v3": 4.0125
+        }
+      ]
+    },
+    {
+      "id": "curve_48",
+      "title": "USD/PHP",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 63.653,
+        "change_1d": -0.322,
+        "change_1d_pct": -0.5,
+        "change_1m": 0.87,
+        "change_1m_pct": 1.39,
+        "structure": "Contango",
+        "spread_prompt_back": 1.157
+      },
+      "points": [
+        {
+          "row": 40,
+          "ric": "PHP=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 62.783,
+          "v2": 63.975,
+          "v3": 63.653
+        },
+        {
+          "row": 41,
+          "ric": "PHP1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 62.8445,
+          "v2": 64.0625,
+          "v3": 63.995
+        },
+        {
+          "row": 42,
+          "ric": "PHP2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 62.898,
+          "v2": 64.145,
+          "v3": 64.07
+        },
+        {
+          "row": 43,
+          "ric": "PHP3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 62.962,
+          "v2": 64.225,
+          "v3": 64.14
+        },
+        {
+          "row": 44,
+          "ric": "PHP4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 63.0205,
+          "v2": 64.305,
+          "v3": 64.21
+        },
+        {
+          "row": 45,
+          "ric": "PHP5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 63.073,
+          "v2": 64.41,
+          "v3": 64.31
+        },
+        {
+          "row": 46,
+          "ric": "PHP6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 63.128,
+          "v2": 64.485,
+          "v3": 64.39
+        },
+        {
+          "row": 47,
+          "ric": "PHP9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 63.268,
+          "v2": 64.705,
+          "v3": 64.62
+        },
+        {
+          "row": 48,
+          "ric": "PHP1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 63.478,
+          "v2": 64.905,
+          "v3": 64.81
+        }
+      ]
+    },
+    {
+      "id": "curve_47",
+      "title": "USD/VND",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 25799.0,
+        "change_1d": -57.5,
+        "change_1d_pct": -0.22,
+        "change_1m": -183.0,
+        "change_1m_pct": -0.7,
+        "structure": "Contango",
+        "spread_prompt_back": 699.3
+      },
+      "points": [
+        {
+          "row": 28,
+          "ric": "VND=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 25982.0,
+          "v2": 25856.5,
+          "v3": 25799.0
+        },
+        {
+          "row": 29,
+          "ric": "VND1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 26010.5,
+          "v2": 25888.3,
+          "v3": 25880.5
+        },
+        {
+          "row": 30,
+          "ric": "VND2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 26057.95,
+          "v2": 25927.8,
+          "v3": 25916.8
+        },
+        {
+          "row": 31,
+          "ric": "VND3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 26135.9,
+          "v2": 26008.0,
+          "v3": 25993.8
+        },
+        {
+          "row": 32,
+          "ric": "VND6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 26331.75,
+          "v2": 26198.2,
+          "v3": 26174.3
+        },
+        {
+          "row": 33,
+          "ric": "VND9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 26516.35,
+          "v2": 26370.9,
+          "v3": 26337.2
+        },
+        {
+          "row": 34,
+          "ric": "VND1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 26696.45,
+          "v2": 26541.7,
+          "v3": 26498.3
+        }
+      ]
+    },
+    {
+      "id": "curve_51",
+      "title": "USD/INR",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 95.19,
+        "change_1d": -0.045,
+        "change_1d_pct": -0.05,
+        "change_1m": -1.135,
+        "change_1m_pct": -1.18,
+        "structure": "Contango",
+        "spread_prompt_back": 4.02
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "INR=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 96.325,
+          "v2": 95.235,
+          "v3": 95.19
+        },
+        {
+          "row": 5,
+          "ric": "INR1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 96.6675,
+          "v2": 95.56,
+          "v3": 95.535
+        },
+        {
+          "row": 6,
+          "ric": "INR2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 96.9875,
+          "v2": 95.945,
+          "v3": 95.915
+        },
+        {
+          "row": 7,
+          "ric": "INR3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 97.2875,
+          "v2": 96.445,
+          "v3": 96.415
+        },
+        {
+          "row": 8,
+          "ric": "INR4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 97.625,
+          "v2": 96.75,
+          "v3": 96.72
+        },
+        {
+          "row": 9,
+          "ric": "INR5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 97.84,
+          "v2": 97.095,
+          "v3": 97.065
+        },
+        {
+          "row": 10,
+          "ric": "INR6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 98.0775,
+          "v2": 97.545,
+          "v3": 97.515
+        },
+        {
+          "row": 11,
+          "ric": "INR9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 98.83,
+          "v2": 98.42,
+          "v3": 98.39
+        },
+        {
+          "row": 12,
+          "ric": "INR1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 99.5025,
+          "v2": 99.24,
+          "v3": 99.21
+        }
+      ]
+    },
+    {
+      "id": "curve_52",
+      "title": "USD/PKR",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 276.4,
+        "change_1d": -0.19,
+        "change_1d_pct": -0.07,
+        "change_1m": -0.65,
+        "change_1m_pct": -0.23,
+        "structure": "Contango",
+        "spread_prompt_back": 12.95
+      },
+      "points": [
+        {
+          "row": 16,
+          "ric": "PKR=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 277.05,
+          "v2": 276.59,
+          "v3": 276.4
+        },
+        {
+          "row": 17,
+          "ric": "PKR1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 278.79,
+          "v2": 277.19,
+          "v3": 276.85
+        },
+        {
+          "row": 18,
+          "ric": "PKR2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 278.65,
+          "v2": 278.215,
+          "v3": 277.9
+        },
+        {
+          "row": 19,
+          "ric": "PKR3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 280.15,
+          "v2": 279.39,
+          "v3": 279.05
+        },
+        {
+          "row": 20,
+          "ric": "PKR4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 281.15,
+          "v2": 280.79,
+          "v3": 280.45
+        },
+        {
+          "row": 21,
+          "ric": "PKR5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 283.7,
+          "v2": 281.99,
+          "v3": 281.65
+        },
+        {
+          "row": 22,
+          "ric": "PKR6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 284.175,
+          "v2": 283.19,
+          "v3": 282.85
+        },
+        {
+          "row": 23,
+          "ric": "PKR9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 289.75,
+          "v2": 288.09,
+          "v3": 287.35
+        },
+        {
+          "row": 24,
+          "ric": "PKR1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 291.55,
+          "v2": 290.09,
+          "v3": 289.35
+        }
+      ]
+    },
+    {
+      "id": "curve_49",
+      "title": "USD/CNY",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 6.661,
+        "change_1d": -0.0051,
+        "change_1d_pct": -0.08,
+        "change_1m": -0.0436,
+        "change_1m_pct": -0.65,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.1967
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "CNY=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 6.7046,
+          "v2": 6.6661,
+          "v3": 6.661
+        },
+        {
+          "row": 5,
+          "ric": "CNY1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 6.6894,
+          "v2": 6.6508,
+          "v3": 6.6502
+        },
+        {
+          "row": 6,
+          "ric": "CNY2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 6.6737,
+          "v2": 6.6348,
+          "v3": 6.6342
+        },
+        {
+          "row": 7,
+          "ric": "CNY3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 6.6558,
+          "v2": 6.6192,
+          "v3": 6.6191
+        },
+        {
+          "row": 8,
+          "ric": "CNY4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 6.6358,
+          "v2": 6.6041,
+          "v3": 6.6035
+        },
+        {
+          "row": 9,
+          "ric": "CNY5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 6.6241,
+          "v2": 6.5866,
+          "v3": 6.586
+        },
+        {
+          "row": 10,
+          "ric": "CNY6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 6.6068,
+          "v2": 6.5706,
+          "v3": 6.57
+        },
+        {
+          "row": 11,
+          "ric": "CNY9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 6.5518,
+          "v2": 6.5197,
+          "v3": 6.5182
+        },
+        {
+          "row": 12,
+          "ric": "CNY1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 6.4931,
+          "v2": 6.4656,
+          "v3": 6.4643
+        }
+      ]
+    },
+    {
+      "id": "curve_53",
+      "title": "EUR/USD",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 1.1162,
+        "change_1d": 0.0008,
+        "change_1d_pct": 0.07,
+        "change_1m": -0.008,
+        "change_1m_pct": -0.71,
+        "structure": "Contango",
+        "spread_prompt_back": 0.0164
+      },
+      "points": [
+        {
+          "row": 28,
+          "ric": "EUR=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 1.1242,
+          "v2": 1.1154,
+          "v3": 1.1162
+        },
+        {
+          "row": 29,
+          "ric": "EUR1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 1.1257,
+          "v2": 1.1167,
+          "v3": 1.1165
+        },
+        {
+          "row": 30,
+          "ric": "EUR2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 1.1272,
+          "v2": 1.1182,
+          "v3": 1.118
+        },
+        {
+          "row": 31,
+          "ric": "EUR3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 1.1287,
+          "v2": 1.1196,
+          "v3": 1.1194
+        },
+        {
+          "row": 32,
+          "ric": "EUR4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 1.1303,
+          "v2": 1.121,
+          "v3": 1.1207
+        },
+        {
+          "row": 33,
+          "ric": "EUR5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 1.1316,
+          "v2": 1.1225,
+          "v3": 1.1222
+        },
+        {
+          "row": 34,
+          "ric": "EUR6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 1.1332,
+          "v2": 1.124,
+          "v3": 1.1237
+        },
+        {
+          "row": 35,
+          "ric": "EUR9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 1.1378,
+          "v2": 1.1284,
+          "v3": 1.1278
+        },
+        {
+          "row": 36,
+          "ric": "EUR1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 1.1425,
+          "v2": 1.133,
+          "v3": 1.1326
+        }
+      ]
+    },
+    {
+      "id": "curve_55",
+      "title": "GBP/USD",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 1.3362,
+        "change_1d": 0.0035,
+        "change_1d_pct": 0.26,
+        "change_1m": 0.0161,
+        "change_1m_pct": 1.22,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.0049
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "GBP=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 1.3201,
+          "v2": 1.3327,
+          "v3": 1.3362
+        },
+        {
+          "row": 5,
+          "ric": "GBP1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 1.3199,
+          "v2": 1.3326,
+          "v3": 1.3325
+        },
+        {
+          "row": 6,
+          "ric": "GBP2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 1.32,
+          "v2": 1.3327,
+          "v3": 1.3326
+        },
+        {
+          "row": 7,
+          "ric": "GBP3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 1.3202,
+          "v2": 1.3328,
+          "v3": 1.3326
+        },
+        {
+          "row": 8,
+          "ric": "GBP4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 1.3204,
+          "v2": 1.3328,
+          "v3": 1.3325
+        },
+        {
+          "row": 9,
+          "ric": "GBP5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 1.3204,
+          "v2": 1.3327,
+          "v3": 1.3325
+        },
+        {
+          "row": 10,
+          "ric": "GBP6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 1.3205,
+          "v2": 1.3326,
+          "v3": 1.3322
+        },
+        {
+          "row": 11,
+          "ric": "GBP9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 1.3212,
+          "v2": 1.3322,
+          "v3": 1.3317
+        },
+        {
+          "row": 12,
+          "ric": "GBP1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 1.321,
+          "v2": 1.3316,
+          "v3": 1.3313
+        }
+      ]
+    },
+    {
+      "id": "curve_54",
+      "title": "USD/CAD",
+      "category": "FX & Rates",
+      "sheet": "FX",
+      "exchange": "FX Outright",
+      "description": "",
+      "unit": "Points",
+      "metrics": {
+        "active_contract": "Spot",
+        "prompt_price": 1.3983,
+        "change_1d": -0.0012,
+        "change_1d_pct": -0.09,
+        "change_1m": -0.0239,
+        "change_1m_pct": -1.68,
+        "structure": "Backwardation",
+        "spread_prompt_back": -0.0205
+      },
+      "points": [
+        {
+          "row": 16,
+          "ric": "CAD=",
+          "label": "Spot",
+          "display_label": "Spot",
+          "contract_code": "Spot",
+          "v1": 1.4222,
+          "v2": 1.3995,
+          "v3": 1.3983
+        },
+        {
+          "row": 17,
+          "ric": "CAD1MV=",
+          "label": "1M",
+          "display_label": "1M",
+          "contract_code": "1M",
+          "v1": 1.42,
+          "v2": 1.3976,
+          "v3": 1.3975
+        },
+        {
+          "row": 18,
+          "ric": "CAD2MV=",
+          "label": "2M",
+          "display_label": "2M",
+          "contract_code": "2M",
+          "v1": 1.4179,
+          "v2": 1.3958,
+          "v3": 1.3957
+        },
+        {
+          "row": 19,
+          "ric": "CAD3MV=",
+          "label": "3M",
+          "display_label": "3M",
+          "contract_code": "3M",
+          "v1": 1.4155,
+          "v2": 1.3937,
+          "v3": 1.3936
+        },
+        {
+          "row": 20,
+          "ric": "CAD4MV=",
+          "label": "4M",
+          "display_label": "4M",
+          "contract_code": "4M",
+          "v1": 1.4135,
+          "v2": 1.392,
+          "v3": 1.3919
+        },
+        {
+          "row": 21,
+          "ric": "CAD5MV=",
+          "label": "5M",
+          "display_label": "5M",
+          "contract_code": "5M",
+          "v1": 1.4116,
+          "v2": 1.3902,
+          "v3": 1.3901
+        },
+        {
+          "row": 22,
+          "ric": "CAD6MV=",
+          "label": "6M",
+          "display_label": "6M",
+          "contract_code": "6M",
+          "v1": 1.4096,
+          "v2": 1.3883,
+          "v3": 1.3881
+        },
+        {
+          "row": 23,
+          "ric": "CAD9MV=",
+          "label": "9M",
+          "display_label": "9M",
+          "contract_code": "9M",
+          "v1": 1.4038,
+          "v2": 1.3831,
+          "v3": 1.3829
+        },
+        {
+          "row": 24,
+          "ric": "CAD1YV=",
+          "label": "1Y",
+          "display_label": "1Y",
+          "contract_code": "1Y",
+          "v1": 1.3979,
+          "v2": 1.3781,
+          "v3": 1.3778
+        }
+      ]
+    },
+    {
+      "id": "curve_38",
+      "title": "COMEX Gold",
+      "category": "Metals",
+      "sheet": "Gold",
+      "exchange": "COMEX",
+      "description": "Usd/ozs",
+      "unit": "USD/oz",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 4036.0,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -136.9,
+        "change_1m_pct": -3.28,
+        "structure": "Contango",
+        "spread_prompt_back": 49.0
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/GCV26",
+          "label": "GCV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 4172.9,
+          "v2": 4036.0,
+          "v3": 4036.0
+        },
+        {
+          "row": 5,
+          "ric": "/GCX26",
+          "label": "GCX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 4187.1,
+          "v2": 4037.4,
+          "v3": 4011.0
+        },
+        {
+          "row": 6,
+          "ric": "/GCZ26",
+          "label": "GCZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 4202.3,
+          "v2": 4051.6,
+          "v3": 4020.1
+        },
+        {
+          "row": 7,
+          "ric": "/GCF27",
+          "label": "GCF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 4221.4,
+          "v2": 4070.2,
+          "v3": 4039.1
+        },
+        {
+          "row": 8,
+          "ric": "/GCG27",
+          "label": "GCG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 4237.3,
+          "v2": 4085.8,
+          "v3": 4052.8
+        },
+        {
+          "row": 9,
+          "ric": "/GCH27",
+          "label": "GCH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 4253.5,
+          "v2": 4101.4,
+          "v3": 4069.2
+        },
+        {
+          "row": 10,
+          "ric": "/GCJ27",
+          "label": "GCJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 4271.4,
+          "v2": 4118.5,
+          "v3": 4085.0
+        }
+      ]
+    },
+    {
+      "id": "curve_39",
+      "title": "COMEX Silver",
+      "category": "Metals",
+      "sheet": "Silver",
+      "exchange": "COMEX",
+      "description": "Usd/ozs",
+      "unit": "USD/oz",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 53.457,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -7.268,
+        "change_1m_pct": -11.97,
+        "structure": "Contango",
+        "spread_prompt_back": 1.121
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/SIV26",
+          "label": "SIV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 60.725,
+          "v2": 53.457,
+          "v3": 53.457
+        },
+        {
+          "row": 5,
+          "ric": "/SIX26",
+          "label": "SIX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 60.944,
+          "v2": 53.471,
+          "v3": 51.85
+        },
+        {
+          "row": 6,
+          "ric": "/SIZ26",
+          "label": "SIZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 61.175,
+          "v2": 53.666,
+          "v3": 52.075
+        },
+        {
+          "row": 7,
+          "ric": "/SIF27",
+          "label": "SIF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 61.474,
+          "v2": 53.922,
+          "v3": 52.325
+        },
+        {
+          "row": 8,
+          "ric": "/SIG27",
+          "label": "SIG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 61.716,
+          "v2": 54.131,
+          "v3": 52.9
+        },
+        {
+          "row": 9,
+          "ric": "/SIH27",
+          "label": "SIH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 61.948,
+          "v2": 54.342,
+          "v3": 52.68
+        },
+        {
+          "row": 10,
+          "ric": "/SIJ27",
+          "label": "SIJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 62.23,
+          "v2": 54.578,
+          "v3": 54.578
+        }
+      ]
+    },
+    {
+      "id": "curve_40",
+      "title": "NYMEX Platinum",
+      "category": "Metals",
+      "sheet": "Platinum",
+      "exchange": "NYMEX",
+      "description": "Usd/ozs",
+      "unit": "USD/oz",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 1547.9,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -157.6,
+        "change_1m_pct": -9.24,
+        "structure": "Contango",
+        "spread_prompt_back": 46.2
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/PLV26",
+          "label": "PLV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 1705.5,
+          "v2": 1547.9,
+          "v3": 1547.9
+        },
+        {
+          "row": 5,
+          "ric": "/PLX26",
+          "label": "PLX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 1709.1,
+          "v2": 1547.3,
+          "v3": 1482.7
+        },
+        {
+          "row": 6,
+          "ric": "/PLZ26",
+          "label": "PLZ26",
+          "display_label": "Dec 26",
+          "contract_code": "Z26",
+          "v1": 1715.6,
+          "v2": 1540.1,
+          "v3": 1487.1
+        },
+        {
+          "row": 7,
+          "ric": "/PLF27",
+          "label": "PLF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 1722.8,
+          "v2": 1539.8,
+          "v3": 1482.7
+        },
+        {
+          "row": 8,
+          "ric": "/PLJ27",
+          "label": "PLJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 1743.7,
+          "v2": 1558.6,
+          "v3": 1502.8
+        },
+        {
+          "row": 9,
+          "ric": "/PLN27",
+          "label": "PLN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 1762.7,
+          "v2": 1577.9,
+          "v3": 1531.3
+        },
+        {
+          "row": 10,
+          "ric": "/PLV27",
+          "label": "PLV27",
+          "display_label": "Oct 27",
+          "contract_code": "V27",
+          "v1": 1778.2,
+          "v2": 1594.1,
+          "v3": 1594.1
+        }
+      ]
+    },
+    {
+      "id": "curve_42",
+      "title": "NYMEX Palladium",
+      "category": "Metals",
+      "sheet": "Palladium",
+      "exchange": "NYMEX",
+      "description": "Usd/ozs",
+      "unit": "USD/oz",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 1009.4,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": -159.4,
+        "change_1m_pct": -13.64,
+        "structure": "Contango",
+        "spread_prompt_back": 41.1
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/PAV26",
+          "label": "PAV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 1168.8,
+          "v2": 1009.4,
+          "v3": 1009.4
+        },
+        {
+          "row": 5,
+          "ric": "/PAX26",
+          "label": "PAX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 1174.9,
+          "v2": 1008.1,
+          "v3": 992.0
+        },
+        {
+          "row": 7,
+          "ric": "/PAH27",
+          "label": "PAH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 1196.4,
+          "v2": 1025.4,
+          "v3": 1009.0
+        },
+        {
+          "row": 8,
+          "ric": "/PAM27",
+          "label": "PAM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 1211.8,
+          "v2": 1037.1,
+          "v3": 1019.5
+        },
+        {
+          "row": 9,
+          "ric": "/PAU27",
+          "label": "PAU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 1226.9,
+          "v2": 1049.2,
+          "v3": 1049.2
+        },
+        {
+          "row": 10,
+          "ric": "/PAZ27",
+          "label": "PAZ27",
+          "display_label": "Dec 27",
+          "contract_code": "Z27",
+          "v1": 1242.5,
+          "v2": 1062.0,
+          "v3": 1050.5
+        }
+      ]
+    },
+    {
+      "id": "curve_41",
+      "title": "COMEX Copper",
+      "category": "Metals",
+      "sheet": "Copper",
+      "exchange": "COMEX",
+      "description": "Usd/lb",
+      "unit": "USD/lb",
+      "metrics": {
+        "active_contract": "Oct 26",
+        "prompt_price": 6.6415,
+        "change_1d": 0.0,
+        "change_1d_pct": 0.0,
+        "change_1m": 0.1595,
+        "change_1m_pct": 2.46,
+        "structure": "Contango",
+        "spread_prompt_back": 0.294
+      },
+      "points": [
+        {
+          "row": 4,
+          "ric": "/HGV26",
+          "label": "HGV26",
+          "display_label": "Oct 26",
+          "contract_code": "V26",
+          "v1": 6.482,
+          "v2": 6.6415,
+          "v3": 6.6415
+        },
+        {
+          "row": 5,
+          "ric": "/HGX26",
+          "label": "HGX26",
+          "display_label": "Nov 26",
+          "contract_code": "X26",
+          "v1": 6.507,
+          "v2": 6.646,
+          "v3": 6.5695
+        },
+        {
+          "row": 7,
+          "ric": "/HGF27",
+          "label": "HGF27",
+          "display_label": "Jan 27",
+          "contract_code": "F27",
+          "v1": 6.576,
+          "v2": 6.712,
+          "v3": 6.663
+        },
+        {
+          "row": 8,
+          "ric": "/HGG27",
+          "label": "HGG27",
+          "display_label": "Feb 27",
+          "contract_code": "G27",
+          "v1": 6.6085,
+          "v2": 6.7455,
+          "v3": 6.6755
+        },
+        {
+          "row": 9,
+          "ric": "/HGH27",
+          "label": "HGH27",
+          "display_label": "Mar 27",
+          "contract_code": "H27",
+          "v1": 6.642,
+          "v2": 6.7785,
+          "v3": 6.696
+        },
+        {
+          "row": 10,
+          "ric": "/HGJ27",
+          "label": "HGJ27",
+          "display_label": "Apr 27",
+          "contract_code": "J27",
+          "v1": 6.6755,
+          "v2": 6.812,
+          "v3": 6.812
+        },
+        {
+          "row": 11,
+          "ric": "/HGK27",
+          "label": "HGK27",
+          "display_label": "May 27",
+          "contract_code": "K27",
+          "v1": 6.7115,
+          "v2": 6.8475,
+          "v3": 6.771
+        },
+        {
+          "row": 12,
+          "ric": "/HGM27",
+          "label": "HGM27",
+          "display_label": "Jun 27",
+          "contract_code": "M27",
+          "v1": 6.7435,
+          "v2": 6.8785,
+          "v3": 6.8785
+        },
+        {
+          "row": 13,
+          "ric": "/HGN27",
+          "label": "HGN27",
+          "display_label": "Jul 27",
+          "contract_code": "N27",
+          "v1": 6.779,
+          "v2": 6.913,
+          "v3": 6.843
+        },
+        {
+          "row": 14,
+          "ric": "/HGQ27",
+          "label": "HGQ27",
+          "display_label": "Aug 27",
+          "contract_code": "Q27",
+          "v1": 6.811,
+          "v2": 6.942,
+          "v3": 6.8595
+        },
+        {
+          "row": 15,
+          "ric": "/HGU27",
+          "label": "HGU27",
+          "display_label": "Sep 27",
+          "contract_code": "U27",
+          "v1": 6.8445,
+          "v2": 6.974,
+          "v3": 6.9355
+        }
+      ]
+    }
+  ]
+}

@@ -15,7 +15,7 @@ const STATE = {
 
   // Tab 1: S&D state
   sndFcstMode: "model",     // "model" | "user" | "delta"
-  sndExpandedYears: new Set([2025, 2026, 2027]),
+  sndExpandedYears: new Set(),
   sndChartFreq: "monthly",
   sndCompareAttr: "production", // "production" | "export" | "import" | "local_disappearance" | "end_stock" | "stocks_to_use"
 
@@ -26,24 +26,27 @@ const STATE = {
   // Tab 3: Production state
   prodAttr: "cpo_production",
   prodState: "Malaysia",
-  prodExpandedYears: new Set([2026, 2027]),
+  prodExpandedYears: new Set(),
 
   // Tab 4: My Forecast state
   myFcstStateMetric: "cpo_production",
 
   // Tab 5: Imports state
-  impExpandedYears: new Set([2025, 2026, 2027]),
+  impExpandedYears: new Set(),
 
   // Tab 6: Exports state
   expSplitMode: "both",     // "both" | "ports" | "products"
-  expExpandedYears: new Set([2025, 2026]),
+  expPortUnit: "tonnes",    // "tonnes" | "share"
+  expExpandedYears: new Set(),
 
   // Tab 7: Stocks state
-  stkExpandedYears: new Set([2025, 2026]),
+  stkExpandedYears: new Set(),
 
   // Tab 8: Seasonality state
   seasonAttr: "snd.production",
   seasonFcstMode: "model",
+  seasonRegions: new Set(["Malaysia"]),
+  seasonActiveYears: new Set([2025, 2026, 2027]),
 
   charts: {}
 };
@@ -229,17 +232,9 @@ async function initDashboard() {
     }
     STATE.master = data;
 
-    // Check localStorage for any saved custom user forecast when running standalone
-    const localSaved = localStorage.getItem("my_forecast_malaysia_palm");
-    if (localSaved) {
-      try {
-        STATE.userForecast = JSON.parse(localSaved);
-      } catch (e) {
-        STATE.userForecast = data.user_forecast || JSON.parse(JSON.stringify(data.user_forecast_defaults));
-      }
-    } else {
-      STATE.userForecast = data.user_forecast || JSON.parse(JSON.stringify(data.user_forecast_defaults));
-    }
+    // Always source My Forecast directly from SND Malaysia.xlsx (embedded in data.user_forecast)
+    try { localStorage.removeItem("my_forecast_malaysia_palm"); } catch (e) {}
+    STATE.userForecast = data.user_forecast || JSON.parse(JSON.stringify(data.user_forecast_defaults));
 
     updateHeaderKpis();
     renderYearSlicer();
@@ -266,8 +261,8 @@ function updateHeaderKpis() {
   }
   const a26 = STATE.master.snd.annual["2026"];
   const a27 = STATE.master.snd.annual["2027"];
-  if (a26) document.getElementById("kpi-2026-prod").textContent = `${fmtNum(a26.production)} T [FCST]`;
-  if (a27) document.getElementById("kpi-2027-prod").textContent = `${fmtNum(a27.production)} T [FCST]`;
+  if (a26) document.getElementById("kpi-2026-prod").textContent = `${fmtNum(a26.production)} T 2026F`;
+  if (a27) document.getElementById("kpi-2027-prod").textContent = `${fmtNum(a27.production)} T 2027F`;
 }
 
 function renderYearSlicer() {
@@ -278,7 +273,7 @@ function renderYearSlicer() {
     pill.className = "year-pill";
     if (STATE.selectedYears.has(yr)) pill.classList.add("selected");
     if (yr >= 2026) pill.classList.add("is-fcst-year");
-    pill.textContent = yr === 2026 ? "2026*" : yr === 2027 ? "2027F" : String(yr);
+    pill.textContent = yr === 2026 ? "2026F" : yr === 2027 ? "2027F" : String(yr);
     pill.title = yr >= 2026
       ? `${yr} (Includes Forecast Oct 2026–Dec 2027) — Click to select, Ctrl+Click to multi-select`
       : `${yr} — Click to select single year, Ctrl+Click to multi-select, Shift+Click for range`;
@@ -435,26 +430,7 @@ function initControls() {
     renderProdTab();
   });
 
-  // Tab 4: My Forecast Controls
-  const trackerPeriodSel = document.getElementById("tracker-target-period");
-  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
-  trackerPeriodSel.innerHTML = fcstPeriods.map(p => `<option value="${p}">${p}</option>`).join("");
 
-  document.getElementById("btn-apply-prod-tracker").addEventListener("click", applyFrontMonthProdTracker);
-  document.getElementById("btn-apply-exp-tracker").addEventListener("click", applyFrontMonthExpTracker);
-  document.getElementById("btn-save-user-fcst").addEventListener("click", saveUserForecastToServer);
-  document.getElementById("btn-copy-model-to-user").addEventListener("click", () => resetUserForecast("model"));
-  document.getElementById("btn-reset-excel-fcst").addEventListener("click", () => resetUserForecast("excel"));
-  document.getElementById("btn-sync-states-to-snd").addEventListener("click", syncUserStatesToNationalSnd);
-
-  document.querySelectorAll("#my-fcst-state-metric .seg-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("#my-fcst-state-metric .seg-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      STATE.myFcstStateMetric = btn.dataset.metric;
-      renderMyForecastStatesTable();
-    });
-  });
 
   // Tab 5: Imports Controls
   document.getElementById("btn-imp-expand-all").addEventListener("click", () => {
@@ -472,6 +448,14 @@ function initControls() {
       document.querySelectorAll("#exports-split-mode .seg-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       STATE.expSplitMode = btn.dataset.split;
+      renderExportsTab();
+    });
+  });
+  document.querySelectorAll("#exports-port-unit .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#exports-port-unit .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.expPortUnit = btn.dataset.unit;
       renderExportsTab();
     });
   });
@@ -514,7 +498,6 @@ function renderActiveTab() {
     case "tab-snd": renderSndTab(); break;
     case "tab-area": renderAreaTab(); break;
     case "tab-prod": renderProdTab(); break;
-    case "tab-my-fcst": renderMyForecastTab(); break;
     case "tab-imports": renderImportsTab(); break;
     case "tab-exports": renderExportsTab(); break;
     case "tab-stocks": renderStocksTab(); break;
@@ -551,7 +534,7 @@ function renderSndTable() {
   for (const yr of years) {
     const canExp = yr >= 2005;
     const isExp = canExp && STATE.sndExpandedYears.has(yr);
-    const fcstTag = yr >= 2026 ? " [FCST]" : "";
+    const fcstTag = yr >= 2026 ? "F" : "";
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
         const isF = (yr === 2026 && m >= 10) || yr === 2027;
@@ -602,7 +585,127 @@ function renderSndTable() {
   html += `</tbody></table>`;
   container.innerHTML = html;
 
-  container.querySelectorAll(".col-year-header").forEach(th => {
+  // Render Synchronized MoM % / YoY % Change Table below main S&D Balance Sheet
+  const pctContainer = document.getElementById("snd-pct-table-container");
+  if (pctContainer) {
+    const pctSourceMode = STATE.sndFcstMode === "delta" ? "user" : STATE.sndFcstMode;
+    const { monthly: pctMonthly, annual: pctAnnual } = getEffectiveSndData(pctSourceMode);
+
+    function fmtPctCell(val, dec = 1) {
+      if (val === null || val === undefined || Number.isNaN(Number(val)) || !Number.isFinite(Number(val))) {
+        return '<span class="text-muted">--</span>';
+      }
+      const n = Number(val);
+      const sign = n > 0 ? "+" : "";
+      const cls = n > 0 ? "cell-pos" : n < 0 ? "cell-neg" : "";
+      return `<span class="${cls}">${sign}${n.toFixed(dec)}%</span>`;
+    }
+
+    function getRecMetric(rec, rDef) {
+      if (!rec) return null;
+      if (rDef.isRatio) {
+        const u = (rec.export || 0) + (rec.local_disappearance || 0);
+        return (u > 0 && rec.end_stock != null) ? (rec.end_stock / u * 100) : null;
+      }
+      const v = rec[rDef.key];
+      return (v !== null && v !== undefined && !Number.isNaN(Number(v))) ? Number(v) : null;
+    }
+
+    let pctHtml = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Attribute (MoM % / YoY %)</th>`;
+    for (const yr of years) {
+      const canExp = yr >= 2005;
+      const isExp = canExp && STATE.sndExpandedYears.has(yr);
+      const fcstTag = yr >= 2026 ? "F" : "";
+      if (isExp) {
+        for (let m = 1; m <= 12; m++) {
+          const isF = (yr === 2026 && m >= 10) || yr === 2027;
+          pctHtml += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+        }
+      }
+      pctHtml += `<th class="col-year-header col-annual" data-year="${yr}" title="Click to ${isExp ? 'collapse' : 'expand'} ${yr}">
+        ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${fcstTag} YoY%
+      </th>`;
+    }
+    pctHtml += `</tr></thead><tbody>`;
+
+    for (const rowDef of SND_ROWS) {
+      const isRatio = rowDef.isRatio;
+      const rCls = rowDef.key === "end_stock" ? "row-highlight" : isRatio ? "row-highlight" : rowDef.isCalc ? "row-subtotal" : "";
+      pctHtml += `<tr class="${rCls}"><td class="sticky-col">${rowDef.label}</td>`;
+
+      for (const yr of years) {
+        const canExp = yr >= 2005;
+        const isExp = canExp && STATE.sndExpandedYears.has(yr);
+        if (isExp) {
+          for (let m = 1; m <= 12; m++) {
+            const p = `${yr}-${String(m).padStart(2, "0")}`;
+            const prevP = m === 1 ? `${yr - 1}-12` : `${yr}-${String(m - 1).padStart(2, "0")}`;
+            const mRec = pctMonthly[p];
+            const prevRec = pctMonthly[prevP];
+            const cCls = mRec && mRec.is_forecast ? "cell-fcst" : "";
+
+            const currV = getRecMetric(mRec, rowDef);
+            const prevV = getRecMetric(prevRec, rowDef);
+            const momPct = (currV !== null && prevV !== null && prevV !== 0)
+              ? ((currV - prevV) / Math.abs(prevV)) * 100
+              : null;
+
+            pctHtml += `<td class="num ${cCls}">${fmtPctCell(momPct, 1)}</td>`;
+          }
+        }
+        const currA = getRecMetric(pctAnnual[yr], rowDef);
+        const prevA = getRecMetric(pctAnnual[yr - 1], rowDef);
+        const yoyPct = (currA !== null && prevA !== null && prevA !== 0)
+          ? ((currA - prevA) / Math.abs(prevA)) * 100
+          : null;
+
+        pctHtml += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${fmtPctCell(yoyPct, 1)}</td>`;
+      }
+      pctHtml += `</tr>`;
+    }
+
+    // Add 1H Production Ratio (%) and 2H Production Ratio (%) rows (1st 6M / Full Year & 2nd 6M / Full Year)
+    [
+      { half: 1, label: "1H Production Ratio (%)" },
+      { half: 2, label: "2H Production Ratio (%)" }
+    ].forEach(hDef => {
+      pctHtml += `<tr class="row-subtotal"><td class="sticky-col">${hDef.label}</td>`;
+      for (const yr of years) {
+        const canExp = yr >= 2005;
+        const isExp = canExp && STATE.sndExpandedYears.has(yr);
+        let h1Sum = 0, h2Sum = 0, h1Cnt = 0, h2Cnt = 0;
+        for (let m = 1; m <= 12; m++) {
+          const r = pctMonthly[`${yr}-${String(m).padStart(2, "0")}`];
+          if (r && r.production !== null && r.production !== undefined) {
+            if (m <= 6) { h1Sum += Number(r.production); h1Cnt++; }
+            else { h2Sum += Number(r.production); h2Cnt++; }
+          }
+        }
+        const totProd = h1Sum + h2Sum;
+        const hasFullYear = h1Cnt === 6 && h2Cnt === 6 && totProd > 0;
+
+        if (isExp) {
+          for (let m = 1; m <= 12; m++) {
+            const p = `${yr}-${String(m).padStart(2, "0")}`;
+            const mRec = pctMonthly[p];
+            const cCls = mRec && mRec.is_forecast ? "cell-fcst" : "";
+            pctHtml += `<td class="num ${cCls}"><span class="text-muted">--</span></td>`;
+          }
+        }
+
+        const ratioVal = hasFullYear ? ((hDef.half === 1 ? h1Sum : h2Sum) / totProd) * 100 : null;
+        const cellStr = ratioVal !== null ? `<span style="font-weight:700;color:#0f172a;">${ratioVal.toFixed(1)}%</span>` : '<span class="text-muted">--</span>';
+        pctHtml += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${cellStr}</td>`;
+      }
+      pctHtml += `</tr>`;
+    });
+
+    pctHtml += `</tbody></table>`;
+    pctContainer.innerHTML = pctHtml;
+  }
+
+  // Bind expand/collapse click listeners on BOTH tables so they stay 100% synchronized
+  document.querySelectorAll("#snd-table-container .col-year-header, #snd-pct-table-container .col-year-header").forEach(th => {
     th.addEventListener("click", () => {
       const yr = Number(th.dataset.year);
       if (yr < 2005) return;
@@ -900,7 +1003,6 @@ function renderAreaTab() {
             STATE.areaEntities.add(ent);
           }
         } else {
-          // Normal click toggles, or sets single if clicked another
           if (STATE.areaEntities.has(ent) && STATE.areaEntities.size > 1) {
             STATE.areaEntities.delete(ent);
           } else {
@@ -920,17 +1022,20 @@ function renderAreaTab() {
   if (STATE.areaViewMode === "regional") {
     const selectedEnts = Array.from(STATE.areaEntities);
     const minYr = selectedEnts.some(e => !["Malaysia", "Peninsular Malaysia", "Sabah & Sarawak", "Sabah", "Sarawak"].includes(e)) ? 2011 : 1975;
-    const years = getSortedSelectedYears(minYr, 2025);
+    // Allow through 2027 to show yield, OER, and mature area forecasts
+    const years = getSortedSelectedYears(minYr, 2027);
 
-    const labels = years.map(y => String(y));
+    const labels = years.map(y => y >= 2026 ? `${y}F` : String(y));
     const matTotalByYear = [];
     const immTotalByYear = [];
     const ffbYieldByYear = [];
+    const oerByYear = [];
 
     years.forEach(yr => {
       const yrStr = String(yr);
       let yMat = 0, yImm = 0;
       let ffbSum = 0, ffbHa = 0;
+      let oerSum = 0, oerHa = 0;
 
       selectedEnts.forEach(ent => {
         const obj = (yr >= 2011 && stArea[yrStr] && stArea[yrStr][ent])
@@ -940,19 +1045,52 @@ function renderAreaTab() {
           yMat += obj.mature_ha || 0;
           yImm += obj.immature_ha || 0;
         }
-        const aProd = ffbStateHist[yr]?.entities?.[ent];
+        const aProd = ffbStateHist[yrStr]?.entities?.[ent] || ffbStateHist[yr]?.entities?.[ent];
         if (aProd?.ffb_yield && obj?.mature_ha) {
           ffbSum += aProd.ffb_yield * obj.mature_ha;
           ffbHa += obj.mature_ha;
         }
+        if (aProd?.oer && obj?.mature_ha) {
+          oerSum += aProd.oer * obj.mature_ha;
+          oerHa += obj.mature_ha;
+        }
       });
       matTotalByYear.push(yMat);
       immTotalByYear.push(yImm);
-      ffbYieldByYear.push(ffbHa > 0 ? Number((ffbSum / ffbHa).toFixed(2)) : (ffbStateHist[yr]?.entities?.[selectedEnts[0]]?.ffb_yield ?? null));
+      ffbYieldByYear.push(ffbHa > 0 ? Number((ffbSum / ffbHa).toFixed(2)) : (ffbStateHist[yrStr]?.entities?.[selectedEnts[0]]?.ffb_yield ?? null));
+      oerByYear.push(oerHa > 0 ? Number((oerSum / oerHa).toFixed(2)) : (ffbStateHist[yrStr]?.entities?.[selectedEnts[0]]?.oer ?? null));
     });
 
     const entTitle = selectedEnts.length === 1 ? selectedEnts[0] : `${selectedEnts.length} Selected Regions (${selectedEnts.slice(0, 3).join(", ")}${selectedEnts.length > 3 ? "..." : ""})`;
-    document.getElementById("area-chart1-title").textContent = `${entTitle}: Mature vs Immature Planted Area (Ha) & FFB Yield (T/Ha)`;
+    document.getElementById("area-chart1-title").textContent = `${entTitle}: Mature vs Immature Planted Area (Ha), FFB Yield (T/Ha) & OER (%)`;
+
+    // Compute dynamic min/max bounds for FFB Yield and OER to make variations clearly pronounced
+    const validYlds = ffbYieldByYear.filter(v => v != null && !isNaN(v));
+    const minYld = validYlds.length ? Math.min(...validYlds) : 14;
+    const maxYld = validYlds.length ? Math.max(...validYlds) : 22;
+    const yldPad = Math.max((maxYld - minYld) * 0.25, 0.8);
+    const yldMin = Math.max(0, Math.floor((minYld - yldPad) * 2) / 2);
+    const yldMax = Math.ceil((maxYld + yldPad) * 2) / 2;
+
+    const validOers = oerByYear.filter(v => v != null && !isNaN(v));
+    const minOer = validOers.length ? Math.min(...validOers) : 18;
+    const maxOer = validOers.length ? Math.max(...validOers) : 22;
+    const oerPad = Math.max((maxOer - minOer) * 0.25, 0.5);
+    const oerMin = Math.max(0, Math.floor((minOer - oerPad) * 2) / 2);
+    const oerMax = Math.ceil((maxOer + oerPad) * 2) / 2;
+
+    // Zoom the planted-area axis to the filtered years: floor just under the smallest mature area (so the
+    // mature segment stays visible), ceiling just over the largest mature + immature total
+    const validMat = matTotalByYear.filter(v => v > 0);
+    const validTot = matTotalByYear.map((v, i) => v + immTotalByYear[i]).filter(v => v > 0);
+    let areaMin, areaMax;
+    if (validMat.length && validTot.length) {
+      const lo = Math.min(...validMat), hi = Math.max(...validTot);
+      const pad = Math.max((hi - lo) * 0.08, hi * 0.01);
+      const step = Math.pow(10, Math.floor(Math.log10(Math.max(hi - lo, 1)))) / 2;
+      areaMin = Math.max(0, Math.floor((lo - pad) / step) * step);
+      areaMax = Math.ceil((hi + pad) / step) * step;
+    }
 
     const ctx1 = document.getElementById("chart-area-stacked").getContext("2d");
     STATE.charts.areaStacked = new Chart(ctx1, {
@@ -962,14 +1100,26 @@ function renderAreaTab() {
         datasets: [
           {
             type: "line",
-            label: "Annual FFB Yield (Tonnes/Ha) - RHS",
+            label: "FFB Yield (Tonnes/Ha) - RHS 1",
             data: ffbYieldByYear,
             borderColor: "#2563eb",
             backgroundColor: "#2563eb",
-            borderWidth: 2.6,
-            pointRadius: 3,
+            borderWidth: 2.8,
+            pointRadius: 4,
             tension: 0.25,
             yAxisID: "y1"
+          },
+          {
+            type: "line",
+            label: "Oil Extraction Rate (OER %) - RHS 2",
+            data: oerByYear,
+            borderColor: "#9333ea",
+            backgroundColor: "#9333ea",
+            borderWidth: 2.4,
+            borderDash: [4, 4],
+            pointRadius: 4,
+            tension: 0.25,
+            yAxisID: "y2"
           },
           {
             type: "bar",
@@ -996,71 +1146,116 @@ function renderAreaTab() {
           y: {
             position: "left",
             stacked: true,
-            title: { display: true, text: "Planted Area (Ha)", color: "#059669", font: { weight: "bold" } },
+            min: areaMin,
+            max: areaMax,
+            title: { display: true, text: areaMin > 0 ? "Planted Area (Ha) - zoomed, not from zero" : "Planted Area (Ha)", color: "#059669", font: { weight: "bold" } },
             ticks: { color: "#64748b" },
             grid: { color: "rgba(100,116,139,0.08)" }
           },
           y1: {
             position: "right",
+            min: yldMin,
+            max: yldMax,
             title: { display: true, text: "FFB Yield (Tonnes/Ha)", color: "#2563eb", font: { weight: "bold" } },
             ticks: { color: "#2563eb", font: { family: "'JetBrains Mono', monospace" } },
+            grid: { drawOnChartArea: false }
+          },
+          y2: {
+            position: "right",
+            min: oerMin,
+            max: oerMax,
+            title: { display: true, text: "OER (%)", color: "#9333ea", font: { weight: "bold" } },
+            ticks: { color: "#9333ea", font: { family: "'JetBrains Mono', monospace" }, callback: v => v + "%" },
             grid: { drawOnChartArea: false }
           }
         }
       }
     });
 
-    // Multi-Region Table (standardized column widths)
+    // Multi-Region Table (fine-tuned column widths: ent=140px, metric=155px, annual=95px)
     let html = `<table class="data-table"><thead><tr>
-      <th style="min-width:220px;width:220px;">Region / State</th>
-      <th class="col-metric">Metric</th>
-      ${years.map(y => `<th class="col-annual">${y}</th>`).join("")}
+      <th class="col-area-ent">Region / State</th>
+      <th class="col-area-metric">Metric</th>
+      ${years.map(y => `<th class="col-annual ${y >= 2026 ? 'cell-fcst' : ''}">${y}${y >= 2026 ? 'F' : ''}</th>`).join("")}
     </tr></thead><tbody>`;
 
     selectedEnts.forEach(ent => {
       const isReg = ent.includes("Malaysia") || ent.includes("Sabah & Sarawak");
       const rCls = isReg ? "row-subtotal" : "";
 
-      // 1. Mature Area row
-      html += `<tr class="${rCls}"><td class="sticky-col" rowspan="5" style="vertical-align:top;font-weight:700;">${ent}</td>
-        <td class="col-metric">Mature Area (Ha)</td>`;
+      // 0. Production Total row (above Mature Area, table-only as requested)
+      html += `<tr class="${rCls}"><td class="sticky-col col-area-ent" rowspan="7" style="vertical-align:top;font-weight:700;">${ent}</td>
+        <td class="col-area-metric" style="font-weight:700;color:#0f172a;">Production Total (T)</td>`;
       years.forEach(yr => {
-        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
-        html += `<td class="num col-annual">${fmtNum(obj?.mature_ha, 0)}</td>`;
+        const yrStr = String(yr);
+        const aProd = ffbStateHist[yrStr]?.entities?.[ent] || ffbStateHist[yr]?.entities?.[ent];
+        const prodVal = aProd?.cpo_production;
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}" style="font-weight:700;color:#0f172a;">${fmtNum(prodVal, 0)}</td>`;
+      });
+      html += `</tr>`;
+
+      // 1. Mature Area row
+      html += `<tr class="${rCls}">
+        <td class="col-area-metric">Mature Area (Ha)</td>`;
+      years.forEach(yr => {
+        const yrStr = String(yr);
+        const obj = (yr >= 2011 && stArea[yrStr]?.[ent]) ? stArea[yrStr][ent] : regArea[yrStr]?.[ent];
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}">${fmtNum(obj?.mature_ha, 0)}</td>`;
       });
       html += `</tr>`;
 
       // 2. Immature Area row
-      html += `<tr class="${rCls}"><td class="col-metric">Immature Area (Ha)</td>`;
+      html += `<tr class="${rCls}"><td class="col-area-metric">Immature Area (Ha)</td>`;
       years.forEach(yr => {
-        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
-        html += `<td class="num col-annual">${fmtNum(obj?.immature_ha, 0)}</td>`;
+        const yrStr = String(yr);
+        const obj = (yr >= 2011 && stArea[yrStr]?.[ent]) ? stArea[yrStr][ent] : regArea[yrStr]?.[ent];
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}">${fmtNum(obj?.immature_ha, 0)}</td>`;
       });
       html += `</tr>`;
 
       // 3. Total Area (Ha)
-      html += `<tr class="${rCls}"><td class="col-metric" style="font-weight:700;">Total Area (Ha)</td>`;
+      html += `<tr class="${rCls}"><td class="col-area-metric" style="font-weight:700;">Total Area (Ha)</td>`;
       years.forEach(yr => {
-        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
-        html += `<td class="num col-annual" style="font-weight:700;">${fmtNum(obj?.total_ha, 0)}</td>`;
+        const yrStr = String(yr);
+        const obj = (yr >= 2011 && stArea[yrStr]?.[ent]) ? stArea[yrStr][ent] : regArea[yrStr]?.[ent];
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}" style="font-weight:700;">${fmtNum(obj?.total_ha, 0)}</td>`;
       });
       html += `</tr>`;
 
       // 4. % Mature row
-      html += `<tr class="${rCls}"><td class="col-metric" style="color:#059669;font-weight:600;">% Mature</td>`;
+      html += `<tr class="${rCls}"><td class="col-area-metric" style="color:#059669;font-weight:600;">% Mature</td>`;
       years.forEach(yr => {
-        const obj = (yr >= 2011 && stArea[String(yr)]?.[ent]) ? stArea[String(yr)][ent] : regArea[String(yr)]?.[ent];
+        const yrStr = String(yr);
+        const obj = (yr >= 2011 && stArea[yrStr]?.[ent]) ? stArea[yrStr][ent] : regArea[yrStr]?.[ent];
         const pct = obj?.mature_pct ?? (obj?.total_ha && obj?.mature_ha ? Number((obj.mature_ha / obj.total_ha * 100).toFixed(1)) : null);
-        html += `<td class="num col-annual" style="color:#059669;font-weight:600;">${pct !== null && pct !== undefined ? pct.toFixed(1) + '%' : '--'}</td>`;
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}" style="color:#059669;font-weight:600;">${pct !== null && pct !== undefined ? pct.toFixed(1) + '%' : '--'}</td>`;
       });
       html += `</tr>`;
 
-      // 5. Annual FFB Yield row (RHS metric)
-      html += `<tr class="${rCls}" style="border-bottom:2px solid var(--border-strong);">
-        <td class="col-metric" style="color:#2563eb;font-weight:600;">FFB Yield (T/Ha)</td>`;
+      // 5. Annual FFB Yield row (RHS 1 metric)
+      html += `<tr class="${rCls}"><td class="col-area-metric" style="color:#2563eb;font-weight:600;">FFB Yield (T/Ha)</td>`;
       years.forEach(yr => {
-        const yld = ffbStateHist[yr]?.entities?.[ent]?.ffb_yield;
-        html += `<td class="num col-annual" style="color:#2563eb;font-weight:700;">${fmtNum(yld, 2)}</td>`;
+        const yrStr = String(yr);
+        const aProd = ffbStateHist[yrStr]?.entities?.[ent] || ffbStateHist[yr]?.entities?.[ent];
+        const yld = aProd?.ffb_yield;
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}" style="color:#2563eb;font-weight:700;">${fmtNum(yld, 2)}</td>`;
+      });
+      html += `</tr>`;
+
+      // 6. Annual OER row (RHS 2 metric)
+      html += `<tr class="${rCls}" style="border-bottom:2px solid var(--border-strong);"><td class="col-area-metric" style="color:#9333ea;font-weight:600;">OER (%)</td>`;
+      years.forEach(yr => {
+        const yrStr = String(yr);
+        const aProd = ffbStateHist[yrStr]?.entities?.[ent] || ffbStateHist[yr]?.entities?.[ent];
+        const oerVal = aProd?.oer;
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}" style="color:#9333ea;font-weight:700;">${oerVal !== null && oerVal !== undefined ? oerVal.toFixed(2) + '%' : '--'}</td>`;
       });
       html += `</tr>`;
     });
@@ -1069,27 +1264,31 @@ function renderAreaTab() {
     container.innerHTML = html;
 
   } else if (STATE.areaViewMode === "states") {
-    // All 13 States Matrix (2011 - 2025)
-    const stYears = getSortedSelectedYears(2011, 2025);
+    // All 12 States Matrix (2011 - 2027)
+    const stYears = getSortedSelectedYears(2011, 2027);
     const allEnts = [...STATE.master.metadata.states, "Peninsular Malaysia", "Sabah & Sarawak", "Malaysia"];
-    let html = `<table class="data-table"><thead><tr><th style="min-width:200px;width:200px;">State / Region</th>`;
+    let html = `<table class="data-table"><thead><tr><th class="col-area-ent">State / Region</th>`;
     stYears.forEach(yr => {
-      html += `<th colspan="3" style="text-align:center;">${yr}</th>`;
+      const isF = yr >= 2026;
+      html += `<th colspan="3" style="text-align:center;" class="${isF ? 'cell-fcst' : ''}">${yr}${isF ? 'F' : ''}</th>`;
     });
-    html += `</tr><tr><th></th>`;
-    stYears.forEach(() => {
-      html += `<th>Mature</th><th>Immature</th><th>Total Ha</th>`;
+    html += `</tr><tr><th class="col-area-ent"></th>`;
+    stYears.forEach(yr => {
+      const isF = yr >= 2026;
+      html += `<th class="col-annual ${isF ? 'cell-fcst' : ''}">Mature</th><th class="col-annual ${isF ? 'cell-fcst' : ''}">Immature</th><th class="col-annual ${isF ? 'cell-fcst' : ''}">Total Ha</th>`;
     });
     html += `</tr></thead><tbody>`;
 
     allEnts.forEach(s => {
       const isReg = s.includes("Malaysia") || s.includes("Sabah & Sarawak");
-      html += `<tr class="${isReg ? 'row-subtotal' : ''}"><td class="sticky-col">${s}</td>`;
+      html += `<tr class="${isReg ? 'row-subtotal' : ''}"><td class="sticky-col col-area-ent">${s}</td>`;
       stYears.forEach(yr => {
-        const d = stArea[String(yr)]?.[s] || {};
-        html += `<td class="num">${fmtNum(d.mature_ha)}</td>
-                 <td class="num">${fmtNum(d.immature_ha)}</td>
-                 <td class="num"><strong>${fmtNum(d.total_ha)}</strong></td>`;
+        const yrStr = String(yr);
+        const d = stArea[yrStr]?.[s] || {};
+        const isF = yr >= 2026;
+        html += `<td class="num col-annual ${isF ? 'cell-fcst' : ''}">${fmtNum(d.mature_ha)}</td>
+                 <td class="num col-annual ${isF ? 'cell-fcst' : ''}">${fmtNum(d.immature_ha)}</td>
+                 <td class="num col-annual ${isF ? 'cell-fcst' : ''}"><strong>${fmtNum(d.total_ha)}</strong></td>`;
       });
       html += `</tr>`;
     });
@@ -1130,7 +1329,7 @@ function renderAreaTab() {
       html += `<tr class="${c === 'Total' ? 'row-highlight' : ''}"><td class="sticky-col">${c}</td>`;
       cYears.forEach(y => {
         const d = catArea[y][c] || {};
-        html += `<td class="num">${fmtNum(d.hectares)}</td><td class="num">${d.pct ?? '--'}%</td>`;
+        html += `<td class="num">${fmtNum(d.hectares)}</td><td class="num">${d.share_pct ? d.share_pct.toFixed(1) + '%' : '--'}</td>`;
       });
       html += `</tr>`;
     });
@@ -1139,16 +1338,22 @@ function renderAreaTab() {
   }
 }
 
-// ===========================================================================
-// TAB 3: PRODUCTION BREAKDOWN BY STATE & MODEL FORECAST
-// ===========================================================================
 const PROD_ATTR_META = {
-  cpo_production: { label: "CPO Production (Tonnes)", decimals: 0 },
-  ffb_yield: { label: "FFB Yield (Tonnes/Ha)", decimals: 2 },
-  cpo_yield: { label: "CPO Yield (Tonnes/Ha)", decimals: 3 },
-  oer: { label: "Oil Extraction Rate - OER (%)", decimals: 2 },
-  derived_hectarage: { label: "Derived Producing Hectarage [CALC: Production / CPO Yield] (Ha)", decimals: 0 }
+  cpo_production: { label: "CPO Production", unit: "(Tonnes)", decimals: 0 },
+  ffb_yield: { label: "FFB Yield", unit: "(T/Ha)", decimals: 2 },
+  cpo_yield: { label: "CPO Yield", unit: "(T/Ha)", decimals: 4 },
+  oer: { label: "Oil Extraction Rate", unit: "(%)", decimals: 2 },
+  derived_hectarage: { label: "Implied Area [Prod ÷ Yield]", unit: "(Ha)", decimals: 0 }
 };
+
+// Implied area / official mature area. Near 1.0 = production and yield cover the same land (Sabah, Sarawak);
+// far from 1.0 = mill catchment differs from planted area (cross-state FFB flows, yield coverage).
+function fmtAreaRatio(ent) {
+  if (!ent?.derived_hectarage || !ent?.official_mature_ha) return '<span class="text-muted">N/A</span>';
+  const r = ent.derived_hectarage / ent.official_mature_ha;
+  const off = Math.abs(r - 1) > 0.1;
+  return `<span style="${off ? 'color:#d97706;font-weight:700;' : ''}">${r.toFixed(2)}×</span>`;
+}
 
 function renderProdTab() {
   const attr = STATE.prodAttr;
@@ -1172,10 +1377,11 @@ function renderProdTab() {
       }
     }
     html += `<th class="col-year-header col-annual" data-year="${yr}">
-      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? ' [FCST]' : ''}
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? 'F' : ''}
     </th>`;
     if (attr === "derived_hectarage") {
       html += `<th class="col-derived-ha">${yr} Official Mature Ha</th>`;
+      html += `<th class="col-derived-ha" title="Implied area ÷ official mature area. Amber = more than 10% away from 1.0">${yr} Implied ÷ Official</th>`;
     }
   }
   html += `</tr></thead><tbody>`;
@@ -1202,6 +1408,7 @@ function renderProdTab() {
       html += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${fmtNum(aVal, meta.decimals)}</td>`;
       if (attr === "derived_hectarage") {
         html += `<td class="num col-derived-ha" style="color:#059669;font-weight:700;">${fmtNum(aEnt?.official_mature_ha, 0)}</td>`;
+        html += `<td class="num col-derived-ha">${fmtAreaRatio(aEnt)}</td>`;
       }
     }
     html += `</tr>`;
@@ -1258,7 +1465,7 @@ function renderProdChartsAndWeather() {
     }
   }
 
-  document.getElementById("prod-chart1-title").textContent = `${st}: Monthly CPO Production & Derived Hectarage [CALC] vs Official Mature Area`;
+  document.getElementById("prod-chart1-title").textContent = `${st}: Monthly CPO Production & Implied Area [Prod ÷ Yield] vs Official Mature Area`;
   const ctx1 = document.getElementById("chart-prod-state").getContext("2d");
   STATE.charts.prodState = new Chart(ctx1, {
     type: "bar",
@@ -1274,7 +1481,7 @@ function renderProdChartsAndWeather() {
         },
         {
           type: "line",
-          label: "Derived Hectarage [Prod / CPO Yield] (Ha)",
+          label: "Implied Area [Prod ÷ CPO Yield, actual months only] (Ha)",
           data: derHaData,
           borderColor: "#60a5fa",
           borderWidth: 2,
@@ -1357,25 +1564,25 @@ function renderProdChartsAndWeather() {
     <th>${st} Model FFB Yield (T/Ha)</th>
     <th>${st} Model OER (%)</th>
     <th>${st} Model CPO Yield (T/Ha)</th>
-    <th>10-12m Lag Soil Moisture Anom (%)</th>
-    <th>22-24m Lag Soil Moisture Anom (%)</th>
+    <th>Dry-Month Anom, 6-12m Lag (pp)</th>
+    <th>El Niño Factor (8-11m Lag RONI)</th>
     <th>Weather Yield Multiplier</th>
-    <th>${st} Model Production [FCST] (T)</th>
-    <th>Derived Hectarage [CALC] (Ha)</th>
+    <th>${st} Model Production F (T)</th>
+    <th>Mature Area, Official 2025 + Trend (Ha)</th>
   </tr></thead><tbody>`;
 
   fcstPeriods.forEach(p => {
     const ed = prodMon[p]?.entities?.[st] || {};
     wHtml += `<tr>
-      <td class="sticky-col">${p} <span class="badge badge-fcst">[FCST]</span></td>
+      <td class="sticky-col">${p} <span class="badge badge-fcst">F</span></td>
       <td class="num cell-fcst">${fmtNum(ed.ffb_yield, 2)}</td>
       <td class="num cell-fcst">${fmtNum(ed.oer, 2)}%</td>
       <td class="num cell-fcst">${fmtNum(ed.cpo_yield, 4)}</td>
-      <td class="num">${fmtDelta(ed.lag12m_sm_anom_pct, 1)}%</td>
-      <td class="num">${fmtDelta(ed.lag24m_sm_anom_pct, 1)}%</td>
+      <td class="num">${fmtDelta(ed.dry_6_12_anom_pp, 1)}</td>
+      <td class="num">${ed.enso_factor ? ed.enso_factor.toFixed(3) + 'x' : '--'}</td>
       <td class="num"><strong>${ed.weather_multiplier ? ed.weather_multiplier.toFixed(4) + 'x' : '--'}</strong></td>
       <td class="num cell-fcst"><strong>${fmtNum(ed.cpo_production, 0)}</strong></td>
-      <td class="num cell-calc">${fmtNum(ed.derived_hectarage, 0)}</td>
+      <td class="num cell-calc">${fmtNum(ed.official_mature_ha, 0)}</td>
     </tr>`;
   });
   wHtml += `</tbody></table>`;
@@ -1383,47 +1590,55 @@ function renderProdChartsAndWeather() {
 }
 
 // ===========================================================================
-// TAB 4: MY PRODUCTION & S&D FORECAST (DUPLICATE INTERACTIVE FORECAST TAB)
+// TAB 4: MY PRODUCTION & S&D FORECAST (INTERACTIVE FORECAST WORKSPACE)
 // ===========================================================================
 function renderMyForecastTab() {
   renderMyForecastSndTable();
-  renderMyForecastStatesTable();
   renderMyForecastCharts();
+  renderMyForecastPathTables();
 }
 
 function renderMyForecastSndTable() {
   const fcstPeriods = STATE.master.metadata.forecast_periods || [];
   const modelData = getEffectiveSndData("model").monthly;
   const userData = getEffectiveSndData("user").monthly;
-
-  // Include Sep 2026 actual anchor + 15 forecast months (Oct 2026 - Dec 2027)
-  const cols = ["2026-09", ...fcstPeriods];
-
-  let html = `<table class="data-table"><thead><tr>
-    <th style="min-width:240px">S&amp;D Attribute (Tonnes)</th>
-    ${cols.map(p => `<th class="${p === '2026-09' ? '' : 'cell-user-fcst'}">${p}${p === '2026-09' ? ' (Actual)' : ' [FCST]'}</th>`).join("")}
-    <th>2026 Full Year</th>
-    <th>2027 Full Year</th>
-  </tr></thead><tbody>`;
-
   const uAnn = getEffectiveSndData("user").annual;
   const mAnn = getEffectiveSndData("model").annual;
+
+  // Split into 2026 forecast months (Oct-Dec) and 2027 forecast months (Jan-Dec)
+  const m26 = ["2026-10", "2026-11", "2026-12"];
+  const m27 = fcstPeriods.filter(p => p.startsWith("2027-"));
+
+  let html = `<table class="data-table" id="my-fcst-main-table"><thead><tr>
+    <th style="min-width:200px;width:200px;">S&amp;D Attribute (Tonnes)</th>
+    ${m26.map(p => `<th class="cell-user-fcst">${MONTH_SHORT[Number(p.slice(5)) - 1]} 26F</th>`).join("")}
+    <th class="col-annual">2026F My Total</th>
+    <th class="col-annual">2026F Model</th>
+    <th class="col-annual col-delta">2026F Delta</th>
+    ${m27.map(p => `<th class="cell-user-fcst">${MONTH_SHORT[Number(p.slice(5)) - 1]} 27F</th>`).join("")}
+    <th class="col-annual">2027F My Total</th>
+    <th class="col-annual">2027F Model</th>
+    <th class="col-annual col-delta">2027F Delta</th>
+  </tr></thead><tbody>`;
 
   const editableKeys = new Set(["production", "import", "export", "local_disappearance"]);
 
   SND_ROWS.forEach(rowDef => {
     const isEditable = editableKeys.has(rowDef.key);
     const isStock = rowDef.key === "opening_stock" || rowDef.key === "end_stock";
-    html += `<tr class="${rowDef.key === 'end_stock' ? 'row-highlight' : ''}">
+    const rCls = rowDef.key === 'end_stock' ? 'row-highlight' : '';
+
+    html += `<tr class="${rCls}">
       <td class="sticky-col">
-        <strong>My ${rowDef.label}</strong>
-        ${isStock ? ' <span class="badge badge-calc">[Auto Formula]</span>' : ' <span class="badge badge-user">[Editable]</span>'}
+        <strong>${rowDef.label}</strong>
+        ${isStock ? ' <span class="badge badge-calc">[Formula]</span>' : ' <span class="badge badge-user">[Editable]</span>'}
       </td>`;
 
-    cols.forEach(p => {
+    // 2026 Forecast Months (Oct, Nov, Dec)
+    m26.forEach(p => {
       const uRec = userData[p];
-      if (p === "2026-09" || !isEditable) {
-        html += `<td class="num ${p !== '2026-09' ? 'cell-calc' : ''}"><strong>${fmtNum(uRec[rowDef.key], 0)}</strong></td>`;
+      if (!isEditable) {
+        html += `<td class="num cell-calc" data-cell="mon" data-period="${p}" data-key="${rowDef.key}"><strong>${fmtNum(uRec[rowDef.key], 0)}</strong></td>`;
       } else {
         html += `<td class="num cell-user-fcst">
           <input type="number" step="1000" class="cell-edit-input snd-user-input"
@@ -1431,121 +1646,271 @@ function renderMyForecastSndTable() {
         </td>`;
       }
     });
-    html += `<td class="num" style="font-weight:700">${fmtNum(uAnn[2026][rowDef.key], 0)}</td>
-             <td class="num" style="font-weight:700">${fmtNum(uAnn[2027][rowDef.key], 0)}</td></tr>`;
 
-    // Model reference sub-row
-    html += `<tr style="color:#94a3b8;font-size:11px;">
-      <td class="sticky-col" style="padding-left:22px;color:#94a3b8;">&#8627; Model ${rowDef.label} (&Delta;)</td>`;
-    cols.forEach(p => {
-      const mVal = modelData[p][rowDef.key];
-      const diff = userData[p][rowDef.key] - mVal;
-      html += `<td class="num">${fmtNum(mVal, 0)} ${p !== '2026-09' ? `(${fmtDelta(diff, 0)})` : ''}</td>`;
+    // 2026 Full Year Columns (My Total, Model, Delta)
+    const myVal26 = uAnn[2026][rowDef.key];
+    const modVal26 = mAnn[2026][rowDef.key];
+    const diff26 = myVal26 - modVal26;
+    html += `<td class="num" style="font-weight:700" data-cell="ann-my-26" data-key="${rowDef.key}">${fmtNum(myVal26, 0)}</td>
+             <td class="num" data-cell="ann-mod-26" data-key="${rowDef.key}">${fmtNum(modVal26, 0)}</td>
+             <td class="num col-delta" data-cell="ann-delta-26" data-key="${rowDef.key}">${fmtDelta(diff26, 0)}</td>`;
+
+    // 2027 Forecast Months (Jan..Dec)
+    m27.forEach(p => {
+      const uRec = userData[p];
+      if (!isEditable) {
+        html += `<td class="num cell-calc" data-cell="mon" data-period="${p}" data-key="${rowDef.key}"><strong>${fmtNum(uRec[rowDef.key], 0)}</strong></td>`;
+      } else {
+        html += `<td class="num cell-user-fcst">
+          <input type="number" step="1000" class="cell-edit-input snd-user-input"
+                 data-period="${p}" data-key="${rowDef.key}" value="${Math.round(uRec[rowDef.key])}" />
+        </td>`;
+      }
     });
-    html += `<td class="num">${fmtNum(mAnn[2026][rowDef.key], 0)} (${fmtDelta(uAnn[2026][rowDef.key] - mAnn[2026][rowDef.key], 0)})</td>
-             <td class="num">${fmtNum(mAnn[2027][rowDef.key], 0)} (${fmtDelta(uAnn[2027][rowDef.key] - mAnn[2027][rowDef.key], 0)})</td></tr>`;
+
+    // 2027 Full Year Columns (My Total, Model, Delta)
+    const myVal27 = uAnn[2027][rowDef.key];
+    const modVal27 = mAnn[2027][rowDef.key];
+    const diff27 = myVal27 - modVal27;
+    html += `<td class="num" style="font-weight:700" data-cell="ann-my-27" data-key="${rowDef.key}">${fmtNum(myVal27, 0)}</td>
+             <td class="num" data-cell="ann-mod-27" data-key="${rowDef.key}">${fmtNum(modVal27, 0)}</td>
+             <td class="num col-delta" data-cell="ann-delta-27" data-key="${rowDef.key}">${fmtDelta(diff27, 0)}</td></tr>`;
   });
+
+  // Add Stocks-to-Use Ratio (%) row
+  const uRatio26 = (uAnn[2026].end_stock / (uAnn[2026].export + uAnn[2026].local_disappearance)) * 100;
+  const mRatio26 = (mAnn[2026].end_stock / (mAnn[2026].export + mAnn[2026].local_disappearance)) * 100;
+  const uRatio27 = (uAnn[2027].end_stock / (uAnn[2027].export + uAnn[2027].local_disappearance)) * 100;
+  const mRatio27 = (mAnn[2027].end_stock / (mAnn[2027].export + mAnn[2027].local_disappearance)) * 100;
+
+  html += `<tr class="row-subtotal">
+    <td class="sticky-col"><strong>Stocks-to-Use Ratio (%)</strong> <span class="badge badge-calc">[Calc]</span></td>`;
+  m26.forEach(p => {
+    const r = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+    html += `<td class="num" data-cell="mon-ratio" data-period="${p}"><strong>${r.toFixed(1)}%</strong></td>`;
+  });
+  html += `<td class="num" style="font-weight:700" data-cell="ann-my-ratio-26">${uRatio26.toFixed(1)}%</td>
+           <td class="num" data-cell="ann-mod-ratio-26">${mRatio26.toFixed(1)}%</td>
+           <td class="num col-delta" data-cell="ann-delta-ratio-26">${fmtDelta(uRatio26 - mRatio26, 1)}%</td>`;
+  m27.forEach(p => {
+    const r = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+    html += `<td class="num" data-cell="mon-ratio" data-period="${p}"><strong>${r.toFixed(1)}%</strong></td>`;
+  });
+  html += `<td class="num" style="font-weight:700" data-cell="ann-my-ratio-27">${uRatio27.toFixed(1)}%</td>
+           <td class="num" data-cell="ann-mod-ratio-27">${mRatio27.toFixed(1)}%</td>
+           <td class="num col-delta" data-cell="ann-delta-ratio-27">${fmtDelta(uRatio27 - mRatio27, 1)}%</td></tr>`;
 
   html += `</tbody></table>`;
   const container = document.getElementById("my-fcst-snd-container");
   container.innerHTML = html;
 
+  // Real-time live calculation on input and change
   container.querySelectorAll(".snd-user-input").forEach(inp => {
-    inp.addEventListener("change", () => {
+    const updateHandler = () => {
       const p = inp.dataset.period;
       const k = inp.dataset.key;
       const val = Number(inp.value) || 0;
+      if (!STATE.userForecast.snd) STATE.userForecast.snd = {};
       if (!STATE.userForecast.snd[p]) STATE.userForecast.snd[p] = { period: p };
       STATE.userForecast.snd[p][k] = val;
-      renderMyForecastTab();
-    });
+      localStorage.setItem("my_forecast_malaysia_palm", JSON.stringify(STATE.userForecast));
+      
+      // Update DOM cells in place so cursor focus is never lost
+      updateMyForecastDomInPlace();
+      renderMyForecastCharts();
+      renderMyForecastPathTables();
+    };
+
+    inp.addEventListener("input", updateHandler);
+    inp.addEventListener("change", updateHandler);
   });
 }
 
-function renderMyForecastStatesTable() {
-  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
-  const metric = STATE.myFcstStateMetric;
-  const states = STATE.master.metadata.states;
-  const uStatesStore = STATE.userForecast.production_states || {};
+function updateMyForecastDomInPlace() {
+  const userData = getEffectiveSndData("user").monthly;
+  const uAnn = getEffectiveSndData("user").annual;
+  const mAnn = getEffectiveSndData("model").annual;
 
-  let html = `<table class="data-table"><thead><tr>
-    <th style="min-width:170px">State (${metric})</th>
-    ${fcstPeriods.map(p => `<th class="cell-user-fcst">${p}</th>`).join("")}
-  </tr></thead><tbody>`;
-
-  states.forEach(st => {
-    html += `<tr><td class="sticky-col">${st}</td>`;
-    fcstPeriods.forEach(p => {
-      const stObj = uStatesStore[p]?.[st] || {};
-      const val = stObj[metric];
-      if (st === "Perlis" && metric !== "ffb_yield") {
-        html += `<td class="num text-muted">N/A</td>`;
-      } else {
-        const step = metric === "cpo_production" ? "500" : "0.01";
-        html += `<td class="num">
-          <input type="number" step="${step}" class="cell-edit-input state-user-input"
-                 data-period="${p}" data-state="${st}" data-metric="${metric}"
-                 value="${val ?? 0}" />
-        </td>`;
-      }
-    });
-    html += `</tr>`;
-  });
-
-  // Bottom row: Sum of 13 States CPO Production
-  html += `<tr class="row-highlight"><td class="sticky-col">Sum of 13 States Prod (T)</td>`;
-  fcstPeriods.forEach(p => {
-    let sumP = 0;
-    states.forEach(st => {
-      sumP += Number(uStatesStore[p]?.[st]?.cpo_production || 0);
-    });
-    html += `<td class="num"><strong>${fmtNum(sumP, 0)}</strong></td>`;
-  });
-  html += `</tr></tbody></table>`;
-
-  const container = document.getElementById("my-fcst-states-container");
-  container.innerHTML = html;
-
-  container.querySelectorAll(".state-user-input").forEach(inp => {
-    inp.addEventListener("change", () => {
-      const p = inp.dataset.period;
-      const st = inp.dataset.state;
-      const m = inp.dataset.metric;
-      const v = Number(inp.value) || 0;
-      if (!STATE.userForecast.production_states[p]) STATE.userForecast.production_states[p] = {};
-      if (!STATE.userForecast.production_states[p][st]) STATE.userForecast.production_states[p][st] = {};
-      const stRec = STATE.userForecast.production_states[p][st];
-      stRec[m] = v;
-
-      // If user edited ffb_yield or oer, recompute cpo_yield and scale cpo_production using derived hectarage
-      if (m === "ffb_yield" || m === "oer") {
-        const modelEd = STATE.master.production.monthly[p]?.entities?.[st] || {};
-        const effHa = modelEd.derived_hectarage || modelEd.official_mature_ha || 0;
-        const fy = Number(stRec.ffb_yield || 0);
-        const oer = Number(stRec.oer || 0);
-        stRec.cpo_yield = Number((fy * oer / 100.0).toFixed(4));
-        if (effHa > 0) {
-          stRec.cpo_production = Math.round(effHa * stRec.cpo_yield);
-        }
-      }
-      renderMyForecastStatesTable();
-    });
-  });
-}
-
-function syncUserStatesToNationalSnd() {
-  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
-  const states = STATE.master.metadata.states;
-  fcstPeriods.forEach(p => {
-    let sumP = 0;
-    states.forEach(st => {
-      sumP += Number(STATE.userForecast.production_states?.[p]?.[st]?.cpo_production || 0);
-    });
-    if (sumP > 0) {
-      STATE.userForecast.snd[p].production = Math.round(sumP);
+  // Update formula monthly cells (opening stock, end stock)
+  document.querySelectorAll('#my-fcst-main-table [data-cell="mon"]').forEach(td => {
+    const p = td.dataset.period;
+    const k = td.dataset.key;
+    if (userData[p] && userData[p][k] !== undefined) {
+      td.innerHTML = `<strong>${fmtNum(userData[p][k], 0)}</strong>`;
     }
   });
-  renderMyForecastTab();
+
+  // Update monthly stocks-to-use ratio cells
+  document.querySelectorAll('#my-fcst-main-table [data-cell="mon-ratio"]').forEach(td => {
+    const p = td.dataset.period;
+    if (userData[p]) {
+      const r = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+      td.innerHTML = `<strong>${r.toFixed(1)}%</strong>`;
+    }
+  });
+
+  // Update annual cells
+  ["production", "import", "export", "local_disappearance", "opening_stock", "end_stock"].forEach(k => {
+    const tdMy26 = document.querySelector(`#my-fcst-main-table [data-cell="ann-my-26"][data-key="${k}"]`);
+    if (tdMy26) tdMy26.textContent = fmtNum(uAnn[2026][k], 0);
+
+    const tdDelta26 = document.querySelector(`#my-fcst-main-table [data-cell="ann-delta-26"][data-key="${k}"]`);
+    if (tdDelta26) tdDelta26.innerHTML = fmtDelta(uAnn[2026][k] - mAnn[2026][k], 0);
+
+    const tdMy27 = document.querySelector(`#my-fcst-main-table [data-cell="ann-my-27"][data-key="${k}"]`);
+    if (tdMy27) tdMy27.textContent = fmtNum(uAnn[2027][k], 0);
+
+    const tdDelta27 = document.querySelector(`#my-fcst-main-table [data-cell="ann-delta-27"][data-key="${k}"]`);
+    if (tdDelta27) tdDelta27.innerHTML = fmtDelta(uAnn[2027][k] - mAnn[2027][k], 0);
+  });
+
+  // Update annual ratios
+  const uRatio26 = (uAnn[2026].end_stock / (uAnn[2026].export + uAnn[2026].local_disappearance)) * 100;
+  const mRatio26 = (mAnn[2026].end_stock / (mAnn[2026].export + mAnn[2026].local_disappearance)) * 100;
+  const uRatio27 = (uAnn[2027].end_stock / (uAnn[2027].export + uAnn[2027].local_disappearance)) * 100;
+  const mRatio27 = (mAnn[2027].end_stock / (mAnn[2027].export + mAnn[2027].local_disappearance)) * 100;
+
+  const tdMyR26 = document.querySelector('#my-fcst-main-table [data-cell="ann-my-ratio-26"]');
+  if (tdMyR26) tdMyR26.textContent = uRatio26.toFixed(1) + "%";
+  const tdDelR26 = document.querySelector('#my-fcst-main-table [data-cell="ann-delta-ratio-26"]');
+  if (tdDelR26) tdDelR26.innerHTML = fmtDelta(uRatio26 - mRatio26, 1) + "%";
+
+  const tdMyR27 = document.querySelector('#my-fcst-main-table [data-cell="ann-my-ratio-27"]');
+  if (tdMyR27) tdMyR27.textContent = uRatio27.toFixed(1) + "%";
+  const tdDelR27 = document.querySelector('#my-fcst-main-table [data-cell="ann-delta-ratio-27"]');
+  if (tdDelR27) tdDelR27.innerHTML = fmtDelta(uRatio27 - mRatio27, 1) + "%";
+}
+
+function renderMyForecastPathTables() {
+  const container = document.getElementById("my-fcst-path-tables-container");
+  if (!container) return;
+
+  const fcstPeriods = STATE.master.metadata.forecast_periods || [];
+  const modelData = getEffectiveSndData("model").monthly;
+  const userData = getEffectiveSndData("user").monthly;
+  const uAnn = getEffectiveSndData("user").annual;
+  const mAnn = getEffectiveSndData("model").annual;
+
+  const m26 = ["2026-10", "2026-11", "2026-12"];
+  const m27 = fcstPeriods.filter(p => p.startsWith("2027-"));
+
+  const pathDefs = [
+    { key: "production", title: "1. CPO Production Path (Tonnes)" },
+    { key: "import", title: "2. Palm Oil Imports Path (Tonnes)" },
+    { key: "export", title: "3. Palm Oil Exports Path (Tonnes)" },
+    { key: "local_disappearance", title: "4. Local Disappearance Path (Tonnes)" },
+    { key: "end_stock", title: "5. End Stock Path (Tonnes)", isStock: true },
+    { key: "stocks_to_use", title: "6. Stocks-to-Use Ratio Path (%)", isRatio: true }
+  ];
+
+  let html = "";
+  pathDefs.forEach(pDef => {
+    html += `<div class="path-card">
+      <div class="path-card-title">
+        <span>${pDef.title}</span>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="min-width:180px;width:180px;">Series</th>
+              ${m26.map(p => `<th>${MONTH_SHORT[Number(p.slice(5)) - 1]} 26F</th>`).join("")}
+              <th class="col-annual">2026F Full Year</th>
+              ${m27.map(p => `<th>${MONTH_SHORT[Number(p.slice(5)) - 1]} 27F</th>`).join("")}
+              <th class="col-annual">2027F Full Year</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+    if (pDef.isRatio) {
+      const uR26 = (uAnn[2026].end_stock / (uAnn[2026].export + uAnn[2026].local_disappearance)) * 100;
+      const mR26 = (mAnn[2026].end_stock / (mAnn[2026].export + mAnn[2026].local_disappearance)) * 100;
+      const uR27 = (uAnn[2027].end_stock / (uAnn[2027].export + uAnn[2027].local_disappearance)) * 100;
+      const mR27 = (mAnn[2027].end_stock / (mAnn[2027].export + mAnn[2027].local_disappearance)) * 100;
+
+      // Row 1: My Forecast
+      html += `<tr><td class="sticky-col" style="color:#7e22ce;font-weight:700;">My Forecast</td>`;
+      m26.forEach(p => {
+        const r = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+        html += `<td class="num"><strong>${r.toFixed(1)}%</strong></td>`;
+      });
+      html += `<td class="num col-annual"><strong>${uR26.toFixed(1)}%</strong></td>`;
+      m27.forEach(p => {
+        const r = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+        html += `<td class="num"><strong>${r.toFixed(1)}%</strong></td>`;
+      });
+      html += `<td class="num col-annual"><strong>${uR27.toFixed(1)}%</strong></td></tr>`;
+
+      // Row 2: Model Forecast
+      html += `<tr><td class="sticky-col" style="color:#059669;font-weight:600;">Model Forecast</td>`;
+      m26.forEach(p => {
+        const r = (modelData[p].end_stock / (modelData[p].export + modelData[p].local_disappearance)) * 100;
+        html += `<td class="num">${r.toFixed(1)}%</td>`;
+      });
+      html += `<td class="num col-annual">${mR26.toFixed(1)}%</td>`;
+      m27.forEach(p => {
+        const r = (modelData[p].end_stock / (modelData[p].export + modelData[p].local_disappearance)) * 100;
+        html += `<td class="num">${r.toFixed(1)}%</td>`;
+      });
+      html += `<td class="num col-annual">${mR27.toFixed(1)}%</td></tr>`;
+
+      // Row 3: Delta
+      html += `<tr class="row-subtotal"><td class="sticky-col"><strong>&Delta; (My &minus; Model)</strong></td>`;
+      m26.forEach(p => {
+        const ur = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+        const mr = (modelData[p].end_stock / (modelData[p].export + modelData[p].local_disappearance)) * 100;
+        html += `<td class="num col-delta">${fmtDelta(ur - mr, 1)}%</td>`;
+      });
+      html += `<td class="num col-annual col-delta">${fmtDelta(uR26 - mR26, 1)}%</td>`;
+      m27.forEach(p => {
+        const ur = (userData[p].end_stock / (userData[p].export + userData[p].local_disappearance)) * 100;
+        const mr = (modelData[p].end_stock / (modelData[p].export + modelData[p].local_disappearance)) * 100;
+        html += `<td class="num col-delta">${fmtDelta(ur - mr, 1)}%</td>`;
+      });
+      html += `<td class="num col-annual col-delta">${fmtDelta(uR27 - mR27, 1)}%</td></tr>`;
+
+    } else {
+      const k = pDef.key;
+      // Row 1: My Forecast
+      html += `<tr><td class="sticky-col" style="color:#7e22ce;font-weight:700;">My Forecast</td>`;
+      m26.forEach(p => {
+        html += `<td class="num"><strong>${fmtNum(userData[p][k], 0)}</strong></td>`;
+      });
+      html += `<td class="num col-annual"><strong>${fmtNum(uAnn[2026][k], 0)}</strong></td>`;
+      m27.forEach(p => {
+        html += `<td class="num"><strong>${fmtNum(userData[p][k], 0)}</strong></td>`;
+      });
+      html += `<td class="num col-annual"><strong>${fmtNum(uAnn[2027][k], 0)}</strong></td></tr>`;
+
+      // Row 2: Model Forecast
+      html += `<tr><td class="sticky-col" style="color:#059669;font-weight:600;">Model Forecast</td>`;
+      m26.forEach(p => {
+        html += `<td class="num">${fmtNum(modelData[p][k], 0)}</td>`;
+      });
+      html += `<td class="num col-annual">${fmtNum(mAnn[2026][k], 0)}</td>`;
+      m27.forEach(p => {
+        html += `<td class="num">${fmtNum(modelData[p][k], 0)}</td>`;
+      });
+      html += `<td class="num col-annual">${fmtNum(mAnn[2027][k], 0)}</td></tr>`;
+
+      // Row 3: Delta (My - Model)
+      html += `<tr class="row-subtotal"><td class="sticky-col"><strong>&Delta; (My &minus; Model)</strong></td>`;
+      m26.forEach(p => {
+        const diff = userData[p][k] - modelData[p][k];
+        html += `<td class="num col-delta">${fmtDelta(diff, 0)}</td>`;
+      });
+      html += `<td class="num col-annual col-delta">${fmtDelta(uAnn[2026][k] - mAnn[2026][k], 0)}</td>`;
+      m27.forEach(p => {
+        const diff = userData[p][k] - modelData[p][k];
+        html += `<td class="num col-delta">${fmtDelta(diff, 0)}</td>`;
+      });
+      html += `<td class="num col-annual col-delta">${fmtDelta(uAnn[2027][k] - mAnn[2027][k], 0)}</td></tr>`;
+    }
+
+    html += `</tbody></table></div></div>`;
+  });
+
+  container.innerHTML = html;
 }
 
 function applyFrontMonthProdTracker() {
@@ -1555,7 +1920,6 @@ function applyFrontMonthProdTracker() {
   const valid = [mpoa, sppoma].filter(x => !Number.isNaN(x));
   if (valid.length === 0) return;
 
-  // Give MPOA 70% weight and SPPOMA 30% weight if both entered
   const momPct = (!Number.isNaN(mpoa) && !Number.isNaN(sppoma))
     ? (0.7 * mpoa + 0.3 * sppoma)
     : valid[0];
@@ -1568,7 +1932,10 @@ function applyFrontMonthProdTracker() {
   const prevProd = userSnd[prevP].production;
   const newProd = Math.round(prevProd * (1 + momPct / 100.0));
 
+  if (!STATE.userForecast.snd) STATE.userForecast.snd = {};
+  if (!STATE.userForecast.snd[targetP]) STATE.userForecast.snd[targetP] = { period: targetP };
   STATE.userForecast.snd[targetP].production = newProd;
+  localStorage.setItem("my_forecast_malaysia_palm", JSON.stringify(STATE.userForecast));
   document.getElementById("fcst-save-status").textContent = `Applied ${momPct.toFixed(2)}% MoM to ${targetP} Production (${fmtNum(newProd)} T)`;
   renderMyForecastTab();
 }
@@ -1590,7 +1957,10 @@ function applyFrontMonthExpTracker() {
   const prevExp = userSnd[prevP].export;
   const newExp = Math.round(prevExp * (1 + avgMom / 100.0));
 
+  if (!STATE.userForecast.snd) STATE.userForecast.snd = {};
+  if (!STATE.userForecast.snd[targetP]) STATE.userForecast.snd[targetP] = { period: targetP };
   STATE.userForecast.snd[targetP].export = newExp;
+  localStorage.setItem("my_forecast_malaysia_palm", JSON.stringify(STATE.userForecast));
   document.getElementById("fcst-save-status").textContent = `Applied Cargo Surveyor Avg (${avgMom.toFixed(2)}% MoM) to ${targetP} Export (${fmtNum(newExp)} T)`;
   renderMyForecastTab();
 }
@@ -1637,22 +2007,12 @@ async function resetUserForecast(mode) {
   }
 
   localStorage.setItem("my_forecast_malaysia_palm", JSON.stringify(STATE.userForecast));
-  if (window.location.protocol.startsWith("http")) {
-    try {
-      await fetch("/api/user-forecast", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "reset", mode })
-      });
-    } catch (e) {}
-  }
   renderMyForecastTab();
   setTimeout(() => { statusEl.textContent = ""; }, 3500);
 }
 
 function renderMyForecastCharts() {
   destroyChart("myVsModelStock");
-  destroyChart("myVsModelProd");
 
   const modelSnd = getEffectiveSndData("model").monthly;
   const userSnd = getEffectiveSndData("user").monthly;
@@ -1661,37 +2021,23 @@ function renderMyForecastCharts() {
   const labels = periods.map(p => `${p}${modelSnd[p].is_forecast ? 'F' : ''}`);
   const mStk = periods.map(p => modelSnd[p].end_stock);
   const uStk = periods.map(p => userSnd[p].end_stock);
-  const mProd = periods.map(p => modelSnd[p].production);
-  const uProd = periods.map(p => userSnd[p].production);
 
-  const ctx1 = document.getElementById("chart-my-vs-model-stock").getContext("2d");
+  const canvas = document.getElementById("chart-my-vs-model-stock");
+  if (!canvas) return;
+  const ctx1 = canvas.getContext("2d");
   STATE.charts.myVsModelStock = new Chart(ctx1, {
     type: "line",
     data: {
       labels,
       datasets: [
-        { label: "Model Forecast End Stock (T)", data: mStk, borderColor: "#10b981", borderWidth: 2.4, tension: 0.25 },
-        { label: "My Forecast End Stock (T)", data: uStk, borderColor: "#a855f7", borderDash: [5, 4], borderWidth: 2.4, tension: 0.25 }
-      ]
-    },
-    options: chartOptionsCommon("Tonnes")
-  });
-
-  const ctx2 = document.getElementById("chart-my-vs-model-prod").getContext("2d");
-  STATE.charts.myVsModelProd = new Chart(ctx2, {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [
-        { label: "Model Production (T)", data: mProd, backgroundColor: "rgba(16, 185, 129, 0.75)" },
-        { label: "My Forecast Production (T)", data: uProd, backgroundColor: "rgba(168, 85, 247, 0.75)" }
+        { label: "Model Forecast End Stock (T)", data: mStk, borderColor: "#10b981", borderWidth: 2.6, tension: 0.25 },
+        { label: "My Forecast End Stock (T)", data: uStk, borderColor: "#a855f7", borderDash: [5, 4], borderWidth: 2.6, tension: 0.25 }
       ]
     },
     options: chartOptionsCommon("Tonnes")
   });
 }
 
-// ===========================================================================
 // TAB 5: IMPORTS
 // ===========================================================================
 const IMPORT_ROWS = [
@@ -1717,7 +2063,7 @@ function renderImportsTab() {
       }
     }
     html += `<th class="col-year-header col-annual" data-year="${yr}">
-      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? ' [FCST]' : ''}
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? 'F' : ''}
     </th>`;
   }
   html += `</tr></thead><tbody>`;
@@ -1792,8 +2138,15 @@ function renderImportsTab() {
     data: {
       labels,
       datasets: [
-        { label: "Total Palm Oil Imports (T)", data: poD, borderColor: "#10b981", borderWidth: 2, tension: 0.25 },
-        { label: "Total Palm Kernel Oil Imports (T)", data: pkoD, borderColor: "#a855f7", borderWidth: 2, tension: 0.25 }
+        {
+          label: "Total Palm Kernel Oil (PKO) Imports (T)",
+          data: pkoD,
+          borderColor: "#9333ea",
+          backgroundColor: "rgba(147, 51, 234, 0.12)",
+          fill: true,
+          borderWidth: 2.4,
+          tension: 0.25
+        }
       ]
     },
     options: chartOptionsCommon("Tonnes")
@@ -1850,7 +2203,8 @@ function renderExportsTab() {
     STATE.expExpandedYears,
     portsAnn,
     portsMon,
-    renderExportsTab
+    renderExportsTab,
+    true
   );
 
   // 2. Render Products Table (1990 - 2026)
@@ -1982,21 +2336,29 @@ function renderStocksTab() {
     }
   });
 
+  const totPoStk = [];
+  useYears.forEach(yr => {
+    for (let m = 1; m <= 12; m++) {
+      const p = `${yr}-${String(m).padStart(2, "0")}`;
+      const r = stkMon[p];
+      if (!r || r.palm_oil_total == null) continue;
+      totPoStk.push(r.palm_oil_total);
+    }
+  });
+
   STATE.charts.stkMain = new Chart(document.getElementById("chart-stocks-main").getContext("2d"), {
-    type: "bar",
+    type: "line",
     data: {
       labels,
       datasets: [
-        { label: "CPO Peninsular", data: penD, backgroundColor: "#10b981", stack: "s" },
-        { label: "CPO Sabah", data: sabD, backgroundColor: "#f59e0b", stack: "s" },
-        { label: "CPO Sarawak", data: sarD, backgroundColor: "#a855f7", stack: "s" },
-        { label: "Processed Palm Oil (PPO)", data: ppoD, backgroundColor: "#3b82f6", stack: "s" }
+        { label: "CPO - Peninsular Malaysia", data: penD, borderColor: "#2563eb", borderWidth: 2.2, tension: 0.25, pointRadius: 0 },
+        { label: "CPO - Sabah", data: sabD, borderColor: "#d97706", borderWidth: 2.2, tension: 0.25, pointRadius: 0 },
+        { label: "CPO - Sarawak", data: sarD, borderColor: "#9333ea", borderWidth: 2.2, tension: 0.25, pointRadius: 0 },
+        { label: "Processed Palm Oil (PPO) Total", data: ppoD, borderColor: "#0d9488", borderWidth: 2.4, tension: 0.25, pointRadius: 0 },
+        { label: "Total Palm Oil Stocks (Malaysia)", data: totPoStk, borderColor: "#059669", borderWidth: 3.2, tension: 0.25, pointRadius: 0 }
       ]
     },
-    options: {
-      ...chartOptionsCommon("Tonnes"),
-      scales: { x: { stacked: true, ticks: { color: "#94a3b8", maxTicksLimit: 18 } }, y: { stacked: true, ticks: { color: "#94a3b8" } } }
-    }
+    options: chartOptionsCommon("Tonnes")
   });
 
   STATE.charts.stkRef = new Chart(document.getElementById("chart-stocks-refinery").getContext("2d"), {
@@ -2016,8 +2378,11 @@ function renderStocksTab() {
 }
 
 // Generic reusable builder for Expandable Year Columns Matrix (used in Exports & Stocks)
-function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years, minMonthlyYear, expandedSet, annMap, monMap, onToggle) {
-  let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">${firstColTitle}</th>`;
+function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years, minMonthlyYear, expandedSet, annMap, monMap, onToggle, isPortTable = false) {
+  const isShareMode = isPortTable && STATE.expPortUnit === "share";
+  const displayTitle = isShareMode ? firstColTitle.replace("Tonnes", "% Share of Total") : firstColTitle;
+
+  let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">${displayTitle}</th>`;
   for (const yr of years) {
     const canExp = yr >= minMonthlyYear;
     const isExp = canExp && expandedSet.has(yr);
@@ -2025,12 +2390,13 @@ function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years,
       for (let m = 1; m <= 12; m++) {
         const p = `${yr}-${String(m).padStart(2, "0")}`;
         if (!monMap[p]) continue;
-        html += `<th>${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}</th>`;
+        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
     const ytdTag = annMap[yr]?.is_ytd ? " (YTD)" : "";
     html += `<th class="col-year-header col-annual" data-year="${yr}">
-      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${ytdTag}
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? 'F' : ytdTag}
     </th>`;
   }
   html += `</tr></thead><tbody>`;
@@ -2045,11 +2411,29 @@ function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years,
         for (let m = 1; m <= 12; m++) {
           const p = `${yr}-${String(m).padStart(2, "0")}`;
           if (!monMap[p]) continue;
-          html += `<td class="num">${fmtNum(monMap[p][rDef.key], 0)}</td>`;
+          const val = monMap[p][rDef.key];
+          if (isShareMode) {
+            const tot = monMap[p]["malaysia_total"];
+            let cellStr = "--";
+            if (rDef.key === "malaysia_total") cellStr = "100.0%";
+            else if (tot > 0 && val != null) cellStr = ((val / tot) * 100).toFixed(1) + "%";
+            html += `<td class="num">${cellStr}</td>`;
+          } else {
+            html += `<td class="num">${fmtNum(val, 0)}</td>`;
+          }
         }
       }
       const aRec = annMap[yr];
-      html += `<td class="num col-annual">${fmtNum(aRec ? aRec[rDef.key] : null, 0)}</td>`;
+      const aVal = aRec ? aRec[rDef.key] : null;
+      if (isShareMode) {
+        const aTot = aRec ? aRec["malaysia_total"] : null;
+        let cellStr = "--";
+        if (rDef.key === "malaysia_total") cellStr = "100.0%";
+        else if (aTot > 0 && aVal != null) cellStr = ((aVal / aTot) * 100).toFixed(1) + "%";
+        html += `<td class="num col-annual">${cellStr}</td>`;
+      } else {
+        html += `<td class="num col-annual">${fmtNum(aVal, 0)}</td>`;
+      }
     }
     html += `</tr>`;
   }
@@ -2070,15 +2454,80 @@ function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years,
 // ===========================================================================
 // TAB 8: SEASONALITY (CHART & TABLE)
 // ===========================================================================
+const SEASON_ENTITIES_NORTH_TO_SOUTH = [
+  "Malaysia",
+  "Peninsular Malaysia",
+  "Kedah",
+  "Pulau Pinang",
+  "Perak",
+  "Selangor",
+  "Negeri Sembilan",
+  "Melaka",
+  "Johor",
+  "Pahang",
+  "Terengganu",
+  "Kelantan",
+  "Sabah & Sarawak",
+  "Sabah",
+  "Sarawak"
+];
+
 function getSeasonalityValue(period, attrPath) {
   const [group, field] = attrPath.split(".");
+
   if (group === "snd") {
     const snd = getEffectiveSndData(STATE.seasonFcstMode).monthly;
+    if (field === "stocks_to_use") {
+      const rec = snd[period];
+      if (!rec) return null;
+      const disp = (rec.export || 0) + (rec.local_disappearance || 0);
+      return disp > 0 ? Number(((rec.end_stock / disp) * 100).toFixed(2)) : null;
+    }
+    if (field === "production" && !STATE.seasonRegions.has("Malaysia")) {
+      // Aggregate production across selected regions
+      let sum = 0;
+      let hasData = false;
+      STATE.seasonRegions.forEach(ent => {
+        const val = STATE.master.production.monthly[period]?.entities?.[ent]?.cpo_production;
+        if (val !== undefined && val !== null) {
+          sum += val;
+          hasData = true;
+        }
+      });
+      return hasData ? sum : null;
+    }
     return snd[period] ? snd[period][field] : null;
   }
+
   if (group === "prod") {
-    return STATE.master.production.monthly[period]?.entities?.["Malaysia"]?.[field] ?? null;
+    if (STATE.seasonRegions.has("Malaysia") || STATE.seasonRegions.size === 0) {
+      return STATE.master.production.monthly[period]?.entities?.["Malaysia"]?.[field] ?? null;
+    }
+    if (field === "cpo_production") {
+      let sum = 0;
+      let hasData = false;
+      STATE.seasonRegions.forEach(ent => {
+        const val = STATE.master.production.monthly[period]?.entities?.[ent]?.cpo_production;
+        if (val !== undefined && val !== null) {
+          sum += val;
+          hasData = true;
+        }
+      });
+      return hasData ? sum : null;
+    }
+    // Yields & OER: weighted average by mature hectares
+    let wSum = 0;
+    let wHa = 0;
+    STATE.seasonRegions.forEach(ent => {
+      const ed = STATE.master.production.monthly[period]?.entities?.[ent];
+      if (ed && ed[field] != null && ed.official_mature_ha) {
+        wSum += ed[field] * ed.official_mature_ha;
+        wHa += ed.official_mature_ha;
+      }
+    });
+    return wHa > 0 ? Number((wSum / wHa).toFixed(4)) : null;
   }
+
   if (group === "prod_pen") {
     return STATE.master.production.monthly[period]?.entities?.["Peninsular Malaysia"]?.[field] ?? null;
   }
@@ -2112,69 +2561,165 @@ function renderSeasonalityTab() {
   const attrSel = document.getElementById("season-attr-select");
   const attrLabel = attrSel.options[attrSel.selectedIndex].text;
   const attrPath = STATE.seasonAttr;
-  const isDecimal = attrPath.includes("yield") || attrPath.includes("oer");
-  const decimals = attrPath.includes("cpo_yield") ? 3 : isDecimal ? 2 : 0;
+  const isRatio = attrPath === "snd.stocks_to_use";
+  const isDecimal = attrPath.includes("yield") || attrPath.includes("oer") || isRatio;
+  const decimals = attrPath.includes("cpo_yield") ? 3 : isRatio ? 1 : isDecimal ? 2 : 0;
 
-  document.getElementById("season-chart-title").textContent = `Seasonality Curve (Jan – Dec): ${attrLabel}`;
-  document.getElementById("season-table-title").textContent = `Monthly Seasonality Matrix & Heatmap: ${attrLabel}`;
+  // Manage Region Slicer visibility
+  const regGroup = document.getElementById("season-region-group");
+  const isProdAttr = attrPath.startsWith("snd.production") || attrPath.startsWith("prod.");
+  if (regGroup) {
+    regGroup.style.display = isProdAttr ? "flex" : "none";
+    if (isProdAttr) renderSeasonRegionSlicer();
+  }
+
+  // Set Chart Title
+  const regDesc = STATE.seasonRegions.has("Malaysia")
+    ? "Malaysia Total"
+    : Array.from(STATE.seasonRegions).slice(0, 3).join(", ") + (STATE.seasonRegions.size > 3 ? "..." : "");
+  document.getElementById("season-chart-title").textContent = "Seasonality Curve";
+  const subEl = document.getElementById("season-chart-sub");
+  if (subEl) subEl.textContent = `${attrLabel} [${regDesc}] • Min–Max Historical Band • 5Y Benchmark Average • Selected Years`;
+  document.getElementById("season-table-title").textContent = `Monthly Seasonality Matrix & Heatmap: ${attrLabel} [${regDesc}]`;
 
   const years = getSortedSelectedYears(2004, 2027);
 
-  // Compute 5Y (2021-2025) and 10Y (2016-2025) monthly averages
+  // Ensure at least one year in `years` is active on the chart when user changes global Year Slicer
+  if (!years.some(y => STATE.seasonActiveYears.has(y))) {
+    years.forEach(y => STATE.seasonActiveYears.add(y));
+  }
+
+  // Compute 5Y (2021-2025) and 10Y (2016-2025) monthly averages,
+  // and compute Min–Max Range dynamically across the user's selected years (`years`)
   const avg5Y = [];
   const avg10Y = [];
+  const minHistorical = [];
+  const maxHistorical = [];
+  const rangeYears = years.length ? years : [2023, 2024, 2025, 2026, 2027];
+
   for (let m = 1; m <= 12; m++) {
-    const v5 = [], v10 = [];
+    const v5 = [], v10 = [], vRange = [];
     for (let y = 2016; y <= 2025; y++) {
       const v = getSeasonalityValue(`${y}-${String(m).padStart(2, "0")}`, attrPath);
-      if (v !== null && v !== undefined) {
+      if (v !== null && v !== undefined && !isNaN(v)) {
         v10.push(v);
         if (y >= 2021) v5.push(v);
       }
     }
+    for (const y of rangeYears) {
+      const v = getSeasonalityValue(`${y}-${String(m).padStart(2, "0")}`, attrPath);
+      if (v !== null && v !== undefined && !isNaN(v)) {
+        vRange.push(v);
+      }
+    }
     avg5Y.push(v5.length ? Number((v5.reduce((a, b) => a + b, 0) / v5.length).toFixed(decimals)) : null);
     avg10Y.push(v10.length ? Number((v10.reduce((a, b) => a + b, 0) / v10.length).toFixed(decimals)) : null);
+    minHistorical.push(vRange.length ? Math.min(...vRange) : null);
+    maxHistorical.push(vRange.length ? Math.max(...vRange) : null);
   }
 
-  const palette = ["#3b82f6", "#06b6d4", "#a855f7", "#ec4899", "#eab308", "#10b981", "#f97316", "#6366f1", "#14b8a6"];
+  const rangeLabel = rangeYears.length === 1
+    ? `Min–Max Range (${rangeYears[0]})`
+    : `Min–Max Range (${rangeYears[0]}–${rangeYears[rangeYears.length - 1]})`;
+
+  // Build Datasets
   const datasets = [
+    // 1. Min bound of selected years band (invisible line)
+    {
+      label: "Historical Range (Min)",
+      data: minHistorical,
+      borderColor: "transparent",
+      pointRadius: 0,
+      fill: false,
+      tension: 0.25
+    },
+    // 2. Max bound of selected years band (fills to previous dataset, forming shaded zone)
+    {
+      label: rangeLabel,
+      data: maxHistorical,
+      borderColor: "transparent",
+      backgroundColor: "rgba(148, 163, 184, 0.22)",
+      pointRadius: 0,
+      fill: "-1",
+      tension: 0.25
+    },
+    // 3. 5Y Average line (NO bottom fill as user requested!)
     {
       label: "5Y Average (2021–2025)",
       data: avg5Y,
-      borderColor: "#94a3b8",
-      backgroundColor: "rgba(148, 163, 184, 0.12)",
-      borderWidth: 2.5,
-      borderDash: [6, 4],
-      pointRadius: 2,
-      fill: true,
+      borderColor: "#64748b",
+      borderWidth: 2.2,
+      borderDash: [5, 4],
+      pointRadius: 0,
+      fill: false,
       tension: 0.25
     }
   ];
 
-  years.forEach((yr, idx) => {
+  // Render Year Slicer Pills
+  renderSeasonYearPills(years);
+
+  // Add lines for years active in STATE.seasonActiveYears
+  const palette = ["#0284c7", "#2563eb", "#7c3aed", "#d97706", "#dc2626", "#0d9488", "#e11d48"];
+  let colorIdx = 0;
+
+  years.forEach(yr => {
+    if (!STATE.seasonActiveYears.has(yr)) return;
+
     const mVals = [];
     for (let m = 1; m <= 12; m++) {
       mVals.push(getSeasonalityValue(`${yr}-${String(m).padStart(2, "0")}`, attrPath));
     }
     if (mVals.every(v => v === null)) return;
+
     const isCurrent = yr === 2026;
     const isFcst = yr === 2027;
+    const isLatestActual = yr === 2025;
+
+    let lineLabel = String(yr);
+    if (yr === 2026) lineLabel = "2026 (Actual + Q4 F)";
+    else if (yr === 2027) lineLabel = "2027F";
+
+    let color = palette[colorIdx % palette.length];
+    if (isLatestActual) color = "#0284c7";
+    if (isCurrent) color = "#059669";
+    if (isFcst) color = "#d97706";
+    colorIdx++;
+
     datasets.push({
-      label: yr === 2026 ? "2026 (Actual + Q4 FCST)" : yr === 2027 ? "2027 (Forecast)" : String(yr),
+      label: lineLabel,
       data: mVals,
-      borderColor: isCurrent ? "#10b981" : isFcst ? "#f59e0b" : palette[idx % palette.length],
-      borderWidth: isCurrent || isFcst ? 3.2 : 1.9,
+      borderColor: color,
+      borderWidth: isCurrent || isFcst ? 3.2 : 2.2,
       borderDash: isFcst ? [4, 3] : [],
       pointRadius: isCurrent || isFcst ? 4 : 2.5,
-      tension: 0.25
+      tension: 0.25,
+      fill: false
     });
   });
 
   const ctx = document.getElementById("chart-seasonality").getContext("2d");
+  const commonOpts = chartOptionsCommon(attrLabel);
+  if (isRatio || attrPath.includes("oer")) {
+    commonOpts.scales.y.ticks = {
+      ...commonOpts.scales.y.ticks,
+      callback: v => v + "%"
+    };
+  }
   STATE.charts.seasonality = new Chart(ctx, {
     type: "line",
     data: { labels: MONTH_SHORT, datasets },
-    options: chartOptionsCommon(attrLabel)
+    options: {
+      ...commonOpts,
+      plugins: {
+        ...commonOpts.plugins,
+        legend: {
+          labels: {
+            filter: (legendItem) => legendItem.text !== "Historical Range (Min)"
+          }
+        }
+      }
+    }
   });
 
   // Render Seasonality Heatmap Table
@@ -2182,7 +2727,7 @@ function renderSeasonalityTab() {
   years.forEach(yr => {
     for (let m = 1; m <= 12; m++) {
       const v = getSeasonalityValue(`${yr}-${String(m).padStart(2, "0")}`, attrPath);
-      if (v !== null) allVals.push(v);
+      if (v !== null && !isNaN(v)) allVals.push(v);
     }
   });
   const minV = allVals.length ? Math.min(...allVals) : 0;
@@ -2204,19 +2749,24 @@ function renderSeasonalityTab() {
   </tr></thead><tbody>`;
 
   // 5Y and 10Y benchmark rows
+  const suffix = isRatio || attrPath.includes("oer") ? "%" : "";
   [
     { name: "5Y Avg (2021–2025)", arr: avg5Y },
     { name: "10Y Avg (2016–2025)", arr: avg10Y }
   ].forEach(bRow => {
     const valid = bRow.arr.filter(x => x !== null);
     const agg = valid.length
-      ? (isDecimal || attrPath.includes("stock")
+      ? (isRatio || isDecimal || attrPath.includes("stock")
           ? valid.reduce((a, b) => a + b, 0) / valid.length
           : valid.reduce((a, b) => a + b, 0))
       : null;
     html += `<tr class="row-subtotal"><td class="sticky-col">${bRow.name}</td>`;
-    bRow.arr.forEach(v => { html += `<td class="num">${fmtNum(v, decimals)}</td>`; });
-    html += `<td class="num"><strong>${fmtNum(agg, decimals)}</strong></td></tr>`;
+    bRow.arr.forEach(v => {
+      const cellStr = v !== null ? `${fmtNum(v, decimals)}${suffix}` : '<span class="text-muted">--</span>';
+      html += `<td class="num">${cellStr}</td>`;
+    });
+    const aggStr = agg !== null ? `${fmtNum(agg, decimals)}${suffix}` : '<span class="text-muted">--</span>';
+    html += `<td class="num"><strong>${aggStr}</strong></td></tr>`;
   });
 
   // Year rows
@@ -2228,26 +2778,86 @@ function renderSeasonalityTab() {
     if (rowVals.every(v => v === null)) return;
     const valid = rowVals.filter(x => x !== null);
     const agg = valid.length
-      ? (isDecimal || attrPath.includes("stock")
+      ? (isRatio || isDecimal || attrPath.includes("stock")
           ? valid.reduce((a, b) => a + b, 0) / valid.length
           : valid.reduce((a, b) => a + b, 0))
       : null;
 
-    html += `<tr><td class="sticky-col">${yr}${yr >= 2026 ? ' <span class="badge badge-fcst">[FCST]</span>' : ''}</td>`;
-    rowVals.forEach((v, mIdx) => {
-      const isF = (yr === 2026 && mIdx >= 9) || yr === 2027;
-      html += `<td class="num ${isF ? 'cell-fcst' : ''}" style="${heatBg(v, isF)}">${fmtNum(v, decimals)}</td>`;
+    const isFYear = yr >= 2026;
+    html += `<tr><td class="sticky-col">${yr}${isFYear ? ' <span class="badge badge-fcst">F</span>' : ''}</td>`;
+    rowVals.forEach((v, idx) => {
+      const isFCell = (yr === 2026 && idx >= 9) || yr === 2027;
+      const cellStr = v !== null ? `${fmtNum(v, decimals)}${suffix}` : '<span class="text-muted">--</span>';
+      html += `<td class="num ${isFCell ? 'cell-fcst' : ''}" style="${heatBg(v, isFCell)}">${cellStr}</td>`;
     });
-    html += `<td class="num" style="font-weight:700">${fmtNum(agg, decimals)}</td></tr>`;
+    const aggStr = agg !== null ? `${fmtNum(agg, decimals)}${suffix}` : '<span class="text-muted">--</span>';
+    html += `<td class="num col-annual ${isFYear ? 'cell-fcst' : ''}"><strong>${aggStr}</strong></td></tr>`;
   });
 
   html += `</tbody></table>`;
   document.getElementById("seasonality-table-container").innerHTML = html;
 }
 
+function renderSeasonYearPills(years) {
+  const container = document.getElementById("season-year-pills");
+  if (!container) return;
+
+  const displayYears = years;
+  let html = "";
+  displayYears.forEach(y => {
+    const isActive = STATE.seasonActiveYears.has(y);
+    const isFcst = y >= 2026;
+    const cls = isActive ? (isFcst ? "season-pill active-fcst" : "season-pill active") : "season-pill";
+    const label = y === 2026 ? "2026F" : y === 2027 ? "2027F" : String(y);
+    html += `<button class="${cls}" data-year="${y}">${label}</button>`;
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll(".season-pill").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const yr = Number(btn.dataset.year);
+      if (STATE.seasonActiveYears.has(yr)) {
+        if (STATE.seasonActiveYears.size > 1) STATE.seasonActiveYears.delete(yr);
+      } else {
+        STATE.seasonActiveYears.add(yr);
+      }
+      renderSeasonalityTab();
+    });
+  });
+}
+
+function renderSeasonRegionSlicer() {
+  const container = document.getElementById("season-region-slicer");
+  if (!container) return;
+
+  let html = "";
+  SEASON_ENTITIES_NORTH_TO_SOUTH.forEach(ent => {
+    const isSelected = STATE.seasonRegions.has(ent);
+    const cls = isSelected ? "season-pill active" : "season-pill";
+    html += `<button class="${cls}" data-ent="${ent}">${ent}</button>`;
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll(".season-pill").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const ent = btn.dataset.ent;
+      if (e.ctrlKey || e.metaKey) {
+        if (STATE.seasonRegions.has(ent)) {
+          if (STATE.seasonRegions.size > 1) STATE.seasonRegions.delete(ent);
+        } else {
+          STATE.seasonRegions.add(ent);
+        }
+      } else {
+        STATE.seasonRegions.clear();
+        STATE.seasonRegions.add(ent);
+      }
+      renderSeasonalityTab();
+    });
+  });
+}
+
 // ---------------------------------------------------------------------------
-// Chart.js Shared Options
-// ---------------------------------------------------------------------------
+
 function chartOptionsCommon(yTitle) {
   return {
     responsive: true,
@@ -2271,7 +2881,7 @@ function chartOptionsCommon(yTitle) {
         grid: { color: "rgba(100, 116, 139, 0.1)" }
       },
       y: {
-        title: { display: Boolean(yTitle), text: yTitle, color: "#475569", font: { size: 11, weight: 'bold' } },
+        title: { display: Boolean(yTitle), text: yTitle, color: "#475569", font: { size: 11, weight: "bold" } },
         ticks: { color: "#64748b", font: { family: "'JetBrains Mono', monospace", size: 11 } },
         grid: { color: "rgba(100, 116, 139, 0.1)" }
       }
@@ -2279,4 +2889,10 @@ function chartOptionsCommon(yTitle) {
   };
 }
 
-document.addEventListener("DOMContentLoaded", initDashboard);
+// APPLICATION INITIALIZATION ENTRY POINT
+// ---------------------------------------------------------------------------
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initDashboard);
+} else {
+  initDashboard();
+}

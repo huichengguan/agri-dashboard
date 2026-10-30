@@ -670,6 +670,25 @@ body {
   box-sizing: border-box;
 }
 
+/* Tab 2 Area Table fine-tuned column widths */
+.data-table thead th.col-area-ent,
+.data-table tbody td.col-area-ent {
+  width: 140px !important;
+  min-width: 140px !important;
+  max-width: 140px !important;
+  box-sizing: border-box;
+}
+
+.data-table th.col-area-metric,
+.data-table td.col-area-metric {
+  width: 155px !important;
+  min-width: 155px !important;
+  max-width: 155px !important;
+  box-sizing: border-box;
+  text-align: left;
+  white-space: nowrap;
+}
+
 /* Dedicated weather reference table columns */
 .table-weather th,
 .table-weather td {
@@ -756,13 +775,19 @@ body {
 }
 
 .row-highlight td {
-  background: rgba(5, 150, 105, 0.06);
-  font-weight: 600;
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  font-weight: 700 !important;
+  border-top: 1.5px solid #93c5fd;
+  border-bottom: 1.5px solid #93c5fd;
 }
 
 .row-subtotal td {
-  background: rgba(37, 99, 235, 0.05);
-  font-weight: 600;
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  font-weight: 700 !important;
+  border-top: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
 }
 
 /* TRACKER FEEDER & EDITABLE INPUTS */
@@ -820,4 +845,96 @@ body {
   font-size: 11.5px;
   color: var(--accent-primary);
   font-weight: 600;
+}
+
+/* Tab 4 Path Comparison Tables */
+.section-title-bar {
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+.section-title-bar h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+.path-tables-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.path-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.path-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.col-delta {
+  background: #f8fafc;
+  font-weight: 700 !important;
+}
+.val-pos {
+  color: #059669;
+  font-weight: 700;
+}
+.val-neg {
+  color: #dc2626;
+  font-weight: 700;
+}
+.val-zero {
+  color: #64748b;
+}
+
+/* Seasonality Controls & Year Pills */
+.season-reg-slicer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 600px;
+  padding: 4px 6px;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+.season-pill {
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.season-pill:hover {
+  background: #f1f5f9;
+  color: var(--text-primary);
+}
+.season-pill.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+.season-pill.active-fcst {
+  background: #f59e0b;
+  color: #ffffff;
+  border-color: #d97706;
+}
+.season-year-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
