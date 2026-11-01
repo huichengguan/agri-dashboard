@@ -222,47 +222,35 @@
             border-radius: 2px;
         }
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
-            gap: 14px;
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
-        .suite-card {
+        .suite-row {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 9px;
-            padding: 14px 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.15s ease;
-            cursor: pointer;
-            min-height: 124px;
-        }
-        .suite-card:hover {
-            border-color: var(--accent-blue);
-            background: var(--bg-card-hover);
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
-            transform: translateY(-1px);
-        }
-        .card-main {
-            display: flex;
-            flex-direction: column;
-        }
-        .card-meta {
+            border-radius: 7px;
+            padding: 8px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 6px;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            gap: 16px;
+            min-height: 46px;
         }
-        .folder-tag {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 10.5px;
-            color: #718096;
-            background: #060a12;
-            padding: 2px 8px;
-            border-radius: 5px;
-            border: 1px solid #141d2f;
+        .suite-row:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+        }
+        .row-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 270px;
+            flex-shrink: 0;
         }
         .live-dot {
             width: 7px;
@@ -271,54 +259,78 @@
             background: #10b981;
             box-shadow: 0 0 7px rgba(16, 185, 129, 0.7);
             display: inline-block;
+            flex-shrink: 0;
         }
-        .card-title {
+        .row-title {
             color: #ffffff;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 5px;
+            white-space: nowrap;
+            letter-spacing: -0.2px;
             transition: color 0.15s;
         }
-        .suite-card:hover .card-title {
+        .suite-row:hover .row-title {
             color: var(--accent-blue);
         }
-        .card-desc {
-            font-size: 12.5px;
-            color: var(--text-sub);
-            line-height: 1.45;
-            margin-bottom: 12px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+        .folder-tag.incognito {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            color: #475569;
+            background: transparent;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            white-space: nowrap;
         }
-        .card-actions {
+        .suite-row:hover .folder-tag.incognito {
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .row-desc {
+            flex: 1;
+            font-size: 12.5px;
+            color: #94a3b8;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+            padding: 0 4px;
+        }
+        .desc-bullet {
+            color: var(--accent-blue);
+            font-weight: 800;
+            margin-right: 4px;
+        }
+        .suite-row:hover .row-desc {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .row-actions {
             display: flex;
-            gap: 7px;
-            padding-top: 10px;
-            border-top: 1px solid #182438;
-            margin-top: auto;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: auto;
         }
         .act-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            width: 100%;
-            padding: 6px 12px;
+            gap: 6px;
+            padding: 5px 12px;
             background: rgba(56, 189, 248, 0.08);
             border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: 6px;
             color: var(--accent-blue);
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 600;
             text-decoration: none;
-            height: 30px;
-            flex: 1;
+            height: 28px;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             transition: all 0.15s ease;
         }
         .act-btn:hover {
@@ -337,6 +349,16 @@
             color: #040811;
             border-color: #10b981;
             box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+        }
+        @media (max-width: 900px) {
+            .row-desc {
+                display: none;
+            }
+            .row-left {
+                min-width: unset;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
         }
         footer.portal-footer {
             margin-top: 30px;
@@ -399,18 +421,18 @@
                 <span class="category-heading-title">Weather</span>
                 <span class="category-heading-count">(8)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="weather" data-search="usa dual-model operational weather intelligence across us corn belt & plains (noaa gfs 0.25° & ecmwf ifs 0.25°) with soil moisture & seasonal matrices. weather_us_gfs" onclick="window.open('weather_US_GFS/US_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_US_GFS / ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USA</h3>
-                    <p class="card-desc">Dual-model operational weather intelligence across US Corn Belt & Plains (NOAA GFS 0.25° & ECMWF IFS 0.25°) with soil moisture & seasonal matrices.</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="usa dual-model operational weather intelligence across us corn belt & plains (noaa gfs 0.25° & ecmwf ifs 0.25°) with soil moisture & seasonal matrices. weather_us_gfs" onclick="window.open('weather_US_GFS/US_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USA</span>
+                    <span class="folder-tag incognito">weather_US_GFS / ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Dual-model operational weather intelligence across US Corn Belt & Plains (NOAA GFS 0.25° & ECMWF IFS 0.25°) with soil moisture & seasonal matrices.">
+                    <span class="desc-bullet">›</span> Dual-model operational weather intelligence across US Corn Belt & Plains (NOAA GFS 0.25° & ECMWF IFS 0.25°) with soil moisture & seasonal matrices.
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_US_GFS/US_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>NOAA GFS</span>
@@ -425,16 +447,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="south america 2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for brazil & argentina (ecmwf ifs 0.25°). weather_southamerica_ecmwf" onclick="window.open('weather_SouthAmerica_ECMWF/SA_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_SouthAmerica_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">South America</h3>
-                    <p class="card-desc">2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for Brazil & Argentina (ECMWF IFS 0.25°).</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="south america 2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for brazil & argentina (ecmwf ifs 0.25°). weather_southamerica_ecmwf" onclick="window.open('weather_SouthAmerica_ECMWF/SA_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">South America</span>
+                    <span class="folder-tag incognito">weather_SouthAmerica_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for Brazil & Argentina (ECMWF IFS 0.25°).">
+                    <span class="desc-bullet">›</span> 2-week operational forecasts, rootzone moisture, 17-year seasonal matrix & planting calendar for Brazil & Argentina (ECMWF IFS 0.25°).
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_SouthAmerica_ECMWF/SA_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -444,16 +466,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="black sea operational 15-day forecasts, chernozem soil moisture & 17-season matrix for ukraine & russia (wheat, corn, sunflower, rapeseed). weather_blacksea_ecmwf" onclick="window.open('weather_BlackSea_ECMWF/BlackSea_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_BlackSea_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Black Sea</h3>
-                    <p class="card-desc">Operational 15-day forecasts, Chernozem soil moisture & 17-season matrix for Ukraine & Russia (Wheat, Corn, Sunflower, Rapeseed).</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="black sea operational 15-day forecasts, chernozem soil moisture & 17-season matrix for ukraine & russia (wheat, corn, sunflower, rapeseed). weather_blacksea_ecmwf" onclick="window.open('weather_BlackSea_ECMWF/BlackSea_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Black Sea</span>
+                    <span class="folder-tag incognito">weather_BlackSea_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Operational 15-day forecasts, Chernozem soil moisture & 17-season matrix for Ukraine & Russia (Wheat, Corn, Sunflower, Rapeseed).">
+                    <span class="desc-bullet">›</span> Operational 15-day forecasts, Chernozem soil moisture & 17-season matrix for Ukraine & Russia (Wheat, Corn, Sunflower, Rapeseed).
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_BlackSea_ECMWF/BlackSea_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -463,16 +485,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="europe operational forecasts, multi-layer soil moisture & 17-year matrix for rapeseed, corn, wheat & barley (ecmwf ifs 0.25°). weather_eu_ecmwf" onclick="window.open('weather_EU_ECMWF/EU_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_EU_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Europe</h3>
-                    <p class="card-desc">Operational forecasts, multi-layer soil moisture & 17-year matrix for Rapeseed, Corn, Wheat & Barley (ECMWF IFS 0.25°).</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="europe operational forecasts, multi-layer soil moisture & 17-year matrix for rapeseed, corn, wheat & barley (ecmwf ifs 0.25°). weather_eu_ecmwf" onclick="window.open('weather_EU_ECMWF/EU_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Europe</span>
+                    <span class="folder-tag incognito">weather_EU_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Operational forecasts, multi-layer soil moisture & 17-year matrix for Rapeseed, Corn, Wheat & Barley (ECMWF IFS 0.25°).">
+                    <span class="desc-bullet">›</span> Operational forecasts, multi-layer soil moisture & 17-year matrix for Rapeseed, Corn, Wheat & Barley (ECMWF IFS 0.25°).
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_EU_ECMWF/EU_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -482,16 +504,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="china operational forecasts, tri-layer soil moisture & 17-season matrix for corn, winter/spring wheat & soybeans (ecmwf ifs 0.25°). weather_china_ecmwf" onclick="window.open('weather_China_ECMWF/China_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_China_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">China</h3>
-                    <p class="card-desc">Operational forecasts, tri-layer soil moisture & 17-season matrix for Corn, Winter/Spring Wheat & Soybeans (ECMWF IFS 0.25°).</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="china operational forecasts, tri-layer soil moisture & 17-season matrix for corn, winter/spring wheat & soybeans (ecmwf ifs 0.25°). weather_china_ecmwf" onclick="window.open('weather_China_ECMWF/China_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">China</span>
+                    <span class="folder-tag incognito">weather_China_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Operational forecasts, tri-layer soil moisture & 17-season matrix for Corn, Winter/Spring Wheat & Soybeans (ECMWF IFS 0.25°).">
+                    <span class="desc-bullet">›</span> Operational forecasts, tri-layer soil moisture & 17-season matrix for Corn, Winter/Spring Wheat & Soybeans (ECMWF IFS 0.25°).
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_China_ECMWF/China_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -501,16 +523,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="india operational forecasts, tri-layer soil moisture & 17-season matrix for kharif soybean, groundnut & rabi rapeseed-mustard (ecmwf ifs 0.25°). weather_india_ecmwf" onclick="window.open('weather_India_ECMWF/India_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_India_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">India</h3>
-                    <p class="card-desc">Operational forecasts, tri-layer soil moisture & 17-season matrix for Kharif Soybean, Groundnut & Rabi Rapeseed-Mustard (ECMWF IFS 0.25°).</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="india operational forecasts, tri-layer soil moisture & 17-season matrix for kharif soybean, groundnut & rabi rapeseed-mustard (ecmwf ifs 0.25°). weather_india_ecmwf" onclick="window.open('weather_India_ECMWF/India_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">India</span>
+                    <span class="folder-tag incognito">weather_India_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Operational forecasts, tri-layer soil moisture & 17-season matrix for Kharif Soybean, Groundnut & Rabi Rapeseed-Mustard (ECMWF IFS 0.25°).">
+                    <span class="desc-bullet">›</span> Operational forecasts, tri-layer soil moisture & 17-season matrix for Kharif Soybean, Groundnut & Rabi Rapeseed-Mustard (ECMWF IFS 0.25°).
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_India_ECMWF/India_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -520,16 +542,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="canada operational forecasts, tri-layer soil moisture & 17-season matrix for spring wheat, canola, durum & barley (ecmwf ifs 0.25°). weather_canada_ecmwf" onclick="window.open('weather_Canada_ECMWF/Canada_Crop_2_Week_Outlook.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_Canada_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Canada</h3>
-                    <p class="card-desc">Operational forecasts, tri-layer soil moisture & 17-season matrix for Spring Wheat, Canola, Durum & Barley (ECMWF IFS 0.25°).</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="canada operational forecasts, tri-layer soil moisture & 17-season matrix for spring wheat, canola, durum & barley (ecmwf ifs 0.25°). weather_canada_ecmwf" onclick="window.open('weather_Canada_ECMWF/Canada_Crop_2_Week_Outlook.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Canada</span>
+                    <span class="folder-tag incognito">weather_Canada_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Operational forecasts, tri-layer soil moisture & 17-season matrix for Spring Wheat, Canola, Durum & Barley (ECMWF IFS 0.25°).">
+                    <span class="desc-bullet">›</span> Operational forecasts, tri-layer soil moisture & 17-season matrix for Spring Wheat, Canola, Durum & Barley (ECMWF IFS 0.25°).
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_Canada_ECMWF/Canada_Crop_2_Week_Outlook.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -539,16 +561,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="weather" data-search="southeast asia malaysia & indonesia daily rainfall, temperature, soil moisture, cluster impact & ecmwf multi-stress yield matrix. weather_sea_ecmwf" onclick="window.open('weather_SEA_ECMWF/dashboard/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">weather_SEA_ECMWF</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Southeast Asia</h3>
-                    <p class="card-desc">Malaysia & Indonesia daily rainfall, temperature, soil moisture, cluster impact & ECMWF multi-stress yield matrix.</p>
+            <div class="suite-row suite-card" data-category="weather" data-search="southeast asia malaysia & indonesia daily rainfall, temperature, soil moisture, cluster impact & ecmwf multi-stress yield matrix. weather_sea_ecmwf" onclick="window.open('weather_SEA_ECMWF/dashboard/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Southeast Asia</span>
+                    <span class="folder-tag incognito">weather_SEA_ECMWF</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Malaysia & Indonesia daily rainfall, temperature, soil moisture, cluster impact & ECMWF multi-stress yield matrix.">
+                    <span class="desc-bullet">›</span> Malaysia & Indonesia daily rainfall, temperature, soil moisture, cluster impact & ECMWF multi-stress yield matrix.
+                </div>
+                <div class="row-actions">
                     
                 <a href="weather_SEA_ECMWF/dashboard/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Climate Monitor</span>
@@ -577,18 +599,18 @@
                 <span class="category-heading-title">Crop Progress & Condition</span>
                 <span class="category-heading-count">(5)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="cropprogress" data-search="usa weekly phenology s-curves, multi-year condition comparison & stonex choropleth map for us corn, soybeans, wheat & cotton (usda nass). cropprogress_usa" onclick="window.open('cropprogress_USA/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">cropprogress_USA</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USA</h3>
-                    <p class="card-desc">Weekly phenology S-curves, multi-year condition comparison & StoneX choropleth map for US Corn, Soybeans, Wheat & Cotton (USDA NASS).</p>
+            <div class="suite-row suite-card" data-category="cropprogress" data-search="usa weekly phenology s-curves, multi-year condition comparison & stonex choropleth map for us corn, soybeans, wheat & cotton (usda nass). cropprogress_usa" onclick="window.open('cropprogress_USA/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USA</span>
+                    <span class="folder-tag incognito">cropprogress_USA</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Weekly phenology S-curves, multi-year condition comparison & StoneX choropleth map for US Corn, Soybeans, Wheat & Cotton (USDA NASS).">
+                    <span class="desc-bullet">›</span> Weekly phenology S-curves, multi-year condition comparison & StoneX choropleth map for US Corn, Soybeans, Wheat & Cotton (USDA NASS).
+                </div>
+                <div class="row-actions">
                     
                 <a href="cropprogress_USA/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -598,16 +620,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="cropprogress" data-search="south america planting, harvesting progress and crop condition analytics for brazil (conab/imea/deral) & argentina (sagyp). cropprogress_south america" onclick="window.open('cropprogress_South America/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">cropprogress_South America</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">South America</h3>
-                    <p class="card-desc">Planting, harvesting progress and crop condition analytics for Brazil (CONAB/IMEA/DERAL) & Argentina (SAGyP).</p>
+            <div class="suite-row suite-card" data-category="cropprogress" data-search="south america planting, harvesting progress and crop condition analytics for brazil (conab/imea/deral) & argentina (sagyp). cropprogress_south america" onclick="window.open('cropprogress_South America/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">South America</span>
+                    <span class="folder-tag incognito">cropprogress_South America</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Planting, harvesting progress and crop condition analytics for Brazil (CONAB/IMEA/DERAL) & Argentina (SAGyP).">
+                    <span class="desc-bullet">›</span> Planting, harvesting progress and crop condition analytics for Brazil (CONAB/IMEA/DERAL) & Argentina (SAGyP).
+                </div>
+                <div class="row-actions">
                     
                 <a href="cropprogress_South America/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -617,16 +639,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="cropprogress" data-search="black sea harvest pace, multi-year developmental s-curves and winter sowing monitoring for ukraine (minagro) and russia (minselkhoz / specagro). cropprogress_blacksea" onclick="window.open('cropprogress_BlackSea/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">cropprogress_BlackSea</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Black Sea</h3>
-                    <p class="card-desc">Harvest pace, multi-year developmental S-curves and winter sowing monitoring for Ukraine (Minagro) and Russia (Minselkhoz / SpecAgro).</p>
+            <div class="suite-row suite-card" data-category="cropprogress" data-search="black sea harvest pace, multi-year developmental s-curves and winter sowing monitoring for ukraine (minagro) and russia (minselkhoz / specagro). cropprogress_blacksea" onclick="window.open('cropprogress_BlackSea/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Black Sea</span>
+                    <span class="folder-tag incognito">cropprogress_BlackSea</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Harvest pace, multi-year developmental S-curves and winter sowing monitoring for Ukraine (Minagro) and Russia (Minselkhoz / SpecAgro).">
+                    <span class="desc-bullet">›</span> Harvest pace, multi-year developmental S-curves and winter sowing monitoring for Ukraine (Minagro) and Russia (Minselkhoz / SpecAgro).
+                </div>
+                <div class="row-actions">
                     
                 <a href="cropprogress_BlackSea/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -636,16 +658,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="cropprogress" data-search="canada weekly harvest progress, multi-year developmental curves & crop conditions across alberta, saskatchewan & manitoba (canola, spring wheat, durum, barley, peas). cropprogress_canada" onclick="window.open('cropprogress_Canada/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">cropprogress_Canada</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Canada</h3>
-                    <p class="card-desc">Weekly harvest progress, multi-year developmental curves & crop conditions across Alberta, Saskatchewan & Manitoba (Canola, Spring Wheat, Durum, Barley, Peas).</p>
+            <div class="suite-row suite-card" data-category="cropprogress" data-search="canada weekly harvest progress, multi-year developmental curves & crop conditions across alberta, saskatchewan & manitoba (canola, spring wheat, durum, barley, peas). cropprogress_canada" onclick="window.open('cropprogress_Canada/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Canada</span>
+                    <span class="folder-tag incognito">cropprogress_Canada</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Weekly harvest progress, multi-year developmental curves & crop conditions across Alberta, Saskatchewan & Manitoba (Canola, Spring Wheat, Durum, Barley, Peas).">
+                    <span class="desc-bullet">›</span> Weekly harvest progress, multi-year developmental curves & crop conditions across Alberta, Saskatchewan & Manitoba (Canola, Spring Wheat, Durum, Barley, Peas).
+                </div>
+                <div class="row-actions">
                     
                 <a href="cropprogress_Canada/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -655,16 +677,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="cropprogress" data-search="global interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide. crop_calendar" onclick="window.open('Crop_Calendar/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">Crop_Calendar</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Global</h3>
-                    <p class="card-desc">Interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide.</p>
+            <div class="suite-row suite-card" data-category="cropprogress" data-search="global interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide. crop_calendar" onclick="window.open('Crop_Calendar/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Global</span>
+                    <span class="folder-tag incognito">Crop_Calendar</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide.">
+                    <span class="desc-bullet">›</span> Interactive multi-region crop calendar tracking planting, vegetative, reproduction, and harvest windows worldwide.
+                </div>
+                <div class="row-actions">
                     
                 <a href="Crop_Calendar/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -683,18 +705,18 @@
                 <span class="category-heading-title">Farmer Selling</span>
                 <span class="category-heading-count">(2)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="farmerselling" data-search="usa multi-year historical sales pace across us corn, soybeans & all wheat benchmarks (2016-2027). farmer_selling_usa" onclick="window.open('farmer_selling_USA/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">farmer_selling_USA</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USA</h3>
-                    <p class="card-desc">Multi-year historical sales pace across US Corn, Soybeans & All Wheat benchmarks (2016-2027).</p>
+            <div class="suite-row suite-card" data-category="farmerselling" data-search="usa multi-year historical sales pace across us corn, soybeans & all wheat benchmarks (2016-2027). farmer_selling_usa" onclick="window.open('farmer_selling_USA/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USA</span>
+                    <span class="folder-tag incognito">farmer_selling_USA</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Multi-year historical sales pace across US Corn, Soybeans & All Wheat benchmarks (2016-2027).">
+                    <span class="desc-bullet">›</span> Multi-year historical sales pace across US Corn, Soybeans & All Wheat benchmarks (2016-2027).
+                </div>
+                <div class="row-actions">
                     
                 <a href="farmer_selling_USA/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -704,16 +726,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="farmerselling" data-search="south america historical commercialization benchmarks for brazil & argentine corn & soybeans across 11 crop years. farmer_selling_southamerica" onclick="window.open('farmer_selling_SouthAmerica/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">farmer_selling_SouthAmerica</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">South America</h3>
-                    <p class="card-desc">Historical commercialization benchmarks for Brazil & Argentine Corn & Soybeans across 11 crop years.</p>
+            <div class="suite-row suite-card" data-category="farmerselling" data-search="south america historical commercialization benchmarks for brazil & argentine corn & soybeans across 11 crop years. farmer_selling_southamerica" onclick="window.open('farmer_selling_SouthAmerica/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">South America</span>
+                    <span class="folder-tag incognito">farmer_selling_SouthAmerica</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Historical commercialization benchmarks for Brazil & Argentine Corn & Soybeans across 11 crop years.">
+                    <span class="desc-bullet">›</span> Historical commercialization benchmarks for Brazil & Argentine Corn & Soybeans across 11 crop years.
+                </div>
+                <div class="row-actions">
                     
                 <a href="farmer_selling_SouthAmerica/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -732,18 +754,18 @@
                 <span class="category-heading-title">Technicals</span>
                 <span class="category-heading-count">(5)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="technicals" data-search="cftc positioning 31 benchmark commodities & financials (cftc disaggregated, ice & matif) with managed money dry powder and percentile ranks. cftc_drypowder" onclick="window.open('CFTC_drypowder/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">CFTC_drypowder</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">CFTC Positioning</h3>
-                    <p class="card-desc">31 Benchmark Commodities & Financials (CFTC Disaggregated, ICE & MATIF) with Managed Money dry powder and percentile ranks.</p>
+            <div class="suite-row suite-card" data-category="technicals" data-search="cftc positioning 31 benchmark commodities & financials (cftc disaggregated, ice & matif) with managed money dry powder and percentile ranks. cftc_drypowder" onclick="window.open('CFTC_drypowder/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">CFTC Positioning</span>
+                    <span class="folder-tag incognito">CFTC_drypowder</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="31 Benchmark Commodities & Financials (CFTC Disaggregated, ICE & MATIF) with Managed Money dry powder and percentile ranks.">
+                    <span class="desc-bullet">›</span> 31 Benchmark Commodities & Financials (CFTC Disaggregated, ICE & MATIF) with Managed Money dry powder and percentile ranks.
+                </div>
+                <div class="row-actions">
                     
                 <a href="CFTC_drypowder/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -753,16 +775,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="technicals" data-search="open interest 19 liquid global futures across grains, oilseeds, and energies (bmd fcpo, dce palm olein/meal/oil/corn, czce, cbot, ice brent & nymex) with continuous seasonal curves & spread volume decomposition. tech_open_interest" onclick="window.open('tech_Open_Interest/open_interest_dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Open_Interest</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Open Interest</h3>
-                    <p class="card-desc">19 Liquid global futures across Grains, Oilseeds, and Energies (BMD FCPO, DCE Palm Olein/Meal/Oil/Corn, CZCE, CBOT, ICE Brent & NYMEX) with continuous seasonal curves & spread volume decomposition.</p>
+            <div class="suite-row suite-card" data-category="technicals" data-search="open interest 19 liquid global futures across grains, oilseeds, and energies (bmd fcpo, dce palm olein/meal/oil/corn, czce, cbot, ice brent & nymex) with continuous seasonal curves & spread volume decomposition. tech_open_interest" onclick="window.open('tech_Open_Interest/open_interest_dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Open Interest</span>
+                    <span class="folder-tag incognito">tech_Open_Interest</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="19 Liquid global futures across Grains, Oilseeds, and Energies (BMD FCPO, DCE Palm Olein/Meal/Oil/Corn, CZCE, CBOT, ICE Brent & NYMEX) with continuous seasonal curves & spread volume decomposition.">
+                    <span class="desc-bullet">›</span> 19 Liquid global futures across Grains, Oilseeds, and Energies (BMD FCPO, DCE Palm Olein/Meal/Oil/Corn, CZCE, CBOT, ICE Brent & NYMEX) with continuous seasonal curves & spread volume decomposition.
+                </div>
+                <div class="row-actions">
                     
                 <a href="tech_Open_Interest/open_interest_dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -772,16 +794,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="technicals" data-search="options strike open interest distribution, dealer gamma exposure, 25-delta risk reversals, implied volatility smile & term skew across standard & weekly expiries. tech_options" onclick="window.open('tech_Options/soybeans_options_dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Options</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Options</h3>
-                    <p class="card-desc">Strike open interest distribution, dealer gamma exposure, 25-delta risk reversals, implied volatility smile & term skew across standard & weekly expiries.</p>
+            <div class="suite-row suite-card" data-category="technicals" data-search="options strike open interest distribution, dealer gamma exposure, 25-delta risk reversals, implied volatility smile & term skew across standard & weekly expiries. tech_options" onclick="window.open('tech_Options/soybeans_options_dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Options</span>
+                    <span class="folder-tag incognito">tech_Options</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Strike open interest distribution, dealer gamma exposure, 25-delta risk reversals, implied volatility smile & term skew across standard & weekly expiries.">
+                    <span class="desc-bullet">›</span> Strike open interest distribution, dealer gamma exposure, 25-delta risk reversals, implied volatility smile & term skew across standard & weekly expiries.
+                </div>
+                <div class="row-actions">
                     
                 <a href="tech_Options/soybeans_options_dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -791,16 +813,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="technicals" data-search="var 10-year seasonal volatility cones, var risk metrics, multi-asset volatility surfaces, and historical regime distributions across grains, oilseeds, softs & energy. tech_volatility" onclick="window.open('tech_Volatility/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Volatility</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">VaR</h3>
-                    <p class="card-desc">10-year seasonal volatility cones, VaR risk metrics, multi-asset volatility surfaces, and historical regime distributions across Grains, Oilseeds, Softs & Energy.</p>
+            <div class="suite-row suite-card" data-category="technicals" data-search="var 10-year seasonal volatility cones, var risk metrics, multi-asset volatility surfaces, and historical regime distributions across grains, oilseeds, softs & energy. tech_volatility" onclick="window.open('tech_Volatility/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">VaR</span>
+                    <span class="folder-tag incognito">tech_Volatility</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="10-year seasonal volatility cones, VaR risk metrics, multi-asset volatility surfaces, and historical regime distributions across Grains, Oilseeds, Softs & Energy.">
+                    <span class="desc-bullet">›</span> 10-year seasonal volatility cones, VaR risk metrics, multi-asset volatility surfaces, and historical regime distributions across Grains, Oilseeds, Softs & Energy.
+                </div>
+                <div class="row-actions">
                     
                 <a href="tech_Volatility/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -810,16 +832,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="technicals" data-search="correlation cross-commodity rolling correlations, multi-year developmental seasonality & asset co-movements across global agricultural & macro benchmarks. tech_correlation" onclick="window.open('tech_Correlation/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Correlation</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Correlation</h3>
-                    <p class="card-desc">Cross-commodity rolling correlations, multi-year developmental seasonality & asset co-movements across global agricultural & macro benchmarks.</p>
+            <div class="suite-row suite-card" data-category="technicals" data-search="correlation cross-commodity rolling correlations, multi-year developmental seasonality & asset co-movements across global agricultural & macro benchmarks. tech_correlation" onclick="window.open('tech_Correlation/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Correlation</span>
+                    <span class="folder-tag incognito">tech_Correlation</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Cross-commodity rolling correlations, multi-year developmental seasonality & asset co-movements across global agricultural & macro benchmarks.">
+                    <span class="desc-bullet">›</span> Cross-commodity rolling correlations, multi-year developmental seasonality & asset co-movements across global agricultural & macro benchmarks.
+                </div>
+                <div class="row-actions">
                     
                 <a href="tech_Correlation/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -838,18 +860,18 @@
                 <span class="category-heading-title">Fundamentals/S&D</span>
                 <span class="category-heading-count">(11)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="fundamentals" data-search="malaysia palm oil (mpob) official mpob statistics (1975–sep 2026) & ecmwf weather-driven yield model forecasts (2026–2027), state breakdown, exports, imports & multi-year seasonality. mpob_dashboard" onclick="window.open('mpob_dashboard/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">mpob_dashboard</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Malaysia Palm Oil (MPOB)</h3>
-                    <p class="card-desc">Official MPOB Statistics (1975–Sep 2026) & ECMWF weather-driven yield model forecasts (2026–2027), state breakdown, exports, imports & multi-year seasonality.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="malaysia palm oil (mpob) official mpob statistics (1975–sep 2026) & ecmwf weather-driven yield model forecasts (2026–2027), state breakdown, exports, imports & multi-year seasonality. mpob_dashboard" onclick="window.open('mpob_dashboard/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Malaysia Palm Oil (MPOB)</span>
+                    <span class="folder-tag incognito">mpob_dashboard</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Official MPOB Statistics (1975–Sep 2026) & ECMWF weather-driven yield model forecasts (2026–2027), state breakdown, exports, imports & multi-year seasonality.">
+                    <span class="desc-bullet">›</span> Official MPOB Statistics (1975–Sep 2026) & ECMWF weather-driven yield model forecasts (2026–2027), state breakdown, exports, imports & multi-year seasonality.
+                </div>
+                <div class="row-actions">
                     
                 <a href="mpob_dashboard/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -859,16 +881,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="usda export sales multi-commodity weekly export commitments, shipments & outstanding sales monitor. usda_export_sales" onclick="window.open('usda_export_sales/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">usda_export_sales</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Export Sales</h3>
-                    <p class="card-desc">Multi-commodity weekly export commitments, shipments & outstanding sales monitor.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="usda export sales multi-commodity weekly export commitments, shipments & outstanding sales monitor. usda_export_sales" onclick="window.open('usda_export_sales/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USDA Export Sales</span>
+                    <span class="folder-tag incognito">usda_export_sales</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Multi-commodity weekly export commitments, shipments & outstanding sales monitor.">
+                    <span class="desc-bullet">›</span> Multi-commodity weekly export commitments, shipments & outstanding sales monitor.
+                </div>
+                <div class="row-actions">
                     
                 <a href="usda_export_sales/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -878,16 +900,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="us customs imports us imports intelligence tracking commodity flows, origin countries, and trade volume trends. fund_customs_us" onclick="window.open('fund_Customs_US/US_Imports_Dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_Customs_US</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">US Customs Imports</h3>
-                    <p class="card-desc">US imports intelligence tracking commodity flows, origin countries, and trade volume trends.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="us customs imports us imports intelligence tracking commodity flows, origin countries, and trade volume trends. fund_customs_us" onclick="window.open('fund_Customs_US/US_Imports_Dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">US Customs Imports</span>
+                    <span class="folder-tag incognito">fund_Customs_US</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="US imports intelligence tracking commodity flows, origin countries, and trade volume trends.">
+                    <span class="desc-bullet">›</span> US imports intelligence tracking commodity flows, origin countries, and trade volume trends.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_Customs_US/US_Imports_Dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -897,16 +919,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="us biofuels (eia) us biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol. fund_eia_biofuel" onclick="window.open('fund_EIA_Biofuel/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_EIA_Biofuel</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">US Biofuels (EIA)</h3>
-                    <p class="card-desc">US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="us biofuels (eia) us biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol. fund_eia_biofuel" onclick="window.open('fund_EIA_Biofuel/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">US Biofuels (EIA)</span>
+                    <span class="folder-tag incognito">fund_EIA_Biofuel</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.">
+                    <span class="desc-bullet">›</span> US biofuel production, feedstock consumption, trade exports & monthly matrix — renewable diesel, biodiesel & ethanol.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_EIA_Biofuel/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Biofuels Terminal</span>
@@ -921,16 +943,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="eia energy markets us energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets. fund_eia_energy" onclick="window.open('fund_EIA_Energy/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_EIA_Energy</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">EIA Energy Markets</h3>
-                    <p class="card-desc">US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="eia energy markets us energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets. fund_eia_energy" onclick="window.open('fund_EIA_Energy/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">EIA Energy Markets</span>
+                    <span class="folder-tag incognito">fund_EIA_Energy</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.">
+                    <span class="desc-bullet">›</span> US energy supply, demand, and pricing intelligence across crude oil, petroleum products, and energy markets.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_EIA_Energy/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -940,16 +962,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="usda corn crushings monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, ddgs co-products & full ers balance sheet. fund_usda_corncrush" onclick="window.open('fund_USDA_CornCrush/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_CornCrush</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Corn Crushings</h3>
-                    <p class="card-desc">Monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, DDGS co-products & full ERS balance sheet.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="usda corn crushings monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, ddgs co-products & full ers balance sheet. fund_usda_corncrush" onclick="window.open('fund_USDA_CornCrush/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USDA Corn Crushings</span>
+                    <span class="folder-tag incognito">fund_USDA_CornCrush</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, DDGS co-products & full ERS balance sheet.">
+                    <span class="desc-bullet">›</span> Monthly corn grind for fuel ethanol (dry & wet mill), industrial alcohol, sweeteners, DDGS co-products & full ERS balance sheet.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_USDA_CornCrush/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -959,16 +981,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="usda fats & oils crush soybeans, canola, corn oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows. fund_usda_oilnfats" onclick="window.open('fund_USDA_OilnFats/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_OilnFats</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Fats & Oils Crush</h3>
-                    <p class="card-desc">Soybeans, Canola, Corn Oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="usda fats & oils crush soybeans, canola, corn oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows. fund_usda_oilnfats" onclick="window.open('fund_USDA_OilnFats/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USDA Fats & Oils Crush</span>
+                    <span class="folder-tag incognito">fund_USDA_OilnFats</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Soybeans, Canola, Corn Oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows.">
+                    <span class="desc-bullet">›</span> Soybeans, Canola, Corn Oil, animal fats & vegetable oils crushings, refinery production, consumption & regional trade flows.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_USDA_OilnFats/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -978,16 +1000,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="usda wheat s&d by-class s&d balance sheet (hrw, hrs, srw, white, durum), summer feed & residual surge, flour grind & global export matrix. fund_usda_wheat" onclick="window.open('fund_USDA_Wheat/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_Wheat</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Wheat S&D</h3>
-                    <p class="card-desc">By-class S&D balance sheet (HRW, HRS, SRW, White, Durum), summer feed & residual surge, flour grind & global export matrix.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="usda wheat s&d by-class s&d balance sheet (hrw, hrs, srw, white, durum), summer feed & residual surge, flour grind & global export matrix. fund_usda_wheat" onclick="window.open('fund_USDA_Wheat/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USDA Wheat S&D</span>
+                    <span class="folder-tag incognito">fund_USDA_Wheat</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="By-class S&D balance sheet (HRW, HRS, SRW, White, Durum), summer feed & residual surge, flour grind & global export matrix.">
+                    <span class="desc-bullet">›</span> By-class S&D balance sheet (HRW, HRS, SRW, White, Durum), summer feed & residual surge, flour grind & global export matrix.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_USDA_Wheat/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -997,16 +1019,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="black sea grains & oilseeds supply & demand balance sheets, agency consensus revisions (usda/ikar/sovecon/apk), export pace and export duties for russia, ukraine & kazakhstan. fund_blacksea_crops" onclick="window.open('fund_BlackSea_Crops/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_BlackSea_Crops</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Black Sea Grains & Oilseeds</h3>
-                    <p class="card-desc">Supply & demand balance sheets, agency consensus revisions (USDA/IKAR/SovEcon/APK), export pace and export duties for Russia, Ukraine & Kazakhstan.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="black sea grains & oilseeds supply & demand balance sheets, agency consensus revisions (usda/ikar/sovecon/apk), export pace and export duties for russia, ukraine & kazakhstan. fund_blacksea_crops" onclick="window.open('fund_BlackSea_Crops/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Black Sea Grains & Oilseeds</span>
+                    <span class="folder-tag incognito">fund_BlackSea_Crops</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Supply & demand balance sheets, agency consensus revisions (USDA/IKAR/SovEcon/APK), export pace and export duties for Russia, Ukraine & Kazakhstan.">
+                    <span class="desc-bullet">›</span> Supply & demand balance sheets, agency consensus revisions (USDA/IKAR/SovEcon/APK), export pace and export duties for Russia, Ukraine & Kazakhstan.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_BlackSea_Crops/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -1016,16 +1038,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="global s&d multi-agency collation harmonized balance sheet comparison across official & commercial forecasters: usda wasde vs conab vs bage vs agcanada vs ikar vs sovecon vs coceral vs abares. fund_snd_collate" onclick="window.open('fund_SND_Collate/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_SND_Collate</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Global S&D Multi-Agency Collation</h3>
-                    <p class="card-desc">Harmonized balance sheet comparison across official & commercial forecasters: USDA WASDE vs CONAB vs BAGE vs AgCanada vs IKAR vs SovEcon vs Coceral vs ABARES.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="global s&d multi-agency collation harmonized balance sheet comparison across official & commercial forecasters: usda wasde vs conab vs bage vs agcanada vs ikar vs sovecon vs coceral vs abares. fund_snd_collate" onclick="window.open('fund_SND_Collate/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Global S&D Multi-Agency Collation</span>
+                    <span class="folder-tag incognito">fund_SND_Collate</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Harmonized balance sheet comparison across official & commercial forecasters: USDA WASDE vs CONAB vs BAGE vs AgCanada vs IKAR vs SovEcon vs Coceral vs ABARES.">
+                    <span class="desc-bullet">›</span> Harmonized balance sheet comparison across official & commercial forecasters: USDA WASDE vs CONAB vs BAGE vs AgCanada vs IKAR vs SovEcon vs Coceral vs ABARES.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_SND_Collate/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -1035,16 +1057,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="fundamentals" data-search="usda principal crops acreage multi-decade prospective plantings, june acreage revisions, and final harvested area evolution across us corn, soybeans, wheat, cotton & feed grains. fund_usda_acreage" onclick="window.open('fund_USDA_Acreage/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">fund_USDA_Acreage</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Principal Crops Acreage</h3>
-                    <p class="card-desc">Multi-decade prospective plantings, June acreage revisions, and final harvested area evolution across US Corn, Soybeans, Wheat, Cotton & Feed Grains.</p>
+            <div class="suite-row suite-card" data-category="fundamentals" data-search="usda principal crops acreage multi-decade prospective plantings, june acreage revisions, and final harvested area evolution across us corn, soybeans, wheat, cotton & feed grains. fund_usda_acreage" onclick="window.open('fund_USDA_Acreage/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USDA Principal Crops Acreage</span>
+                    <span class="folder-tag incognito">fund_USDA_Acreage</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Multi-decade prospective plantings, June acreage revisions, and final harvested area evolution across US Corn, Soybeans, Wheat, Cotton & Feed Grains.">
+                    <span class="desc-bullet">›</span> Multi-decade prospective plantings, June acreage revisions, and final harvested area evolution across US Corn, Soybeans, Wheat, Cotton & Feed Grains.
+                </div>
+                <div class="row-actions">
                     
                 <a href="fund_USDA_Acreage/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -1063,18 +1085,18 @@
                 <span class="category-heading-title">Price</span>
                 <span class="category-heading-count">(3)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="price" data-search="global basis & forward curves interactive forward curve engine, argus cfr china vs us gulf/pnw spreads, brazil fob paranaguá differentials, and multi-year seasonal basis analytics. tech_price_basis_global" onclick="window.open('tech_Price_Basis_Global/seasonal_basis_dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Price_Basis_Global</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Global Basis & Forward Curves</h3>
-                    <p class="card-desc">Interactive forward curve engine, Argus CFR China vs US Gulf/PNW spreads, Brazil FOB Paranaguá differentials, and multi-year seasonal basis analytics.</p>
+            <div class="suite-row suite-card" data-category="price" data-search="global basis & forward curves interactive forward curve engine, argus cfr china vs us gulf/pnw spreads, brazil fob paranaguá differentials, and multi-year seasonal basis analytics. tech_price_basis_global" onclick="window.open('tech_Price_Basis_Global/seasonal_basis_dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Global Basis & Forward Curves</span>
+                    <span class="folder-tag incognito">tech_Price_Basis_Global</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Interactive forward curve engine, Argus CFR China vs US Gulf/PNW spreads, Brazil FOB Paranaguá differentials, and multi-year seasonal basis analytics.">
+                    <span class="desc-bullet">›</span> Interactive forward curve engine, Argus CFR China vs US Gulf/PNW spreads, Brazil FOB Paranaguá differentials, and multi-year seasonal basis analytics.
+                </div>
+                <div class="row-actions">
                     
                 <a href="tech_Price_Basis_Global/seasonal_basis_dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -1084,16 +1106,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="price" data-search="usda spot basis terminal interactive spot cash basis monitor powered by usda ams market reports across regions and agricultural commodities. tech_price_usdabasis" onclick="window.open('tech_Price_USDABasis/dashboard.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">tech_Price_USDABasis</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">USDA Spot Basis Terminal</h3>
-                    <p class="card-desc">Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.</p>
+            <div class="suite-row suite-card" data-category="price" data-search="usda spot basis terminal interactive spot cash basis monitor powered by usda ams market reports across regions and agricultural commodities. tech_price_usdabasis" onclick="window.open('tech_Price_USDABasis/dashboard.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">USDA Spot Basis Terminal</span>
+                    <span class="folder-tag incognito">tech_Price_USDABasis</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.">
+                    <span class="desc-bullet">›</span> Interactive spot cash basis monitor powered by USDA AMS market reports across regions and agricultural commodities.
+                </div>
+                <div class="row-actions">
                     
                 <a href="tech_Price_USDABasis/dashboard.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -1103,16 +1125,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="price" data-search="lseg settlement curves forward term structure, 3-point curve comparison (date 1 vs date 2 vs live) & front-month active contract price changes across energy, grains, softs, fx & metals. price_settlement_curve" onclick="window.open('price_Settlement_Curve/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">price_Settlement_Curve</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">LSEG Settlement Curves</h3>
-                    <p class="card-desc">Forward term structure, 3-point curve comparison (Date 1 vs Date 2 vs Live) & front-month active contract price changes across Energy, Grains, Softs, FX & Metals.</p>
+            <div class="suite-row suite-card" data-category="price" data-search="lseg settlement curves forward term structure, 3-point curve comparison (date 1 vs date 2 vs live) & front-month active contract price changes across energy, grains, softs, fx & metals. price_settlement_curve" onclick="window.open('price_Settlement_Curve/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">LSEG Settlement Curves</span>
+                    <span class="folder-tag incognito">price_Settlement_Curve</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Forward term structure, 3-point curve comparison (Date 1 vs Date 2 vs Live) & front-month active contract price changes across Energy, Grains, Softs, FX & Metals.">
+                    <span class="desc-bullet">›</span> Forward term structure, 3-point curve comparison (Date 1 vs Date 2 vs Live) & front-month active contract price changes across Energy, Grains, Softs, FX & Metals.
+                </div>
+                <div class="row-actions">
                     
                 <a href="price_Settlement_Curve/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open Dashboard</span>
@@ -1131,18 +1153,18 @@
                 <span class="category-heading-title">Reports</span>
                 <span class="category-heading-count">(4)</span>
             </h2>
-            <div class="category-grid">
+            <div class="category-list">
                 
-            <div class="suite-card" data-category="reports" data-search="daily bull/bear dossier first resources trading daily fundamental market intelligence dossier covering palm oil, soybeans, corn, wheat, and energy flows. daily_bullbear" onclick="window.open('Daily_BullBear/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">Daily_BullBear</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Daily Bull/Bear Dossier</h3>
-                    <p class="card-desc">First Resources Trading daily fundamental market intelligence dossier covering Palm Oil, Soybeans, Corn, Wheat, and Energy flows.</p>
+            <div class="suite-row suite-card" data-category="reports" data-search="daily bull/bear dossier first resources trading daily fundamental market intelligence dossier covering palm oil, soybeans, corn, wheat, and energy flows. daily_bullbear" onclick="window.open('Daily_BullBear/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Daily Bull/Bear Dossier</span>
+                    <span class="folder-tag incognito">Daily_BullBear</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="First Resources Trading daily fundamental market intelligence dossier covering Palm Oil, Soybeans, Corn, Wheat, and Energy flows.">
+                    <span class="desc-bullet">›</span> First Resources Trading daily fundamental market intelligence dossier covering Palm Oil, Soybeans, Corn, Wheat, and Energy flows.
+                </div>
+                <div class="row-actions">
                     
                 <a href="Daily_BullBear/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Latest Bull/Bear Dossier</span>
@@ -1152,16 +1174,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="reports" data-search="daily dashboard synthesis automated trader-grade daily briefing synthesizing global crop calendars, us gfs & south america weather stresses, usda crop progress, and macro events. dashboard_report" onclick="window.open('Dashboard_Report/index.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">Dashboard_Report</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">Daily Dashboard Synthesis</h3>
-                    <p class="card-desc">Automated trader-grade daily briefing synthesizing global crop calendars, US GFS & South America weather stresses, USDA crop progress, and macro events.</p>
+            <div class="suite-row suite-card" data-category="reports" data-search="daily dashboard synthesis automated trader-grade daily briefing synthesizing global crop calendars, us gfs & south america weather stresses, usda crop progress, and macro events. dashboard_report" onclick="window.open('Dashboard_Report/index.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">Daily Dashboard Synthesis</span>
+                    <span class="folder-tag incognito">Dashboard_Report</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="Automated trader-grade daily briefing synthesizing global crop calendars, US GFS & South America weather stresses, USDA crop progress, and macro events.">
+                    <span class="desc-bullet">›</span> Automated trader-grade daily briefing synthesizing global crop calendars, US GFS & South America weather stresses, USDA crop progress, and macro events.
+                </div>
+                <div class="row-actions">
                     
                 <a href="Dashboard_Report/index.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Latest Synthesis Report</span>
@@ -1171,16 +1193,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="reports" data-search="farmdoc daily intelligence university of illinois agricultural economic commentary, marketing strategy & daily analysis digest. farmdoc_agent" onclick="window.open('farmdoc_agent/preview_email_sep_01.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">farmdoc_agent</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">FarmDoc Daily Intelligence</h3>
-                    <p class="card-desc">University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.</p>
+            <div class="suite-row suite-card" data-category="reports" data-search="farmdoc daily intelligence university of illinois agricultural economic commentary, marketing strategy & daily analysis digest. farmdoc_agent" onclick="window.open('farmdoc_agent/preview_email_sep_01.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">FarmDoc Daily Intelligence</span>
+                    <span class="folder-tag incognito">farmdoc_agent</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.">
+                    <span class="desc-bullet">›</span> University of Illinois agricultural economic commentary, marketing strategy & daily analysis digest.
+                </div>
+                <div class="row-actions">
                     
                 <a href="farmdoc_agent/preview_email_sep_01.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Open FarmDoc Digest</span>
@@ -1190,16 +1212,16 @@
                 </div>
             </div>
             
-            <div class="suite-card" data-category="reports" data-search="sea rainfall vs enso/iod 37-year empirical study correlating equatorial pacific sst (roni & oni) and indian ocean dipole (dmi) with palm oil precipitation and production lag across malaysia & indonesia. report_sea_enso" onclick="window.open('report_SEA_ENSO/SEA_ENSO_Rainfall_Report.html', '_blank')">
-                <div class="card-main">
-                    <div class="card-meta">
-                        <span class="folder-tag">report_SEA_ENSO</span>
-                        <span class="live-dot" title="Live Linked"></span>
-                    </div>
-                    <h3 class="card-title">SEA Rainfall vs ENSO/IOD</h3>
-                    <p class="card-desc">37-Year empirical study correlating Equatorial Pacific SST (RONI & ONI) and Indian Ocean Dipole (DMI) with palm oil precipitation and production lag across Malaysia & Indonesia.</p>
+            <div class="suite-row suite-card" data-category="reports" data-search="sea rainfall vs enso/iod 37-year empirical study correlating equatorial pacific sst (roni & oni) and indian ocean dipole (dmi) with palm oil precipitation and production lag across malaysia & indonesia. report_sea_enso" onclick="window.open('report_SEA_ENSO/SEA_ENSO_Rainfall_Report.html', '_blank')">
+                <div class="row-left">
+                    <span class="live-dot" title="Live Linked"></span>
+                    <span class="row-title">SEA Rainfall vs ENSO/IOD</span>
+                    <span class="folder-tag incognito">report_SEA_ENSO</span>
                 </div>
-                <div class="card-actions">
+                <div class="row-desc" title="37-Year empirical study correlating Equatorial Pacific SST (RONI & ONI) and Indian Ocean Dipole (DMI) with palm oil precipitation and production lag across Malaysia & Indonesia.">
+                    <span class="desc-bullet">›</span> 37-Year empirical study correlating Equatorial Pacific SST (RONI & ONI) and Indian Ocean Dipole (DMI) with palm oil precipitation and production lag across Malaysia & Indonesia.
+                </div>
+                <div class="row-actions">
                     
                 <a href="report_SEA_ENSO/SEA_ENSO_Rainfall_Report.html" class="act-btn" target="_blank" onclick="event.stopPropagation()">
                     <span>Pan-SEA Study</span>
