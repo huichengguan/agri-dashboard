@@ -1296,22 +1296,34 @@ function renderAreaTab() {
     container.innerHTML = html;
 
   } else {
-    // Producer Category View (2015-2025)
-    const cYears = Object.keys(catArea).sort();
-    const cats = ["Independent Smallholders", "Organised Smallholders", "Private Estates", "Govt/State Agencies"];
-    const colors = ["#d97706", "#2563eb", "#059669", "#9333ea"];
+    // Producer Category View (MOPS 2025 Table 1.4 & Table 1.5 + BEPI Area Summaries)
+    const byYear = catArea.by_year || catArea;
+    const byState2025 = catArea.by_state_2025 || [];
+    const cYears = Object.keys(byYear).sort();
+    const cats = ["Independent Smallholders", "Organised Smallholders", "Private & Govt Agency Estates"];
+    const colors = ["#d97706", "#2563eb", "#059669"];
 
+    document.getElementById("area-chart1-title").textContent = "2025 Oil Palm Planted Area by State & Producer Category (Hectares)";
+    document.getElementById("area-table-title").textContent = "Distribution of Oil Palm Planted Area by Producer Category (Hectares & % Share)";
+
+    const stateOnlyRows = byState2025.filter(r => !r.is_subtotal && !r.is_total);
     const ctx1 = document.getElementById("chart-area-stacked").getContext("2d");
     STATE.charts.areaStacked = new Chart(ctx1, {
       type: "bar",
       data: {
-        labels: cYears,
-        datasets: cats.map((c, idx) => ({
-          label: c,
-          data: cYears.map(y => catArea[y][c]?.hectares ?? null),
-          backgroundColor: colors[idx],
-          stack: "cat"
-        }))
+        labels: stateOnlyRows.length ? stateOnlyRows.map(r => r.entity) : cYears,
+        datasets: stateOnlyRows.length
+          ? [
+              { label: "Independent Smallholders", data: stateOnlyRows.map(r => r.indep_ha), backgroundColor: "#d97706", stack: "cat" },
+              { label: "Organised Smallholders", data: stateOnlyRows.map(r => r.org_ha), backgroundColor: "#2563eb", stack: "cat" },
+              { label: "Private & Govt Agency Estates", data: stateOnlyRows.map(r => r.estates_ha), backgroundColor: "#059669", stack: "cat" }
+            ]
+          : cats.map((c, idx) => ({
+              label: c,
+              data: cYears.map(y => byYear[y]?.[c]?.hectares ?? byYear[y]?.[c]?.ha ?? null),
+              backgroundColor: colors[idx],
+              stack: "cat"
+            }))
       },
       options: {
         ...chartOptionsCommon("Hectares"),
@@ -1322,18 +1334,56 @@ function renderAreaTab() {
       }
     });
 
-    let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Category</th>`;
-    cYears.forEach(y => { html += `<th>${y} (Ha)</th><th>${y} (%)</th>`; });
+    // Table 1: National Category Breakdown Across Available Census Years
+    let html = `<div style="margin-bottom:16px;"><div style="font-weight:700;font-size:12px;color:#334155;padding:8px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;">1. National Planted Area by Producer Category (MOPS Table 1.4 &amp; BEPI Area Summaries)</div>
+    <table class="data-table"><thead><tr><th style="min-width:230px;width:230px;">Producer Category</th>`;
+    cYears.forEach(y => { html += `<th class="col-annual">${y} (Ha)</th><th class="col-annual">${y} (%)</th>`; });
     html += `</tr></thead><tbody>`;
     [...cats, "Total"].forEach(c => {
       html += `<tr class="${c === 'Total' ? 'row-highlight' : ''}"><td class="sticky-col">${c}</td>`;
       cYears.forEach(y => {
-        const d = catArea[y][c] || {};
-        html += `<td class="num">${fmtNum(d.hectares)}</td><td class="num">${d.share_pct ? d.share_pct.toFixed(1) + '%' : '--'}</td>`;
+        const d = byYear[y]?.[c] || {};
+        const haVal = d.hectares ?? d.ha;
+        const pctVal = d.share_pct ?? d.pct;
+        html += `<td class="num col-annual">${fmtNum(haVal)}</td><td class="num col-annual">${pctVal != null ? Number(pctVal).toFixed(1) + '%' : '--'}</td>`;
       });
       html += `</tr>`;
     });
-    html += `</tbody></table>`;
+    html += `</tbody></table></div>`;
+
+    // Table 2: 2025 State-by-State Distribution by Producer Category (MOPS 2025 Table 1.5)
+    if (byState2025.length) {
+      html += `<div><div style="font-weight:700;font-size:12px;color:#334155;padding:8px 12px;background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">2. State-by-State Distribution by Producer Category — 2025 (MOPS Table 1.5)</div>
+      <table class="data-table"><thead><tr>
+        <th style="min-width:210px;width:210px;">State / Region</th>
+        <th class="col-annual">Independent Smallholders (Ha)</th>
+        <th class="col-annual">Indep. (%)</th>
+        <th class="col-annual">Organised Smallholders (Ha)</th>
+        <th class="col-annual">Organised (%)</th>
+        <th class="col-annual">Private &amp; Govt Estates (Ha)</th>
+        <th class="col-annual">Estates (%)</th>
+        <th class="col-annual">Total Planted Area (Ha)</th>
+      </tr></thead><tbody>`;
+      byState2025.forEach(r => {
+        const cls = r.is_total ? "row-highlight" : r.is_subtotal ? "row-subtotal" : "";
+        const tot = r.total_ha || 1;
+        const pInd = ((r.indep_ha / tot) * 100).toFixed(1) + "%";
+        const pOrg = ((r.org_ha / tot) * 100).toFixed(1) + "%";
+        const pEst = ((r.estates_ha / tot) * 100).toFixed(1) + "%";
+        html += `<tr class="${cls}">
+          <td class="sticky-col">${r.entity}</td>
+          <td class="num col-annual">${fmtNum(r.indep_ha)}</td>
+          <td class="num col-annual">${pInd}</td>
+          <td class="num col-annual">${fmtNum(r.org_ha)}</td>
+          <td class="num col-annual">${pOrg}</td>
+          <td class="num col-annual">${fmtNum(r.estates_ha)}</td>
+          <td class="num col-annual">${pEst}</td>
+          <td class="num col-annual"><strong>${fmtNum(r.total_ha)}</strong></td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+    }
+
     container.innerHTML = html;
   }
 }
