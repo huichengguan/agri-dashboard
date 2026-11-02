@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="chart.umd.min.js"></script>
-  <script src="dashboard_data.js?v=20261102023341"></script>
+  <script src="dashboard_data.js?v=20261103031439"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -74,6 +74,7 @@
     <button class="tab-btn" data-tab="tab-exports">5. Exports (Ports &amp; Products)</button>
     <button class="tab-btn" data-tab="tab-stocks">6. Stocks by Products</button>
     <button class="tab-btn" data-tab="tab-seasonality">7. Seasonality</button>
+    <button class="tab-btn" data-tab="tab-survey">8. Survey</button>
   </nav>
 
   <!-- DISCLOSURE BANNER -->
@@ -94,10 +95,17 @@
     <section class="tab-panel active" id="tab-snd">
       <div class="panel-toolbar">
         <div class="toolbar-left">
-          <h2>Malaysia Palm Oil Supply &amp; Demand Balance Sheet</h2>
-          <span class="toolbar-sub">Click any year header (`[+]`) to expand or collapse monthly breakdown (Jan–Dec). Units: Tonnes.</span>
+          <h2 id="snd-panel-title">Malaysia Palm Oil Supply &amp; Demand Balance Sheet</h2>
+          <span class="toolbar-sub" id="snd-panel-sub">Click any year header (`[+]`) to expand or collapse monthly breakdown (Jan–Dec). Units: Tonnes.</span>
         </div>
         <div class="toolbar-controls">
+          <div class="control-group">
+            <label>View Format:</label>
+            <div class="seg-group" id="snd-view-format">
+              <button class="seg-btn active" data-fmt="table">Balance Sheet</button>
+              <button class="seg-btn" data-fmt="matrix">Monthly Matrix (By Year)</button>
+            </div>
+          </div>
           <div class="control-group">
             <label>Forecast Source:</label>
             <div class="seg-group" id="snd-fcst-mode">
@@ -106,7 +114,7 @@
               <button class="seg-btn" data-mode="delta">My vs Model (&Delta;)</button>
             </div>
           </div>
-          <div class="control-group">
+          <div class="control-group" id="snd-table-actions">
             <button class="action-btn" id="btn-snd-expand-all">Expand All Selected</button>
             <button class="action-btn" id="btn-snd-collapse-all">Collapse All</button>
             <button class="action-btn" id="btn-snd-csv">Export CSV</button>
@@ -114,17 +122,26 @@
         </div>
       </div>
 
-      <!-- S&D Table Container -->
-      <div class="card table-card">
+      <!-- S&D Balance Sheet Table Container -->
+      <div class="card table-card" id="snd-table-card">
         <div class="table-scroll" id="snd-table-container"></div>
       </div>
 
       <!-- S&D MoM% / YoY% Change Table Container -->
-      <div class="card table-card">
+      <div class="card table-card" id="snd-pct-table-card">
         <div class="card-header">
           <h3>% Change</h3>
         </div>
         <div class="table-scroll" id="snd-pct-table-container"></div>
+      </div>
+
+      <!-- S&D Monthly Matrix Container -->
+      <div class="card table-card" id="snd-matrix-card" style="display:none;">
+        <div class="card-header">
+          <h3>Monthly S&amp;D Matrix (By Year)</h3>
+          <span class="card-sub">Calendar month progression with Opening Stock, Production, Import, Export, Local Disappearance, Ending Stock &amp; SU %</span>
+        </div>
+        <div class="table-scroll" id="snd-matrix-container"></div>
       </div>
 
       <!-- S&D Charts Row -->
@@ -521,8 +538,105 @@
       </div>
     </section>
 
+
+    <!-- =================================================================== -->
+    <!-- TAB 8: SURVEY (ITS / AMSPEC / SGS / MPOA / SPPOMA / REUTERS POLL)   -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-survey">
+      <!-- Survey Primary Toolbar (Category Tabs - Fixed Layout) -->
+      <div class="panel-toolbar survey-primary-toolbar">
+        <div class="toolbar-left">
+          <h2>Survey Tracker: Cargo Surveyors (ITS / AmSpec / SGS), Production (MPOA &amp; SPPOMA) &amp; Reuters Poll</h2>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Survey Category:</label>
+            <div class="seg-group" id="survey-cat-mode">
+              <button class="seg-btn active" data-cat="exports">Export Surveyors (ITS / AmSpec / SGS)</button>
+              <button class="seg-btn" data-cat="production">Production (MPOA &amp; SPPOMA)</button>
+              <button class="seg-btn" data-cat="poll">Reuters Monthly Poll</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Survey Sub-Filters Toolbar (Dedicated row prevents any shifting) -->
+      <div class="survey-sub-toolbar" id="survey-sub-toolbar">
+        <div class="control-group" id="survey-exp-window-group">
+          <label>Window:</label>
+          <div class="seg-group" id="survey-window-mode">
+            <button class="seg-btn active" data-win="Full Month">Full Month</button>
+            <button class="seg-btn" data-win="1-25">1&ndash;25</button>
+            <button class="seg-btn" data-win="1-20">1&ndash;20</button>
+            <button class="seg-btn" data-win="1-15">1&ndash;15</button>
+            <button class="seg-btn" data-win="1-10">1&ndash;10</button>
+            <button class="seg-btn" data-win="all">All Intra-Month</button>
+          </div>
+        </div>
+        <div class="control-group" id="survey-exp-source-group">
+          <label>Breakdown:</label>
+          <div class="seg-group" id="survey-source-mode">
+            <button class="seg-btn active" data-src="overview">Compare All (ITS / AmSpec / SGS)</button>
+            <button class="seg-btn" data-src="its">ITS (Products &amp; Dest)</button>
+            <button class="seg-btn" data-src="amspec">AmSpec (Products &amp; Wires)</button>
+            <button class="seg-btn" data-src="sgs">SGS (Products &amp; 21 Dest)</button>
+          </div>
+        </div>
+        <div class="control-group" id="survey-poll-attr-group" style="display:none;">
+          <label>Poll Metric:</label>
+          <div class="seg-group" id="survey-poll-attr">
+            <button class="seg-btn active" data-pattr="Production">Production</button>
+            <button class="seg-btn" data-pattr="Export">Exports</button>
+            <button class="seg-btn" data-pattr="Import">Imports</button>
+            <button class="seg-btn" data-pattr="Closing_Stocks">Closing Stocks</button>
+          </div>
+        </div>
+        <div class="control-group" id="survey-prod-desc-group" style="display:none;">
+          <span class="toolbar-sub" style="margin: 0; font-size: 11px;">Coverage: SPPOMA (5-Day Intervals) &bull; MPOA (1–20 &amp; Full Month) &bull; Official MPOB Actuals &bull; LSEG Wire Captures</span>
+        </div>
+      </div>
+
+      <!-- Survey Charts Row -->
+      <div class="charts-grid grid-2">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3 id="survey-chart1-title">Cargo Surveyors vs. Official MPOB Exports (Tonnes)</h3>
+            <span class="card-sub" id="survey-chart1-sub">Historical comparison across selected years</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-survey-main"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3 id="survey-chart2-title">Intra-Month Export Progression (1&ndash;10 &rarr; Full Month)</h3>
+            <span class="card-sub" id="survey-chart2-sub">Cumulative tonnage progression across recent months</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-survey-sub"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary Survey Table -->
+      <div class="card table-card">
+        <div class="card-header">
+          <h3 id="survey-table1-title">Survey</h3>
+        </div>
+        <div class="table-scroll" id="survey-table1-container"></div>
+      </div>
+
+      <!-- Secondary Survey Table -->
+      <div class="card table-card" id="survey-table2-card" style="display:none;">
+        <div class="card-header">
+          <h3 id="survey-table2-title">Detailed Breakdown</h3>
+        </div>
+        <div class="table-scroll" id="survey-table2-container"></div>
+      </div>
+    </section>
+
   </main>
 
-  <script src="app.js?v=20261102023341"></script>
+  <script src="app.js?v=20261103031439"></script>
 </body>
 </html>

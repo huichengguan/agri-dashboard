@@ -15,6 +15,7 @@ const STATE = {
 
   // Tab 1: S&D state
   sndFcstMode: "model",     // "model" | "user" | "delta"
+  sndViewFormat: "table",   // "table" | "matrix"
   sndExpandedYears: new Set(),
   sndChartFreq: "monthly",
   sndCompareAttr: "production", // "production" | "export" | "import" | "local_disappearance" | "end_stock" | "stocks_to_use"
@@ -47,6 +48,12 @@ const STATE = {
   seasonFcstMode: "model",
   seasonRegions: new Set(["Malaysia"]),
   seasonActiveYears: new Set([2025, 2026, 2027]),
+
+  // Tab 8: Survey state
+  surveyCat: "exports",      // "exports" | "production" | "poll"
+  surveyWindow: "Full Month", // "Full Month" | "1-25" | "1-20" | "1-15" | "1-10" | "all"
+  surveySource: "overview",   // "overview" | "its" | "amspec" | "sgs"
+  surveyPollAttr: "Production",
 
   charts: {}
 };
@@ -352,6 +359,17 @@ function initControls() {
   });
 
   // Tab 1: S&D Controls
+  // Tab 1: S&D View Format toggle (Balance Sheet vs Monthly Matrix)
+  document.querySelectorAll("#snd-view-format .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#snd-view-format .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.sndViewFormat = btn.dataset.fmt;
+      renderSndTab();
+    });
+  });
+
+  // Tab 1: S&D Forecast Mode
   document.querySelectorAll("#snd-fcst-mode .seg-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("#snd-fcst-mode .seg-btn").forEach(b => b.classList.remove("active"));
@@ -491,6 +509,40 @@ function initControls() {
       renderSeasonalityTab();
     });
   });
+
+  // Tab 8: Survey Controls
+  document.querySelectorAll("#survey-cat-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#survey-cat-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.surveyCat = btn.dataset.cat;
+      renderSurveyTab();
+    });
+  });
+  document.querySelectorAll("#survey-window-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#survey-window-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.surveyWindow = btn.dataset.win;
+      renderSurveyTab();
+    });
+  });
+  document.querySelectorAll("#survey-source-mode .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#survey-source-mode .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.surveySource = btn.dataset.src;
+      renderSurveyTab();
+    });
+  });
+  document.querySelectorAll("#survey-poll-attr .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#survey-poll-attr .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.surveyPollAttr = btn.dataset.pattr;
+      renderSurveyTab();
+    });
+  });
 }
 
 function renderActiveTab() {
@@ -502,6 +554,7 @@ function renderActiveTab() {
     case "tab-exports": renderExportsTab(); break;
     case "tab-stocks": renderStocksTab(); break;
     case "tab-seasonality": renderSeasonalityTab(); break;
+    case "tab-survey": renderSurveyTab(); break;
   }
 }
 
@@ -519,7 +572,31 @@ const SND_ROWS = [
 ];
 
 function renderSndTab() {
-  renderSndTable();
+  const isMatrix = STATE.sndViewFormat === "matrix";
+  const tableCard = document.getElementById("snd-table-card");
+  const pctCard = document.getElementById("snd-pct-table-card");
+  const matrixCard = document.getElementById("snd-matrix-card");
+  const btnExpAll = document.getElementById("btn-snd-expand-all");
+  const btnColAll = document.getElementById("btn-snd-collapse-all");
+  const panelSub = document.getElementById("snd-panel-sub");
+
+  if (tableCard) tableCard.style.display = isMatrix ? "none" : "block";
+  if (pctCard) pctCard.style.display = isMatrix ? "none" : "block";
+  if (matrixCard) matrixCard.style.display = isMatrix ? "block" : "none";
+  if (btnExpAll) btnExpAll.style.display = isMatrix ? "none" : "inline-block";
+  if (btnColAll) btnColAll.style.display = isMatrix ? "none" : "inline-block";
+
+  if (panelSub) {
+    panelSub.textContent = isMatrix
+      ? "Calendar month progression matrix with Opening Stock, Supply, Disappearance, Ending Stock & SU (%). Units: Tonnes."
+      : "Click any year header (`[+]`) to expand or collapse monthly breakdown (Jan–Dec). Units: Tonnes.";
+  }
+
+  if (isMatrix) {
+    renderSndMatrixTable();
+  } else {
+    renderSndTable();
+  }
   renderSndCharts();
 }
 
@@ -714,6 +791,168 @@ function renderSndTable() {
       renderSndTable();
     });
   });
+}
+
+
+function renderSndMatrixTable() {
+  const container = document.getElementById("snd-matrix-container");
+  if (!container) return;
+
+  const years = getSortedSelectedYears(2005, 2027);
+  const { monthly, annual, isDelta } = getEffectiveSndData(STATE.sndFcstMode);
+  const fmt = isDelta ? (v) => fmtDelta(v, 0) : (v) => fmtNum(v, 0);
+
+  // Helper for heatmap coloring
+  const getHeatmapStyle = (val, minVal, maxVal) => {
+    if (isDelta || val == null || minVal == null || maxVal == null || minVal === maxVal) return "";
+    const t = Math.max(0, Math.min(1, (val - minVal) / (maxVal - minVal)));
+    if (t < 0.5) {
+      const k = t / 0.5;
+      const r = Math.round(252 + (254 - 252) * k);
+      const g = Math.round(165 + (240 - 165) * k);
+      const b = Math.round(165 + (138 - 165) * k);
+      return `style="background-color: rgba(${r}, ${g}, ${b}, 0.75); color: #0f172a; font-weight: 500;"`;
+    } else {
+      const k = (t - 0.5) / 0.5;
+      const r = Math.round(254 + (134 - 254) * k);
+      const g = Math.round(240 + (239 - 240) * k);
+      const b = Math.round(138 + (172 - 138) * k);
+      return `style="background-color: rgba(${r}, ${g}, ${b}, 0.75); color: #0f172a; font-weight: 500;"`;
+    }
+  };
+
+  let html = `<table class="data-table snd-matrix-table">
+    <thead>
+      <tr>
+        <th class="matrix-col-year">Year</th>
+        <th class="matrix-col-metric">Metric</th>
+        <th>Jan</th>
+        <th>Feb</th>
+        <th>Mar</th>
+        <th>Apr</th>
+        <th>May</th>
+        <th>Jun</th>
+        <th>Jul</th>
+        <th>Aug</th>
+        <th>Sept</th>
+        <th>Oct</th>
+        <th>Nov</th>
+        <th>Dec</th>
+        <th class="matrix-col-total">Total</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  years.forEach(yr => {
+    const aRec = annual[yr] || {};
+    const mRecs = [];
+    for (let m = 1; m <= 12; m++) {
+      const p = `${yr}-${String(m).padStart(2, "0")}`;
+      mRecs.push(monthly[p] || null);
+    }
+
+    // Min and max for production & export within this year for heatmap
+    const prodVals = mRecs.map(r => r?.production).filter(v => v != null);
+    const minProd = prodVals.length ? Math.min(...prodVals) : null;
+    const maxProd = prodVals.length ? Math.max(...prodVals) : null;
+
+    const expVals = mRecs.map(r => r?.export).filter(v => v != null);
+    const minExp = expVals.length ? Math.min(...expVals) : null;
+    const maxExp = expVals.length ? Math.max(...expVals) : null;
+
+    // 1. Month Header Row
+    html += `<tr class="matrix-row-month">
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric"><strong>Month</strong></td>`;
+    for (let m = 1; m <= 12; m++) {
+      const isF = (yr === 2026 && m >= 10) || yr >= 2027;
+      const mLabel = `${MONTH_SHORT[m - 1]}-${String(yr).slice(2)}`;
+      html += `<td class="${isF ? 'is-fcst-month' : ''}"><strong>${mLabel}</strong></td>`;
+    }
+    html += `<td class="matrix-col-total"><strong>Total</strong></td></tr>`;
+
+    // 2. Opening Stock Row
+    html += `<tr>
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric">Opening Stock</td>`;
+    for (let m = 0; m < 12; m++) {
+      html += `<td>${fmt(mRecs[m]?.opening_stock)}</td>`;
+    }
+    html += `<td class="matrix-col-total">${fmt(mRecs[0]?.opening_stock ?? aRec?.opening_stock)}</td></tr>`;
+
+    // 3. Production Row
+    html += `<tr>
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric">Production</td>`;
+    for (let m = 0; m < 12; m++) {
+      const val = mRecs[m]?.production;
+      html += `<td ${getHeatmapStyle(val, minProd, maxProd)}>${fmt(val)}</td>`;
+    }
+    html += `<td class="matrix-col-total">${fmt(aRec?.production)}</td></tr>`;
+
+    // 4. Import Row
+    html += `<tr>
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric">Import</td>`;
+    for (let m = 0; m < 12; m++) {
+      html += `<td>${fmt(mRecs[m]?.import)}</td>`;
+    }
+    html += `<td class="matrix-col-total">${fmt(aRec?.import)}</td></tr>`;
+
+    // 5. Export Row
+    html += `<tr>
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric">Export</td>`;
+    for (let m = 0; m < 12; m++) {
+      const val = mRecs[m]?.export;
+      html += `<td ${getHeatmapStyle(val, minExp, maxExp)}>${fmt(val)}</td>`;
+    }
+    html += `<td class="matrix-col-total">${fmt(aRec?.export)}</td></tr>`;
+
+    // 6. Local Disappearance Row
+    html += `<tr>
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric">Local Disappearance</td>`;
+    for (let m = 0; m < 12; m++) {
+      html += `<td>${fmt(mRecs[m]?.local_disappearance)}</td>`;
+    }
+    html += `<td class="matrix-col-total">${fmt(aRec?.local_disappearance)}</td></tr>`;
+
+    // 7. End Stock Row
+    html += `<tr>
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric">End Stock</td>`;
+    for (let m = 0; m < 12; m++) {
+      html += `<td>${fmt(mRecs[m]?.end_stock)}</td>`;
+    }
+    html += `<td class="matrix-col-total">${fmt(mRecs[11]?.end_stock ?? aRec?.end_stock)}</td></tr>`;
+
+    // 8. SU (Stocks-to-Use) Row
+    html += `<tr class="matrix-row-su matrix-block-end">
+      <td class="matrix-col-year"><strong>${yr}</strong></td>
+      <td class="matrix-col-metric"><strong>SU</strong></td>`;
+    for (let m = 0; m < 12; m++) {
+      const rec = mRecs[m];
+      const use = (rec?.export || 0) + (rec?.local_disappearance || 0);
+      let suStr = '<span class="text-muted">-</span>';
+      if (use > 0 && rec?.end_stock != null) {
+        const su = (rec.end_stock / use) * 100;
+        suStr = isDelta ? fmtDelta(su, 1) + "%" : Math.round(su) + "%";
+      }
+      html += `<td><strong>${suStr}</strong></td>`;
+    }
+    const aUse = (aRec?.export || 0) + (aRec?.local_disappearance || 0);
+    const decStk = mRecs[11]?.end_stock ?? aRec?.end_stock;
+    let aSuStr = '<span class="text-muted">-</span>';
+    if (aUse > 0 && decStk != null) {
+      const aSu = (decStk / aUse) * 100;
+      aSuStr = isDelta ? fmtDelta(aSu, 1) + "%" : Math.round(aSu) + "%";
+    }
+    html += `<td class="matrix-col-total"><strong>${aSuStr}</strong></td></tr>`;
+  });
+
+  html += `</tbody></table>`;
+  container.innerHTML = html;
 }
 
 function renderSndCharts() {
@@ -2907,6 +3146,1036 @@ function renderSeasonRegionSlicer() {
 }
 
 // ---------------------------------------------------------------------------
+
+
+// ===========================================================================
+// TAB 8: SURVEY (ITS / AMSPEC / SGS / MPOA / SPPOMA / REUTERS POLL)
+// ===========================================================================
+function renderSurveyTab() {
+  destroyChart("surveyMain");
+  destroyChart("surveySub");
+
+  const cat = STATE.surveyCat;
+  const winGroup = document.getElementById("survey-exp-window-group");
+  const srcGroup = document.getElementById("survey-exp-source-group");
+  const pollGroup = document.getElementById("survey-poll-attr-group");
+  const prodGroup = document.getElementById("survey-prod-desc-group");
+  const t2Card = document.getElementById("survey-table2-card");
+
+  if (winGroup) winGroup.style.display = cat === "exports" ? "flex" : "none";
+  if (srcGroup) srcGroup.style.display = cat === "exports" ? "flex" : "none";
+  if (pollGroup) pollGroup.style.display = cat === "poll" ? "flex" : "none";
+  if (prodGroup) prodGroup.style.display = cat === "production" ? "flex" : "none";
+  if (t2Card) t2Card.style.display = "none";
+
+  if (cat === "exports") {
+    renderSurveyExports();
+  } else if (cat === "production") {
+    renderSurveyProduction();
+  } else {
+    renderSurveyPoll();
+  }
+}
+
+function getSurveySelectedYearsSet(minY = 2010, maxY = 2026) {
+  const arr = getSortedSelectedYears(minY, maxY);
+  return new Set(arr);
+}
+
+function fmtPctSigned(val, decimals = 1) {
+  if (val === null || val === undefined || Number.isNaN(Number(val))) return '<span class="text-muted">-</span>';
+  const n = Number(val);
+  const sign = n > 0 ? "+" : "";
+  const cls = n > 0 ? "cell-pos" : n < 0 ? "cell-neg" : "";
+  return `<span class="${cls}">${sign}${n.toFixed(decimals)}%</span>`;
+}
+
+function renderSurveyExports() {
+  const surv = STATE.master.lseg_surveyors || {};
+  const itsList = surv.its_exports || [];
+  const amspecList = surv.amspec_exports || [];
+  const amspecHeadlines = surv.amspec_headlines || [];
+  const sgsProdList = surv.sgs_exports_products || [];
+  const sgsDestList = surv.sgs_exports_destinations || [];
+  const sndMonthly = STATE.master.snd?.monthly || {};
+
+  const selYears = getSurveySelectedYearsSet(2010, 2026);
+  const winFilter = STATE.surveyWindow;
+  const srcMode = STATE.surveySource;
+
+  const filterRow = (r) => {
+    const yr = Number(String(r.YearMonth || r.Date || "").slice(0, 4));
+    if (!selYears.has(yr)) return false;
+    if (winFilter !== "all" && r.Window !== winFilter) return false;
+    return true;
+  };
+
+  if (srcMode === "overview") {
+    // Index by YearMonth + Window
+    const mergedMap = new Map();
+    const keyOf = (ym, w) => `${ym}|${w}`;
+
+    itsList.forEach(r => {
+      if (!filterRow(r)) return;
+      const k = keyOf(r.YearMonth, r.Window);
+      if (!mergedMap.has(k)) mergedMap.set(k, { YearMonth: r.YearMonth, Window: r.Window, Date: r.Date });
+      const obj = mergedMap.get(k);
+      obj.Date = r.Date;
+      obj.its_total = r.Total_Accumulated_Export_MT ?? (r.Window === "Full Month" ? r.Full_Month_Total_Export_MT : null) ?? r.Selected_6_Products_Sum_MT;
+      obj.its_6prod = r.Selected_6_Products_Sum_MT;
+    });
+
+    amspecList.forEach(r => {
+      if (!filterRow(r)) return;
+      const k = keyOf(r.YearMonth, r.Window);
+      if (!mergedMap.has(k)) mergedMap.set(k, { YearMonth: r.YearMonth, Window: r.Window, Date: r.Date });
+      const obj = mergedMap.get(k);
+      if (!obj.Date || r.Date > obj.Date) obj.Date = r.Date;
+      obj.amspec_headline = r.Headline_All_Products_Total_MT;
+      obj.amspec_6prod = r.Selected_6_Products_Total_MT;
+      obj.amspec_best = r.Headline_All_Products_Total_MT ?? r.Selected_6_Products_Total_MT;
+    });
+
+    sgsProdList.forEach(r => {
+      if (!filterRow(r)) return;
+      const k = keyOf(r.YearMonth, r.Window);
+      if (!mergedMap.has(k)) mergedMap.set(k, { YearMonth: r.YearMonth, Window: r.Window, Date: r.Date });
+      const obj = mergedMap.get(k);
+      if (!obj.Date || r.Date > obj.Date) obj.Date = r.Date;
+      obj.sgs_total = r.Total_Palm_And_Oleo_Export_MT;
+      obj.sgs_palm_sub = r.SubTotal_Palm_Oil_Products_MT;
+    });
+
+    const winRank = { "1-10": 1, "1-15": 2, "1-20": 3, "1-25": 4, "Full Month": 5 };
+    const rows = Array.from(mergedMap.values()).sort((a, b) => {
+      if (a.YearMonth !== b.YearMonth) return a.YearMonth.localeCompare(b.YearMonth);
+      return (winRank[a.Window] || 9) - (winRank[b.Window] || 9);
+    });
+
+    // Compute MoM % vs previous month same window
+    const byYmWin = new Map();
+    // Build full lookup across ALL years for accurate MoM calculation
+    const allLookup = new Map();
+    itsList.forEach(r => {
+      const k = keyOf(r.YearMonth, r.Window);
+      if (!allLookup.has(k)) allLookup.set(k, {});
+      allLookup.get(k).its = r.Total_Accumulated_Export_MT ?? (r.Window === "Full Month" ? r.Full_Month_Total_Export_MT : null) ?? r.Selected_6_Products_Sum_MT;
+    });
+    amspecList.forEach(r => {
+      const k = keyOf(r.YearMonth, r.Window);
+      if (!allLookup.has(k)) allLookup.set(k, {});
+      allLookup.get(k).amspec = r.Headline_All_Products_Total_MT ?? r.Selected_6_Products_Total_MT;
+    });
+    sgsProdList.forEach(r => {
+      const k = keyOf(r.YearMonth, r.Window);
+      if (!allLookup.has(k)) allLookup.set(k, {});
+      allLookup.get(k).sgs = r.Total_Palm_And_Oleo_Export_MT;
+    });
+
+    const getPrevYm = (ym) => {
+      const [y, m] = ym.split("-").map(Number);
+      return m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, "0")}`;
+    };
+
+    rows.forEach(r => {
+      const prevYm = getPrevYm(r.YearMonth);
+      const prevK = keyOf(prevYm, r.Window);
+      const prev = allLookup.get(prevK) || {};
+      r.its_mom = (r.its_total != null && prev.its > 0) ? ((r.its_total - prev.its) / prev.its) * 100 : null;
+      r.amspec_mom = (r.amspec_best != null && prev.amspec > 0) ? ((r.amspec_best - prev.amspec) / prev.amspec) * 100 : null;
+      r.sgs_mom = (r.sgs_total != null && prev.sgs > 0) ? ((r.sgs_total - prev.sgs) / prev.sgs) * 100 : null;
+      r.mpob_export = r.Window === "Full Month" ? (sndMonthly[r.YearMonth]?.export ?? null) : null;
+      const prevMpobExport = sndMonthly[prevYm]?.export;
+      r.mpob_export_mom = (r.Window === "Full Month" && r.mpob_export != null && prevMpobExport > 0)
+        ? ((r.mpob_export - prevMpobExport) / prevMpobExport) * 100
+        : null;
+    });
+
+    // Chart 1: Comparison across selected periods
+    const winTitle = winFilter === "all" ? "All Windows" : winFilter;
+    document.getElementById("survey-chart1-title").textContent = `Cargo Surveyors vs. Official MPOB Exports (${winTitle}) — Tonnes`;
+    document.getElementById("survey-chart1-sub").textContent = `ITS (Intertek) • AmSpec Agri • SGS • Official MPOB Monthly Export`;
+
+    const cLabels = rows.map(r => winFilter === "all" ? `${r.YearMonth} (${r.Window})` : r.YearMonth);
+    const cDatasets = [
+      {
+        label: "ITS Total (MT)",
+        data: rows.map(r => r.its_total ?? null),
+        borderColor: "#0284c7",
+        backgroundColor: "rgba(2, 132, 199, 0.1)",
+        borderWidth: 2.3,
+        pointRadius: 2.5,
+        tension: 0.2
+      },
+      {
+        label: "AmSpec Total (MT)",
+        data: rows.map(r => r.amspec_best ?? null),
+        borderColor: "#d97706",
+        backgroundColor: "rgba(217, 119, 6, 0.1)",
+        borderWidth: 2.3,
+        pointRadius: 2.5,
+        tension: 0.2
+      },
+      {
+        label: "SGS Total Palm & Oleo (MT)",
+        data: rows.map(r => r.sgs_total ?? null),
+        borderColor: "#7c3aed",
+        backgroundColor: "rgba(124, 58, 237, 0.1)",
+        borderWidth: 2.2,
+        pointRadius: 2.5,
+        tension: 0.2
+      }
+    ];
+    if (winFilter === "Full Month") {
+      cDatasets.push({
+        label: "Official MPOB Export (MT)",
+        data: rows.map(r => r.mpob_export ?? null),
+        borderColor: "#059669",
+        borderWidth: 2.8,
+        borderDash: [5, 3],
+        pointRadius: 3,
+        tension: 0.2
+      });
+    }
+
+    STATE.charts.surveyMain = new Chart(
+      document.getElementById("chart-survey-main").getContext("2d"),
+      {
+        type: "line",
+        data: { labels: cLabels, datasets: cDatasets },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    // Chart 2: Intra-Month Cumulative Progression (1-10 -> 1-15 -> 1-20 -> 1-25 -> Full Month) for recent months
+    document.getElementById("survey-chart2-title").textContent = "Intra-Month Export Progression Curve (1–10 → Full Month)";
+    document.getElementById("survey-chart2-sub").textContent = "Recent months cumulative export trajectory across ITS, AmSpec, and SGS (Tonnes)";
+    const windowsOrder = ["1-10", "1-15", "1-20", "1-25", "Full Month"];
+    const recentYms = ["2026-10", "2026-09", "2026-08"];
+    const progDatasets = [];
+    const progColors = { "2026-10": "#059669", "2026-09": "#0284c7", "2026-08": "#94a3b8" };
+
+    recentYms.forEach(ym => {
+      progDatasets.push({
+        label: `${ym} ITS`,
+        data: windowsOrder.map(w => allLookup.get(keyOf(ym, w))?.its ?? null),
+        borderColor: progColors[ym],
+        borderWidth: ym === "2026-10" ? 3 : 2,
+        pointRadius: 3.5,
+        tension: 0.2
+      });
+      progDatasets.push({
+        label: `${ym} AmSpec`,
+        data: windowsOrder.map(w => allLookup.get(keyOf(ym, w))?.amspec ?? null),
+        borderColor: progColors[ym],
+        borderDash: [5, 3],
+        borderWidth: ym === "2026-10" ? 2.5 : 1.8,
+        pointRadius: 3,
+        tension: 0.2
+      });
+      progDatasets.push({
+        label: `${ym} SGS`,
+        data: windowsOrder.map(w => allLookup.get(keyOf(ym, w))?.sgs ?? null),
+        borderColor: progColors[ym],
+        borderDash: [2, 2],
+        borderWidth: 1.8,
+        pointRadius: 2.5,
+        tension: 0.2
+      });
+    });
+
+    STATE.charts.surveySub = new Chart(
+      document.getElementById("chart-survey-sub").getContext("2d"),
+      {
+        type: "line",
+        data: { labels: ["Days 1–10", "Days 1–15", "Days 1–20", "Days 1–25", "Full Month"], datasets: progDatasets },
+        options: chartOptionsCommon("Cumulative Tonnes (MT)")
+      }
+    );
+
+    // Table 1: Historical Comparison Table (newest first for quick inspection)
+    document.getElementById("survey-table1-title").textContent = `Cargo Surveyors Historical Comparison (${winTitle}) — Tonnes & MoM %`;
+    const revRows = [...rows].reverse();
+    let html = `<table class="data-table"><thead>
+      <tr>
+        <th rowspan="2" class="th-group-period border-right-thick-period" style="vertical-align:middle; text-align:center;">Period</th>
+        <th rowspan="2" style="vertical-align:middle; text-align:center;">Window</th>
+        <th rowspan="2" class="border-right-thick-period" style="vertical-align:middle; text-align:center;">Release Date</th>
+        <th colspan="2" class="th-group-mpoa border-right-thick-mpoa" style="text-align:center;">ITS (Intertek)</th>
+        <th colspan="3" class="th-group-sppoma border-right-thick-sppoma" style="text-align:center;">AmSpec Agri</th>
+        <th colspan="3" class="th-group-error border-right-thick-error" style="text-align:center;">SGS</th>
+        <th colspan="2" class="th-group-mpob border-right-thick-mpob" style="text-align:center;">Official MPOB</th>
+      </tr>
+      <tr>
+        <!-- ITS sub-columns -->
+        <th>Total (MT)</th>
+        <th class="border-right-thick-mpoa">MoM (%)</th>
+        <!-- AmSpec sub-columns -->
+        <th>Total (MT)</th>
+        <th>6-Prod (MT)</th>
+        <th class="border-right-thick-sppoma">MoM (%)</th>
+        <!-- SGS sub-columns -->
+        <th>Total Palm &amp; Oleo</th>
+        <th>Palm Sub-Total</th>
+        <th class="border-right-thick-error">MoM (%)</th>
+        <!-- MPOB sub-columns -->
+        <th>Export (MT)</th>
+        <th class="border-right-thick-mpob">MoM (%)</th>
+      </tr>
+    </thead><tbody>`;
+
+    revRows.forEach(r => {
+      html += `<tr>
+        <td class="sticky-col border-right-thick-period"><strong>${r.YearMonth}</strong></td>
+        <td><span class="badge badge-calc">${r.Window}</span></td>
+        <td class="num border-right-thick-period">${r.Date || '<span class="text-muted">-</span>'}</td>
+        <!-- ITS -->
+        <td class="num"><strong>${fmtNum(r.its_total)}</strong></td>
+        <td class="num border-right-thick-mpoa">${fmtPctSigned(r.its_mom)}</td>
+        <!-- AmSpec -->
+        <td class="num"><strong>${fmtNum(r.amspec_best)}</strong></td>
+        <td class="num">${fmtNum(r.amspec_6prod)}</td>
+        <td class="num border-right-thick-sppoma">${fmtPctSigned(r.amspec_mom)}</td>
+        <!-- SGS -->
+        <td class="num"><strong>${fmtNum(r.sgs_total)}</strong></td>
+        <td class="num">${fmtNum(r.sgs_palm_sub)}</td>
+        <td class="num border-right-thick-error">${fmtPctSigned(r.sgs_mom)}</td>
+        <!-- Official MPOB -->
+        <td class="num">${r.mpob_export != null ? `<strong>${fmtNum(r.mpob_export)}</strong>` : '<span class="text-muted">-</span>'}</td>
+        <td class="num border-right-thick-mpob">${r.mpob_export_mom != null ? `<strong>${fmtPctSigned(r.mpob_export_mom, 2)}</strong>` : '<span class="text-muted">-</span>'}</td>
+      </tr>`;
+    });
+    html += `</tbody></table>`;
+    document.getElementById("survey-table1-container").innerHTML = html;
+    return;
+  }
+
+  if (srcMode === "its") {
+    const rows = itsList.filter(filterRow);
+    const labels = rows.map(r => winFilter === "all" ? `${r.YearMonth} (${r.Window})` : r.YearMonth);
+
+    document.getElementById("survey-chart1-title").textContent = `ITS Exports by Product (${winFilter}) — Tonnes`;
+    document.getElementById("survey-chart1-sub").textContent = "LSEG Chain 0#ITSPALM1: CPO, RBD Palm Olein, RBD Palm Oil, RBD Stearin, CPKO, PFAD";
+
+    STATE.charts.surveyMain = new Chart(
+      document.getElementById("chart-survey-main").getContext("2d"),
+      {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            { label: "Crude Palm Oil", data: rows.map(r => r.Crude_Palm_Oil_MT), borderColor: "#059669", borderWidth: 2.2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Palm Olein", data: rows.map(r => r.RBD_Palm_Olein_MT), borderColor: "#0284c7", borderWidth: 2.2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Palm Oil", data: rows.map(r => r.RBD_Palm_Oil_MT), borderColor: "#d97706", borderWidth: 2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Palm Stearin", data: rows.map(r => r.RBD_Palm_Stearin_MT), borderColor: "#7c3aed", borderWidth: 2, pointRadius: 2, tension: 0.2 },
+            { label: "PFAD", data: rows.map(r => r.PFAD_MT), borderColor: "#dc2626", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 },
+            { label: "Crude PKO", data: rows.map(r => r.Crude_Palm_Kernel_Oil_MT), borderColor: "#64748b", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 }
+          ]
+        },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    document.getElementById("survey-chart2-title").textContent = `ITS Exports by Major Destination (${winFilter}) — Tonnes`;
+    document.getElementById("survey-chart2-sub").textContent = "LSEG Chain 0#ITSPALM2: India & Subcontinent, European Union, China";
+
+    STATE.charts.surveySub = new Chart(
+      document.getElementById("chart-survey-sub").getContext("2d"),
+      {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            { label: "India & Subcontinent", data: rows.map(r => r.Dest_India_Subcontinent_MT), borderColor: "#d97706", borderWidth: 2.4, pointRadius: 2.5, tension: 0.2 },
+            { label: "European Union", data: rows.map(r => r.Dest_EU_MT), borderColor: "#2563eb", borderWidth: 2.2, pointRadius: 2.5, tension: 0.2 },
+            { label: "China", data: rows.map(r => r.Dest_China_MT), borderColor: "#dc2626", borderWidth: 2.2, pointRadius: 2.5, tension: 0.2 }
+          ]
+        },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    document.getElementById("survey-table1-title").textContent = `ITS (Intertek Testing Services) Historical Breakdown (${winFilter}) — Tonnes`;
+    const revRows = [...rows].reverse();
+    let html = `<table class="data-table"><thead><tr>
+      <th>Date</th>
+      <th>Period</th>
+      <th>Window</th>
+      <th>Accumulated Total (MT)</th>
+      <th>Full Month Total (MT)</th>
+      <th>6-Products Sum (MT)</th>
+      <th>Crude Palm Oil</th>
+      <th>RBD Palm Oil</th>
+      <th>RBD Palm Olein</th>
+      <th>RBD Stearin</th>
+      <th>Crude PKO</th>
+      <th>PFAD</th>
+      <th>Dest: EU</th>
+      <th>Dest: China</th>
+      <th>Dest: India &amp; Subc.</th>
+    </tr></thead><tbody>`;
+    revRows.forEach(r => {
+      html += `<tr>
+        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td>${r.YearMonth}</td>
+        <td><span class="badge badge-calc">${r.Window}</span></td>
+        <td class="num"><strong>${fmtNum(r.Total_Accumulated_Export_MT)}</strong></td>
+        <td class="num">${fmtNum(r.Full_Month_Total_Export_MT)}</td>
+        <td class="num">${fmtNum(r.Selected_6_Products_Sum_MT)}</td>
+        <td class="num">${fmtNum(r.Crude_Palm_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Olein_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Stearin_MT)}</td>
+        <td class="num">${fmtNum(r.Crude_Palm_Kernel_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.PFAD_MT)}</td>
+        <td class="num">${fmtNum(r.Dest_EU_MT)}</td>
+        <td class="num">${fmtNum(r.Dest_China_MT)}</td>
+        <td class="num">${fmtNum(r.Dest_India_Subcontinent_MT)}</td>
+      </tr>`;
+    });
+    html += `</tbody></table>`;
+    document.getElementById("survey-table1-container").innerHTML = html;
+    return;
+  }
+
+  if (srcMode === "amspec") {
+    const rows = amspecList.filter(filterRow);
+    const labels = rows.map(r => winFilter === "all" ? `${r.YearMonth} (${r.Window})` : r.YearMonth);
+
+    document.getElementById("survey-chart1-title").textContent = `AmSpec Agri Malaysia Exports by Product (${winFilter}) — Tonnes`;
+    document.getElementById("survey-chart1-sub").textContent = "LSEG Chain 0#REU-MYPALMEXP: CPO, RBD Palm Olein, RBD Palm Oil, RBD Stearin, CPKO, PFAD";
+
+    STATE.charts.surveyMain = new Chart(
+      document.getElementById("chart-survey-main").getContext("2d"),
+      {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            { label: "Crude Palm Oil", data: rows.map(r => r.Crude_Palm_Oil_MT), borderColor: "#059669", borderWidth: 2.2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Palm Olein", data: rows.map(r => r.RBD_Palm_Olein_MT), borderColor: "#0284c7", borderWidth: 2.2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Palm Oil", data: rows.map(r => r.RBD_Palm_Oil_MT), borderColor: "#d97706", borderWidth: 2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Stearin", data: rows.map(r => r.RBD_Palm_Stearin_MT), borderColor: "#7c3aed", borderWidth: 2, pointRadius: 2, tension: 0.2 },
+            { label: "PFAD", data: rows.map(r => r.PFAD_MT), borderColor: "#dc2626", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 },
+            { label: "Crude PKO", data: rows.map(r => r.Crude_Palm_Kernel_Oil_MT), borderColor: "#64748b", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 }
+          ]
+        },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    document.getElementById("survey-chart2-title").textContent = `AmSpec All-Products Headline Total vs. 6-Products RIC Total (${winFilter})`;
+    document.getElementById("survey-chart2-sub").textContent = "Reuters TABLE release total (all products) vs. sum of 6 LSEG product RICs";
+
+    STATE.charts.surveySub = new Chart(
+      document.getElementById("chart-survey-sub").getContext("2d"),
+      {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            { label: "Headline All-Products Total (MT)", data: rows.map(r => r.Headline_All_Products_Total_MT), borderColor: "#d97706", borderWidth: 2.5, pointRadius: 3, tension: 0.2 },
+            { label: "6-Products RIC Total (REUMYPALMEXPTOT)", data: rows.map(r => r.Selected_6_Products_Total_MT), borderColor: "#0284c7", borderWidth: 2.2, borderDash: [4, 3], pointRadius: 2.5, tension: 0.2 }
+          ]
+        },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    document.getElementById("survey-table1-title").textContent = `AmSpec Agri Malaysia Product Breakdown (${winFilter}) — Tonnes`;
+    const revRows = [...rows].reverse();
+    let html = `<table class="data-table"><thead><tr>
+      <th>Date</th>
+      <th>Period</th>
+      <th>Window</th>
+      <th>Headline All-Products Total (MT)</th>
+      <th>6-Products RIC Total (MT)</th>
+      <th>Crude Palm Oil</th>
+      <th>RBD Palm Oil</th>
+      <th>RBD Palm Olein</th>
+      <th>RBD Stearin</th>
+      <th>Crude PKO</th>
+      <th>PFAD</th>
+    </tr></thead><tbody>`;
+    revRows.forEach(r => {
+      html += `<tr>
+        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td>${r.YearMonth}</td>
+        <td><span class="badge badge-calc">${r.Window}</span></td>
+        <td class="num"><strong>${fmtNum(r.Headline_All_Products_Total_MT)}</strong></td>
+        <td class="num"><strong>${fmtNum(r.Selected_6_Products_Total_MT)}</strong></td>
+        <td class="num">${fmtNum(r.Crude_Palm_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Olein_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Stearin_MT)}</td>
+        <td class="num">${fmtNum(r.Crude_Palm_Kernel_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.PFAD_MT)}</td>
+      </tr>`;
+    });
+    html += `</tbody></table>`;
+    document.getElementById("survey-table1-container").innerHTML = html;
+
+    // Show Table 2: AmSpec Reuters Headlines Log
+    const t2Card = document.getElementById("survey-table2-card");
+    t2Card.style.display = "block";
+    document.getElementById("survey-table2-title").textContent = "AmSpec Reuters News Release Flashes & Tables Log";
+    const hRows = [...amspecHeadlines].filter(r => {
+      const yr = Number(String(r.Date || "").slice(0, 4));
+      return selYears.has(yr) && (winFilter === "all" || r.Window === winFilter);
+    }).reverse();
+    let hHtml = `<table class="data-table"><thead><tr>
+      <th>Release Date</th>
+      <th>Window</th>
+      <th>Export Volume (MT)</th>
+      <th>Prior Month Same Window (MT)</th>
+      <th>Reuters Headline</th>
+    </tr></thead><tbody>`;
+    hRows.forEach(r => {
+      hHtml += `<tr>
+        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td><span class="badge badge-calc">${r.Window}</span></td>
+        <td class="num"><strong>${fmtNum(r.All_Products_Export_MT)}</strong></td>
+        <td class="num">${fmtNum(r.Prev_Month_Same_Window_MT)}</td>
+        <td style="text-align:left;font-size:12px;">${r.Headline}</td>
+      </tr>`;
+    });
+    hHtml += `</tbody></table>`;
+    document.getElementById("survey-table2-container").innerHTML = hHtml;
+    return;
+  }
+
+  if (srcMode === "sgs") {
+    const pRows = sgsProdList.filter(filterRow);
+    const dRows = sgsDestList.filter(filterRow);
+    const labels = pRows.map(r => winFilter === "all" ? `${r.YearMonth} (${r.Window})` : r.YearMonth);
+
+    document.getElementById("survey-chart1-title").textContent = `SGS Exports by Product (${winFilter}, 2010–2026) — Tonnes`;
+    document.getElementById("survey-chart1-sub").textContent = "LSEG Chain 0#PALMEX-ST: CPO, RBD Palm Olein, RBD Palm Oil, RBD Stearin, Oleochemicals, Acids";
+
+    STATE.charts.surveyMain = new Chart(
+      document.getElementById("chart-survey-main").getContext("2d"),
+      {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            { label: "Total Palm & Oleo (PALMTOT-MY)", data: pRows.map(r => r.Total_Palm_And_Oleo_Export_MT), borderColor: "#0f172a", borderWidth: 2.5, pointRadius: 2, tension: 0.2 },
+            { label: "Sub-Total Palm Oil (PALMSTOT-MY)", data: pRows.map(r => r.SubTotal_Palm_Oil_Products_MT), borderColor: "#059669", borderWidth: 2.2, pointRadius: 2, tension: 0.2 },
+            { label: "RBD Palm Olein", data: pRows.map(r => r.RBD_Palm_Olein_MT), borderColor: "#0284c7", borderWidth: 2, pointRadius: 1.5, tension: 0.2 },
+            { label: "Crude Palm Oil", data: pRows.map(r => r.Crude_Palm_Oil_MT), borderColor: "#d97706", borderWidth: 2, pointRadius: 1.5, tension: 0.2 },
+            { label: "RBD Palm Oil", data: pRows.map(r => r.RBD_Palm_Oil_MT), borderColor: "#7c3aed", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 },
+            { label: "Sub-Total Other & Oleo", data: pRows.map(r => r.SubTotal_Other_Oils_And_Chem_MT), borderColor: "#64748b", borderWidth: 1.8, borderDash: [4, 3], pointRadius: 1.5, tension: 0.2 }
+          ]
+        },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    const dLabels = dRows.map(r => winFilter === "all" ? `${r.YearMonth} (${r.Window})` : r.YearMonth);
+    document.getElementById("survey-chart2-title").textContent = `SGS Exports by Top Destinations (${winFilter}, 2010–2026) — Tonnes`;
+    document.getElementById("survey-chart2-sub").textContent = "LSEG Chain 0#PALMEX-ST2: India, China, Europe, Pakistan, Kenya, Japan, Singapore, USA";
+
+    STATE.charts.surveySub = new Chart(
+      document.getElementById("chart-survey-sub").getContext("2d"),
+      {
+        type: "line",
+        data: {
+          labels: dLabels,
+          datasets: [
+            { label: "India", data: dRows.map(r => r.India_MT), borderColor: "#d97706", borderWidth: 2.3, pointRadius: 2, tension: 0.2 },
+            { label: "China", data: dRows.map(r => r.China_MT), borderColor: "#dc2626", borderWidth: 2.3, pointRadius: 2, tension: 0.2 },
+            { label: "Europe", data: dRows.map(r => r.Europe_MT), borderColor: "#2563eb", borderWidth: 2, pointRadius: 1.5, tension: 0.2 },
+            { label: "Pakistan", data: dRows.map(r => r.Pakistan_MT), borderColor: "#059669", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 },
+            { label: "Kenya", data: dRows.map(r => r.Kenya_MT), borderColor: "#7c3aed", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 },
+            { label: "Japan", data: dRows.map(r => r.Japan_MT), borderColor: "#0d9488", borderWidth: 1.8, pointRadius: 1.5, tension: 0.2 }
+          ]
+        },
+        options: chartOptionsCommon("Tonnes (MT)")
+      }
+    );
+
+    // Table 1: SGS Products
+    document.getElementById("survey-table1-title").textContent = `SGS Exports by Product (0#PALMEX-ST, ${winFilter}) — Tonnes`;
+    const revP = [...pRows].reverse();
+    let html1 = `<table class="data-table"><thead><tr>
+      <th>Date</th>
+      <th>Period</th>
+      <th>Window</th>
+      <th>Total Palm &amp; Oleo</th>
+      <th>Sub-Total Palm Oil</th>
+      <th>Crude Palm Oil</th>
+      <th>RBD Palm Oil</th>
+      <th>RBD Palm Olein</th>
+      <th>RBD Stearin</th>
+      <th>Sub-Total Other &amp; Chem</th>
+      <th>Proc PKO</th>
+      <th>Oleochemicals</th>
+      <th>Acids</th>
+      <th>Fatty Acids</th>
+      <th>Other Products</th>
+    </tr></thead><tbody>`;
+    revP.forEach(r => {
+      html1 += `<tr>
+        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td>${r.YearMonth}</td>
+        <td><span class="badge badge-calc">${r.Window}</span></td>
+        <td class="num"><strong>${fmtNum(r.Total_Palm_And_Oleo_Export_MT)}</strong></td>
+        <td class="num"><strong>${fmtNum(r.SubTotal_Palm_Oil_Products_MT)}</strong></td>
+        <td class="num">${fmtNum(r.Crude_Palm_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Oil_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Olein_MT)}</td>
+        <td class="num">${fmtNum(r.RBD_Palm_Stearin_MT)}</td>
+        <td class="num"><strong>${fmtNum(r.SubTotal_Other_Oils_And_Chem_MT)}</strong></td>
+        <td class="num">${fmtNum(r.Processed_PKO_MT)}</td>
+        <td class="num">${fmtNum(r.Oleochemicals_MT)}</td>
+        <td class="num">${fmtNum(r.Acids_MT)}</td>
+        <td class="num">${fmtNum(r.Fatty_Acids_MT)}</td>
+        <td class="num">${fmtNum(r.Other_Products_MT)}</td>
+      </tr>`;
+    });
+    html1 += `</tbody></table>`;
+    document.getElementById("survey-table1-container").innerHTML = html1;
+
+    // Table 2: SGS Destinations
+    const t2Card = document.getElementById("survey-table2-card");
+    t2Card.style.display = "block";
+    document.getElementById("survey-table2-title").textContent = `SGS Exports by Destination Country (0#PALMEX-ST2, ${winFilter}) — Tonnes`;
+    const revD = [...dRows].reverse();
+    let html2 = `<table class="data-table"><thead><tr>
+      <th>Date</th>
+      <th>Period</th>
+      <th>Window</th>
+      <th>India</th>
+      <th>China</th>
+      <th>Europe</th>
+      <th>Pakistan</th>
+      <th>USA</th>
+      <th>Singapore</th>
+      <th>Japan</th>
+      <th>Korea</th>
+      <th>Taiwan</th>
+      <th>Bangladesh</th>
+      <th>Saudi Arabia</th>
+      <th>Turkey</th>
+      <th>Kenya</th>
+      <th>Egypt</th>
+      <th>South Africa</th>
+      <th>Iran</th>
+    </tr></thead><tbody>`;
+    revD.forEach(r => {
+      html2 += `<tr>
+        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td>${r.YearMonth}</td>
+        <td><span class="badge badge-calc">${r.Window}</span></td>
+        <td class="num"><strong>${fmtNum(r.India_MT)}</strong></td>
+        <td class="num"><strong>${fmtNum(r.China_MT)}</strong></td>
+        <td class="num">${fmtNum(r.Europe_MT)}</td>
+        <td class="num">${fmtNum(r.Pakistan_MT)}</td>
+        <td class="num">${fmtNum(r.USA_MT)}</td>
+        <td class="num">${fmtNum(r.Singapore_MT)}</td>
+        <td class="num">${fmtNum(r.Japan_MT)}</td>
+        <td class="num">${fmtNum(r.Korea_MT)}</td>
+        <td class="num">${fmtNum(r.Taiwan_MT)}</td>
+        <td class="num">${fmtNum(r.Bangladesh_MT)}</td>
+        <td class="num">${fmtNum(r.Saudi_Arabia_MT)}</td>
+        <td class="num">${fmtNum(r.Turkey_MT)}</td>
+        <td class="num">${fmtNum(r.Kenya_MT)}</td>
+        <td class="num">${fmtNum(r.Egypt_MT)}</td>
+        <td class="num">${fmtNum(r.South_Africa_MT)}</td>
+        <td class="num">${fmtNum(r.Iran_MT)}</td>
+      </tr>`;
+    });
+    html2 += `</tbody></table>`;
+    document.getElementById("survey-table2-container").innerHTML = html2;
+  }
+}
+
+function renderSurveyProduction() {
+  const spList = STATE.master.trackers?.sppoma_mpoa || [];
+  const flashes = STATE.master.lseg_surveyors?.mpoa_sppoma_flashes || [];
+  const sndMonthly = STATE.master.snd?.monthly || {};
+
+  // Build LSEG Wire Flashes index by YYYY-MM
+  const flashByPeriod = {};
+  flashes.forEach(f => {
+    const ym = (f.Reference_Period || "").slice(0, 7);
+    if (!ym) return;
+    if (!flashByPeriod[ym]) flashByPeriod[ym] = [];
+    flashByPeriod[ym].push(f);
+  });
+
+  // Selected years: default to 2020-2026 if default Last 5Y (2023-2027) is active,
+  // or follow user's specific slicer selection
+  const rawSelYears = getSurveySelectedYearsSet(2010, 2026);
+  let selYears = rawSelYears;
+  const isDefaultLast5 = rawSelYears.size <= 4 && [2023, 2024, 2025, 2026].every(y => rawSelYears.has(y));
+  if (isDefaultLast5) {
+    selYears = new Set([2020, 2021, 2022, 2023, 2024, 2025, 2026]);
+  }
+
+  // Filter rows for selected years - include EVERY MONTH (no survey print filtering)
+  const displayRows = spList.filter(r => {
+    const yr = Number(String(r.period || "").slice(0, 4));
+    return selYears.has(yr);
+  });
+
+  // Chart 1: SPPOMA & MPOA vs Official MPOB CPO MoM (%)
+  document.getElementById("survey-chart1-title").textContent = "Production Surveys (MPOA & SPPOMA) vs. Official MPOB CPO MoM (%)";
+  document.getElementById("survey-chart1-sub").textContent = "Verified bulletin prints & wire captures vs. Official MPOB Monthly Production MoM (%)";
+
+  const labels = displayRows.map(r => r.period);
+  STATE.charts.surveyMain = new Chart(
+    document.getElementById("chart-survey-main").getContext("2d"),
+    {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "SPPOMA (Full Month / Latest CPO MoM %)",
+            data: displayRows.map(r => {
+              const sp = r.sppoma || {};
+              return sp.full_month?.cpo_prod_mom_pct ?? sp["1-25"]?.cpo_prod_mom_pct ?? sp["1-20"]?.cpo_prod_mom_pct ?? sp["1-15"]?.cpo_prod_mom_pct ?? sp["1-10"]?.cpo_prod_mom_pct ?? sp["1-5"]?.cpo_prod_mom_pct ?? null;
+            }),
+            backgroundColor: "rgba(217, 119, 6, 0.78)",
+            borderColor: "#d97706",
+            borderWidth: 1
+          },
+          {
+            label: "MPOA Full Month Total MoM (%)",
+            data: displayRows.map(r => r.mpoa?.full_month?.total_malaysia_mom_pct ?? r.mpoa?.["1-20"]?.total_malaysia_mom_pct ?? null),
+            backgroundColor: "rgba(2, 132, 199, 0.82)",
+            borderColor: "#0284c7",
+            borderWidth: 1
+          },
+          {
+            label: "Official MPOB CPO MoM (%)",
+            data: displayRows.map(r => r.mpob_actual?.cpo_mom_pct ?? null),
+            backgroundColor: "rgba(5, 150, 105, 0.85)",
+            borderColor: "#059669",
+            borderWidth: 1
+          }
+        ]
+      },
+      options: chartOptionsCommon("MoM Change (%)")
+    }
+  );
+
+  // Chart 2: Intra-Month SPPOMA & MPOA Convergence for Jul, Aug, Sep 2026
+  document.getElementById("survey-chart2-title").textContent = "Intra-Month Production Survey Convergence (1–5 → Full Month → MPOB Actual)";
+  document.getElementById("survey-chart2-sub").textContent = "SPPOMA 5-day intervals, MPOA (1–20 & Full Month), and Official MPOB MoM (%)";
+
+  const convLabels = ["SPPOMA 1–5", "SPPOMA 1–10", "SPPOMA 1–15", "SPPOMA 1–20", "MPOA 1–20", "SPPOMA 1–25", "SPPOMA Full", "MPOA Full", "MPOB Official"];
+  const getConvData = (ym) => {
+    const r = spList.find(x => x.period === ym);
+    if (!r) return [];
+    return [
+      r.sppoma?.["1-5"]?.cpo_prod_mom_pct ?? null,
+      r.sppoma?.["1-10"]?.cpo_prod_mom_pct ?? null,
+      r.sppoma?.["1-15"]?.cpo_prod_mom_pct ?? null,
+      r.sppoma?.["1-20"]?.cpo_prod_mom_pct ?? null,
+      r.mpoa?.["1-20"]?.total_malaysia_mom_pct ?? null,
+      r.sppoma?.["1-25"]?.cpo_prod_mom_pct ?? null,
+      r.sppoma?.full_month?.cpo_prod_mom_pct ?? null,
+      r.mpoa?.full_month?.total_malaysia_mom_pct ?? null,
+      r.mpob_actual?.cpo_mom_pct ?? null
+    ];
+  };
+
+  STATE.charts.surveySub = new Chart(
+    document.getElementById("chart-survey-sub").getContext("2d"),
+    {
+      type: "line",
+      data: {
+        labels: convLabels,
+        datasets: [
+          { label: "Sep 2026", data: getConvData("2026-09"), borderColor: "#059669", borderWidth: 2.8, pointRadius: 4, tension: 0.2, spanGaps: true },
+          { label: "Aug 2026", data: getConvData("2026-08"), borderColor: "#0284c7", borderWidth: 2.4, pointRadius: 3.5, tension: 0.2, spanGaps: true },
+          { label: "Jul 2026", data: getConvData("2026-07"), borderColor: "#d97706", borderWidth: 2.2, pointRadius: 3.5, tension: 0.2, spanGaps: true }
+        ]
+      },
+      options: chartOptionsCommon("MoM Change (%)")
+    }
+  );
+
+  // Table 1: Renamed to "Survey" with categorized headers and thicker vertical borders
+  document.getElementById("survey-table1-title").textContent = "Survey";
+
+  // Reverse chronological order for the table (latest month first)
+  const revRows = [...displayRows].reverse();
+
+  let html = `<table class="data-table">
+    <thead>
+      <tr>
+        <th rowspan="2" class="th-group-period border-right-thick-period" style="vertical-align:middle; text-align:center;">Period</th>
+        <th colspan="6" class="th-group-sppoma border-right-thick-sppoma" style="text-align:center;">SPPOMA (MoM %)</th>
+        <th colspan="5" class="th-group-mpoa border-right-thick-mpoa" style="text-align:center;">MPOA (MoM %)</th>
+        <th colspan="2" class="th-group-mpob border-right-thick-mpob" style="text-align:center;">Official MPOB Actuals</th>
+        <th colspan="2" class="th-group-error border-right-thick-error" style="text-align:center;">Tracking Error vs MPOB (pp)</th>
+        <th rowspan="2" class="th-group-note" style="vertical-align:middle; text-align:left;">Survey Notes &amp; LSEG Wire Captures</th>
+      </tr>
+      <tr>
+        <!-- SPPOMA sub-columns -->
+        <th>1–5</th>
+        <th>1–10</th>
+        <th>1–15</th>
+        <th>1–20</th>
+        <th>1–25</th>
+        <th class="border-right-thick-sppoma">Full Month</th>
+        <!-- MPOA sub-columns -->
+        <th>1–20 Total</th>
+        <th>Full Total</th>
+        <th>Penin.</th>
+        <th>Sabah</th>
+        <th class="border-right-thick-mpoa">Sarawak</th>
+        <!-- MPOB sub-columns -->
+        <th>Production (MT)</th>
+        <th class="border-right-thick-mpob">MoM (%)</th>
+        <!-- Error sub-columns -->
+        <th>MPOA Diff</th>
+        <th class="border-right-thick-error">SPPOMA Diff</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  revRows.forEach(r => {
+    const sp = r.sppoma || {};
+    const mp = r.mpoa || {};
+    const act = r.mpob_actual || {};
+    const an = r.analytics || {};
+    const flList = flashByPeriod[r.period] || [];
+
+    // Synthesize notes and wire captures
+    const notes = [];
+    if (flList.length > 0) {
+      flList.forEach(f => {
+        notes.push(`<span class="wire-badge">⚡ ${f.Association} Wire</span> <strong>${f.Window}</strong> ${fmtPctSigned(f.Production_MoM_Pct, 2)} <span class="text-muted">(${f.Date})</span>`);
+      });
+    }
+    if (r.period === "2021-01") {
+      notes.push(`<span class="text-muted">⚠️ MCO: MPOA did not release full month Jan 2021</span>`);
+    }
+    const notesHtml = notes.length > 0 ? notes.join(" &bull; ") : '<span class="text-muted">-</span>';
+
+    // Cell wire indicators for direct wire flashes
+    const hasSpWire15 = r.period === "2026-03";
+    const hasMpWire20 = r.period === "2026-07";
+    const hasMpWireFull = r.period === "2026-09";
+
+    const sp15Val = sp["1-15"]?.cpo_prod_mom_pct;
+    const mp20Val = mp["1-20"]?.total_malaysia_mom_pct;
+    const mpFullVal = mp.full_month?.total_malaysia_mom_pct;
+
+    // Production tonnes & MoM from mpob_actual or sndMonthly
+    const sndEntry = sndMonthly[r.period] || {};
+    const prodTonnes = act.cpo_production_tonnes ?? sndEntry.production ?? null;
+    const prodMom = act.cpo_mom_pct ?? null;
+
+    // Error calculations
+    let mpoaErr = an.mpoa_full_month_error_pct;
+    if (mpoaErr == null && mpFullVal != null && prodMom != null) {
+      mpoaErr = Math.round((mpFullVal - prodMom) * 100) / 100;
+    }
+    let sppomaErr = an.sppoma_full_month_error_pct;
+    if (sppomaErr == null && sp.full_month?.cpo_prod_mom_pct != null && prodMom != null) {
+      sppomaErr = Math.round((sp.full_month.cpo_prod_mom_pct - prodMom) * 100) / 100;
+    }
+
+    html += `<tr>
+      <td class="sticky-col border-right-thick-period"><strong>${r.period}</strong></td>
+      <!-- SPPOMA -->
+      <td class="num">${fmtPctSigned(sp["1-5"]?.cpo_prod_mom_pct, 2)}</td>
+      <td class="num">${fmtPctSigned(sp["1-10"]?.cpo_prod_mom_pct, 2)}</td>
+      <td class="num">${fmtPctSigned(sp15Val, 2)}${hasSpWire15 ? '<span class="wire-cell-indicator" title="Captured from LSEG News Wire">⚡</span>' : ''}</td>
+      <td class="num">${fmtPctSigned(sp["1-20"]?.cpo_prod_mom_pct, 2)}</td>
+      <td class="num">${fmtPctSigned(sp["1-25"]?.cpo_prod_mom_pct, 2)}</td>
+      <td class="num border-right-thick-sppoma"><strong>${fmtPctSigned(sp.full_month?.cpo_prod_mom_pct, 2)}</strong></td>
+      <!-- MPOA -->
+      <td class="num"><strong>${fmtPctSigned(mp20Val, 2)}</strong>${hasMpWire20 ? '<span class="wire-cell-indicator" title="Captured from LSEG News Wire">⚡</span>' : ''}</td>
+      <td class="num"><strong>${fmtPctSigned(mpFullVal, 2)}</strong>${hasMpWireFull ? '<span class="wire-cell-indicator" title="Captured from LSEG News Wire">⚡</span>' : ''}</td>
+      <td class="num">${fmtPctSigned(mp.full_month?.peninsular_mom_pct ?? mp["1-20"]?.peninsular_mom_pct, 2)}</td>
+      <td class="num">${fmtPctSigned(mp.full_month?.sabah_mom_pct ?? mp["1-20"]?.sabah_mom_pct, 2)}</td>
+      <td class="num border-right-thick-mpoa">${fmtPctSigned(mp.full_month?.sarawak_mom_pct ?? mp["1-20"]?.sarawak_mom_pct, 2)}</td>
+      <!-- Official MPOB -->
+      <td class="num"><strong>${prodTonnes != null ? fmtNum(prodTonnes) : '<span class="text-muted">-</span>'}</strong></td>
+      <td class="num border-right-thick-mpob"><strong>${fmtPctSigned(prodMom, 2)}</strong></td>
+      <!-- Tracking Error -->
+      <td class="num">${fmtDelta(mpoaErr, 2)}</td>
+      <td class="num border-right-thick-error">${fmtDelta(sppomaErr, 2)}</td>
+      <!-- Notes & Wire Captures -->
+      <td style="text-align:left; font-size:11px;">${notesHtml}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  document.getElementById("survey-table1-container").innerHTML = html;
+
+  // Pull LSEG Wire Flashes into the main table above -> Hide redundant Table 2
+  const t2Card = document.getElementById("survey-table2-card");
+  if (t2Card) t2Card.style.display = "none";
+}
+
+function renderSurveyPoll() {
+  const pollList = STATE.master.lseg_surveyors?.reuters_mpob_poll || [];
+  const sndMonthly = STATE.master.snd?.monthly || {};
+  const selYears = getSurveySelectedYearsSet(2015, 2026);
+  const attr = STATE.surveyPollAttr; // "Production" | "Export" | "Import" | "Closing_Stocks"
+
+  const sndKeyMap = {
+    Production: "production",
+    Export: "export",
+    Import: "import",
+    Closing_Stocks: "end_stock"
+  };
+  const sndField = sndKeyMap[attr] || "production";
+
+  const rows = pollList.filter(r => {
+    const yr = Number(String(r.YearMonth || "").slice(0, 4));
+    return selYears.has(yr);
+  });
+
+  const labels = rows.map(r => r.YearMonth);
+  const medVals = rows.map(r => r[`${attr}_Poll_Median_MT`] ?? null);
+  const lowVals = rows.map(r => r[`${attr}_Poll_Low_MT`] ?? null);
+  const highVals = rows.map(r => r[`${attr}_Poll_High_MT`] ?? null);
+  const actVals = rows.map(r => sndMonthly[r.YearMonth]?.[sndField] ?? null);
+  const diffVals = rows.map((r, i) => (actVals[i] != null && medVals[i] != null) ? (actVals[i] - medVals[i]) : null);
+
+  const attrDisplay = attr.replace("_", " ");
+  document.getElementById("survey-chart1-title").textContent = `Reuters Pre-MPOB Poll vs. Official MPOB Actual: ${attrDisplay} (Tonnes)`;
+  document.getElementById("survey-chart1-sub").textContent = "LSEG Chain 0#REU-PALMOILSTK: Poll Median, Poll High–Low Range, and Official MPOB Actual";
+
+  STATE.charts.surveyMain = new Chart(
+    document.getElementById("chart-survey-main").getContext("2d"),
+    {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Poll Low",
+            data: lowVals,
+            borderColor: "transparent",
+            pointRadius: 0,
+            fill: false,
+            tension: 0.2
+          },
+          {
+            label: "Poll Low–High Range",
+            data: highVals,
+            borderColor: "transparent",
+            backgroundColor: "rgba(148, 163, 184, 0.25)",
+            pointRadius: 0,
+            fill: "-1",
+            tension: 0.2
+          },
+          {
+            label: `Reuters Poll Median (${attrDisplay})`,
+            data: medVals,
+            borderColor: "#d97706",
+            borderWidth: 2.3,
+            borderDash: [4, 3],
+            pointRadius: 2.5,
+            fill: false,
+            tension: 0.2
+          },
+          {
+            label: `Official MPOB Actual (${attrDisplay})`,
+            data: actVals,
+            borderColor: "#059669",
+            borderWidth: 2.6,
+            pointRadius: 2.8,
+            fill: false,
+            tension: 0.2
+          }
+        ]
+      },
+      options: {
+        ...chartOptionsCommon("Tonnes (MT)"),
+        plugins: {
+          ...chartOptionsCommon("Tonnes (MT)").plugins,
+          legend: {
+            labels: { filter: item => item.text !== "Poll Low" }
+          }
+        }
+      }
+    }
+  );
+
+  document.getElementById("survey-chart2-title").textContent = `Actual vs. Reuters Poll Surprise: ${attrDisplay} (Official Actual − Poll Median)`;
+  document.getElementById("survey-chart2-sub").textContent = "Positive = Official MPOB higher than Poll Consensus; Negative = lower than Poll Consensus";
+
+  STATE.charts.surveySub = new Chart(
+    document.getElementById("chart-survey-sub").getContext("2d"),
+    {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: `${attrDisplay} Surprise vs Poll (MT)`,
+            data: diffVals,
+            backgroundColor: diffVals.map(v => v == null ? "transparent" : v >= 0 ? "rgba(5, 150, 105, 0.75)" : "rgba(220, 38, 38, 0.75)"),
+            borderColor: diffVals.map(v => v == null ? "transparent" : v >= 0 ? "#059669" : "#dc2626"),
+            borderWidth: 1
+          }
+        ]
+      },
+      options: chartOptionsCommon("Surprise (Tonnes)")
+    }
+  );
+
+  // Table 1: Full Poll vs Official MPOB Table
+  document.getElementById("survey-table1-title").textContent = "Reuters Monthly Pre-MPOB Poll Consensus vs. Official MPOB Actuals (2015–2026, Tonnes)";
+  const revRows = [...rows].reverse();
+  let html = `<table class="data-table"><thead><tr>
+    <th>Period</th>
+    <th>Prod Poll Median</th>
+    <th>Prod Poll Range (Low–High)</th>
+    <th>Prod MPOB Actual</th>
+    <th>Prod Surprise</th>
+    <th>Export Poll Median</th>
+    <th>Export MPOB Actual</th>
+    <th>Export Surprise</th>
+    <th>Stock Poll Median</th>
+    <th>Stock Poll Range (Low–High)</th>
+    <th>Stock MPOB Actual</th>
+    <th>Stock Surprise</th>
+  </tr></thead><tbody>`;
+
+  revRows.forEach(r => {
+    const ym = r.YearMonth;
+    const act = sndMonthly[ym] || {};
+    const pMed = r.Production_Poll_Median_MT;
+    const pAct = act.production;
+    const pDiff = (pAct != null && pMed != null) ? (pAct - pMed) : null;
+
+    const eMed = r.Export_Poll_Median_MT;
+    const eAct = act.export;
+    const eDiff = (eAct != null && eMed != null) ? (eAct - eMed) : null;
+
+    const sMed = r.Closing_Stocks_Poll_Median_MT;
+    const sAct = act.end_stock;
+    const sDiff = (sAct != null && sMed != null) ? (sAct - sMed) : null;
+
+    html += `<tr>
+      <td class="sticky-col"><strong>${ym}</strong></td>
+      <td class="num">${fmtNum(pMed)}</td>
+      <td class="num" style="font-size:11px;color:var(--text-muted);">${fmtNum(r.Production_Poll_Low_MT)} – ${fmtNum(r.Production_Poll_High_MT)}</td>
+      <td class="num"><strong>${fmtNum(pAct)}</strong></td>
+      <td class="num">${fmtDelta(pDiff)}</td>
+      <td class="num">${fmtNum(eMed)}</td>
+      <td class="num"><strong>${fmtNum(eAct)}</strong></td>
+      <td class="num">${fmtDelta(eDiff)}</td>
+      <td class="num">${fmtNum(sMed)}</td>
+      <td class="num" style="font-size:11px;color:var(--text-muted);">${fmtNum(r.Closing_Stocks_Poll_Low_MT)} – ${fmtNum(r.Closing_Stocks_Poll_High_MT)}</td>
+      <td class="num"><strong>${fmtNum(sAct)}</strong></td>
+      <td class="num">${fmtDelta(sDiff)}</td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+  document.getElementById("survey-table1-container").innerHTML = html;
+}
 
 function chartOptionsCommon(yTitle) {
   return {

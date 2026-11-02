@@ -1185,7 +1185,7 @@
     "category": "Grains & Oilseeds",
     "sheet": "W",
     "exchange": "MGEX",
-    "description": "Usc/bu",
+    "description": "MGEX Hard Red Spring Wheat Futures settlement curve",
     "unit": "USD/bu",
     "series_refs": {
       "d1": "W!$U$5:$U$9",
@@ -1194,54 +1194,64 @@
     },
     "points": [
       {
+        "row": 4,
+        "ric": "/MWEZ26",
+        "label": "MWEZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
+        "v1": 7.0175,
+        "v2": 6.415,
+        "v3": 6.345
+      },
+      {
         "row": 5,
-        "ric": "/KWH27",
-        "label": "KWH27",
+        "ric": "/MWEH27",
+        "label": "MWEH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 7.2275,
         "v2": 6.585,
-        "v3": 6.5125,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 6.5125
       },
       {
         "row": 6,
-        "ric": "/KWK27",
-        "label": "KWK27",
+        "ric": "/MWEK27",
+        "label": "MWEK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 7.3575,
         "v2": 6.7075,
-        "v3": 6.6375,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 6.6375
       },
       {
         "row": 7,
-        "ric": "/KWN27",
-        "label": "KWN27",
+        "ric": "/MWEN27",
+        "label": "MWEN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 7.41,
         "v2": 6.82,
-        "v3": 6.755,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 6.755
       },
       {
         "row": 8,
-        "ric": "/KWU27",
-        "label": "KWU27",
+        "ric": "/MWEU27",
+        "label": "MWEU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 7.35,
         "v2": 6.91,
-        "v3": 6.84,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 6.84
       },
       {
         "row": 9,
-        "ric": "/KWZ27",
-        "label": "KWZ27",
+        "ric": "/MWEZ27",
+        "label": "MWEZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
         "v1": 7.3825,
         "v2": 7.0475,
-        "v3": 7.005,
-        "contract_code": "Z27",
-        "display_label": "Dec 27"
+        "v3": 7.005
       }
     ]
   },

@@ -938,3 +938,210 @@ body {
   gap: 6px;
   flex-wrap: wrap;
 }
+
+/* ------------------------------------------------------------------------- */
+/* SURVEY TAB STABILITY & CATEGORY GROUP BORDERS                             */
+/* ------------------------------------------------------------------------- */
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+.survey-primary-toolbar {
+  margin-bottom: 8px;
+}
+
+.survey-sub-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 38px;
+  margin-bottom: 14px;
+  padding: 4px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+}
+
+/* Multi-tier Group Header Styling */
+.th-group-period {
+  background: #f8fafc !important;
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+.th-group-sppoma {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  letter-spacing: 0.3px;
+}
+
+.th-group-mpoa {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  letter-spacing: 0.3px;
+}
+
+.th-group-mpob {
+  background: #d1fae5 !important;
+  color: #065f46 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  letter-spacing: 0.3px;
+}
+
+.th-group-error {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  letter-spacing: 0.3px;
+}
+
+.th-group-note {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+}
+
+/* Thicker Vertical Dividing Category Borders */
+.border-right-thick-period,
+th.border-right-thick-period,
+td.border-right-thick-period {
+  border-right: 3px solid #94a3b8 !important;
+}
+
+.border-right-thick-sppoma,
+th.border-right-thick-sppoma,
+td.border-right-thick-sppoma {
+  border-right: 3px solid #d97706 !important;
+}
+
+.border-right-thick-mpoa,
+th.border-right-thick-mpoa,
+td.border-right-thick-mpoa {
+  border-right: 3px solid #0284c7 !important;
+}
+
+.border-right-thick-mpob,
+th.border-right-thick-mpob,
+td.border-right-thick-mpob {
+  border-right: 3px solid #059669 !important;
+}
+
+.border-right-thick-error,
+th.border-right-thick-error,
+td.border-right-thick-error {
+  border-right: 3px solid #64748b !important;
+}
+
+/* Wire Flashes & Captures Styling */
+.wire-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.wire-badge-mpoa {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.wire-cell-indicator {
+  display: inline-block;
+  margin-left: 3px;
+  color: #d97706;
+  font-size: 11px;
+  cursor: help;
+}
+
+/* ------------------------------------------------------------------------- */
+/* S&D MONTHLY MATRIX VIEW STYLING                                           */
+/* ------------------------------------------------------------------------- */
+.snd-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+}
+
+.snd-matrix-table th,
+.snd-matrix-table td {
+  padding: 5px 8px;
+  border: 1px solid #cbd5e1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.snd-matrix-table .matrix-col-year {
+  width: 65px;
+  min-width: 65px;
+  text-align: center;
+  font-weight: 700;
+  background: #f8fafc;
+  color: var(--text-primary);
+  border-right: 2px solid #94a3b8;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+.snd-matrix-table .matrix-col-metric {
+  width: 160px;
+  min-width: 160px;
+  text-align: left;
+  font-weight: 600;
+  background: #ffffff;
+  color: var(--text-primary);
+  border-right: 2px solid #94a3b8;
+  position: sticky;
+  left: 65px;
+  z-index: 5;
+}
+
+.snd-matrix-table tr.matrix-row-month th,
+.snd-matrix-table tr.matrix-row-month td {
+  background: #f1f5f9;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-primary);
+  border-bottom: 2px solid #94a3b8;
+}
+
+.snd-matrix-table tr.matrix-row-month .is-fcst-month {
+  background: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.snd-matrix-table .matrix-col-total {
+  font-weight: 700;
+  background: #f8fafc;
+  border-left: 2px solid #94a3b8;
+}
+
+.snd-matrix-table tr.matrix-row-su td {
+  font-weight: 700;
+  background: #fafafa;
+  color: #0f172a;
+}
+
+.snd-matrix-table tr.matrix-block-end td {
+  border-bottom: 3px solid #334155 !important;
+}

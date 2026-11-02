@@ -1,7 +1,7 @@
 {
   "metadata": {
     "latest_date": "2026-11-01",
-    "generated_at": "2026-11-02 02:27:32",
+    "generated_at": "2026-11-02 10:40:28",
     "total_locations": 41,
     "historical_range": "2010-01-01 to 2026-11-01",
     "color_scale": {
@@ -11,36 +11,36 @@
     },
     "forecast_28d_range": "2026-11-02 to 2026-11-16",
     "forecast_14d_range": "2026-11-02 to 2026-11-15",
-    "forecast_14d_updated_at": "2026-11-02 02:27:34",
+    "forecast_14d_updated_at": "2026-11-02 10:41:14",
     "forecast_28d_updated_at": "2026-10-19 02:06:32",
     "forecast_model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)",
     "model_cycles": {
       "ecmwf": {
         "cycle": "12Z",
-        "date": "2026-10-29",
-        "timestamp": 1793275200,
-        "formatted": "2026-10-29 12Z"
+        "date": "2026-11-01",
+        "timestamp": 1793556000,
+        "formatted": "2026-11-01 12Z"
       },
       "noaa_gefs": {
         "cycle": "12Z",
-        "date": "2026-10-29",
-        "formatted": "2026-10-29 12Z"
+        "date": "2026-11-01",
+        "formatted": "2026-11-01 12Z"
       },
-      "is_matched": true,
-      "label": "Matched 12Z Synoptic Run",
       "google_weathernext": {
         "cycle": "12Z",
-        "date": "2026-10-29",
-        "timestamp": 1793275200,
-        "formatted": "2026-10-29 12Z",
+        "date": "2026-11-01",
+        "timestamp": 1793534400,
+        "formatted": "2026-11-01 12Z",
         "model_name": "Google DeepMind WeatherNext 3/2"
-      }
+      },
+      "is_matched": true,
+      "label": "Matched 12Z Synoptic Run (ECMWF \u2194 NOAA \u2194 WNext)"
     }
   },
   "kpis": {
     "latest_date": "2026-11-01",
-    "malaysia_avg": 5.54,
-    "indonesia_avg": 7.79,
+    "malaysia_avg": 5.56,
+    "indonesia_avg": 7.86,
     "driest_state": {
       "name": "Melaka",
       "major_group": "Peninsular Malaysia",
@@ -49,7 +49,7 @@
     "wettest_state": {
       "name": "Aceh",
       "major_group": "Sumatera",
-      "precipitation_mm": 24.14
+      "precipitation_mm": 24.47
     }
   },
   "locations": [
@@ -2041,7 +2041,7 @@
       "2026-10-29": 22.35,
       "2026-10-30": 3.15,
       "2026-10-31": 3.4,
-      "2026-11-01": 3.65
+      "2026-11-01": 4.25
     },
     "MY-10": {
       "2026-07-04": 3.65,
@@ -2410,7 +2410,7 @@
       "2026-10-29": 23.09,
       "2026-10-30": 6.64,
       "2026-10-31": 0.88,
-      "2026-11-01": 3.52
+      "2026-11-01": 3.63
     },
     "MY-12": {
       "2026-07-04": 7.97,
@@ -2533,7 +2533,7 @@
       "2026-10-29": 1.03,
       "2026-10-30": 1.61,
       "2026-10-31": 22.05,
-      "2026-11-01": 3.73
+      "2026-11-01": 3.65
     },
     "MY-04": {
       "2026-07-04": 1.93,
@@ -2902,7 +2902,7 @@
       "2026-10-29": 5.53,
       "2026-10-30": 13.15,
       "2026-10-31": 17.72,
-      "2026-11-01": 12.16
+      "2026-11-01": 12.2
     },
     "MY-14": {
       "2026-07-04": 1.5,
@@ -3271,7 +3271,7 @@
       "2026-10-29": 21.51,
       "2026-10-30": 3.23,
       "2026-10-31": 3.21,
-      "2026-11-01": 1.98
+      "2026-11-01": 2.07
     },
     "ID-JA": {
       "2026-07-04": 0.77,
@@ -3517,7 +3517,7 @@
       "2026-10-29": 16.4,
       "2026-10-30": 1.76,
       "2026-10-31": 0.47,
-      "2026-11-01": 7.51
+      "2026-11-01": 7.08
     },
     "ID-BB": {
       "2026-07-04": 0.48,
@@ -3886,7 +3886,7 @@
       "2026-10-29": 1.55,
       "2026-10-30": 3.7,
       "2026-10-31": 13.2,
-      "2026-11-01": 6.35
+      "2026-11-01": 5.05
     },
     "ID-KB": {
       "2026-07-04": 1.27,
@@ -4009,7 +4009,7 @@
       "2026-10-29": 4.72,
       "2026-10-30": 5.83,
       "2026-10-31": 13.51,
-      "2026-11-01": 8.57
+      "2026-11-01": 10.07
     },
     "ID-KT": {
       "2026-07-04": 0.57,
@@ -4870,7 +4870,7 @@
       "2026-10-29": 20.11,
       "2026-10-30": 7.04,
       "2026-10-31": 5.01,
-      "2026-11-01": 5.73
+      "2026-11-01": 5.76
     },
     "ID-SB": {
       "2026-07-04": 5.66,
@@ -4993,7 +4993,7 @@
       "2026-10-29": 23.72,
       "2026-10-30": 12.96,
       "2026-10-31": 8.3,
-      "2026-11-01": 6.22
+      "2026-11-01": 7.58
     },
     "ID-SR": {
       "2026-07-04": 1.5,
@@ -5239,7 +5239,7 @@
       "2026-10-29": 0.7,
       "2026-10-30": 0.15,
       "2026-10-31": 8.55,
-      "2026-11-01": 4.6
+      "2026-11-01": 4.75
     },
     "ID-SG": {
       "2026-07-04": 2.4,
@@ -5854,7 +5854,7 @@
       "2026-10-29": 1.82,
       "2026-10-30": 1.98,
       "2026-10-31": 4.08,
-      "2026-11-01": 5.72
+      "2026-11-01": 5.84
     },
     "MY-15": {
       "2026-07-04": 0.3,
@@ -5977,7 +5977,7 @@
       "2026-10-29": 2.1,
       "2026-10-30": 7.2,
       "2026-10-31": 48.1,
-      "2026-11-01": 10.3
+      "2026-11-01": 9.9
     },
     "ID-AC": {
       "2026-07-04": 9.63,
@@ -6100,7 +6100,7 @@
       "2026-10-29": 8.6,
       "2026-10-30": 6.73,
       "2026-10-31": 12.14,
-      "2026-11-01": 24.14
+      "2026-11-01": 24.47
     },
     "TH-SOUTH": {
       "2026-07-04": 2.65,
@@ -6346,7 +6346,7 @@
       "2026-10-29": 8.64,
       "2026-10-30": 4.99,
       "2026-10-31": 10.81,
-      "2026-11-01": 7.58
+      "2026-11-01": 7.82
     }
   },
   "monthly_data": {
@@ -7397,12 +7397,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 433.4,
+          "total_mm": 402.6,
           "days": 30,
-          "avg_mm_day": 14.45,
+          "avg_mm_day": 13.42,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 24.1,
+          "observed_mm": 24.5,
           "forecast_days": 29
         },
         "12": {
@@ -8484,9 +8484,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 305.2,
+          "total_mm": 269.3,
           "days": 30,
-          "avg_mm_day": 10.17,
+          "avg_mm_day": 8.98,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 1.5,
@@ -9571,9 +9571,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 359.1,
+          "total_mm": 375.1,
           "days": 30,
-          "avg_mm_day": 11.97,
+          "avg_mm_day": 12.5,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 24.1,
@@ -10658,9 +10658,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 226.2,
+          "total_mm": 249.0,
           "days": 30,
-          "avg_mm_day": 7.54,
+          "avg_mm_day": 8.3,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 5.1,
@@ -11745,9 +11745,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 254.3,
+          "total_mm": 262.0,
           "days": 30,
-          "avg_mm_day": 8.48,
+          "avg_mm_day": 8.73,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 9.2,
@@ -12832,12 +12832,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 322.4,
+          "total_mm": 362.3,
           "days": 30,
-          "avg_mm_day": 10.75,
+          "avg_mm_day": 12.08,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 8.6,
+          "observed_mm": 10.1,
           "forecast_days": 29
         },
         "12": {
@@ -13919,9 +13919,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 232.0,
+          "total_mm": 239.1,
           "days": 30,
-          "avg_mm_day": 7.73,
+          "avg_mm_day": 7.97,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 5.5,
@@ -15006,9 +15006,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 216.8,
+          "total_mm": 233.1,
           "days": 30,
-          "avg_mm_day": 7.23,
+          "avg_mm_day": 7.77,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 1.9,
@@ -16093,9 +16093,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 293.8,
+          "total_mm": 320.4,
           "days": 30,
-          "avg_mm_day": 9.79,
+          "avg_mm_day": 10.68,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 0.4,
@@ -17180,12 +17180,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 297.8,
+          "total_mm": 292.4,
           "days": 30,
-          "avg_mm_day": 9.93,
+          "avg_mm_day": 9.75,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 6.3,
+          "observed_mm": 5.0,
           "forecast_days": 29
         },
         "12": {
@@ -18267,9 +18267,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 201.0,
+          "total_mm": 191.2,
           "days": 30,
-          "avg_mm_day": 6.7,
+          "avg_mm_day": 6.37,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 3.5,
@@ -19354,9 +19354,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 238.9,
+          "total_mm": 248.9,
           "days": 30,
-          "avg_mm_day": 7.96,
+          "avg_mm_day": 8.3,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 3.5,
@@ -20441,9 +20441,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 233.7,
+          "total_mm": 240.7,
           "days": 30,
-          "avg_mm_day": 7.79,
+          "avg_mm_day": 8.02,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 16.5,
@@ -21528,12 +21528,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 205.0,
+          "total_mm": 179.9,
           "days": 30,
-          "avg_mm_day": 6.83,
+          "avg_mm_day": 6.0,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 5.7,
+          "observed_mm": 5.8,
           "forecast_days": 29
         },
         "12": {
@@ -22615,9 +22615,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 332.2,
+          "total_mm": 342.9,
           "days": 30,
-          "avg_mm_day": 11.07,
+          "avg_mm_day": 11.43,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 14.2,
@@ -23702,12 +23702,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 291.8,
+          "total_mm": 315.9,
           "days": 30,
-          "avg_mm_day": 9.73,
+          "avg_mm_day": 10.53,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 2.0,
+          "observed_mm": 2.1,
           "forecast_days": 29
         },
         "12": {
@@ -24789,9 +24789,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 251.8,
+          "total_mm": 235.0,
           "days": 30,
-          "avg_mm_day": 8.39,
+          "avg_mm_day": 7.83,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 16.8,
@@ -25876,12 +25876,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 431.6,
+          "total_mm": 451.8,
           "days": 30,
-          "avg_mm_day": 14.39,
+          "avg_mm_day": 15.06,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 6.2,
+          "observed_mm": 7.6,
           "forecast_days": 29
         },
         "12": {
@@ -26963,9 +26963,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 116.2,
+          "total_mm": 128.1,
           "days": 30,
-          "avg_mm_day": 3.87,
+          "avg_mm_day": 4.27,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 0.3,
@@ -28050,12 +28050,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 164.4,
+          "total_mm": 177.8,
           "days": 30,
-          "avg_mm_day": 5.48,
+          "avg_mm_day": 5.93,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 4.6,
+          "observed_mm": 4.8,
           "forecast_days": 29
         },
         "12": {
@@ -29137,9 +29137,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 269.1,
+          "total_mm": 279.4,
           "days": 30,
-          "avg_mm_day": 8.97,
+          "avg_mm_day": 9.31,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 12.2,
@@ -30224,12 +30224,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 244.8,
+          "total_mm": 249.8,
           "days": 30,
-          "avg_mm_day": 8.16,
+          "avg_mm_day": 8.33,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 7.5,
+          "observed_mm": 7.1,
           "forecast_days": 29
         },
         "12": {
@@ -31311,9 +31311,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 215.8,
+          "total_mm": 201.2,
           "days": 30,
-          "avg_mm_day": 7.19,
+          "avg_mm_day": 6.71,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 1.4,
@@ -32398,12 +32398,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 454.9,
+          "total_mm": 409.5,
           "days": 30,
-          "avg_mm_day": 15.16,
+          "avg_mm_day": 13.65,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 5.7,
+          "observed_mm": 5.8,
           "forecast_days": 29
         },
         "12": {
@@ -33485,9 +33485,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 307.0,
+          "total_mm": 339.8,
           "days": 30,
-          "avg_mm_day": 10.23,
+          "avg_mm_day": 11.33,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 1.9,
@@ -34572,9 +34572,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 360.9,
+          "total_mm": 365.8,
           "days": 30,
-          "avg_mm_day": 12.03,
+          "avg_mm_day": 12.19,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 9.0,
@@ -35659,9 +35659,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 369.1,
+          "total_mm": 356.5,
           "days": 30,
-          "avg_mm_day": 12.3,
+          "avg_mm_day": 11.88,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 9.9,
@@ -36746,9 +36746,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 326.9,
+          "total_mm": 325.1,
           "days": 30,
-          "avg_mm_day": 10.9,
+          "avg_mm_day": 10.84,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 0.0,
@@ -37833,9 +37833,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 329.1,
+          "total_mm": 351.1,
           "days": 30,
-          "avg_mm_day": 10.97,
+          "avg_mm_day": 11.7,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 1.0,
@@ -38920,12 +38920,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 325.2,
+          "total_mm": 338.8,
           "days": 30,
-          "avg_mm_day": 10.84,
+          "avg_mm_day": 11.29,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 3.5,
+          "observed_mm": 3.6,
           "forecast_days": 29
         },
         "12": {
@@ -40007,9 +40007,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 410.6,
+          "total_mm": 477.4,
           "days": 30,
-          "avg_mm_day": 13.69,
+          "avg_mm_day": 15.91,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 7.4,
@@ -41094,9 +41094,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 361.1,
+          "total_mm": 363.6,
           "days": 30,
-          "avg_mm_day": 12.04,
+          "avg_mm_day": 12.12,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 5.2,
@@ -42181,9 +42181,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 330.1,
+          "total_mm": 321.6,
           "days": 30,
-          "avg_mm_day": 11.0,
+          "avg_mm_day": 10.72,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 8.1,
@@ -43268,9 +43268,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 371.1,
+          "total_mm": 353.0,
           "days": 30,
-          "avg_mm_day": 12.37,
+          "avg_mm_day": 11.77,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 5.8,
@@ -44355,12 +44355,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 352.6,
+          "total_mm": 358.1,
           "days": 30,
-          "avg_mm_day": 11.75,
+          "avg_mm_day": 11.94,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 3.6,
+          "observed_mm": 4.2,
           "forecast_days": 29
         },
         "12": {
@@ -45442,12 +45442,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 232.7,
+          "total_mm": 214.1,
           "days": 30,
-          "avg_mm_day": 7.76,
+          "avg_mm_day": 7.14,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 3.7,
+          "observed_mm": 3.6,
           "forecast_days": 29
         },
         "12": {
@@ -46529,9 +46529,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 342.4,
+          "total_mm": 329.8,
           "days": 30,
-          "avg_mm_day": 11.41,
+          "avg_mm_day": 10.99,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 12.2,
@@ -47616,9 +47616,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 334.1,
+          "total_mm": 364.9,
           "days": 30,
-          "avg_mm_day": 11.14,
+          "avg_mm_day": 12.16,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 1.5,
@@ -48703,12 +48703,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 264.0,
+          "total_mm": 270.6,
           "days": 30,
-          "avg_mm_day": 8.8,
+          "avg_mm_day": 9.02,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 10.3,
+          "observed_mm": 9.9,
           "forecast_days": 29
         },
         "12": {
@@ -49418,12 +49418,12 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 204.8,
+          "total_mm": 188.6,
           "days": 30,
-          "avg_mm_day": 6.83,
+          "avg_mm_day": 6.29,
           "is_projected": true,
           "observed_days": 1,
-          "observed_mm": 7.6,
+          "observed_mm": 7.8,
           "forecast_days": 29
         },
         "12": {
@@ -50133,9 +50133,9 @@
           "model": "ECMWF SEAS5 51-Member Ensemble Mean"
         },
         "11": {
-          "total_mm": 293.2,
+          "total_mm": 298.9,
           "days": 30,
-          "avg_mm_day": 9.77,
+          "avg_mm_day": 9.96,
           "is_projected": true,
           "observed_days": 1,
           "observed_mm": 2.9,
@@ -68251,7 +68251,7 @@
           "val": 0.215
         },
         "11": {
-          "val": 0.271
+          "val": 0.267
         },
         "12": {
           "val": 0.253,
@@ -69953,7 +69953,7 @@
           "val": 0.078
         },
         "11": {
-          "val": 0.193
+          "val": 0.198
         },
         "12": {
           "val": 0.32,
@@ -70804,7 +70804,7 @@
           "val": 0.333
         },
         "11": {
-          "val": 0.401
+          "val": 0.404
         },
         "12": {
           "val": 0.382,
@@ -71655,7 +71655,7 @@
           "val": 0.285
         },
         "11": {
-          "val": 0.328
+          "val": 0.324
         },
         "12": {
           "val": 0.402,
@@ -72506,7 +72506,7 @@
           "val": 0.265
         },
         "11": {
-          "val": 0.338
+          "val": 0.337
         },
         "12": {
           "val": 0.363,
@@ -73357,7 +73357,7 @@
           "val": 0.233
         },
         "11": {
-          "val": 0.356
+          "val": 0.355
         },
         "12": {
           "val": 0.35,
@@ -75059,7 +75059,7 @@
           "val": 0.427
         },
         "11": {
-          "val": 0.453
+          "val": 0.45
         },
         "12": {
           "val": 0.34,
@@ -75910,7 +75910,7 @@
           "val": 0.184
         },
         "11": {
-          "val": 0.316
+          "val": 0.317
         },
         "12": {
           "val": 0.455,
@@ -76761,7 +76761,7 @@
           "val": 0.402
         },
         "11": {
-          "val": 0.379
+          "val": 0.383
         },
         "12": {
           "val": 0.39,
@@ -77612,7 +77612,7 @@
           "val": 0.198
         },
         "11": {
-          "val": 0.331
+          "val": 0.329
         },
         "12": {
           "val": 0.296,
@@ -78463,7 +78463,7 @@
           "val": 0.308
         },
         "11": {
-          "val": 0.407
+          "val": 0.406
         },
         "12": {
           "val": 0.48,
@@ -79314,7 +79314,7 @@
           "val": 0.358
         },
         "11": {
-          "val": 0.415
+          "val": 0.418
         },
         "12": {
           "val": 0.361,
@@ -80165,7 +80165,7 @@
           "val": 0.48
         },
         "11": {
-          "val": 0.466
+          "val": 0.47
         },
         "12": {
           "val": 0.403,
@@ -81016,7 +81016,7 @@
           "val": 0.232
         },
         "11": {
-          "val": 0.307
+          "val": 0.309
         },
         "12": {
           "val": 0.388,
@@ -81867,7 +81867,7 @@
           "val": 0.468
         },
         "11": {
-          "val": 0.478
+          "val": 0.481
         },
         "12": {
           "val": 0.374,
@@ -82718,7 +82718,7 @@
           "val": 0.138
         },
         "11": {
-          "val": 0.144
+          "val": 0.143
         },
         "12": {
           "val": 0.382,
@@ -83569,7 +83569,7 @@
           "val": 0.253
         },
         "11": {
-          "val": 0.238
+          "val": 0.237
         },
         "12": {
           "val": 0.352,
@@ -84420,7 +84420,7 @@
           "val": 0.228
         },
         "11": {
-          "val": 0.374
+          "val": 0.376
         },
         "12": {
           "val": 0.344,
@@ -85271,7 +85271,7 @@
           "val": 0.291
         },
         "11": {
-          "val": 0.407
+          "val": 0.412
         },
         "12": {
           "val": 0.387,
@@ -86122,7 +86122,7 @@
           "val": 0.186
         },
         "11": {
-          "val": 0.218
+          "val": 0.219
         },
         "12": {
           "val": 0.325,
@@ -86973,7 +86973,7 @@
           "val": 0.456
         },
         "11": {
-          "val": 0.467
+          "val": 0.464
         },
         "12": {
           "val": 0.335,
@@ -87824,7 +87824,7 @@
           "val": 0.442
         },
         "11": {
-          "val": 0.456
+          "val": 0.457
         },
         "12": {
           "val": 0.452,
@@ -88675,7 +88675,7 @@
           "val": 0.493
         },
         "11": {
-          "val": 0.489
+          "val": 0.49
         },
         "12": {
           "val": 0.417,
@@ -89526,7 +89526,7 @@
           "val": 0.437
         },
         "11": {
-          "val": 0.443
+          "val": 0.44
         },
         "12": {
           "val": 0.423,
@@ -90377,7 +90377,7 @@
           "val": 0.45
         },
         "11": {
-          "val": 0.439
+          "val": 0.44
         },
         "12": {
           "val": 0.436,
@@ -92930,7 +92930,7 @@
           "val": 0.487
         },
         "11": {
-          "val": 0.487
+          "val": 0.486
         },
         "12": {
           "val": 0.435,
@@ -93781,7 +93781,7 @@
           "val": 0.489
         },
         "11": {
-          "val": 0.471
+          "val": 0.466
         },
         "12": {
           "val": 0.479,
@@ -94632,7 +94632,7 @@
           "val": 0.489
         },
         "11": {
-          "val": 0.494
+          "val": 0.493
         },
         "12": {
           "val": 0.391,
@@ -95483,7 +95483,7 @@
           "val": 0.48
         },
         "11": {
-          "val": 0.462
+          "val": 0.458
         },
         "12": {
           "val": 0.446,
@@ -96334,7 +96334,7 @@
           "val": 0.418
         },
         "11": {
-          "val": 0.444
+          "val": 0.441
         },
         "12": {
           "val": 0.43,
@@ -97185,7 +97185,7 @@
           "val": 0.372
         },
         "11": {
-          "val": 0.402
+          "val": 0.401
         },
         "12": {
           "val": 0.407,
@@ -100289,7 +100289,7 @@
           "val": 0.443
         },
         "11": {
-          "val": 0.451
+          "val": 0.452
         },
         "12": {
           "val": 0.4,
@@ -101140,7 +101140,7 @@
           "val": 0.361
         },
         "11": {
-          "val": 0.336
+          "val": 0.33
         },
         "12": {
           "val": 0.35,
@@ -108250,7 +108250,7 @@
           "val": 0.238
         },
         "11": {
-          "val": 0.232
+          "val": 0.231
         },
         "12": {
           "val": 0.318,
@@ -112505,7 +112505,7 @@
           "val": 0.127
         },
         "11": {
-          "val": 0.143
+          "val": 0.142
         },
         "12": {
           "val": 0.214,
@@ -115909,7 +115909,7 @@
           "val": 0.235
         },
         "11": {
-          "val": 0.21
+          "val": 0.209
         },
         "12": {
           "val": 0.315,
@@ -119313,7 +119313,7 @@
           "val": 0.163
         },
         "11": {
-          "val": 0.174
+          "val": 0.173
         },
         "12": {
           "val": 0.238,
@@ -120164,7 +120164,7 @@
           "val": 0.262
         },
         "11": {
-          "val": 0.257
+          "val": 0.258
         },
         "12": {
           "val": 0.345,
@@ -121015,7 +121015,7 @@
           "val": 0.246
         },
         "11": {
-          "val": 0.237
+          "val": 0.236
         },
         "12": {
           "val": 0.267,
@@ -135469,7 +135469,7 @@
           "val": 0.4
         },
         "11": {
-          "val": 0.449
+          "val": 0.448
         },
         "12": {
           "val": 0.415,
@@ -136320,7 +136320,7 @@
           "val": 0.262
         },
         "11": {
-          "val": 0.245
+          "val": 0.244
         },
         "12": {
           "val": 0.285,
@@ -169421,10 +169421,10 @@
           "mean_temp": 26.2
         },
         "11": {
-          "val": 25.9,
+          "val": 26.1,
           "val_max": 29.64,
           "val_min": 23.16,
-          "mean_temp": 25.9
+          "mean_temp": 26.1
         },
         "12": {
           "mean_temp": 26.4,
@@ -170891,7 +170891,7 @@
         "11": {
           "val": 28.3,
           "val_max": 33.12,
-          "val_min": 25.08,
+          "val_min": 25.14,
           "mean_temp": 28.3
         },
         "12": {
@@ -173825,10 +173825,10 @@
           "mean_temp": 27.4
         },
         "11": {
-          "val": 26.1,
+          "val": 26.2,
           "val_max": 31.94,
           "val_min": 22.48,
-          "mean_temp": 26.1
+          "mean_temp": 26.2
         },
         "12": {
           "mean_temp": 27.1,
@@ -175293,10 +175293,10 @@
           "mean_temp": 28.1
         },
         "11": {
-          "val": 27.2,
+          "val": 27.3,
           "val_max": 32.47,
           "val_min": 23.81,
-          "mean_temp": 27.2
+          "mean_temp": 27.3
         },
         "12": {
           "mean_temp": 26.7,
@@ -176761,10 +176761,10 @@
           "mean_temp": 27.5
         },
         "11": {
-          "val": 27.3,
+          "val": 27.5,
           "val_max": 32.04,
           "val_min": 24.35,
-          "mean_temp": 27.3
+          "mean_temp": 27.5
         },
         "12": {
           "mean_temp": 26.9,
@@ -178229,10 +178229,10 @@
           "mean_temp": 28.0
         },
         "11": {
-          "val": 27.4,
+          "val": 27.3,
           "val_max": 32.37,
           "val_min": 23.74,
-          "mean_temp": 27.4
+          "mean_temp": 27.3
         },
         "12": {
           "mean_temp": 27.4,
@@ -181165,10 +181165,10 @@
           "mean_temp": 28.4
         },
         "11": {
-          "val": 27.9,
+          "val": 28.0,
           "val_max": 34.08,
           "val_min": 22.94,
-          "mean_temp": 27.9
+          "mean_temp": 28.0
         },
         "12": {
           "mean_temp": 27.3,
@@ -182633,10 +182633,10 @@
           "mean_temp": 26.4
         },
         "11": {
-          "val": 25.8,
+          "val": 25.9,
           "val_max": 30.3,
           "val_min": 22.95,
-          "mean_temp": 25.8
+          "mean_temp": 25.9
         },
         "12": {
           "mean_temp": 26.5,
@@ -184101,10 +184101,10 @@
           "mean_temp": 29.5
         },
         "11": {
-          "val": 28.2,
+          "val": 28.3,
           "val_max": 32.45,
-          "val_min": 25.6,
-          "mean_temp": 28.2
+          "val_min": 25.65,
+          "mean_temp": 28.3
         },
         "12": {
           "mean_temp": 27.2,
@@ -187037,10 +187037,10 @@
           "mean_temp": 27.4
         },
         "11": {
-          "val": 26.1,
+          "val": 26.2,
           "val_max": 31.08,
           "val_min": 23.38,
-          "mean_temp": 26.1
+          "mean_temp": 26.2
         },
         "12": {
           "mean_temp": 27.9,
@@ -191441,10 +191441,10 @@
           "mean_temp": 27.1
         },
         "11": {
-          "val": 27.9,
+          "val": 28.0,
           "val_max": 32.25,
           "val_min": 23.84,
-          "mean_temp": 27.9
+          "mean_temp": 28.0
         },
         "12": {
           "mean_temp": 26.3,
@@ -192909,10 +192909,10 @@
           "mean_temp": 26.2
         },
         "11": {
-          "val": 24.9,
+          "val": 25.1,
           "val_max": 31.8,
-          "val_min": 22.4,
-          "mean_temp": 24.9
+          "val_min": 22.5,
+          "mean_temp": 25.1
         },
         "12": {
           "mean_temp": 26.2,
@@ -201717,10 +201717,10 @@
           "mean_temp": 24.1
         },
         "11": {
-          "val": 24.4,
+          "val": 24.6,
           "val_max": 30.0,
-          "val_min": 20.25,
-          "mean_temp": 24.4
+          "val_min": 20.65,
+          "mean_temp": 24.6
         },
         "12": {
           "mean_temp": 26.1,
@@ -203185,10 +203185,10 @@
           "mean_temp": 25.8
         },
         "11": {
-          "val": 26.0,
+          "val": 26.2,
           "val_max": 30.3,
-          "val_min": 22.97,
-          "mean_temp": 26.0
+          "val_min": 23.0,
+          "mean_temp": 26.2
         },
         "12": {
           "mean_temp": 25.5,
@@ -204653,10 +204653,10 @@
           "mean_temp": 27.0
         },
         "11": {
-          "val": 27.3,
+          "val": 27.2,
           "val_max": 32.58,
           "val_min": 23.43,
-          "mean_temp": 27.3
+          "mean_temp": 27.2
         },
         "12": {
           "mean_temp": 26.0,
@@ -206121,10 +206121,10 @@
           "mean_temp": 26.4
         },
         "11": {
-          "val": 26.7,
+          "val": 26.5,
           "val_max": 30.41,
           "val_min": 23.67,
-          "mean_temp": 26.7
+          "mean_temp": 26.5
         },
         "12": {
           "mean_temp": 26.7,
@@ -207589,10 +207589,10 @@
           "mean_temp": 26.7
         },
         "11": {
-          "val": 26.8,
+          "val": 26.9,
           "val_max": 32.0,
           "val_min": 23.7,
-          "mean_temp": 26.8
+          "mean_temp": 26.9
         },
         "12": {
           "mean_temp": 25.6,
@@ -210525,10 +210525,10 @@
           "mean_temp": 26.9
         },
         "11": {
-          "val": 27.2,
+          "val": 27.3,
           "val_max": 32.76,
           "val_min": 23.04,
-          "mean_temp": 27.2
+          "mean_temp": 27.3
         },
         "12": {
           "mean_temp": 25.9,
@@ -211995,7 +211995,7 @@
         "11": {
           "val": 27.6,
           "val_max": 33.05,
-          "val_min": 24.2,
+          "val_min": 23.96,
           "mean_temp": 27.6
         },
         "12": {
@@ -213461,10 +213461,10 @@
           "mean_temp": 26.7
         },
         "11": {
-          "val": 27.1,
+          "val": 27.0,
           "val_max": 30.2,
           "val_min": 24.5,
-          "mean_temp": 27.1
+          "mean_temp": 27.0
         },
         "12": {
           "mean_temp": 26.8,
@@ -214929,10 +214929,10 @@
           "mean_temp": 26.9
         },
         "11": {
-          "val": 26.9,
+          "val": 27.0,
           "val_max": 31.12,
           "val_min": 24.32,
-          "mean_temp": 26.9
+          "mean_temp": 27.0
         },
         "12": {
           "mean_temp": 27.2,
@@ -216397,10 +216397,10 @@
           "mean_temp": 27.0
         },
         "11": {
-          "val": 27.2,
+          "val": 27.1,
           "val_max": 29.9,
           "val_min": 24.1,
-          "mean_temp": 27.2
+          "mean_temp": 27.1
         },
         "12": {
           "mean_temp": 25.9,
@@ -217865,10 +217865,10 @@
           "mean_temp": 27.1
         },
         "11": {
-          "val": 27.2,
+          "val": 27.3,
           "val_max": 30.55,
           "val_min": 24.7,
-          "mean_temp": 27.2
+          "mean_temp": 27.3
         },
         "12": {
           "mean_temp": 27.2,
@@ -219333,10 +219333,10 @@
           "mean_temp": 27.6
         },
         "11": {
-          "val": 27.8,
+          "val": 28.0,
           "val_max": 32.3,
-          "val_min": 24.85,
-          "mean_temp": 27.8
+          "val_min": 24.9,
+          "mean_temp": 28.0
         },
         "12": {
           "mean_temp": 26.3,
@@ -220801,10 +220801,10 @@
           "mean_temp": 27.7
         },
         "11": {
-          "val": 27.1,
+          "val": 27.2,
           "val_max": 31.08,
-          "val_min": 24.14,
-          "mean_temp": 27.1
+          "val_min": 24.13,
+          "mean_temp": 27.2
         },
         "12": {
           "mean_temp": 27.1,
@@ -222269,10 +222269,10 @@
           "mean_temp": 27.2
         },
         "11": {
-          "val": 26.6,
+          "val": 26.8,
           "val_max": 31.09,
           "val_min": 23.35,
-          "mean_temp": 26.6
+          "mean_temp": 26.8
         },
         "12": {
           "mean_temp": 27.5,
@@ -225205,10 +225205,10 @@
           "mean_temp": 28.1
         },
         "11": {
-          "val": 27.3,
+          "val": 27.4,
           "val_max": 30.3,
           "val_min": 24.8,
-          "mean_temp": 27.3
+          "mean_temp": 27.4
         },
         "12": {
           "mean_temp": 28.0,
@@ -225255,10 +225255,10 @@
           "mean_temp": 26.8
         },
         "11": {
-          "val": 27.4,
+          "val": 27.2,
           "val_max": 31.64,
           "val_min": 24.04,
-          "mean_temp": 27.4
+          "mean_temp": 27.2
         },
         "12": {
           "mean_temp": 26.5,
@@ -226723,10 +226723,10 @@
           "mean_temp": 27.0
         },
         "11": {
-          "val": 26.5,
+          "val": 26.6,
           "val_max": 31.04,
           "val_min": 23.38,
-          "mean_temp": 26.5
+          "mean_temp": 26.6
         },
         "12": {
           "mean_temp": 27.7,
@@ -230432,7 +230432,7 @@
           "val": 0.215
         },
         "11": {
-          "val": 0.271
+          "val": 0.267
         },
         "12": {
           "val": 0.255,
@@ -232134,7 +232134,7 @@
           "val": 0.078
         },
         "11": {
-          "val": 0.193
+          "val": 0.198
         },
         "12": {
           "val": 0.293,
@@ -232985,7 +232985,7 @@
           "val": 0.333
         },
         "11": {
-          "val": 0.401
+          "val": 0.404
         },
         "12": {
           "val": 0.373,
@@ -233836,7 +233836,7 @@
           "val": 0.285
         },
         "11": {
-          "val": 0.328
+          "val": 0.324
         },
         "12": {
           "val": 0.381,
@@ -234687,7 +234687,7 @@
           "val": 0.265
         },
         "11": {
-          "val": 0.338
+          "val": 0.337
         },
         "12": {
           "val": 0.352,
@@ -235538,7 +235538,7 @@
           "val": 0.233
         },
         "11": {
-          "val": 0.356
+          "val": 0.355
         },
         "12": {
           "val": 0.339,
@@ -237240,7 +237240,7 @@
           "val": 0.427
         },
         "11": {
-          "val": 0.453
+          "val": 0.45
         },
         "12": {
           "val": 0.348,
@@ -238091,7 +238091,7 @@
           "val": 0.184
         },
         "11": {
-          "val": 0.316
+          "val": 0.317
         },
         "12": {
           "val": 0.425,
@@ -238942,7 +238942,7 @@
           "val": 0.402
         },
         "11": {
-          "val": 0.379
+          "val": 0.383
         },
         "12": {
           "val": 0.381,
@@ -239793,7 +239793,7 @@
           "val": 0.198
         },
         "11": {
-          "val": 0.331
+          "val": 0.329
         },
         "12": {
           "val": 0.272,
@@ -240644,7 +240644,7 @@
           "val": 0.308
         },
         "11": {
-          "val": 0.407
+          "val": 0.406
         },
         "12": {
           "val": 0.48,
@@ -241495,7 +241495,7 @@
           "val": 0.358
         },
         "11": {
-          "val": 0.415
+          "val": 0.418
         },
         "12": {
           "val": 0.337,
@@ -242346,7 +242346,7 @@
           "val": 0.48
         },
         "11": {
-          "val": 0.466
+          "val": 0.47
         },
         "12": {
           "val": 0.396,
@@ -243197,7 +243197,7 @@
           "val": 0.232
         },
         "11": {
-          "val": 0.307
+          "val": 0.309
         },
         "12": {
           "val": 0.365,
@@ -244048,7 +244048,7 @@
           "val": 0.468
         },
         "11": {
-          "val": 0.478
+          "val": 0.481
         },
         "12": {
           "val": 0.373,
@@ -244899,7 +244899,7 @@
           "val": 0.138
         },
         "11": {
-          "val": 0.144
+          "val": 0.143
         },
         "12": {
           "val": 0.35,
@@ -245750,7 +245750,7 @@
           "val": 0.253
         },
         "11": {
-          "val": 0.238
+          "val": 0.237
         },
         "12": {
           "val": 0.357,
@@ -246601,7 +246601,7 @@
           "val": 0.228
         },
         "11": {
-          "val": 0.374
+          "val": 0.376
         },
         "12": {
           "val": 0.313,
@@ -247452,7 +247452,7 @@
           "val": 0.291
         },
         "11": {
-          "val": 0.407
+          "val": 0.412
         },
         "12": {
           "val": 0.374,
@@ -248303,7 +248303,7 @@
           "val": 0.186
         },
         "11": {
-          "val": 0.218
+          "val": 0.219
         },
         "12": {
           "val": 0.303,
@@ -249154,7 +249154,7 @@
           "val": 0.456
         },
         "11": {
-          "val": 0.467
+          "val": 0.464
         },
         "12": {
           "val": 0.331,
@@ -250005,7 +250005,7 @@
           "val": 0.442
         },
         "11": {
-          "val": 0.456
+          "val": 0.457
         },
         "12": {
           "val": 0.442,
@@ -250856,7 +250856,7 @@
           "val": 0.493
         },
         "11": {
-          "val": 0.489
+          "val": 0.49
         },
         "12": {
           "val": 0.443,
@@ -251707,7 +251707,7 @@
           "val": 0.437
         },
         "11": {
-          "val": 0.443
+          "val": 0.44
         },
         "12": {
           "val": 0.401,
@@ -252558,7 +252558,7 @@
           "val": 0.45
         },
         "11": {
-          "val": 0.439
+          "val": 0.44
         },
         "12": {
           "val": 0.416,
@@ -255111,7 +255111,7 @@
           "val": 0.487
         },
         "11": {
-          "val": 0.487
+          "val": 0.486
         },
         "12": {
           "val": 0.412,
@@ -255962,7 +255962,7 @@
           "val": 0.489
         },
         "11": {
-          "val": 0.471
+          "val": 0.466
         },
         "12": {
           "val": 0.476,
@@ -256813,7 +256813,7 @@
           "val": 0.489
         },
         "11": {
-          "val": 0.494
+          "val": 0.493
         },
         "12": {
           "val": 0.378,
@@ -257664,7 +257664,7 @@
           "val": 0.48
         },
         "11": {
-          "val": 0.462
+          "val": 0.458
         },
         "12": {
           "val": 0.434,
@@ -258515,7 +258515,7 @@
           "val": 0.418
         },
         "11": {
-          "val": 0.444
+          "val": 0.441
         },
         "12": {
           "val": 0.41,
@@ -259366,7 +259366,7 @@
           "val": 0.372
         },
         "11": {
-          "val": 0.402
+          "val": 0.401
         },
         "12": {
           "val": 0.394,
@@ -262757,7 +262757,7 @@
           "val": 0.443
         },
         "11": {
-          "val": 0.451
+          "val": 0.452
         },
         "12": {
           "val": 0.409,
@@ -263608,7 +263608,7 @@
           "val": 0.361
         },
         "11": {
-          "val": 0.336
+          "val": 0.33
         },
         "12": {
           "val": 0.32,
@@ -268683,991 +268683,1032 @@
     "2026-11-16"
   ],
   "forecast_daily": {
-    "MY-01": {
-      "2026-11-02": 10.5,
+    "MY-09": {
+      "2026-11-02": 2.3,
       "2026-11-03": 6.6,
-      "2026-11-04": 9.6,
-      "2026-11-05": 12.3,
-      "2026-11-06": 11.9,
-      "2026-11-07": 5.4,
-      "2026-11-08": 8.9,
-      "2026-11-09": 16.2,
-      "2026-11-10": 10.3,
-      "2026-11-11": 5.5,
-      "2026-11-12": 4.4,
-      "2026-11-13": 7.6,
-      "2026-11-14": 6.5,
-      "2026-11-15": 8.8,
-      "2026-11-16": 11.0
+      "2026-11-04": 7.1,
+      "2026-11-05": 4.7,
+      "2026-11-06": 8.8,
+      "2026-11-07": 10.0,
+      "2026-11-08": 10.5,
+      "2026-11-09": 10.7,
+      "2026-11-10": 9.2,
+      "2026-11-11": 8.3,
+      "2026-11-12": 8.9,
+      "2026-11-13": 13.5,
+      "2026-11-14": 10.4,
+      "2026-11-15": 10.4,
+      "2026-11-16": 10.9
     },
     "MY-02": {
-      "2026-11-02": 11.6,
-      "2026-11-03": 8.2,
-      "2026-11-04": 8.8,
-      "2026-11-05": 15.3,
-      "2026-11-06": 18.9,
-      "2026-11-07": 12.8,
-      "2026-11-08": 9.8,
-      "2026-11-09": 23.5,
-      "2026-11-10": 14.4,
-      "2026-11-11": 9.1,
-      "2026-11-12": 8.6,
-      "2026-11-13": 14.4,
-      "2026-11-14": 26.5,
-      "2026-11-15": 13.3,
+      "2026-11-02": 15.1,
+      "2026-11-03": 13.6,
+      "2026-11-04": 15.9,
+      "2026-11-05": 10.2,
+      "2026-11-06": 15.4,
+      "2026-11-07": 15.4,
+      "2026-11-08": 14.4,
+      "2026-11-09": 15.0,
+      "2026-11-10": 14.3,
+      "2026-11-11": 9.6,
+      "2026-11-12": 12.0,
+      "2026-11-13": 11.2,
+      "2026-11-14": 10.8,
+      "2026-11-15": 11.6,
       "2026-11-16": 12.9
     },
-    "MY-03": {
-      "2026-11-02": 2.5,
-      "2026-11-03": 5.0,
-      "2026-11-04": 8.4,
-      "2026-11-05": 6.9,
-      "2026-11-06": 12.2,
-      "2026-11-07": 7.5,
-      "2026-11-08": 9.2,
-      "2026-11-09": 11.6,
-      "2026-11-10": 12.3,
-      "2026-11-11": 7.3,
-      "2026-11-12": 7.2,
-      "2026-11-13": 17.1,
-      "2026-11-14": 9.6,
-      "2026-11-15": 6.6,
-      "2026-11-16": 11.9
-    },
-    "MY-04": {
-      "2026-11-02": 11.2,
-      "2026-11-03": 7.8,
-      "2026-11-04": 20.9,
-      "2026-11-05": 11.1,
-      "2026-11-06": 18.0,
-      "2026-11-07": 11.2,
-      "2026-11-08": 19.7,
-      "2026-11-09": 17.8,
-      "2026-11-10": 18.0,
-      "2026-11-11": 7.4,
-      "2026-11-12": 9.5,
-      "2026-11-13": 7.9,
-      "2026-11-14": 8.7,
-      "2026-11-15": 5.9,
-      "2026-11-16": 9.0
-    },
-    "MY-05": {
-      "2026-11-02": 6.6,
-      "2026-11-03": 4.9,
-      "2026-11-04": 14.1,
-      "2026-11-05": 7.0,
-      "2026-11-06": 18.1,
-      "2026-11-07": 7.1,
-      "2026-11-08": 7.5,
-      "2026-11-09": 16.0,
-      "2026-11-10": 24.3,
-      "2026-11-11": 3.4,
-      "2026-11-12": 10.2,
-      "2026-11-13": 8.9,
-      "2026-11-14": 8.7,
-      "2026-11-15": 7.1,
-      "2026-11-16": 10.5
-    },
-    "MY-06": {
-      "2026-11-02": 4.0,
-      "2026-11-03": 2.5,
-      "2026-11-04": 7.4,
-      "2026-11-05": 9.0,
-      "2026-11-06": 18.3,
-      "2026-11-07": 9.9,
-      "2026-11-08": 8.3,
-      "2026-11-09": 14.6,
-      "2026-11-10": 13.5,
-      "2026-11-11": 8.5,
-      "2026-11-12": 7.5,
-      "2026-11-13": 7.2,
-      "2026-11-14": 7.0,
-      "2026-11-15": 7.4,
-      "2026-11-16": 10.4
-    },
     "MY-07": {
-      "2026-11-02": 14.4,
-      "2026-11-03": 12.5,
-      "2026-11-04": 13.1,
-      "2026-11-05": 23.5,
-      "2026-11-06": 23.7,
-      "2026-11-07": 12.6,
-      "2026-11-08": 12.9,
-      "2026-11-09": 15.0,
-      "2026-11-10": 21.9,
-      "2026-11-11": 13.2,
-      "2026-11-12": 4.8,
-      "2026-11-13": 8.4,
-      "2026-11-14": 14.7,
-      "2026-11-15": 16.2,
+      "2026-11-02": 13.0,
+      "2026-11-03": 11.6,
+      "2026-11-04": 19.5,
+      "2026-11-05": 17.3,
+      "2026-11-06": 16.4,
+      "2026-11-07": 16.8,
+      "2026-11-08": 14.8,
+      "2026-11-09": 16.1,
+      "2026-11-10": 17.7,
+      "2026-11-11": 10.4,
+      "2026-11-12": 12.2,
+      "2026-11-13": 11.7,
+      "2026-11-14": 12.0,
+      "2026-11-15": 14.1,
       "2026-11-16": 14.0
     },
     "MY-08": {
-      "2026-11-02": 9.1,
-      "2026-11-03": 9.0,
-      "2026-11-04": 17.9,
-      "2026-11-05": 12.2,
-      "2026-11-06": 18.4,
-      "2026-11-07": 12.3,
-      "2026-11-08": 17.9,
-      "2026-11-09": 18.0,
-      "2026-11-10": 15.8,
-      "2026-11-11": 6.3,
-      "2026-11-12": 11.2,
-      "2026-11-13": 5.2,
-      "2026-11-14": 7.5,
-      "2026-11-15": 8.1,
+      "2026-11-02": 8.9,
+      "2026-11-03": 6.4,
+      "2026-11-04": 14.3,
+      "2026-11-05": 8.8,
+      "2026-11-06": 12.2,
+      "2026-11-07": 13.4,
+      "2026-11-08": 12.0,
+      "2026-11-09": 13.2,
+      "2026-11-10": 14.0,
+      "2026-11-11": 9.2,
+      "2026-11-12": 10.6,
+      "2026-11-13": 9.2,
+      "2026-11-14": 7.7,
+      "2026-11-15": 11.1,
       "2026-11-16": 14.7
     },
-    "MY-09": {
-      "2026-11-02": 8.9,
-      "2026-11-03": 8.5,
-      "2026-11-04": 20.8,
-      "2026-11-05": 6.1,
-      "2026-11-06": 10.2,
-      "2026-11-07": 11.1,
-      "2026-11-08": 10.2,
-      "2026-11-09": 7.2,
-      "2026-11-10": 15.3,
-      "2026-11-11": 5.7,
-      "2026-11-12": 15.9,
-      "2026-11-13": 24.0,
-      "2026-11-14": 9.6,
-      "2026-11-15": 22.8,
-      "2026-11-16": 10.9
-    },
-    "MY-10": {
-      "2026-11-02": 7.3,
-      "2026-11-03": 6.8,
-      "2026-11-04": 18.9,
-      "2026-11-05": 5.4,
-      "2026-11-06": 21.5,
-      "2026-11-07": 12.6,
-      "2026-11-08": 8.4,
-      "2026-11-09": 16.4,
-      "2026-11-10": 21.8,
-      "2026-11-11": 7.2,
-      "2026-11-12": 2.7,
-      "2026-11-13": 7.0,
-      "2026-11-14": 8.2,
-      "2026-11-15": 16.2,
-      "2026-11-16": 11.5
+    "MY-03": {
+      "2026-11-02": 4.0,
+      "2026-11-03": 3.9,
+      "2026-11-04": 10.2,
+      "2026-11-05": 6.6,
+      "2026-11-06": 15.0,
+      "2026-11-07": 9.3,
+      "2026-11-08": 10.6,
+      "2026-11-09": 11.9,
+      "2026-11-10": 9.7,
+      "2026-11-11": 9.3,
+      "2026-11-12": 8.0,
+      "2026-11-13": 9.0,
+      "2026-11-14": 8.7,
+      "2026-11-15": 9.5,
+      "2026-11-16": 11.9
     },
     "MY-11": {
-      "2026-11-02": 1.2,
-      "2026-11-03": 2.4,
-      "2026-11-04": 6.0,
-      "2026-11-05": 7.8,
-      "2026-11-06": 17.6,
-      "2026-11-07": 7.5,
-      "2026-11-08": 9.9,
-      "2026-11-09": 16.9,
-      "2026-11-10": 10.2,
-      "2026-11-11": 4.5,
-      "2026-11-12": 9.9,
-      "2026-11-13": 9.3,
-      "2026-11-14": 4.5,
-      "2026-11-15": 2.4,
+      "2026-11-02": 8.5,
+      "2026-11-03": 5.2,
+      "2026-11-04": 9.8,
+      "2026-11-05": 14.7,
+      "2026-11-06": 19.1,
+      "2026-11-07": 11.3,
+      "2026-11-08": 10.0,
+      "2026-11-09": 15.5,
+      "2026-11-10": 11.7,
+      "2026-11-11": 12.3,
+      "2026-11-12": 10.0,
+      "2026-11-13": 10.0,
+      "2026-11-14": 9.5,
+      "2026-11-15": 9.2,
       "2026-11-16": 10.4
     },
+    "MY-06": {
+      "2026-11-02": 11.2,
+      "2026-11-03": 4.0,
+      "2026-11-04": 9.1,
+      "2026-11-05": 11.9,
+      "2026-11-06": 15.6,
+      "2026-11-07": 9.8,
+      "2026-11-08": 8.8,
+      "2026-11-09": 12.9,
+      "2026-11-10": 11.8,
+      "2026-11-11": 9.9,
+      "2026-11-12": 8.1,
+      "2026-11-13": 8.2,
+      "2026-11-14": 7.6,
+      "2026-11-15": 9.9,
+      "2026-11-16": 10.4
+    },
+    "MY-10": {
+      "2026-11-02": 14.1,
+      "2026-11-03": 4.7,
+      "2026-11-04": 14.3,
+      "2026-11-05": 10.9,
+      "2026-11-06": 20.0,
+      "2026-11-07": 12.1,
+      "2026-11-08": 11.1,
+      "2026-11-09": 11.7,
+      "2026-11-10": 14.9,
+      "2026-11-11": 9.1,
+      "2026-11-12": 8.9,
+      "2026-11-13": 8.9,
+      "2026-11-14": 8.5,
+      "2026-11-15": 11.3,
+      "2026-11-16": 11.5
+    },
+    "MY-14": {
+      "2026-11-02": 16.3,
+      "2026-11-03": 9.6,
+      "2026-11-04": 27.7,
+      "2026-11-05": 13.2,
+      "2026-11-06": 16.9,
+      "2026-11-07": 15.1,
+      "2026-11-08": 12.3,
+      "2026-11-09": 11.6,
+      "2026-11-10": 12.6,
+      "2026-11-11": 9.4,
+      "2026-11-12": 9.4,
+      "2026-11-13": 9.0,
+      "2026-11-14": 10.5,
+      "2026-11-15": 13.3,
+      "2026-11-16": 11.2
+    },
+    "MY-05": {
+      "2026-11-02": 7.6,
+      "2026-11-03": 4.3,
+      "2026-11-04": 7.5,
+      "2026-11-05": 15.6,
+      "2026-11-06": 13.3,
+      "2026-11-07": 11.8,
+      "2026-11-08": 11.3,
+      "2026-11-09": 12.3,
+      "2026-11-10": 12.1,
+      "2026-11-11": 8.9,
+      "2026-11-12": 8.0,
+      "2026-11-13": 8.5,
+      "2026-11-14": 7.8,
+      "2026-11-15": 9.7,
+      "2026-11-16": 10.5
+    },
+    "MY-04": {
+      "2026-11-02": 10.8,
+      "2026-11-03": 5.3,
+      "2026-11-04": 7.3,
+      "2026-11-05": 16.8,
+      "2026-11-06": 12.9,
+      "2026-11-07": 15.3,
+      "2026-11-08": 11.7,
+      "2026-11-09": 12.8,
+      "2026-11-10": 11.9,
+      "2026-11-11": 8.3,
+      "2026-11-12": 6.5,
+      "2026-11-13": 9.0,
+      "2026-11-14": 7.6,
+      "2026-11-15": 8.6,
+      "2026-11-16": 9.0
+    },
+    "MY-01": {
+      "2026-11-02": 13.1,
+      "2026-11-03": 3.7,
+      "2026-11-04": 7.5,
+      "2026-11-05": 9.5,
+      "2026-11-06": 11.6,
+      "2026-11-07": 12.2,
+      "2026-11-08": 10.8,
+      "2026-11-09": 14.8,
+      "2026-11-10": 11.8,
+      "2026-11-11": 9.2,
+      "2026-11-12": 8.7,
+      "2026-11-13": 11.3,
+      "2026-11-14": 8.8,
+      "2026-11-15": 10.3,
+      "2026-11-16": 11.0
+    },
     "MY-12": {
-      "2026-11-02": 6.5,
-      "2026-11-03": 2.4,
-      "2026-11-04": 3.4,
-      "2026-11-05": 4.9,
-      "2026-11-06": 8.2,
-      "2026-11-07": 8.9,
-      "2026-11-08": 4.6,
-      "2026-11-09": 3.9,
-      "2026-11-10": 9.2,
-      "2026-11-11": 9.0,
-      "2026-11-12": 7.4,
-      "2026-11-13": 6.7,
-      "2026-11-14": 4.7,
-      "2026-11-15": 7.3,
+      "2026-11-02": 5.5,
+      "2026-11-03": 2.1,
+      "2026-11-04": 2.9,
+      "2026-11-05": 4.0,
+      "2026-11-06": 1.4,
+      "2026-11-07": 8.2,
+      "2026-11-08": 4.8,
+      "2026-11-09": 5.7,
+      "2026-11-10": 6.7,
+      "2026-11-11": 8.0,
+      "2026-11-12": 7.9,
+      "2026-11-13": 8.6,
+      "2026-11-14": 7.5,
+      "2026-11-15": 6.9,
       "2026-11-16": 6.5
     },
     "MY-13": {
-      "2026-11-02": 10.7,
-      "2026-11-03": 3.5,
-      "2026-11-04": 5.9,
-      "2026-11-05": 8.8,
-      "2026-11-06": 8.1,
-      "2026-11-07": 10.5,
-      "2026-11-08": 11.4,
-      "2026-11-09": 7.7,
-      "2026-11-10": 12.2,
-      "2026-11-11": 16.5,
-      "2026-11-12": 13.4,
-      "2026-11-13": 12.8,
-      "2026-11-14": 7.0,
-      "2026-11-15": 11.1,
+      "2026-11-02": 15.2,
+      "2026-11-03": 4.3,
+      "2026-11-04": 3.5,
+      "2026-11-05": 11.2,
+      "2026-11-06": 10.1,
+      "2026-11-07": 9.9,
+      "2026-11-08": 8.7,
+      "2026-11-09": 11.5,
+      "2026-11-10": 11.2,
+      "2026-11-11": 8.8,
+      "2026-11-12": 8.5,
+      "2026-11-13": 8.2,
+      "2026-11-14": 10.4,
+      "2026-11-15": 10.8,
       "2026-11-16": 10.2
     },
-    "MY-14": {
-      "2026-11-02": 13.0,
-      "2026-11-03": 5.2,
-      "2026-11-04": 9.8,
-      "2026-11-05": 6.0,
-      "2026-11-06": 18.9,
-      "2026-11-07": 5.7,
-      "2026-11-08": 9.3,
-      "2026-11-09": 9.6,
-      "2026-11-10": 9.9,
-      "2026-11-11": 15.0,
-      "2026-11-12": 7.8,
-      "2026-11-13": 9.6,
-      "2026-11-14": 6.6,
-      "2026-11-15": 13.5,
-      "2026-11-16": 11.2
-    },
     "MY-15": {
-      "2026-11-02": 3.4,
-      "2026-11-03": 4.1,
-      "2026-11-04": 2.4,
-      "2026-11-05": 4.9,
-      "2026-11-06": 9.0,
-      "2026-11-07": 6.6,
-      "2026-11-08": 1.8,
-      "2026-11-09": 3.9,
-      "2026-11-10": 14.4,
-      "2026-11-11": 18.6,
-      "2026-11-12": 5.7,
-      "2026-11-13": 11.4,
-      "2026-11-14": 7.8,
-      "2026-11-15": 4.8,
+      "2026-11-02": 9.9,
+      "2026-11-03": 8.8,
+      "2026-11-04": 2.9,
+      "2026-11-05": 8.3,
+      "2026-11-06": 2.6,
+      "2026-11-07": 8.1,
+      "2026-11-08": 6.4,
+      "2026-11-09": 7.8,
+      "2026-11-10": 9.4,
+      "2026-11-11": 10.8,
+      "2026-11-12": 10.5,
+      "2026-11-13": 6.9,
+      "2026-11-14": 6.2,
+      "2026-11-15": 8.7,
       "2026-11-16": 8.8
     },
     "ID-AC": {
-      "2026-11-02": 3.5,
-      "2026-11-03": 8.9,
-      "2026-11-04": 10.8,
-      "2026-11-05": 25.6,
-      "2026-11-06": 18.0,
-      "2026-11-07": 21.4,
-      "2026-11-08": 18.9,
-      "2026-11-09": 20.0,
-      "2026-11-10": 13.5,
-      "2026-11-11": 17.0,
-      "2026-11-12": 14.8,
-      "2026-11-13": 16.8,
-      "2026-11-14": 20.6,
-      "2026-11-15": 15.8,
+      "2026-11-02": 6.3,
+      "2026-11-03": 7.2,
+      "2026-11-04": 9.3,
+      "2026-11-05": 4.0,
+      "2026-11-06": 8.7,
+      "2026-11-07": 9.8,
+      "2026-11-08": 13.7,
+      "2026-11-09": 12.1,
+      "2026-11-10": 17.4,
+      "2026-11-11": 11.9,
+      "2026-11-12": 12.6,
+      "2026-11-13": 12.8,
+      "2026-11-14": 10.9,
+      "2026-11-15": 9.7,
       "2026-11-16": 5.7
     },
     "ID-SU": {
-      "2026-11-02": 3.9,
-      "2026-11-03": 8.1,
-      "2026-11-04": 4.5,
-      "2026-11-05": 10.6,
-      "2026-11-06": 14.9,
-      "2026-11-07": 12.0,
-      "2026-11-08": 17.6,
-      "2026-11-09": 26.0,
-      "2026-11-10": 23.0,
-      "2026-11-11": 14.7,
-      "2026-11-12": 22.5,
-      "2026-11-13": 19.7,
-      "2026-11-14": 28.7,
-      "2026-11-15": 17.9,
+      "2026-11-02": 8.7,
+      "2026-11-03": 4.2,
+      "2026-11-04": 11.6,
+      "2026-11-05": 6.3,
+      "2026-11-06": 13.7,
+      "2026-11-07": 13.3,
+      "2026-11-08": 15.5,
+      "2026-11-09": 14.3,
+      "2026-11-10": 16.8,
+      "2026-11-11": 9.9,
+      "2026-11-12": 11.9,
+      "2026-11-13": 11.3,
+      "2026-11-14": 9.9,
+      "2026-11-15": 12.5,
       "2026-11-16": 10.6
     },
     "ID-SB": {
-      "2026-11-02": 3.9,
-      "2026-11-03": 12.3,
-      "2026-11-04": 12.6,
-      "2026-11-05": 12.4,
-      "2026-11-06": 7.4,
-      "2026-11-07": 11.9,
-      "2026-11-08": 14.2,
-      "2026-11-09": 12.7,
-      "2026-11-10": 4.0,
-      "2026-11-11": 8.2,
-      "2026-11-12": 9.4,
-      "2026-11-13": 11.0,
-      "2026-11-14": 17.3,
-      "2026-11-15": 14.9,
+      "2026-11-02": 4.3,
+      "2026-11-03": 8.7,
+      "2026-11-04": 7.8,
+      "2026-11-05": 6.5,
+      "2026-11-06": 12.1,
+      "2026-11-07": 12.2,
+      "2026-11-08": 11.5,
+      "2026-11-09": 14.6,
+      "2026-11-10": 13.9,
+      "2026-11-11": 9.3,
+      "2026-11-12": 9.5,
+      "2026-11-13": 8.1,
+      "2026-11-14": 9.7,
+      "2026-11-15": 10.5,
       "2026-11-16": 12.6
     },
     "ID-BE": {
-      "2026-11-02": 3.7,
-      "2026-11-03": 8.6,
-      "2026-11-04": 13.0,
-      "2026-11-05": 14.4,
-      "2026-11-06": 14.4,
-      "2026-11-07": 6.8,
-      "2026-11-08": 16.6,
-      "2026-11-09": 9.4,
-      "2026-11-10": 5.4,
-      "2026-11-11": 7.5,
-      "2026-11-12": 2.2,
-      "2026-11-13": 10.9,
-      "2026-11-14": 9.1,
-      "2026-11-15": 11.8,
+      "2026-11-02": 12.8,
+      "2026-11-03": 12.7,
+      "2026-11-04": 15.5,
+      "2026-11-05": 7.0,
+      "2026-11-06": 15.0,
+      "2026-11-07": 8.3,
+      "2026-11-08": 9.2,
+      "2026-11-09": 8.5,
+      "2026-11-10": 5.9,
+      "2026-11-11": 5.1,
+      "2026-11-12": 6.2,
+      "2026-11-13": 7.3,
+      "2026-11-14": 9.6,
+      "2026-11-15": 10.6,
       "2026-11-16": 13.4
     },
     "ID-RI": {
-      "2026-11-02": 5.5,
-      "2026-11-03": 9.8,
-      "2026-11-04": 6.7,
-      "2026-11-05": 12.5,
-      "2026-11-06": 11.0,
-      "2026-11-07": 5.0,
-      "2026-11-08": 11.5,
-      "2026-11-09": 12.2,
-      "2026-11-10": 10.8,
-      "2026-11-11": 2.8,
-      "2026-11-12": 7.1,
-      "2026-11-13": 6.0,
-      "2026-11-14": 10.1,
-      "2026-11-15": 12.2,
+      "2026-11-02": 3.2,
+      "2026-11-03": 7.4,
+      "2026-11-04": 7.4,
+      "2026-11-05": 9.1,
+      "2026-11-06": 14.3,
+      "2026-11-07": 12.3,
+      "2026-11-08": 12.2,
+      "2026-11-09": 16.0,
+      "2026-11-10": 11.9,
+      "2026-11-11": 7.6,
+      "2026-11-12": 7.5,
+      "2026-11-13": 9.7,
+      "2026-11-14": 10.3,
+      "2026-11-15": 14.6,
       "2026-11-16": 10.7
     },
     "ID-JA": {
-      "2026-11-02": 6.1,
-      "2026-11-03": 13.9,
-      "2026-11-04": 12.6,
-      "2026-11-05": 10.1,
-      "2026-11-06": 6.9,
-      "2026-11-07": 3.9,
-      "2026-11-08": 5.9,
-      "2026-11-09": 7.0,
-      "2026-11-10": 1.8,
-      "2026-11-11": 2.4,
-      "2026-11-12": 2.8,
-      "2026-11-13": 5.9,
-      "2026-11-14": 7.6,
-      "2026-11-15": 13.6,
+      "2026-11-02": 3.9,
+      "2026-11-03": 7.0,
+      "2026-11-04": 5.7,
+      "2026-11-05": 9.9,
+      "2026-11-06": 9.2,
+      "2026-11-07": 5.0,
+      "2026-11-08": 7.8,
+      "2026-11-09": 7.7,
+      "2026-11-10": 4.2,
+      "2026-11-11": 3.3,
+      "2026-11-12": 4.7,
+      "2026-11-13": 6.2,
+      "2026-11-14": 8.8,
+      "2026-11-15": 9.8,
       "2026-11-16": 9.8
     },
     "ID-BB": {
-      "2026-11-02": 3.7,
-      "2026-11-03": 9.5,
-      "2026-11-04": 9.3,
-      "2026-11-05": 11.7,
-      "2026-11-06": 8.9,
-      "2026-11-07": 11.0,
-      "2026-11-08": 7.7,
-      "2026-11-09": 11.6,
-      "2026-11-10": 1.7,
-      "2026-11-11": 0.7,
-      "2026-11-12": 2.5,
-      "2026-11-13": 17.0,
-      "2026-11-14": 16.3,
-      "2026-11-15": 25.0,
+      "2026-11-02": 2.1,
+      "2026-11-03": 5.7,
+      "2026-11-04": 7.3,
+      "2026-11-05": 6.6,
+      "2026-11-06": 4.8,
+      "2026-11-07": 6.4,
+      "2026-11-08": 7.0,
+      "2026-11-09": 6.8,
+      "2026-11-10": 2.8,
+      "2026-11-11": 2.2,
+      "2026-11-12": 4.1,
+      "2026-11-13": 7.5,
+      "2026-11-14": 9.4,
+      "2026-11-15": 8.3,
       "2026-11-16": 6.8
     },
     "ID-SS": {
-      "2026-11-02": 3.5,
-      "2026-11-03": 10.3,
-      "2026-11-04": 10.6,
-      "2026-11-05": 18.0,
-      "2026-11-06": 2.3,
-      "2026-11-07": 2.4,
-      "2026-11-08": 3.9,
-      "2026-11-09": 0.6,
-      "2026-11-10": 0.9,
-      "2026-11-11": 2.7,
-      "2026-11-12": 4.6,
-      "2026-11-13": 7.1,
-      "2026-11-14": 5.9,
-      "2026-11-15": 12.3,
+      "2026-11-02": 6.5,
+      "2026-11-03": 11.8,
+      "2026-11-04": 5.6,
+      "2026-11-05": 9.0,
+      "2026-11-06": 7.4,
+      "2026-11-07": 5.7,
+      "2026-11-08": 6.3,
+      "2026-11-09": 4.8,
+      "2026-11-10": 2.0,
+      "2026-11-11": 4.2,
+      "2026-11-12": 6.9,
+      "2026-11-13": 7.7,
+      "2026-11-14": 9.1,
+      "2026-11-15": 9.6,
       "2026-11-16": 8.7
     },
     "ID-LA": {
-      "2026-11-02": 4.4,
-      "2026-11-03": 7.8,
-      "2026-11-04": 7.8,
-      "2026-11-05": 5.6,
-      "2026-11-06": 3.0,
-      "2026-11-07": 1.1,
-      "2026-11-08": 0.6,
-      "2026-11-09": 0.6,
-      "2026-11-10": 5.7,
-      "2026-11-11": 6.6,
-      "2026-11-12": 2.9,
-      "2026-11-13": 5.2,
-      "2026-11-14": 4.0,
-      "2026-11-15": 13.1,
+      "2026-11-02": 0.7,
+      "2026-11-03": 8.8,
+      "2026-11-04": 4.6,
+      "2026-11-05": 1.2,
+      "2026-11-06": 6.1,
+      "2026-11-07": 2.4,
+      "2026-11-08": 3.4,
+      "2026-11-09": 1.7,
+      "2026-11-10": 2.7,
+      "2026-11-11": 4.0,
+      "2026-11-12": 3.6,
+      "2026-11-13": 5.9,
+      "2026-11-14": 6.8,
+      "2026-11-15": 8.0,
       "2026-11-16": 6.2
     },
     "ID-KU": {
-      "2026-11-02": 10.2,
-      "2026-11-03": 2.6,
-      "2026-11-04": 2.3,
-      "2026-11-05": 5.2,
-      "2026-11-06": 10.9,
-      "2026-11-07": 10.9,
-      "2026-11-08": 7.2,
-      "2026-11-09": 11.6,
-      "2026-11-10": 11.2,
-      "2026-11-11": 9.8,
-      "2026-11-12": 9.2,
-      "2026-11-13": 10.9,
-      "2026-11-14": 6.9,
-      "2026-11-15": 7.2,
+      "2026-11-02": 20.7,
+      "2026-11-03": 2.0,
+      "2026-11-04": 3.0,
+      "2026-11-05": 3.6,
+      "2026-11-06": 10.4,
+      "2026-11-07": 7.5,
+      "2026-11-08": 7.5,
+      "2026-11-09": 7.7,
+      "2026-11-10": 10.3,
+      "2026-11-11": 9.0,
+      "2026-11-12": 9.3,
+      "2026-11-13": 9.7,
+      "2026-11-14": 8.4,
+      "2026-11-15": 8.8,
       "2026-11-16": 6.9
     },
     "ID-KB": {
-      "2026-11-02": 12.9,
-      "2026-11-03": 4.5,
-      "2026-11-04": 12.8,
-      "2026-11-05": 10.7,
-      "2026-11-06": 7.3,
-      "2026-11-07": 12.7,
-      "2026-11-08": 7.3,
-      "2026-11-09": 11.6,
-      "2026-11-10": 9.9,
-      "2026-11-11": 6.6,
-      "2026-11-12": 5.0,
-      "2026-11-13": 10.0,
-      "2026-11-14": 5.2,
-      "2026-11-15": 13.1,
+      "2026-11-02": 78.1,
+      "2026-11-03": 2.0,
+      "2026-11-04": 13.9,
+      "2026-11-05": 11.6,
+      "2026-11-06": 15.1,
+      "2026-11-07": 9.6,
+      "2026-11-08": 11.2,
+      "2026-11-09": 13.3,
+      "2026-11-10": 10.3,
+      "2026-11-11": 8.6,
+      "2026-11-12": 11.1,
+      "2026-11-13": 10.2,
+      "2026-11-14": 11.9,
+      "2026-11-15": 11.0,
       "2026-11-16": 9.2
     },
     "ID-KT": {
-      "2026-11-02": 17.3,
-      "2026-11-03": 3.8,
-      "2026-11-04": 9.2,
-      "2026-11-05": 10.6,
-      "2026-11-06": 3.4,
-      "2026-11-07": 5.3,
-      "2026-11-08": 5.7,
-      "2026-11-09": 6.5,
-      "2026-11-10": 3.1,
-      "2026-11-11": 3.0,
-      "2026-11-12": 5.0,
-      "2026-11-13": 13.5,
-      "2026-11-14": 5.5,
-      "2026-11-15": 12.4,
+      "2026-11-02": 6.1,
+      "2026-11-03": 3.9,
+      "2026-11-04": 9.1,
+      "2026-11-05": 5.9,
+      "2026-11-06": 5.3,
+      "2026-11-07": 4.9,
+      "2026-11-08": 8.3,
+      "2026-11-09": 7.8,
+      "2026-11-10": 4.2,
+      "2026-11-11": 6.2,
+      "2026-11-12": 8.6,
+      "2026-11-13": 7.5,
+      "2026-11-14": 8.0,
+      "2026-11-15": 10.2,
       "2026-11-16": 6.5
     },
     "ID-KS": {
-      "2026-11-02": 5.1,
-      "2026-11-03": 4.4,
-      "2026-11-04": 3.8,
-      "2026-11-05": 4.4,
-      "2026-11-06": 4.4,
-      "2026-11-07": 2.7,
-      "2026-11-08": 2.9,
-      "2026-11-09": 2.5,
-      "2026-11-10": 2.2,
-      "2026-11-11": 3.6,
-      "2026-11-12": 3.7,
-      "2026-11-13": 5.5,
-      "2026-11-14": 3.9,
-      "2026-11-15": 3.3,
+      "2026-11-02": 4.2,
+      "2026-11-03": 2.4,
+      "2026-11-04": 3.7,
+      "2026-11-05": 4.3,
+      "2026-11-06": 2.1,
+      "2026-11-07": 4.1,
+      "2026-11-08": 3.6,
+      "2026-11-09": 4.1,
+      "2026-11-10": 3.5,
+      "2026-11-11": 4.8,
+      "2026-11-12": 5.1,
+      "2026-11-13": 5.1,
+      "2026-11-14": 5.2,
+      "2026-11-15": 6.9,
       "2026-11-16": 5.3
     },
     "ID-KI": {
-      "2026-11-02": 9.3,
-      "2026-11-03": 4.5,
-      "2026-11-04": 1.9,
-      "2026-11-05": 4.1,
-      "2026-11-06": 6.1,
-      "2026-11-07": 12.5,
-      "2026-11-08": 7.0,
-      "2026-11-09": 6.8,
-      "2026-11-10": 3.4,
-      "2026-11-11": 7.5,
-      "2026-11-12": 4.6,
-      "2026-11-13": 3.7,
-      "2026-11-14": 7.0,
-      "2026-11-15": 3.5,
+      "2026-11-02": 5.8,
+      "2026-11-03": 0.9,
+      "2026-11-04": 3.4,
+      "2026-11-05": 2.1,
+      "2026-11-06": 3.8,
+      "2026-11-07": 5.0,
+      "2026-11-08": 4.7,
+      "2026-11-09": 7.8,
+      "2026-11-10": 6.8,
+      "2026-11-11": 5.3,
+      "2026-11-12": 4.7,
+      "2026-11-13": 4.2,
+      "2026-11-14": 5.1,
+      "2026-11-15": 4.5,
       "2026-11-16": 6.7
     },
     "ID-SA": {
-      "2026-11-02": 9.9,
-      "2026-11-03": 3.0,
-      "2026-11-04": 4.8,
+      "2026-11-02": 21.4,
+      "2026-11-03": 4.1,
+      "2026-11-04": 4.4,
       "2026-11-05": 3.6,
-      "2026-11-06": 7.1,
-      "2026-11-07": 10.1,
-      "2026-11-08": 6.6,
-      "2026-11-09": 3.9,
-      "2026-11-10": 28.8,
-      "2026-11-11": 10.2,
-      "2026-11-12": 4.5,
-      "2026-11-13": 3.0,
-      "2026-11-14": 4.8,
-      "2026-11-15": 8.4,
+      "2026-11-06": 8.3,
+      "2026-11-07": 8.6,
+      "2026-11-08": 5.5,
+      "2026-11-09": 6.1,
+      "2026-11-10": 7.3,
+      "2026-11-11": 6.5,
+      "2026-11-12": 4.7,
+      "2026-11-13": 5.1,
+      "2026-11-14": 5.9,
+      "2026-11-15": 7.4,
       "2026-11-16": 8.3
     },
     "ID-GO": {
-      "2026-11-02": 6.1,
-      "2026-11-03": 4.7,
-      "2026-11-04": 1.7,
+      "2026-11-02": 6.6,
+      "2026-11-03": 2.7,
+      "2026-11-04": 0.4,
       "2026-11-05": 0.4,
-      "2026-11-06": 6.2,
-      "2026-11-07": 8.5,
-      "2026-11-08": 2.6,
-      "2026-11-09": 3.2,
-      "2026-11-10": 6.0,
-      "2026-11-11": 4.2,
-      "2026-11-12": 2.4,
-      "2026-11-13": 2.3,
-      "2026-11-14": 2.5,
-      "2026-11-15": 5.3,
+      "2026-11-06": 5.1,
+      "2026-11-07": 5.8,
+      "2026-11-08": 3.8,
+      "2026-11-09": 5.3,
+      "2026-11-10": 7.1,
+      "2026-11-11": 4.3,
+      "2026-11-12": 2.8,
+      "2026-11-13": 2.4,
+      "2026-11-14": 4.0,
+      "2026-11-15": 4.3,
       "2026-11-16": 6.3
     },
     "ID-ST": {
-      "2026-11-02": 3.1,
-      "2026-11-03": 2.4,
-      "2026-11-04": 0.9,
-      "2026-11-05": 1.8,
-      "2026-11-06": 2.4,
-      "2026-11-07": 5.6,
-      "2026-11-08": 3.3,
-      "2026-11-09": 4.8,
-      "2026-11-10": 15.0,
-      "2026-11-11": 3.3,
-      "2026-11-12": 3.0,
-      "2026-11-13": 0.6,
-      "2026-11-14": 1.5,
-      "2026-11-15": 1.5,
+      "2026-11-02": 1.0,
+      "2026-11-03": 6.9,
+      "2026-11-04": 0.7,
+      "2026-11-05": 0.6,
+      "2026-11-06": 3.7,
+      "2026-11-07": 5.3,
+      "2026-11-08": 3.8,
+      "2026-11-09": 2.9,
+      "2026-11-10": 2.5,
+      "2026-11-11": 2.4,
+      "2026-11-12": 2.6,
+      "2026-11-13": 3.8,
+      "2026-11-14": 3.1,
+      "2026-11-15": 3.7,
       "2026-11-16": 4.1
     },
     "ID-SR": {
-      "2026-11-02": 6.5,
-      "2026-11-03": 9.8,
-      "2026-11-04": 6.5,
-      "2026-11-05": 5.3,
-      "2026-11-06": 11.7,
-      "2026-11-07": 8.4,
-      "2026-11-08": 4.7,
-      "2026-11-09": 4.8,
-      "2026-11-10": 4.7,
-      "2026-11-11": 9.3,
-      "2026-11-12": 7.2,
-      "2026-11-13": 4.7,
-      "2026-11-14": 4.2,
-      "2026-11-15": 6.9,
+      "2026-11-02": 6.2,
+      "2026-11-03": 9.7,
+      "2026-11-04": 5.6,
+      "2026-11-05": 6.3,
+      "2026-11-06": 10.9,
+      "2026-11-07": 11.6,
+      "2026-11-08": 12.9,
+      "2026-11-09": 12.7,
+      "2026-11-10": 10.3,
+      "2026-11-11": 10.3,
+      "2026-11-12": 9.1,
+      "2026-11-13": 7.9,
+      "2026-11-14": 10.6,
+      "2026-11-15": 11.2,
       "2026-11-16": 6.1
     },
     "ID-SN": {
-      "2026-11-02": 2.9,
-      "2026-11-03": 4.9,
-      "2026-11-04": 1.2,
-      "2026-11-05": 1.6,
-      "2026-11-06": 5.2,
-      "2026-11-07": 3.0,
-      "2026-11-08": 1.8,
-      "2026-11-09": 2.0,
-      "2026-11-10": 1.9,
-      "2026-11-11": 3.9,
-      "2026-11-12": 2.4,
-      "2026-11-13": 2.5,
-      "2026-11-14": 3.1,
-      "2026-11-15": 1.8,
+      "2026-11-02": 2.2,
+      "2026-11-03": 4.7,
+      "2026-11-04": 2.3,
+      "2026-11-05": 0.6,
+      "2026-11-06": 4.4,
+      "2026-11-07": 2.8,
+      "2026-11-08": 2.9,
+      "2026-11-09": 3.1,
+      "2026-11-10": 2.8,
+      "2026-11-11": 2.5,
+      "2026-11-12": 2.0,
+      "2026-11-13": 2.3,
+      "2026-11-14": 3.7,
+      "2026-11-15": 3.9,
       "2026-11-16": 3.0
     },
     "ID-SG": {
-      "2026-11-02": 1.4,
-      "2026-11-03": 3.1,
-      "2026-11-04": 1.2,
-      "2026-11-05": 1.1,
-      "2026-11-06": 1.8,
-      "2026-11-07": 0.0,
-      "2026-11-08": 0.0,
-      "2026-11-09": 0.0,
-      "2026-11-10": 0.0,
-      "2026-11-11": 0.6,
-      "2026-11-12": 0.3,
-      "2026-11-13": 2.7,
-      "2026-11-14": 2.7,
-      "2026-11-15": 1.2,
+      "2026-11-02": 1.6,
+      "2026-11-03": 10.2,
+      "2026-11-04": 3.3,
+      "2026-11-05": 1.2,
+      "2026-11-06": 8.1,
+      "2026-11-07": 1.4,
+      "2026-11-08": 0.9,
+      "2026-11-09": 1.7,
+      "2026-11-10": 2.8,
+      "2026-11-11": 3.5,
+      "2026-11-12": 3.7,
+      "2026-11-13": 4.6,
+      "2026-11-14": 6.3,
+      "2026-11-15": 5.8,
       "2026-11-16": 3.1
     },
     "ID-PA": {
-      "2026-11-02": 2.5,
-      "2026-11-03": 3.0,
-      "2026-11-04": 4.0,
-      "2026-11-05": 4.0,
-      "2026-11-06": 2.2,
-      "2026-11-07": 3.7,
-      "2026-11-08": 0.4,
-      "2026-11-09": 1.3,
-      "2026-11-10": 2.1,
-      "2026-11-11": 4.7,
-      "2026-11-12": 9.5,
-      "2026-11-13": 5.7,
-      "2026-11-14": 2.0,
-      "2026-11-15": 5.5,
+      "2026-11-02": 0.4,
+      "2026-11-03": 0.5,
+      "2026-11-04": 2.6,
+      "2026-11-05": 3.3,
+      "2026-11-06": 3.6,
+      "2026-11-07": 5.7,
+      "2026-11-08": 3.6,
+      "2026-11-09": 2.5,
+      "2026-11-10": 2.9,
+      "2026-11-11": 6.9,
+      "2026-11-12": 7.1,
+      "2026-11-13": 3.9,
+      "2026-11-14": 3.7,
+      "2026-11-15": 6.6,
       "2026-11-16": 9.2
     },
     "ID-PB": {
-      "2026-11-02": 3.2,
-      "2026-11-03": 3.8,
-      "2026-11-04": 5.8,
-      "2026-11-05": 5.9,
-      "2026-11-06": 5.3,
-      "2026-11-07": 7.5,
-      "2026-11-08": 4.1,
-      "2026-11-09": 7.4,
-      "2026-11-10": 6.1,
-      "2026-11-11": 4.4,
-      "2026-11-12": 9.8,
-      "2026-11-13": 2.0,
-      "2026-11-14": 1.3,
-      "2026-11-15": 1.3,
+      "2026-11-02": 9.6,
+      "2026-11-03": 3.9,
+      "2026-11-04": 4.4,
+      "2026-11-05": 7.6,
+      "2026-11-06": 7.1,
+      "2026-11-07": 8.7,
+      "2026-11-08": 7.1,
+      "2026-11-09": 8.6,
+      "2026-11-10": 7.9,
+      "2026-11-11": 10.3,
+      "2026-11-12": 9.4,
+      "2026-11-13": 9.7,
+      "2026-11-14": 8.6,
+      "2026-11-15": 7.9,
       "2026-11-16": 5.6
     },
     "ID-PT": {
-      "2026-11-02": 6.1,
-      "2026-11-03": 9.3,
-      "2026-11-04": 3.4,
-      "2026-11-05": 8.2,
-      "2026-11-06": 9.4,
-      "2026-11-07": 8.5,
-      "2026-11-08": 5.4,
-      "2026-11-09": 4.9,
-      "2026-11-10": 7.8,
-      "2026-11-11": 9.9,
-      "2026-11-12": 16.1,
-      "2026-11-13": 5.7,
-      "2026-11-14": 1.4,
-      "2026-11-15": 5.2,
+      "2026-11-02": 7.8,
+      "2026-11-03": 9.4,
+      "2026-11-04": 5.8,
+      "2026-11-05": 10.3,
+      "2026-11-06": 24.7,
+      "2026-11-07": 10.9,
+      "2026-11-08": 10.9,
+      "2026-11-09": 11.8,
+      "2026-11-10": 8.3,
+      "2026-11-11": 9.6,
+      "2026-11-12": 11.2,
+      "2026-11-13": 14.0,
+      "2026-11-14": 14.2,
+      "2026-11-15": 10.9,
       "2026-11-16": 1.6
     },
     "ID-PS": {
-      "2026-11-02": 5.1,
-      "2026-11-03": 6.4,
-      "2026-11-04": 1.1,
-      "2026-11-05": 2.5,
-      "2026-11-06": 3.1,
-      "2026-11-07": 6.8,
-      "2026-11-08": 20.3,
-      "2026-11-09": 9.1,
-      "2026-11-10": 9.5,
-      "2026-11-11": 10.7,
-      "2026-11-12": 14.9,
-      "2026-11-13": 17.2,
-      "2026-11-14": 6.6,
-      "2026-11-15": 9.8,
+      "2026-11-02": 4.7,
+      "2026-11-03": 4.5,
+      "2026-11-04": 3.2,
+      "2026-11-05": 0.4,
+      "2026-11-06": 7.5,
+      "2026-11-07": 7.0,
+      "2026-11-08": 8.1,
+      "2026-11-09": 9.8,
+      "2026-11-10": 8.4,
+      "2026-11-11": 10.6,
+      "2026-11-12": 9.7,
+      "2026-11-13": 9.0,
+      "2026-11-14": 10.9,
+      "2026-11-15": 11.6,
       "2026-11-16": 8.1
     },
     "TH-SOUTH": {
-      "2026-11-02": 4.2,
-      "2026-11-03": 4.4,
-      "2026-11-04": 10.5,
-      "2026-11-05": 6.0,
+      "2026-11-02": 4.8,
+      "2026-11-03": 8.6,
+      "2026-11-04": 6.9,
+      "2026-11-05": 10.7,
       "2026-11-06": 8.3,
-      "2026-11-07": 15.9,
-      "2026-11-08": 12.7,
-      "2026-11-09": 16.2,
-      "2026-11-10": 15.6,
-      "2026-11-11": 7.5,
-      "2026-11-12": 8.8,
-      "2026-11-13": 12.1,
-      "2026-11-14": 14.8,
-      "2026-11-15": 12.0,
+      "2026-11-07": 7.3,
+      "2026-11-08": 7.4,
+      "2026-11-09": 10.9,
+      "2026-11-10": 6.4,
+      "2026-11-11": 6.2,
+      "2026-11-12": 7.5,
+      "2026-11-13": 10.3,
+      "2026-11-14": 10.3,
+      "2026-11-15": 10.4,
       "2026-11-16": 9.5
     },
     "PH-MIN": {
-      "2026-11-02": 1.6,
-      "2026-11-03": 3.6,
-      "2026-11-04": 1.0,
-      "2026-11-05": 3.1,
-      "2026-11-06": 3.0,
-      "2026-11-07": 7.8,
-      "2026-11-08": 12.9,
-      "2026-11-09": 13.1,
-      "2026-11-10": 12.7,
-      "2026-11-11": 11.7,
-      "2026-11-12": 7.1,
-      "2026-11-13": 5.4,
-      "2026-11-14": 7.6,
-      "2026-11-15": 3.5,
+      "2026-11-02": 12.8,
+      "2026-11-03": 6.9,
+      "2026-11-04": 2.8,
+      "2026-11-05": 4.4,
+      "2026-11-06": 2.9,
+      "2026-11-07": 5.6,
+      "2026-11-08": 6.8,
+      "2026-11-09": 7.0,
+      "2026-11-10": 8.1,
+      "2026-11-11": 6.5,
+      "2026-11-12": 5.2,
+      "2026-11-13": 5.1,
+      "2026-11-14": 4.6,
+      "2026-11-15": 6.1,
       "2026-11-16": 6.6
     }
   },
   "forecast_14d_summary": {
-    "MY-01": {
-      "total_mm": 124.5,
-      "avg_mm_day": 8.89,
-      "max_daily_mm": 16.2,
+    "MY-09": {
+      "total_mm": 121.4,
+      "avg_mm_day": 8.67,
+      "max_daily_mm": 13.5,
       "dry_days": 0,
-      "wet_days": 5
+      "wet_days": 6,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "MY-02": {
-      "total_mm": 195.2,
-      "avg_mm_day": 13.94,
-      "max_daily_mm": 26.5,
+      "total_mm": 184.5,
+      "avg_mm_day": 13.18,
+      "max_daily_mm": 15.9,
       "dry_days": 0,
-      "wet_days": 9
-    },
-    "MY-03": {
-      "total_mm": 123.4,
-      "avg_mm_day": 8.81,
-      "max_daily_mm": 17.1,
-      "dry_days": 0,
-      "wet_days": 4
-    },
-    "MY-04": {
-      "total_mm": 175.1,
-      "avg_mm_day": 12.51,
-      "max_daily_mm": 20.9,
-      "dry_days": 0,
-      "wet_days": 8
-    },
-    "MY-05": {
-      "total_mm": 143.9,
-      "avg_mm_day": 10.28,
-      "max_daily_mm": 24.3,
-      "dry_days": 0,
-      "wet_days": 5
-    },
-    "MY-06": {
-      "total_mm": 125.1,
-      "avg_mm_day": 8.94,
-      "max_daily_mm": 18.3,
-      "dry_days": 0,
-      "wet_days": 3
+      "wet_days": 13,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "MY-07": {
-      "total_mm": 206.9,
-      "avg_mm_day": 14.78,
-      "max_daily_mm": 23.7,
+      "total_mm": 203.6,
+      "avg_mm_day": 14.54,
+      "max_daily_mm": 19.5,
       "dry_days": 0,
-      "wet_days": 12
+      "wet_days": 14,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "MY-08": {
-      "total_mm": 168.9,
-      "avg_mm_day": 12.06,
-      "max_daily_mm": 18.4,
+      "total_mm": 151.0,
+      "avg_mm_day": 10.79,
+      "max_daily_mm": 14.3,
       "dry_days": 0,
-      "wet_days": 8
+      "wet_days": 8,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
-    "MY-09": {
-      "total_mm": 176.3,
-      "avg_mm_day": 12.59,
-      "max_daily_mm": 24.0,
+    "MY-03": {
+      "total_mm": 125.7,
+      "avg_mm_day": 8.98,
+      "max_daily_mm": 15.0,
       "dry_days": 0,
-      "wet_days": 8
-    },
-    "MY-10": {
-      "total_mm": 160.4,
-      "avg_mm_day": 11.46,
-      "max_daily_mm": 21.8,
-      "dry_days": 0,
-      "wet_days": 6
+      "wet_days": 4,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "MY-11": {
-      "total_mm": 110.1,
-      "avg_mm_day": 7.86,
-      "max_daily_mm": 17.6,
+      "total_mm": 156.8,
+      "avg_mm_day": 11.2,
+      "max_daily_mm": 19.1,
       "dry_days": 0,
-      "wet_days": 3
+      "wet_days": 9,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
-    "MY-12": {
-      "total_mm": 87.1,
-      "avg_mm_day": 6.22,
-      "max_daily_mm": 9.2,
+    "MY-06": {
+      "total_mm": 138.8,
+      "avg_mm_day": 9.91,
+      "max_daily_mm": 15.6,
       "dry_days": 0,
-      "wet_days": 0
+      "wet_days": 5,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
-    "MY-13": {
-      "total_mm": 139.6,
-      "avg_mm_day": 9.97,
-      "max_daily_mm": 16.5,
+    "MY-10": {
+      "total_mm": 160.5,
+      "avg_mm_day": 11.46,
+      "max_daily_mm": 20.0,
       "dry_days": 0,
-      "wet_days": 8
+      "wet_days": 9,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "MY-14": {
-      "total_mm": 139.9,
-      "avg_mm_day": 9.99,
-      "max_daily_mm": 18.9,
+      "total_mm": 186.9,
+      "avg_mm_day": 13.35,
+      "max_daily_mm": 27.7,
       "dry_days": 0,
-      "wet_days": 4
+      "wet_days": 10,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
+    },
+    "MY-05": {
+      "total_mm": 138.7,
+      "avg_mm_day": 9.91,
+      "max_daily_mm": 15.6,
+      "dry_days": 0,
+      "wet_days": 6,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
+    },
+    "MY-04": {
+      "total_mm": 144.8,
+      "avg_mm_day": 10.34,
+      "max_daily_mm": 16.8,
+      "dry_days": 0,
+      "wet_days": 7,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
+    },
+    "MY-01": {
+      "total_mm": 143.3,
+      "avg_mm_day": 10.24,
+      "max_daily_mm": 14.8,
+      "dry_days": 0,
+      "wet_days": 8,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
+    },
+    "MY-12": {
+      "total_mm": 80.2,
+      "avg_mm_day": 5.73,
+      "max_daily_mm": 8.6,
+      "dry_days": 0,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
+    },
+    "MY-13": {
+      "total_mm": 132.3,
+      "avg_mm_day": 9.45,
+      "max_daily_mm": 15.2,
+      "dry_days": 0,
+      "wet_days": 7,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "MY-15": {
-      "total_mm": 98.8,
-      "avg_mm_day": 7.06,
-      "max_daily_mm": 18.6,
+      "total_mm": 107.3,
+      "avg_mm_day": 7.66,
+      "max_daily_mm": 10.8,
       "dry_days": 0,
-      "wet_days": 3
+      "wet_days": 2,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-AC": {
-      "total_mm": 225.6,
-      "avg_mm_day": 16.11,
-      "max_daily_mm": 25.6,
+      "total_mm": 146.4,
+      "avg_mm_day": 10.46,
+      "max_daily_mm": 17.4,
       "dry_days": 0,
-      "wet_days": 12
+      "wet_days": 7,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SU": {
-      "total_mm": 224.1,
-      "avg_mm_day": 16.01,
-      "max_daily_mm": 28.7,
+      "total_mm": 159.9,
+      "avg_mm_day": 11.42,
+      "max_daily_mm": 16.8,
       "dry_days": 0,
-      "wet_days": 11
+      "wet_days": 9,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SB": {
-      "total_mm": 152.2,
-      "avg_mm_day": 10.87,
-      "max_daily_mm": 17.3,
+      "total_mm": 138.7,
+      "avg_mm_day": 9.91,
+      "max_daily_mm": 14.6,
       "dry_days": 0,
-      "wet_days": 9
+      "wet_days": 6,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-BE": {
-      "total_mm": 133.8,
-      "avg_mm_day": 9.56,
-      "max_daily_mm": 16.6,
+      "total_mm": 133.7,
+      "avg_mm_day": 9.55,
+      "max_daily_mm": 15.5,
       "dry_days": 0,
-      "wet_days": 6
+      "wet_days": 5,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-RI": {
-      "total_mm": 123.2,
-      "avg_mm_day": 8.8,
-      "max_daily_mm": 12.5,
+      "total_mm": 143.5,
+      "avg_mm_day": 10.25,
+      "max_daily_mm": 16.0,
       "dry_days": 0,
-      "wet_days": 7
+      "wet_days": 7,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-JA": {
-      "total_mm": 100.5,
-      "avg_mm_day": 7.18,
-      "max_daily_mm": 13.9,
+      "total_mm": 93.2,
+      "avg_mm_day": 6.66,
+      "max_daily_mm": 9.9,
       "dry_days": 0,
-      "wet_days": 4
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-BB": {
-      "total_mm": 136.6,
-      "avg_mm_day": 9.76,
-      "max_daily_mm": 25.0,
-      "dry_days": 1,
-      "wet_days": 6
+      "total_mm": 81.0,
+      "avg_mm_day": 5.79,
+      "max_daily_mm": 9.4,
+      "dry_days": 0,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SS": {
-      "total_mm": 85.1,
-      "avg_mm_day": 6.08,
-      "max_daily_mm": 18.0,
-      "dry_days": 2,
-      "wet_days": 4
+      "total_mm": 96.6,
+      "avg_mm_day": 6.9,
+      "max_daily_mm": 11.8,
+      "dry_days": 0,
+      "wet_days": 1,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-LA": {
-      "total_mm": 68.4,
-      "avg_mm_day": 4.89,
-      "max_daily_mm": 13.1,
-      "dry_days": 2,
-      "wet_days": 1
+      "total_mm": 59.9,
+      "avg_mm_day": 4.28,
+      "max_daily_mm": 8.8,
+      "dry_days": 1,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-KU": {
-      "total_mm": 116.1,
-      "avg_mm_day": 8.29,
-      "max_daily_mm": 11.6,
+      "total_mm": 117.9,
+      "avg_mm_day": 8.42,
+      "max_daily_mm": 20.7,
       "dry_days": 0,
-      "wet_days": 6
+      "wet_days": 3,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-KB": {
-      "total_mm": 129.6,
-      "avg_mm_day": 9.26,
-      "max_daily_mm": 13.1,
+      "total_mm": 217.9,
+      "avg_mm_day": 15.56,
+      "max_daily_mm": 78.1,
       "dry_days": 0,
-      "wet_days": 7
+      "wet_days": 11,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-KT": {
-      "total_mm": 104.3,
-      "avg_mm_day": 7.45,
-      "max_daily_mm": 17.3,
+      "total_mm": 96.0,
+      "avg_mm_day": 6.86,
+      "max_daily_mm": 10.2,
       "dry_days": 0,
-      "wet_days": 4
+      "wet_days": 1,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-KS": {
-      "total_mm": 52.4,
-      "avg_mm_day": 3.74,
-      "max_daily_mm": 5.5,
+      "total_mm": 59.1,
+      "avg_mm_day": 4.22,
+      "max_daily_mm": 6.9,
       "dry_days": 0,
-      "wet_days": 0
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-KI": {
-      "total_mm": 81.9,
-      "avg_mm_day": 5.85,
-      "max_daily_mm": 12.5,
-      "dry_days": 0,
-      "wet_days": 1
+      "total_mm": 64.1,
+      "avg_mm_day": 4.58,
+      "max_daily_mm": 7.8,
+      "dry_days": 1,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SA": {
-      "total_mm": 108.7,
-      "avg_mm_day": 7.76,
-      "max_daily_mm": 28.8,
+      "total_mm": 98.9,
+      "avg_mm_day": 7.06,
+      "max_daily_mm": 21.4,
       "dry_days": 0,
-      "wet_days": 3
+      "wet_days": 1,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-GO": {
-      "total_mm": 56.1,
-      "avg_mm_day": 4.01,
-      "max_daily_mm": 8.5,
-      "dry_days": 1,
-      "wet_days": 0
+      "total_mm": 55.0,
+      "avg_mm_day": 3.93,
+      "max_daily_mm": 7.1,
+      "dry_days": 2,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-ST": {
-      "total_mm": 49.2,
-      "avg_mm_day": 3.51,
-      "max_daily_mm": 15.0,
+      "total_mm": 43.0,
+      "avg_mm_day": 3.07,
+      "max_daily_mm": 6.9,
       "dry_days": 2,
-      "wet_days": 1
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SR": {
-      "total_mm": 94.7,
-      "avg_mm_day": 6.76,
-      "max_daily_mm": 11.7,
+      "total_mm": 135.3,
+      "avg_mm_day": 9.66,
+      "max_daily_mm": 12.9,
       "dry_days": 0,
-      "wet_days": 1
+      "wet_days": 8,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SN": {
-      "total_mm": 38.2,
-      "avg_mm_day": 2.73,
-      "max_daily_mm": 5.2,
-      "dry_days": 0,
-      "wet_days": 0
+      "total_mm": 40.2,
+      "avg_mm_day": 2.87,
+      "max_daily_mm": 4.7,
+      "dry_days": 1,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-SG": {
-      "total_mm": 16.1,
-      "avg_mm_day": 1.15,
-      "max_daily_mm": 3.1,
-      "dry_days": 6,
-      "wet_days": 0
+      "total_mm": 55.1,
+      "avg_mm_day": 3.94,
+      "max_daily_mm": 10.2,
+      "dry_days": 1,
+      "wet_days": 1,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-PA": {
-      "total_mm": 50.6,
-      "avg_mm_day": 3.61,
-      "max_daily_mm": 9.5,
-      "dry_days": 1,
-      "wet_days": 0
+      "total_mm": 53.3,
+      "avg_mm_day": 3.81,
+      "max_daily_mm": 7.1,
+      "dry_days": 2,
+      "wet_days": 0,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-PB": {
-      "total_mm": 67.9,
-      "avg_mm_day": 4.85,
-      "max_daily_mm": 9.8,
+      "total_mm": 110.8,
+      "avg_mm_day": 7.91,
+      "max_daily_mm": 10.3,
       "dry_days": 0,
-      "wet_days": 0
+      "wet_days": 1,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-PT": {
-      "total_mm": 101.3,
-      "avg_mm_day": 7.24,
-      "max_daily_mm": 16.1,
+      "total_mm": 159.8,
+      "avg_mm_day": 11.41,
+      "max_daily_mm": 24.7,
       "dry_days": 0,
-      "wet_days": 1
+      "wet_days": 9,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "ID-PS": {
-      "total_mm": 123.1,
-      "avg_mm_day": 8.79,
-      "max_daily_mm": 20.3,
-      "dry_days": 0,
-      "wet_days": 4
+      "total_mm": 105.4,
+      "avg_mm_day": 7.53,
+      "max_daily_mm": 11.6,
+      "dry_days": 1,
+      "wet_days": 3,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "TH-SOUTH": {
-      "total_mm": 149.0,
-      "avg_mm_day": 10.64,
-      "max_daily_mm": 16.2,
+      "total_mm": 116.0,
+      "avg_mm_day": 8.29,
+      "max_daily_mm": 10.9,
       "dry_days": 0,
-      "wet_days": 8
+      "wet_days": 5,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     },
     "PH-MIN": {
-      "total_mm": 94.1,
-      "avg_mm_day": 6.72,
-      "max_daily_mm": 13.1,
+      "total_mm": 84.8,
+      "avg_mm_day": 6.06,
+      "max_daily_mm": 12.8,
       "dry_days": 0,
-      "wet_days": 4
+      "wet_days": 1,
+      "model": "ECMWF Hybrid (D1\u20135 HRES + D6\u201314 50-ENS)"
     }
   },
   "forecast_28d_summary": {
