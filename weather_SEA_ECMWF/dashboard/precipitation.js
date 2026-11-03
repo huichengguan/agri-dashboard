@@ -133,6 +133,7 @@ async function initDashboard() {
                 matrixSelectedStates = [selectedStateId];
             }
         }
+        refreshWindowMetaFromData();
 
         const urlParams = new URLSearchParams(window.location.search);
         let stateParam = urlParams.get("state");
@@ -2422,7 +2423,11 @@ let WINDOW_META = {
 };
 
 function refreshWindowMetaFromData() {
-    const raw = window.WEATHER_DATA && window.WEATHER_DATA.model_run_trends && window.WEATHER_DATA.model_run_trends.metadata && window.WEATHER_DATA.model_run_trends.metadata.target_windows;
+    const trends = (typeof currentData !== 'undefined' && currentData && currentData.model_run_trends) ||
+                   (typeof window !== 'undefined' && window.RAIN_DATA && window.RAIN_DATA.model_run_trends) ||
+                   (typeof window !== 'undefined' && window.PRECOMPUTED_DATA && window.PRECOMPUTED_DATA.model_run_trends) ||
+                   (typeof window !== 'undefined' && window.WEATHER_DATA && window.WEATHER_DATA.model_run_trends);
+    const raw = trends && trends.metadata && trends.metadata.target_windows;
     if (!raw) return;
     Object.keys(WINDOW_META).forEach(k => {
         if (raw[k]) {

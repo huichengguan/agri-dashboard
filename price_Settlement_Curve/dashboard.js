@@ -8,8 +8,8 @@ let modalChart = null;
 const CATEGORY_CONFIG = [
     { key: 'Energy', title: 'Energy', icon: '⚡' },
     { key: 'Grains & Oilseeds', title: 'Grains & Oilseeds', icon: '🌾' },
-    { key: 'Livestock & Dairy', title: 'Livestock & Dairy', icon: '🥩' },
     { key: 'Softs', title: 'Soft Commodities', icon: '☕' },
+    { key: 'Livestock & Dairy', title: 'Livestock & Dairy', icon: '🥩' },
     { key: 'FX & Rates', title: 'Foreign Exchange & Interest Rates', icon: '💱' },
     { key: 'Metals', title: 'Metals', icon: '🪙' }
 ];

@@ -1073,29 +1073,49 @@ td.border-right-thick-error {
 }
 
 /* ------------------------------------------------------------------------- */
-/* S&D MONTHLY MATRIX VIEW STYLING                                           */
+/* S&D MONTHLY MATRIX VIEW STYLING (FLUSH TO LEFT & FULLY READABLE)          */
 /* ------------------------------------------------------------------------- */
+#snd-matrix-card {
+  text-align: left;
+}
+
+#snd-matrix-container {
+  overflow-x: auto;
+  text-align: left;
+}
+
 .snd-matrix-table {
-  width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-family: var(--font-sans);
-  font-size: 11.5px;
+  font-size: 11px;
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  background: #ffffff;
 }
 
 .snd-matrix-table th,
 .snd-matrix-table td {
-  padding: 5px 8px;
+  padding: 4px 6px;
   border: 1px solid #cbd5e1;
   text-align: right;
   white-space: nowrap;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  box-sizing: border-box;
 }
 
-.snd-matrix-table .matrix-col-year {
-  width: 65px;
-  min-width: 65px;
-  text-align: center;
-  font-weight: 700;
-  background: #f8fafc;
+/* Metric Column (First column, sticky left) */
+.snd-matrix-table .matrix-col-metric {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  text-align: left;
+  font-weight: 600;
+  background: #ffffff;
   color: var(--text-primary);
   border-right: 2px solid #94a3b8;
   position: sticky;
@@ -1103,19 +1123,32 @@ td.border-right-thick-error {
   z-index: 5;
 }
 
-.snd-matrix-table .matrix-col-metric {
-  width: 160px;
-  min-width: 160px;
-  text-align: left;
-  font-weight: 600;
-  background: #ffffff;
-  color: var(--text-primary);
-  border-right: 2px solid #94a3b8;
-  position: sticky;
-  left: 65px;
-  z-index: 5;
+/* Standardized Month Columns (Jan through Dec - Ample room so numbers never truncate or halve) */
+.snd-matrix-table .matrix-col-month {
+  width: 88px;
+  min-width: 88px;
+  max-width: 88px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
+/* Standardized Total Column */
+.snd-matrix-table .matrix-col-total {
+  width: 104px;
+  min-width: 104px;
+  max-width: 104px;
+  font-weight: 700;
+  background: #f8fafc;
+  border-left: 2px solid #94a3b8;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Month Header Row */
 .snd-matrix-table tr.matrix-row-month th,
 .snd-matrix-table tr.matrix-row-month td {
   background: #f1f5f9;
@@ -1123,6 +1156,12 @@ td.border-right-thick-error {
   text-align: center;
   color: var(--text-primary);
   border-bottom: 2px solid #94a3b8;
+  border-top: 2px solid #94a3b8;
+}
+
+.snd-matrix-table tr.matrix-row-month .matrix-col-metric {
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .snd-matrix-table tr.matrix-row-month .is-fcst-month {
@@ -1130,18 +1169,18 @@ td.border-right-thick-error {
   color: #0f172a !important;
 }
 
-.snd-matrix-table .matrix-col-total {
-  font-weight: 700;
-  background: #f8fafc;
-  border-left: 2px solid #94a3b8;
+.snd-matrix-table tr.matrix-row-month .matrix-col-total {
+  text-align: center;
 }
 
+/* Stocks to Use (SU) Row */
 .snd-matrix-table tr.matrix-row-su td {
   font-weight: 700;
   background: #fafafa;
   color: #0f172a;
 }
 
+/* Block separator (thick border below each year block) */
 .snd-matrix-table tr.matrix-block-end td {
   border-bottom: 3px solid #334155 !important;
 }

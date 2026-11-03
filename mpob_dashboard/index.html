@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="chart.umd.min.js"></script>
-  <script src="dashboard_data.js?v=20261103032233"></script>
+  <script src="dashboard_data.js?v=20261103143006"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -42,6 +42,11 @@
         <span class="kpi-label">2027 Model Prod</span>
         <span class="kpi-val" id="kpi-2027-prod">--</span>
       </div>
+    </div>
+    <div class="header-actions" style="display: flex; align-items: center; gap: 8px;">
+      <button class="action-btn" id="btn-pull-all-data" title="Refresh all tabs: Official MPOB BEPI, Imports, Port & Product Exports, Closing Stocks, Survey Tab (MPOA, SPPOMA, ITS, AmSpec, SGS), and User Forecasts" style="padding: 6px 12px; font-weight: 600; background: #059669; color: #fff; border: 1px solid #047857; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+        <span>🔄</span> Pull &amp; Update All Data
+      </button>
     </div>
   </header>
 
@@ -637,6 +642,6 @@
 
   </main>
 
-  <script src="app.js?v=20261103032233"></script>
+  <script src="app.js?v=20261103143006"></script>
 </body>
 </html>

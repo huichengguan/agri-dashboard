@@ -321,6 +321,39 @@ function syncYearPillsUI() {
 }
 
 function initControls() {
+
+  // Global Header: Pull Latest MPOB Data Button
+  const btnPullMpob = document.getElementById("btn-pull-mpob");
+  if (btnPullMpob) {
+    btnPullMpob.addEventListener("click", async () => {
+      btnPullMpob.disabled = true;
+      const origHtml = btnPullMpob.innerHTML;
+      btnPullMpob.innerHTML = "<span>⏳</span> Pulling from MPOB...";
+      try {
+        const res = await fetch("/api/pull-mpob", { method: "POST" });
+        if (res.ok) {
+          const data = await res.json();
+          btnPullMpob.innerHTML = "<span>✅</span> Updated!";
+          setTimeout(() => { window.location.reload(); }, 1200);
+        } else {
+          throw new Error("HTTP " + res.status);
+        }
+      } catch (err) {
+        btnPullMpob.innerHTML = origHtml;
+        btnPullMpob.disabled = false;
+        alert(
+          "To pull the latest official data from MPOB:\n\n" +
+          "Option 1 (One-click Windows Script):\n" +
+          "Double-click 'update_mpob_data.bat' in the SND_Malaysia_Palm directory. It fetches all fresh BEPI reports and rebuilds the dashboard.\n\n" +
+          "Option 2 (Terminal):\n" +
+          "Run: python etl/fetch_bepi_all.py && python etl/build_dashboard_master.py\n\n" +
+          "Option 3 (Web Server):\n" +
+          "Run 'python app.py' to serve the dashboard on port 8050 with live API syncing enabled."
+        );
+      }
+    });
+  }
+
   // Preset buttons
   document.querySelectorAll(".preset-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -821,26 +854,7 @@ function renderSndMatrixTable() {
     }
   };
 
-  let html = `<table class="data-table snd-matrix-table">
-    <thead>
-      <tr>
-        <th class="matrix-col-year">Year</th>
-        <th class="matrix-col-metric">Metric</th>
-        <th>Jan</th>
-        <th>Feb</th>
-        <th>Mar</th>
-        <th>Apr</th>
-        <th>May</th>
-        <th>Jun</th>
-        <th>Jul</th>
-        <th>Aug</th>
-        <th>Sept</th>
-        <th>Oct</th>
-        <th>Nov</th>
-        <th>Dec</th>
-        <th class="matrix-col-total">Total</th>
-      </tr>
-    </thead>
+  let html = `<table class="snd-matrix-table">
     <tbody>`;
 
   years.forEach(yr => {
@@ -862,74 +876,66 @@ function renderSndMatrixTable() {
 
     // 1. Month Header Row
     html += `<tr class="matrix-row-month">
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric"><strong>Month</strong></td>`;
     for (let m = 1; m <= 12; m++) {
       const isF = (yr === 2026 && m >= 10) || yr >= 2027;
       const mLabel = `${MONTH_SHORT[m - 1]}-${String(yr).slice(2)}`;
-      html += `<td class="${isF ? 'is-fcst-month' : ''}"><strong>${mLabel}</strong></td>`;
+      html += `<td class="matrix-col-month ${isF ? 'is-fcst-month' : ''}"><strong>${mLabel}</strong></td>`;
     }
     html += `<td class="matrix-col-total"><strong>Total</strong></td></tr>`;
 
     // 2. Opening Stock Row
     html += `<tr>
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric">Opening Stock</td>`;
     for (let m = 0; m < 12; m++) {
-      html += `<td>${fmt(mRecs[m]?.opening_stock)}</td>`;
+      html += `<td class="matrix-col-month">${fmt(mRecs[m]?.opening_stock)}</td>`;
     }
     html += `<td class="matrix-col-total">${fmt(mRecs[0]?.opening_stock ?? aRec?.opening_stock)}</td></tr>`;
 
     // 3. Production Row
     html += `<tr>
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric">Production</td>`;
     for (let m = 0; m < 12; m++) {
       const val = mRecs[m]?.production;
-      html += `<td ${getHeatmapStyle(val, minProd, maxProd)}>${fmt(val)}</td>`;
+      html += `<td class="matrix-col-month" ${getHeatmapStyle(val, minProd, maxProd)}>${fmt(val)}</td>`;
     }
     html += `<td class="matrix-col-total">${fmt(aRec?.production)}</td></tr>`;
 
     // 4. Import Row
     html += `<tr>
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric">Import</td>`;
     for (let m = 0; m < 12; m++) {
-      html += `<td>${fmt(mRecs[m]?.import)}</td>`;
+      html += `<td class="matrix-col-month">${fmt(mRecs[m]?.import)}</td>`;
     }
     html += `<td class="matrix-col-total">${fmt(aRec?.import)}</td></tr>`;
 
     // 5. Export Row
     html += `<tr>
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric">Export</td>`;
     for (let m = 0; m < 12; m++) {
       const val = mRecs[m]?.export;
-      html += `<td ${getHeatmapStyle(val, minExp, maxExp)}>${fmt(val)}</td>`;
+      html += `<td class="matrix-col-month" ${getHeatmapStyle(val, minExp, maxExp)}>${fmt(val)}</td>`;
     }
     html += `<td class="matrix-col-total">${fmt(aRec?.export)}</td></tr>`;
 
     // 6. Local Disappearance Row
     html += `<tr>
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric">Local Disappearance</td>`;
     for (let m = 0; m < 12; m++) {
-      html += `<td>${fmt(mRecs[m]?.local_disappearance)}</td>`;
+      html += `<td class="matrix-col-month">${fmt(mRecs[m]?.local_disappearance)}</td>`;
     }
     html += `<td class="matrix-col-total">${fmt(aRec?.local_disappearance)}</td></tr>`;
 
     // 7. End Stock Row
     html += `<tr>
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric">End Stock</td>`;
     for (let m = 0; m < 12; m++) {
-      html += `<td>${fmt(mRecs[m]?.end_stock)}</td>`;
+      html += `<td class="matrix-col-month">${fmt(mRecs[m]?.end_stock)}</td>`;
     }
     html += `<td class="matrix-col-total">${fmt(mRecs[11]?.end_stock ?? aRec?.end_stock)}</td></tr>`;
 
     // 8. SU (Stocks-to-Use) Row
     html += `<tr class="matrix-row-su matrix-block-end">
-      <td class="matrix-col-year"><strong>${yr}</strong></td>
       <td class="matrix-col-metric"><strong>SU</strong></td>`;
     for (let m = 0; m < 12; m++) {
       const rec = mRecs[m];
@@ -939,7 +945,7 @@ function renderSndMatrixTable() {
         const su = (rec.end_stock / use) * 100;
         suStr = isDelta ? fmtDelta(su, 1) + "%" : Math.round(su) + "%";
       }
-      html += `<td><strong>${suStr}</strong></td>`;
+      html += `<td class="matrix-col-month"><strong>${suStr}</strong></td>`;
     }
     const aUse = (aRec?.export || 0) + (aRec?.local_disappearance || 0);
     const decStk = mRecs[11]?.end_stock ?? aRec?.end_stock;

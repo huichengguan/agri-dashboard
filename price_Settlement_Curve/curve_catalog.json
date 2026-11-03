@@ -14,124 +14,144 @@
     },
     "points": [
       {
+        "row": 4,
+        "ric": "/CLZ26",
+        "label": "CLZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
+        "v1": 89.01,
+        "v2": 103.27,
+        "v3": 101.95
+      },
+      {
         "row": 5,
         "ric": "/CLF27",
         "label": "CLF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 86.54,
         "v2": 100.94,
-        "v3": 99.7,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 99.7
       },
       {
         "row": 6,
         "ric": "/CLG27",
         "label": "CLG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 84.69,
         "v2": 98.36,
-        "v3": 97.4,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 97.4
       },
       {
         "row": 7,
         "ric": "/CLH27",
         "label": "CLH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 83.21,
         "v2": 95.68,
-        "v3": 95.06,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 95.06
       },
       {
         "row": 8,
         "ric": "/CLJ27",
         "label": "CLJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 81.88,
         "v2": 93.2,
-        "v3": 92.94,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 92.94
       },
       {
         "row": 9,
         "ric": "/CLK27",
         "label": "CLK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 80.7,
         "v2": 91.02,
-        "v3": 91.01,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 91.01
       },
       {
         "row": 10,
         "ric": "/CLM27",
         "label": "CLM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 79.61,
         "v2": 89.05,
-        "v3": 89.26,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 89.26
       },
       {
         "row": 11,
         "ric": "/CLN27",
         "label": "CLN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 78.61,
         "v2": 87.22,
-        "v3": 87.68,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 87.68
       },
       {
         "row": 12,
         "ric": "/CLQ27",
         "label": "CLQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 77.67,
         "v2": 85.53,
-        "v3": 86.08,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 86.08
       },
       {
         "row": 13,
         "ric": "/CLU27",
         "label": "CLU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 76.81,
         "v2": 84.02,
-        "v3": 84.66,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 84.66
       },
       {
         "row": 14,
         "ric": "/CLV27",
         "label": "CLV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
         "v1": 76.03,
         "v2": 82.69,
-        "v3": 83.43,
-        "contract_code": "V27",
-        "display_label": "Oct 27"
+        "v3": 83.43
       },
       {
         "row": 15,
         "ric": "/CLX27",
         "label": "CLX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
         "v1": 75.34,
         "v2": 81.54,
-        "v3": 82.21,
-        "contract_code": "X27",
-        "display_label": "Nov 27"
+        "v3": 82.21
       },
       {
         "row": 16,
         "ric": "/CLZ27",
         "label": "CLZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
         "v1": 74.68,
         "v2": 80.52,
-        "v3": 81.25,
-        "contract_code": "Z27",
-        "display_label": "Dec 27"
+        "v3": 81.25
+      },
+      {
+        "row": 17,
+        "ric": "/CLF28",
+        "label": "CLF28",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 74.1,
+        "v2": 79.56,
+        "v3": 79.56
       }
     ]
   },
@@ -150,104 +170,134 @@
     },
     "points": [
       {
-        "row": 5,
-        "ric": "/LCOZ6",
-        "label": "LCOZ6",
-        "v1": 97.83,
-        "v2": 116.72,
-        "v3": 115.98,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
-      },
-      {
         "row": 6,
         "ric": "/LCOF7",
         "label": "LCOF7",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 94.4,
         "v2": 111.7,
-        "v3": 110.89,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 110.89
       },
       {
         "row": 7,
         "ric": "/LCOG7",
         "label": "LCOG7",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 92.05,
         "v2": 107.32,
-        "v3": 106.6,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 106.6
       },
       {
         "row": 8,
         "ric": "/LCOH7",
         "label": "LCOH7",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 90.33,
         "v2": 103.77,
-        "v3": 103.23,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 103.23
       },
       {
         "row": 9,
         "ric": "/LCOJ7",
         "label": "LCOJ7",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 88.82,
         "v2": 100.86,
-        "v3": 100.56,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 100.56
       },
       {
         "row": 10,
         "ric": "/LCOK7",
         "label": "LCOK7",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 87.44,
         "v2": 98.36,
-        "v3": 98.29,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 98.29
       },
       {
         "row": 11,
         "ric": "/LCOM7",
         "label": "LCOM7",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 86.16,
         "v2": 96.11,
-        "v3": 96.22,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 96.22
       },
       {
         "row": 12,
         "ric": "/LCON7",
         "label": "LCON7",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 84.98,
         "v2": 94.06,
-        "v3": 94.36,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 94.36
       },
       {
         "row": 13,
         "ric": "/LCOQ7",
         "label": "LCOQ7",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 83.88,
         "v2": 92.21,
-        "v3": 92.64,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 92.64
       },
       {
         "row": 14,
         "ric": "/LCOU7",
         "label": "LCOU7",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 82.85,
         "v2": 90.56,
-        "v3": 91.06,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 91.06
+      },
+      {
+        "row": 15,
+        "ric": "/LCOV7",
+        "label": "LCOV7",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 81.9,
+        "v2": 89.11,
+        "v3": 89.66
+      },
+      {
+        "row": 16,
+        "ric": "/LCOX7",
+        "label": "LCOX7",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 81.06,
+        "v2": 87.85,
+        "v3": 88.43
+      },
+      {
+        "row": 17,
+        "ric": "/LCOZ7",
+        "label": "LCOZ7",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 80.29,
+        "v2": 86.74,
+        "v3": 87.29
+      },
+      {
+        "row": 18,
+        "ric": "/LCOF8",
+        "label": "LCOF8",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 79.55,
+        "v2": 85.68,
+        "v3": 85.25
       }
     ]
   },
@@ -266,104 +316,144 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/ISCX6",
-        "label": "ISCX6",
-        "v1": 734.1,
-        "v2": 724.3,
-        "v3": 731.9,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 5,
         "ric": "/ISCZ6",
         "label": "ISCZ6",
-        "v1": 684.8,
-        "v2": 717,
-        "v3": 734.7,
+        "display_label": "Dec 26",
         "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v1": 684.8,
+        "v2": 717.0,
+        "v3": 734.7
       },
       {
         "row": 6,
         "ric": "/ISCF7",
         "label": "ISCF7",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 650.4,
         "v2": 710.4,
-        "v3": 726.3,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 726.3
       },
       {
         "row": 7,
         "ric": "/ISCG7",
         "label": "ISCG7",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 626.6,
         "v2": 702.8,
-        "v3": 714.9,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 714.9
       },
       {
         "row": 8,
         "ric": "/ISCH7",
         "label": "ISCH7",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 613.2,
         "v2": 690.8,
-        "v3": 700.5,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 700.5
       },
       {
         "row": 9,
         "ric": "/ISCJ7",
         "label": "ISCJ7",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 603.4,
         "v2": 679.9,
-        "v3": 689.9,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 689.9
       },
       {
         "row": 10,
         "ric": "/ISCK7",
         "label": "ISCK7",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 595.9,
         "v2": 667.3,
-        "v3": 680.1,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 680.1
       },
       {
         "row": 11,
         "ric": "/ISCM7",
         "label": "ISCM7",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 588.4,
         "v2": 659.8,
-        "v3": 666.7,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 666.7
       },
       {
         "row": 12,
         "ric": "/ISCN7",
         "label": "ISCN7",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 582.8,
         "v2": 650.3,
-        "v3": 656,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 656.0
       },
       {
         "row": 13,
         "ric": "/ISCQ7",
         "label": "ISCQ7",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 566.5,
         "v2": 635.2,
-        "v3": 635.2,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 635.2
+      },
+      {
+        "row": 14,
+        "ric": "/ISCU7",
+        "label": "ISCU7",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
+        "v1": 568.2,
+        "v2": 624.2,
+        "v3": 638.0
+      },
+      {
+        "row": 15,
+        "ric": "/ISCV7",
+        "label": "ISCV7",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": null,
+        "v2": 625.8,
+        "v3": 620.5
+      },
+      {
+        "row": 16,
+        "ric": "/ISCZ7",
+        "label": "ISCZ7",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 547.9,
+        "v2": 601.6,
+        "v3": 610.0
+      },
+      {
+        "row": 17,
+        "ric": "/ISCH8",
+        "label": "ISCH8",
+        "display_label": "Mar 28",
+        "contract_code": "H28",
+        "v1": 540.5,
+        "v2": 599.0,
+        "v3": 597.8
+      },
+      {
+        "row": 18,
+        "ric": "/ISCM8",
+        "label": "ISCM8",
+        "display_label": "Jun 28",
+        "contract_code": "M28",
+        "v1": 521.6,
+        "v2": 569.8,
+        "v3": 569.8
       }
     ]
   },
@@ -382,134 +472,144 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/HOX26",
-        "label": "HOX26",
-        "v1": 4.4953,
-        "v2": 4.9842,
-        "v3": 4.911,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 5,
         "ric": "/HOZ26",
         "label": "HOZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 4.3681,
         "v2": 4.787,
-        "v3": 4.7359,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 4.7359
       },
       {
         "row": 6,
         "ric": "/HOF27",
         "label": "HOF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 4.2892,
         "v2": 4.6765,
-        "v3": 4.6343,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 4.6343
       },
       {
         "row": 7,
         "ric": "/HOG27",
         "label": "HOG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 4.1895,
         "v2": 4.5642,
-        "v3": 4.5305,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 4.5305
       },
       {
         "row": 8,
         "ric": "/HOH27",
         "label": "HOH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 4.0627,
         "v2": 4.4316,
-        "v3": 4.4092,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 4.4092
       },
       {
         "row": 9,
         "ric": "/HOJ27",
         "label": "HOJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 3.9237,
         "v2": 4.2865,
-        "v3": 4.2752,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 4.2752
       },
       {
         "row": 10,
         "ric": "/HOK27",
         "label": "HOK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 3.7929,
         "v2": 4.1532,
-        "v3": 4.1484,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 4.1484
       },
       {
         "row": 11,
         "ric": "/HOM27",
         "label": "HOM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 3.672,
         "v2": 4.0295,
-        "v3": 4.0257,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 4.0257
       },
       {
         "row": 12,
         "ric": "/HON27",
         "label": "HON27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 3.5975,
         "v2": 3.9472,
-        "v3": 3.9487,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 3.9487
       },
       {
         "row": 13,
         "ric": "/HOQ27",
         "label": "HOQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 3.543,
         "v2": 3.8782,
-        "v3": 3.8846,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 3.8846
       },
       {
         "row": 14,
         "ric": "/HOU27",
         "label": "HOU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 3.5035,
         "v2": 3.8205,
-        "v3": 3.827,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 3.827
       },
       {
         "row": 15,
         "ric": "/HOV27",
         "label": "HOV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
         "v1": 3.4654,
         "v2": 3.7634,
-        "v3": 3.767,
-        "contract_code": "V27",
-        "display_label": "Oct 27"
+        "v3": 3.767
       },
       {
         "row": 16,
         "ric": "/HOX27",
         "label": "HOX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
         "v1": 3.4083,
         "v2": 3.6923,
-        "v3": 3.6951,
-        "contract_code": "X27",
-        "display_label": "Nov 27"
+        "v3": 3.6951
+      },
+      {
+        "row": 17,
+        "ric": "/HOZ27",
+        "label": "HOZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 3.3276,
+        "v2": 3.6068,
+        "v3": 3.6143
+      },
+      {
+        "row": 18,
+        "ric": "/HOF28",
+        "label": "HOF28",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 3.2397,
+        "v2": 3.5195,
+        "v3": 3.5325
       }
     ]
   },
@@ -644,114 +744,134 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/RBX26",
-        "label": "RBX26",
-        "v1": 3.1578,
-        "v2": 3.2116,
-        "v3": 3.2281,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
-        "row": 5,
-        "ric": "/RBZ26",
-        "label": "RBZ26",
-        "v1": 2.968,
-        "v2": 3.1284,
-        "v3": 3.1409,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
-      },
-      {
         "row": 6,
         "ric": "/RBF27",
         "label": "RBF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 2.8496,
         "v2": 3.0606,
-        "v3": 3.0747,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 3.0747
       },
       {
         "row": 7,
         "ric": "/RBG27",
         "label": "RBG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 2.7887,
         "v2": 3.0241,
-        "v3": 3.0373,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 3.0373
       },
       {
         "row": 8,
         "ric": "/RBH27",
         "label": "RBH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 2.7871,
         "v2": 3.0249,
-        "v3": 3.0375,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 3.0375
       },
       {
         "row": 9,
         "ric": "/RBJ27",
         "label": "RBJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 3.0028,
         "v2": 3.2317,
-        "v3": 3.2454,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 3.2454
       },
       {
         "row": 10,
         "ric": "/RBK27",
         "label": "RBK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 2.9758,
         "v2": 3.1948,
-        "v3": 3.2081,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 3.2081
       },
       {
         "row": 11,
         "ric": "/RBM27",
         "label": "RBM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 2.9329,
         "v2": 3.1361,
-        "v3": 3.1508,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 3.1508
       },
       {
         "row": 12,
         "ric": "/RBN27",
         "label": "RBN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 2.8809,
         "v2": 3.0668,
-        "v3": 3.0802,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 3.0802
       },
       {
         "row": 13,
         "ric": "/RBQ27",
         "label": "RBQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 2.8296,
         "v2": 3.0019,
-        "v3": 2.9871,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 2.9871
       },
       {
         "row": 14,
         "ric": "/RBU27",
         "label": "RBU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 2.7683,
         "v2": 2.9322,
-        "v3": 2.9266,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 2.9266
+      },
+      {
+        "row": 15,
+        "ric": "/RBV27",
+        "label": "RBV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 2.5695,
+        "v2": 2.7138,
+        "v3": 2.7138
+      },
+      {
+        "row": 16,
+        "ric": "/RBX27",
+        "label": "RBX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 2.483,
+        "v2": 2.626,
+        "v3": 2.6266
+      },
+      {
+        "row": 17,
+        "ric": "/RBZ27",
+        "label": "RBZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 2.412,
+        "v2": 2.5542,
+        "v3": 2.565
+      },
+      {
+        "row": 18,
+        "ric": "/RBF28",
+        "label": "RBF28",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 2.3521,
+        "v2": 2.5008,
+        "v3": 2.5008
       }
     ]
   },
@@ -770,134 +890,124 @@
     },
     "points": [
       {
-        "row": 5,
-        "ric": "JETSGSWMX6",
-        "label": "2026-10",
-        "v1": 168.3,
-        "v2": 180.48,
-        "v3": 177.34,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 6,
         "ric": "JETSGSWMZ6",
-        "label": "2026-11",
+        "label": "JETSGSWMZ6",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 165.42,
         "v2": 178.83,
-        "v3": 176.02,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 176.02
       },
       {
         "row": 7,
         "ric": "JETSGSWMF7",
-        "label": "2026-12",
+        "label": "JETSGSWMF7",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 160.74,
         "v2": 174.45,
-        "v3": 172,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 172.0
       },
       {
         "row": 8,
         "ric": "JETSGSWMG7",
-        "label": "2027-01",
+        "label": "JETSGSWMG7",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 155.33,
         "v2": 169.57,
-        "v3": 166.92,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 166.92
       },
       {
         "row": 9,
         "ric": "JETSGSWMH7",
-        "label": "2027-02",
+        "label": "JETSGSWMH7",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 149.81,
         "v2": 164.29,
-        "v3": 161.82,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 161.82
       },
       {
         "row": 10,
         "ric": "JETSGSWMJ7",
-        "label": "2027-03",
+        "label": "JETSGSWMJ7",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 144.37,
         "v2": 159.11,
-        "v3": 156.75,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 156.75
       },
       {
         "row": 11,
         "ric": "JETSGSWMK7",
-        "label": "2027-04",
+        "label": "JETSGSWMK7",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 139.48,
         "v2": 154.18,
-        "v3": 152.1,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 152.1
       },
       {
         "row": 12,
         "ric": "JETSGSWMM7",
-        "label": "2027-05",
+        "label": "JETSGSWMM7",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 135.35,
         "v2": 149.97,
-        "v3": 148.05,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 148.05
       },
       {
         "row": 13,
         "ric": "JETSGSWMN7",
-        "label": "2027-06",
+        "label": "JETSGSWMN7",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 131.99,
         "v2": 146.43,
-        "v3": 144.47,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 144.47
       },
       {
         "row": 14,
         "ric": "JETSGSWMQ7",
-        "label": "2027-07",
+        "label": "JETSGSWMQ7",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 129.79,
         "v2": 143.71,
-        "v3": 141.59,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 141.59
       },
       {
         "row": 15,
         "ric": "JETSGSWMU7",
-        "label": "2027-08",
-        "v1": 127.64,
-        "v2": 141,
-        "v3": 138.8,
+        "label": "JETSGSWMU7",
+        "display_label": "Sep 27",
         "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v1": 127.64,
+        "v2": 141.0,
+        "v3": 138.8
       },
       {
         "row": 16,
         "ric": "JETSGSWMV7",
-        "label": "2027-09",
+        "label": "JETSGSWMV7",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
         "v1": 125.81,
         "v2": 138.75,
-        "v3": 136.53,
-        "contract_code": "V27",
-        "display_label": "Oct 27"
+        "v3": 136.53
       },
       {
         "row": 17,
         "ric": "JETSGSWMX7",
-        "label": "2027-10",
+        "label": "JETSGSWMX7",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
         "v1": 124.03,
         "v2": 136.46,
-        "v3": 134.27,
-        "contract_code": "X27",
-        "display_label": "Nov 27"
+        "v3": 134.27
       }
     ]
   },
@@ -916,124 +1026,144 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/NGX26",
-        "label": "NGX26",
-        "v1": 3.106,
-        "v2": 2.64,
-        "v3": 2.611,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 5,
         "ric": "/NGZ26",
         "label": "NGZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 3.452,
         "v2": 3.05,
-        "v3": 3.03,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 3.03
       },
       {
         "row": 6,
         "ric": "/NGF27",
         "label": "NGF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 3.837,
         "v2": 3.506,
-        "v3": 3.523,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 3.523
       },
       {
         "row": 7,
         "ric": "/NGG27",
         "label": "NGG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 3.501,
         "v2": 3.17,
-        "v3": 3.173,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 3.173
       },
       {
         "row": 8,
         "ric": "/NGH27",
         "label": "NGH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 2.804,
         "v2": 2.504,
-        "v3": 2.51,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 2.51
       },
       {
         "row": 9,
         "ric": "/NGJ27",
         "label": "NGJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 2.694,
         "v2": 2.446,
-        "v3": 2.454,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 2.454
       },
       {
         "row": 10,
         "ric": "/NGK27",
         "label": "NGK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 2.722,
         "v2": 2.494,
-        "v3": 2.512,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 2.512
       },
       {
         "row": 11,
         "ric": "/NGM27",
         "label": "NGM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 2.885,
         "v2": 2.653,
-        "v3": 2.673,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 2.673
       },
       {
         "row": 12,
         "ric": "/NGN27",
         "label": "NGN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 3.127,
         "v2": 2.893,
-        "v3": 2.914,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 2.914
       },
       {
         "row": 13,
         "ric": "/NGQ27",
         "label": "NGQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 3.203,
         "v2": 2.975,
-        "v3": 2.995,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 2.995
       },
       {
         "row": 14,
         "ric": "/NGU27",
         "label": "NGU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 3.188,
         "v2": 2.964,
-        "v3": 2.985,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 2.985
       },
       {
         "row": 15,
         "ric": "/NGV27",
         "label": "NGV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
         "v1": 3.274,
         "v2": 3.05,
-        "v3": 3.072,
-        "contract_code": "V27",
-        "display_label": "Oct 27"
+        "v3": 3.072
+      },
+      {
+        "row": 16,
+        "ric": "/NGX27",
+        "label": "NGX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 3.572,
+        "v2": 3.375,
+        "v3": 3.401
+      },
+      {
+        "row": 17,
+        "ric": "/NGZ27",
+        "label": "NGZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 4.185,
+        "v2": 4.007,
+        "v3": 4.035
+      },
+      {
+        "row": 18,
+        "ric": "/NGF28",
+        "label": "NGF28",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 4.606,
+        "v2": 4.437,
+        "v3": 4.461
       }
     ]
   },
@@ -1720,104 +1850,104 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/CUUV26",
-        "label": "CUUV26",
-        "v1": 2.185,
-        "v2": 2.04,
-        "v3": 2.04,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/CUUX26",
         "label": "CUUX26",
+        "display_label": "Nov 26",
+        "contract_code": "X26",
         "v1": 2.1075,
         "v2": 1.865,
-        "v3": 1.865,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
+        "v3": 1.865
       },
       {
         "row": 6,
         "ric": "/CUUZ26",
         "label": "CUUZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 2.025,
         "v2": 1.795,
-        "v3": 1.795,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 1.795
       },
       {
         "row": 7,
         "ric": "/CUUF27",
         "label": "CUUF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 1.9625,
         "v2": 1.75,
-        "v3": 1.75,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 1.75
       },
       {
         "row": 8,
         "ric": "/CUUG27",
         "label": "CUUG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 1.97,
         "v2": 1.7625,
-        "v3": 1.7625,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 1.7625
       },
       {
         "row": 9,
         "ric": "/CUUH27",
         "label": "CUUH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 1.99,
         "v2": 1.7875,
-        "v3": 1.7875,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 1.7875
       },
       {
         "row": 10,
         "ric": "/CUUJ27",
         "label": "CUUJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 2.015,
         "v2": 1.8175,
-        "v3": 1.8175,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 1.8175
       },
       {
         "row": 11,
         "ric": "/CUUK27",
         "label": "CUUK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 2.035,
         "v2": 1.8375,
-        "v3": 1.8375,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 1.8375
       },
       {
         "row": 12,
         "ric": "/CUUM27",
         "label": "CUUM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 2.045,
         "v2": 1.8475,
-        "v3": 1.8475,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 1.8475
       },
       {
         "row": 13,
         "ric": "/CUUN27",
         "label": "CUUN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 2.045,
         "v2": 1.8475,
-        "v3": 1.8475,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 1.8475
+      },
+      {
+        "row": 14,
+        "ric": "/CUUQ27",
+        "label": "CUUQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
+        "v1": 2.04,
+        "v2": 1.8425,
+        "v3": 1.8425
       }
     ]
   },
@@ -2346,104 +2476,134 @@
     },
     "points": [
       {
-        "row": 5,
-        "ric": "/FCPOX26",
-        "label": "FCPOX26",
-        "v1": 4556,
-        "v2": 4587,
-        "v3": 4496,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 6,
         "ric": "/FCPOZ26",
         "label": "FCPOZ26",
-        "v1": 4664,
-        "v2": 4733,
-        "v3": 4643,
+        "display_label": "Dec 26",
         "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v1": 4664.0,
+        "v2": 4733.0,
+        "v3": 4643.0
       },
       {
         "row": 7,
         "ric": "/FCPOF27",
         "label": "FCPOF27",
-        "v1": 4774,
-        "v2": 4818,
-        "v3": 4732,
+        "display_label": "Jan 27",
         "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v1": 4774.0,
+        "v2": 4818.0,
+        "v3": 4732.0
       },
       {
         "row": 8,
         "ric": "/FCPOG27",
         "label": "FCPOG27",
-        "v1": 4876,
-        "v2": 4902,
-        "v3": 4814,
+        "display_label": "Feb 27",
         "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v1": 4876.0,
+        "v2": 4902.0,
+        "v3": 4814.0
       },
       {
         "row": 9,
         "ric": "/FCPOH27",
         "label": "FCPOH27",
-        "v1": 4968,
-        "v2": 4976,
-        "v3": 4888,
+        "display_label": "Mar 27",
         "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v1": 4968.0,
+        "v2": 4976.0,
+        "v3": 4888.0
       },
       {
         "row": 10,
         "ric": "/FCPOJ27",
         "label": "FCPOJ27",
-        "v1": 5035,
-        "v2": 5030,
-        "v3": 4934,
+        "display_label": "Apr 27",
         "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v1": 5035.0,
+        "v2": 5030.0,
+        "v3": 4934.0
       },
       {
         "row": 11,
         "ric": "/FCPOK27",
         "label": "FCPOK27",
-        "v1": 5071,
-        "v2": 5055,
-        "v3": 4951,
+        "display_label": "May 27",
         "contract_code": "K27",
-        "display_label": "May 27"
+        "v1": 5071.0,
+        "v2": 5055.0,
+        "v3": 4951.0
       },
       {
         "row": 12,
         "ric": "/FCPOM27",
         "label": "FCPOM27",
-        "v1": 5073,
-        "v2": 5042,
-        "v3": 4937,
+        "display_label": "Jun 27",
         "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v1": 5073.0,
+        "v2": 5042.0,
+        "v3": 4937.0
       },
       {
         "row": 13,
         "ric": "/FCPON27",
         "label": "FCPON27",
-        "v1": 5038,
-        "v2": 5009,
-        "v3": 4903,
+        "display_label": "Jul 27",
         "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v1": 5038.0,
+        "v2": 5009.0,
+        "v3": 4903.0
       },
       {
         "row": 14,
         "ric": "/FCPOQ27",
         "label": "FCPOQ27",
-        "v1": 4977,
-        "v2": 4968,
-        "v3": 4861,
+        "display_label": "Aug 27",
         "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v1": 4977.0,
+        "v2": 4968.0,
+        "v3": 4861.0
+      },
+      {
+        "row": 15,
+        "ric": "/FCPOU27",
+        "label": "FCPOU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
+        "v1": 4898.0,
+        "v2": 4930.0,
+        "v3": 4819.0
+      },
+      {
+        "row": 16,
+        "ric": "/FCPOV27",
+        "label": "FCPOV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": null,
+        "v2": 4884.0,
+        "v3": 4780.0
+      },
+      {
+        "row": 17,
+        "ric": "/FCPOX27",
+        "label": "FCPOX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 4812.0,
+        "v2": 4828.0,
+        "v3": 4735.0
+      },
+      {
+        "row": 18,
+        "ric": "/FCPOF28",
+        "label": "FCPOF28",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 4843.0,
+        "v2": 4758.0,
+        "v3": 4743.0
       }
     ]
   },
@@ -2958,64 +3118,94 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/COMX6",
-        "label": "COMX6",
-        "v1": 536.5,
-        "v2": 511.75,
-        "v3": 522.25,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 5,
         "ric": "/COMG7",
         "label": "COMG7",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 548.25,
         "v2": 549.5,
-        "v3": 551.25,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 551.25
       },
       {
         "row": 6,
         "ric": "/COMK7",
         "label": "COMK7",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 549.25,
         "v2": 551.25,
-        "v3": 552.5,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 552.5
       },
       {
         "row": 7,
         "ric": "/COMQ7",
         "label": "COMQ7",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 524.25,
         "v2": 530.5,
-        "v3": 532.25,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 532.25
       },
       {
         "row": 8,
         "ric": "/COMX7",
         "label": "COMX7",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
         "v1": 525.75,
         "v2": 533.5,
-        "v3": 536.75,
-        "contract_code": "X27",
-        "display_label": "Nov 27"
+        "v3": 536.75
       },
       {
         "row": 9,
         "ric": "/COMG8",
         "label": "COMG8",
+        "display_label": "Feb 28",
+        "contract_code": "G28",
         "v1": 524.5,
         "v2": 533.25,
-        "v3": 533.25,
-        "contract_code": "G28",
-        "display_label": "Feb 28"
+        "v3": 533.25
+      },
+      {
+        "row": 10,
+        "ric": "/COMK8",
+        "label": "COMK8",
+        "display_label": "May 28",
+        "contract_code": "K28",
+        "v1": 524.25,
+        "v2": 532.5,
+        "v3": 532.5
+      },
+      {
+        "row": 11,
+        "ric": "/COMQ8",
+        "label": "COMQ8",
+        "display_label": "Aug 28",
+        "contract_code": "Q28",
+        "v1": 472.0,
+        "v2": 477.25,
+        "v3": 477.25
+      },
+      {
+        "row": 12,
+        "ric": "/COMX8",
+        "label": "COMX8",
+        "display_label": "Nov 28",
+        "contract_code": "X28",
+        "v1": 487.5,
+        "v2": 490.75,
+        "v3": 490.75
+      },
+      {
+        "row": 13,
+        "ric": "/COMG9",
+        "label": "COMG9",
+        "display_label": "Feb 29",
+        "contract_code": "G29",
+        "v1": 491.5,
+        "v2": 494.75,
+        "v3": 494.75
       }
     ]
   },
@@ -3292,64 +3482,94 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/LCV26",
-        "label": "LCV26",
-        "v1": 217.45,
-        "v2": 229.875,
-        "v3": 229.925,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/LCZ26",
         "label": "LCZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 220.8,
         "v2": 231.125,
-        "v3": 231.2,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 231.2
       },
       {
         "row": 6,
         "ric": "/LCG27",
         "label": "LCG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 222.95,
         "v2": 233.35,
-        "v3": 234.325,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 234.325
       },
       {
         "row": 7,
         "ric": "/LCJ27",
         "label": "LCJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 224.775,
         "v2": 235.025,
-        "v3": 236.25,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 236.25
       },
       {
         "row": 8,
         "ric": "/LCM27",
         "label": "LCM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 219.875,
         "v2": 229.45,
-        "v3": 230.475,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 230.475
       },
       {
         "row": 9,
         "ric": "/LCQ27",
         "label": "LCQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 216.65,
         "v2": 225.6,
-        "v3": 226.5,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 226.5
+      },
+      {
+        "row": 10,
+        "ric": "/LCV27",
+        "label": "LCV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 215.175,
+        "v2": 223.45,
+        "v3": 224.325
+      },
+      {
+        "row": 11,
+        "ric": "/LCZ27",
+        "label": "LCZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 215.55,
+        "v2": 223.475,
+        "v3": 224.3
+      },
+      {
+        "row": 12,
+        "ric": "/LCG28",
+        "label": "LCG28",
+        "display_label": "Feb 28",
+        "contract_code": "G28",
+        "v1": 215.6,
+        "v2": 223.65,
+        "v3": 224.575
+      },
+      {
+        "row": 13,
+        "ric": "/LCJ28",
+        "label": "LCJ28",
+        "display_label": "Apr 28",
+        "contract_code": "J28",
+        "v1": 215.775,
+        "v2": 223.85,
+        "v3": 224.4
       }
     ]
   },
@@ -3368,74 +3588,84 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/FCV26",
-        "label": "FCV26",
-        "v1": 331.9,
-        "v2": 348.325,
-        "v3": 349.875,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/FCX26",
         "label": "FCX26",
+        "display_label": "Nov 26",
+        "contract_code": "X26",
         "v1": 329.275,
         "v2": 348.125,
-        "v3": 348.6,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
+        "v3": 348.6
       },
       {
         "row": 6,
         "ric": "/FCF27",
         "label": "FCF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 321.975,
         "v2": 345.35,
-        "v3": 345.925,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 345.925
       },
       {
         "row": 7,
         "ric": "/FCH27",
         "label": "FCH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 318.25,
         "v2": 341.975,
-        "v3": 342.875,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 342.875
       },
       {
         "row": 8,
         "ric": "/FCJ27",
         "label": "FCJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 317.9,
         "v2": 340.775,
-        "v3": 341.925,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 341.925
       },
       {
         "row": 9,
         "ric": "/FCK27",
         "label": "FCK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 316.7,
         "v2": 338.5,
-        "v3": 339.625,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 339.625
       },
       {
         "row": 10,
         "ric": "/FCQ27",
         "label": "FCQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 317.45,
         "v2": 338.75,
-        "v3": 339.8,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 339.8
+      },
+      {
+        "row": 11,
+        "ric": "/FCU27",
+        "label": "FCU27",
+        "display_label": "Oct 27",
+        "contract_code": "U27",
+        "v1": 315.35,
+        "v2": 335.975,
+        "v3": 337.45
+      },
+      {
+        "row": 12,
+        "ric": "/FCV27",
+        "label": "FCV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 313.5,
+        "v2": 332.9,
+        "v3": 334.0
       }
     ]
   },
@@ -3540,74 +3770,124 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/ETHV26",
-        "label": "ETHV26",
-        "v1": 2703.5,
-        "v2": 2883.5,
-        "v3": 2883.5,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/ETHX26",
         "label": "ETHX26",
-        "v1": 2690.5,
-        "v2": 2990,
-        "v3": 2990,
+        "display_label": "Nov 26",
         "contract_code": "X26",
-        "display_label": "Nov 26"
+        "v1": 2690.5,
+        "v2": 2990.0,
+        "v3": 2990.0
       },
       {
         "row": 6,
         "ric": "/ETHZ26",
         "label": "ETHZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 2735.5,
         "v2": 3052.5,
-        "v3": 3050,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 3050.0
       },
       {
         "row": 7,
         "ric": "/ETHF27",
         "label": "ETHF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 2775.5,
         "v2": 3074.5,
-        "v3": 3150,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 3150.0
       },
       {
         "row": 8,
         "ric": "/ETHG27",
         "label": "ETHG27",
-        "v1": 2775.5,
-        "v2": 3077,
-        "v3": 3150,
+        "display_label": "Feb 27",
         "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v1": 2775.5,
+        "v2": 3077.0,
+        "v3": 3150.0
       },
       {
         "row": 9,
         "ric": "/ETHH27",
         "label": "ETHH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 2678.5,
         "v2": 2954.5,
-        "v3": 2954.5,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 2954.5
       },
       {
         "row": 10,
         "ric": "/ETHJ27",
         "label": "ETHJ27",
-        "v1": 2600,
-        "v2": 2721.5,
-        "v3": 2721.5,
+        "display_label": "Apr 27",
         "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v1": 2600.0,
+        "v2": 2721.5,
+        "v3": 2721.5
+      },
+      {
+        "row": 11,
+        "ric": "/ETHK27",
+        "label": "ETHK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
+        "v1": 2550.0,
+        "v2": 2670.5,
+        "v3": 2670.5
+      },
+      {
+        "row": 12,
+        "ric": "/ETHM27",
+        "label": "ETHM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
+        "v1": 2550.0,
+        "v2": 2456.5,
+        "v3": 2456.5
+      },
+      {
+        "row": 13,
+        "ric": "/ETHN27",
+        "label": "ETHN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
+        "v1": 2550.0,
+        "v2": 2456.5,
+        "v3": 2456.5
+      },
+      {
+        "row": 14,
+        "ric": "/ETHQ27",
+        "label": "ETHQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
+        "v1": 2550.0,
+        "v2": 2456.5,
+        "v3": 2456.5
+      },
+      {
+        "row": 15,
+        "ric": "/ETHU27",
+        "label": "ETHU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
+        "v1": 2581.0,
+        "v2": 2501.5,
+        "v3": 2501.5
+      },
+      {
+        "row": 16,
+        "ric": "/ETHV27",
+        "label": "ETHV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 2620.0,
+        "v2": 2542.0,
+        "v3": 2542.0
       }
     ]
   },
@@ -4014,7 +4294,7 @@
         "ric": "/LCCZ6",
         "label": "LCCZ6",
         "display_label": "Dec 26",
-        "contract_code": "Z6",
+        "contract_code": "Z26",
         "v1": 4175.0,
         "v2": 4193.0,
         "v3": 4159.0
@@ -4024,7 +4304,7 @@
         "ric": "/LCCH7",
         "label": "LCCH7",
         "display_label": "Mar 27",
-        "contract_code": "H7",
+        "contract_code": "H27",
         "v1": 4336.0,
         "v2": 4311.0,
         "v3": 4265.0
@@ -4034,7 +4314,7 @@
         "ric": "/LCCK7",
         "label": "LCCK7",
         "display_label": "May 27",
-        "contract_code": "K7",
+        "contract_code": "K27",
         "v1": 4379.0,
         "v2": 4331.0,
         "v3": 4285.0
@@ -4044,7 +4324,7 @@
         "ric": "/LCCN7",
         "label": "LCCN7",
         "display_label": "Jul 27",
-        "contract_code": "N7",
+        "contract_code": "N27",
         "v1": 4420.0,
         "v2": 4355.0,
         "v3": 4309.0
@@ -4054,7 +4334,7 @@
         "ric": "/LCCU7",
         "label": "LCCU7",
         "display_label": "Sep 27",
-        "contract_code": "U7",
+        "contract_code": "U27",
         "v1": 4380.0,
         "v2": 4299.0,
         "v3": 4255.0
@@ -4064,7 +4344,7 @@
         "ric": "/LCCZ7",
         "label": "LCCZ7",
         "display_label": "Dec 27",
-        "contract_code": "Z7",
+        "contract_code": "Z27",
         "v1": 4275.0,
         "v2": 4214.0,
         "v3": 4159.0
@@ -4090,7 +4370,7 @@
         "ric": "/LRCX6",
         "label": "LRCX6",
         "display_label": "Nov 26",
-        "contract_code": "X6",
+        "contract_code": "X26",
         "v1": 3412.0,
         "v2": 3228.0,
         "v3": 3194.0
@@ -4100,7 +4380,7 @@
         "ric": "/LRCF7",
         "label": "LRCF7",
         "display_label": "Jan 27",
-        "contract_code": "F7",
+        "contract_code": "F27",
         "v1": 3387.0,
         "v2": 3242.0,
         "v3": 3201.0
@@ -4110,7 +4390,7 @@
         "ric": "/LRCH7",
         "label": "LRCH7",
         "display_label": "Mar 27",
-        "contract_code": "H7",
+        "contract_code": "H27",
         "v1": 3366.0,
         "v2": 3229.0,
         "v3": 3188.0
@@ -4120,7 +4400,7 @@
         "ric": "/LRCK7",
         "label": "LRCK7",
         "display_label": "May 27",
-        "contract_code": "K7",
+        "contract_code": "K27",
         "v1": 3352.0,
         "v2": 3219.0,
         "v3": 3177.0
@@ -4130,7 +4410,7 @@
         "ric": "/LRCN7",
         "label": "LRCN7",
         "display_label": "Jul 27",
-        "contract_code": "N7",
+        "contract_code": "N27",
         "v1": 3341.0,
         "v2": 3204.0,
         "v3": 3158.0
@@ -4140,7 +4420,7 @@
         "ric": "/LRCU7",
         "label": "LRCU7",
         "display_label": "Sep 27",
-        "contract_code": "U7",
+        "contract_code": "U27",
         "v1": 3332.0,
         "v2": 3184.0,
         "v3": 3136.0
@@ -4150,7 +4430,7 @@
         "ric": "/LRCX7",
         "label": "LRCX7",
         "display_label": "Nov 27",
-        "contract_code": "X7",
+        "contract_code": "X27",
         "v1": 3315.0,
         "v2": 3167.0,
         "v3": 3121.0
@@ -4160,7 +4440,7 @@
         "ric": "/LRCF8",
         "label": "LRCF8",
         "display_label": "Jan 28",
-        "contract_code": "F8",
+        "contract_code": "F28",
         "v1": 3310.0,
         "v2": 3162.0,
         "v3": 3117.0
@@ -4170,7 +4450,7 @@
         "ric": "/LRCH8",
         "label": "LRCH8",
         "display_label": "Mar 28",
-        "contract_code": "H8",
+        "contract_code": "H28",
         "v1": 3306.0,
         "v2": 3159.0,
         "v3": 3114.0
@@ -4180,7 +4460,7 @@
         "ric": "/LRCK8",
         "label": "LRCK8",
         "display_label": "May 28",
-        "contract_code": "K8",
+        "contract_code": "K28",
         "v1": 3306.0,
         "v2": 3152.0,
         "v3": 3107.0
@@ -5954,74 +6234,134 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/GCV26",
-        "label": "GCV26",
-        "v1": 4136.4,
-        "v2": 3991.1,
-        "v3": 3993.5,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
-        "row": 5,
-        "ric": "/GCX26",
-        "label": "GCX26",
-        "v1": 4152.8,
-        "v2": 3993.8,
-        "v3": 4020.5,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
         "row": 6,
         "ric": "/GCZ26",
         "label": "GCZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 4168.4,
         "v2": 4007.9,
-        "v3": 4034.6,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 4034.6
       },
       {
         "row": 7,
         "ric": "/GCF27",
         "label": "GCF27",
-        "v1": 4187.7,
-        "v2": 4026,
-        "v3": 4052.5,
+        "display_label": "Jan 27",
         "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v1": 4187.7,
+        "v2": 4026.0,
+        "v3": 4052.5
       },
       {
         "row": 8,
         "ric": "/GCG27",
         "label": "GCG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 4203.5,
         "v2": 4041.3,
-        "v3": 4067.5,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 4067.5
       },
       {
         "row": 9,
         "ric": "/GCH27",
         "label": "GCH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 4220.8,
         "v2": 4056.6,
-        "v3": 4075.7,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 4075.7
       },
       {
         "row": 10,
         "ric": "/GCJ27",
         "label": "GCJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 4238.3,
         "v2": 4073.4,
-        "v3": 4101.1,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 4101.1
+      },
+      {
+        "row": 11,
+        "ric": "/GCK27",
+        "label": "GCK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
+        "v1": 4257.4,
+        "v2": 4091.3,
+        "v3": 4091.3
+      },
+      {
+        "row": 12,
+        "ric": "/GCM27",
+        "label": "GCM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
+        "v1": 4275.8,
+        "v2": 4107.9,
+        "v3": 4135.3
+      },
+      {
+        "row": 13,
+        "ric": "/GCN27",
+        "label": "GCN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
+        "v1": 4295.3,
+        "v2": 4125.1,
+        "v3": 4125.1
+      },
+      {
+        "row": 14,
+        "ric": "/GCQ27",
+        "label": "GCQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
+        "v1": 4314.7,
+        "v2": 4142.6,
+        "v3": 4170.2
+      },
+      {
+        "row": 15,
+        "ric": "/GCU27",
+        "label": "GCU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
+        "v1": 4333.9,
+        "v2": 4159.3,
+        "v3": 4159.3
+      },
+      {
+        "row": 16,
+        "ric": "/GCV27",
+        "label": "GCV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 4352.8,
+        "v2": 4175.8,
+        "v3": 4175.8
+      },
+      {
+        "row": 17,
+        "ric": "/GCX27",
+        "label": "GCX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 4372.1,
+        "v2": 4192.6,
+        "v3": 4192.6
+      },
+      {
+        "row": 18,
+        "ric": "/GCZ27",
+        "label": "GCZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 4390.9,
+        "v2": 4209.0,
+        "v3": 4240.2
       }
     ]
   },
@@ -6040,74 +6380,144 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/SIV26",
-        "label": "SIV26",
-        "v1": 61.231,
-        "v2": 53.711,
-        "v3": 53.711,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/SIX26",
         "label": "SIX26",
+        "display_label": "Nov 26",
+        "contract_code": "X26",
         "v1": 61.479,
         "v2": 53.754,
-        "v3": 53.945,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
+        "v3": 53.945
       },
       {
         "row": 6,
         "ric": "/SIZ26",
         "label": "SIZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
         "v1": 61.718,
         "v2": 53.949,
-        "v3": 54.18,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 54.18
       },
       {
         "row": 7,
         "ric": "/SIF27",
         "label": "SIF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 62.024,
         "v2": 54.202,
-        "v3": 54.41,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 54.41
       },
       {
         "row": 8,
         "ric": "/SIG27",
         "label": "SIG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 62.269,
         "v2": 54.411,
-        "v3": 54.42,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 54.42
       },
       {
         "row": 9,
         "ric": "/SIH27",
         "label": "SIH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 62.506,
         "v2": 54.62,
-        "v3": 54.835,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 54.835
       },
       {
         "row": 10,
         "ric": "/SIJ27",
         "label": "SIJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 62.805,
         "v2": 54.862,
-        "v3": 54.862,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 54.862
+      },
+      {
+        "row": 11,
+        "ric": "/SIK27",
+        "label": "SIK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
+        "v1": 63.115,
+        "v2": 55.109,
+        "v3": 55.525
+      },
+      {
+        "row": 12,
+        "ric": "/SIM27",
+        "label": "SIM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
+        "v1": 63.399,
+        "v2": 55.329,
+        "v3": 55.329
+      },
+      {
+        "row": 13,
+        "ric": "/SIN27",
+        "label": "SIN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
+        "v1": 63.697,
+        "v2": 55.579,
+        "v3": 56.01
+      },
+      {
+        "row": 14,
+        "ric": "/SIQ27",
+        "label": "SIQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
+        "v1": 63.998,
+        "v2": 55.828,
+        "v3": 55.828
+      },
+      {
+        "row": 15,
+        "ric": "/SIU27",
+        "label": "SIU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
+        "v1": 64.291,
+        "v2": 56.068,
+        "v3": 56.1
+      },
+      {
+        "row": 16,
+        "ric": "/SIV27",
+        "label": "SIV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 64.585,
+        "v2": 56.316,
+        "v3": 56.316
+      },
+      {
+        "row": 17,
+        "ric": "/SIX27",
+        "label": "SIX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 64.878,
+        "v2": 56.558,
+        "v3": 56.558
+      },
+      {
+        "row": 18,
+        "ric": "/SIZ27",
+        "label": "SIZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 65.176,
+        "v2": 56.798,
+        "v3": 56.05
       }
     ]
   },
@@ -6126,74 +6536,124 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/PLV26",
-        "label": "PLV26",
-        "v1": 1724.1,
-        "v2": 1554.2,
-        "v3": 1531.4,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/PLX26",
         "label": "PLX26",
+        "display_label": "Nov 26",
+        "contract_code": "X26",
         "v1": 1730.9,
         "v2": 1556.4,
-        "v3": 1529.8,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
-      },
-      {
-        "row": 6,
-        "ric": "/PLZ26",
-        "label": "PLZ26",
-        "v1": 1737.7,
-        "v2": 1559.1,
-        "v3": 1535,
-        "contract_code": "Z26",
-        "display_label": "Dec 26"
+        "v3": 1529.8
       },
       {
         "row": 7,
         "ric": "/PLF27",
         "label": "PLF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 1744.7,
         "v2": 1562.4,
-        "v3": 1538.2,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 1538.2
       },
       {
         "row": 8,
         "ric": "/PLJ27",
         "label": "PLJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 1765.7,
         "v2": 1581.7,
-        "v3": 1556.1,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 1556.1
       },
       {
         "row": 9,
         "ric": "/PLN27",
         "label": "PLN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 1784.5,
         "v2": 1601.7,
-        "v3": 1575.6,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 1575.6
       },
       {
         "row": 10,
         "ric": "/PLV27",
         "label": "PLV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
         "v1": 1800.1,
         "v2": 1618.4,
-        "v3": 1618.4,
-        "contract_code": "V27",
-        "display_label": "Oct 27"
+        "v3": 1618.4
+      },
+      {
+        "row": 11,
+        "ric": "/PLF28",
+        "label": "PLF28",
+        "display_label": "Jan 28",
+        "contract_code": "F28",
+        "v1": 1813.8,
+        "v2": 1633.2,
+        "v3": 1633.2
+      },
+      {
+        "row": 12,
+        "ric": "/PLJ28",
+        "label": "PLJ28",
+        "display_label": "Apr 28",
+        "contract_code": "J28",
+        "v1": 1826.9,
+        "v2": 1647.5,
+        "v3": 1647.5
+      },
+      {
+        "row": 13,
+        "ric": "/PLN28",
+        "label": "PLN28",
+        "display_label": "Jul 28",
+        "contract_code": "N28",
+        "v1": 1839.2,
+        "v2": 1661.7,
+        "v3": 1661.7
+      },
+      {
+        "row": 14,
+        "ric": "/PLV28",
+        "label": "PLV28",
+        "display_label": "Oct 28",
+        "contract_code": "V28",
+        "v1": 1850.5,
+        "v2": 1674.9,
+        "v3": 1674.9
+      },
+      {
+        "row": 15,
+        "ric": "/PLF29",
+        "label": "PLF29",
+        "display_label": "Jan 29",
+        "contract_code": "F29",
+        "v1": 1861.2,
+        "v2": 1688.0,
+        "v3": 1688.0
+      },
+      {
+        "row": 16,
+        "ric": "/PLJ29",
+        "label": "PLJ29",
+        "display_label": "Apr 29",
+        "contract_code": "J29",
+        "v1": 1870.8,
+        "v2": 1697.6,
+        "v3": 1697.6
+      },
+      {
+        "row": 17,
+        "ric": "/PLN29",
+        "label": "PLN29",
+        "display_label": "Jul 29",
+        "contract_code": "N29",
+        "v1": 1880.3,
+        "v2": 1707.1,
+        "v3": 1707.1
       }
     ]
   },
@@ -6212,64 +6672,134 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/PAV26",
-        "label": "PAV26",
-        "v1": 1210.8,
-        "v2": 1046.6,
-        "v3": 1046.6,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/PAX26",
         "label": "PAX26",
+        "display_label": "Nov 26",
+        "contract_code": "X26",
         "v1": 1218.2,
         "v2": 1046.5,
-        "v3": 1051,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
+        "v3": 1051.0
+      },
+      {
+        "row": 6,
+        "ric": "/PAZ26",
+        "label": "PAZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
+        "v1": 1223.0,
+        "v2": 1051.5,
+        "v3": 1051.5
       },
       {
         "row": 7,
         "ric": "/PAH27",
         "label": "PAH27",
-        "v1": 1239,
-        "v2": 1063.1,
-        "v3": 1067.5,
+        "display_label": "Mar 27",
         "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v1": 1239.0,
+        "v2": 1063.1,
+        "v3": 1067.5
       },
       {
         "row": 8,
         "ric": "/PAM27",
         "label": "PAM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 1254.1,
         "v2": 1073.5,
-        "v3": 1079,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 1079.0
       },
       {
         "row": 9,
         "ric": "/PAU27",
         "label": "PAU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 1269.2,
         "v2": 1084.8,
-        "v3": 1084.8,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 1084.8
       },
       {
         "row": 10,
         "ric": "/PAZ27",
         "label": "PAZ27",
-        "v1": 1285,
-        "v2": 1096.2,
-        "v3": 1096.2,
+        "display_label": "Dec 27",
         "contract_code": "Z27",
-        "display_label": "Dec 27"
+        "v1": 1285.0,
+        "v2": 1096.2,
+        "v3": 1096.2
+      },
+      {
+        "row": 11,
+        "ric": "/PAH28",
+        "label": "PAH28",
+        "display_label": "Mar 28",
+        "contract_code": "H28",
+        "v1": 1300.9,
+        "v2": 1107.7,
+        "v3": 1107.7
+      },
+      {
+        "row": 12,
+        "ric": "/PAM28",
+        "label": "PAM28",
+        "display_label": "Jun 28",
+        "contract_code": "M28",
+        "v1": 1316.8,
+        "v2": 1123.6,
+        "v3": 1123.6
+      },
+      {
+        "row": 13,
+        "ric": "/PAU28",
+        "label": "PAU28",
+        "display_label": "Sep 28",
+        "contract_code": "U28",
+        "v1": 1333.1,
+        "v2": 1139.9,
+        "v3": 1139.9
+      },
+      {
+        "row": 14,
+        "ric": "/PAZ28",
+        "label": "PAZ28",
+        "display_label": "Dec 28",
+        "contract_code": "Z28",
+        "v1": 1349.5,
+        "v2": 1156.3,
+        "v3": 1156.3
+      },
+      {
+        "row": 15,
+        "ric": "/PAH29",
+        "label": "PAH29",
+        "display_label": "Mar 29",
+        "contract_code": "H29",
+        "v1": 1365.6,
+        "v2": 1172.4,
+        "v3": 1172.4
+      },
+      {
+        "row": 16,
+        "ric": "/PAM29",
+        "label": "PAM29",
+        "display_label": "Jun 29",
+        "contract_code": "M29",
+        "v1": 1382.8,
+        "v2": 1189.6,
+        "v3": 1189.6
+      },
+      {
+        "row": 17,
+        "ric": "/PAU29",
+        "label": "PAU29",
+        "display_label": "Sep 29",
+        "contract_code": "U29",
+        "v1": 1399.1,
+        "v2": 1205.9,
+        "v3": 1205.9
       }
     ]
   },
@@ -6288,114 +6818,144 @@
     },
     "points": [
       {
-        "row": 4,
-        "ric": "/HGV26",
-        "label": "HGV26",
-        "v1": 6.5695,
-        "v2": 6.476,
-        "v3": 6.5095,
-        "contract_code": "V26",
-        "display_label": "Oct 26"
-      },
-      {
         "row": 5,
         "ric": "/HGX26",
         "label": "HGX26",
+        "display_label": "Nov 26",
+        "contract_code": "X26",
         "v1": 6.6015,
         "v2": 6.4825,
-        "v3": 6.5225,
-        "contract_code": "X26",
-        "display_label": "Nov 26"
+        "v3": 6.5225
+      },
+      {
+        "row": 6,
+        "ric": "/HGZ26",
+        "label": "HGZ26",
+        "display_label": "Dec 26",
+        "contract_code": "Z26",
+        "v1": 6.6335,
+        "v2": 6.5075,
+        "v3": 6.554
       },
       {
         "row": 7,
         "ric": "/HGF27",
         "label": "HGF27",
+        "display_label": "Jan 27",
+        "contract_code": "F27",
         "v1": 6.6725,
         "v2": 6.548,
-        "v3": 6.584,
-        "contract_code": "F27",
-        "display_label": "Jan 27"
+        "v3": 6.584
       },
       {
         "row": 8,
         "ric": "/HGG27",
         "label": "HGG27",
+        "display_label": "Feb 27",
+        "contract_code": "G27",
         "v1": 6.7045,
         "v2": 6.5805,
-        "v3": 6.5805,
-        "contract_code": "G27",
-        "display_label": "Feb 27"
+        "v3": 6.5805
       },
       {
         "row": 9,
         "ric": "/HGH27",
         "label": "HGH27",
+        "display_label": "Mar 27",
+        "contract_code": "H27",
         "v1": 6.7375,
         "v2": 6.6135,
-        "v3": 6.662,
-        "contract_code": "H27",
-        "display_label": "Mar 27"
+        "v3": 6.662
       },
       {
         "row": 10,
         "ric": "/HGJ27",
         "label": "HGJ27",
+        "display_label": "Apr 27",
+        "contract_code": "J27",
         "v1": 6.7715,
         "v2": 6.647,
-        "v3": 6.6835,
-        "contract_code": "J27",
-        "display_label": "Apr 27"
+        "v3": 6.6835
       },
       {
         "row": 11,
         "ric": "/HGK27",
         "label": "HGK27",
+        "display_label": "May 27",
+        "contract_code": "K27",
         "v1": 6.807,
         "v2": 6.6815,
-        "v3": 6.732,
-        "contract_code": "K27",
-        "display_label": "May 27"
+        "v3": 6.732
       },
       {
         "row": 12,
         "ric": "/HGM27",
         "label": "HGM27",
+        "display_label": "Jun 27",
+        "contract_code": "M27",
         "v1": 6.8375,
         "v2": 6.712,
-        "v3": 6.712,
-        "contract_code": "M27",
-        "display_label": "Jun 27"
+        "v3": 6.712
       },
       {
         "row": 13,
         "ric": "/HGN27",
         "label": "HGN27",
+        "display_label": "Jul 27",
+        "contract_code": "N27",
         "v1": 6.875,
         "v2": 6.746,
-        "v3": 6.788,
-        "contract_code": "N27",
-        "display_label": "Jul 27"
+        "v3": 6.788
       },
       {
         "row": 14,
         "ric": "/HGQ27",
         "label": "HGQ27",
+        "display_label": "Aug 27",
+        "contract_code": "Q27",
         "v1": 6.9065,
         "v2": 6.7755,
-        "v3": 6.7755,
-        "contract_code": "Q27",
-        "display_label": "Aug 27"
+        "v3": 6.7755
       },
       {
         "row": 15,
         "ric": "/HGU27",
         "label": "HGU27",
+        "display_label": "Sep 27",
+        "contract_code": "U27",
         "v1": 6.94,
         "v2": 6.8075,
-        "v3": 6.837,
-        "contract_code": "U27",
-        "display_label": "Sep 27"
+        "v3": 6.837
+      },
+      {
+        "row": 16,
+        "ric": "/HGV27",
+        "label": "HGV27",
+        "display_label": "Oct 27",
+        "contract_code": "V27",
+        "v1": 6.973,
+        "v2": 6.8415,
+        "v3": 6.8835
+      },
+      {
+        "row": 17,
+        "ric": "/HGX27",
+        "label": "HGX27",
+        "display_label": "Nov 27",
+        "contract_code": "X27",
+        "v1": 7.0025,
+        "v2": 6.872,
+        "v3": 6.872
+      },
+      {
+        "row": 18,
+        "ric": "/HGZ27",
+        "label": "HGZ27",
+        "display_label": "Dec 27",
+        "contract_code": "Z27",
+        "v1": 7.0265,
+        "v2": 6.8955,
+        "v3": 6.929
       }
     ]
   }
