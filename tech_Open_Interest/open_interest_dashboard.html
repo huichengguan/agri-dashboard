@@ -329,7 +329,7 @@
                             <col style="width: 58px;">
                             <col style="width: 56px;">
                             <!-- Diagnosis (1 col) -->
-                            <col style="width: 144px;">
+                            <col style="width: 185px;">
                         </colgroup>
                         <thead>
                             <!-- Super Group Header Row: Exact Excel Structure, Bold, High Contrast -->
@@ -342,7 +342,7 @@
                                 <th colspan="4" class="py-1 px-1 text-center border-r-2 border-slate-700 bg-blue-100/70 text-blue-950 font-bold tracking-tight">Market</th>
                                 <th colspan="5" class="py-1 px-1 text-center border-r-2 border-slate-700 bg-amber-50/90 text-amber-950 font-bold tracking-tight">Active</th>
                                 <th colspan="3" class="py-1 px-1 text-center border-r-2 border-slate-700 bg-purple-50/90 text-purple-950 font-bold tracking-tight">Active +2</th>
-                                <th rowspan="2" class="py-1 px-1 text-center bg-slate-100 text-slate-900 font-bold tracking-tight border-l border-slate-300">Daily Action Diagnosis</th>
+                                <th rowspan="2" class="py-1 px-2.5 text-left bg-slate-100 text-slate-900 font-bold tracking-tight border-l border-slate-300">Daily Action Diagnosis</th>
                             </tr>
                             <!-- Sub Header Row: Compact, Bold, Centered -->
                             <tr class="bg-slate-50 text-[10px] font-bold text-slate-800 uppercase border-b-2 border-slate-400">
@@ -1243,9 +1243,9 @@ function renderMasterSummaryTable(targetDate) {
             <td class="py-1 px-0.5 text-center border-r-2 border-slate-700 tabular-nums ${getSignificanceBgClass(calSig)}">${calSig.toFixed(0)}%</td>
 
             <!-- Diagnosis -->
-            <td class="py-1 px-1.5 text-center whitespace-nowrap">
-                <span class="inline-block px-2 py-0.5 rounded-full text-[10.5px] border ${badgeClass}">
-                    ${regime}
+            <td class="py-1 px-2 text-left whitespace-nowrap">
+                <span class="block w-full text-left px-2 py-0.5 rounded text-[10.5px] border ${badgeClass}">
+                    ${regime.trim()}
                 </span>
             </td>
         </tr>`;
