@@ -32,6 +32,121 @@ function loadCurvesData() {
     return null;
 }
 
+function formatYYYYMMDD(d) {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Price modes, mirroring the two workbooks (Settlement Prices Official / Settlement Prices Daily Curve)
+const MODE_STORAGE_KEY = 'settlementCurveMode';
+const MODE_INFO = {
+    official: { name: 'Official', d3: 'Settlement', subtitle: 'Official settlement prices for all 3 dates' },
+    daily: { name: 'Daily', d3: 'Latest', subtitle: 'Dates 1 & 2 settlement \u2022 Date 3 latest price (CF_LAST)' }
+};
+
+// The mode of the prices on screen (not necessarily the one selected for the next update)
+function dataMode() {
+    return (curvesData && MODE_INFO[curvesData.mode]) ? curvesData.mode : 'official';
+}
+
+function getSelectedMode() {
+    const btn = document.querySelector('#modeToggle .mode-btn.active');
+    return btn && MODE_INFO[btn.dataset.mode] ? btn.dataset.mode : dataMode();
+}
+
+function setSelectedMode(mode) {
+    if (!MODE_INFO[mode]) return;
+    document.querySelectorAll('#modeToggle .mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    try { localStorage.setItem(MODE_STORAGE_KEY, mode); } catch (e) {}
+}
+
+function storedMode() {
+    try {
+        const m = localStorage.getItem(MODE_STORAGE_KEY);
+        return MODE_INFO[m] ? m : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function date3Label(d3Date) {
+    return `${d3Date} ${MODE_INFO[dataMode()].d3}`;
+}
+
+function escapeHtml(text) {
+    return String(text).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}
+
+// Labels and warnings that depend on which prices are on screen
+function applyDataLabels() {
+    const info = MODE_INFO[dataMode()];
+    const sub = document.getElementById('modeSubtitle');
+    if (sub) sub.textContent = `${info.subtitle} \u2022 Powered by LSEG Workspace API`;
+    const th = document.getElementById('d3Header');
+    if (th) th.textContent = `Date 3 ${info.d3}`;
+    const notesEl = document.getElementById('dataNotes');
+    if (notesEl) {
+        const notes = (curvesData && curvesData.notes) || [];
+        notesEl.innerHTML = notes.length ? '<ul>' + notes.map(n => `<li>${escapeHtml(n)}</li>`).join('') + '</ul>' : '';
+        notesEl.hidden = notes.length === 0;
+    }
+}
+
+// Show the last saved update for a mode; returns false when that mode has none yet
+async function switchMode(mode) {
+    setSelectedMode(mode);
+    if (mode === dataMode()) return true;
+    const ok = await refreshFromServer(mode);
+    if (!ok) showToast(`No ${MODE_INFO[mode].name} prices saved yet. Choose the dates and click Update Prices.`, 6000);
+    return ok;
+}
+
+function syncDateInputs() {
+    if (!curvesData || !curvesData.dates) return;
+    const d1Input = document.getElementById('date1Input');
+    const d2Input = document.getElementById('date2Input');
+    const d3Input = document.getElementById('date3Input');
+    if (d1Input && curvesData.dates.date1) d1Input.value = curvesData.dates.date1.substring(0, 10);
+    if (d2Input && curvesData.dates.date2) d2Input.value = curvesData.dates.date2.substring(0, 10);
+    if (d3Input && curvesData.dates.date3) d3Input.value = curvesData.dates.date3.substring(0, 10);
+}
+
+function handleDate3AutoFill() {
+    const d3Input = document.getElementById('date3Input');
+    const d2Input = document.getElementById('date2Input');
+    const d1Input = document.getElementById('date1Input');
+    if (!d3Input || !d3Input.value) return;
+
+    const parts = d3Input.value.split('-');
+    if (parts.length !== 3) return;
+    const y = parseInt(parts[0], 10);
+    const m = parseInt(parts[1], 10) - 1;
+    const d = parseInt(parts[2], 10);
+    const d3Date = new Date(y, m, d);
+    if (isNaN(d3Date.getTime())) return;
+
+    // Roll Saturday/Sunday back to the preceding Friday
+    const prevWeekday = (dt) => {
+        while (dt.getDay() === 0 || dt.getDay() === 6) dt.setDate(dt.getDate() - 1);
+        return dt;
+    };
+
+    // Date 2 = previous weekday before Date 3
+    const d2Date = new Date(d3Date);
+    d2Date.setDate(d2Date.getDate() - 1);
+    prevWeekday(d2Date);
+
+    // Date 1 = Date 3 - 28 days
+    const d1Date = new Date(d3Date);
+    d1Date.setDate(d1Date.getDate() - 28);
+    prevWeekday(d1Date);
+
+    if (d2Input) d2Input.value = formatYYYYMMDD(d2Date);
+    if (d1Input) d1Input.value = formatYYYYMMDD(d1Date);
+}
+
 function initDashboard() {
     curvesData = loadCurvesData();
     if (!curvesData || !curvesData.curves) {
@@ -39,9 +154,13 @@ function initDashboard() {
         document.getElementById('mainContainer').innerHTML = '<div style="text-align: center; padding: 60px; color: #64748b; font-size: 16px;">Failed to load data. Please refresh or run settlement_engine.py.</div>';
         return;
     }
+    syncDateInputs();
+    setSelectedMode(storedMode() || dataMode());
+    applyDataLabels();
     renderSegregatedCurves();
     setupEventListeners();
     checkLsegStatus();
+    resumePendingUpdate();
 }
 
 async function checkLsegStatus() {
@@ -402,7 +521,7 @@ function openModal(curveId) {
                     spanGaps: true
                 },
                 {
-                    label: `Date 3: ${d3Date}`,
+                    label: `Date 3: ${date3Label(d3Date)}`,
                     data: d3Vals,
                     borderColor: '#059669',
                     borderWidth: 3,
@@ -486,9 +605,143 @@ function setupEventListeners() {
         });
     }
 
+    document.querySelectorAll('#modeToggle .mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchMode(btn.dataset.mode));
+    });
+
+    const d3Input = document.getElementById('date3Input');
+    if (d3Input) {
+        d3Input.addEventListener('change', handleDate3AutoFill);
+        d3Input.addEventListener('input', handleDate3AutoFill);
+    }
+
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeModal();
     });
+}
+
+const API_BASE = window.location.protocol === 'file:' ? 'http://127.0.0.1:8050' : '';
+const UPDATE_STALE_MS = 15 * 60 * 1000;
+
+function setDateInputs(dates) {
+    if (!dates) return;
+    const ids = { date1: 'date1Input', date2: 'date2Input', date3: 'date3Input' };
+    Object.keys(ids).forEach(k => {
+        const el = document.getElementById(ids[k]);
+        if (el && dates[k]) el.value = String(dates[k]).substring(0, 10);
+    });
+}
+
+function setUpdateButtonBusy(busy) {
+    const btn = document.querySelector('.btn-update');
+    if (!btn) return;
+    if (busy) {
+        if (!btn.dataset.origHtml) btn.dataset.origHtml = btn.innerHTML;
+        btn.innerHTML = `
+        <svg class="spin-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        <span>Updating LSEG...</span>
+    `;
+        btn.style.opacity = '0.7';
+        btn.disabled = true;
+    } else {
+        if (btn.dataset.origHtml) btn.innerHTML = btn.dataset.origHtml;
+        delete btn.dataset.origHtml;
+        btn.style.opacity = '1';
+        btn.disabled = false;
+    }
+}
+
+async function fetchUpdateStatus() {
+    try {
+        const resp = await fetch(API_BASE + '/api/status', { cache: 'no-store' });
+        if (!resp.ok) return null;
+        const st = await resp.json();
+        // A 'fetching' status left behind by a crashed updater must not block the page forever
+        if (st.status === 'fetching' && st.timestamp) {
+            const started = new Date(st.timestamp.replace(' ', 'T'));
+            if (!isNaN(started.getTime()) && Date.now() - started.getTime() > UPDATE_STALE_MS) st.status = 'stale';
+        }
+        return st;
+    } catch (e) {
+        return null;
+    }
+}
+
+// Load the latest saved curves from the server (the copy embedded in index.html can be older)
+async function refreshFromServer(mode) {
+    try {
+        const query = mode ? '?mode=' + encodeURIComponent(mode) : '';
+        const resp = await fetch(API_BASE + '/api/curves' + query, { cache: 'no-store' });
+        if (!resp.ok) return false;
+        const data = await resp.json();
+        if (!data || !data.curves) return false;
+        const changed = !curvesData || curvesData.last_updated !== data.last_updated;
+        curvesData = data;
+        const jsonEl = document.getElementById('curvesDataJson');
+        if (jsonEl) jsonEl.textContent = JSON.stringify(data);
+        syncDateInputs();
+        applyDataLabels();
+        if (changed) renderSegregatedCurves();
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// Poll the server until the running update finishes, keeping the requested dates in the inputs
+async function waitForUpdate(requested, maxWaitMs = 16 * 60 * 1000) {
+    setUpdateButtonBusy(true);
+    setDateInputs(requested);
+    const startTime = Date.now();
+    let sawRunning = false;
+    try {
+        while (Date.now() - startTime < maxWaitMs) {
+            await new Promise(r => setTimeout(r, 2000));
+            const st = await fetchUpdateStatus();
+            if (!st) continue; // server still starting up
+            if (st.status === 'fetching' || st.status === 'starting') {
+                sawRunning = true;
+                if (st.data && st.data.date3) setDateInputs(st.data);
+                if (st.data && st.data.mode) setSelectedMode(st.data.mode);
+                continue;
+            }
+            if (st.status === 'completed') {
+                const d = st.data || {};
+                // Ignore a 'completed' left over from a previous run until ours has been seen running
+                if (!sawRunning && requested && (d.date3 !== requested.date3 || (requested.mode && d.mode !== requested.mode)) && Date.now() - startTime < 20000) continue;
+                await refreshFromServer(d.mode || (requested && requested.mode));
+                const modeName = MODE_INFO[d.mode] ? ` (${MODE_INFO[d.mode].name})` : '';
+                const warn = (d.notes && d.notes.length) ? ` ${d.notes.length} warning(s) shown above the charts.` : '';
+                showToast(`✓ Updated ${d.total_curves || 66} markets${modeName} for ${d.date1}, ${d.date2}, ${d.date3}.${warn}`, 6000);
+                checkLsegStatus();
+                return true;
+            }
+            if (st.status === 'error') {
+                showToast(`⚠️ ${st.message || 'LSEG update failed.'}`, 9000);
+                syncDateInputs();
+                checkLsegStatus();
+                return false;
+            }
+        }
+        showToast('LSEG update is still running. Refresh the page later to see it.', 6000);
+        return false;
+    } finally {
+        setUpdateButtonBusy(false);
+    }
+}
+
+// On page load: pick up the newest saved data, and if an update is still running show its dates and wait for it
+async function resumePendingUpdate() {
+    const st = await fetchUpdateStatus();
+    if (st && (st.status === 'fetching' || st.status === 'starting')) {
+        const d = st.data || {};
+        if (d.date3) showToast(`LSEG update in progress for ${d.date1}, ${d.date2}, ${d.date3}...`, 6000);
+        await waitForUpdate(d.date3 ? d : null);
+    } else if (!(await refreshFromServer(getSelectedMode()))) {
+        await refreshFromServer();
+    }
 }
 
 async function handleUpdateDates() {
@@ -500,96 +753,55 @@ async function handleUpdateDates() {
         showToast('Please select all 3 dates.');
         return;
     }
+    const mode = getSelectedMode();
+    const requested = { date1: d1, date2: d2, date3: d3, mode: mode };
 
-    const btn = document.querySelector('.btn-update');
-    const origHTML = btn.innerHTML;
-    btn.innerHTML = `
-        <svg class="spin-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-        </svg>
-        <span>Updating LSEG...</span>
-    `;
-    btn.style.opacity = '0.7';
-    btn.disabled = true;
+    setUpdateButtonBusy(true);
+    showToast(`Querying LSEG Workspace (${MODE_INFO[mode].name}) for ${d1}, ${d2}, ${d3}...`, 8000);
 
-    showToast(`Querying LSEG Workspace for ${d1}, ${d2}, ${d3}...`, 8000);
-
-    const apiBase = window.location.protocol === 'file:' ? 'http://127.0.0.1:8050' : '';
-    let success = false;
-
-    // 1. Try local HTTP server first
+    // 1. Ask the local server to start the update (it runs in the background; we poll its status)
+    let resp = null;
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 60000);
-        const resp = await fetch(apiBase + '/api/fetch', {
+        resp = await fetch(API_BASE + '/api/fetch', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ date1: d1, date2: d2, date3: d3 }),
-            signal: controller.signal
+            body: JSON.stringify(requested)
         });
-        clearTimeout(timeoutId);
-        if (resp.ok) {
-            const res = await resp.json();
-            curvesData = res;
-            renderSegregatedCurves();
-            showToast(`✓ Successfully updated 66 markets from LSEG Workspace for ${d1}, ${d2}, ${d3}!`, 5000);
-            checkLsegStatus();
-            success = true;
-        } else if (resp.status === 503) {
-            const errData = await resp.json();
-            showToast(`⚠️ ${errData.message || 'LSEG Workspace is closed. Please open Refinitiv Workspace on your PC and click Update Prices.'}`, 9000);
-            checkLsegStatus();
-            btn.innerHTML = origHTML;
-            btn.style.opacity = '1';
-            btn.disabled = false;
-            return;
-        }
     } catch (err) {
-        // Server might be offline; fall back to background protocol handler
+        resp = null; // server offline
     }
 
-    // 2. If server was offline, trigger Windows background updater protocol silently
-    if (!success) {
-        try {
-            showToast('Launching background LSEG updater... Fetching 66 markets...', 10000);
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = `lseg-update://update?d1=${encodeURIComponent(d1)}&d2=${encodeURIComponent(d2)}&d3=${encodeURIComponent(d3)}`;
-            document.body.appendChild(iframe);
-            setTimeout(() => { try { iframe.remove(); } catch (e) {} }, 3000);
-
-            // Poll for completion up to 45 seconds
-            const startTime = Date.now();
-            while (Date.now() - startTime < 45000) {
-                await new Promise(r => setTimeout(r, 2000));
-                try {
-                    const checkResp = await fetch('http://127.0.0.1:8050/api/curves');
-                    if (checkResp.ok) {
-                        const checkData = await checkResp.json();
-                        const curDates = checkData.dates || {};
-                        if (curDates.date1 === d1 && curDates.date2 === d2 && curDates.date3 === d3) {
-                            curvesData = checkData;
-                            renderSegregatedCurves();
-                            showToast(`✓ Successfully updated 66 markets from LSEG Workspace for ${d1}, ${d2}, ${d3}!`, 5000);
-                            success = true;
-                            break;
-                        }
-                    }
-                } catch (e) {
-                    // Server still starting up
-                }
-            }
-            if (!success) {
-                showToast('LSEG update in progress. Dashboard will refresh shortly.', 5000);
-            }
-        } catch (e) {
-            showToast('Unable to start background updater: ' + e.message, 5000);
-        }
+    if (resp && resp.status === 503) {
+        const errData = await resp.json().catch(() => ({}));
+        showToast(`⚠️ ${errData.message || 'LSEG Workspace is closed. Please open Refinitiv Workspace on your PC and click Update Prices.'}`, 9000);
+        checkLsegStatus();
+        setUpdateButtonBusy(false);
+        return;
+    }
+    if (resp && resp.status === 409) {
+        showToast('An LSEG update is already running. Waiting for it to finish...', 6000);
+        const st = await fetchUpdateStatus();
+        await waitForUpdate(st && st.data && st.data.date3 ? st.data : null);
+        return;
+    }
+    if (resp && resp.ok) {
+        await waitForUpdate(requested);
+        return;
     }
 
-    btn.innerHTML = origHTML;
-    btn.style.opacity = '1';
-    btn.disabled = false;
+    // 2. Server offline: trigger the Windows background updater protocol (it also starts the server)
+    try {
+        showToast('Launching background LSEG updater... Fetching 66 markets...', 10000);
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = `lseg-update://update?d1=${encodeURIComponent(d1)}&d2=${encodeURIComponent(d2)}&d3=${encodeURIComponent(d3)}&mode=${encodeURIComponent(mode)}`;
+        document.body.appendChild(iframe);
+        setTimeout(() => { try { iframe.remove(); } catch (e) {} }, 3000);
+        await waitForUpdate(requested);
+    } catch (e) {
+        showToast('Unable to start background updater: ' + e.message, 5000);
+        setUpdateButtonBusy(false);
+    }
 }
 
 function showToast(message, duration = 4500) {
@@ -691,7 +903,7 @@ async function exportToOutlook() {
         const resp = await fetch('http://127.0.0.1:8050/open_outlook', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ subject: subject }),
+            body: JSON.stringify({ subject: subject, mode: dataMode() }),
             signal: controller.signal
         });
         clearTimeout(timeoutId);

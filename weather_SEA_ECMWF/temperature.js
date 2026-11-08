@@ -351,7 +351,7 @@ function populateYearSelect() {
     for (let y = 2027; y >= 2010; y--) {
         const opt = document.createElement("option");
         opt.value = y;
-        opt.innerText = y === 2027 ? "2027 (Q1 Forecast)" : (y === 2026 ? "2026 (Historical + Forecast)" : y);
+        opt.innerText = y === 2027 ? "2027 (Seasonal Forecast)" : (y === 2026 ? "2026 (Historical + Forecast)" : y);
         if (y === currentYear) opt.selected = true;
         select.appendChild(opt);
     }
@@ -403,7 +403,7 @@ function renderMonthlyTable(locations) {
             <th>State / Province (${metricLabel})</th>
     `;
     monthNames.forEach((m, idx) => {
-        const isFc = (currentYear === 2026 && idx >= 9) || (currentYear === 2027 && idx <= 2);
+        const isFc = (currentYear === 2026 && idx >= 10) || (currentYear === 2027 && idx <= 4);
         const fcBadge = isFc ? `<br><span style="font-size:9px; color:#4338ca; font-weight:700;">FC</span>` : '';
         thead += `<th style="text-align:center; min-width:${currentMetric === 'min_max' ? '74px' : '52px'};">${m}${fcBadge}</th>`;
     });
@@ -548,7 +548,7 @@ function renderYearPills() {
         const pill = document.createElement("span");
         pill.className = "year-toggle-pill" + (matrixSelectedYears.includes(y) ? " active" : "");
         pill.innerText = y;
-        pill.title = (y === 2027) ? "2027 Q1 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : (y === 2026) ? "2026 Includes Q4 Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
+        pill.title = (y === 2027) ? "2027 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : (y === 2026) ? "2026 Includes Q4 Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
         pill.onclick = (e) => toggleYear(y, e);
         container.appendChild(pill);
     }
@@ -1009,7 +1009,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
             <div class="seasonal-chart-header">
                 <div class="seasonal-chart-title">
                     <h3>Seasonal Pattern (Jan &ndash; Dec) &bull; ${scopeLabel}</h3>
-                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 6M Forecast (Oct 2026 – Mar 2027)</strong></p>
+                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 7M Forecast (Nov 2026 – May 2027)</strong></p>
                 </div>
                 <div class="seasonal-year-controls">
                     <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
@@ -1222,7 +1222,7 @@ function renderMatrixSeasonalChart(selectedLocs) {
 
     if (has2027) {
         datasets.push({
-            label: "2027 Q1 Forecast (ECMWF)",
+            label: "2027 Seasonal Forecast (ECMWF SEAS5)",
             data: fc2027,
             borderColor: "#9333ea",
             backgroundColor: "#9333ea",

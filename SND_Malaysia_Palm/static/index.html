@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="chart.umd.min.js"></script>
-  <script src="dashboard_data.js?v=20261103143734"></script>
+  <script src="dashboard_data.js?v=20261109013111"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -114,8 +114,8 @@
           <div class="control-group">
             <label>Forecast Source:</label>
             <div class="seg-group" id="snd-fcst-mode">
-              <button class="seg-btn active" data-mode="model">Model Forecast</button>
-              <button class="seg-btn" data-mode="user">My Forecast</button>
+              <button class="seg-btn" data-mode="model">Model Forecast</button>
+              <button class="seg-btn active" data-mode="user">My Forecast</button>
               <button class="seg-btn" data-mode="delta">My vs Model (&Delta;)</button>
             </div>
           </div>
@@ -132,10 +132,13 @@
         <div class="table-scroll" id="snd-table-container"></div>
       </div>
 
-      <!-- S&D MoM% / YoY% Change Table Container -->
-      <div class="card table-card" id="snd-pct-table-card">
-        <div class="card-header">
-          <h3>% Change</h3>
+      <!-- S&D MoM% / YoY% Change Table Container (Shared / Synchronized Scroll) -->
+      <div class="card table-card" id="snd-pct-table-card" style="margin-top: 12px;">
+        <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h3>% Change</h3>
+            <span class="card-sub" style="font-size: 11px; color: var(--text-muted);">&bull; Synchronized scroll with Balance Sheet above</span>
+          </div>
         </div>
         <div class="table-scroll" id="snd-pct-table-container"></div>
       </div>
@@ -250,6 +253,14 @@
               <button class="seg-btn" data-attr="cpo_yield">CPO Yield (T/Ha)</button>
               <button class="seg-btn" data-attr="oer">OER (%)</button>
               <button class="seg-btn" data-attr="derived_hectarage">Implied Area [Prod ÷ Yield]</button>
+            </div>
+          </div>
+          <div class="control-group" id="prod-cpo-metric-group">
+            <label>View Metric:</label>
+            <div class="seg-group" id="prod-cpo-metric-select">
+              <button class="seg-btn active" data-metric="volume">Volume / Level</button>
+              <button class="seg-btn" data-metric="mom">MoM %</button>
+              <button class="seg-btn" data-metric="yoy">YoY %</button>
             </div>
           </div>
           <div class="control-group">
@@ -506,8 +517,8 @@
           <div class="control-group">
             <label>Forecast Source (2026–2027):</label>
             <div class="seg-group" id="season-fcst-mode">
-              <button class="seg-btn active" data-mode="model">Model Forecast</button>
-              <button class="seg-btn" data-mode="user">My Forecast</button>
+              <button class="seg-btn" data-mode="model">Model Forecast</button>
+              <button class="seg-btn active" data-mode="user">My Forecast</button>
             </div>
           </div>
           <div class="control-group" id="season-region-group" style="display:none;">
@@ -642,6 +653,6 @@
 
   </main>
 
-  <script src="app.js?v=20261103143734"></script>
+  <script src="app.js?v=20261109013111"></script>
 </body>
 </html>

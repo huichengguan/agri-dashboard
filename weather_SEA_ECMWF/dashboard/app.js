@@ -15,7 +15,7 @@ let modalChartType = "climograph"; // "climograph" or "trend"
 let modalCurrentLoc = null;
 
 // State Matrix Filters
-let matrixSelectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+let matrixSelectedYears = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
 let matrixSelectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 // Color Grading Function according to User Specifications:
@@ -334,7 +334,7 @@ function renderHeaderKPIs() {
 function populateYearSelect() {
     const sel = document.getElementById("year-select");
     sel.innerHTML = "";
-    for (let y = 2026; y >= 2010; y--) {
+    for (let y = 2027; y >= 2010; y--) {
         const opt = document.createElement("option");
         opt.value = y;
         opt.innerText = y;
@@ -880,12 +880,12 @@ function renderYearPills() {
     if (!container) return;
     container.innerHTML = "";
 
-    for (let y = 2026; y >= 2010; y--) {
+    for (let y = 2027; y >= 2010; y--) {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = `year-toggle-pill ${matrixSelectedYears.includes(y) ? "active" : ""}`;
         btn.innerText = y;
-        btn.title = `Click to toggle ${y}`;
+        btn.title = (y === 2027) ? "2027 Seasonal Forecast • Click to toggle" : (y === 2026) ? "2026 Includes Forecast • Click to toggle" : `Click to toggle ${y}`;
         btn.onclick = () => toggleYear(y);
         container.appendChild(btn);
     }
@@ -907,13 +907,13 @@ function toggleYear(y) {
 function setYearPreset(preset) {
     if (preset === "all") {
         matrixSelectedYears = [];
-        for (let y = 2026; y >= 2010; y--) matrixSelectedYears.push(y);
+        for (let y = 2027; y >= 2010; y--) matrixSelectedYears.push(y);
     } else if (preset === "last5") {
-        matrixSelectedYears = [2026, 2025, 2024, 2023, 2022];
+        matrixSelectedYears = [2027, 2026, 2025, 2024, 2023];
     } else if (preset === "last10") {
-        matrixSelectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
+        matrixSelectedYears = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
     } else if (preset === "elnino") {
-        matrixSelectedYears = [2026, 2016, 2015];
+        matrixSelectedYears = [2027, 2026, 2016, 2015];
     }
     updateYearPresetButtons();
     renderYearPills();
@@ -1221,7 +1221,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
             <div class="seasonal-chart-header">
                 <div class="seasonal-chart-title">
                     <h3>Seasonal Pattern (Jan &ndash; Dec) &bull; ${scopeLabel}</h3>
-                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 6M Forecast (Oct 2026 – Mar 2027)</strong></p>
+                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 7M Forecast (Nov 2026 – May 2027)</strong></p>
                 </div>
                 <div class="seasonal-year-controls">
                     <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
@@ -1347,7 +1347,7 @@ function renderMatrixSeasonalChart(selectedLocs) {
         }
     }
 
-    // 2027 Q1 Forecast (Jan - Mar)
+    // 2027 Seasonal Forecast (Jan - May)
     const fc2027 = Array(12).fill(null);
     let has2027 = false;
     for (let m = 1; m <= 12; m++) {
@@ -1425,7 +1425,7 @@ function renderMatrixSeasonalChart(selectedLocs) {
 
     if (has2027) {
         datasets.push({
-            label: "2027 Q1 Forecast (ECMWF)",
+            label: "2027 Seasonal Forecast (ECMWF SEAS5)",
             data: fc2027,
             borderColor: "#9333ea",
             backgroundColor: "#9333ea",

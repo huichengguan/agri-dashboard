@@ -14,7 +14,7 @@ const STATE = {
   activeTab: "tab-snd",
 
   // Tab 1: S&D state
-  sndFcstMode: "model",     // "model" | "user" | "delta"
+  sndFcstMode: "user",     // "model" | "user" | "delta"
   sndViewFormat: "table",   // "table" | "matrix"
   sndExpandedYears: new Set(),
   sndChartFreq: "monthly",
@@ -26,6 +26,7 @@ const STATE = {
 
   // Tab 3: Production state
   prodAttr: "cpo_production",
+  prodCpoMetric: "volume",   // "volume" | "mom" | "yoy"
   prodState: "Malaysia",
   prodExpandedYears: new Set(),
 
@@ -61,8 +62,8 @@ const STATE = {
 // ---------------------------------------------------------------------------
 // Formatting Helpers
 // ---------------------------------------------------------------------------
-function fmtNum(val, decimals = 0) {
-  if (val === null || val === undefined || Number.isNaN(Number(val))) return '<span class="text-muted">N/A</span>';
+function fmtNum(val, decimals = 0, nullFallback = "-") {
+  if (val === null || val === undefined || Number.isNaN(Number(val))) return `<span class="text-muted">${nullFallback}</span>`;
   const n = Number(val);
   return n.toLocaleString("en-US", {
     minimumFractionDigits: decimals,
@@ -79,6 +80,16 @@ function fmtDelta(val, decimals = 0) {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals
   })}</span>`;
+}
+
+function fmtPctSigned(val, decimals = 1) {
+  if (val === null || val === undefined || Number.isNaN(Number(val)) || !Number.isFinite(Number(val))) {
+    return '<span class="text-muted">-</span>';
+  }
+  const n = Number(val);
+  const sign = n > 0 ? "+" : "";
+  const cls = n > 0 ? "cell-pos" : n < 0 ? "cell-neg" : "";
+  return `<span class="${cls}">${sign}${n.toFixed(decimals)}%</span>`;
 }
 
 function destroyChart(key) {
@@ -472,6 +483,14 @@ function initControls() {
       renderProdTab();
     });
   });
+  document.querySelectorAll("#prod-cpo-metric-select .seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#prod-cpo-metric-select .seg-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      STATE.prodCpoMetric = btn.dataset.metric;
+      renderProdTab();
+    });
+  });
   document.getElementById("btn-prod-expand-all").addEventListener("click", () => {
     getSortedSelectedYears().forEach(y => { if (y >= 2005) STATE.prodExpandedYears.add(y); });
     renderProdTab();
@@ -635,12 +654,13 @@ function renderSndTab() {
 
 function renderSndTable() {
   const container = document.getElementById("snd-table-container");
+  const prevScroll = container ? container.scrollLeft : 0;
   const years = getSortedSelectedYears(1975, 2027);
   const { monthly, annual, isDelta } = getEffectiveSndData(STATE.sndFcstMode);
   const fmt = isDelta ? (v) => fmtDelta(v, 0) : (v) => fmtNum(v, 0);
 
   // Attributes x Years Matrix (Columns expand/collapse by year) with standardized widths
-  let html = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Attribute (Tonnes)</th>`;
+  let html = `<table class="data-table"><thead><tr><th class="col-attr" style="min-width:220px;width:220px;">Attribute (Tonnes)</th>`;
   for (const yr of years) {
     const canExp = yr >= 2005;
     const isExp = canExp && STATE.sndExpandedYears.has(yr);
@@ -648,7 +668,7 @@ function renderSndTable() {
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
         const isF = (yr === 2026 && m >= 10) || yr === 2027;
-        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+        html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
     html += `<th class="col-year-header col-annual" data-year="${yr}" title="Click to ${isExp ? 'collapse' : 'expand'} ${yr}">
@@ -661,7 +681,7 @@ function renderSndTable() {
     const isRatio = rowDef.isRatio;
     const rCls = rowDef.key === "end_stock" ? "row-highlight" : isRatio ? "row-highlight" : rowDef.isCalc ? "row-subtotal" : "";
     const styleAttr = isRatio ? 'style="color:#059669;font-weight:700;"' : '';
-    html += `<tr class="${rCls}"><td class="sticky-col" ${styleAttr}>${rowDef.label}</td>`;
+    html += `<tr class="${rCls}"><td class="sticky-col col-attr" ${styleAttr}>${rowDef.label}</td>`;
     for (const yr of years) {
       const canExp = yr >= 2005;
       const isExp = canExp && STATE.sndExpandedYears.has(yr);
@@ -677,7 +697,7 @@ function renderSndTable() {
           } else {
             valStr = fmt(mRec ? mRec[rowDef.key] : null);
           }
-          html += `<td class="num ${cCls}" ${styleAttr}>${valStr}</td>`;
+          html += `<td class="num col-month ${cCls}" ${styleAttr}>${valStr}</td>`;
         }
       }
       const aRec = annual[yr];
@@ -721,7 +741,7 @@ function renderSndTable() {
       return (v !== null && v !== undefined && !Number.isNaN(Number(v))) ? Number(v) : null;
     }
 
-    let pctHtml = `<table class="data-table"><thead><tr><th style="min-width:220px;width:220px;">Attribute (MoM % / YoY %)</th>`;
+    let pctHtml = `<table class="data-table"><thead><tr><th class="col-attr" style="min-width:220px;width:220px;">Attribute (MoM % / YoY %)</th>`;
     for (const yr of years) {
       const canExp = yr >= 2005;
       const isExp = canExp && STATE.sndExpandedYears.has(yr);
@@ -729,11 +749,11 @@ function renderSndTable() {
       if (isExp) {
         for (let m = 1; m <= 12; m++) {
           const isF = (yr === 2026 && m >= 10) || yr === 2027;
-          pctHtml += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+          pctHtml += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
         }
       }
       pctHtml += `<th class="col-year-header col-annual" data-year="${yr}" title="Click to ${isExp ? 'collapse' : 'expand'} ${yr}">
-        ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${fcstTag} YoY%
+        ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${fcstTag}
       </th>`;
     }
     pctHtml += `</tr></thead><tbody>`;
@@ -741,7 +761,7 @@ function renderSndTable() {
     for (const rowDef of SND_ROWS) {
       const isRatio = rowDef.isRatio;
       const rCls = rowDef.key === "end_stock" ? "row-highlight" : isRatio ? "row-highlight" : rowDef.isCalc ? "row-subtotal" : "";
-      pctHtml += `<tr class="${rCls}"><td class="sticky-col">${rowDef.label}</td>`;
+      pctHtml += `<tr class="${rCls}"><td class="sticky-col col-attr">${rowDef.label}</td>`;
 
       for (const yr of years) {
         const canExp = yr >= 2005;
@@ -760,7 +780,7 @@ function renderSndTable() {
               ? ((currV - prevV) / Math.abs(prevV)) * 100
               : null;
 
-            pctHtml += `<td class="num ${cCls}">${fmtPctCell(momPct, 1)}</td>`;
+            pctHtml += `<td class="num col-month ${cCls}">${fmtPctCell(momPct, 1)}</td>`;
           }
         }
         const currA = getRecMetric(pctAnnual[yr], rowDef);
@@ -824,6 +844,35 @@ function renderSndTable() {
       renderSndTable();
     });
   });
+
+  // Bidirectional Synchronized Scroll between Balance Sheet and % Change tables
+  const mainCont = document.getElementById("snd-table-container");
+  const pctCont = document.getElementById("snd-pct-table-container");
+  if (mainCont && pctCont) {
+    if (prevScroll > 0) {
+      mainCont.scrollLeft = prevScroll;
+      pctCont.scrollLeft = prevScroll;
+    } else {
+      pctCont.scrollLeft = mainCont.scrollLeft;
+    }
+
+    let isSyncing = false;
+    mainCont.onscroll = () => {
+      if (!isSyncing) {
+        isSyncing = true;
+        pctCont.scrollLeft = mainCont.scrollLeft;
+        requestAnimationFrame(() => { isSyncing = false; });
+      }
+    };
+
+    pctCont.onscroll = () => {
+      if (!isSyncing) {
+        isSyncing = true;
+        mainCont.scrollLeft = pctCont.scrollLeft;
+        requestAnimationFrame(() => { isSyncing = false; });
+      }
+    };
+  }
 }
 
 
@@ -1652,8 +1701,15 @@ function fmtAreaRatio(ent) {
 
 function renderProdTab() {
   const attr = STATE.prodAttr;
+  const metric = STATE.prodCpoMetric || "volume";
   const meta = PROD_ATTR_META[attr];
-  document.getElementById("prod-matrix-title").textContent = `State Breakdown Matrix: ${meta.label}`;
+
+  // Keep slicer fixed at all times - never toggle display: none so adjacent controls never shift
+  let matrixTitle = `State Breakdown Matrix: ${meta.label}`;
+  if (metric === "mom") matrixTitle += ` — MoM % Change`;
+  else if (metric === "yoy") matrixTitle += ` — YoY % Change`;
+  else matrixTitle += ` ${meta.unit}`;
+  document.getElementById("prod-matrix-title").textContent = matrixTitle;
 
   const years = getSortedSelectedYears(1975, 2027);
   const prodAnn = STATE.master.production.annual;
@@ -1668,11 +1724,15 @@ function renderProdTab() {
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
         const isF = (yr === 2026 && m >= 10) || yr === 2027;
-        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+        html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
+    let annColTitle = `${yr}${yr >= 2026 ? 'F' : ''}`;
+    if (metric === "yoy") annColTitle = `${yr}${yr >= 2026 ? 'F' : ''} YoY %`;
+    else if (metric === "mom") annColTitle = `${yr}${yr >= 2026 ? 'F' : ''} (Full Yr YoY)`;
+
     html += `<th class="col-year-header col-annual" data-year="${yr}">
-      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${yr}${yr >= 2026 ? 'F' : ''}
+      ${canExp ? `<span class="expand-toggle">${isExp ? "&minus;" : "+"}</span>` : ''}${annColTitle}
     </th>`;
     if (attr === "derived_hectarage") {
       html += `<th class="col-derived-ha">${yr} Official Mature Ha</th>`;
@@ -1693,14 +1753,48 @@ function renderProdTab() {
         for (let m = 1; m <= 12; m++) {
           const p = `${yr}-${String(m).padStart(2, "0")}`;
           const mEnt = prodMon[p]?.entities?.[ent];
-          const val = mEnt ? mEnt[attr] : null;
+          const rawVal = mEnt ? mEnt[attr] : null;
           const isF = prodMon[p]?.is_forecast;
-          html += `<td class="num ${isF ? 'cell-fcst' : ''}">${fmtNum(val, meta.decimals)}</td>`;
+
+          let cellDisplay = "";
+          if (metric === "mom") {
+            const prevP = m === 1 ? `${yr - 1}-12` : `${yr}-${String(m - 1).padStart(2, "0")}`;
+            const prevVal = prodMon[prevP]?.entities?.[ent]?.[attr];
+            const mom = (rawVal != null && prevVal != null && prevVal > 0)
+              ? ((rawVal - prevVal) / prevVal) * 100
+              : null;
+            cellDisplay = fmtPctSigned(mom, 1);
+          } else if (metric === "yoy") {
+            const prevP = `${yr - 1}-${String(m).padStart(2, "0")}`;
+            const prevVal = prodMon[prevP]?.entities?.[ent]?.[attr];
+            const yoy = (rawVal != null && prevVal != null && prevVal > 0)
+              ? ((rawVal - prevVal) / prevVal) * 100
+              : null;
+            cellDisplay = fmtPctSigned(yoy, 1);
+          } else {
+            cellDisplay = fmtNum(rawVal, meta.decimals);
+          }
+
+          html += `<td class="num ${isF ? 'cell-fcst' : ''}">${cellDisplay}</td>`;
         }
       }
+
       const aEnt = prodAnn[yr]?.entities?.[ent];
       const aVal = aEnt ? aEnt[attr] : null;
-      html += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${fmtNum(aVal, meta.decimals)}</td>`;
+
+      let annDisplay = "";
+      if (metric === "yoy" || metric === "mom") {
+        const prevAEnt = prodAnn[yr - 1]?.entities?.[ent];
+        const prevAVal = prevAEnt ? prevAEnt[attr] : null;
+        const annYoy = (aVal != null && prevAVal != null && prevAVal > 0)
+          ? ((aVal - prevAVal) / prevAVal) * 100
+          : null;
+        annDisplay = fmtPctSigned(annYoy, 1);
+      } else {
+        annDisplay = fmtNum(aVal, meta.decimals);
+      }
+
+      html += `<td class="num col-annual ${yr >= 2026 ? 'cell-fcst' : ''}">${annDisplay}</td>`;
       if (attr === "derived_hectarage") {
         html += `<td class="num col-derived-ha" style="color:#059669;font-weight:700;">${fmtNum(aEnt?.official_mature_ha, 0)}</td>`;
         html += `<td class="num col-derived-ha">${fmtAreaRatio(aEnt)}</td>`;
@@ -1730,6 +1824,9 @@ function renderProdChartsAndWeather() {
   destroyChart("prodWeather");
 
   const st = STATE.prodState;
+  const attr = STATE.prodAttr;
+  const metric = STATE.prodCpoMetric || "volume";
+  const meta = PROD_ATTR_META[attr];
   const mYears = getSortedSelectedYears(2005, 2027);
   const useYears = mYears.length ? mYears : [2023, 2024, 2025, 2026, 2027];
   const prodMon = STATE.master.production.monthly;
@@ -1749,7 +1846,23 @@ function renderProdChartsAndWeather() {
       const ed = prodMon[p]?.entities?.[st];
       if (!ed) continue;
       labels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${prodMon[p].is_forecast ? 'F' : ''}`);
-      cpoData.push(ed.cpo_production);
+
+      let cpoVal = ed[attr] ?? ed.cpo_production;
+      if (metric === "mom") {
+        const prevP = m === 1 ? `${yr - 1}-12` : `${yr}-${String(m - 1).padStart(2, "0")}`;
+        const prevVal = prodMon[prevP]?.entities?.[st]?.[attr] ?? prodMon[prevP]?.entities?.[st]?.cpo_production;
+        cpoVal = (cpoVal != null && prevVal != null && prevVal > 0)
+          ? Number((((cpoVal - prevVal) / prevVal) * 100).toFixed(1))
+          : null;
+      } else if (metric === "yoy") {
+        const prevP = `${yr - 1}-${String(m).padStart(2, "0")}`;
+        const prevVal = prodMon[prevP]?.entities?.[st]?.[attr] ?? prodMon[prevP]?.entities?.[st]?.cpo_production;
+        cpoVal = (cpoVal != null && prevVal != null && prevVal > 0)
+          ? Number((((cpoVal - prevVal) / prevVal) * 100).toFixed(1))
+          : null;
+      }
+      cpoData.push(cpoVal);
+
       derHaData.push(ed.derived_hectarage);
       offHaData.push(ed.official_mature_ha);
       ffbYieldData.push(ed.ffb_yield);
@@ -1760,7 +1873,20 @@ function renderProdChartsAndWeather() {
     }
   }
 
-  document.getElementById("prod-chart1-title").textContent = `${st}: Monthly CPO Production & Implied Area [Prod ÷ Yield] vs Official Mature Area`;
+  let cpoLabel = `${meta.label} ${meta.unit}`;
+  let cpoAxisTitle = `${meta.label} ${meta.unit}`;
+  let chart1Title = `${st}: Monthly ${meta.label} & Implied Area [Prod ÷ Yield] vs Official Mature Area`;
+  if (metric === "mom") {
+    cpoLabel = `${meta.label} MoM (%)`;
+    cpoAxisTitle = "MoM %";
+    chart1Title = `${st}: Monthly ${meta.label} (MoM % Change) & Implied Area vs Official Mature Area`;
+  } else if (metric === "yoy") {
+    cpoLabel = `${meta.label} YoY (%)`;
+    cpoAxisTitle = "YoY %";
+    chart1Title = `${st}: Monthly ${meta.label} (YoY % Change) & Implied Area vs Official Mature Area`;
+  }
+
+  document.getElementById("prod-chart1-title").textContent = chart1Title;
   const ctx1 = document.getElementById("chart-prod-state").getContext("2d");
   STATE.charts.prodState = new Chart(ctx1, {
     type: "bar",
@@ -1769,9 +1895,11 @@ function renderProdChartsAndWeather() {
       datasets: [
         {
           type: "bar",
-          label: "CPO Production (T)",
+          label: cpoLabel,
           data: cpoData,
-          backgroundColor: "rgba(16, 185, 129, 0.72)",
+          backgroundColor: metric === "volume"
+            ? "rgba(16, 185, 129, 0.72)"
+            : cpoData.map(v => (v != null && v < 0) ? "rgba(239, 68, 68, 0.75)" : "rgba(16, 185, 129, 0.75)"),
           yAxisID: "y"
         },
         {
@@ -1797,10 +1925,17 @@ function renderProdChartsAndWeather() {
       ]
     },
     options: {
-      ...chartOptionsCommon("Tonnes"),
+      ...chartOptionsCommon(metric === "volume" ? "Tonnes" : "% Change"),
       scales: {
         x: { ticks: { color: "#94a3b8", maxTicksLimit: 18 }, grid: { color: "rgba(148,163,184,0.08)" } },
-        y: { position: "left", title: { display: true, text: "Production (T)", color: "#10b981" }, ticks: { color: "#94a3b8" } },
+        y: {
+          position: "left",
+          title: { display: true, text: cpoAxisTitle, color: "#10b981" },
+          ticks: {
+            color: "#94a3b8",
+            callback: (v) => metric === "volume" ? v.toLocaleString() : `${v > 0 ? "+" : ""}${v}%`
+          }
+        },
         y1: { position: "right", title: { display: true, text: "Hectares (Ha)", color: "#60a5fa" }, ticks: { color: "#94a3b8" }, grid: { drawOnChartArea: false } }
       }
     }
@@ -2354,7 +2489,7 @@ function renderImportsTab() {
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
         const isF = (yr === 2026 && m >= 10) || yr === 2027;
-        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+        html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
     html += `<th class="col-year-header col-annual" data-year="${yr}">
@@ -2686,7 +2821,7 @@ function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years,
         const p = `${yr}-${String(m).padStart(2, "0")}`;
         if (!monMap[p]) continue;
         const isF = (yr === 2026 && m >= 10) || yr === 2027;
-        html += `<th class="${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
+        html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
     const ytdTag = annMap[yr]?.is_ytd ? " (YTD)" : "";
@@ -3221,14 +3356,23 @@ function renderSurveyExports() {
     const mergedMap = new Map();
     const keyOf = (ym, w) => `${ym}|${w}`;
 
+    const parseValid = (v) => {
+      if (v === null || v === undefined) return null;
+      const n = Number(v);
+      return Number.isFinite(n) && n > 0 ? n : null;
+    };
+
     itsList.forEach(r => {
       if (!filterRow(r)) return;
       const k = keyOf(r.YearMonth, r.Window);
       if (!mergedMap.has(k)) mergedMap.set(k, { YearMonth: r.YearMonth, Window: r.Window, Date: r.Date });
       const obj = mergedMap.get(k);
-      obj.Date = r.Date;
-      obj.its_total = r.Total_Accumulated_Export_MT ?? (r.Window === "Full Month" ? r.Full_Month_Total_Export_MT : null) ?? r.Selected_6_Products_Sum_MT;
-      obj.its_6prod = r.Selected_6_Products_Sum_MT;
+      if (!obj.Date || r.Date >= obj.Date) obj.Date = r.Date;
+      const tot = parseValid(r.Total_Accumulated_Export_MT);
+      const fm = parseValid(r.Full_Month_Total_Export_MT);
+      const s6 = parseValid(r.Selected_6_Products_Sum_MT);
+      obj.its_total = tot ?? (r.Window === "Full Month" ? fm : null) ?? s6;
+      obj.its_6prod = s6;
     });
 
     amspecList.forEach(r => {
@@ -3236,10 +3380,12 @@ function renderSurveyExports() {
       const k = keyOf(r.YearMonth, r.Window);
       if (!mergedMap.has(k)) mergedMap.set(k, { YearMonth: r.YearMonth, Window: r.Window, Date: r.Date });
       const obj = mergedMap.get(k);
-      if (!obj.Date || r.Date > obj.Date) obj.Date = r.Date;
-      obj.amspec_headline = r.Headline_All_Products_Total_MT;
-      obj.amspec_6prod = r.Selected_6_Products_Total_MT;
-      obj.amspec_best = r.Headline_All_Products_Total_MT ?? r.Selected_6_Products_Total_MT;
+      if (!obj.Date || r.Date >= obj.Date) obj.Date = r.Date;
+      const head = parseValid(r.Headline_All_Products_Total_MT);
+      const s6 = parseValid(r.Selected_6_Products_Total_MT);
+      obj.amspec_headline = head;
+      obj.amspec_6prod = s6;
+      obj.amspec_best = head ?? s6;
     });
 
     sgsProdList.forEach(r => {
@@ -3247,9 +3393,9 @@ function renderSurveyExports() {
       const k = keyOf(r.YearMonth, r.Window);
       if (!mergedMap.has(k)) mergedMap.set(k, { YearMonth: r.YearMonth, Window: r.Window, Date: r.Date });
       const obj = mergedMap.get(k);
-      if (!obj.Date || r.Date > obj.Date) obj.Date = r.Date;
-      obj.sgs_total = r.Total_Palm_And_Oleo_Export_MT;
-      obj.sgs_palm_sub = r.SubTotal_Palm_Oil_Products_MT;
+      if (!obj.Date || r.Date >= obj.Date) obj.Date = r.Date;
+      obj.sgs_total = parseValid(r.Total_Palm_And_Oleo_Export_MT);
+      obj.sgs_palm_sub = parseValid(r.SubTotal_Palm_Oil_Products_MT);
     });
 
     const winRank = { "1-10": 1, "1-15": 2, "1-20": 3, "1-25": 4, "Full Month": 5 };
@@ -3265,17 +3411,22 @@ function renderSurveyExports() {
     itsList.forEach(r => {
       const k = keyOf(r.YearMonth, r.Window);
       if (!allLookup.has(k)) allLookup.set(k, {});
-      allLookup.get(k).its = r.Total_Accumulated_Export_MT ?? (r.Window === "Full Month" ? r.Full_Month_Total_Export_MT : null) ?? r.Selected_6_Products_Sum_MT;
+      const tot = parseValid(r.Total_Accumulated_Export_MT);
+      const fm = parseValid(r.Full_Month_Total_Export_MT);
+      const s6 = parseValid(r.Selected_6_Products_Sum_MT);
+      allLookup.get(k).its = tot ?? (r.Window === "Full Month" ? fm : null) ?? s6;
     });
     amspecList.forEach(r => {
       const k = keyOf(r.YearMonth, r.Window);
       if (!allLookup.has(k)) allLookup.set(k, {});
-      allLookup.get(k).amspec = r.Headline_All_Products_Total_MT ?? r.Selected_6_Products_Total_MT;
+      const head = parseValid(r.Headline_All_Products_Total_MT);
+      const s6 = parseValid(r.Selected_6_Products_Total_MT);
+      allLookup.get(k).amspec = head ?? s6;
     });
     sgsProdList.forEach(r => {
       const k = keyOf(r.YearMonth, r.Window);
       if (!allLookup.has(k)) allLookup.set(k, {});
-      allLookup.get(k).sgs = r.Total_Palm_And_Oleo_Export_MT;
+      allLookup.get(k).sgs = parseValid(r.Total_Palm_And_Oleo_Export_MT);
     });
 
     const getPrevYm = (ym) => {
@@ -3440,7 +3591,7 @@ function renderSurveyExports() {
         <td class="num border-right-thick-mpoa">${fmtPctSigned(r.its_mom)}</td>
         <!-- AmSpec -->
         <td class="num"><strong>${fmtNum(r.amspec_best)}</strong></td>
-        <td class="num">${fmtNum(r.amspec_6prod)}</td>
+        <td class="num">${fmtNum(r.amspec_6prod ?? r.amspec_headline)}</td>
         <td class="num border-right-thick-sppoma">${fmtPctSigned(r.amspec_mom)}</td>
         <!-- SGS -->
         <td class="num"><strong>${fmtNum(r.sgs_total)}</strong></td>
@@ -3521,13 +3672,16 @@ function renderSurveyExports() {
       <th>Dest: India &amp; Subc.</th>
     </tr></thead><tbody>`;
     revRows.forEach(r => {
+      const tot = r.Total_Accumulated_Export_MT ?? (r.Window === "Full Month" ? r.Full_Month_Total_Export_MT : null) ?? r.Selected_6_Products_Sum_MT;
+      const s6 = r.Selected_6_Products_Sum_MT ?? tot;
+      const fm = r.Window === "Full Month" ? (r.Full_Month_Total_Export_MT ?? tot) : null;
       html += `<tr>
-        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td class="sticky-col"><strong>${r.Date || '-'}</strong></td>
         <td>${r.YearMonth}</td>
         <td><span class="badge badge-calc">${r.Window}</span></td>
-        <td class="num"><strong>${fmtNum(r.Total_Accumulated_Export_MT)}</strong></td>
-        <td class="num">${fmtNum(r.Full_Month_Total_Export_MT)}</td>
-        <td class="num">${fmtNum(r.Selected_6_Products_Sum_MT)}</td>
+        <td class="num"><strong>${fmtNum(tot)}</strong></td>
+        <td class="num">${r.Window === "Full Month" ? fmtNum(fm) : '<span class="text-muted">-</span>'}</td>
+        <td class="num">${fmtNum(s6)}</td>
         <td class="num">${fmtNum(r.Crude_Palm_Oil_MT)}</td>
         <td class="num">${fmtNum(r.RBD_Palm_Oil_MT)}</td>
         <td class="num">${fmtNum(r.RBD_Palm_Olein_MT)}</td>
@@ -3604,12 +3758,14 @@ function renderSurveyExports() {
       <th>PFAD</th>
     </tr></thead><tbody>`;
     revRows.forEach(r => {
+      const head = r.Headline_All_Products_Total_MT ?? r.Selected_6_Products_Total_MT;
+      const s6 = r.Selected_6_Products_Total_MT ?? r.Headline_All_Products_Total_MT;
       html += `<tr>
-        <td class="sticky-col"><strong>${r.Date}</strong></td>
+        <td class="sticky-col"><strong>${r.Date || '-'}</strong></td>
         <td>${r.YearMonth}</td>
         <td><span class="badge badge-calc">${r.Window}</span></td>
-        <td class="num"><strong>${fmtNum(r.Headline_All_Products_Total_MT)}</strong></td>
-        <td class="num"><strong>${fmtNum(r.Selected_6_Products_Total_MT)}</strong></td>
+        <td class="num"><strong>${fmtNum(head)}</strong></td>
+        <td class="num"><strong>${fmtNum(s6)}</strong></td>
         <td class="num">${fmtNum(r.Crude_Palm_Oil_MT)}</td>
         <td class="num">${fmtNum(r.RBD_Palm_Oil_MT)}</td>
         <td class="num">${fmtNum(r.RBD_Palm_Olein_MT)}</td>

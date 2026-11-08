@@ -264,7 +264,7 @@ function populateYearSelect() {
     // 2027 Q1 Forecast option
     const opt27 = document.createElement("option");
     opt27.value = 2027;
-    opt27.innerText = "2027 (Q1 Forecast)";
+    opt27.innerText = "2027 (Seasonal Forecast)";
     if (currentYear === 2027) opt27.selected = true;
     sel.appendChild(opt27);
 
@@ -459,7 +459,7 @@ function renderMonthlyTable(locations) {
         forecastNotice = `
             <div style="margin-bottom: 12px; padding: 8px 14px; background: #ecfdf5; border-left: 4px solid #10b981; border-radius: 4px; font-size: 12px; color: #065f46; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
                 <div>
-                    <strong>Dashed Borders &amp; 🔮 FCST:</strong> ECMWF SEAS5 6-Month Seasonal Soil Moisture Forecast (Open-Meteo 51-Member Hydrologic Ensemble). Next 6 months: Oct, Nov, Dec 2026 and Jan, Feb, Mar 2027.
+                    <strong>Dashed Borders &amp; 🔮 FCST:</strong> ECMWF SEAS5 6-Month Seasonal Soil Moisture Forecast (Open-Meteo 51-Member Hydrologic Ensemble). Next 7 months: Nov, Dec 2026 and Jan, Feb, Mar, Apr, May 2027.
                 </div>
             </div>
         `;
@@ -688,7 +688,7 @@ function renderYearPills() {
         btn.type = "button";
         btn.className = `year-toggle-pill ${matrixSelectedYears.includes(y) ? "active" : ""}`;
         btn.innerText = y;
-        btn.title = (y === 2027) ? "2027 Q1 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : (y === 2026) ? "2026 Includes Q4 Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
+        btn.title = (y === 2027) ? "2027 Seasonal Forecast • Click to isolate, Ctrl+Click to multi-select" : (y === 2026) ? "2026 Includes Q4 Forecast • Click to isolate, Ctrl+Click to multi-select" : `${y} • Click to isolate, Ctrl+Click to multi-select`;
         btn.onclick = (e) => toggleYear(y, e);
         container.appendChild(btn);
     }
@@ -1002,7 +1002,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel, metricTitle) {
             <div class="seasonal-chart-header">
                 <div class="seasonal-chart-title">
                     <h3>Seasonal Pattern (Jan &ndash; Dec) &bull; ${scopeLabel}</h3>
-                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 6M Forecast (Oct 2026 – Mar 2027)</strong></p>
+                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 7M Forecast (Nov 2026 – May 2027)</strong></p>
                 </div>
                 <div class="seasonal-year-controls">
                     <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
@@ -1208,7 +1208,7 @@ function renderMatrixSeasonalChart(selectedLocs) {
 
     if (has2027) {
         datasets.push({
-            label: "2027 Q1 Forecast (ECMWF)",
+            label: "2027 Seasonal Forecast (ECMWF SEAS5)",
             data: fc2027,
             borderColor: "#9333ea",
             backgroundColor: "#9333ea",
@@ -1343,7 +1343,7 @@ function buildMatrixTableForLocation(loc, yearsToShow, activeMonths, monthNames,
                 rowCount += 1;
                 const c = getSoilColor(avg);
                 const displayVal = avg.toFixed(3);
-                const isFcst = (mInfo && mInfo.is_forecast) || (y === 2026 && m >= 10) || (y === 2027 && m <= 3);
+                const isFcst = (mInfo && mInfo.is_forecast) || (y === 2026 && m >= 11) || (y === 2027 && m <= 5);
                 const subLabel = isFcst ? "Forecast" : (c.badge || c.label || "m³/m³");
                 const squareClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
                 const tooltip = isFcst
@@ -1482,7 +1482,7 @@ function buildCombinedMatrixTable(selectedLocs, yearsToShow, activeMonths, month
 
                 const c = getSoilColor(combAvg);
                 const displayVal = combAvg.toFixed(3);
-                const isFcst = (y === 2026 && m >= 10) || (y === 2027 && m <= 3);
+                const isFcst = (y === 2026 && m >= 11) || (y === 2027 && m <= 5);
                 const subLabel = isFcst ? "Forecast" : (c.badge || c.label || "m³/m³");
                 const squareClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
                 const tooltip = isFcst

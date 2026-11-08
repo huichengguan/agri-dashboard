@@ -238,7 +238,7 @@ function populateYearSelect() {
     // 2027 Q1 Forecast
     const opt27 = document.createElement("option");
     opt27.value = 2027;
-    opt27.innerText = "2027 (Q1 Forecast)";
+    opt27.innerText = "2027 (Seasonal Forecast)";
     if (currentYear === 2027) opt27.selected = true;
     sel.appendChild(opt27);
 
@@ -472,7 +472,7 @@ function renderMonthlyTable(locations) {
             <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11.5px; color: var(--text-secondary); background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color);">
                 <div>
                     <span style="display: inline-block; width: 12px; height: 12px; border: 1.5px dashed #0284c7; background: #e0f2fe; vertical-align: middle; margin-right: 5px; border-radius: 2px;"></span>
-                    <strong>Dashed Borders &amp; FCST:</strong> ECMWF SEAS5 6-Month Seasonal Forecast (Open-Meteo). Next 6 months filled in: Oct, Nov, Dec 2026 and Jan, Feb, Mar 2027.
+                    <strong>Dashed Borders &amp; FCST:</strong> ECMWF SEAS5 6-Month Seasonal Forecast (Open-Meteo). Next 7 months filled in: Nov, Dec 2026 and Jan, Feb, Mar, Apr, May 2027.
                 </div>
                 <button class="pill-btn" onclick="setMode('forecast_6mo')" style="font-weight: 700; background: #09444c; color: #fff; padding: 4px 12px;">
                     View Continuous 6-Month Forecast Table &rarr;
@@ -617,7 +617,7 @@ function render6MonthForecastTable(locations) {
     document.getElementById("table-container").innerHTML = `
         <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
-                <strong style="color: #166534; font-size: 13px;">🔮 ECMWF SEAS5 6-Month Seasonal Precipitation Forecast (Oct 2026 – Mar 2027)</strong>
+                <strong style="color: #166534; font-size: 13px;">🔮 ECMWF SEAS5 7-Month Seasonal Precipitation Forecast (Nov 2026 – May 2027)</strong>
                 <p style="font-size: 11.5px; color: #15803d; margin-top: 2px;">
                     Ensemble seasonal projection in mm/day across 39 oil palm producing states. Includes Northeast Monsoon progression and early 2027 recovery outlook.
                 </p>
@@ -1665,7 +1665,7 @@ function getSeasonalChartCardHtml(selectedLocs, scopeLabel) {
             <div class="seasonal-chart-header">
                 <div class="seasonal-chart-title">
                     <h3>Seasonal Pattern (Jan &ndash; Dec) &bull; ${scopeLabel}</h3>
-                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 6M Forecast (Oct 2026 – Mar 2027)</strong></p>
+                    <p>Y-Axis: <strong>${yAxisTitle}</strong> &bull; Shaded Band: <strong>2010–2025 Min/Max Range</strong> &bull; Dashed Line: <strong>Historical Avg</strong> &bull; Solid/Dashed Bold: <strong>2026 Actual + 7M Forecast (Nov 2026 – May 2027)</strong></p>
                 </div>
                 <div class="seasonal-year-controls">
                     <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
@@ -1870,7 +1870,7 @@ function renderMatrixSeasonalChart(selectedLocs) {
 
     if (has2027) {
         datasets.push({
-            label: "2027 Q1 Forecast (ECMWF)",
+            label: "2027 Seasonal Forecast (ECMWF SEAS5)",
             data: fc2027,
             borderColor: "#9333ea",
             backgroundColor: "#9333ea",

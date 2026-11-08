@@ -54,6 +54,16 @@
             color: #1d4ed8;
             font-weight: 700;
         }
+        .matrix-row:hover td.sticky {
+            background-color: #f1f5f9 !important;
+        }
+        .matrix-row.selected-row td.sticky {
+            background-color: #eff6ff !important;
+        }
+        .dcp2-freeze-boundary {
+            border-right: 2px solid #334155 !important;
+            box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.22) !important;
+        }
         .fixed-heatmap-table {
             table-layout: fixed;
             width: max-content;
@@ -641,7 +651,7 @@
                         <!-- Toggle for 12 Expired Contracts (X25 - V26) -->
                         <label class="flex items-center space-x-1.5 text-xs font-semibold text-amber-950 cursor-pointer bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-md transition shadow-2xs">
                             <input type="checkbox" id="chkDcp2Expired" onchange="toggleDcp2Expired(this.checked)" class="rounded text-amber-600 focus:ring-amber-500">
-                            <span>Show 12 Expired Tenors (X25 – V26)</span>
+                            <span id="lblDcp2Expired">Show Expired Tenors</span>
                         </label>
                         <!-- Matrix Mode Switcher -->
                         <div class="flex flex-wrap gap-1 bg-slate-200/80 p-1 rounded-lg text-xs">
@@ -1963,7 +1973,9 @@ let priceOiWindow = 65;
             const subNav = document.getElementById('singleMarketSubNav');
             if (subNav) subNav.classList.remove('hidden');
 
-            switchMainView('studio');
+            // Stay on user's currently selected tab (e.g. Curve Heatmap) when changing commodity
+            const targetView = (typeof activeSingleMarketTab !== 'undefined' && activeSingleMarketTab) ? activeSingleMarketTab : 'studio';
+            switchMainView(targetView);
 
             initSelector();
             syncUI();
@@ -2055,7 +2067,10 @@ let priceOiWindow = 65;
             if (titleEl) titleEl.textContent = '10-Year ' + (DATA.name || currentMarket) + ' Open Interest Seasonality (2015-2026, Week 1-52)';
         }
 
+        let activeSingleMarketTab = 'studio';
+
         function switchMainView(viewName) {
+            if (viewName) activeSingleMarketTab = viewName;
             ['studio', 'dcp2', 'quadrant', 'playbook'].forEach(v => {
                 const el = document.getElementById('view-' + v);
                 if (el) el.classList.toggle('hidden', v !== viewName);
@@ -2272,7 +2287,7 @@ let priceOiWindow = 65;
                     <td class="px-1.5 py-1.5 text-right truncate ${dPClass}">${dPVal !== 0 ? fmtPrice(dPVal, true) : '--'}</td>
                     <td class="px-2 py-1.5 text-right font-semibold text-slate-700 truncate">${c.adj_spread !== null ? fmtPrice(c.adj_spread, true) : '--'}</td>
                     <td class="px-1.5 py-1.5 text-right truncate ${sprdDeltaClass}">${sprdDeltaVal !== null ? fmtPrice(sprdDeltaVal, true) : '--'}</td>
-                    <td class="px-2 py-1.5 text-right font-bold text-slate-900 bg-blue-50/20 truncate">${fmtNum(c.oi)}</td>
+                    <td class="px-2 py-1.5 text-right font-bold text-slate-900 bg-blue-50/20 whitespace-nowrap tabular-nums">${fmtNum(c.oi)}</td>
                     <td class="px-1.5 py-1.5 text-right text-slate-600 bg-blue-50/20 truncate">${(c.oi_share !== undefined && c.oi_share !== null) ? Number(c.oi_share).toFixed(1) : '0.0'}%</td>
                     <td class="px-2 py-1.5 text-right truncate ${dOiClass}">${dOiVal !== 0 ? fmtNum(dOiVal, true) : (c.is_expired ? '0' : '--')}</td>
                     <td class="px-2 py-1.5 text-right font-semibold text-slate-800 truncate">${fmtNum(c.vol)}</td>
@@ -2393,25 +2408,35 @@ let priceOiWindow = 65;
                 const isMatch = (k === 'All' && n === 999) || (parseInt(k) === n);
                 b.className = isMatch ? 'px-2.5 py-0.5 rounded transition shadow-xs bg-white text-slate-900 font-bold' : 'px-2 py-0.5 rounded transition text-slate-600 hover:text-slate-900';
             });
-            if ((n === 125 || n === 999) && !showDcp2Expired) {
-                showDcp2Expired = true;
-                const chk = document.getElementById('chkDcp2Expired');
-                if (chk) chk.checked = true;
-            }
+            // Keep user's chosen showDcp2Expired state without overriding
             renderDcp2Matrix();
         }
 
         function getShortRic(ric) {
             if (!ric) return '';
-            if (DATA && DATA.sessions && DATA.sessions.length) {
-                const lastSession = DATA.sessions[DATA.sessions.length - 1];
-                if (lastSession && lastSession.contracts) {
-                    const match = lastSession.contracts.find(c => c.ric === ric);
-                    if (match && (match.label || match.short)) return match.label || match.short;
+            // Check any session for contract label/short
+            if (DATA && DATA.sessions) {
+                for (let i = DATA.sessions.length - 1; i >= Math.max(0, DATA.sessions.length - 10); i--) {
+                    const s = DATA.sessions[i];
+                    if (s && s.contracts) {
+                        const match = s.contracts.find(c => c.ric === ric);
+                        if (match && (match.label || match.short)) return match.label || match.short;
+                    }
                 }
             }
-            const sym = (DATA && (DATA.symbol || DATA.mkt)) ? (DATA.symbol || DATA.mkt) : '';
-            if (sym && ric.startsWith(sym)) return ric.slice(sym.length);
+            // Strip known multi-letter exchange root prefixes
+            const prefixes = [
+                "FCPO", "DCP", "DCC", "DBY", "DSM", "COI", "CRSM",
+                "LCO", "CL", "RB", "HO", "LGO", "SM", "BO", "MWE", "KW",
+                "ZZRSO", "ZZRSM"
+            ];
+            for (const pfx of prefixes) {
+                if (ric.startsWith(pfx)) return ric.slice(pfx.length);
+            }
+            // Strip single-letter CBOT roots: C (Corn), W (Wheat), S (Soybeans)
+            if ((ric.startsWith("C") || ric.startsWith("W") || ric.startsWith("S")) && ric.length >= 4 && !ric.includes("c1") && !ric.includes("c2")) {
+                return ric.slice(1);
+            }
             return ric;
         }
 
@@ -2424,32 +2449,44 @@ let priceOiWindow = 65;
                 DATA.dcp2_sessions = [...DATA.sessions].reverse();
             }
             const colW = showDcp2Expired ? 54 : 50;
+            const expCount = (DATA.dcp2_expired_list || []).length;
+            const lblExp = document.getElementById('lblDcp2Expired');
+            if (lblExp) {
+                if (expCount > 0) {
+                    const firstExp = getShortRic(DATA.dcp2_expired_list[0]);
+                    const lastExp = getShortRic(DATA.dcp2_expired_list[expCount - 1]);
+                    lblExp.textContent = `Show ${expCount} Expired Tenors (${firstExp} - ${lastExp})`;
+                } else {
+                    lblExp.textContent = `Show Expired Tenors (0)`;
+                }
+            }
+
             const colgroup = document.getElementById('dcp2Colgroup');
             if (colgroup) {
                 colgroup.innerHTML = `
-                    <col style="width: 74px;">
-                    <col style="width: 140px;">
-                    <col style="width: 48px;">
-                    <col style="width: 52px;">
-                    <col style="width: 52px;">
-                    <col style="width: 54px;">
-                    <col style="width: 50px;">
-                    <col style="width: 46px;">
-                    <col style="width: 44px;">
+                    <col style="width: 74px;"> <!-- Date -->
+                    <col style="width: 140px;"> <!-- Action -->
+                    <col style="width: 58px;"> <!-- Vol -->
+                    <col style="width: 54px;"> <!-- Spread Vol -->
+                    <col style="width: 54px;"> <!-- Outright Vol -->
+                    <col style="width: 68px;"> <!-- Mkt OI -->
+                    <col style="width: 56px;"> <!-- Net OI -->
+                    <col style="width: 48px;"> <!-- Act P -->
+                    <col style="width: 48px;"> <!-- Cal Delta -->
                     ${cols.map(() => `<col style="width: ${colW}px;">`).join('')}
                 `;
             }
             const thead = document.getElementById('dcp2HeaderRow');
             thead.innerHTML = `
-                <th class="px-1.5 py-1 text-left sticky left-0 bg-slate-900 z-30 text-[10px] whitespace-nowrap">Date</th>
-                <th class="px-2 py-1 text-left text-[10px] text-slate-200 border-r border-slate-700 whitespace-nowrap" style="min-width: 135px;">Action</th>
-                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Total Market Traded Volume">Vol</th>
-                <th class="px-0.5 py-1 text-center text-[8.5px] leading-tight text-purple-300 whitespace-nowrap" title="Calendar Spread Traded Volume in Lots (Rolls & Spreads)">Spread<br>Vol</th>
-                <th class="px-0.5 py-1 text-center text-[8.5px] leading-tight text-blue-300 whitespace-nowrap" title="Direct Single-Month Outright Directional Volume (Lots)">Outright<br>Vol</th>
-                <th class="px-1 py-1 text-right text-[10px] text-sky-300 whitespace-nowrap" title="Total Market Standing Open Interest (Contracts)">Mkt OI</th>
-                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Net Market Open Interest Change">Net ΔOI</th>
-                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Active Benchmark Settlement Price Change">Act ΔP</th>
-                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap" title="Front Calendar Spread Change: P(Active) - P(Active+2)">Cal Δ</th>
+                <th class="px-1.5 py-1 text-left sticky bg-slate-900 z-40 text-[10px] whitespace-nowrap border-b border-slate-700" style="left: 0px;">Date</th>
+                <th class="px-2 py-1 text-left text-[10px] text-slate-200 border-r border-slate-700 whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 74px; min-width: 140px; max-width: 140px;">Action</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 214px;" title="Total Market Traded Volume">Vol</th>
+                <th class="px-0.5 py-1 text-center text-[8.5px] leading-tight text-purple-300 whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 272px;" title="Calendar Spread Traded Volume in Lots (Rolls & Spreads)">Spread<br>Vol</th>
+                <th class="px-0.5 py-1 text-center text-[8.5px] leading-tight text-blue-300 whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 326px;" title="Direct Single-Month Outright Directional Volume (Lots)">Outright<br>Vol</th>
+                <th class="px-1 py-1 text-right text-[10px] text-sky-300 whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 380px;" title="Total Market Standing Open Interest (Contracts)">Mkt OI</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 448px;" title="Net Market Open Interest Change">Net OI</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap sticky bg-slate-900 z-40 border-b border-slate-700" style="left: 504px;" title="Active Benchmark Settlement Price Change">Act P</th>
+                <th class="px-1 py-1 text-right text-[10px] whitespace-nowrap sticky bg-slate-900 z-40 dcp2-freeze-boundary border-b border-slate-700" style="left: 552px;" title="Front Calendar Spread Change: P(Active) - P(Active+2)">Cal &Delta;</th>
                 ${cols.map((c, idx) => {
                     const label = getShortRic(c);
                     const isExp = DATA.dcp2_expired_list && DATA.dcp2_expired_list.includes(c);
@@ -2534,19 +2571,19 @@ let priceOiWindow = 65;
                 const spPctVal = s.spread_vol_pct !== undefined && s.spread_vol_pct !== null ? s.spread_vol_pct : 72.6;
 
                 tr.innerHTML = `
-                    <td class="px-1.5 py-1 font-bold text-slate-900 whitespace-nowrap sticky left-0 bg-white z-10 border-r border-slate-200 truncate">${s.date}</td>
-                    <td class="px-1.5 py-1 text-left border-r border-slate-200 truncate">
-                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold border ${getBadgeClasses(s.flow_badge_color || s.scen_color)} truncate" title="${s.flow_regime}">
+                    <td class="px-1.5 py-1 font-bold text-slate-900 whitespace-nowrap sticky bg-white z-20 border-r border-slate-200" style="left: 0px;">${s.date}</td>
+                    <td class="px-1.5 py-1 text-left border-r border-slate-200 sticky bg-white z-20 whitespace-nowrap" style="left: 74px; min-width: 140px; max-width: 140px;">
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold border ${getBadgeClasses(s.flow_badge_color || s.scen_color)} truncate" style="max-width: 132px;" title="${s.flow_regime}">
                             ${s.flow_regime}
                         </span>
                     </td>
-                    <td class="px-1 py-1 text-right font-medium text-slate-700 truncate">${fmtNum(s.mkt_vol)}</td>
-                    <td class="px-1 py-1 text-right font-semibold text-purple-700 bg-purple-50/30 truncate" title="Spread: ${fmtNum(spVal)} lots (${spPctVal.toFixed(1)}%)">${fmtNum(spVal)}</td>
-                    <td class="px-1 py-1 text-right font-bold truncate ${outVal >= 24000 ? 'text-blue-700 font-extrabold bg-blue-100/50' : 'text-blue-900 bg-blue-50/20'}" title="Outright: ${fmtNum(outVal)} lots (${outPctVal.toFixed(1)}%)">${fmtNum(outVal)}</td>
-                    <td class="px-1 py-1 text-right font-bold text-sky-800 bg-sky-50/40 truncate">${fmtNum(s.mkt_oi)}</td>
-                    <td class="px-1 py-1 text-right font-bold truncate ${s.mkt_oi_delta > 0 ? 'text-emerald-600 bg-emerald-50/40' : (s.mkt_oi_delta < 0 ? 'text-rose-600 bg-rose-50/40' : 'text-slate-400')}">${fmtNum(s.mkt_oi_delta, true)}</td>
-                    <td class="px-1 py-1 text-right font-bold truncate ${s.active_price_delta > 0 ? 'text-emerald-600' : (s.active_price_delta < 0 ? 'text-rose-600' : 'text-slate-400')}">${fmtPrice(s.active_price_delta, true)}</td>
-                    <td class="px-1 py-1 text-right font-semibold truncate ${s.cal_delta > 0 ? 'text-emerald-600' : (s.cal_delta < 0 ? 'text-rose-600' : 'text-slate-400')}">${fmtPrice(s.cal_delta, true)}</td>
+                    <td class="px-1 py-1 text-right font-medium text-slate-700 whitespace-nowrap tabular-nums sticky bg-white z-20" style="left: 214px;">${fmtNum(s.mkt_vol)}</td>
+                    <td class="px-1 py-1 text-right font-semibold text-purple-800 bg-purple-50 sticky z-20 whitespace-nowrap tabular-nums" style="left: 272px;" title="Spread: ${fmtNum(spVal)} lots (${spPctVal.toFixed(1)}%)">${fmtNum(spVal)}</td>
+                    <td class="px-1 py-1 text-right font-bold whitespace-nowrap tabular-nums sticky z-20 ${outVal >= 24000 ? 'text-blue-700 font-extrabold bg-blue-100' : 'text-blue-900 bg-blue-50'}" style="left: 326px;" title="Outright: ${fmtNum(outVal)} lots (${outPctVal.toFixed(1)}%)">${fmtNum(outVal)}</td>
+                    <td class="px-1 py-1 text-right font-bold text-sky-900 bg-sky-50 whitespace-nowrap tabular-nums sticky z-20" style="left: 380px;">${fmtNum(s.mkt_oi)}</td>
+                    <td class="px-1 py-1 text-right font-bold whitespace-nowrap tabular-nums sticky z-20 ${s.mkt_oi_delta > 0 ? 'text-emerald-700 bg-emerald-50' : (s.mkt_oi_delta < 0 ? 'text-rose-700 bg-rose-50' : 'text-slate-500 bg-white')}" style="left: 448px;">${fmtNum(s.mkt_oi_delta, true)}</td>
+                    <td class="px-1 py-1 text-right font-bold whitespace-nowrap tabular-nums sticky bg-white z-20 ${s.active_price_delta > 0 ? 'text-emerald-700' : (s.active_price_delta < 0 ? 'text-rose-700' : 'text-slate-500')}" style="left: 504px;">${fmtPrice(s.active_price_delta, true)}</td>
+                    <td class="px-1 py-1 text-right font-semibold whitespace-nowrap tabular-nums sticky bg-white z-20 dcp2-freeze-boundary ${s.cal_delta > 0 ? 'text-emerald-700' : (s.cal_delta < 0 ? 'text-rose-700' : 'text-slate-500')}" style="left: 552px;">${fmtPrice(s.cal_delta, true)}</td>
                     ${cellsHtml}
                 `;
                 tbody.appendChild(tr);
@@ -2562,7 +2599,7 @@ let priceOiWindow = 65;
                 tr.className = 'hover:bg-amber-50/40 transition cursor-pointer';
                 tr.onclick = () => selectDateByString(item.last_date);
                 tr.innerHTML = `
-                    <td class="px-3 py-2 text-left font-bold text-slate-900">${item.ric}</td>
+                    <td class="px-3 py-2 text-left font-bold text-slate-900">${getShortRic(item.ric)}</td>
                     <td class="px-3 py-2 text-left text-slate-700">${item.month}</td>
                     <td class="px-2.5 py-2 text-left font-mono text-slate-600">${item.last_date}</td>
                     <td class="px-2.5 py-2 text-right font-bold text-slate-900">${fmtNum(item.final_settle)}</td>
