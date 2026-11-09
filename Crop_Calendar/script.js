@@ -10,8 +10,8 @@ const STAGE_COLORS = {
 const cropData = [
     // Soybeans
     { region: "USA", commodity: "Soybeans", subtitle: "Main", estSize: "113 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["", "p"], May: ["p", "pp"], Jun: ["pp", "v"], Jul: ["v", "r"], Aug: ["r", "r"], Sep: ["r", "h"], Oct: ["ph", "ph"], Nov: ["h", ""], Dec: ["",""] } },
-    { region: "Brazil", commodity: "Soybeans", subtitle: "Center-West", estSize: "78 MMT", stages: { Jan: ["ph","ph"], Feb: ["ph","h"], Mar: ["h",""], Apr: ["",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["v","v"], Dec: ["r","r"] } },
-    { region: "Brazil", commodity: "Soybeans", subtitle: "South (PR)", estSize: "25 MMT", stages: { Jan: ["r","ph"], Feb: ["ph","h"], Mar: ["h",""], Apr: ["",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["v","v"], Dec: ["v","r"] } },
+    { region: "Brazil", commodity: "Soybeans", subtitle: "Center-West", estSize: "78 MMT", stages: { Jan: ["h","ph"], Feb: ["ph","ph"], Mar: ["h",""], Apr: ["",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["v","v"], Dec: ["r","r"] } },
+    { region: "Brazil", commodity: "Soybeans", subtitle: "South (PR)", estSize: "25 MMT", stages: { Jan: ["r","h"], Feb: ["ph","ph"], Mar: ["ph","h"], Apr: ["h",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["v","v"], Dec: ["v","r"] } },
     { region: "Brazil", commodity: "Soybeans", subtitle: "Far South (RS)", estSize: "22 MMT", stages: { Jan: ["v","r"], Feb: ["r","r"], Mar: ["r","ph"], Apr: ["ph","ph"], May: ["h","h"], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["",""], Oct: ["","p"], Nov: ["pp","pp"], Dec: ["v","v"] } },
     { region: "Brazil", commodity: "Soybeans", subtitle: "MATOPIBA", estSize: "20 MMT", stages: { Jan: ["v","r"], Feb: ["r","ph"], Mar: ["ph","h"], Apr: ["h",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["",""], Oct: ["","p"], Nov: ["pp","pp"], Dec: ["v","v"] } },
     { region: "Argentina", commodity: "Soybeans", subtitle: "1st Crop", estSize: "34 MMT", stages: { Jan: ["v","r"], Feb: ["r","r"], Mar: ["r","ph"], Apr: ["ph","ph"], May: ["h","h"], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["",""], Oct: ["","p"], Nov: ["pp","pp"], Dec: ["v","v"] } },
@@ -25,18 +25,18 @@ const cropData = [
 
     // Corn
     { region: "USA", commodity: "Corn", subtitle: "Main", estSize: "389 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","r"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["h","ph"], Oct: ["ph","h"], Nov: ["h",""], Dec: ["",""] } },
-    { region: "China", commodity: "Corn", subtitle: "Main", estSize: "288 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["pp","pp"], May: ["v","v"], Jun: ["r","r"], Jul: ["r","h"], Aug: ["ph","ph"], Sep: ["h",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
+    { region: "China", commodity: "Corn", subtitle: "Main", estSize: "288 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","h"], Nov: ["",""], Dec: ["",""] } },
     { region: "Brazil", commodity: "Corn", subtitle: "Safrinha", estSize: "95 MMT", stages: { Jan: ["p","pp"], Feb: ["pp","pp"], Mar: ["v","v"], Apr: ["r","r"], May: ["r","h"], Jun: ["ph","ph"], Jul: ["ph","ph"], Aug: ["h","h"], Sep: ["",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
     { region: "Brazil", commodity: "Corn", subtitle: "Summer", estSize: "30 MMT", stages: { Jan: ["h","ph"], Feb: ["ph","h"], Mar: ["h",""], Apr: ["",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["p","pp"], Oct: ["pp","v"], Nov: ["v","r"], Dec: ["r","r"] } },
     { region: "Argentina", commodity: "Corn", subtitle: "Temprano", estSize: "25 MMT", stages: { Jan: ["r","r"], Feb: ["h","ph"], Mar: ["ph","h"], Apr: ["h",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["p","pp"], Oct: ["pp","v"], Nov: ["v","v"], Dec: ["v","r"] } },
     { region: "Argentina", commodity: "Corn", subtitle: "Tardío", estSize: "30 MMT", stages: { Jan: ["pp","v"], Feb: ["v","r"], Mar: ["r","r"], Apr: ["r","h"], May: ["h","ph"], Jun: ["ph","ph"], Jul: ["ph","h"], Aug: ["h",""], Sep: ["",""], Oct: ["",""], Nov: ["","p"], Dec: ["p","pp"] } },
     { region: "Ukraine", commodity: "Corn", subtitle: "Main", estSize: "27 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["p","pp"], Jun: ["pp","v"], Jul: ["v","r"], Aug: ["r","r"], Sep: ["r","h"], Oct: ["ph","ph"], Nov: ["ph","h"], Dec: ["h",""] } },
     { region: "Russia", commodity: "Corn", subtitle: "Main", estSize: "16 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["p","pp"], Jun: ["pp","v"], Jul: ["v","r"], Aug: ["r","r"], Sep: ["r","h"], Oct: ["ph","ph"], Nov: ["ph","h"], Dec: ["h",""] } },
-    { region: "EU", commodity: "Corn", subtitle: "France", estSize: "13 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["pp","pp"], May: ["v","v"], Jun: ["r","r"], Jul: ["r","h"], Aug: ["ph","ph"], Sep: ["h",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
-    { region: "EU", commodity: "Corn", subtitle: "Romania", estSize: "11 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["pp","pp"], May: ["v","v"], Jun: ["r","r"], Jul: ["r","h"], Aug: ["ph","ph"], Sep: ["h",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
+    { region: "EU", commodity: "Corn", subtitle: "France", estSize: "13 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","ph"], Nov: ["h",""], Dec: ["",""] } },
+    { region: "EU", commodity: "Corn", subtitle: "Romania", estSize: "11 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","ph"], Nov: ["h",""], Dec: ["",""] } },
     { region: "EU", commodity: "Corn", subtitle: "Poland", estSize: "7 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["h","ph"], Oct: ["ph","h"], Nov: ["",""], Dec: ["",""] } },
-    { region: "EU", commodity: "Corn", subtitle: "Hungary", estSize: "6 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["pp","pp"], May: ["v","v"], Jun: ["r","r"], Jul: ["r","h"], Aug: ["ph","ph"], Sep: ["h",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
-    { region: "EU", commodity: "Corn", subtitle: "Other (Total: 60M)", estSize: "23 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["","p"], Apr: ["pp","pp"], May: ["v","v"], Jun: ["r","r"], Jul: ["r","h"], Aug: ["ph","ph"], Sep: ["h",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
+    { region: "EU", commodity: "Corn", subtitle: "Hungary", estSize: "6 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","ph"], Nov: ["h",""], Dec: ["",""] } },
+    { region: "EU", commodity: "Corn", subtitle: "Other (Total: 60M)", estSize: "23 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","ph"], Nov: ["h",""], Dec: ["",""] } },
 
     // Wheat
     { region: "EU", commodity: "Wheat", subtitle: "France", estSize: "35 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["r","h"], Jul: ["ph","ph"], Aug: ["h",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["p","v"], Dec: ["v","v"] } },
@@ -57,10 +57,10 @@ const cropData = [
     
     // Rapeseed (Canola)
     { region: "Canada", commodity: "Rapeseed", subtitle: "Spring Canola", estSize: "18 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["","p"], May: ["pp","pp"], Jun: ["v","r"], Jul: ["r","r"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["h",""], Nov: ["",""], Dec: ["",""] } },
-    { region: "EU", commodity: "Rapeseed", subtitle: "France", estSize: "4.5 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["r","r"], May: ["r","h"], Jun: ["ph","ph"], Jul: ["h",""], Aug: ["","p"], Sep: ["pp","pp"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
-    { region: "EU", commodity: "Rapeseed", subtitle: "Germany", estSize: "4.2 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["h","ph"], Jul: ["ph","h"], Aug: ["p","pp"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
-    { region: "EU", commodity: "Rapeseed", subtitle: "Poland", estSize: "3.7 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["h","ph"], Jul: ["ph","h"], Aug: ["p","pp"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
-    { region: "EU", commodity: "Rapeseed", subtitle: "Other (Total: 20M)", estSize: "7.6 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["r","r"], May: ["r","h"], Jun: ["ph","ph"], Jul: ["h","h"], Aug: ["p","pp"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
+    { region: "EU", commodity: "Rapeseed", subtitle: "France", estSize: "4.5 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["r","r"], May: ["r","r"], Jun: ["r","h"], Jul: ["ph","ph"], Aug: ["h","p"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
+    { region: "EU", commodity: "Rapeseed", subtitle: "Germany", estSize: "4.2 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["r","h"], Jul: ["ph","ph"], Aug: ["h","p"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
+    { region: "EU", commodity: "Rapeseed", subtitle: "Poland", estSize: "3.7 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["r","h"], Jul: ["ph","ph"], Aug: ["h","p"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
+    { region: "EU", commodity: "Rapeseed", subtitle: "Other (Total: 20M)", estSize: "7.6 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","v"], Apr: ["r","r"], May: ["r","r"], Jun: ["r","h"], Jul: ["ph","ph"], Aug: ["h","p"], Sep: ["pp","v"], Oct: ["v","v"], Nov: ["v","v"], Dec: ["v","v"] } },
     { region: "China", commodity: "Rapeseed", subtitle: "Winter", estSize: "15 MMT", stages: { Jan: ["v","v"], Feb: ["v","r"], Mar: ["r","r"], Apr: ["r","h"], May: ["ph","ph"], Jun: ["h",""], Jul: ["",""], Aug: ["",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["v","v"], Dec: ["v","v"] } },
     { region: "India", commodity: "Rapeseed", subtitle: "Rabi", estSize: "12 MMT", stages: { Jan: ["r","r"], Feb: ["r","h"], Mar: ["ph","ph"], Apr: ["h",""], May: ["",""], Jun: ["",""], Jul: ["",""], Aug: ["",""], Sep: ["","p"], Oct: ["pp","pp"], Nov: ["v","v"], Dec: ["v","r"] } },
     { region: "Australia", commodity: "Rapeseed", subtitle: "Canola", estSize: "5 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["r","h"], Oct: ["ph","ph"], Nov: ["h","h"], Dec: ["",""] } },
@@ -108,9 +108,9 @@ function renderCalendar() {
     // Rebuild thead based on selected months
     let headHtml = `
         <tr>
-            <th rowspan="2" class="fixed-col" style="width: 90px;">Region</th>
-            <th rowspan="2" class="fixed-col" style="width: 140px; left: 90px;">Commodity</th>
-            <th rowspan="2" class="fixed-col" style="width: 80px; left: 230px;">Size</th>
+            <th rowspan="2" class="fixed-col" style="width: 90px; min-width: 90px; max-width: 90px;">Region</th>
+            <th rowspan="2" class="fixed-col" style="width: 120px; min-width: 120px; max-width: 120px; left: 90px;">Commodity</th>
+            <th rowspan="2" class="fixed-col" style="width: 80px; min-width: 80px; max-width: 80px; left: 210px;">Size</th>
     `;
     selectedMonths.forEach(m => {
         headHtml += `<th colspan="2">${m}</th>`;
@@ -130,7 +130,7 @@ function renderCalendar() {
     );
 
     if (filteredData.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${3 + selectedMonths.length * 2}" style="text-align:center; padding: 20px;">No data matches your selection.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${3 + selectedMonths.length * 2}" style="text-align:center; padding: 20px; color: #64748b;">No data matches your selection.</td></tr>`;
         return;
     }
 
@@ -145,13 +145,13 @@ function renderCalendar() {
         const commodityTd = document.createElement("td");
         commodityTd.classList.add("fixed-col");
         commodityTd.style.left = "90px";
-        commodityTd.innerHTML = `${row.commodity} ${row.subtitle ? `<br><small style="color:#888">${row.subtitle}</small>` : ''}`;
+        commodityTd.innerHTML = `${row.commodity} ${row.subtitle ? `<br><small style="color:#64748b">${row.subtitle}</small>` : ''}`;
         tr.appendChild(commodityTd);
         
         const sizeTd = document.createElement("td");
         sizeTd.classList.add("fixed-col");
-        sizeTd.style.left = "230px";
-        sizeTd.innerHTML = `<span style="color:#10b981; font-weight:600;">${row.estSize || '-'}</span>`;
+        sizeTd.style.left = "210px";
+        sizeTd.innerHTML = `<span style="color:#059669; font-weight:600;">${row.estSize || '-'}</span>`;
         tr.appendChild(sizeTd);
 
         selectedMonths.forEach(month => {

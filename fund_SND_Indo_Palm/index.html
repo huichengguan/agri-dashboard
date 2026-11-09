@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indonesia Palm Oil Supply &amp; Demand | Institutional Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="chart.umd.min.js"></script>
+  <script src="dashboard_data.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOP INSTITUTIONAL HEADER -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge">GAPKI &bull; BPDPKS &bull; BPS</div>
+      <div class="brand-titles">
+        <h1>Indonesia Palm Oil Supply &amp; Demand</h1>
+        <p class="subtitle">Institutional Fundamental Balance Sheet (2020&ndash;2027) &bull; BPDPKS Fund &bull; POGO Sensitivity &bull; Island Output &bull; BPS Customs Exports</p>
+      </div>
+    </div>
+    <div class="header-kpis" id="header-kpis">
+      <div class="kpi-chip">
+        <span class="kpi-label">Latest GAPKI Month</span>
+        <span class="kpi-val" id="kpi-latest-gapki">Jul 2026</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label">GAPKI Ending Stock</span>
+        <span class="kpi-val" id="kpi-gapki-stock">2,513,000 T</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label">2026 CPO Output (P)</span>
+        <span class="kpi-val" id="kpi-2026-prod">49,314,836 T</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label">2027 CPO Output (P)</span>
+        <span class="kpi-val" id="kpi-2027-prod">46,005,924 T</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label">BPDPKS Opening (Aug-26)</span>
+        <span class="kpi-val" id="kpi-bpdpks-open">$1,400.9 M</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label">Dec-27 Fund Balance (Base)</span>
+        <span class="kpi-val" id="kpi-bpdpks-dec27">$1,388.6 M</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label">Breakeven POGO</span>
+        <span class="kpi-val" id="kpi-breakeven-pogo">$229.59 / T</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="action-btn btn-primary" id="btn-export-csv" title="Export complete Indonesia S&D dataset to CSV">
+        <span>&darr;</span> Export CSV
+      </button>
+      <button class="action-btn" id="btn-download-json" title="Download Master JSON Dataset">
+        <span>&darr;</span> JSON
+      </button>
+    </div>
+  </header>
+
+  <!-- STICKY GLOBAL YEAR SLICER BAR -->
+  <section class="slicer-bar">
+    <div class="slicer-top">
+      <div class="slicer-title-group">
+        <span class="slicer-title">YEAR SLICER</span>
+      </div>
+      <div class="slicer-presets">
+        <button class="preset-btn active" data-preset="all">2021&ndash;2027 (Default)</button>
+        <button class="preset-btn" data-preset="last3">2024&ndash;2026 (Last 3Y)</button>
+        <button class="preset-btn" data-preset="forecast">2025&ndash;2027 (Forecast)</button>
+        <button class="preset-btn" data-preset="full_history">2020&ndash;2027 (Full History)</button>
+      </div>
+    </div>
+    <div class="year-pills-container" id="year-pills-container">
+      <!-- Populated dynamically via app.js -->
+    </div>
+  </section>
+
+  <!-- MAIN NAVIGATION TABS -->
+  <nav class="main-tabs" id="main-tabs">
+    <button class="tab-btn active" data-tab="tab-indosnd">1. Supply &amp; Demand (Indo SND)</button>
+    <button class="tab-btn" data-tab="tab-gapki">2. Official GAPKI S&amp;D</button>
+    <button class="tab-btn" data-tab="tab-production">3. Production &amp; Island Forecast</button>
+    <button class="tab-btn" data-tab="tab-bpdpks">4. BPDPKS Fund &amp; Levy</button>
+    <button class="tab-btn" data-tab="tab-pogo">5. POGO Sensitivity &amp; Solvency</button>
+    <button class="tab-btn" data-tab="tab-exports">6. BPS Exports (Country &amp; Product)</button>
+    <button class="tab-btn" data-tab="tab-seasonality">7. Seasonality &amp; Charts</button>
+  </nav>
+
+  <!-- DISCLOSURE BADGES BAR -->
+  <div class="disclosure-bar">
+    <div class="disclosure-badges">
+      <span class="badge badge-actual">OFFICIAL ACTUAL (GAPKI to Jul-26 &bull; BPS to Sep-26)</span>
+      <span class="badge badge-fcst">MODEL PROJECTION (Aug-26 &ndash; Dec-27)</span>
+      <span class="badge badge-calc">[CALC] Derived Balance Identity</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="main-content">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: SUPPLY & DEMAND (INDO SND)                                  -->
+    <!-- =================================================================== -->
+    <section class="tab-panel active" id="tab-indosnd">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Indonesia Palm Oil Master Supply &amp; Demand Balance Sheet</h2>
+          <span class="toolbar-sub">Analyst Balance Sheet Model (2021&ndash;2027). Covers Palm Oil, Lauric / PKO, Oleo derivatives, and Glycerin. Units: Metric Tonnes (MT).</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Commodity Group:</label>
+            <div class="seg-group" id="snd-group-toggle">
+              <button class="seg-btn active" data-group="palm">Palm Oil</button>
+              <button class="seg-btn" data-group="lauric">Lauric (PKO / CNO)</button>
+              <button class="seg-btn" data-group="oleo">Oleo Derivatives</button>
+              <button class="seg-btn" data-group="all">All Groups</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>View Format:</label>
+            <div class="seg-group" id="snd-view-toggle">
+              <button class="seg-btn active" data-view="balance">Balance Sheet Table</button>
+              <button class="seg-btn" data-view="matrix">Monthly Matrix (By Year)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S&D Table Container -->
+      <div class="card" id="snd-table-card">
+        <div class="card-header">
+          <h3 id="snd-table-title">Palm Oil Supply &amp; Demand Balance Sheet (Annual &amp; Monthly)</h3>
+          <span class="card-sub">Identity: Beginning Stocks + Production = Exports + Domestic Consumption + Ending Stocks</span>
+        </div>
+        <div class="table-scroll" id="snd-table-container"></div>
+      </div>
+
+      <!-- S&D Charts Grid -->
+      <div class="charts-grid two-col">
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <h3>CPO Production vs Total Demand &amp; Ending Stocks</h3>
+              <span class="card-sub">Monthly Trajectory (2021&ndash;2027) &bull; Units: MT</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-overview"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <h3>Domestic Consumption: Food vs Biodiesel Mandate</h3>
+              <span class="card-sub">Tracking B30 &rarr; B35 &rarr; B40 Mandate Expansion &bull; Units: MT</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-consumption"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: OFFICIAL GAPKI S&D                                           -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-gapki">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Official GAPKI (Indonesian Palm Oil Association) Statistics</h2>
+          <span class="toolbar-sub">Official monthly historical figures from Jan 2020 through Jul 2026. Units: Metric Tonnes (MT).</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Reconciliation Mode:</label>
+            <div class="seg-group" id="gapki-view-toggle">
+              <button class="seg-btn active" data-mode="official">Official GAPKI Release</button>
+              <button class="seg-btn" data-mode="reconcile">GAPKI vs Indo SND (&Delta;)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAPKI Table -->
+      <div class="card">
+        <div class="card-header">
+          <h3 id="gapki-table-title">GAPKI Official Historical Balance Sheet</h3>
+          <span class="card-sub">Monthly breakdown of CPO/CPKO Output, Imports, Domestic Usage (Food, Oleo, Biodiesel), and Exports</span>
+        </div>
+        <div class="table-scroll" id="gapki-table-container"></div>
+      </div>
+
+      <!-- GAPKI Charts Grid -->
+      <div class="charts-grid two-col">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>GAPKI Total Production &amp; Closing Stocks (2020&ndash;2026)</h3>
+            <span class="card-sub">Historical cyclical peaks and inventory draws &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-gapki-trend"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>GAPKI Export Structure: CPO vs Processed Palm Oil (PPO)</h3>
+            <span class="card-sub">Value-added downstream export transformation &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-gapki-exports"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: PRODUCTION & ISLAND FORECAST                                 -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-production">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Indonesian CPO Production Projections by Island / Region</h2>
+          <span class="toolbar-sub">Granular monthly production breakdown across Sumatra, Kalimantan, Sulawesi, Papua, Java, and Maluku (2021&ndash;2027). Units: MT.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Select Island:</label>
+            <div class="seg-group" id="prod-island-toggle">
+              <button class="seg-btn active" data-island="all">All Islands Matrix</button>
+              <button class="seg-btn" data-island="Sumatra">Sumatra</button>
+              <button class="seg-btn" data-island="Kalimantan">Kalimantan</button>
+              <button class="seg-btn" data-island="Sulawesi">Sulawesi</button>
+              <button class="seg-btn" data-island="Papua">Papua</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Production Table Container -->
+      <div class="card">
+        <div class="card-header">
+          <h3 id="prod-table-title">Regional Production Projections (Monthly Jan&ndash;Dec &bull; 2021&ndash;2027)</h3>
+          <span class="card-sub">Incorporates historical estate yields, tree age profile, manuring recovery, and weather cycle</span>
+        </div>
+        <div class="table-scroll" id="prod-table-container"></div>
+      </div>
+
+      <!-- Production Charts Grid -->
+      <div class="charts-grid two-col">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Annual Production Output by Region (2021&ndash;2027)</h3>
+            <span class="card-sub">Sumatra (~56%) &amp; Kalimantan (~39%) account for ~95% of national output &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-prod-stacked"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>National Monthly Production Seasonality (Jan&ndash;Dec)</h3>
+            <span class="card-sub">Multi-year seasonal curves &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-prod-seasonality"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: BPDPKS FUND & LEVY ANALYTICS                                 -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-bpdpks">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>BPDPKS (Palm Oil Plantation Fund Management Agency) Performance</h2>
+          <span class="toolbar-sub">Tracking export levy collections, biodiesel PSO subsidy financing, smallholder replanting (PSR), and fund balance solvency.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>View Section:</label>
+            <div class="seg-group" id="bpdpks-view-toggle">
+              <button class="seg-btn active" data-sec="fund_balance">Fund Balance Roll-Forward</button>
+              <button class="seg-btn" data-sec="costs">Debits &amp; Subsidies (POGO / PSO)</button>
+              <button class="seg-btn" data-sec="levy">Export Levies Collected</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BPDPKS Table -->
+      <div class="card">
+        <div class="card-header">
+          <h3 id="bpdpks-table-title">BPDPKS Fund Balance Roll-Forward (2021&ndash;2027)</h3>
+          <span class="card-sub">Identity: Opening Balance + Levy Revenue Credits &minus; Subsidy &amp; Replanting Debits = Closing Balance (US$ Million)</span>
+        </div>
+        <div class="table-scroll" id="bpdpks-table-container"></div>
+      </div>
+
+      <!-- BPDPKS Charts Grid -->
+      <div class="charts-grid two-col">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>BPDPKS Fund Closing Balance (US$ Million &bull; 2021&ndash;2027)</h3>
+            <span class="card-sub">Solvency buffer tracking across historical and forecast horizon</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-bpdpks-balance"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Monthly Levy Revenues vs Biodiesel Subsidy Costs (US$ Mil)</h3>
+            <span class="card-sub">Inflows (Levy Collection) vs Outflows (PSO Biodiesel + Replanting)</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-bpdpks-flows"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 5: POGO SENSITIVITY & SOLVENCY                                  -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-pogo">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>BPDPKS Fund &ndash; POGO Differential Sensitivity (Aug-2026 to Dec-2027)</h2>
+          <span class="toolbar-sub">Simulating BPDPKS fund solvency under flat POGO spread scenarios (-$100 to +$500/MT) and varying monthly levy credit levels.</span>
+        </div>
+      </div>
+
+      <!-- Interactive POGO Dynamic Calculator -->
+      <div class="pogo-calculator-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h3 style="font-size: 13px; font-weight: 700; color: #0f172a;">Live Interactive POGO Scenario Simulator</h3>
+            <span style="font-size: 11px; color: var(--text-secondary);">Adjust POGO differential and monthly levy to recalculate projected Dec-2027 fund closing balance live</span>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="preset-btn pogo-preset-btn active" data-pogo="217.7">Base Path ($218)</button>
+            <button class="preset-btn pogo-preset-btn" data-pogo="100">POGO $100</button>
+            <button class="preset-btn pogo-preset-btn" data-pogo="229.6">Breakeven ($229.6)</button>
+            <button class="preset-btn pogo-preset-btn" data-pogo="350">POGO $350</button>
+            <button class="preset-btn pogo-preset-btn" data-pogo="500">POGO $500 (Stress)</button>
+          </div>
+        </div>
+        <div class="pogo-slider-group">
+          <span class="pogo-slider-label">POGO Differential (US$/MT):</span>
+          <input type="range" class="pogo-slider" id="pogo-slider-val" min="-100" max="500" step="10" value="218" />
+          <span class="pogo-badge-val" id="pogo-slider-badge">+218 US$/MT</span>
+        </div>
+        <div class="pogo-slider-group">
+          <span class="pogo-slider-label">Monthly Levy Collection (US$ Mil):</span>
+          <input type="range" class="pogo-slider" id="levy-slider-val" min="140" max="300" step="5" value="200" />
+          <span class="pogo-badge-val" id="levy-slider-badge">200 US$ Mil/mo</span>
+        </div>
+        <div style="margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap; background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-subtle);">
+          <div>
+            <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Simulated Dec-2027 Balance:</span>
+            <div id="sim-dec27-balance" style="font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--accent-primary);">$1,388.6 Million</div>
+          </div>
+          <div>
+            <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Solvency Runway Status:</span>
+            <div id="sim-solvency-status" style="font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--accent-primary);">SOLVENT (&gt; $1.0B Surplus)</div>
+          </div>
+          <div>
+            <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">17-Month Net Cash Flow:</span>
+            <div id="sim-17m-cashflow" style="font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--text-secondary);">&minus;$12.2 Million</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17-Month Summary Scorecard Table -->
+      <div class="card">
+        <div class="card-header">
+          <h3>17-Month Solvency Scorecard by POGO Level (Aug-26 to Dec-27)</h3>
+          <span class="card-sub">Assumes: Opening Balance $1,400.9M &bull; Transport $35/MT &bull; Replanting $17M/mo &bull; PSO Share 52.4%</span>
+        </div>
+        <div class="table-scroll" id="pogo-summary-container"></div>
+      </div>
+
+      <!-- Two-Way Sensitivity Heatmap -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Two-Way Matrix: Dec-2027 Fund Balance (US$ Mil) &ndash; POGO Level vs Monthly Levy Revenue</h3>
+          <span class="card-sub">Green: Strong Surplus (&gt;$1.5B) &bull; Neutral: Solvent ($0 to $1B) &bull; Red: Fund Depletion / Deficit (&lt;$0)</span>
+        </div>
+        <div class="table-scroll" id="pogo-twoway-container"></div>
+      </div>
+
+      <!-- POGO Trajectory Chart -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <h3>Fund Closing Balance Trajectory by POGO Scenario (Aug-26 &ndash; Dec-27)</h3>
+          <span class="card-sub">Monthly roll-forward under flat POGO spread assumptions &bull; Units: US$ Million</span>
+        </div>
+        <div class="chart-box tall-chart">
+          <canvas id="chart-pogo-trajectories"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 6: BPS EXPORTS (COUNTRY & PRODUCT)                              -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-exports">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Indonesian Palm Oil Exports &ndash; Official BPS Customs Statistics</h2>
+          <span class="toolbar-sub">Official trade data from Badan Pusat Statistik (BPS) covering 174 destination markets and 20 product categories (2022&ndash;2026). Units: MT.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>View Mode:</label>
+            <div class="seg-group" id="exports-view-toggle">
+              <button class="seg-btn active" data-view="countries">Destination Countries (174)</button>
+              <button class="seg-btn" data-view="products">Product Breakdown</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Filter Bar -->
+      <div class="table-filter-bar" id="country-search-bar">
+        <input type="text" class="search-input" id="input-country-search" placeholder="Search country (e.g. China, India, USA, Egypt)..." />
+        <span style="font-size: 11px; color: var(--text-secondary);" id="country-count-label">Showing top 25 countries of 174</span>
+      </div>
+
+      <!-- Export Table Container -->
+      <div class="card">
+        <div class="card-header">
+          <h3 id="exports-table-title">Export Shipments by Destination Country (2022&ndash;2026)</h3>
+          <span class="card-sub">Ranked by volume &bull; Tracks 26/25 YoY growth and market share</span>
+        </div>
+        <div class="table-scroll" id="exports-table-container"></div>
+      </div>
+
+      <!-- Export Charts Grid -->
+      <div class="charts-grid two-col">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Top 10 Export Destination Markets (2025 Volume in MT)</h3>
+            <span class="card-sub">India, China, Pakistan, Bangladesh, and USA form core demand pillars</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-exports-top-countries"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Export Volume by Product Category (2022&ndash;2026)</h3>
+            <span class="card-sub">Palm Oil, Edible Blend, Glycerine, Lauric, and Oleochemicals &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-exports-products"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 7: SEASONALITY & CHARTS                                         -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-seasonality">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Indonesian Palm Oil Seasonality &amp; Structural Benchmark Curves</h2>
+          <span class="toolbar-sub">Multi-year cyclical benchmarks across 2021&ndash;2027: Biodiesel Consumption, Ending Stocks, Stock-to-Use (%), and CPO Production.</span>
+        </div>
+      </div>
+
+      <!-- 4 Seasonality Charts Grid -->
+      <div class="charts-grid two-col">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>1. Domestic Biodiesel Realization Seasonality (Jan&ndash;Dec)</h3>
+            <span class="card-sub">Progression from B30 (2021&ndash;2022) to B35 (2023&ndash;2024) to B40 (2025&ndash;2027) &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-season-biodiesel"></canvas>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>2. Palm Ending Stocks Seasonality (Jan&ndash;Dec)</h3>
+            <span class="card-sub">Inventories peak in May&ndash;Jul before seasonal drawdowns in Q4 &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-season-stocks"></canvas>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>3. Stock-to-Use Ratio (%) Seasonality</h3>
+            <span class="card-sub">Buffer stock coverage (Months of supply) &bull; Jan&ndash;Dec</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-season-stockuse"></canvas>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>4. CPO Production Seasonality (Jan&ndash;Dec)</h3>
+            <span class="card-sub">Harvest flush window (Aug&ndash;Oct) vs biological trough (Jan&ndash;Mar) &bull; Units: MT</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-season-production"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

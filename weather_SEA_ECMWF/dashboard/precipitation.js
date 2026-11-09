@@ -475,7 +475,7 @@ function renderMonthlyTable(locations) {
                     <strong>Dashed Borders &amp; FCST:</strong> ECMWF SEAS5 6-Month Seasonal Forecast (Open-Meteo). Next 7 months filled in: Nov, Dec 2026 and Jan, Feb, Mar, Apr, May 2027.
                 </div>
                 <button class="pill-btn" onclick="setMode('forecast_6mo')" style="font-weight: 700; background: #09444c; color: #fff; padding: 4px 12px;">
-                    View Continuous 6-Month Forecast Table &rarr;
+                    View Continuous 7-Month Forecast Table &rarr;
                 </button>
             </div>
         `;
@@ -491,32 +491,34 @@ function renderMonthlyTable(locations) {
 }
 
 // -------------------------------------------------------------
-// 1B. DEDICATED 6-MONTH SEASONAL FORECAST TABLE (OCT '26 – MAR '27)
+// 1B. DEDICATED 7-MONTH SEASONAL FORECAST TABLE (NOV '26 – MAY '27)
 // -------------------------------------------------------------
 function render6MonthForecastTable(locations) {
     const fcMeta = (currentData.forecast_6month && currentData.forecast_6month.months) || [
-        { key: "2026-10", name: "Oct 2026", month: 10 },
         { key: "2026-11", name: "Nov 2026", month: 11 },
         { key: "2026-12", name: "Dec 2026", month: 12 },
         { key: "2027-01", name: "Jan 2027", month: 1 },
         { key: "2027-02", name: "Feb 2027", month: 2 },
-        { key: "2027-03", name: "Mar 2027", month: 3 }
+        { key: "2027-03", name: "Mar 2027", month: 3 },
+        { key: "2027-04", name: "Apr 2027", month: 4 },
+        { key: "2027-05", name: "May 2027", month: 5 }
     ];
 
     let thead = `
         <tr>
-            <th>Country</th>
-            <th>Region / Island</th>
-            <th>State / Province</th>
+            <th style="width: 62px; text-align: left; padding: 3px 5px;">Country</th>
+            <th style="width: 100px; text-align: left; padding: 3px 5px;">Macro Region</th>
+            <th style="width: 125px; text-align: left; padding: 3px 5px;">State / Zone</th>
     `;
     fcMeta.forEach(fm => {
-        thead += `<th style="text-align:center;">${fm.name}<span class="fcst-tag">FCST</span></th>`;
+        const shortName = fm.name.replace(/ 20(\d\d)/, " '$1");
+        thead += `<th style="text-align: center; min-width: 46px; padding: 3px 2px;" title="${fm.name} ECMWF SEAS5 51-Member Ensemble Forecast">${shortName}</th>`;
     });
     thead += `
-            <th style="text-align:center;">6-Mo Mean</th>
-            <th style="text-align:center;">6-Mo Baseline</th>
-            <th style="text-align:center;">Anomaly</th>
-            <th style="text-align:center;">Total Rain</th>
+            <th style="text-align: center; min-width: 50px; padding: 3px 2px;" title="7-Month Mean Precipitation (mm/day)">7-Mo Mean</th>
+            <th style="text-align: center; min-width: 48px; padding: 3px 2px;" title="7-Month Climatological Baseline Normal (mm/day)">Baseline</th>
+            <th style="text-align: center; min-width: 50px; padding: 3px 2px;" title="Departure from Baseline Normal (mm/day)">Anomaly</th>
+            <th style="text-align: center; min-width: 54px; padding: 3px 2px;" title="7-Month Cumulative Precipitation (mm)">Total</th>
         </tr>
     `;
 
@@ -528,9 +530,9 @@ function render6MonthForecastTable(locations) {
 
         let rowHtml = `
             <tr>
-                <td><strong>${loc.country}</strong></td>
-                <td><span class="group-badge">${loc.major_group}</span></td>
-                <td class="col-state" onclick="viewStateInMatrix('${lid}')" title="Click to view full 2010-2026 Matrix">${loc.name}</td>
+                <td style="font-weight: 700; color: #334155; padding: 2px 4px;">${loc.country}</td>
+                <td style="padding: 2px 4px;"><span class="group-badge">${loc.major_group}</span></td>
+                <td class="col-state" style="padding: 2px 4px;" onclick="viewStateInMatrix('${lid}')" title="Click to view full 2010-2027 Matrix">${loc.name}</td>
         `;
 
         let sumAvg = 0;
@@ -547,7 +549,7 @@ function render6MonthForecastTable(locations) {
                 totalRain += (mInfo.total_mm || 0);
                 count++;
                 const c = getRainColor(avg);
-                const tip = `${fm.name}: ${avg.toFixed(1)} mm/day (${Math.round(mInfo.total_mm)} mm) \u2014 Normal: ${mInfo.baseline_mm_day} mm/d (Diff: ${mInfo.rain_anomaly_mm_day > 0 ? "+" : ""}${mInfo.rain_anomaly_mm_day} mm/d)`;
+                const tip = `${fm.name}: ${avg.toFixed(1)} mm/day (${Math.round(mInfo.total_mm)} mm) — Normal: ${mInfo.baseline_mm_day} mm/d (Diff: ${mInfo.rain_anomaly_mm_day > 0 ? "+" : ""}${mInfo.rain_anomaly_mm_day} mm/d)`;
                 
                 let displayVal = avg.toFixed(1);
                 let badgeClass = "rain-badge forecast-badge";
@@ -563,7 +565,7 @@ function render6MonthForecastTable(locations) {
                         badgeClass = "anomaly-pill anomaly-deficit";
                         style = "";
                     } else {
-                        badgeClass = "anomaly-pill anomaly-normal";
+                        badgeClass = "anomaly-pill anomaly-neutral";
                         style = "";
                     }
                 }
@@ -576,64 +578,67 @@ function render6MonthForecastTable(locations) {
                     </td>
                 `;
             } else {
-                rowHtml += `<td class="rain-cell"><span style="color:#cbd5e1;">-</span></td>`;
+                rowHtml += `<td class="rain-cell"><span style="color:#cbd5e1; font-size:10px;">-</span></td>`;
             }
         });
 
-        const mean6Mo = count > 0 ? (sumAvg / count) : 0;
-        const base6Mo = count > 0 ? (sumBase / count) : 0;
-        const diff = mean6Mo - base6Mo;
+        const mean7Mo = count > 0 ? (sumAvg / count) : 0;
+        const base7Mo = count > 0 ? (sumBase / count) : 0;
+        const diff = mean7Mo - base7Mo;
 
-        const meanC = getRainColor(mean6Mo);
-        const baseC = getRainColor(base6Mo);
+        const meanC = getRainColor(mean7Mo);
+        const baseC = getRainColor(base7Mo);
 
         let anomalyHtml = "";
         if (diff > 0.5) {
-            anomalyHtml = `<span class="anomaly-pill anomaly-surplus">+${diff.toFixed(1)} mm/d</span>`;
+            anomalyHtml = `<span class="anomaly-pill anomaly-surplus">+${diff.toFixed(1)}</span>`;
         } else if (diff < -0.5) {
-            anomalyHtml = `<span class="anomaly-pill anomaly-deficit">${diff.toFixed(1)} mm/d</span>`;
+            anomalyHtml = `<span class="anomaly-pill anomaly-deficit">${diff.toFixed(1)}</span>`;
         } else {
-            anomalyHtml = `<span class="anomaly-pill anomaly-neutral">${diff >= 0 ? '+' : ''}${diff.toFixed(1)} mm/d</span>`;
+            anomalyHtml = `<span class="anomaly-pill anomaly-neutral">${diff >= 0 ? '+' : ''}${diff.toFixed(1)}</span>`;
         }
 
         rowHtml += `
             <td class="rain-cell">
                 <span class="rain-badge" style="background-color: ${meanC.bg}; color: ${meanC.text}; font-weight:800;">
-                    ${mean6Mo.toFixed(1)}
+                    ${mean7Mo.toFixed(1)}
                 </span>
             </td>
             <td class="rain-cell">
                 <span class="rain-badge" style="background-color: ${baseC.bg}; color: ${baseC.text}; opacity: 0.85;">
-                    ${base6Mo.toFixed(1)}
+                    ${base7Mo.toFixed(1)}
                 </span>
             </td>
             <td class="rain-cell">${anomalyHtml}</td>
-            <td class="rain-cell" style="font-weight:700; color:var(--text-primary);">${Math.round(totalRain)} mm</td>
+            <td class="rain-cell" style="font-weight:700; font-size:10.5px; color:var(--text-primary);">${Math.round(totalRain)}mm</td>
         </tr>`;
 
         tbody += rowHtml;
     });
 
     document.getElementById("table-container").innerHTML = `
-        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div>
-                <strong style="color: #166534; font-size: 13px;">🔮 ECMWF SEAS5 7-Month Seasonal Precipitation Forecast (Nov 2026 – May 2027)</strong>
-                <p style="font-size: 11.5px; color: #15803d; margin-top: 2px;">
-                    Ensemble seasonal projection in mm/day across 39 oil palm producing states. Includes Northeast Monsoon progression and early 2027 recovery outlook.
-                </p>
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; padding: 5px 10px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <strong style="color: #166534; font-size: 11.5px;">🔮 ECMWF SEAS5 7-Month Seasonal Precipitation Forecast (Nov 2026 – May 2027)</strong>
+                <span style="font-size: 10px; color: #15803d; border-left: 1px solid #bbf7d0; padding-left: 8px;">
+                    51-Member Ensemble Mean (mm/day) across 39 oil palm producing states.
+                </span>
             </div>
-            <div style="display: flex; gap: 8px;">
-                <button class="pill-btn" onclick="setMode('monthly')" style="font-weight: 700; background: #ffffff; color: var(--text-primary); border-color: var(--border-color);">
+            <div style="display: flex; gap: 6px;">
+                <button class="pill-btn" onclick="setMode('monthly')" style="font-size: 10.5px; padding: 2px 8px; font-weight: 700; background: #ffffff; color: var(--text-primary); border-color: var(--border-color);">
                     &larr; Back to Calendar Overview
                 </button>
             </div>
         </div>
-        <table class="rainfall-table" id="exportable-table">
+        <table class="rainfall-table seasonal-forecast-table" id="exportable-table">
             <thead>${thead}</thead>
             <tbody>${tbody}</tbody>
         </table>
     `;
 }
+
+// Alias for backwards-compatibility
+const render7MonthForecastTable = render6MonthForecastTable;
 
 // -------------------------------------------------------------
 // 2. DAILY MATRIX VIEW (28-DAY TIMELINE SLIDER + EXTENDED ECMWF FORECAST)

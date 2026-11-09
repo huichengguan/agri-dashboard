@@ -1,16 +1,18 @@
 :root {
-    --bg: #0b0f19;
-    --panel-bg: #131a2a;
-    --text: #e0e6ed;
-    --border: #2a3a5a;
+    --bg: #f8fafc;
+    --panel-bg: #ffffff;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --border-dark: #cbd5e1;
     
     --planting: #86efac;
     --prime-planting: #16a34a;
     --growing: #3b82f6;
-    --reproduction: #fbbf24;
+    --reproduction: #f59e0b;
     --prime-harvesting: #dc2626;
     --harvesting: #fca5a5;
-    --empty: #1e293b;
+    --empty: #f1f5f9;
 }
 
 body {
@@ -35,14 +37,21 @@ body {
     flex-shrink: 0;
 }
 
-.sidebar h2 { margin-top: 0; font-size: 1.1rem; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-.filter-group h3 { font-size: 0.85rem; margin-bottom: 8px; color: #94a3b8; }
-.filter-group label { display: block; margin-bottom: 5px; cursor: pointer; font-size: 0.8rem; }
+.sidebar h2 { 
+    margin-top: 0; 
+    font-size: 1.1rem; 
+    color: var(--text); 
+    border-bottom: 1px solid var(--border); 
+    padding-bottom: 8px; 
+}
+.filter-group h3 { font-size: 0.85rem; margin-bottom: 8px; color: var(--text-muted); }
+.sidebar > .filter-group:first-child h3 { margin-top: 0; }
+.filter-group label { display: block; margin-bottom: 5px; cursor: pointer; font-size: 0.8rem; color: var(--text); }
 .filter-group input { margin-right: 6px; }
 
-.legend h3 { font-size: 0.85rem; margin-bottom: 8px; color: #94a3b8; }
-.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.75rem; }
-.color-box { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.legend h3 { font-size: 0.85rem; margin-bottom: 8px; color: var(--text-muted); }
+.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.75rem; color: #334155; }
+.color-box { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0, 0, 0, 0.08); }
 
 .color-box.planting { background-color: var(--planting); }
 .color-box.prime-planting { background-color: var(--prime-planting); }
@@ -51,10 +60,10 @@ body {
 .color-box.prime-harvesting { background-color: var(--prime-harvesting); }
 .color-box.harvesting { background-color: var(--harvesting); }
 
-.content { flex: 1; padding: 15px; overflow: hidden; display: flex; flex-direction: column; }
+.content { flex: 1; padding: 15px; overflow: hidden; display: flex; flex-direction: column; background-color: var(--bg); }
 header { flex-shrink: 0; }
-header h1 { margin: 0 0 5px 0; font-size: 1.3rem; }
-header p { color: #94a3b8; margin-top: 0; font-size: 0.85rem; }
+header h1 { margin: 0 0 5px 0; font-size: 1.3rem; color: var(--text); }
+header p { color: var(--text-muted); margin-top: 0; font-size: 0.85rem; }
 
 .calendar-container { 
     margin-top: 15px; 
@@ -63,17 +72,27 @@ header p { color: #94a3b8; margin-top: 0; font-size: 0.85rem; }
     background-color: var(--panel-bg); 
     border: 1px solid var(--border); 
     border-radius: 6px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1000px; }
+table { width: max-content; border-collapse: separate; border-spacing: 0; background-color: #ffffff; }
 th, td { padding: 4px 6px; text-align: left; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); font-size: 0.75rem; }
 
+td {
+    background-color: #ffffff;
+    color: var(--text);
+}
+
+tbody tr:hover td:not(.month-cell) {
+    background-color: #f8fafc;
+}
+
 th { 
-    background-color: #1a233a; 
+    background-color: #f1f5f9; 
     position: sticky; 
     top: 0; 
     font-weight: 600; 
-    color: #cbd5e1; 
+    color: #1e293b; 
     text-align: center; 
     z-index: 10;
     box-sizing: border-box;
@@ -85,34 +104,56 @@ tr.sub-header th {
     z-index: 9;
     font-size: 0.65rem; 
     padding: 2px; 
-    background-color: #202a45; 
-    color: #94a3b8; 
-    border-bottom: 2px solid #64748b; 
+    background-color: #f8fafc; 
+    color: var(--text-muted); 
+    border-bottom: 2px solid var(--border-dark); 
     height: 22px;
 }
 
-.fixed-col { white-space: nowrap; padding-right: 15px; }
+.fixed-col { 
+    white-space: nowrap;
+    padding-right: 8px;
+    box-sizing: border-box;
+    position: sticky;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 2;
+}
+
+th.fixed-col {
+    background-color: #f1f5f9;
+    z-index: 12;
+}
+
+tbody tr:hover td.fixed-col {
+    background-color: #f8fafc;
+}
+
 td:nth-child(1), td:nth-child(2), td:nth-child(3) {
     white-space: nowrap;
 }
 
-th:nth-child(1), th:nth-child(2), th:nth-child(3) { text-align: left; border-right: 2px solid #94a3b8; }
+th.fixed-col { text-align: left; border-right: 2px solid var(--border-dark); }
 
-th[colspan="2"] { border-right: 2px solid #94a3b8; }
-tr.sub-header th:nth-child(even) { border-right: 2px solid #94a3b8; }
+th[colspan="2"] { border-right: 2px solid var(--border-dark); padding: 4px 0; }
+tr.sub-header th { width: 39px; min-width: 39px; max-width: 39px; }
+tr.sub-header th:nth-child(even) { border-right: 2px solid var(--border-dark); }
 
 /* Gantt Cells */
 td.month-cell { 
     text-align: center; 
-    padding: 0; 
-    height: 22px; 
-    border-right: 1px dashed #2a3b5a; 
+    padding: 0;
+    width: 39px;
+    min-width: 39px;
+    max-width: 39px;
+    height: 22px;
+    border-right: 1px dashed var(--border-dark); 
     transition: filter 0.2s;
 }
-td.month-cell:hover { filter: brightness(1.2); cursor: crosshair; }
+td.month-cell:hover { filter: brightness(0.92); cursor: crosshair; }
 
 /* Thick solid borders at the end of every month */
-td.month-cell:nth-child(odd), td:nth-child(3) { border-right: 2px solid #94a3b8; }
+td.month-cell:nth-child(odd), td:nth-child(3) { border-right: 2px solid var(--border-dark); }
 
 /* Gantt Colors */
 td.planting { background-color: var(--planting); }
