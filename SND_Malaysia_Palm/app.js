@@ -133,7 +133,9 @@ function getEffectiveSndData(mode = "model") {
     }
   }
 
-  let prevEndStock = userMonthly["2026-09"] ? userMonthly["2026-09"].end_stock : 3510897;
+  const meta = STATE.master.metadata || {};
+  const latestPeriod = meta.latest_actual_period || "2026-10";
+  let prevEndStock = userMonthly[latestPeriod] ? userMonthly[latestPeriod].end_stock : (userMonthly["2026-10"] ? userMonthly["2026-10"].end_stock : 3621164);
   const fcstPeriods = STATE.master.metadata.forecast_periods || [];
   const uSndStore = (STATE.userForecast && STATE.userForecast.snd) ? STATE.userForecast.snd : {};
 
@@ -272,10 +274,26 @@ async function initDashboard() {
 }
 
 function updateHeaderKpis() {
-  const sep26 = STATE.master.snd.monthly["2026-09"];
-  if (sep26) {
-    document.getElementById("kpi-sep-prod").textContent = `${fmtNum(sep26.production)} T`;
-    document.getElementById("kpi-sep-stock").textContent = `${fmtNum(sep26.end_stock)} T`;
+  const meta = STATE.master.metadata || {};
+  const latestPeriod = meta.latest_actual_period || "2026-10";
+  const latestLabel = meta.latest_actual_label || "October 2026";
+  const shortMonth = latestLabel.slice(0, 3) + " " + latestLabel.slice(-4);
+
+  const kpiLatest = document.getElementById("kpi-latest-month");
+  if (kpiLatest) kpiLatest.textContent = shortMonth;
+
+  const lblProd = document.getElementById("kpi-label-prod");
+  if (lblProd) lblProd.textContent = `${shortMonth} Production`;
+
+  const lblStock = document.getElementById("kpi-label-stock");
+  if (lblStock) lblStock.textContent = `${shortMonth} End Stock`;
+
+  const latestData = STATE.master.snd.monthly[latestPeriod] || STATE.master.snd.monthly["2026-10"];
+  if (latestData) {
+    const elProd = document.getElementById("kpi-sep-prod");
+    const elStock = document.getElementById("kpi-sep-stock");
+    if (elProd) elProd.textContent = `${fmtNum(latestData.production)} T`;
+    if (elStock) elStock.textContent = `${fmtNum(latestData.end_stock)} T`;
   }
   const a26 = STATE.master.snd.annual["2026"];
   const a27 = STATE.master.snd.annual["2027"];
@@ -293,7 +311,7 @@ function renderYearSlicer() {
     if (yr >= 2026) pill.classList.add("is-fcst-year");
     pill.textContent = yr === 2026 ? "2026F" : yr === 2027 ? "2027F" : String(yr);
     pill.title = yr >= 2026
-      ? `${yr} (Includes Forecast Oct 2026–Dec 2027) — Click to select, Ctrl+Click to multi-select`
+      ? `${yr} (Includes Forecast Nov 2026–Dec 2027) — Click to select, Ctrl+Click to multi-select`
       : `${yr} — Click to select single year, Ctrl+Click to multi-select, Shift+Click for range`;
 
     pill.addEventListener("click", (e) => {
@@ -667,7 +685,7 @@ function renderSndTable() {
     const fcstTag = yr >= 2026 ? "F" : "";
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
-        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        const isF = (yr === 2026 && m >= 11) || yr === 2027;
         html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
@@ -748,7 +766,7 @@ function renderSndTable() {
       const fcstTag = yr >= 2026 ? "F" : "";
       if (isExp) {
         for (let m = 1; m <= 12; m++) {
-          const isF = (yr === 2026 && m >= 10) || yr === 2027;
+          const isF = (yr === 2026 && m >= 11) || yr === 2027;
           pctHtml += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
         }
       }
@@ -927,7 +945,7 @@ function renderSndMatrixTable() {
     html += `<tr class="matrix-row-month">
       <td class="matrix-col-metric"><strong>Month</strong></td>`;
     for (let m = 1; m <= 12; m++) {
-      const isF = (yr === 2026 && m >= 10) || yr >= 2027;
+      const isF = (yr === 2026 && m >= 11) || yr >= 2027;
       const mLabel = `${MONTH_SHORT[m - 1]}-${String(yr).slice(2)}`;
       html += `<td class="matrix-col-month ${isF ? 'is-fcst-month' : ''}"><strong>${mLabel}</strong></td>`;
     }
@@ -1144,7 +1162,7 @@ function renderSndCharts() {
       const uRec = userSnd[p];
       if (!mRec) continue;
 
-      const isActual = yr === 2026 && m <= 9;
+      const isActual = yr === 2026 && m <= 10;
       const isFcst = !isActual;
       cLabels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isFcst ? 'F' : ''}`);
 
@@ -1163,11 +1181,11 @@ function renderSndCharts() {
     }
   }
 
-  // Connect forecast lines continuously from 2026-09 actual
-  const sepIdx = 8; // 2026-09
-  if (actualData[sepIdx] !== null) {
-    modelFcstData[sepIdx] = actualData[sepIdx];
-    userFcstData[sepIdx] = actualData[sepIdx];
+  // Connect forecast lines continuously from 2026-10 actual
+  const octIdx = 9; // 2026-10
+  if (actualData[octIdx] !== null) {
+    modelFcstData[octIdx] = actualData[octIdx];
+    userFcstData[octIdx] = actualData[octIdx];
   }
 
   const ctx2 = document.getElementById("chart-snd-compare").getContext("2d");
@@ -1177,7 +1195,7 @@ function renderSndCharts() {
       labels: cLabels,
       datasets: [
         {
-          label: `Official Actual (Jan - Sep 2026)`,
+          label: `Official Actual (Jan - Oct 2026)`,
           data: actualData,
           borderColor: "#0f172a",
           backgroundColor: "#0f172a",
@@ -1187,7 +1205,7 @@ function renderSndCharts() {
           tension: 0.2
         },
         {
-          label: `Model Forecast (Oct 2026 - Dec 2027)`,
+          label: `Model Forecast (Nov 2026 - Dec 2027)`,
           data: modelFcstData,
           borderColor: "#2563eb",
           backgroundColor: "rgba(37, 99, 235, 0.08)",
@@ -1199,7 +1217,7 @@ function renderSndCharts() {
           fill: false
         },
         {
-          label: `My Forecast (Oct 2026 - Dec 2027)`,
+          label: `My Forecast (Nov 2026 - Dec 2027)`,
           data: userFcstData,
           borderColor: "#d97706",
           backgroundColor: "rgba(217, 119, 6, 0.08)",
@@ -1723,7 +1741,7 @@ function renderProdTab() {
     const isExp = canExp && STATE.prodExpandedYears.has(yr);
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
-        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        const isF = (yr === 2026 && m >= 11) || yr === 2027;
         html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
@@ -2488,7 +2506,7 @@ function renderImportsTab() {
     const isExp = canExp && STATE.impExpandedYears.has(yr);
     if (isExp) {
       for (let m = 1; m <= 12; m++) {
-        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        const isF = (yr === 2026 && m >= 11) || yr === 2027;
         html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
@@ -2820,7 +2838,7 @@ function renderExpandableMatrixTable(containerId, firstColTitle, rowDefs, years,
       for (let m = 1; m <= 12; m++) {
         const p = `${yr}-${String(m).padStart(2, "0")}`;
         if (!monMap[p]) continue;
-        const isF = (yr === 2026 && m >= 10) || yr === 2027;
+        const isF = (yr === 2026 && m >= 11) || yr === 2027;
         html += `<th class="col-month ${isF ? 'cell-fcst' : ''}">${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isF ? 'F' : ''}</th>`;
       }
     }
@@ -3107,7 +3125,7 @@ function renderSeasonalityTab() {
     const isLatestActual = yr === 2025;
 
     let lineLabel = String(yr);
-    if (yr === 2026) lineLabel = "2026 (Actual + Q4 F)";
+    if (yr === 2026) lineLabel = "2026 (Actual + Nov-Dec F)";
     else if (yr === 2027) lineLabel = "2027F";
 
     let color = palette[colorIdx % palette.length];
@@ -3216,7 +3234,7 @@ function renderSeasonalityTab() {
     const isFYear = yr >= 2026;
     html += `<tr><td class="sticky-col">${yr}${isFYear ? ' <span class="badge badge-fcst">F</span>' : ''}</td>`;
     rowVals.forEach((v, idx) => {
-      const isFCell = (yr === 2026 && idx >= 9) || yr === 2027;
+      const isFCell = (yr === 2026 && idx >= 10) || yr === 2027;
       const cellStr = v !== null ? `${fmtNum(v, decimals)}${suffix}` : '<span class="text-muted">--</span>';
       html += `<td class="num ${isFCell ? 'cell-fcst' : ''}" style="${heatBg(v, isFCell)}">${cellStr}</td>`;
     });

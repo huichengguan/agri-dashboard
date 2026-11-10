@@ -1,5 +1,4 @@
 fat_product,metric,unit,period,value
-Choice white grease,Production,"1,000 pounds",2023-12,112909.0
 Choice white grease,Production,"1,000 pounds",2024-01,117828.0
 Choice white grease,Production,"1,000 pounds",2024-02,114158.0
 Choice white grease,Production,"1,000 pounds",2024-03,109828.0
@@ -31,7 +30,7 @@ Choice white grease,Production,"1,000 pounds",2026-05,107704.0
 Choice white grease,Production,"1,000 pounds",2026-06,100908.0
 Choice white grease,Production,"1,000 pounds",2026-07,94981.0
 Choice white grease,Production,"1,000 pounds",2026-08,104425.0
-Choice white grease,Removed for inedible use,"1,000 pounds",2023-12,112503.0
+Choice white grease,Production,"1,000 pounds",2026-09,110244.0
 Choice white grease,Removed for inedible use,"1,000 pounds",2024-01,116462.0
 Choice white grease,Removed for inedible use,"1,000 pounds",2024-02,116487.0
 Choice white grease,Removed for inedible use,"1,000 pounds",2024-03,109617.0
@@ -63,7 +62,7 @@ Choice white grease,Removed for inedible use,"1,000 pounds",2026-05,108085.0
 Choice white grease,Removed for inedible use,"1,000 pounds",2026-06,101726.0
 Choice white grease,Removed for inedible use,"1,000 pounds",2026-07,96811.0
 Choice white grease,Removed for inedible use,"1,000 pounds",2026-08,102640.0
-Choice white grease,Stocks on hand end of month,"1,000 pounds",2023-12,7276.0
+Choice white grease,Removed for inedible use,"1,000 pounds",2026-09,105518.0
 Choice white grease,Stocks on hand end of month,"1,000 pounds",2024-01,8643.0
 Choice white grease,Stocks on hand end of month,"1,000 pounds",2024-02,6313.0
 Choice white grease,Stocks on hand end of month,"1,000 pounds",2024-03,6484.0
@@ -95,7 +94,7 @@ Choice white grease,Stocks on hand end of month,"1,000 pounds",2026-05,8571.0
 Choice white grease,Stocks on hand end of month,"1,000 pounds",2026-06,7753.0
 Choice white grease,Stocks on hand end of month,"1,000 pounds",2026-07,5923.0
 Choice white grease,Stocks on hand end of month,"1,000 pounds",2026-08,7707.0
-Feather meal,Production,"1,000 pounds",2023-12,78412.0
+Choice white grease,Stocks on hand end of month,"1,000 pounds",2026-09,12433.0
 Feather meal,Production,"1,000 pounds",2024-01,74884.0
 Feather meal,Production,"1,000 pounds",2024-02,95055.0
 Feather meal,Production,"1,000 pounds",2024-03,79874.0
@@ -115,7 +114,7 @@ Feather meal,Production,"1,000 pounds",2025-05,94869.0
 Feather meal,Production,"1,000 pounds",2025-06,85679.0
 Feather meal,Production,"1,000 pounds",2025-07,79487.0
 Feather meal,Production,"1,000 pounds",2025-08,97652.0
-Feather meal,Production,"1,000 pounds",2025-09,101193.0
+Feather meal,Production,"1,000 pounds",2025-09,90916.0
 Feather meal,Production,"1,000 pounds",2025-10,91362.0
 Feather meal,Production,"1,000 pounds",2025-11,100131.0
 Feather meal,Production,"1,000 pounds",2025-12,83354.0
@@ -127,7 +126,7 @@ Feather meal,Production,"1,000 pounds",2026-05,102086.0
 Feather meal,Production,"1,000 pounds",2026-06,87929.0
 Feather meal,Production,"1,000 pounds",2026-07,82027.0
 Feather meal,Production,"1,000 pounds",2026-08,98900.0
-Feather meal,Stocks on hand end of month,"1,000 pounds",2023-12,10843.0
+Feather meal,Production,"1,000 pounds",2026-09,101974.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2024-01,16359.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2024-02,15535.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2024-03,17190.0
@@ -147,7 +146,7 @@ Feather meal,Stocks on hand end of month,"1,000 pounds",2025-05,19394.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2025-06,20464.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2025-07,18288.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2025-08,23136.0
-Feather meal,Stocks on hand end of month,"1,000 pounds",2025-09,29821.0
+Feather meal,Stocks on hand end of month,"1,000 pounds",2025-09,26395.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2025-10,27911.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2025-11,27099.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2025-12,18721.0
@@ -159,7 +158,7 @@ Feather meal,Stocks on hand end of month,"1,000 pounds",2026-05,38459.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2026-06,33721.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2026-07,29035.0
 Feather meal,Stocks on hand end of month,"1,000 pounds",2026-08,35858.0
-Lard,Production,"1,000 pounds",2023-12,25732.0
+Feather meal,Stocks on hand end of month,"1,000 pounds",2026-09,30064.0
 Lard,Production,"1,000 pounds",2024-01,20037.0
 Lard,Production,"1,000 pounds",2024-02,26107.0
 Lard,Production,"1,000 pounds",2024-03,21766.0
@@ -191,7 +190,7 @@ Lard,Production,"1,000 pounds",2026-05,25332.0
 Lard,Production,"1,000 pounds",2026-06,22551.0
 Lard,Production,"1,000 pounds",2026-07,19381.0
 Lard,Production,"1,000 pounds",2026-08,22897.0
-Lard,Removed for use in processing,"1,000 pounds",2023-12,25179.0
+Lard,Production,"1,000 pounds",2026-09,36141.0
 Lard,Removed for use in processing,"1,000 pounds",2024-01,19192.0
 Lard,Removed for use in processing,"1,000 pounds",2024-02,26824.0
 Lard,Removed for use in processing,"1,000 pounds",2024-03,22301.0
@@ -222,7 +221,7 @@ Lard,Removed for use in processing,"1,000 pounds",2026-04,20983.0
 Lard,Removed for use in processing,"1,000 pounds",2026-05,29425.0
 Lard,Removed for use in processing,"1,000 pounds",2026-06,19017.0
 Lard,Removed for use in processing,"1,000 pounds",2026-07,17240.0
-"Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2023-12,507927.0
+Lard,Removed for use in processing,"1,000 pounds",2026-09,49412.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2024-01,492429.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2024-02,475526.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2024-03,504290.0
@@ -253,8 +252,8 @@ Lard,Removed for use in processing,"1,000 pounds",2026-07,17240.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2026-05,335665.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2026-06,353592.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2026-07,315642.0
-"Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2026-08,332957.0
-"Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2023-12,72110.0
+"Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2026-08,336657.0
+"Meat meal, meat and bone meal, and dry rendered tankage",Production,"1,000 pounds",2026-09,415994.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2024-01,64544.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2024-02,56663.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2024-03,52464.0
@@ -285,8 +284,8 @@ Lard,Removed for use in processing,"1,000 pounds",2026-07,17240.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2026-05,40440.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2026-06,41157.0
 "Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2026-07,42455.0
-"Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2026-08,41380.0
-Other grease,Production,"1,000 pounds",2023-12,21243.0
+"Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2026-08,40616.0
+"Meat meal, meat and bone meal, and dry rendered tankage",Stocks on hand end of month,"1,000 pounds",2026-09,51295.0
 Other grease,Production,"1,000 pounds",2024-01,23616.0
 Other grease,Production,"1,000 pounds",2024-02,25525.0
 Other grease,Production,"1,000 pounds",2024-03,23110.0
@@ -318,7 +317,7 @@ Other grease,Production,"1,000 pounds",2026-05,14451.0
 Other grease,Production,"1,000 pounds",2026-06,19026.0
 Other grease,Production,"1,000 pounds",2026-07,18522.0
 Other grease,Production,"1,000 pounds",2026-08,19694.0
-Other grease,Removed for inedible use in processing,"1,000 pounds",2023-12,18667.0
+Other grease,Production,"1,000 pounds",2026-09,22347.0
 Other grease,Removed for inedible use in processing,"1,000 pounds",2024-01,20555.0
 Other grease,Removed for inedible use in processing,"1,000 pounds",2024-02,28300.0
 Other grease,Removed for inedible use in processing,"1,000 pounds",2024-03,25949.0
@@ -350,10 +349,11 @@ Other grease,Removed for inedible use in processing,"1,000 pounds",2026-05,15304
 Other grease,Removed for inedible use in processing,"1,000 pounds",2026-06,20417.0
 Other grease,Removed for inedible use in processing,"1,000 pounds",2026-07,16154.0
 Other grease,Removed for inedible use in processing,"1,000 pounds",2026-08,21905.0
+Other grease,Removed for inedible use in processing,"1,000 pounds",2026-09,19937.0
 Other grease,Stocks on hand end of month,"1,000 pounds",2026-05,6158.0
 Other grease,Stocks on hand end of month,"1,000 pounds",2026-06,4767.0
 Other grease,Stocks on hand end of month,"1,000 pounds",2026-08,4924.0
-Poultry by-product meals,Production,"1,000 pounds",2023-12,343411.0
+Other grease,Stocks on hand end of month,"1,000 pounds",2026-09,7334.0
 Poultry by-product meals,Production,"1,000 pounds",2024-01,311109.0
 Poultry by-product meals,Production,"1,000 pounds",2024-02,381571.0
 Poultry by-product meals,Production,"1,000 pounds",2024-03,328970.0
@@ -373,7 +373,7 @@ Poultry by-product meals,Production,"1,000 pounds",2025-05,360088.0
 Poultry by-product meals,Production,"1,000 pounds",2025-06,350533.0
 Poultry by-product meals,Production,"1,000 pounds",2025-07,311845.0
 Poultry by-product meals,Production,"1,000 pounds",2025-08,377477.0
-Poultry by-product meals,Production,"1,000 pounds",2025-09,436834.0
+Poultry by-product meals,Production,"1,000 pounds",2025-09,383765.0
 Poultry by-product meals,Production,"1,000 pounds",2025-10,380502.0
 Poultry by-product meals,Production,"1,000 pounds",2025-11,428335.0
 Poultry by-product meals,Production,"1,000 pounds",2025-12,360493.0
@@ -385,7 +385,7 @@ Poultry by-product meals,Production,"1,000 pounds",2026-05,391327.0
 Poultry by-product meals,Production,"1,000 pounds",2026-06,371046.0
 Poultry by-product meals,Production,"1,000 pounds",2026-07,337769.0
 Poultry by-product meals,Production,"1,000 pounds",2026-08,379112.0
-Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2023-12,101213.0
+Poultry by-product meals,Production,"1,000 pounds",2026-09,412025.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2024-01,123806.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2024-02,112853.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2024-03,101929.0
@@ -405,7 +405,7 @@ Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-05,1106
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-06,114028.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-07,115287.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-08,136917.0
-Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-09,150742.0
+Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-09,146956.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-10,145130.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-11,138399.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2025-12,138282.0
@@ -417,7 +417,7 @@ Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2026-05,2244
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2026-06,213310.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2026-07,197590.0
 Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2026-08,221927.0
-Poultry fats,Production,"1,000 pounds",2023-12,185719.0
+Poultry by-product meals,Stocks on hand end of month,"1,000 pounds",2026-09,228968.0
 Poultry fats,Production,"1,000 pounds",2024-01,163183.0
 Poultry fats,Production,"1,000 pounds",2024-02,205330.0
 Poultry fats,Production,"1,000 pounds",2024-03,170818.0
@@ -437,7 +437,7 @@ Poultry fats,Production,"1,000 pounds",2025-05,193278.0
 Poultry fats,Production,"1,000 pounds",2025-06,182894.0
 Poultry fats,Production,"1,000 pounds",2025-07,166530.0
 Poultry fats,Production,"1,000 pounds",2025-08,205395.0
-Poultry fats,Production,"1,000 pounds",2025-09,223085.0
+Poultry fats,Production,"1,000 pounds",2025-09,196835.0
 Poultry fats,Production,"1,000 pounds",2025-10,204123.0
 Poultry fats,Production,"1,000 pounds",2025-11,206488.0
 Poultry fats,Production,"1,000 pounds",2025-12,168742.0
@@ -449,7 +449,7 @@ Poultry fats,Production,"1,000 pounds",2026-05,203379.0
 Poultry fats,Production,"1,000 pounds",2026-06,185331.0
 Poultry fats,Production,"1,000 pounds",2026-07,173958.0
 Poultry fats,Production,"1,000 pounds",2026-08,205362.0
-Poultry fats,Removed for inedible use in processing,"1,000 pounds",2023-12,191314.0
+Poultry fats,Production,"1,000 pounds",2026-09,211162.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2024-01,165749.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2024-02,205053.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2024-03,177204.0
@@ -469,7 +469,7 @@ Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-05,19135
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-06,185295.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-07,164078.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-08,198390.0
-Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-09,220330.0
+Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-09,195021.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-10,212132.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-11,215297.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2025-12,165761.0
@@ -481,7 +481,7 @@ Poultry fats,Removed for inedible use in processing,"1,000 pounds",2026-05,18118
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2026-06,192163.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2026-07,182874.0
 Poultry fats,Removed for inedible use in processing,"1,000 pounds",2026-08,167162.0
-Poultry fats,Stocks on hand end of month,"1,000 pounds",2023-12,35591.0
+Poultry fats,Removed for inedible use in processing,"1,000 pounds",2026-09,227706.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2024-01,33025.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2024-02,33302.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2024-03,27029.0
@@ -501,7 +501,7 @@ Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-05,38941.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-06,36541.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-07,38993.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-08,45998.0
-Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-09,48753.0
+Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-09,47812.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-10,40744.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-11,31935.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2025-12,33865.0
@@ -513,7 +513,7 @@ Poultry fats,Stocks on hand end of month,"1,000 pounds",2026-05,92466.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2026-06,85634.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2026-07,76718.0
 Poultry fats,Stocks on hand end of month,"1,000 pounds",2026-08,114919.0
-Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2023-12,8624.0
+Poultry fats,Stocks on hand end of month,"1,000 pounds",2026-09,98375.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2024-01,11166.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2024-02,16543.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2024-03,22087.0
@@ -533,7 +533,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-06,13331.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-07,11959.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-08,11900.0
-Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-09,17024.0
+Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-09,17256.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-10,21217.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-11,19010.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2025-12,12637.0
@@ -545,7 +545,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2026-06,18372.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2026-07,18129.0
 Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2026-08,18483.0
-"Tallow, edible",Production,"1,000 pounds",2023-12,85396.0
+Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds",2026-09,19384.0
 "Tallow, edible",Production,"1,000 pounds",2024-01,72408.0
 "Tallow, edible",Production,"1,000 pounds",2024-02,97125.0
 "Tallow, edible",Production,"1,000 pounds",2024-03,91654.0
@@ -565,7 +565,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, edible",Production,"1,000 pounds",2025-06,92912.0
 "Tallow, edible",Production,"1,000 pounds",2025-07,82398.0
 "Tallow, edible",Production,"1,000 pounds",2025-08,93947.0
-"Tallow, edible",Production,"1,000 pounds",2025-09,86404.0
+"Tallow, edible",Production,"1,000 pounds",2025-09,85430.0
 "Tallow, edible",Production,"1,000 pounds",2025-10,87054.0
 "Tallow, edible",Production,"1,000 pounds",2025-11,113132.0
 "Tallow, edible",Production,"1,000 pounds",2025-12,87584.0
@@ -577,7 +577,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, edible",Production,"1,000 pounds",2026-06,79587.0
 "Tallow, edible",Production,"1,000 pounds",2026-07,73491.0
 "Tallow, edible",Production,"1,000 pounds",2026-08,80430.0
-"Tallow, edible",Removed for use in processing,"1,000 pounds",2023-12,84795.0
+"Tallow, edible",Production,"1,000 pounds",2026-09,86683.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2024-01,72887.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2024-02,95070.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2024-03,86039.0
@@ -597,7 +597,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2025-06,89339.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2025-07,75966.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2025-08,94908.0
-"Tallow, edible",Removed for use in processing,"1,000 pounds",2025-09,91184.0
+"Tallow, edible",Removed for use in processing,"1,000 pounds",2025-09,89978.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2025-10,83103.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2025-11,115485.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2025-12,88822.0
@@ -609,7 +609,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2026-06,77761.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2026-07,74260.0
 "Tallow, edible",Removed for use in processing,"1,000 pounds",2026-08,80180.0
-"Tallow, inedible",Production,"1,000 pounds",2023-12,332402.0
+"Tallow, edible",Removed for use in processing,"1,000 pounds",2026-09,80776.0
 "Tallow, inedible",Production,"1,000 pounds",2024-01,309112.0
 "Tallow, inedible",Production,"1,000 pounds",2024-02,346768.0
 "Tallow, inedible",Production,"1,000 pounds",2024-03,355531.0
@@ -640,8 +640,8 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, inedible",Production,"1,000 pounds",2026-05,297782.0
 "Tallow, inedible",Production,"1,000 pounds",2026-06,293113.0
 "Tallow, inedible",Production,"1,000 pounds",2026-07,266292.0
-"Tallow, inedible",Production,"1,000 pounds",2026-08,285439.0
-"Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2023-12,336304.0
+"Tallow, inedible",Production,"1,000 pounds",2026-08,287833.0
+"Tallow, inedible",Production,"1,000 pounds",2026-09,289797.0
 "Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2024-01,298699.0
 "Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2024-02,351851.0
 "Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2024-03,365483.0
@@ -672,8 +672,8 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2026-05,301025.0
 "Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2026-06,277139.0
 "Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2026-07,271261.0
-"Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2026-08,289620.0
-"Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2023-12,82706.0
+"Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2026-08,289081.0
+"Tallow, inedible",Removed for inedible use in processing,"1,000 pounds",2026-09,287500.0
 "Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2024-01,93120.0
 "Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2024-02,88037.0
 "Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2024-03,78085.0
@@ -692,7 +692,6 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2026-02,64283.0
 "Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2026-05,59886.0
 "Tallow, inedible",Stocks on hand end of month,"1,000 pounds",2026-06,75093.0
-"Tallow, technical",Production,"1,000 pounds",2023-12,121288.0
 "Tallow, technical",Production,"1,000 pounds",2024-01,109379.0
 "Tallow, technical",Production,"1,000 pounds",2024-02,122850.0
 "Tallow, technical",Production,"1,000 pounds",2024-03,112429.0
@@ -724,7 +723,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, technical",Production,"1,000 pounds",2026-06,94821.0
 "Tallow, technical",Production,"1,000 pounds",2026-07,86064.0
 "Tallow, technical",Production,"1,000 pounds",2026-08,101481.0
-"Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2023-12,121153.0
+"Tallow, technical",Production,"1,000 pounds",2026-09,88950.0
 "Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2024-01,104604.0
 "Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2024-02,128007.0
 "Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2024-03,113149.0
@@ -756,6 +755,7 @@ Removed for inedible use in processing,Stocks on hand end of month,"1,000 pounds
 "Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2026-06,94180.0
 "Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2026-07,85944.0
 "Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2026-08,103646.0
+"Tallow, technical",Removed for inedible use in processing,"1,000 pounds",2026-09,88044.0
 "Tallow, technical",Stocks on hand end of month,"1,000 pounds",2024-05,5894.0
 "Tallow, technical",Stocks on hand end of month,"1,000 pounds",2025-03,6099.0
 Yellow grease,Production,"1,000 pounds",2026-01,130177.0

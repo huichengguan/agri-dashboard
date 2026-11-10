@@ -1,5 +1,5 @@
 window.US_CROP_MATRIX_DATA = {
-  "generated_at": "2026-11-05T23:28:01.054187",
+  "generated_at": "2026-11-10T13:55:55.028614",
   "years_range": [
     2010,
     2011,
