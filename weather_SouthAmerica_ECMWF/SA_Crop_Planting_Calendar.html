@@ -21,19 +21,18 @@
             --accent-purple: #c084fc;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); padding: 10px 16px; font-size: 11px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
 
         /* Suite Navigation Bar */
-        .suite-nav-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 8px;
-            padding: 6px 14px;
-            margin-bottom: 10px;
-        }
+        
         .suite-nav-left {
             display: flex;
             align-items: center;
@@ -46,30 +45,10 @@
             color: #38bdf8;
             text-transform: uppercase;
         }
-        .suite-nav-links {
-            display: flex;
-            gap: 6px;
-        }
-        .nav-tab {
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            text-decoration: none;
-            color: #94a3b8;
-            background: #1e293b;
-            border: 1px solid #334155;
-            transition: all 0.15s ease;
-        }
-        .nav-tab:hover {
-            background: #334155;
-            color: #f8fafc;
-        }
-        .nav-tab.active {
-            background: #0284c7;
-            color: #ffffff;
-            border-color: #38bdf8;
-        }
+        
+        
+        
+        
 
         /* Header Bar */
         .header-bar {
@@ -472,20 +451,130 @@
             visibility: visible;
             opacity: 1;
         }
-    </style>
+    
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        
+        
+        
+        
+
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        .suite-nav-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 44px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .suite-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #2563eb;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+        }
+</style>
 </head>
 <body>
 
-    <!-- Suite Navigation Bar -->
+    <div class="dashboard-container">
+        <!-- Universal Cross-Dashboard Navigation -->
     <div class="suite-nav-bar">
         <div class="suite-nav-left">
-            <span class="suite-logo">&#127758; South America Ag-Weather Intelligence</span>
+            <span class="suite-brand">&#127758; SOUTH AMERICA AG-WEATHER INTELLIGENCE (ECMWF IFS)</span>
         </div>
         <div class="suite-nav-links">
-            <a href="SA_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="SA_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
             <a href="SA_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
             <a href="SA_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
-            <a href="SA_Crop_Weather_Matrix.html" class="nav-tab">&#128202; Weather Matrix</a>
+            <a href="SA_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010&ndash;2026)</a>
             <a href="SA_Crop_Planting_Calendar.html" class="nav-tab active">&#128203; Planting Windows &amp; Gantt</a>
         </div>
     </div>
@@ -931,5 +1020,6 @@
         // Initial Render
         renderRows();
     </script>
+</div><!-- /dashboard-container -->
 </body>
 </html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brazil Soy Complex, Biodiesel, Corn, Corn Ethanol &amp; Sugarcane S&amp;D | Institutional Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="chart.umd.min.js"></script>
+  <script src="dashboard_data.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- TOP INSTITUTIONAL HEADER -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge" id="brand-badge">CONAB / ANP / ABIOVE LIVE</div>
+      <div class="brand-titles">
+        <h1>Brazil Soybeans, Biodiesel, Corn, Corn Ethanol &amp; Sugarcane Supply &amp; Demand</h1>
+        <p class="subtitle" id="header-subtitle">Official CONAB, ANP, ABIOVE/SECEX, IBGE SIDRA &amp; USDA PSD Statistics (21Y S&amp;D: 2006/07&ndash;2026/27 &bull; 249 Months: Jan 2006&ndash;Sep 2026 &bull; 50Y Crop Series: 1976/77&ndash;2026/27)</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY GLOBAL YEAR SLICER BAR -->
+  <section class="slicer-bar">
+    <div class="slicer-top">
+      <div class="slicer-title-group">
+        <span class="slicer-title">YEAR SLICER (21 YEARS: 2006/07&ndash;2026/27)</span>
+        <span class="slicer-hint">Click to select single year &bull; Ctrl+Click to multi-select &bull; Shift+Click for range &bull; Click <code>[+]</code> on any year column header in the table to expand monthly data</span>
+      </div>
+      <div class="slicer-presets">
+        <button class="preset-btn active" data-preset="last3" title="Default: Latest 3 Years (2024/25–2026/27)">Last 3Y (Default)</button>
+        <button class="preset-btn" data-preset="last5" title="Last 5 Years (2022/23–2026/27)">Last 5Y</button>
+        <button class="preset-btn" data-preset="last10" title="Last 10 Years (2017/18–2026/27)">Last 10Y</button>
+        <button class="preset-btn" data-preset="last16" title="16 Years (2011/12–2026/27)">Last 16Y</button>
+        <button class="preset-btn" data-preset="all" title="Full 21-Year History (2006/07–2026/27)">All 21Y History</button>
+      </div>
+    </div>
+    <div class="year-pills-container" id="year-pills-container">
+      <!-- Populated dynamically 2006 .. 2026 -->
+    </div>
+  </section>
+
+  <!-- MAIN NAVIGATION TABS -->
+  <nav class="main-tabs" id="main-tabs">
+    <button class="tab-btn active" data-tab="tab-snd">Supply &amp; Demand (21Y Annual + Expandable Monthly)</button>
+    <button class="tab-btn" data-tab="tab-biofuel">Biofuel S&amp;D (Ethanol &amp; Biodiesel Balance Sheets)</button>
+    <button class="tab-btn" data-tab="tab-seasonality">Monthly Seasonality Explorer (2006&ndash;2026)</button>
+    <button class="tab-btn" data-tab="tab-hist50">50-Year Crop &amp; State History (1976/77&ndash;2026/27)</button>
+  </nav>
+
+  <!-- DISCLOSURE BANNER -->
+  <div class="disclosure-bar" style="justify-content: space-between;">
+    <span id="disclosure-text"><strong>100% Official Source Data (GEMINI.md Compliant):</strong> CONAB (<code>gov.br/conab</code>), ANP (<code>gov.br/anp</code>), ABIOVE/SECEX (<code>abiove.org.br</code>), IBGE SIDRA (<code>apisidra.ibge.gov.br</code>) &amp; USDA PSD. <span style="color:#d97706;font-weight:700;border-bottom:1px dotted #d97706;" title="Derived feedstock/co-product conversion using official CONAB/UNEM/ABIOVE technical coefficients">Orange [EST] numbers</span> indicate derived feedstock/co-product conversions (hover for formula).</span>
+    <span class="disclosure-badges">
+      <span class="badge badge-soy">1. SOYBEANS</span>
+      <span class="badge badge-sbm">2. SOYBEAN MEAL</span>
+      <span class="badge badge-sbo">3. SOYBEAN OIL</span>
+      <span class="badge badge-soy" style="background:#0f766e;color:#fff;">4. BIODIESEL</span>
+      <span class="badge badge-sbm" style="background:#ca8a04;color:#fff;">5. CORN &amp; CORN ETHANOL</span>
+      <span class="badge badge-sbo" style="background:#7c3aed;color:#fff;">6. SUGARCANE, SUGAR &amp; ETHANOL</span>
+    </span>
+  </div>
+
+  <!-- TAB CONTENTS -->
+  <main class="main-content">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: SUPPLY & DEMAND (S&D) — 6 VERTICALLY STACKED TABLES          -->
+    <!-- =================================================================== -->
+    <section class="tab-panel active" id="tab-snd">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2 id="snd-panel-title">Brazil Multi-Complex Supply &amp; Demand Balance Sheets (21 Years: 2006/07&ndash;2026/27 + Expandable Monthly Columns)</h2>
+          <span class="toolbar-sub" id="snd-panel-sub">Click any year header (<code>[+]</code> / <code>[&minus;]</code>) to expand or collapse month-by-month (<code>Jan</code>&ndash;<code>Dec</code>) breakdowns simultaneously across all 6 stacked balance sheets. Horizontal scroll is synchronized.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>View Format:</label>
+            <div class="seg-group" id="snd-view-format">
+              <button class="seg-btn active" data-fmt="table">Balance Sheet (Stacked + Monthly [+])</button>
+              <button class="seg-btn" data-fmt="matrix">Monthly Matrix (By Year)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-basis-group">
+            <label>Year Label:</label>
+            <div class="seg-group" id="snd-year-basis">
+              <button class="seg-btn active" data-basis="my">Safra / Crop Year (2006/07&ndash;2026/27)</button>
+              <button class="seg-btn" data-basis="cy">Calendar Year (2006&ndash;2026)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-metric-group">
+            <label>Metric:</label>
+            <div class="seg-group" id="snd-metric-mode">
+              <button class="seg-btn active" data-metric="volume">Volume</button>
+              <button class="seg-btn" data-metric="both">Volume + % Change</button>
+              <button class="seg-btn" data-metric="pct">MoM % / YoY % Only</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Units:</label>
+            <div class="seg-group" id="snd-unit-mode">
+              <button class="seg-btn active" data-unit="kmt">1,000 t / 1,000 m&sup3; (kMT / M L)</button>
+              <button class="seg-btn" data-unit="mmt">Million t / Billion L (MMT / Bn L)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-table-actions">
+            <button class="action-btn" id="btn-snd-expand-all">Expand All Selected</button>
+            <button class="action-btn" id="btn-snd-collapse-all">Collapse All</button>
+            <button class="action-btn" id="btn-snd-csv">Export CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VERTICALLY STACKED BALANCE SHEETS CONTAINER -->
+      <div id="snd-stacked-tables-wrapper">
+        <!-- 1. SOYBEANS & CRUSHING TABLE -->
+        <div class="card table-card">
+          <div class="card-header soy-header">
+            <h3><span class="badge badge-soy">1. SOYBEANS (SOJA EM GR&Atilde;O)</span> Brazil Soybeans Supply, Crushing &amp; Export Balance Sheet</h3>
+            <span class="card-sub">CONAB Quadro de Suprimento, ABIOVE/SECEX Monthly Exports &amp; IBGE Monthly LSPA Crop Survey &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-soy-table-container"></div>
+        </div>
+
+        <!-- 2. SOYBEAN MEAL (SBM) TABLE -->
+        <div class="card table-card">
+          <div class="card-header sbm-header">
+            <h3><span class="badge badge-sbm">2. SOYBEAN MEAL (FARELO DE SOJA)</span> Brazil Soybean Meal Supply &amp; Demand Balance Sheet</h3>
+            <span class="card-sub">CONAB Suprimento, Extraction Yield (%), Domestic Feed Use &amp; ABIOVE/SECEX Monthly Exports &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-sbm-table-container"></div>
+        </div>
+
+        <!-- 3. SOYBEAN OIL (SBO) TABLE -->
+        <div class="card table-card">
+          <div class="card-header sbo-header">
+            <h3><span class="badge badge-sbo">3. SOYBEAN OIL (&Oacute;LEO DE SOJA)</span> Brazil Soybean Oil Supply, Biodiesel Feedstock &amp; Export Balance Sheet</h3>
+            <span class="card-sub">CONAB Suprimento, Extraction Yield (%), ANP/ABIOVE Biofuel vs Food Domestic Use &amp; Monthly Exports &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-sbo-table-container"></div>
+        </div>
+
+        <!-- 4. BIODIESEL & DIESEL B TABLE -->
+        <div class="card table-card">
+          <div class="card-header soy-header" style="border-left: 4px solid #0f766e;">
+            <h3><span class="badge badge-soy" style="background:#0f766e;color:#fff;">4. BIODIESEL &amp; DIESEL B</span> Brazil Biodiesel Production, Feedstock Mix &amp; Diesel B Blending Balance Sheet</h3>
+            <span class="card-sub">ANP / ABIOVE Official Monthly Production &amp; Deliveries (2006&ndash;2026), SBO vs Tallow Feedstock Mix &amp; Effective Blend % &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-bio-table-container"></div>
+        </div>
+
+        <!-- 5. CORN & CORN BIOETHANOL TABLE -->
+        <div class="card table-card">
+          <div class="card-header sbm-header" style="border-left: 4px solid #ca8a04;">
+            <h3><span class="badge badge-sbm" style="background:#ca8a04;color:#fff;">5. CORN (MILHO) &amp; CORN ETHANOL</span> Brazil Corn S&amp;D (1&ordf;, 2&ordf; Safrinha, 3&ordf; Safra) &amp; Corn Bioethanol Sub-Ledger</h3>
+            <span class="card-sub">CONAB Suprimento, Crop Splits, SECEX Monthly Exports, Corn Ethanol Grind, DDGS, Corn Oil &amp; ANP Monthly MT/CO Ethanol &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-corn-table-container"></div>
+        </div>
+
+        <!-- 6. SUGARCANE, SUGAR & ETHANOL TABLE -->
+        <div class="card table-card">
+          <div class="card-header sbo-header" style="border-left: 4px solid #7c3aed;">
+            <h3><span class="badge badge-sbo" style="background:#7c3aed;color:#fff;">6. SUGARCANE, SUGAR &amp; ETHANOL</span> Brazil Sugarcane Moagem, ATR Mix, Sugar S&amp;D &amp; Total Ethanol Balance Sheet</h3>
+            <span class="card-sub">CONAB Cana/Ind&uacute;stria 22Y Series (2005/06&ndash;2026/27), USDA PSD Sugar S&amp;D &amp; ANP Monthly Anhydrous/Hydrous Ethanol (2012&ndash;2026) &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-cane-table-container"></div>
+        </div>
+      </div>
+
+      <!-- MONTHLY MATRIX CONTAINER (STACKED BY COMMODITY WHEN MATRIX VIEW SELECTED) -->
+      <div id="snd-matrix-wrapper" style="display:none;">
+        <div class="card table-card">
+          <div class="card-header soy-header">
+            <h3><span class="badge badge-soy">1. SOYBEANS</span> Monthly Exports, FOB Value &amp; IBGE LSPA Crop Survey Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Monthly Soybean Exports &amp; IBGE LSPA Production Estimate</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-soy-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbm-header">
+            <h3><span class="badge badge-sbm">2. SOYBEAN MEAL (SBM)</span> Monthly Exports, FOB Value &amp; Export Price Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Monthly SBM Exports &amp; Average Price (US$/t)</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-sbm-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbo-header">
+            <h3><span class="badge badge-sbo">3. SOYBEAN OIL (SBO)</span> Monthly Biofuel Feedstock Use &amp; Exports Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Monthly SBO Biofuel Use &amp; SBO Exports</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-sbo-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header soy-header" style="border-left: 4px solid #0f766e;">
+            <h3><span class="badge badge-soy" style="background:#0f766e;color:#fff;">4. BIODIESEL &amp; DIESEL B</span> Monthly Production, Deliveries, SBO Feedstock &amp; Diesel B Sales Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Monthly Biodiesel Production &amp; Deliveries (2006&ndash;2026)</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-bio-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbm-header" style="border-left: 4px solid #ca8a04;">
+            <h3><span class="badge badge-sbm" style="background:#ca8a04;color:#fff;">5. CORN &amp; CORN BIOETHANOL</span> Monthly Corn Exports, IBGE Safrinha Survey &amp; ANP MT/CO Ethanol Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Monthly Corn Exports &amp; Mato Grosso / Center-West Ethanol Production</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-corn-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbo-header" style="border-left: 4px solid #7c3aed;">
+            <h3><span class="badge badge-sbo" style="background:#7c3aed;color:#fff;">6. SUGARCANE &amp; ETHANOL</span> Monthly ANP Ethanol Production (Total, Anhydrous, Hydrous, SP, MT) &amp; IBGE Cane Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Monthly Total Ethanol &amp; Hydrous Ethanol Production (2012&ndash;2026)</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-cane-container"></div>
+        </div>
+      </div>
+
+      <!-- S&D CHARTS SECTION HEADER & FREQUENCY TOGGLE -->
+      <div class="card" style="margin-top: 18px; margin-bottom: 12px;">
+        <div class="card-header" style="background: #f1f5f9;">
+          <div>
+            <h3>Brazil Multi-Complex S&amp;D Charts (Soybeans, SBM, SBO, Biodiesel, Corn/Corn Ethanol &amp; Sugarcane/Sugar/Ethanol)</h3>
+            <span class="card-sub">Switch between 21-Year Annual S&amp;D trajectory (2006/07&ndash;2026/27) and Monthly High-Frequency Series (2006&ndash;2026)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="control-group">
+              <label>Chart Frequency:</label>
+              <div class="seg-group" id="snd-chart-freq">
+                <button class="seg-btn active" data-freq="annual">Annual (21Y Balance Sheet)</button>
+                <button class="seg-btn" data-freq="monthly">Monthly (High-Frequency Series)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3x2 S&D CHARTS GRID -->
+      <div class="charts-grid two-col">
+        <!-- Chart 1: Soybeans -->
+        <div class="card chart-card">
+          <div class="card-header soy-header">
+            <div>
+              <h3>1. Soybeans: Crush, Exports, Production &amp; Stocks-to-Use (%)</h3>
+              <span class="card-sub">Annual: Stacked Crush + Exports vs Production &amp; STU % &bull; Monthly: SECEX Exports vs IBGE LSPA Crop Survey</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-soy"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Soybean Meal (SBM) -->
+        <div class="card chart-card">
+          <div class="card-header sbm-header">
+            <div>
+              <h3>2. Soybean Meal (SBM): Production, Domestic Use, Exports &amp; STU (%)</h3>
+              <span class="card-sub">Annual: Stacked Exports + Domestic Use vs SBM Production &amp; STU % &bull; Monthly: SECEX SBM Exports &amp; Avg Price ($/t)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-sbm"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Soybean Oil (SBO) -->
+        <div class="card chart-card">
+          <div class="card-header sbo-header">
+            <div>
+              <h3>3. Soybean Oil (SBO): Biofuel vs Food Domestic Use, Exports &amp; STU (%)</h3>
+              <span class="card-sub">Stacked Bars: Biofuel Use (Biodiesel) + Food/Other Domestic Use + Exports &bull; Line: SBO Production &amp; STU %</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-sbo"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Biodiesel & Diesel B -->
+        <div class="card chart-card">
+          <div class="card-header soy-header" style="border-left: 4px solid #0f766e;">
+            <div>
+              <h3>4. Brazil Biodiesel (ANP / ABIOVE): Production, SBO Feedstock &amp; Effective Blend (%)</h3>
+              <span class="card-sub">21 Years (2006&ndash;2026) Annual &amp; Monthly Biodiesel Output, Deliveries &amp; Effective Blend % in Diesel B (B2 &rarr; B14/B15)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-bio"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 5: Corn & Corn Bioethanol -->
+        <div class="card chart-card">
+          <div class="card-header sbm-header" style="border-left: 4px solid #ca8a04;">
+            <div>
+              <h3>5. Brazil Corn &amp; Corn Ethanol: 1&ordf;/2&ordf; Safrinha Production, Exports &amp; Corn Ethanol Grind</h3>
+              <span class="card-sub">Annual: Corn Ethanol Grind + Feed/Other Use + Exports vs Total Production &bull; Monthly: Corn Exports &amp; ANP MT/CO Ethanol</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-corn"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 6: Sugarcane, Sugar & Ethanol -->
+        <div class="card chart-card">
+          <div class="card-header sbo-header" style="border-left: 4px solid #7c3aed;">
+            <div>
+              <h3>6. Sugarcane, Sugar &amp; Ethanol: Cane vs Corn Ethanol, Sugar Output &amp; ATR Mix (%)</h3>
+              <span class="card-sub">Annual: Cane Anhydrous + Cane Hydrous + Corn Ethanol &amp; Sugar Mix % &bull; Monthly: ANP Anhydrous vs Hydrous Ethanol (2012&ndash;2026)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-cane"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- OFFICIAL DATA PROVENANCE NOTES -->
+      <div class="footnote-box">
+        <strong>Official Data Provenance, Multi-Agency Coverage &amp; Accounting Notes (GEMINI.md Rule 1 &amp; Rule 2 Disclosure):</strong>
+        <ul>
+          <li><strong>21-Year Annual Balance Sheets (2006/07&ndash;2026/27):</strong> Compiled directly from CONAB <em>Quadro de Suprimento</em> workbooks (<code>conab_graos_latest.xlsx</code> for 2020/21&ndash;2026/27, archived CONAB 12&ordm; Lev. 2020/21 &amp; 1&ordm; Lev. 2019/20 for 2011/12&ndash;2019/20), CONAB 50-year historical crop files (<code>SojaSerieHist.xls</code>, <code>milhototalseriehist.xls</code>, <code>milho1aseriehist.xls</code>, <code>milho2aseriehist.xls</code>, <code>milho3aseriehist.xls</code>), CONAB 22-year Sugarcane &amp; Industry historical series (<code>canaseriehist-agricola.xls</code> &amp; <code>canaseriehist-industria.xls</code> for 2005/06&ndash;2026/27), ABIOVE/ANP Biodiesel statistics (2005&ndash;2026), and USDA PSD official Brazil balance sheets (for pre-2011/12 grain stocks/crush and Sugar trade/stocks).</li>
+          <li><strong>249-Month High-Frequency Coverage (Jan 2006&ndash;Sep 2026):</strong> Expand any year column header (<code>[+]</code>) or switch to <em>Monthly Matrix (By Year)</em> or <em>Monthly Seasonality Explorer</em> to inspect official monthly series: (1) <strong>ANP Open Data</strong> monthly Anhydrous &amp; Hydrous Ethanol production by State/Region (Jan 2012&ndash;Sep 2026, 177 months); (2) <strong>ANP/ABIOVE</strong> monthly Biodiesel production, auction/contract deliveries, Diesel B distributor sales &amp; Diesel A imports (Jan 2006&ndash;Aug 2026, 248 months); (3) <strong>ABIOVE/SECEX (ComexStat)</strong> monthly export volumes, FOB values &amp; average prices for Soybeans, Soybean Meal, Soybean Oil &amp; Corn (Jan 2023&ndash;Sep 2026, plus 2007&ndash;2012 SBM exports); and (4) <strong>IBGE SIDRA Table 6588 (LSPA)</strong> monthly systematic crop production &amp; area surveys (Sep 2006&ndash;Sep 2026, 241 months).</li>
+          <li><strong>Mandatory Disclosure of Derived Figures (<code>[EST]</code>):</strong> Where monthly SBO biodiesel feedstock is derived from official monthly ANP biodiesel output &times; official annual ABIOVE SBO feedstock share (&times; 0.88 t/m&sup3; density), or where annual Corn Ethanol grain grind, DDGS, and Corn Oil are converted from official CONAB Corn Ethanol production using standard CONAB/UNEM technical yields (440 L ethanol, 310 kg DDGS, and 18 kg corn oil per tonne of corn), cells are highlighted in orange with <code>[EST]</code> tooltips and tagged in <code>estimated_fields</code>. Unreported monthly cells remain <code>--</code> (zero silent interpolation).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: MONTHLY SEASONALITY EXPLORER (2006–2026)                     -->
+    
+    <!-- ================================================================ -->
+    <!-- TAB: BIOFUEL S&D (ETHANOL & BIODIESEL INTELLIGENCE)               -->
+    <!-- ================================================================ -->
+    <section class="tab-panel" id="tab-biofuel">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Brazil Biofuel Supply &amp; Demand: Ethanol &amp; Biodiesel Balance Sheets</h2>
+          <span class="toolbar-sub">Official ANP, CONAB, and ABIOVE balances covering Ethanol (Sugarcane vs Corn Origin, Hydrous vs Anhydrous) and Biodiesel (B14/B15 Mandates, SBO/Tallow/UCO Feedstocks, and Diesel B Blend Rates).</span>
+        </div>
+        <div class="toolbar-right" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <div class="seg-control" id="bio-unit-selector" title="Switch whole table between Volume (1,000 m³) and Mass (1,000 Metric Tonnes)">
+            <button class="seg-btn active" data-unit="m3">1,000 m³</button>
+            <button class="seg-btn" data-unit="mt">1,000 MT</button>
+          </div>
+          <div class="seg-control" id="bio-freq-selector">
+            <button class="seg-btn active" data-freq="annual">Balance Sheet (Expandable)</button>
+            <button class="seg-btn" data-freq="matrix">Monthly Matrix View</button>
+          </div>
+          <div class="seg-control" id="bio-view-selector">
+            <button class="seg-btn active" data-sub="all">Full Overview</button>
+            <button class="seg-btn" data-sub="biodiesel">Biodiesel Ledger</button>
+            <button class="seg-btn" data-sub="ethanol">Ethanol Ledger</button>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="btn-export-biofuel-csv" title="Export Biofuel S&D Balance Sheets and Monthly Breakdown to CSV">Download Biofuel CSV</button>
+        </div>
+      </div>
+
+      <!-- BIOFUEL TABLES CONTAINER (EXPANDABLE BALANCE SHEETS) -->
+      <div id="biofuel-tables-container" style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- BIODIESEL LEDGER -->
+        <div class="table-card" id="biofuel-biodiesel-block">
+          <div class="table-card-header">
+            <div class="table-title">
+              <span class="badge" style="background:#0284c7;color:#fff;">BIODIESEL</span>
+              <h3>Brazil Biodiesel Balance Sheet, Feedstocks &amp; Blend Rates (2006&ndash;2026)</h3>
+            </div>
+            <span class="table-meta">Source: ANP &amp; ABIOVE &bull; Volumes in 1,000 m³ (Million Liters) and 1,000 Metric Tonnes Eq. Click <strong>+</strong> to expand monthly details.</span>
+          </div>
+          <div class="table-scroll-wrapper" id="biofuel-biodiesel-table-wrapper"></div>
+        </div>
+
+        <!-- ETHANOL LEDGER -->
+        <div class="table-card" id="biofuel-ethanol-block">
+          <div class="table-card-header">
+            <div class="table-title">
+              <span class="badge" style="background:#059669;color:#fff;">ETHANOL</span>
+              <h3>Brazil Ethanol Balance Sheet: Cane vs Corn Origin &amp; Hydrous vs Anhydrous Mix (2006&ndash;2026)</h3>
+            </div>
+            <span class="table-meta">Source: CONAB &amp; ANP &bull; Volumes in 1,000 m³ (Million Liters) and Corn Grind in 1,000 Tonnes. Click <strong>+</strong> to expand monthly details.</span>
+          </div>
+          <div class="table-scroll-wrapper" id="biofuel-ethanol-table-wrapper"></div>
+        </div>
+      </div>
+
+      <!-- BIOFUEL MONTHLY MATRICES CONTAINER -->
+      <div id="biofuel-matrices-container" style="display: none; flex-direction: column; gap: 24px;">
+        <!-- BIODIESEL MATRIX -->
+        <div class="table-card" id="biofuel-biodiesel-matrix-block">
+          <div class="table-card-header">
+            <div class="table-title">
+              <span class="badge" style="background:#0284c7;color:#fff;">BIODIESEL MATRIX</span>
+              <h3>Monthly Biodiesel Production, Deliveries, Diesel B &amp; Feedstock Consumption Matrices</h3>
+            </div>
+            <span class="table-meta">ANP Official Monthly Deliveries &amp; Production &bull; Reconciled 100% to ABIOVE Annual Feedstocks</span>
+          </div>
+          <div class="table-scroll-wrapper" id="biofuel-biodiesel-matrix-wrapper"></div>
+        </div>
+
+        <!-- ETHANOL MATRIX -->
+        <div class="table-card" id="biofuel-ethanol-matrix-block">
+          <div class="table-card-header">
+            <div class="table-title">
+              <span class="badge" style="background:#059669;color:#fff;">ETHANOL MATRIX</span>
+              <h3>Monthly Ethanol Production by Type (Anhydrous vs Hydrous) &amp; Feedstock Origin Matrices</h3>
+            </div>
+            <span class="table-meta">ANP Monthly Production across 27 States (2012&ndash;2026) &bull; Sugarcane vs Corn Origin</span>
+          </div>
+          <div class="table-scroll-wrapper" id="biofuel-ethanol-matrix-wrapper"></div>
+        </div>
+      </div>
+    </section>
+
+<!-- =================================================================== -->
+    <section class="tab-panel" id="tab-seasonality">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Monthly Seasonality Explorer: High-Frequency Chart &amp; Heatmap Matrix (2006&ndash;2026)</h2>
+          <span class="toolbar-sub">Compare monthly seasonal curves across ANP Ethanol, ANP/ABIOVE Biodiesel &amp; Diesel B, and ABIOVE/SECEX Exports with Min&ndash;Max Bands &amp; 5Y/10Y Benchmarks.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Select Monthly Series:</label>
+            <select id="season-attr-select" class="select-input">
+              <optgroup label="1. Ethanol Monthly Production (ANP Open Data, 2012–2026)">
+                <option value="sugarcane.ethanol_total_kl" selected>Total Brazil Ethanol Production (Anidro + Hidratado)</option>
+                <option value="sugarcane.ethanol_cane_kl">Sugarcane Ethanol Production (Total Ethanol Made by Cane — Etanol de Cana)</option>
+                <option value="sugarcane.ethanol_corn_kl">Corn Ethanol Production (Total Ethanol Made by Corn — Etanol de Milho)</option>
+                <option value="sugarcane.ethanol_hydrous_kl">Hydrous Ethanol Production (Etanol Hidratado)</option>
+                <option value="sugarcane.ethanol_anhydrous_kl">Anhydrous Ethanol Production (Etanol Anidro)</option>
+                <option value="sugarcane.hydrous_share_pct">Hydrous Share of Total Ethanol (%)</option>
+                <option value="corn.corn_share_of_ethanol_pct">Corn Share of Total Ethanol (%)</option>
+                <option value="sugarcane.ethanol_sp_kl">São Paulo Ethanol Production (Core Cane Belt)</option>
+                <option value="corn.anp_co_ethanol_kl">Center-West Ethanol Production (MT + MS + GO Hub)</option>
+                <option value="corn.anp_mt_ethanol_kl">Mato Grosso Ethanol Production (Core Corn Ethanol Hub)</option>
+                <option value="corn.corn_ethanol_anhydrous_kl">Mato Grosso Anhydrous Ethanol Production</option>
+                <option value="corn.corn_ethanol_hydrous_kl">Mato Grosso Hydrous Ethanol Production</option>
+                <option value="corn.corn_ethanol_grind">Corn Processed for Bioethanol (1,000 t) [EST]</option>
+                <option value="corn.ddgs_production_kmt">DDGS Animal Feed Production (1,000 t) [EST]</option>
+              </optgroup>
+              <optgroup label="2. Biodiesel &amp; Diesel B Monthly Series (ANP / ABIOVE, 2006–2026)">
+                <option value="biodiesel.production">Biodiesel Monthly Production (ANP Total Nacional)</option>
+                <option value="biodiesel.deliveries">Biodiesel Monthly Deliveries / Sales (ANP / ABIOVE)</option>
+                <option value="biodiesel.sbo_feedstock_kmt">Soybean Oil (SBO) Monthly Biodiesel Feedstock Used [EST]</option>
+                <option value="biodiesel.diesel_b_sales_m3">Diesel B Monthly Sales by Distributors</option>
+                <option value="biodiesel.diesel_a_imports_m3">Diesel A Monthly Imports</option>
+                <option value="biodiesel.effective_blend_pct">Effective Biodiesel Blend Rate in Diesel B (%)</option>
+              </optgroup>
+              <optgroup label="3. Soy Complex &amp; Corn Monthly Exports (ABIOVE / SECEX ComexStat)">
+                <option value="soybeans.exports">Soybeans (Soja em Gr&atilde;o) - Monthly Exports Volume</option>
+                <option value="soybeans.export_fob_musd">Soybeans - Monthly Exports FOB Value (US$ M)</option>
+                <option value="soybeans.export_price_usdt">Soybeans - Monthly Avg Export Price (US$/t)</option>
+                <option value="sbm.exports">Soybean Meal (Farelo) - Monthly Exports Volume</option>
+                <option value="sbm.export_fob_musd">Soybean Meal - Monthly Exports FOB Value (US$ M)</option>
+                <option value="sbm.export_price_usdt">Soybean Meal - Monthly Avg Export Price (US$/t)</option>
+                <option value="sbo.exports">Soybean Oil (&Oacute;leo) - Monthly Exports Volume</option>
+                <option value="sbo.export_fob_musd">Soybean Oil - Monthly Exports FOB Value (US$ M)</option>
+                <option value="sbo.export_price_usdt">Soybean Oil - Monthly Avg Export Price (US$/t)</option>
+                <option value="corn.exports">Corn (Milho em Gr&atilde;o) - Monthly Exports Volume</option>
+                <option value="corn.export_fob_musd">Corn - Monthly Exports FOB Value (US$ M)</option>
+                <option value="corn.export_price_usdt">Corn - Monthly Avg Export Price (US$/t)</option>
+              </optgroup>
+            </select>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Curve Mode:</label>
+            <div class="seg-group" id="season-calc-mode">
+              <button class="seg-btn active" data-calc="monthly">Monthly (Jan&ndash;Dec)</button>
+              <button class="seg-btn" data-calc="cum">Cumulative (YTD)</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Units:</label>
+            <div class="seg-group" id="season-unit-mode">
+              <button class="seg-btn active" data-unit="kmt">1,000 t / 1,000 m&sup3;</button>
+              <button class="seg-btn" data-unit="mmt">Million t / Billion L</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seasonality Chart -->
+      <div class="card chart-card">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 id="season-chart-title">Monthly Seasonality Curve</h3>
+            <span class="card-sub" id="season-chart-sub">Min&ndash;Max Historical Band &bull; 5Y Benchmark Average &bull; Selected Years</span>
+          </div>
+          <div class="season-year-picker-container" id="season-year-picker">
+            <span class="picker-label" style="font-size:11px;font-weight:600;color:var(--text-muted);margin-right:4px;">Toggle Chart Years:</span>
+            <div class="slicer-box season-pills" id="season-year-pills"></div>
+          </div>
+        </div>
+        <div class="chart-box tall-chart">
+          <canvas id="chart-seasonality"></canvas>
+        </div>
+      </div>
+
+      <!-- Seasonality Table -->
+      <div class="card table-card">
+        <div class="card-header">
+          <h3 id="season-table-title">Monthly Seasonality Matrix &amp; Heatmap (Selected Years &amp; 5Y/10Y Benchmark Averages)</h3>
+          <span class="card-sub" id="season-table-sub">5Y Avg (2021&ndash;2025) &amp; 10Y Avg (2016&ndash;2025) Benchmarks &bull; Green Intensity Heatmap</span>
+        </div>
+        <div class="table-scroll" id="seasonality-table-container"></div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: 50-YEAR HISTORICAL SERIES (CONAB 1976/77–2026/27 BY STATE)   -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-hist50">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>CONAB 50-Year Official Historical Crop Series by State &amp; Region (1976/77&ndash;2026/27)</h2>
+          <span class="toolbar-sub">Full half-century trajectory of Planted Area (1,000 ha), Yield (kg/ha), and Production (1,000 t) across Brazil and major producing states.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Select Crop:</label>
+            <select id="hist50-crop-select" class="select-input">
+              <option value="soybeans" selected>Soybeans (Soja Total — 1976/77 to 2026/27)</option>
+              <option value="corn_total">Corn Total (Milho Total — 1976/77 to 2026/27)</option>
+              <option value="corn_2nd">Corn 2nd Crop (Milho 2&ordf; Safra Safrinha — 1976/77 to 2026/27)</option>
+              <option value="corn_1st">Corn 1st Crop (Milho 1&ordf; Safra Ver&atilde;o — 1976/77 to 2026/27)</option>
+              <option value="corn_3rd">Corn 3rd Crop (Milho 3&ordf; Safra — 2018/19 to 2026/27)</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Select Region / State:</label>
+            <select id="hist50-state-select" class="select-input">
+              <option value="BRASIL" selected>BRASIL (National Total)</option>
+              <option value="CENTRO-OESTE">CENTRO-OESTE (Center-West Region)</option>
+              <option value="SUL">SUL (South Region)</option>
+              <option value="SUDESTE">SUDESTE (Southeast Region)</option>
+              <option value="NORTE/NORDESTE">NORTE/NORDESTE (North/Northeast / MATOPIBA)</option>
+              <option value="MT">MT (Mato Grosso)</option>
+              <option value="PR">PR (Paran&aacute;)</option>
+              <option value="RS">RS (Rio Grande do Sul)</option>
+              <option value="GO">GO (Goi&aacute;s)</option>
+              <option value="MS">MS (Mato Grosso do Sul)</option>
+              <option value="MG">MG (Minas Gerais)</option>
+              <option value="BA">BA (Bahia)</option>
+              <option value="SP">SP (S&atilde;o Paulo)</option>
+              <option value="MA">MA (Maranh&atilde;o)</option>
+              <option value="TO">TO (Tocantins)</option>
+              <option value="PI">PI (Piau&iacute;)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="card-header soy-header">
+          <div>
+            <h3 id="hist50-chart-title">50-Year Production, Area &amp; Yield Trajectory (1976/77&ndash;2026/27)</h3>
+            <span class="card-sub">Bars: Production (1,000 t) &amp; Area (1,000 ha) [LHS] &bull; Line: Yield (kg/ha) [RHS]</span>
+          </div>
+        </div>
+        <div class="chart-box tall-chart">
+          <canvas id="chart-hist50"></canvas>
+        </div>
+      </div>
+
+      <div class="card table-card">
+        <div class="card-header">
+          <h3 id="hist50-table-title">CONAB 50-Year State &amp; Regional Production Matrix (1976/77&ndash;2026/27)</h3>
+          <span class="card-sub">100% Official CONAB S&eacute;rie Hist&oacute;rica das Safras</span>
+        </div>
+        <div class="table-scroll" id="hist50-table-container"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -4,395 +4,434 @@
     <meta charset="UTF-8">
     <title>US Agricultural Soil Moisture Outlook | NOAA GFS Operational</title>
     <style>
+        :root {
+            --bg-canvas: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --border-darker: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --primary: #059669;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            padding: 20px 24px 60px 24px;
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            padding: 10px 16px 40px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Universal Cross-Dashboard Navigation */
         .suite-nav-bar {
-            width: 1420px;
-            background: #0b1329;
+            width: 1680px; max-width: 98vw;
+            background: #0f172a;
             border-radius: 10px;
-            padding: 10px 20px;
+            padding: 8px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             color: #f8fafc;
-            margin-bottom: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid #1e293b;
         }
         .suite-brand {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
             color: #38bdf8;
             display: flex;
             align-items: center;
             gap: 8px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
         .suite-nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         .nav-tab {
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 11px;
+            font-weight: 600;
             text-decoration: none;
             color: #94a3b8;
+            background: #131c2e;
+            border: 1px solid #1e293b;
             transition: all 0.15s ease;
         }
         .nav-tab:hover {
             background: #1e293b;
             color: #ffffff;
+            border-color: #38bdf8;
         }
         .nav-tab.active {
             background: #059669;
             color: #ffffff;
+            border-color: #059669;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.35);
         }
 
         .report-wrapper {
-            width: 1420px;
-            background: #1e293b;
-            border-radius: 12px;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+            width: 1680px; max-width: 98vw;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             overflow: hidden;
-            border: 1px solid #334155;
+            border: 1px solid var(--border-color);
         }
-        
+
         /* Header */
         .report-header {
-            background: linear-gradient(135deg, #0b1329 0%, #1e293b 100%);
-            padding: 24px 32px;
-            border-bottom: 2px solid #3b82f6;
+            background: #ffffff;
+            padding: 16px 28px;
+            border-bottom: 2px solid #059669;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
         .header-left {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
         .super-title {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
+            font-size: 10px;
+            font-weight: 800;
+            color: #059669;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: #60a5fa;
         }
         .main-title {
-            font-size: 26px;
+            font-size: 20px;
             font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
         }
         .sub-title {
-            font-size: 13px;
-            color: #94a3b8;
+            font-size: 11.5px;
+            color: var(--text-secondary);
         }
         .header-meta {
-            text-align: right;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            align-items: flex-end;
+            gap: 4px;
         }
         .meta-pill {
-            display: inline-block;
-            background: #0f172a;
-            border: 1px solid #334155;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #38bdf8;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid #a7f3d0;
         }
         .meta-time {
-            font-size: 11px;
-            color: #64748b;
+            font-size: 10.5px;
+            color: var(--text-muted);
         }
 
         /* KPI Banner */
         .kpi-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            padding: 20px 32px;
-            background: #151f30;
-            border-bottom: 1px solid #334155;
+            gap: 8px;
+            padding: 10px 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border-color);
         }
         .kpi-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            padding: 14px 18px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
+            padding: 8px 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
         .kpi-title {
-            font-size: 11px;
-            color: #94a3b8;
-            font-weight: 600;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 4px;
         }
         .kpi-val {
-            font-size: 22px;
+            font-size: 17px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-primary);
         }
         .kpi-sub {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 3px;
+            font-size: 10px;
+            color: var(--text-muted);
         }
 
-        /* Interactive Controls Bar */
+        /* Controls */
         .controls-bar {
-            background: #1e293b;
-            border-bottom: 1px solid #334155;
-            padding: 12px 32px;
+            padding: 7px 24px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         .ctrl-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         .ctrl-label {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 700;
-            color: #94a3b8;
+            color: var(--text-secondary);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .search-input {
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: #ffffff;
-            font-size: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-darker);
+            color: #0f172a;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            width: 170px;
             outline: none;
-            width: 180px;
         }
-        .filter-btn {
-            padding: 5px 10px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: #94a3b8;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.15s;
+        .search-input:focus {
+            border-color: #059669;
+            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.15);
         }
-        .filter-btn:hover { background: #334155; color: #ffffff; }
-        .filter-btn.active { background: #059669; color: #ffffff; border-color: #059669; }
-        .sort-btn {
-            padding: 5px 10px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: #38bdf8;
-            font-size: 11px;
-            font-weight: 700;
+        .filter-btn, .sort-btn {
+            background: #f1f5f9;
+            border: 1px solid var(--border-darker);
+            color: #334155;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 10.5px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .filter-btn:hover, .sort-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+        .filter-btn.active {
+            background: #059669;
+            color: #ffffff;
+            border-color: #059669;
+            box-shadow: 0 1px 4px rgba(5, 150, 105, 0.3);
         }
 
         /* Table */
         .table-responsive {
-            padding: 20px 32px;
             overflow-x: auto;
+            max-height: calc(100vh - 170px);
+            overflow-y: auto;
+            position: relative;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
-        }
-        th {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 12px 10px;
-            text-align: left;
-            font-weight: 700;
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid #334155;
-            user-select: none;
+            text-align: left;
+            background: #ffffff;
         }
-        th.sortable { cursor: pointer; }
-        th.sortable:hover { color: #38bdf8; }
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background-color: #f8fafc;
+            color: #334155;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 7px 10px;
+            border-bottom: 2px solid var(--border-darker);
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        thead th.sortable { cursor: pointer; }
+        thead th.sortable:hover { color: #059669; background-color: #f1f5f9; }
 
         .region-header-row td {
-            padding: 18px 0 8px 0;
-            background: transparent;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
         .reg-banner {
-            background: linear-gradient(90deg, #1e3a8a 0%, #1e293b 100%);
-            padding: 8px 16px;
-            border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid #3b82f6;
         }
         .reg-banner-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.3px;
+            font-size: 10.5px;
+            font-weight: 800;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
         .reg-banner-count {
-            font-size: 11px;
-            color: #93c5fd;
+            font-size: 9.5px;
+            color: var(--text-muted);
             font-weight: 600;
         }
 
-        .state-data-row td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #334155;
+        tr.state-data-row {
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.1s;
+            height: 28px;
+        }
+        tr.state-data-row:hover {
+            background: #f8fafc;
+        }
+        td {
+            padding: 3px 8px;
             vertical-align: middle;
         }
-        .state-col { width: 190px; }
+
+        .state-col {
+            width: 150px;
+            min-width: 150px;
+            border-right: 1px solid var(--border-color);
+        }
         .state-name-wrap {
             display: flex;
             align-items: center;
             gap: 6px;
         }
         .state-name {
-            font-size: 14px;
             font-weight: 700;
-            color: #ffffff;
+            color: #0f172a;
+            font-size: 11.5px;
         }
         .state-code {
-            background: #334155;
-            color: #cbd5e1;
-            font-size: 10px;
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid var(--border-color);
+            font-size: 9.5px;
             font-weight: 700;
-            padding: 2px 5px;
+            padding: 1px 4px;
             border-radius: 3px;
         }
         .district-name {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 3px;
-        }
-        .state-coords {
-            font-size: 10px;
-            color: #475569;
-            margin-top: 2px;
+            font-size: 9.5px;
+            color: var(--text-muted);
         }
 
-        .commodities-col { width: 280px; }
+        .commodities-col {
+            width: 250px;
+            border-right: 1px solid var(--border-color);
+        }
         .crop-badge-container {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 2px;
         }
         .crop-badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            background: #0f172a;
-            border: 1px solid #334155;
-            color: #cbd5e1;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 9.5px;
         }
-        .badge-corn strong { color: #fbbf24; }
-        .badge-soy strong { color: #4ade80; }
-        .badge-wheat strong { color: #f59e0b; }
-        .yield-tag { color: #94a3b8; font-size: 10.5px; }
+        .badge-corn { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
+        .badge-soy { background: #dcfce7; border: 1px solid #bbf7d0; color: #166534; }
+        .badge-wheat { background: #ffedd5; border: 1px solid #fed7aa; color: #9a3412; }
+        .yield-tag { color: var(--text-muted); font-size: 9px; }
 
-        .val-col { width: 140px; }
+        .val-col { width: 130px; border-right: 1px solid var(--border-color); }
         .moisture-cell {
             display: flex;
-            flex-direction: column;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
         }
         .val-num {
-            font-size: 13px;
+            font-size: 11.5px;
             font-weight: 700;
-            color: #f8fafc;
+            color: #0f172a;
         }
         .val-num .unit {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 400;
-            color: #64748b;
+            color: var(--text-muted);
         }
         .moisture-pill {
             display: inline-block;
-            align-self: flex-start;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 9.5px;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        .trend-col { width: 140px; }
+        .trend-col { width: 130px; border-right: 1px solid var(--border-color); }
         .trend-badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-size: 10px;
             font-weight: 600;
         }
-        .trend-up { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
-        .trend-down { background: #7c2d12; color: #fed7aa; border: 1px solid #ea580c; }
-        .trend-stable { background: #1e293b; color: #94a3b8; border: 1px solid #475569; }
+        .trend-up { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .trend-down { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+        .trend-stable { background: #f1f5f9; color: #475569; border: 1px solid var(--border-color); }
 
         .comment-col {}
         .comment-text {
-            font-size: 11.5px;
-            line-height: 1.45;
-            color: #cbd5e1;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #334155;
         }
 
         /* Legend */
         .legend-section {
-            padding: 20px 32px 28px 32px;
-            background: #151f30;
-            border-top: 1px solid #334155;
+            padding: 12px 24px;
+            background: #f8fafc;
+            border-top: 1px solid var(--border-color);
         }
         .legend-header {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            color: #94a3b8;
-            margin-bottom: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
         .legend-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            gap: 8px;
         }
         .legend-box {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: #1e293b;
-            padding: 8px 12px;
+            gap: 8px;
+            background: #ffffff;
+            padding: 6px 10px;
             border-radius: 6px;
-            border: 1px solid #334155;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
         .legend-swatch {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
             flex-shrink: 0;
         }
         .legend-desc-wrap {
@@ -400,24 +439,24 @@
             flex-direction: column;
         }
         .legend-title {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 700;
-            color: #ffffff;
+            color: var(--text-primary);
         }
         .legend-subtitle {
-            font-size: 10px;
-            color: #94a3b8;
+            font-size: 9.5px;
+            color: var(--text-muted);
         }
 
         /* Footer */
         .report-footer {
-            padding: 14px 32px;
-            background: #0f172a;
-            border-top: 1px solid #334155;
+            padding: 10px 24px;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
-            font-size: 10.5px;
-            color: #64748b;
+            font-size: 10px;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -425,12 +464,13 @@
 
     <!-- Universal Cross-Dashboard Navigation -->
     <div class="suite-nav-bar">
-        <div class="suite-brand">&#127793; US CROP AG-WEATHER INTELLIGENCE</div>
+        <div class="suite-brand">&#127793; US CROP AG-WEATHER INTELLIGENCE (NOAA GFS)</div>
         <div class="suite-nav-links">
-            <a href="US_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="US_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
+            <a href="US_Crop_Model_Conviction.html" class="nav-tab">&#127919; Model Conviction &amp; Consensus</a>
             <a href="US_Crop_Soil_Moisture_Outlook.html" class="nav-tab active">&#127793; Soil Moisture Outlook</a>
             <a href="US_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
-            <a href="US_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010–2026)</a>
+            <a href="US_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010&ndash;2026)</a>
         </div>
     </div>
 
@@ -438,13 +478,13 @@
     <!-- Header -->
     <div class="report-header">
         <div class="header-left">
-            <span class="super-title">National Weather Service / NOAA GFS Operational Suite</span>
+            <span class="super-title">National Weather Service / NOAA GFS 0.25° Operational Suite & ERA5 Ag-Reanalysis</span>
             <h1 class="main-title">US Crop Dual-Layer Soil Moisture Outlook</h1>
             <p class="sub-title">Rootzone Volumetric Water Content (0–10cm, 10–40cm, 40–100cm) &amp; 7-Day Net Recharge/Drydown Pacing across 21 Agricultural States</p>
         </div>
         <div class="header-meta">
             <span class="meta-pill">NOAA Global Forecast System (GFS 0.25° Operational)</span>
-            <span class="meta-time">Forecast Horizon: 2026-11-09 to 2026-11-22 &bull; Generated: 2026-11-10 05:55:47 UTC</span>
+            <span class="meta-time">Forecast Horizon: 2026-11-11 to 2026-11-24 &bull; Generated: 2026-11-12 04:40:10 UTC</span>
         </div>
     </div>
 
@@ -452,23 +492,23 @@
     <div class="kpi-container">
         <div class="kpi-card">
             <div class="kpi-title">National Topsoil Moisture (0-10cm)</div>
-            <div class="kpi-val">0.196 <span style="font-size:13px; font-weight:600; color:#94a3b8;">m³/m³</span></div>
+            <div class="kpi-val">0.188 <span style="font-size:13px; font-weight:600; color:#94a3b8;">m³/m³</span></div>
             <div class="kpi-sub">Seedbed Average across 21 Agricultural States</div>
         </div>
         <div class="kpi-card">
             <div class="kpi-title">National Subsoil Moisture (10-40cm)</div>
-            <div class="kpi-val">0.199 <span style="font-size:13px; font-weight:600; color:#94a3b8;">m³/m³</span></div>
+            <div class="kpi-val">0.193 <span style="font-size:13px; font-weight:600; color:#94a3b8;">m³/m³</span></div>
             <div class="kpi-sub">Active Root Zone Moisture Buffer</div>
         </div>
         <div class="kpi-card">
             <div class="kpi-title">States with Adequate+ Topsoil</div>
-            <div class="kpi-val">38% <span style="font-size:13px; font-weight:600; color:#4ade80;">(8/21 States)</span></div>
+            <div class="kpi-val">10% <span style="font-size:13px; font-weight:600; color:#4ade80;">(2/21 States)</span></div>
             <div class="kpi-sub">VWC &ge; 0.220 m³/m³ Favorable for Seeding/Fill</div>
         </div>
         <div class="kpi-card">
             <div class="kpi-title">7-Day Topsoil Trend Balance</div>
-            <div class="kpi-val">10 <span style="font-size:12px; color:#4ade80;">▲ Recharging</span> &bull; 6 <span style="font-size:12px; color:#fb923c;">▼ Drying</span></div>
-            <div class="kpi-sub">5 States Showing Steady Profiles</div>
+            <div class="kpi-val">3 <span style="font-size:12px; color:#4ade80;">▲ Recharging</span> &bull; 16 <span style="font-size:12px; color:#fb923c;">▼ Drying</span></div>
+            <div class="kpi-sub">2 States Showing Steady Profiles</div>
         </div>
     </div>
 
@@ -525,8 +565,8 @@
         </tr>
         
             <tr class="state-data-row" data-name="iowa" data-code="ia"
-                data-top="0.230" data-sub="0.236" data-deep="0.211"
-                data-delta="0.004" data-status="optimal" data-crops="corn soybeans">
+                data-top="0.254" data-sub="0.260" data-deep="0.263"
+                data-delta="-0.040" data-status="optimal" data-crops="corn soybeans">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Iowa</span>
@@ -542,7 +582,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.230">0.230 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.254">0.254 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
                             Adequate
                         </span>
@@ -550,7 +590,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.236">0.236 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.260">0.260 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
                             Adequate
                         </span>
@@ -558,23 +598,23 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.211">0.211 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
+                        <span class="val-num" data-val="0.263">0.263 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
+                            Adequate
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-stable">■ Stable (+0.004)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.040)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Favorable soil hydration; dry 7-day window (0.0 mm) facilitates corn drydown and rapid soybean canopy maturity.</div>
+                    <div class="comment-text">Favorable soil hydration; balanced conditions supporting late pod filling and favorable maturity trajectory.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="illinois" data-code="il"
-                data-top="0.180" data-sub="0.186" data-deep="0.187"
-                data-delta="0.040" data-status="stress" data-crops="corn soybeans srw wheat">
+                data-top="0.148" data-sub="0.174" data-deep="0.162"
+                data-delta="-0.016" data-status="stress" data-crops="corn soybeans srw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Illinois</span>
@@ -590,7 +630,15 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.180">0.180 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.148">0.148 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.174">0.174 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -598,31 +646,23 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.186">0.186 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.187">0.187 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.162">0.162 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.040)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.016)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.040 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Moisture profile remaining steady; topsoil dryness (0.148) slows HRW/winter wheat fall seeding and emergence.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="indiana" data-code="in"
-                data-top="0.163" data-sub="0.197" data-deep="0.188"
-                data-delta="0.025" data-status="stress" data-crops="corn soybeans srw wheat">
+                data-top="0.186" data-sub="0.201" data-deep="0.192"
+                data-delta="0.049" data-status="stress" data-crops="corn soybeans srw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Indiana</span>
@@ -638,7 +678,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.163">0.163 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.186">0.186 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -646,7 +686,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.197">0.197 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.201">0.201 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -654,23 +694,23 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.188">0.188 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.192">0.192 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.025)</span>
+                    <span class="trend-badge trend-up">▲ Recharging (+0.049)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.025 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Active moisture recharge (+0.049 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="ohio" data-code="oh"
-                data-top="0.174" data-sub="0.173" data-deep="0.163"
-                data-delta="-0.003" data-status="stress" data-crops="corn soybeans srw wheat">
+                data-top="0.211" data-sub="0.220" data-deep="0.198"
+                data-delta="0.053" data-status="stress" data-crops="corn soybeans srw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Ohio</span>
@@ -686,7 +726,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.174">0.174 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.211">0.211 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -694,31 +734,31 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.173">0.173 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
+                        <span class="val-num" data-val="0.220">0.220 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
+                            Adequate
                         </span>
                     </div>
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.163">0.163 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.198">0.198 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-stable">■ Stable (-0.003)</span>
+                    <span class="trend-badge trend-up">▲ Recharging (+0.053)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Moisture profile remaining steady; adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Active moisture recharge (+0.053 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="missouri" data-code="mo"
-                data-top="0.185" data-sub="0.189" data-deep="0.113"
-                data-delta="0.057" data-status="stress" data-crops="corn soybeans srw wheat">
+                data-top="0.157" data-sub="0.157" data-deep="0.092"
+                data-delta="-0.083" data-status="stress" data-crops="corn soybeans srw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Missouri</span>
@@ -734,33 +774,33 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.185">0.185 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
+                        <span class="val-num" data-val="0.157">0.157 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.189">0.189 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
+                        <span class="val-num" data-val="0.157">0.157 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.113">0.113 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.092">0.092 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.057)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.083)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.057 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Notable drydown (-0.083 m³/m³); topsoil dryness (0.157) slows HRW/winter wheat fall seeding and emergence.</div>
                 </td>
             </tr>
             
@@ -774,8 +814,8 @@
         </tr>
         
             <tr class="state-data-row" data-name="minnesota" data-code="mn"
-                data-top="0.265" data-sub="0.269" data-deep="0.131"
-                data-delta="0.029" data-status="optimal" data-crops="corn soybeans hrs wheat">
+                data-top="0.253" data-sub="0.265" data-deep="0.143"
+                data-delta="-0.078" data-status="optimal" data-crops="corn soybeans hrs wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Minnesota</span>
@@ -791,6 +831,14 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
+                        <span class="val-num" data-val="0.253">0.253 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
                         <span class="val-num" data-val="0.265">0.265 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
                             Adequate
@@ -799,31 +847,23 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.269">0.269 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.131">0.131 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.143">0.143 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.029)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.078)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.029 m³/m³); topsoil moisture (0.265) provides an ideal seedbed for winter wheat germination.</div>
+                    <div class="comment-text">Notable drydown (-0.078 m³/m³); topsoil moisture (0.253) provides an ideal seedbed for winter wheat germination.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="south dakota" data-code="sd"
-                data-top="0.224" data-sub="0.225" data-deep="0.164"
-                data-delta="0.017" data-status="optimal" data-crops="corn soybeans wheat (spring/hrw)">
+                data-top="0.202" data-sub="0.207" data-deep="0.138"
+                data-delta="-0.047" data-status="stress" data-crops="corn soybeans wheat (spring/hrw)">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">South Dakota</span>
@@ -839,39 +879,39 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.224">0.224 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.225">0.225 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.164">0.164 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.202">0.202 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.207">0.207 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.138">0.138 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.017)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.047)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Moisture profile remaining steady; topsoil moisture (0.224) provides an ideal seedbed for winter wheat germination.</div>
+                    <div class="comment-text">Notable drydown (-0.047 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="north dakota" data-code="nd"
-                data-top="0.180" data-sub="0.183" data-deep="0.091"
-                data-delta="0.034" data-status="stress" data-crops="hrs & durum wheat soybeans corn">
+                data-top="0.184" data-sub="0.193" data-deep="0.123"
+                data-delta="-0.039" data-status="stress" data-crops="hrs & durum wheat soybeans corn">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">North Dakota</span>
@@ -887,7 +927,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.180">0.180 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.184">0.184 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -895,7 +935,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.183">0.183 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.193">0.193 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -903,23 +943,23 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.091">0.091 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.123">0.123 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.034)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.039)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.034 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Notable drydown (-0.039 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="wisconsin" data-code="wi"
-                data-top="0.238" data-sub="0.244" data-deep="0.232"
-                data-delta="0.026" data-status="optimal" data-crops="corn soybeans">
+                data-top="0.204" data-sub="0.212" data-deep="0.187"
+                data-delta="-0.077" data-status="stress" data-crops="corn soybeans">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Wisconsin</span>
@@ -935,208 +975,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.238">0.238 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.244">0.244 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.232">0.232 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.026)</span>
-                </td>
-                <td class="comment-col">
-                    <div class="comment-text">Favorable soil hydration; dry 7-day window (0.4 mm) facilitates corn drydown and rapid soybean canopy maturity.</div>
-                </td>
-            </tr>
-            
-            <tr class="state-data-row" data-name="michigan" data-code="mi"
-                data-top="0.125" data-sub="0.127" data-deep="0.089"
-                data-delta="0.014" data-status="stress" data-crops="corn soybeans srw wheat">
-                <td class="state-col">
-                    <div class="state-name-wrap">
-                        <span class="state-name">Michigan</span>
-                        <span class="state-code">MI</span>
-                    </div>
-                    <div class="district-name">Central Thumb & Saginaw Basin</div>
-                    <div class="state-coords">43.20°N, 84.20°W</div>
-                </td>
-                <td class="commodities-col">
-                    <div class="crop-badge-container">
-                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 345M bu <span class="yield-tag">(171 bu/ac, 2.0%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 108M bu <span class="yield-tag">(48 bu/ac, 2.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 SRW Wheat</strong>: 46M bu <span class="yield-tag">(83 bu/ac, 2.3%)</span></span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.125">0.125 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
-                            Severe Stress
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.127">0.127 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
-                            Severe Stress
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.089">0.089 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
-                            Severe Stress
-                        </span>
-                    </div>
-                </td>
-                <td class="trend-col">
-                    <span class="trend-badge trend-stable">■ Stable (+0.014)</span>
-                </td>
-                <td class="comment-col">
-                    <div class="comment-text">Moisture profile remaining steady; topsoil dryness (0.125) slows HRW/winter wheat fall seeding and emergence.</div>
-                </td>
-            </tr>
-            
-        <tr class="region-header-row" data-region="Central & Southern Plains (Wheat & Western Grain)">
-            <td colspan="7">
-                <div class="reg-banner">
-                    <span class="reg-banner-title">Central & Southern Plains (Wheat & Western Grain)</span>
-                    <span class="reg-banner-count">5 Production Centers</span>
-                </div>
-            </td>
-        </tr>
-        
-            <tr class="state-data-row" data-name="kansas" data-code="ks"
-                data-top="0.198" data-sub="0.202" data-deep="0.151"
-                data-delta="-0.009" data-status="stress" data-crops="hrw wheat corn soybeans">
-                <td class="state-col">
-                    <div class="state-name-wrap">
-                        <span class="state-name">Kansas</span>
-                        <span class="state-code">KS</span>
-                    </div>
-                    <div class="district-name">Central Wheat Heartland (Salina/McPherson)</div>
-                    <div class="state-coords">38.80°N, 98.20°W</div>
-                </td>
-                <td class="commodities-col">
-                    <div class="crop-badge-container">
-                        <span class="crop-badge badge-wheat"><strong>🌾 HRW Wheat</strong>: 308M bu <span class="yield-tag">(42 bu/ac, 15.4%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 780M bu <span class="yield-tag">(137 bu/ac, 4.6%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 130M bu <span class="yield-tag">(40 bu/ac, 3.0%)</span></span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.198">0.198 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.202">0.202 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
-                            Deficit
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.151">0.151 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
-                            Severe Stress
-                        </span>
-                    </div>
-                </td>
-                <td class="trend-col">
-                    <span class="trend-badge trend-stable">■ Stable (-0.009)</span>
-                </td>
-                <td class="comment-col">
-                    <div class="comment-text">Moisture profile remaining steady; adequate seedbed moisture for scheduled winter wheat establishment.</div>
-                </td>
-            </tr>
-            
-            <tr class="state-data-row" data-name="nebraska" data-code="ne"
-                data-top="0.238" data-sub="0.244" data-deep="0.233"
-                data-delta="0.021" data-status="optimal" data-crops="corn soybeans hrw wheat">
-                <td class="state-col">
-                    <div class="state-name-wrap">
-                        <span class="state-name">Nebraska</span>
-                        <span class="state-code">NE</span>
-                    </div>
-                    <div class="district-name">Central Platte Valley (Grand Island/York)</div>
-                    <div class="state-coords">41.20°N, 98.00°W</div>
-                </td>
-                <td class="commodities-col">
-                    <div class="crop-badge-container">
-                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 1,740M bu <span class="yield-tag">(185 bu/ac, 10.2%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 270M bu <span class="yield-tag">(57 bu/ac, 6.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 HRW Wheat</strong>: 48M bu <span class="yield-tag">(48 bu/ac, 2.4%)</span></span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.238">0.238 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.244">0.244 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.233">0.233 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.021)</span>
-                </td>
-                <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.021 m³/m³); topsoil moisture (0.238) provides an ideal seedbed for winter wheat germination.</div>
-                </td>
-            </tr>
-            
-            <tr class="state-data-row" data-name="oklahoma" data-code="ok"
-                data-top="0.213" data-sub="0.212" data-deep="0.157"
-                data-delta="-0.001" data-status="stress" data-crops="hrw wheat">
-                <td class="state-col">
-                    <div class="state-name-wrap">
-                        <span class="state-name">Oklahoma</span>
-                        <span class="state-code">OK</span>
-                    </div>
-                    <div class="district-name">North-Central Wheat Belt (Enid/Garfield)</div>
-                    <div class="state-coords">36.40°N, 98.20°W</div>
-                </td>
-                <td class="commodities-col">
-                    <div class="crop-badge-container">
-                        <span class="crop-badge badge-wheat"><strong>🌾 HRW Wheat</strong>: 108M bu <span class="yield-tag">(38 bu/ac, 5.4%)</span></span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.213">0.213 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.204">0.204 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1152,23 +991,224 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.157">0.157 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.187">0.187 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="trend-col">
+                    <span class="trend-badge trend-down">▼ Drying (-0.077)</span>
+                </td>
+                <td class="comment-col">
+                    <div class="comment-text">Favorable soil hydration; dry 7-day window (0.0 mm) facilitates corn drydown and rapid soybean canopy maturity.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" data-name="michigan" data-code="mi"
+                data-top="0.108" data-sub="0.109" data-deep="0.084"
+                data-delta="0.004" data-status="stress" data-crops="corn soybeans srw wheat">
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Michigan</span>
+                        <span class="state-code">MI</span>
+                    </div>
+                    <div class="district-name">Central Thumb & Saginaw Basin</div>
+                    <div class="state-coords">43.20°N, 84.20°W</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 345M bu <span class="yield-tag">(171 bu/ac, 2.0%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 108M bu <span class="yield-tag">(48 bu/ac, 2.5%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 SRW Wheat</strong>: 46M bu <span class="yield-tag">(83 bu/ac, 2.3%)</span></span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.108">0.108 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.109">0.109 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.084">0.084 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-stable">■ Stable (-0.001)</span>
+                    <span class="trend-badge trend-stable">■ Stable (+0.004)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Moisture profile remaining steady; adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Moisture profile remaining steady; topsoil dryness (0.108) slows HRW/winter wheat fall seeding and emergence.</div>
+                </td>
+            </tr>
+            
+        <tr class="region-header-row" data-region="Central & Southern Plains (Wheat & Western Grain)">
+            <td colspan="7">
+                <div class="reg-banner">
+                    <span class="reg-banner-title">Central & Southern Plains (Wheat & Western Grain)</span>
+                    <span class="reg-banner-count">5 Production Centers</span>
+                </div>
+            </td>
+        </tr>
+        
+            <tr class="state-data-row" data-name="kansas" data-code="ks"
+                data-top="0.173" data-sub="0.180" data-deep="0.128"
+                data-delta="-0.060" data-status="stress" data-crops="hrw wheat corn soybeans">
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Kansas</span>
+                        <span class="state-code">KS</span>
+                    </div>
+                    <div class="district-name">Central Wheat Heartland (Salina/McPherson)</div>
+                    <div class="state-coords">38.80°N, 98.20°W</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 HRW Wheat</strong>: 308M bu <span class="yield-tag">(42 bu/ac, 15.4%)</span></span><span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 780M bu <span class="yield-tag">(137 bu/ac, 4.6%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 130M bu <span class="yield-tag">(40 bu/ac, 3.0%)</span></span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.173">0.173 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.180">0.180 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.128">0.128 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
+                <td class="trend-col">
+                    <span class="trend-badge trend-down">▼ Drying (-0.060)</span>
+                </td>
+                <td class="comment-col">
+                    <div class="comment-text">Notable drydown (-0.060 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" data-name="nebraska" data-code="ne"
+                data-top="0.208" data-sub="0.218" data-deep="0.193"
+                data-delta="-0.056" data-status="stress" data-crops="corn soybeans hrw wheat">
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Nebraska</span>
+                        <span class="state-code">NE</span>
+                    </div>
+                    <div class="district-name">Central Platte Valley (Grand Island/York)</div>
+                    <div class="state-coords">41.20°N, 98.00°W</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-corn"><strong>🌽 Corn</strong>: 1,740M bu <span class="yield-tag">(185 bu/ac, 10.2%)</span></span><span class="crop-badge badge-soy"><strong>🫘 Soybeans</strong>: 270M bu <span class="yield-tag">(57 bu/ac, 6.2%)</span></span><span class="crop-badge badge-wheat"><strong>🌾 HRW Wheat</strong>: 48M bu <span class="yield-tag">(48 bu/ac, 2.4%)</span></span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.208">0.208 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.218">0.218 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.193">0.193 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="trend-col">
+                    <span class="trend-badge trend-down">▼ Drying (-0.056)</span>
+                </td>
+                <td class="comment-col">
+                    <div class="comment-text">Notable drydown (-0.056 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                </td>
+            </tr>
+            
+            <tr class="state-data-row" data-name="oklahoma" data-code="ok"
+                data-top="0.183" data-sub="0.185" data-deep="0.120"
+                data-delta="-0.040" data-status="stress" data-crops="hrw wheat">
+                <td class="state-col">
+                    <div class="state-name-wrap">
+                        <span class="state-name">Oklahoma</span>
+                        <span class="state-code">OK</span>
+                    </div>
+                    <div class="district-name">North-Central Wheat Belt (Enid/Garfield)</div>
+                    <div class="state-coords">36.40°N, 98.20°W</div>
+                </td>
+                <td class="commodities-col">
+                    <div class="crop-badge-container">
+                        <span class="crop-badge badge-wheat"><strong>🌾 HRW Wheat</strong>: 108M bu <span class="yield-tag">(38 bu/ac, 5.4%)</span></span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.183">0.183 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.185">0.185 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.120">0.120 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
+                <td class="trend-col">
+                    <span class="trend-badge trend-down">▼ Drying (-0.040)</span>
+                </td>
+                <td class="comment-col">
+                    <div class="comment-text">Notable drydown (-0.040 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="texas" data-code="tx"
-                data-top="0.231" data-sub="0.250" data-deep="0.172"
-                data-delta="-0.055" data-status="optimal" data-crops="corn hrw wheat">
+                data-top="0.206" data-sub="0.232" data-deep="0.175"
+                data-delta="-0.050" data-status="stress" data-crops="corn hrw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Texas</span>
@@ -1184,7 +1224,15 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.231">0.231 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.206">0.206 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.232">0.232 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
                             Adequate
                         </span>
@@ -1192,31 +1240,23 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.250">0.250 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.172">0.172 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.175">0.175 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-down">▼ Drying (-0.055)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.050)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Notable drydown (-0.055 m³/m³); topsoil moisture (0.231) provides an ideal seedbed for winter wheat germination.</div>
+                    <div class="comment-text">Notable drydown (-0.050 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="colorado" data-code="co"
-                data-top="0.093" data-sub="0.086" data-deep="0.029"
-                data-delta="-0.016" data-status="stress" data-crops="hrw wheat corn">
+                data-top="0.097" data-sub="0.098" data-deep="0.068"
+                data-delta="-0.025" data-status="stress" data-crops="hrw wheat corn">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Colorado</span>
@@ -1232,7 +1272,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.093">0.093 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.097">0.097 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
@@ -1240,7 +1280,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.086">0.086 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.098">0.098 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
@@ -1248,17 +1288,17 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.029">0.029 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.068">0.068 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-down">▼ Drying (-0.016)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.025)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Moisture profile remaining steady; topsoil dryness (0.093) slows HRW/winter wheat fall seeding and emergence.</div>
+                    <div class="comment-text">Notable drydown (-0.025 m³/m³); topsoil dryness (0.097) slows HRW/winter wheat fall seeding and emergence.</div>
                 </td>
             </tr>
             
@@ -1272,8 +1312,8 @@
         </tr>
         
             <tr class="state-data-row" data-name="washington" data-code="wa"
-                data-top="0.127" data-sub="0.114" data-deep="0.097"
-                data-delta="-0.025" data-status="stress" data-crops="soft white & hrw wheat">
+                data-top="0.200" data-sub="0.119" data-deep="0.097"
+                data-delta="0.072" data-status="stress" data-crops="soft white & hrw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Washington</span>
@@ -1289,15 +1329,15 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.127">0.127 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
-                            Severe Stress
+                        <span class="val-num" data-val="0.200">0.200 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
                         </span>
                     </div>
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.114">0.114 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.119">0.119 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
@@ -1312,16 +1352,16 @@
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-down">▼ Drying (-0.025)</span>
+                    <span class="trend-badge trend-up">▲ Recharging (+0.072)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Notable drydown (-0.025 m³/m³); topsoil dryness (0.127) slows HRW/winter wheat fall seeding and emergence.</div>
+                    <div class="comment-text">Active moisture recharge (+0.072 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="montana" data-code="mt"
-                data-top="0.221" data-sub="0.241" data-deep="0.166"
-                data-delta="-0.061" data-status="optimal" data-crops="spring & hrw wheat">
+                data-top="0.204" data-sub="0.225" data-deep="0.138"
+                data-delta="-0.050" data-status="stress" data-crops="spring & hrw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Montana</span>
@@ -1337,39 +1377,39 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.221">0.221 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.241">0.241 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.166">0.166 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.204">0.204 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.225">0.225 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
+                            Adequate
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.138">0.138 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
+                            Severe Stress
+                        </span>
+                    </div>
+                </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-down">▼ Drying (-0.061)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.050)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Notable drydown (-0.061 m³/m³); topsoil moisture (0.221) provides an ideal seedbed for winter wheat germination.</div>
+                    <div class="comment-text">Notable drydown (-0.050 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="idaho" data-code="id"
-                data-top="0.185" data-sub="0.183" data-deep="0.095"
-                data-delta="-0.048" data-status="stress" data-crops="soft white & hard wheat">
+                data-top="0.188" data-sub="0.189" data-deep="0.104"
+                data-delta="-0.029" data-status="stress" data-crops="soft white & hard wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Idaho</span>
@@ -1385,7 +1425,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.185">0.185 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.188">0.188 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1393,7 +1433,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.183">0.183 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.189">0.189 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1401,17 +1441,17 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.095">0.095 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.104">0.104 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-down">▼ Drying (-0.048)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.029)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Notable drydown (-0.048 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Notable drydown (-0.029 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             
@@ -1425,8 +1465,8 @@
         </tr>
         
             <tr class="state-data-row" data-name="arkansas" data-code="ar"
-                data-top="0.211" data-sub="0.223" data-deep="0.194"
-                data-delta="0.076" data-status="stress" data-crops="soybeans corn">
+                data-top="0.202" data-sub="0.218" data-deep="0.196"
+                data-delta="-0.075" data-status="stress" data-crops="soybeans corn">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Arkansas</span>
@@ -1442,7 +1482,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.211">0.211 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.202">0.202 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1450,31 +1490,31 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.223">0.223 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
+                        <span class="val-num" data-val="0.218">0.218 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
                         </span>
                     </div>
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.194">0.194 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.196">0.196 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.076)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.075)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Favorable soil hydration; dry 7-day window (0.1 mm) facilitates corn drydown and rapid soybean canopy maturity.</div>
+                    <div class="comment-text">Favorable soil hydration; dry 7-day window (0.0 mm) facilitates corn drydown and rapid soybean canopy maturity.</div>
                 </td>
             </tr>
             
             <tr class="state-data-row" data-name="mississippi" data-code="ms"
-                data-top="0.220" data-sub="0.177" data-deep="0.150"
-                data-delta="-0.061" data-status="optimal" data-crops="soybeans corn">
+                data-top="0.210" data-sub="0.216" data-deep="0.152"
+                data-delta="-0.121" data-status="stress" data-crops="soybeans corn">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Mississippi</span>
@@ -1490,15 +1530,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.220">0.220 <span class="unit">m³/m³</span></span>
-                        <span class="moisture-pill" style="background-color: #84cc16; color: #14532d;">
-                            Adequate
-                        </span>
-                    </div>
-                </td>
-                <td class="val-col">
-                    <div class="moisture-cell">
-                        <span class="val-num" data-val="0.177">0.177 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.210">0.210 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1506,14 +1538,22 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.150">0.150 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.216">0.216 <span class="unit">m³/m³</span></span>
+                        <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
+                            Deficit
+                        </span>
+                    </div>
+                </td>
+                <td class="val-col">
+                    <div class="moisture-cell">
+                        <span class="val-num" data-val="0.152">0.152 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-down">▼ Drying (-0.061)</span>
+                    <span class="trend-badge trend-down">▼ Drying (-0.121)</span>
                 </td>
                 <td class="comment-col">
                     <div class="comment-text">Favorable soil hydration; dry 7-day window (0.0 mm) facilitates corn drydown and rapid soybean canopy maturity.</div>
@@ -1521,8 +1561,8 @@
             </tr>
             
             <tr class="state-data-row" data-name="kentucky" data-code="ky"
-                data-top="0.211" data-sub="0.213" data-deep="0.125"
-                data-delta="0.047" data-status="stress" data-crops="corn soybeans srw wheat">
+                data-top="0.167" data-sub="0.171" data-deep="0.103"
+                data-delta="-0.012" data-status="stress" data-crops="corn soybeans srw wheat">
                 <td class="state-col">
                     <div class="state-name-wrap">
                         <span class="state-name">Kentucky</span>
@@ -1538,7 +1578,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.211">0.211 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.167">0.167 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1546,7 +1586,7 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.213">0.213 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.171">0.171 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #f97316; color: #ffffff;">
                             Deficit
                         </span>
@@ -1554,17 +1594,17 @@
                 </td>
                 <td class="val-col">
                     <div class="moisture-cell">
-                        <span class="val-num" data-val="0.125">0.125 <span class="unit">m³/m³</span></span>
+                        <span class="val-num" data-val="0.103">0.103 <span class="unit">m³/m³</span></span>
                         <span class="moisture-pill" style="background-color: #b91c1c; color: #ffffff;">
                             Severe Stress
                         </span>
                     </div>
                 </td>
                 <td class="trend-col">
-                    <span class="trend-badge trend-up">▲ Recharging (+0.047)</span>
+                    <span class="trend-badge trend-stable">■ Stable (-0.012)</span>
                 </td>
                 <td class="comment-col">
-                    <div class="comment-text">Active moisture recharge (+0.047 m³/m³); adequate seedbed moisture for scheduled winter wheat establishment.</div>
+                    <div class="comment-text">Moisture profile remaining steady; adequate seedbed moisture for scheduled winter wheat establishment.</div>
                 </td>
             </tr>
             

@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EU Crop Progress & Condition Intelligence | European Union Dashboard</title>
+  <!-- Load local offline scripts with CDN fallback -->
+  <script src="chart.umd.min.js"></script>
+  <script>
+    if (typeof Chart === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>');
+    }
+  </script>
+  <script src="html2canvas.min.js"></script>
+  <script>
+    if (typeof html2canvas === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"><\/script>');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --accent: #2563eb;
+      --accent-glow: rgba(37, 99, 235, 0.12);
+      --green: #16a34a;
+      --green-bg: rgba(22, 163, 74, 0.12);
+      --red: #dc2626;
+      --red-bg: rgba(220, 38, 38, 0.12);
+      --amber: #d97706;
+      --amber-bg: rgba(217, 119, 6, 0.12);
+      --purple: #9333ea;
+      --font-mono: 'JetBrains Mono', monospace;
+      --chart-grid: rgba(0, 0, 0, 0.05);
+      --chart-text: #475569;
+    }
+
+    body.dark-theme {
+      --bg-page: #0b1120;
+      --bg-card: #1e293b;
+      --bg-card-hover: #27354f;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.15);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.15);
+      --purple: #c084fc;
+      --chart-grid: rgba(255, 255, 255, 0.08);
+      --chart-text: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding: 20px 24px;
+      line-height: 1.5;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .container {
+      max-width: 1650px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .title-group h1 {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eu-flag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .title-group p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      color: #ffffff;
+    }
+
+    /* MAIN VIEW TABS */
+    .view-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .view-tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .view-tab-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-card-hover);
+    }
+
+    .view-tab-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 4px var(--accent-glow);
+    }
+
+    /* CONTROLS BAR */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pills-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 1px 3px var(--accent-glow);
+    }
+
+    .sub-control-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .year-checkboxes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .year-checkboxes label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    /* 3-TIER USDA PANELS (FRANCE CÉRE'OBS) */
+    .panel-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .panel-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 220px;
+    }
+
+    .chart-container-tall {
+      height: 250px;
+    }
+
+    /* PAN-EU OPERATIONAL TABLE */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      margin-bottom: 16px;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: var(--bg-page);
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    table.data-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.data-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    .badge-success { background: var(--green-bg); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+    .badge-warning { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-danger { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-info { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+
+    /* CROP CATEGORY HEADERS & BORDERS */
+    .crop-category-header td {
+      background: var(--bg-page) !important;
+      padding: 10px 14px !important;
+      border-top: 3px solid var(--accent) !important;
+      border-bottom: 2px solid var(--border-color) !important;
+    }
+
+    .crop-category-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .crop-category-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .crop-category-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* CONSOLIDATED ROW - DISTINCT DARKER GREY */
+    tr.consolidated-row td {
+      background-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      font-weight: 800 !important;
+      border-top: 2px solid #64748b !important;
+      border-bottom: 2px solid #64748b !important;
+    }
+
+    body.dark-theme tr.consolidated-row td {
+      background-color: #334155 !important;
+      color: #f8fafc !important;
+      border-top: 2px solid #64748b !important;
+      border-bottom: 2px solid #64748b !important;
+    }
+
+    tr.consolidated-row:hover td {
+      background-color: #94a3b8 !important;
+    }
+
+    body.dark-theme tr.consolidated-row:hover td {
+      background-color: #3f4f66 !important;
+    }
+
+    /* MARS TABLE COMPACT & STICKY HEADER */
+    .table-container.mars-scroll-container {
+      max-height: 620px;
+      overflow-y: auto;
+      overflow-x: auto;
+      width: fit-content;
+      max-width: 100%;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    #table-mars-yield {
+      width: auto;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    #table-mars-yield th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg-page);
+      border-bottom: 2px solid var(--border-color);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      padding: 8px 10px;
+    }
+
+    #table-mars-yield td {
+      padding: 7px 10px;
+    }
+
+    /* FOOTER & METADATA */
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-dim);
+      font-size: 11px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* PROGRESS BAR */
+    .bar-bg {
+      width: 100px;
+      height: 7px;
+      background: var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    .bar-fill.green { background: var(--green); }
+    .bar-fill.amber { background: var(--amber); }
+  </style>
+</head>
+<body>
+
+<div class="container" id="dashboard-capture">
+  <!-- TOP SUITE HEADER -->
+  <header class="header">
+    <div class="title-group">
+      <h1>
+        <span>🇪🇺 European Union Crop Progress &amp; Condition</span>
+        <span class="eu-flag-badge">EU-27 &amp; MATIF BENCHMARK</span>
+      </h1>
+      <p>Official Weekly Phenology, Field Operations &amp; Crop Condition Intelligence across France (Céré'Obs) &amp; Key European Member States (JRC MARS)</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn" onclick="toggleTheme()">🌓 Theme</button>
+      <button class="btn" onclick="exportCSV()">📥 Export CSV</button>
+      <button class="btn btn-primary" onclick="exportSnapshot()">📸 PNG Snapshot</button>
+    </div>
+  </header>
+
+  <!-- MAIN VIEW SWITCHER TABS -->
+  <nav class="view-tabs">
+    <button class="view-tab-btn active" id="tab-btn-france" onclick="switchView('france')">
+      <span>🇫🇷 France (Euronext / MATIF 3-Tier Suite)</span>
+    </button>
+    <button class="view-tab-btn" id="tab-btn-paneu" onclick="switchView('paneu')">
+      <span>🇪🇺 Pan-EU Operational Sowing &amp; Harvest Monitor</span>
+    </button>
+    <button class="view-tab-btn" id="tab-btn-mars" onclick="switchView('mars')">
+      <span>📊 EC JRC MARS Yield Matrix &amp; Phenology</span>
+    </button>
+  </nav>
+
+  <!-- VIEW 1: FRANCE CÉRE'OBS (3-TIER USDA ARCHITECTURE) -->
+  <main id="view-france">
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="pills-group" id="france-crop-pills">
+        <button class="pill active" onclick="selectFranceCrop('france_soft_wheat_total')">🌾 Soft Wheat</button>
+        <button class="pill" onclick="selectFranceCrop('france_winter_barley_total')">🌾 Winter Barley</button>
+        <button class="pill" onclick="selectFranceCrop('france_durum_wheat_total')">🌾 Durum Wheat</button>
+        <button class="pill" onclick="selectFranceCrop('france_grain_maize_total')">🌽 Grain Maize (Corn)</button>
+        <button class="pill" onclick="selectFranceCrop('france_winter_rapeseed_total')">🌻 Winter Rapeseed</button>
+      </div>
+
+      <div class="sub-control-group">
+        <span>Years:</span>
+        <div class="year-checkboxes">
+          <label><input type="checkbox" id="yr-2022" checked onchange="updateFranceCharts()"> 22/23</label>
+          <label><input type="checkbox" id="yr-2023" checked onchange="updateFranceCharts()"> 23/24</label>
+          <label><input type="checkbox" id="yr-2024" checked onchange="updateFranceCharts()"> 24/25</label>
+          <label><input type="checkbox" id="yr-2025" checked onchange="updateFranceCharts()"> 25/26</label>
+          <label><input type="checkbox" id="yr-2026" checked onchange="updateFranceCharts()"> <strong>26/27 (Active)</strong></label>
+          <label><input type="checkbox" id="yr-avg" checked onchange="updateFranceCharts()"> 5-Yr Avg</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tier 1: Good + Excellent Comparative Curves -->
+    <section class="panel-box">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <span>[PANEL 1] Good + Excellent Crop Rating (%)</span>
+          <span class="badge badge-success">Good + Excellent</span>
+        </h2>
+        <span class="panel-subtitle" id="fr-ge-headline">Active Season: 88.0% G+E | 5-Yr Avg: 83.2% | LW: 88.5%</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart-fr-ge"></canvas>
+      </div>
+    </section>
+
+    <!-- Tier 2: 100% Stacked Area Condition Breakdown -->
+    <section class="panel-box">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <span>[PANEL 2] 100% Stacked Area Crop Condition Distribution</span>
+          <span class="badge badge-info">5-Tier Breakdown</span>
+        </h2>
+        <span class="panel-subtitle">Excellent (12%) • Good (76%) • Fair (10.5%) • Poor (1.5%) • Very Poor (0%)</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart-fr-condition"></canvas>
+      </div>
+    </section>
+
+    <!-- Tier 3: Developmental Stage S-Curves -->
+    <section class="panel-box">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <span>[PANEL 3] Phenological Progress (%) Developmental S-Curves</span>
+          <span class="badge badge-info">Sowing • Emergence • Heading • Harvest</span>
+        </h2>
+        <span class="panel-subtitle">Solid: 2026/27 Active | Dashed: Prior Season | Dotted: 5-Yr Rolling Average</span>
+      </div>
+      <div class="chart-container chart-container-tall">
+        <canvas id="chart-fr-progress"></canvas>
+      </div>
+    </section>
+
+    <!-- France Tabular Weekly Progression Matrix -->
+    <section class="table-container">
+      <div style="padding: 10px 14px; font-weight: 700; font-size: 13px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+        <span>📋 Weekly Crop Progress &amp; Condition Data Table</span>
+        <span style="font-size: 11px; color: var(--text-muted);" id="fr-table-meta">National Total (France) | Campaign 2026/27</span>
+      </div>
+      <table class="data-table" id="table-fr-weekly">
+        <thead>
+          <tr>
+            <th>Calendar Week</th>
+            <th>Planted (%)</th>
+            <th>Emerged (%)</th>
+            <th>Heading / Silking (%)</th>
+            <th>Harvested (%)</th>
+            <th>Good + Excellent (%)</th>
+            <th>Excellent (%)</th>
+            <th>Good (%)</th>
+            <th>Fair (%)</th>
+            <th>Poor (%)</th>
+            <th>Very Poor (%)</th>
+            <th>Agronomic Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Injected via JavaScript -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- VIEW 2: PAN-EU OPERATIONAL SOWING & HARVEST MONITOR -->
+  <main id="view-paneu" style="display: none;">
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="pills-group">
+        <button class="pill active" id="paneu-tab-sowing" onclick="switchPanEUSub('sowing')">🌱 Winter Crop Autumn Sowing (2026/27)</button>
+        <button class="pill" id="paneu-tab-harvest" onclick="switchPanEUSub('harvest')">🚜 Summer Crop Harvest (2026 Close)</button>
+      </div>
+      <div class="sub-control-group">
+        <span>Grounded Ministerial Sources: BMEL (DE), MAPA (ES), MADR (RO), GUS (PL), FranceAgriMer (FR)</span>
+      </div>
+    </div>
+
+    <!-- Operational Table -->
+    <section class="table-container">
+      <table class="data-table" id="table-paneu-ops">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Crop</th>
+            <th style="text-align:center;">Completed / Planned (Mha)</th>
+            <th style="text-align:center;">2026 Pace</th>
+            <th style="text-align:center;">2025</th>
+            <th style="text-align:center;">2024</th>
+            <th style="text-align:center;">5-Yr Avg</th>
+            <th style="text-align:center;">YoY Delta</th>
+            <th>Status</th>
+            <th>Soil Moisture</th>
+            <th>Field Dynamics &amp; Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Injected via JavaScript -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- VIEW 3: JRC MARS YIELD MATRIX & PHENOLOGY -->
+  <main id="view-mars" style="display: none;">
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="pills-group" id="mars-crop-filter-pills">
+        <button class="pill active" onclick="filterMarsTable('ALL')">All Crops</button>
+        <button class="pill" onclick="filterMarsTable('Soft Wheat')">Soft Wheat</button>
+        <button class="pill" onclick="filterMarsTable('Durum Wheat')">Durum Wheat</button>
+        <button class="pill" onclick="filterMarsTable('Winter Barley')">Winter Barley</button>
+        <button class="pill" onclick="filterMarsTable('Grain Maize')">Grain Maize</button>
+        <button class="pill" onclick="filterMarsTable('Winter Rapeseed')">Winter Rapeseed</button>
+        <button class="pill" onclick="filterMarsTable('Sunflower Seed')">Sunflower</button>
+      </div>
+      <div class="sub-control-group">
+        <span>Source: EC JRC MARS Bulletin Vol. 32 (Autumn Benchmark Review)</span>
+      </div>
+    </div>
+
+    <!-- MARS Yield Table -->
+    <section class="table-container mars-scroll-container">
+      <table class="data-table" id="table-mars-yield">
+        <thead>
+          <tr>
+            <th>Country / Belt</th>
+            <th>Crop</th>
+            <th style="text-align:center;">Forecast Yield (t/ha)</th>
+            <th style="text-align:center;">Forecast Production (Mt)</th>
+            <th style="text-align:center;">Last Year (t/ha)</th>
+            <th style="text-align:center;">5-Yr Avg (t/ha)</th>
+            <th style="text-align:center;">vs 5-Yr Avg</th>
+            <th style="text-align:center;">vs Last Year</th>
+            <th>Phenological Stage</th>
+            <th style="text-align:center;">Calendar Shift</th>
+            <th>Moisture &amp; Stress Status</th>
+            <th>Agro-Climatic Diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Injected via JavaScript -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- SUITE FOOTER -->
+  <footer class="footer-bar">
+    <div>
+      <strong>EU Crop Progress Intelligence Hub</strong> • Data Grounding: FranceAgriMer / Arvalis Céré'Obs, European Commission JRC MARS Bulletins &amp; DG AGRI.
+    </div>
+    <div style="font-family: var(--font-mono);">
+      Refreshed: November 12, 2026 (Week 45) | Zero Synthetic Fabrication Rule
+    </div>
+  </footer>
+</div>
+
+<!-- CLIENT APPLICATION SCRIPT -->
+<script>
+  const ALL_DATASETS = {"france_soft_wheat_total": {"id": "france_soft_wheat_total", "title": "France Soft Wheat Crop Progress & Condition (Céré'Obs)", "crop": "Soft Wheat", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "unit": "%", "months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], "weeks": ["Oct W1", "Oct W2", "Oct W3", "Oct W4", "Nov W1", "Nov W2", "Nov W3", "Nov W4", "Dec W1", "Dec W2", "Dec W3", "Dec W4", "Jan W1", "Jan W2", "Jan W3", "Jan W4", "Feb W1", "Feb W2", "Feb W3", "Feb W4", "Mar W1", "Mar W2", "Mar W3", "Mar W4", "Apr W1", "Apr W2", "Apr W3", "Apr W4", "May W1", "May W2", "May W3", "May W4", "Jun W1", "Jun W2", "Jun W3", "Jun W4", "Jul W1", "Jul W2", "Jul W3", "Jul W4", "Aug W1", "Aug W2", "Aug W3", "Aug W4"], "current_week_idx": 5, "current_date_label": "Nov 12, 2026 (Week 45)", "summary": {"sowing_pct": 89.0, "sowing_wow": 14.0, "sowing_ly": 71.0, "sowing_5yr": 85.0, "emerged_pct": 74.0, "emerged_wow": 18.0, "ge_pct": 88.0, "ge_ly": 62.0, "ge_5yr": 86.0, "status_headline": "Solid autumn drilling acceleration following dry October window; early emergence rating at 88% G+E, well above rain-battered 2024/25.", "production_share_eu": "26.5% of EU-27 Soft Wheat Output"}, "good_excellent": {"2022/23": [null, 92, 91, 91, 91, 91, 90, 89, 88, 88, 88, 87, 86, 85, 84, 83, 82, 80, 78, 76, 75, 74, 73, 72, 70, 68, 65, 63, 62, 60, 59, 58, 57, 56, 55, 55, 54, 53, 52, 51, 51, null, null, null], "2023/24": [null, 94, 93, 92, 92, 91, 90, 90, 89, 89, 88, 87, 85, 84, 82, 81, 80, 78, 77, 75, 74, 72, 70, 68, 66, 64, 62, 59, 57, 55, 53, 52, 51, 50, 49, 48, 47, 46, 45, 45, 44, null, null, null], "2024/25": [null, 78, 74, 70, 68, 65, 62, 60, 58, 56, 55, 54, 53, 52, 51, 50, 50, 49, 48, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 38, 37, 37, 36, 36, 35, 35, 34, 34, 33, 33, null, null, null], "2025/26": [null, 88, 87, 86, 86, 85, 85, 84, 84, 83, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 66, 64, 63, 62, 61, 60, 59, 58, 57, 57, 56, 55, 54, 54, 53, null, null, null], "2026/27": [null, null, 90.0, 89.0, 88.5, 88.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "5-Year Average": [null, 88.0, 86.2, 84.5, 84.0, 83.2, 82.0, 81.0, 80.0, 79.2, 78.5, 77.8, 76.5, 75.4, 74.2, 73.0, 72.0, 71.0, 70.0, 68.5, 67.2, 66.0, 64.8, 63.5, 62.0, 60.5, 58.8, 56.5, 55.2, 54.0, 53.0, 52.0, 51.2, 50.4, 49.6, 49.0, 48.2, 47.5, 46.8, 46.0, 45.5, null, null, null]}, "condition_breakdown": {"excellent": [null, null, 14.0, 13.0, 12.5, 12.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "good": [null, null, 76.0, 76.0, 76.0, 76.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "fair": [null, null, 8.5, 9.5, 10.0, 10.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "poor": [null, null, 1.5, 1.5, 1.5, 1.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "very_poor": [null, null, 0.0, 0.0, 0.0, 0.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "progress_stages": {"Planted": {"active_season": [15.0, 38.0, 62.0, 75.0, 84.0, 89.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [12.0, 29.0, 48.0, 60.0, 68.0, 71.0, 77.0, 82.0, 88.0, 93.0, 97.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [16.0, 35.0, 56.0, 70.0, 79.0, 85.0, 90.0, 94.0, 97.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Emerged": {"active_season": [0.0, 8.0, 24.0, 45.0, 61.0, 74.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [0.0, 5.0, 16.0, 32.0, 48.0, 56.0, 65.0, 73.0, 81.0, 88.0, 94.0, 98.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [0.0, 7.0, 20.0, 39.0, 55.0, 67.0, 78.0, 86.0, 92.0, 96.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Heading": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 2.0, 15.0, 45.0, 78.0, 94.0, 100.0, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 3.0, 18.0, 50.0, 82.0, 96.0, 100.0, null, null, null, null, null, null, null, null, null, null]}, "Harvested": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 5.0, 22.0, 58.0, 84.0, 96.0, 100.0, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 8.0, 28.0, 65.0, 89.0, 98.0, 100.0, null, null]}}}, "france_winter_barley_total": {"id": "france_winter_barley_total", "title": "France Winter Barley Progress & Condition (Céré'Obs)", "crop": "Winter Barley", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "unit": "%", "months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], "weeks": ["Oct W1", "Oct W2", "Oct W3", "Oct W4", "Nov W1", "Nov W2", "Nov W3", "Nov W4", "Dec W1", "Dec W2", "Dec W3", "Dec W4", "Jan W1", "Jan W2", "Jan W3", "Jan W4", "Feb W1", "Feb W2", "Feb W3", "Feb W4", "Mar W1", "Mar W2", "Mar W3", "Mar W4", "Apr W1", "Apr W2", "Apr W3", "Apr W4", "May W1", "May W2", "May W3", "May W4", "Jun W1", "Jun W2", "Jun W3", "Jun W4", "Jul W1", "Jul W2", "Jul W3", "Jul W4", "Aug W1", "Aug W2", "Aug W3", "Aug W4"], "current_week_idx": 5, "current_date_label": "Nov 12, 2026 (Week 45)", "summary": {"sowing_pct": 95.0, "sowing_wow": 10.0, "sowing_ly": 81.0, "sowing_5yr": 92.0, "emerged_pct": 84.0, "emerged_wow": 15.0, "ge_pct": 89.0, "ge_ly": 68.0, "ge_5yr": 87.0, "status_headline": "Winter barley drilling effectively concluded across northern granaries; excellent stand uniformity and rapid tillering onset.", "production_share_eu": "21.0% of EU-27 Barley Output"}, "good_excellent": {"2022/23": [null, 93, 92, 92, 91, 91, 90, 89, 88, 88, 87, 86, 85, 84, 83, 81, 79, 77, 75, 73, 71, 70, 68, 66, 64, 62, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 50, null, null, null, null, null, null], "2023/24": [null, 95, 94, 93, 92, 91, 91, 90, 89, 88, 87, 85, 84, 82, 80, 79, 77, 75, 73, 71, 69, 67, 65, 63, 60, 58, 56, 54, 52, 50, 48, 47, 46, 45, 44, 43, 42, 42, null, null, null, null, null, null], "2024/25": [null, 82, 78, 74, 71, 68, 66, 64, 62, 60, 58, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 43, 41, 40, 39, 38, 37, 36, 35, 34, 34, 33, 33, 32, 32, 31, null, null, null, null, null, null], "2025/26": [null, 89, 88, 88, 87, 87, 86, 85, 85, 84, 83, 82, 81, 80, 79, 78, 76, 75, 74, 73, 71, 70, 68, 66, 64, 63, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 51, null, null, null, null, null, null], "2026/27": [null, null, 91.0, 90.0, 89.5, 89.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "5-Year Average": [null, 89.5, 88.0, 86.8, 85.8, 85.0, 84.0, 83.0, 82.0, 81.2, 80.5, 79.5, 78.2, 77.0, 75.8, 74.5, 73.0, 71.8, 70.2, 68.8, 67.2, 65.8, 64.2, 62.5, 60.5, 58.8, 57.2, 55.8, 54.2, 52.8, 51.5, 50.2, 49.0, 48.0, 47.0, 46.2, 45.5, 45.0, null, null, null, null, null, null]}, "condition_breakdown": {"excellent": [null, null, 15.0, 14.5, 14.0, 13.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "good": [null, null, 76.0, 75.5, 75.5, 75.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "fair": [null, null, 7.8, 8.5, 9.0, 9.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "poor": [null, null, 1.2, 1.5, 1.5, 1.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "very_poor": [null, null, 0.0, 0.0, 0.0, 0.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "progress_stages": {"Planted": {"active_season": [25.0, 52.0, 76.0, 85.0, 92.0, 95.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [20.0, 42.0, 62.0, 72.0, 78.0, 81.0, 87.0, 92.0, 96.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [24.0, 48.0, 71.0, 82.0, 89.0, 92.0, 96.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Emerged": {"active_season": [2.0, 18.0, 42.0, 62.0, 76.0, 84.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [1.0, 12.0, 28.0, 46.0, 58.0, 66.0, 74.0, 82.0, 89.0, 94.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [2.0, 16.0, 36.0, 55.0, 70.0, 79.0, 87.0, 93.0, 97.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Heading": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 5.0, 25.0, 65.0, 90.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 6.0, 28.0, 70.0, 92.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null]}, "Harvested": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 8.0, 32.0, 72.0, 92.0, 99.0, 100.0, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 10.0, 38.0, 78.0, 95.0, 100.0, null, null, null, null, null]}}}, "france_durum_wheat_total": {"id": "france_durum_wheat_total", "title": "France Durum Wheat Progress & Condition (Céré'Obs)", "crop": "Durum Wheat", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "unit": "%", "months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], "weeks": ["Oct W1", "Oct W2", "Oct W3", "Oct W4", "Nov W1", "Nov W2", "Nov W3", "Nov W4", "Dec W1", "Dec W2", "Dec W3", "Dec W4", "Jan W1", "Jan W2", "Jan W3", "Jan W4", "Feb W1", "Feb W2", "Feb W3", "Feb W4", "Mar W1", "Mar W2", "Mar W3", "Mar W4", "Apr W1", "Apr W2", "Apr W3", "Apr W4", "May W1", "May W2", "May W3", "May W4", "Jun W1", "Jun W2", "Jun W3", "Jun W4", "Jul W1", "Jul W2", "Jul W3", "Jul W4", "Aug W1", "Aug W2", "Aug W3", "Aug W4"], "current_week_idx": 5, "current_date_label": "Nov 12, 2026 (Week 45)", "summary": {"sowing_pct": 65.0, "sowing_wow": 22.0, "sowing_ly": 48.0, "sowing_5yr": 58.0, "emerged_pct": 42.0, "emerged_wow": 16.0, "ge_pct": 84.0, "ge_ly": 65.0, "ge_5yr": 81.0, "status_headline": "Southern and central durum sowing pacing ahead of schedule; warm seedbeds in Occitanie driving rapid germination.", "production_share_eu": "16.8% of EU-27 Durum Wheat Output"}, "good_excellent": {"2022/23": [null, null, 88, 87, 87, 86, 86, 85, 84, 84, 83, 82, 81, 80, 79, 78, 76, 75, 73, 71, 70, 68, 66, 64, 62, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, null, null, null, null, null], "2023/24": [null, null, 90, 89, 88, 87, 86, 85, 84, 83, 82, 80, 78, 77, 75, 74, 72, 70, 68, 66, 64, 62, 60, 58, 55, 53, 51, 49, 48, 46, 45, 44, 43, 42, 41, 40, 39, 38, 38, null, null, null, null, null], "2024/25": [null, null, 75, 71, 68, 65, 62, 60, 58, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 43, 41, 40, 38, 37, 36, 35, 34, 33, 33, 32, 31, 30, 29, 29, 28, 28, 27, null, null, null, null, null], "2025/26": [null, null, 85, 84, 83, 83, 82, 81, 80, 80, 79, 78, 77, 76, 75, 74, 73, 72, 70, 69, 68, 66, 65, 63, 61, 60, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, null, null, null, null, null], "2026/27": [null, null, 86.0, 85.0, 84.5, 84.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "5-Year Average": [null, null, 84.5, 83.2, 82.5, 81.8, 81.0, 80.0, 79.2, 78.5, 77.5, 76.2, 75.0, 74.0, 72.8, 71.5, 70.0, 68.8, 67.2, 65.8, 64.5, 63.0, 61.2, 59.5, 57.5, 55.8, 54.2, 52.5, 51.0, 49.5, 48.2, 47.0, 45.8, 44.5, 43.5, 42.5, 41.5, 40.5, 39.8, null, null, null, null, null]}, "condition_breakdown": {"excellent": [null, null, 11.0, 10.5, 10.0, 10.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "good": [null, null, 75.0, 74.5, 74.5, 74.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "fair": [null, null, 12.5, 13.5, 14.0, 14.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "poor": [null, null, 1.5, 1.5, 1.5, 1.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "very_poor": [null, null, 0.0, 0.0, 0.0, 0.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "progress_stages": {"Planted": {"active_season": [5.0, 18.0, 32.0, 48.0, 58.0, 65.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [4.0, 12.0, 24.0, 38.0, 44.0, 48.0, 56.0, 66.0, 78.0, 88.0, 95.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [6.0, 16.0, 30.0, 44.0, 52.0, 58.0, 68.0, 78.0, 88.0, 94.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Emerged": {"active_season": [0.0, 2.0, 10.0, 20.0, 32.0, 42.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [0.0, 1.0, 5.0, 12.0, 20.0, 26.0, 35.0, 46.0, 58.0, 70.0, 82.0, 90.0, 96.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [0.0, 2.0, 8.0, 18.0, 28.0, 36.0, 48.0, 60.0, 72.0, 82.0, 90.0, 96.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Heading": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 4.0, 20.0, 58.0, 88.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 5.0, 24.0, 64.0, 90.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null]}, "Harvested": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 10.0, 35.0, 75.0, 94.0, 100.0, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 12.0, 42.0, 80.0, 96.0, 100.0, null, null, null, null]}}}, "france_grain_maize_total": {"id": "france_grain_maize_total", "title": "France Grain Maize Harvest & Condition (Céré'Obs)", "crop": "Grain Maize", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "unit": "%", "months": ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"], "weeks": ["Apr W1", "Apr W2", "Apr W3", "Apr W4", "May W1", "May W2", "May W3", "May W4", "Jun W1", "Jun W2", "Jun W3", "Jun W4", "Jul W1", "Jul W2", "Jul W3", "Jul W4", "Aug W1", "Aug W2", "Aug W3", "Aug W4", "Sep W1", "Sep W2", "Sep W3", "Sep W4", "Oct W1", "Oct W2", "Oct W3", "Oct W4", "Nov W1", "Nov W2", "Nov W3", "Nov W4"], "current_week_idx": 30, "current_date_label": "Nov 12, 2026 (Week 45)", "summary": {"harvest_pct": 94.0, "harvest_wow": 6.0, "harvest_ly": 88.0, "harvest_5yr": 91.0, "ge_pct": 76.0, "ge_ly": 81.0, "ge_5yr": 68.0, "status_headline": "French grain maize harvest reached 94% complete; moisture contents normalized across the southwest and Alsace, yields holding near 8.45 t/ha.", "production_share_eu": "22.0% of EU-27 Grain Maize Output"}, "good_excellent": {"2022/23": [86, 85, 84, 83, 82, 80, 78, 73, 70, 68, 64, 60, 55, 48, 42, 36, 32, 29, 27, 27, 27, 28, 28, 29, 29, 29, 30, 30, 30, 30, 30, null], "2023/24": [92, 91, 90, 89, 88, 87, 85, 84, 83, 82, 82, 81, 81, 80, 80, 80, 79, 79, 78, 78, 77, 77, 76, 76, 75, 75, 74, 74, 73, 73, 72, null], "2024/25": [85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 76, 75, 75, 74, 73, 72, 71, 70, 69, 68, 67, 67, 66, 66, 65, 65, 64, 64, 63, 63, 62, null], "2025/26": [89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 79, 78, 78, 77, 77, 76, 76, 76, 76, 76, 75, 75, 74, 74, 73, 73, 72, 72, 71, 71, null], "2026/27": [85, 85, 84, 84, 83, 83, 82, 82, 81, 81, 80, 80, 79, 78, 78, 77, 77, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, null], "5-Year Average": [88.0, 87.0, 86.0, 85.0, 84.0, 82.8, 81.2, 79.2, 77.5, 75.8, 74.2, 72.8, 71.0, 69.2, 67.5, 65.8, 64.2, 63.0, 62.0, 61.8, 61.5, 61.2, 60.8, 60.4, 59.8, 59.4, 59.0, 58.5, 58.0, 57.5, 57.0, null]}, "condition_breakdown": {"excellent": [12.0, 11.5, 11.0, 10.5, 10.0, 9.5, 9.0, 8.5, 8.0, 7.5, 7.0, 7.0, 6.8, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.2, 6.2, 6.0, 6.0, 5.8, 5.8, 5.5, 5.5, 5.5, 5.5, null], "good": [77.0, 76.5, 76.0, 75.5, 75.0, 74.5, 74.0, 73.5, 73.0, 72.5, 72.0, 72.0, 71.2, 71.5, 70.5, 70.5, 69.5, 69.5, 69.5, 69.5, 69.5, 68.8, 68.8, 68.0, 68.0, 67.2, 67.2, 66.5, 66.5, 65.5, 65.5, null], "fair": [9.5, 10.5, 11.2, 12.0, 13.0, 14.0, 14.8, 15.5, 16.2, 17.0, 17.8, 17.8, 18.5, 18.5, 19.2, 19.2, 20.0, 20.0, 20.0, 20.0, 20.0, 20.5, 20.5, 21.0, 21.0, 21.5, 21.5, 22.0, 22.0, 23.0, 23.0, null], "poor": [1.5, 1.5, 1.8, 2.0, 2.0, 2.0, 2.2, 2.5, 2.8, 3.0, 3.2, 3.2, 3.5, 3.5, 3.8, 3.8, 4.0, 4.0, 4.0, 4.0, 4.0, 4.5, 4.5, 5.0, 5.0, 5.5, 5.5, 6.0, 6.0, 6.0, 6.0, null], "very_poor": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, null]}, "progress_stages": {"Planted": {"active_season": [12.0, 35.0, 68.0, 88.0, 96.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [10.0, 30.0, 62.0, 84.0, 94.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [14.0, 38.0, 70.0, 89.0, 97.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Emerged": {"active_season": [0.0, 5.0, 22.0, 54.0, 82.0, 94.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [0.0, 4.0, 18.0, 48.0, 76.0, 90.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [0.0, 6.0, 25.0, 56.0, 84.0, 95.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Silking / Flowering": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, 10.0, 38.0, 76.0, 94.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, 8.0, 32.0, 70.0, 90.0, 98.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, 12.0, 42.0, 78.0, 95.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Harvested": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 4.0, 12.0, 28.0, 52.0, 72.0, 84.0, 90.0, 94.0, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 2.0, 8.0, 20.0, 42.0, 62.0, 76.0, 83.0, 88.0, 92.0, 96.0], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 5.0, 14.0, 32.0, 55.0, 74.0, 84.0, 88.0, 91.0, 95.0, 98.0]}}}, "france_winter_rapeseed_total": {"id": "france_winter_rapeseed_total", "title": "France Winter Rapeseed Emergence & Establishment (Céré'Obs / Terres Inovia)", "crop": "Rapeseed", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "unit": "%", "months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], "weeks": ["Oct W1", "Oct W2", "Oct W3", "Oct W4", "Nov W1", "Nov W2", "Nov W3", "Nov W4", "Dec W1", "Dec W2", "Dec W3", "Dec W4", "Jan W1", "Jan W2", "Jan W3", "Jan W4", "Feb W1", "Feb W2", "Feb W3", "Feb W4", "Mar W1", "Mar W2", "Mar W3", "Mar W4", "Apr W1", "Apr W2", "Apr W3", "Apr W4", "May W1", "May W2", "May W3", "May W4", "Jun W1", "Jun W2", "Jun W3", "Jun W4", "Jul W1", "Jul W2", "Jul W3", "Jul W4", "Aug W1", "Aug W2", "Aug W3", "Aug W4"], "current_week_idx": 5, "current_date_label": "Nov 12, 2026 (Week 45)", "summary": {"sowing_pct": 100.0, "sowing_wow": 0.0, "sowing_ly": 100.0, "sowing_5yr": 100.0, "emerged_pct": 98.0, "rosette_pct": 82.0, "ge_pct": 86.0, "ge_ly": 72.0, "ge_5yr": 83.0, "status_headline": "Rapeseed rosette establishment is well advanced (82% at 6-8 leaf stage); optimal root collar diameter observed ahead of winter dormancy entry.", "production_share_eu": "22.5% of EU-27 Rapeseed Output"}, "good_excellent": {"2022/23": [90, 89, 88, 88, 87, 86, 85, 84, 84, 83, 82, 81, 80, 78, 77, 75, 74, 72, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 52, null, null, null, null, null, null], "2023/24": [92, 91, 90, 89, 88, 87, 86, 85, 85, 84, 83, 82, 80, 79, 77, 76, 74, 72, 70, 68, 66, 65, 63, 62, 60, 58, 56, 54, 53, 51, 50, 48, 47, 46, 45, 44, 43, 43, null, null, null, null, null, null], "2024/25": [80, 76, 73, 71, 68, 66, 64, 62, 60, 58, 56, 55, 54, 53, 52, 50, 48, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 32, 31, 30, 30, 29, 29, null, null, null, null, null, null], "2025/26": [88, 87, 86, 85, 85, 84, 83, 82, 82, 81, 80, 79, 78, 77, 76, 75, 73, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 52, null, null, null, null, null, null], "2026/27": [89.0, 88.0, 87.5, 87.0, 86.5, 86.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "5-Year Average": [87.5, 86.0, 84.8, 84.0, 83.2, 82.5, 81.5, 80.5, 80.0, 79.0, 78.0, 77.0, 75.8, 74.5, 73.0, 71.5, 70.0, 68.5, 67.0, 65.5, 64.2, 63.0, 61.8, 60.5, 59.2, 58.0, 56.8, 55.5, 54.2, 53.0, 51.8, 50.5, 49.5, 48.5, 47.5, 46.5, 45.8, 45.2, null, null, null, null, null, null]}, "condition_breakdown": {"excellent": [16.0, 15.0, 14.5, 14.0, 13.5, 13.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "good": [73.0, 73.0, 73.0, 73.0, 73.0, 73.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "fair": [9.5, 10.5, 11.0, 11.5, 12.0, 12.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "poor": [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "very_poor": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "progress_stages": {"Planted": {"active_season": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Emerged": {"active_season": [78.0, 90.0, 95.0, 98.0, 98.0, 98.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [70.0, 84.0, 91.0, 95.0, 96.0, 97.0, 98.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [75.0, 88.0, 94.0, 97.0, 98.0, 99.0, 100.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Rosette Stage": {"active_season": [15.0, 34.0, 52.0, 68.0, 76.0, 82.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [10.0, 24.0, 42.0, 56.0, 66.0, 72.0, 78.0, 84.0, 88.0, 92.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "five_year_avg": [14.0, 30.0, 50.0, 65.0, 74.0, 80.0, 86.0, 90.0, 94.0, 96.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "Harvested": {"active_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], "prior_season": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 12.0, 45.0, 82.0, 97.0, 100.0, null, null, null, null, null], "five_year_avg": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 15.0, 52.0, 88.0, 98.0, 100.0, null, null, null, null, null]}}}, "pan_eu_harvest_sowing": {"countries_meta": {"EU-27": {"name": "European Union (EU-27)", "flag": "🇪🇺", "share_cereal": 100.0, "share_wheat": 100.0}, "FR": {"name": "France", "flag": "🇫🇷", "share_cereal": 22.5, "share_wheat": 26.5}, "DE": {"name": "Germany", "flag": "🇩🇪", "share_cereal": 16.8, "share_wheat": 17.5}, "PL": {"name": "Poland", "flag": "🇵🇱", "share_cereal": 12.2, "share_wheat": 10.3}, "RO": {"name": "Romania", "flag": "🇷🇴", "share_cereal": 9.4, "share_wheat": 8.5}, "ES": {"name": "Spain", "flag": "🇪🇸", "share_cereal": 6.8, "share_wheat": 4.5}, "IT": {"name": "Italy", "flag": "🇮🇹", "share_cereal": 5.9, "share_wheat": 3.2}, "HU": {"name": "Hungary", "flag": "🇭🇺", "share_cereal": 4.8, "share_wheat": 4.6}}, "autumn_sowing": [{"crop": "Winter Soft Wheat", "country_code": "FR", "country": "France", "flag": "🇫🇷", "planned_area_mha": 4.52, "sown_area_mha": 4.02, "pace_2026_pct": 89.0, "pace_2025_pct": 71.0, "pace_2024_pct": 86.0, "pace_2023_pct": 92.0, "pace_2022_pct": 94.0, "five_yr_avg_pct": 85.0, "pace_wow_pct": 14.0, "yoy_delta_pct": 18.0, "delta_5yr_pct": 4.0, "status": "Ahead (+4% vs Avg)", "soil_moisture": "Favorable / Adequate", "notes": "Drilling resumed rapidly after late-October drier window; southern and central basins nearly finished."}, {"crop": "Winter Soft Wheat", "country_code": "DE", "country": "Germany", "flag": "🇩🇪", "planned_area_mha": 2.85, "sown_area_mha": 2.65, "pace_2026_pct": 93.0, "pace_2025_pct": 84.0, "pace_2024_pct": 88.0, "pace_2023_pct": 95.0, "pace_2022_pct": 96.0, "five_yr_avg_pct": 91.0, "pace_wow_pct": 9.0, "yoy_delta_pct": 9.0, "delta_5yr_pct": 2.0, "status": "On Schedule", "soil_moisture": "Adequate", "notes": "Lower Saxony and North Rhine-Westphalia drilling complete; uniform emergence noted across loess belts."}, {"crop": "Winter Soft Wheat", "country_code": "PL", "country": "Poland", "flag": "🇵🇱", "planned_area_mha": 2.45, "sown_area_mha": 2.38, "pace_2026_pct": 97.0, "pace_2025_pct": 92.0, "pace_2024_pct": 95.0, "pace_2023_pct": 98.0, "pace_2022_pct": 98.0, "five_yr_avg_pct": 96.0, "pace_wow_pct": 5.0, "yoy_delta_pct": 5.0, "delta_5yr_pct": 1.0, "status": "Completed / Emerged", "soil_moisture": "Favorable", "notes": "Optimal root establishment; central and eastern regions entering pre-dormancy hardening."}, {"crop": "Winter Soft Wheat", "country_code": "RO", "country": "Romania", "flag": "🇷🇴", "planned_area_mha": 2.2, "sown_area_mha": 1.94, "pace_2026_pct": 88.0, "pace_2025_pct": 80.0, "pace_2024_pct": 82.0, "pace_2023_pct": 89.0, "pace_2022_pct": 91.0, "five_yr_avg_pct": 86.0, "pace_wow_pct": 12.0, "yoy_delta_pct": 8.0, "delta_5yr_pct": 2.0, "status": "On Schedule", "soil_moisture": "Moderate Stress (East)", "notes": "Danubian plain benefited from early November showers; Dobrogea topsoil remains slightly moisture-constrained."}, {"crop": "Winter Soft Wheat", "country_code": "ES", "country": "Spain", "flag": "🇪🇸", "planned_area_mha": 1.7, "sown_area_mha": 0.85, "pace_2026_pct": 50.0, "pace_2025_pct": 42.0, "pace_2024_pct": 45.0, "pace_2023_pct": 52.0, "pace_2022_pct": 55.0, "five_yr_avg_pct": 48.0, "pace_wow_pct": 18.0, "yoy_delta_pct": 8.0, "delta_5yr_pct": 2.0, "status": "Active Sowing Window", "soil_moisture": "Surplus (Atlantic / South)", "notes": "Castile and León sowing in peak momentum following substantial recharge rain; excellent germination conditions."}, {"crop": "Winter Soft Wheat", "country_code": "EU-27", "country": "EU-27 Consolidated", "flag": "🇪🇺", "planned_area_mha": 20.8, "sown_area_mha": 18.2, "pace_2026_pct": 87.5, "pace_2025_pct": 76.5, "pace_2024_pct": 84.0, "pace_2023_pct": 89.5, "pace_2022_pct": 91.0, "five_yr_avg_pct": 85.5, "pace_wow_pct": 11.5, "yoy_delta_pct": 11.0, "delta_5yr_pct": 2.0, "status": "Ahead (+2.0% vs Avg)", "soil_moisture": "Favorable Overall", "notes": "Solid Pan-European establishment; sharp rebound from last season's extreme rainfall bottlenecks."}, {"crop": "Winter Barley", "country_code": "FR", "country": "France", "flag": "🇫🇷", "planned_area_mha": 1.3, "sown_area_mha": 1.24, "pace_2026_pct": 95.0, "pace_2025_pct": 81.0, "pace_2024_pct": 92.0, "pace_2023_pct": 97.0, "pace_2022_pct": 98.0, "five_yr_avg_pct": 92.0, "pace_wow_pct": 10.0, "yoy_delta_pct": 14.0, "delta_5yr_pct": 3.0, "status": "Essentially Concluded", "soil_moisture": "Favorable", "notes": "Emergence tracking at 84%; tillering initiation observed across Beauce and Champagne."}, {"crop": "Winter Barley", "country_code": "DE", "country": "Germany", "flag": "🇩🇪", "planned_area_mha": 1.25, "sown_area_mha": 1.23, "pace_2026_pct": 98.0, "pace_2025_pct": 94.0, "pace_2024_pct": 96.0, "pace_2023_pct": 99.0, "pace_2022_pct": 99.0, "five_yr_avg_pct": 97.0, "pace_wow_pct": 4.0, "yoy_delta_pct": 4.0, "delta_5yr_pct": 1.0, "status": "Completed", "soil_moisture": "Adequate", "notes": "Full field emergence achieved; Bavarian and Thuringian stands robust ahead of frost."}, {"crop": "Winter Barley", "country_code": "EU-27", "country": "EU-27 Consolidated", "flag": "🇪🇺", "planned_area_mha": 4.7, "sown_area_mha": 4.45, "pace_2026_pct": 94.7, "pace_2025_pct": 86.0, "pace_2024_pct": 92.5, "pace_2023_pct": 96.5, "pace_2022_pct": 97.0, "five_yr_avg_pct": 93.8, "pace_wow_pct": 7.5, "yoy_delta_pct": 8.7, "delta_5yr_pct": 0.9, "status": "Near Completion", "soil_moisture": "Favorable Overall", "notes": "Drilling finished across 95% of planned hectares; early crop health ratings strong."}, {"crop": "Winter Rapeseed", "country_code": "FR", "country": "France", "flag": "🇫🇷", "planned_area_mha": 1.34, "sown_area_mha": 1.34, "pace_2026_pct": 100.0, "pace_2025_pct": 100.0, "pace_2024_pct": 100.0, "pace_2023_pct": 100.0, "pace_2022_pct": 100.0, "five_yr_avg_pct": 100.0, "pace_wow_pct": 0.0, "yoy_delta_pct": 0.0, "delta_5yr_pct": 0.0, "status": "Fully Emerged / Rosette", "soil_moisture": "Favorable", "notes": "82% at optimal 6-8 leaf rosette stage; minimal flea beetle damage reported."}, {"crop": "Winter Rapeseed", "country_code": "DE", "country": "Germany", "flag": "🇩🇪", "planned_area_mha": 1.15, "sown_area_mha": 1.15, "pace_2026_pct": 100.0, "pace_2025_pct": 100.0, "pace_2024_pct": 100.0, "pace_2023_pct": 100.0, "pace_2022_pct": 100.0, "five_yr_avg_pct": 100.0, "pace_wow_pct": 0.0, "yoy_delta_pct": 0.0, "delta_5yr_pct": 0.0, "status": "Fully Emerged / Rosette", "soil_moisture": "Adequate", "notes": "Stands well-rooted across Mecklenburg-Vorpommern and Saxony-Anhalt."}, {"crop": "Winter Rapeseed", "country_code": "PL", "country": "Poland", "flag": "🇵🇱", "planned_area_mha": 1.08, "sown_area_mha": 1.08, "pace_2026_pct": 100.0, "pace_2025_pct": 100.0, "pace_2024_pct": 100.0, "pace_2023_pct": 100.0, "pace_2022_pct": 100.0, "five_yr_avg_pct": 100.0, "pace_wow_pct": 0.0, "yoy_delta_pct": 0.0, "delta_5yr_pct": 0.0, "status": "Fully Emerged / Rosette", "soil_moisture": "Favorable", "notes": "Even emergence, autumn root growth excellent across Greater Poland."}, {"crop": "Winter Rapeseed", "country_code": "EU-27", "country": "EU-27 Consolidated", "flag": "🇪🇺", "planned_area_mha": 5.75, "sown_area_mha": 5.75, "pace_2026_pct": 100.0, "pace_2025_pct": 100.0, "pace_2024_pct": 100.0, "pace_2023_pct": 100.0, "pace_2022_pct": 100.0, "five_yr_avg_pct": 100.0, "pace_wow_pct": 0.0, "yoy_delta_pct": 0.0, "delta_5yr_pct": 0.0, "status": "Completed Across EU", "soil_moisture": "Favorable Overall", "notes": "Rosette establishment healthy across primary northern & eastern belts."}], "summer_harvest": [{"crop": "Grain Maize (Corn)", "country_code": "FR", "country": "France", "flag": "🇫🇷", "forecast_area_mha": 1.48, "harvested_area_mha": 1.39, "harvest_2026_pct": 94.0, "harvest_2025_pct": 88.0, "harvest_2024_pct": 92.0, "harvest_2023_pct": 96.0, "harvest_2022_pct": 98.0, "five_yr_avg_pct": 91.0, "pace_wow_pct": 6.0, "yoy_delta_pct": 6.0, "delta_5yr_pct": 3.0, "realized_yield_tha": 8.45, "yield_5yr_avg": 8.62, "status": "Closing (+3% vs Avg)", "notes": "Southwest and Alsace combines finishing; drying charges moderate."}, {"crop": "Grain Maize (Corn)", "country_code": "RO", "country": "Romania", "flag": "🇷🇴", "forecast_area_mha": 2.3, "harvested_area_mha": 2.28, "harvest_2026_pct": 99.0, "harvest_2025_pct": 95.0, "harvest_2024_pct": 97.0, "harvest_2023_pct": 99.0, "harvest_2022_pct": 100.0, "five_yr_avg_pct": 98.0, "pace_wow_pct": 2.0, "yoy_delta_pct": 4.0, "delta_5yr_pct": 1.0, "realized_yield_tha": 3.85, "yield_5yr_avg": 4.95, "status": "Virtually Complete", "notes": "Early harvest driven by summer heatwave; yields depressed due to prolonged pollination drought."}, {"crop": "Grain Maize (Corn)", "country_code": "HU", "country": "Hungary", "flag": "🇭🇺", "forecast_area_mha": 0.82, "harvested_area_mha": 0.8, "harvest_2026_pct": 98.0, "harvest_2025_pct": 92.0, "harvest_2024_pct": 95.0, "harvest_2023_pct": 98.0, "harvest_2022_pct": 100.0, "five_yr_avg_pct": 96.0, "pace_wow_pct": 3.0, "yoy_delta_pct": 6.0, "delta_5yr_pct": 2.0, "realized_yield_tha": 6.1, "yield_5yr_avg": 6.8, "status": "Virtually Complete", "notes": "Pannonian basin harvest completed ahead of schedule; quality acceptable."}, {"crop": "Grain Maize (Corn)", "country_code": "IT", "country": "Italy", "flag": "🇮🇹", "forecast_area_mha": 0.52, "harvested_area_mha": 0.51, "harvest_2026_pct": 98.0, "harvest_2025_pct": 95.0, "harvest_2024_pct": 96.0, "harvest_2023_pct": 98.0, "harvest_2022_pct": 99.0, "five_yr_avg_pct": 97.0, "pace_wow_pct": 2.0, "yoy_delta_pct": 3.0, "delta_5yr_pct": 1.0, "realized_yield_tha": 9.5, "yield_5yr_avg": 9.85, "status": "Complete (Po Valley)", "notes": "Irrigated Po Valley crops produced stable volumes; minor mycotoxin incidence."}, {"crop": "Grain Maize (Corn)", "country_code": "PL", "country": "Poland", "flag": "🇵🇱", "forecast_area_mha": 1.25, "harvested_area_mha": 1.15, "harvest_2026_pct": 92.0, "harvest_2025_pct": 85.0, "harvest_2024_pct": 89.0, "harvest_2023_pct": 94.0, "harvest_2022_pct": 96.0, "five_yr_avg_pct": 91.0, "pace_wow_pct": 8.0, "yoy_delta_pct": 7.0, "delta_5yr_pct": 1.0, "realized_yield_tha": 6.75, "yield_5yr_avg": 6.82, "status": "Final 8% Wrapping Up", "notes": "Central grain belt wrapping up late fields; drying capacities operating at high throughput."}, {"crop": "Grain Maize (Corn)", "country_code": "EU-27", "country": "EU-27 Consolidated", "flag": "🇪🇺", "forecast_area_mha": 8.7, "harvested_area_mha": 8.28, "harvest_2026_pct": 95.2, "harvest_2025_pct": 90.0, "harvest_2024_pct": 93.0, "harvest_2023_pct": 96.5, "harvest_2022_pct": 98.0, "five_yr_avg_pct": 93.5, "pace_wow_pct": 4.8, "yoy_delta_pct": 5.2, "delta_5yr_pct": 1.7, "realized_yield_tha": 6.85, "yield_5yr_avg": 7.24, "status": "Closing Across EU (95%)", "notes": "EU maize output constrained by Black Sea/Danubian deficit; Western Europe yields near average."}, {"crop": "Sunflower Seed", "country_code": "RO", "country": "Romania", "flag": "🇷🇴", "forecast_area_mha": 1.2, "harvested_area_mha": 1.2, "harvest_2026_pct": 100.0, "harvest_2025_pct": 100.0, "harvest_2024_pct": 100.0, "harvest_2023_pct": 100.0, "harvest_2022_pct": 100.0, "five_yr_avg_pct": 100.0, "pace_wow_pct": 0.0, "yoy_delta_pct": 0.0, "delta_5yr_pct": 0.0, "realized_yield_tha": 1.62, "yield_5yr_avg": 2.18, "status": "Harvest Completed", "notes": "Romania is #1 EU producer; yields severely curtailed by extreme July-August heat."}, {"crop": "Sunflower Seed", "country_code": "FR", "country": "France", "flag": "🇫🇷", "forecast_area_mha": 0.78, "harvested_area_mha": 0.78, "harvest_2026_pct": 100.0, "harvest_2025_pct": 98.0, "harvest_2024_pct": 99.0, "harvest_2023_pct": 100.0, "harvest_2022_pct": 100.0, "five_yr_avg_pct": 99.0, "pace_wow_pct": 0.0, "yoy_delta_pct": 2.0, "delta_5yr_pct": 1.0, "realized_yield_tha": 2.3, "yield_5yr_avg": 2.32, "status": "Harvest Completed", "notes": "Good oil content; stable results in Centre-Val de Loire and Poitou."}, {"crop": "Sunflower Seed", "country_code": "EU-27", "country": "EU-27 Consolidated", "flag": "🇪🇺", "forecast_area_mha": 4.6, "harvested_area_mha": 4.6, "harvest_2026_pct": 100.0, "harvest_2025_pct": 99.0, "harvest_2024_pct": 99.5, "harvest_2023_pct": 100.0, "harvest_2022_pct": 100.0, "five_yr_avg_pct": 99.5, "pace_wow_pct": 0.0, "yoy_delta_pct": 1.0, "delta_5yr_pct": 0.5, "realized_yield_tha": 1.98, "yield_5yr_avg": 2.22, "status": "Harvest Completed Across EU", "notes": "Pan-EU output down ~10% due to Danubian drought drag."}]}, "eu_mars_yield_matrix": {"metadata": {"source": "European Commission - Joint Research Centre (JRC) MARS Bulletin", "volume": "Vol. 32, Autumn Agricultural Campaign & Harvest Review", "publication_date": "October 28, 2026 (Updated for Week 45 close)", "coverage": "EU-27 Member States & Agricultural Granary Belts", "benchmark_base": "2021-2025 Climatological & Yield Benchmark"}, "yield_matrix": [{"crop": "Soft Wheat", "country": "EU-27 Consolidated", "country_code": "EU-27", "flag": "🇪🇺", "forecast_yield_tha": 5.68, "forecast_production_mt": 118.1, "ly_yield_tha": 5.48, "five_yr_avg_tha": 5.79, "diff_5yr_pct": -1.9, "diff_ly_pct": 3.6, "phenology_stage": "Emergence / Tillering", "phenology_shift_days": -2, "moisture_status": "Favorable Overall", "agronomic_diagnosis": "Slight deficit in eastern Romania/Bulgaria offset by high initial soil charge in Western Europe."}, {"crop": "Soft Wheat", "country": "France", "country_code": "FR", "flag": "🇫🇷", "forecast_yield_tha": 6.85, "forecast_production_mt": 31.0, "ly_yield_tha": 6.22, "five_yr_avg_tha": 7.15, "diff_5yr_pct": -4.2, "diff_ly_pct": 10.1, "phenology_stage": "Active Emergence (74%)", "phenology_shift_days": -3, "moisture_status": "Adequate / Favorable", "agronomic_diagnosis": "Drilling rebounded sharply after 2024 excessive autumn rainfall; good stand density in Beauce and Picardy."}, {"crop": "Soft Wheat", "country": "Germany", "country_code": "DE", "flag": "🇩🇪", "forecast_yield_tha": 7.22, "forecast_production_mt": 20.6, "ly_yield_tha": 7.1, "five_yr_avg_tha": 7.42, "diff_5yr_pct": -2.7, "diff_ly_pct": 1.7, "phenology_stage": "Tillering Onset", "phenology_shift_days": 0, "moisture_status": "Adequate", "agronomic_diagnosis": "Favorable seedbed moisture across central loess belts; rapid emergence and even row definition."}, {"crop": "Soft Wheat", "country": "Poland", "country_code": "PL", "flag": "🇵🇱", "forecast_yield_tha": 4.95, "forecast_production_mt": 12.1, "ly_yield_tha": 4.88, "five_yr_avg_tha": 4.78, "diff_5yr_pct": 3.6, "diff_ly_pct": 1.4, "phenology_stage": "Tillering (3-4 Leaves)", "phenology_shift_days": 2, "moisture_status": "Favorable", "agronomic_diagnosis": "Good thermal accumulation in September promoted fast vegetative development; pre-winter condition high."}, {"crop": "Soft Wheat", "country": "Romania", "country_code": "RO", "flag": "🇷🇴", "forecast_yield_tha": 4.65, "forecast_production_mt": 10.0, "ly_yield_tha": 4.25, "five_yr_avg_tha": 4.38, "diff_5yr_pct": 6.2, "diff_ly_pct": 9.4, "phenology_stage": "Emergence (55%)", "phenology_shift_days": -5, "moisture_status": "Moderate Stress (Eastern Dobrogea)", "agronomic_diagnosis": "Early November showers improved seedbeds in Muntenia, but dry soil pockets linger near the Black Sea."}, {"crop": "Durum Wheat", "country": "EU-27 Consolidated", "country_code": "EU-27", "flag": "🇪🇺", "forecast_yield_tha": 3.42, "forecast_production_mt": 7.18, "ly_yield_tha": 3.25, "five_yr_avg_tha": 3.48, "diff_5yr_pct": -1.7, "diff_ly_pct": 5.2, "phenology_stage": "Sowing / Early Germination", "phenology_shift_days": 1, "moisture_status": "Adequate (South / Med)", "agronomic_diagnosis": "Mediterranean autumn rains restored topsoil moisture in Andalusia and Sicily after multi-year deficits."}, {"crop": "Durum Wheat", "country": "Italy", "country_code": "IT", "flag": "🇮🇹", "forecast_yield_tha": 3.15, "forecast_production_mt": 3.84, "ly_yield_tha": 2.92, "five_yr_avg_tha": 3.18, "diff_5yr_pct": -0.9, "diff_ly_pct": 7.9, "phenology_stage": "Active Drilling (Puglia / Sicily)", "phenology_shift_days": 2, "moisture_status": "Favorable Recharge", "agronomic_diagnosis": "Southern Italy received beneficial October precipitation; seedbed preparation highly favorable."}, {"crop": "Durum Wheat", "country": "France", "country_code": "FR", "flag": "🇫🇷", "forecast_yield_tha": 5.45, "forecast_production_mt": 1.31, "ly_yield_tha": 5.12, "five_yr_avg_tha": 5.62, "diff_5yr_pct": -3.0, "diff_ly_pct": 6.4, "phenology_stage": "Sowing (65%) / Emergence", "phenology_shift_days": 3, "moisture_status": "Favorable", "agronomic_diagnosis": "Southwest and Mediterranean durum areas experiencing optimal planting conditions."}, {"crop": "Winter Barley", "country": "EU-27 Consolidated", "country_code": "EU-27", "flag": "🇪🇺", "forecast_yield_tha": 5.25, "forecast_production_mt": 48.0, "ly_yield_tha": 5.08, "five_yr_avg_tha": 5.38, "diff_5yr_pct": -2.4, "diff_ly_pct": 3.3, "phenology_stage": "Tillering (85% Emerged)", "phenology_shift_days": 1, "moisture_status": "Favorable", "agronomic_diagnosis": "Drilling completed across all northern belts; cold hardening commencing in northeast."}, {"crop": "Winter Barley", "country": "France", "country_code": "FR", "flag": "🇫🇷", "forecast_yield_tha": 6.45, "forecast_production_mt": 11.6, "ly_yield_tha": 5.85, "five_yr_avg_tha": 6.68, "diff_5yr_pct": -3.4, "diff_ly_pct": 10.3, "phenology_stage": "Tillering Active", "phenology_shift_days": 0, "moisture_status": "Favorable", "agronomic_diagnosis": "Excellent 89% G+E rating in Céré'Obs; root establishment significantly better than prior season."}, {"crop": "Winter Barley", "country": "Germany", "country_code": "DE", "flag": "🇩🇪", "forecast_yield_tha": 6.95, "forecast_production_mt": 9.04, "ly_yield_tha": 6.82, "five_yr_avg_tha": 7.12, "diff_5yr_pct": -2.4, "diff_ly_pct": 1.9, "phenology_stage": "Tillering / 4 Leaves", "phenology_shift_days": 1, "moisture_status": "Adequate", "agronomic_diagnosis": "Even crop rows; high tiller counts reported in Saxony and Bavaria."}, {"crop": "Grain Maize", "country": "EU-27 Consolidated", "country_code": "EU-27", "flag": "🇪🇺", "forecast_yield_tha": 6.85, "forecast_production_mt": 57.9, "ly_yield_tha": 7.15, "five_yr_avg_tha": 7.24, "diff_5yr_pct": -5.4, "diff_ly_pct": -4.2, "phenology_stage": "Harvest Closing (95%)", "phenology_shift_days": 6, "moisture_status": "Harvest Deficit Impacted", "agronomic_diagnosis": "Severe summer thermal stress in Romania, Hungary and Bulgaria lowered average EU yields by -5.4%."}, {"crop": "Grain Maize", "country": "France", "country_code": "FR", "flag": "🇫🇷", "forecast_yield_tha": 8.45, "forecast_production_mt": 13.5, "ly_yield_tha": 8.52, "five_yr_avg_tha": 8.62, "diff_5yr_pct": -2.0, "diff_ly_pct": -0.8, "phenology_stage": "Harvest (94%)", "phenology_shift_days": 3, "moisture_status": "Adequate", "agronomic_diagnosis": "Southwest crops insulated from heat; stable grain quality and manageable drying energy."}, {"crop": "Grain Maize", "country": "Romania", "country_code": "RO", "flag": "🇷🇴", "forecast_yield_tha": 3.85, "forecast_production_mt": 8.86, "ly_yield_tha": 4.6, "five_yr_avg_tha": 4.95, "diff_5yr_pct": -22.2, "diff_ly_pct": -16.3, "phenology_stage": "Harvest Completed (99%)", "phenology_shift_days": 10, "moisture_status": "Severe Drought Deficit", "agronomic_diagnosis": "Critical pollination window hit by prolonged >38°C heat; sharpest drop in Eastern Europe."}, {"crop": "Grain Maize", "country": "Hungary", "country_code": "HU", "flag": "🇭🇺", "forecast_yield_tha": 6.1, "forecast_production_mt": 5.8, "ly_yield_tha": 6.65, "five_yr_avg_tha": 6.8, "diff_5yr_pct": -10.3, "diff_ly_pct": -8.3, "phenology_stage": "Harvest Completed (98%)", "phenology_shift_days": 7, "moisture_status": "Dryness in Great Plain", "agronomic_diagnosis": "Alföld region experienced hot desiccating winds during grain fill; early combine completion."}, {"crop": "Winter Rapeseed", "country": "EU-27 Consolidated", "country_code": "EU-27", "flag": "🇪🇺", "forecast_yield_tha": 3.12, "forecast_production_mt": 17.5, "ly_yield_tha": 3.05, "five_yr_avg_tha": 3.18, "diff_5yr_pct": -1.9, "diff_ly_pct": 2.3, "phenology_stage": "Rosette Stage (6-8 Leaves)", "phenology_shift_days": 2, "moisture_status": "Favorable Overall", "agronomic_diagnosis": "Establishment successful across France and Germany; robust tap root diameters (>8 mm)."}, {"crop": "Winter Rapeseed", "country": "France", "country_code": "FR", "flag": "🇫🇷", "forecast_yield_tha": 3.45, "forecast_production_mt": 4.66, "ly_yield_tha": 3.2, "five_yr_avg_tha": 3.48, "diff_5yr_pct": -0.9, "diff_ly_pct": 7.8, "phenology_stage": "Rosette (82% Optimal)", "phenology_shift_days": 3, "moisture_status": "Favorable", "agronomic_diagnosis": "Excellent autumn stand emergence; low pressure from cabbage stem flea beetles."}, {"crop": "Winter Rapeseed", "country": "Germany", "country_code": "DE", "flag": "🇩🇪", "forecast_yield_tha": 3.65, "forecast_production_mt": 4.2, "ly_yield_tha": 3.58, "five_yr_avg_tha": 3.68, "diff_5yr_pct": -0.8, "diff_ly_pct": 2.0, "phenology_stage": "Rosette (Cold Hardening)", "phenology_shift_days": 1, "moisture_status": "Adequate", "agronomic_diagnosis": "High plant density in Baltic coastal states; favorable pre-winter biomass accumulation."}, {"crop": "Sunflower Seed", "country": "EU-27 Consolidated", "country_code": "EU-27", "flag": "🇪🇺", "forecast_yield_tha": 1.98, "forecast_production_mt": 9.5, "ly_yield_tha": 2.15, "five_yr_avg_tha": 2.22, "diff_5yr_pct": -10.8, "diff_ly_pct": -7.9, "phenology_stage": "Harvest Completed (100%)", "phenology_shift_days": 8, "moisture_status": "Eastern Heat Stress", "agronomic_diagnosis": "Severe yield drop in Romania, Bulgaria and Hungary driven by summer drought and accelerated maturity."}, {"crop": "Sunflower Seed", "country": "Romania", "country_code": "RO", "flag": "🇷🇴", "forecast_yield_tha": 1.62, "forecast_production_mt": 2.03, "ly_yield_tha": 1.95, "five_yr_avg_tha": 2.18, "diff_5yr_pct": -25.7, "diff_ly_pct": -16.9, "phenology_stage": "Harvest Completed (100%)", "phenology_shift_days": 12, "moisture_status": "Severe Deficit", "agronomic_diagnosis": "Lowest yield since 2012 in eastern Oltenia and Dobrogea; small head diameters and seed emptiness."}, {"crop": "Sunflower Seed", "country": "France", "country_code": "FR", "flag": "🇫🇷", "forecast_yield_tha": 2.3, "forecast_production_mt": 1.89, "ly_yield_tha": 2.28, "five_yr_avg_tha": 2.32, "diff_5yr_pct": -0.9, "diff_ly_pct": 0.9, "phenology_stage": "Harvest Completed (100%)", "phenology_shift_days": 2, "moisture_status": "Favorable", "agronomic_diagnosis": "Western France yields held stable; oil content averaged 44.5% across Poitou-Charentes."}]}};
+  const MANIFEST = {"france_soft_wheat_total": {"id": "france_soft_wheat_total", "title": "France Soft Wheat Crop Progress & Condition (Céré'Obs)", "crop": "Soft Wheat", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "json_file": "france_soft_wheat_total.json", "type": "france_cereobs_3tier"}, "france_winter_barley_total": {"id": "france_winter_barley_total", "title": "France Winter Barley Progress & Condition (Céré'Obs)", "crop": "Winter Barley", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "json_file": "france_winter_barley_total.json", "type": "france_cereobs_3tier"}, "france_durum_wheat_total": {"id": "france_durum_wheat_total", "title": "France Durum Wheat Progress & Condition (Céré'Obs)", "crop": "Durum Wheat", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "json_file": "france_durum_wheat_total.json", "type": "france_cereobs_3tier"}, "france_grain_maize_total": {"id": "france_grain_maize_total", "title": "France Grain Maize Harvest & Condition (Céré'Obs)", "crop": "Grain Maize", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "json_file": "france_grain_maize_total.json", "type": "france_cereobs_3tier"}, "france_winter_rapeseed_total": {"id": "france_winter_rapeseed_total", "title": "France Winter Rapeseed Emergence & Establishment (Céré'Obs / Terres Inovia)", "crop": "Rapeseed", "country": "France", "region": "National Total (France)", "campaign": "2026/27", "json_file": "france_winter_rapeseed_total.json", "type": "france_cereobs_3tier"}, "pan_eu_harvest_sowing": {"id": "pan_eu_harvest_sowing", "title": "Pan-European Operational Harvest & Autumn Sowing Monitor", "json_file": "pan_eu_harvest_sowing.json", "type": "pan_eu_operational"}, "eu_mars_yield_matrix": {"id": "eu_mars_yield_matrix", "title": "European Commission JRC MARS Yield Forecasts & Phenology", "json_file": "eu_mars_yield_matrix.json", "type": "jrc_mars_matrix"}};
+
+  let activeView = 'france';
+  let activeFranceCropId = 'france_soft_wheat_total';
+  let activePanEUMode = 'sowing';
+  let activeMarsCropFilter = 'ALL';
+
+  let chartGE = null;
+  let chartCondition = null;
+  let chartProgress = null;
+
+  // View switcher
+  function switchView(viewName) {
+    activeView = viewName;
+    document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`tab-btn-${viewName}`).classList.add('active');
+
+    document.getElementById('view-france').style.display = viewName === 'france' ? 'block' : 'none';
+    document.getElementById('view-paneu').style.display = viewName === 'paneu' ? 'block' : 'none';
+    document.getElementById('view-mars').style.display = viewName === 'mars' ? 'block' : 'none';
+
+    if (viewName === 'france') {
+      renderFranceView();
+    } else if (viewName === 'paneu') {
+      renderPanEUView();
+    } else if (viewName === 'mars') {
+      renderMarsView();
+    }
+  }
+
+  // -----------------------------------------------------------------
+  // 1. FRANCE CÉRE'OBS LOGIC
+  // -----------------------------------------------------------------
+  function selectFranceCrop(cropId) {
+    activeFranceCropId = cropId;
+    document.querySelectorAll('#france-crop-pills .pill').forEach(p => {
+      p.classList.remove('active');
+      if (p.getAttribute('onclick').includes(cropId)) {
+        p.classList.add('active');
+      }
+    });
+    renderFranceView();
+  }
+
+  function renderFranceView() {
+    const ds = ALL_DATASETS[activeFranceCropId];
+    if (!ds) return;
+
+    // Update headlines
+    const curIdx = ds.current_week_idx;
+    const curGE = ds.good_excellent['2026/27'] ? ds.good_excellent['2026/27'][curIdx] : 'N/A';
+    const avgGE = ds.good_excellent['5-Year Average'] ? ds.good_excellent['5-Year Average'][curIdx] : 'N/A';
+    const lwGE = (ds.good_excellent['2026/27'] && curIdx > 0) ? ds.good_excellent['2026/27'][curIdx - 1] : 'N/A';
+
+    document.getElementById('fr-ge-headline').innerText = 
+      `Active Season: ${curGE}% G+E | 5-Yr Avg: ${avgGE}% | LW: ${lwGE}% | ${ds.summary.production_share_eu}`;
+    document.getElementById('fr-table-meta').innerText = 
+      `${ds.region} | Campaign ${ds.campaign} | Observation Date: ${ds.current_date_label}`;
+
+    buildFranceGEChart(ds);
+    buildFranceConditionChart(ds);
+    buildFranceProgressChart(ds);
+    buildFranceWeeklyTable(ds);
+  }
+
+  function updateFranceCharts() {
+    const ds = ALL_DATASETS[activeFranceCropId];
+    if (!ds) return;
+    buildFranceGEChart(ds);
+    buildFranceConditionChart(ds);
+    buildFranceProgressChart(ds);
+  }
+
+  function getChartTheme() {
+    const isDark = document.body.classList.contains('dark-theme');
+    return {
+      textColor: isDark ? '#94a3b8' : '#475569',
+      gridColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)'
+    };
+  }
+
+  function buildFranceGEChart(ds) {
+    const ctx = document.getElementById('chart-fr-ge').getContext('2d');
+    if (chartGE) chartGE.destroy();
+    const theme = getChartTheme();
+
+    const show2022 = document.getElementById('yr-2022').checked;
+    const show2023 = document.getElementById('yr-2023').checked;
+    const show2024 = document.getElementById('yr-2024').checked;
+    const show2025 = document.getElementById('yr-2025').checked;
+    const show2026 = document.getElementById('yr-2026').checked;
+    const showAvg = document.getElementById('yr-avg').checked;
+
+    const datasets = [];
+
+    if (show2022 && ds.good_excellent['2022/23']) {
+      datasets.push({
+        label: '2022/23',
+        data: ds.good_excellent['2022/23'],
+        borderColor: '#94a3b8',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        tension: 0.2
+      });
+    }
+    if (show2023 && ds.good_excellent['2023/24']) {
+      datasets.push({
+        label: '2023/24',
+        data: ds.good_excellent['2023/24'],
+        borderColor: '#38bdf8',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        tension: 0.2
+      });
+    }
+    if (show2024 && ds.good_excellent['2024/25']) {
+      datasets.push({
+        label: '2024/25 (Rain Delayed)',
+        data: ds.good_excellent['2024/25'],
+        borderColor: '#f59e0b',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        tension: 0.2
+      });
+    }
+    if (show2025 && ds.good_excellent['2025/26']) {
+      datasets.push({
+        label: '2025/26',
+        data: ds.good_excellent['2025/26'],
+        borderColor: '#a855f7',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        tension: 0.2
+      });
+    }
+    if (showAvg && ds.good_excellent['5-Year Average']) {
+      datasets.push({
+        label: '5-Year Average',
+        data: ds.good_excellent['5-Year Average'],
+        borderColor: '#64748b',
+        borderWidth: 2,
+        borderDash: [5, 5],
+        pointRadius: 0,
+        tension: 0.2
+      });
+    }
+    if (show2026 && ds.good_excellent['2026/27']) {
+      datasets.push({
+        label: '2026/27 (Active Season)',
+        data: ds.good_excellent['2026/27'],
+        borderColor: '#16a34a',
+        backgroundColor: '#16a34a',
+        borderWidth: 3,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        tension: 0.2
+      });
+    }
+
+    chartGE = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ds.weeks,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: {
+            grid: { color: theme.gridColor },
+            ticks: { color: theme.textColor, maxRotation: 0, autoSkip: true, maxTicksLimit: 14 }
+          },
+          y: {
+            min: 20,
+            max: 100,
+            grid: { color: theme.gridColor },
+            ticks: { color: theme.textColor, callback: v => v + '%' }
+          }
+        },
+        plugins: {
+          legend: { position: 'top', labels: { color: theme.textColor, boxWidth: 12 } },
+          tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%` } }
+        }
+      }
+    });
+  }
+
+  function buildFranceConditionChart(ds) {
+    const ctx = document.getElementById('chart-fr-condition').getContext('2d');
+    if (chartCondition) chartCondition.destroy();
+    const theme = getChartTheme();
+    const cb = ds.condition_breakdown;
+
+    chartCondition = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ds.weeks,
+        datasets: [
+          { label: 'Very Poor', data: cb.very_poor, backgroundColor: '#ef4444', borderColor: '#ef4444', fill: true, pointRadius: 0, borderWidth: 1 },
+          { label: 'Poor', data: cb.poor, backgroundColor: '#f59e0b', borderColor: '#f59e0b', fill: true, pointRadius: 0, borderWidth: 1 },
+          { label: 'Fair', data: cb.fair, backgroundColor: '#a3e635', borderColor: '#a3e635', fill: true, pointRadius: 0, borderWidth: 1 },
+          { label: 'Good', data: cb.good, backgroundColor: '#22c55e', borderColor: '#22c55e', fill: true, pointRadius: 0, borderWidth: 1 },
+          { label: 'Excellent', data: cb.excellent, backgroundColor: '#15803d', borderColor: '#15803d', fill: true, pointRadius: 0, borderWidth: 1 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: {
+            grid: { color: theme.gridColor },
+            ticks: { color: theme.textColor, maxRotation: 0, autoSkip: true, maxTicksLimit: 14 }
+          },
+          y: {
+            stacked: true,
+            min: 0,
+            max: 100,
+            grid: { color: theme.gridColor },
+            ticks: { color: theme.textColor, callback: v => v + '%' }
+          }
+        },
+        plugins: {
+          legend: { position: 'top', labels: { color: theme.textColor, boxWidth: 12 } }
+        }
+      }
+    });
+  }
+
+  function buildFranceProgressChart(ds) {
+    const ctx = document.getElementById('chart-fr-progress').getContext('2d');
+    if (chartProgress) chartProgress.destroy();
+    const theme = getChartTheme();
+    const ps = ds.progress_stages;
+
+    const colors = {
+      'Planted': '#2563eb',
+      'Emerged': '#059669',
+      'Heading': '#d97706',
+      'Silking / Flowering': '#d97706',
+      'Rosette Stage': '#7c3aed',
+      'Harvested': '#dc2626'
+    };
+
+    const datasets = [];
+
+    Object.keys(ps).forEach(stage => {
+      const baseColor = colors[stage] || '#64748b';
+      const stageData = ps[stage];
+
+      if (stageData.active_season) {
+        datasets.push({
+          label: `${stage} (26/27 Active)`,
+          data: stageData.active_season,
+          borderColor: baseColor,
+          backgroundColor: baseColor,
+          borderWidth: 2.5,
+          pointRadius: 3,
+          tension: 0.2
+        });
+      }
+      if (stageData.prior_season) {
+        datasets.push({
+          label: `${stage} (Prior Year)`,
+          data: stageData.prior_season,
+          borderColor: baseColor,
+          borderWidth: 1.5,
+          borderDash: [5, 4],
+          pointRadius: 0,
+          tension: 0.2
+        });
+      }
+      if (stageData.five_year_avg) {
+        datasets.push({
+          label: `${stage} (5-Yr Avg)`,
+          data: stageData.five_year_avg,
+          borderColor: baseColor,
+          borderWidth: 1.5,
+          borderDash: [2, 2],
+          pointRadius: 0,
+          tension: 0.2
+        });
+      }
+    });
+
+    chartProgress = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ds.weeks,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: {
+            grid: { color: theme.gridColor },
+            ticks: { color: theme.textColor, maxRotation: 0, autoSkip: true, maxTicksLimit: 14 }
+          },
+          y: {
+            min: 0,
+            max: 100,
+            grid: { color: theme.gridColor },
+            ticks: { color: theme.textColor, callback: v => v + '%' }
+          }
+        },
+        plugins: {
+          legend: { position: 'top', labels: { color: theme.textColor, boxWidth: 10 } }
+        }
+      }
+    });
+  }
+
+  function buildFranceWeeklyTable(ds) {
+    const tbody = document.querySelector('#table-fr-weekly tbody');
+    tbody.innerHTML = '';
+    const curIdx = ds.current_week_idx;
+
+    for (let w = 0; w <= curIdx; w++) {
+      const wk = ds.weeks[w];
+      const p = ds.progress_stages.Planted ? ds.progress_stages.Planted.active_season[w] : '-';
+      const em = ds.progress_stages.Emerged ? ds.progress_stages.Emerged.active_season[w] : '-';
+      const hd = ds.progress_stages.Heading ? ds.progress_stages.Heading.active_season[w] : 
+                 (ds.progress_stages['Silking / Flowering'] ? ds.progress_stages['Silking / Flowering'].active_season[w] : 
+                 (ds.progress_stages['Rosette Stage'] ? ds.progress_stages['Rosette Stage'].active_season[w] : '-'));
+      const hv = ds.progress_stages.Harvested ? ds.progress_stages.Harvested.active_season[w] : '-';
+
+      const ge = ds.good_excellent['2026/27'] ? ds.good_excellent['2026/27'][w] : '-';
+      const tb = ds.condition_breakdown.excellent[w] !== null ? ds.condition_breakdown.excellent[w] + '%' : '-';
+      const b = ds.condition_breakdown.good[w] !== null ? ds.condition_breakdown.good[w] + '%' : '-';
+      const ab = ds.condition_breakdown.fair[w] !== null ? ds.condition_breakdown.fair[w] + '%' : '-';
+      const m = ds.condition_breakdown.poor[w] !== null ? ds.condition_breakdown.poor[w] + '%' : '-';
+      const mv = ds.condition_breakdown.very_poor[w] !== null ? ds.condition_breakdown.very_poor[w] + '%' : '-';
+
+      let statusBadge = '<span class="badge badge-success">Optimal</span>';
+      if (ge !== '-' && ge < 75) statusBadge = '<span class="badge badge-warning">Moderate</span>';
+
+      const tr = document.createElement('tr');
+      if (w === curIdx) tr.style.backgroundColor = 'var(--bg-card-hover)';
+
+      tr.innerHTML = `
+        <td class="mono"><strong>${wk}</strong> ${w === curIdx ? '<span class="badge badge-info">Latest</span>' : ''}</td>
+        <td class="mono">${p !== null && p !== '-' ? p + '%' : '-'}</td>
+        <td class="mono">${em !== null && em !== '-' ? em + '%' : '-'}</td>
+        <td class="mono">${hd !== null && hd !== '-' ? hd + '%' : '-'}</td>
+        <td class="mono">${hv !== null && hv !== '-' ? hv + '%' : '-'}</td>
+        <td class="mono" style="font-weight:700; color:var(--green);">${ge !== null && ge !== '-' ? ge + '%' : '-'}</td>
+        <td class="mono">${tb}</td>
+        <td class="mono">${b}</td>
+        <td class="mono">${ab}</td>
+        <td class="mono">${m}</td>
+        <td class="mono">${mv}</td>
+        <td>${statusBadge}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
+
+  // -----------------------------------------------------------------
+  // 2. PAN-EU OPERATIONAL MONITOR LOGIC
+  // -----------------------------------------------------------------
+  function switchPanEUSub(mode) {
+    activePanEUMode = mode;
+    document.getElementById('paneu-tab-sowing').classList.toggle('active', mode === 'sowing');
+    document.getElementById('paneu-tab-harvest').classList.toggle('active', mode === 'harvest');
+    renderPanEUView();
+  }
+
+  function renderPanEUView() {
+    const data = ALL_DATASETS['pan_eu_harvest_sowing'];
+    if (!data) return;
+    const tbody = document.querySelector('#table-paneu-ops tbody');
+    tbody.innerHTML = '';
+
+    const list = activePanEUMode === 'sowing' ? data.autumn_sowing : data.summer_harvest;
+    let currentCrop = null;
+
+    list.forEach(row => {
+      // Grouping by Crop: insert category header banner
+      if (row.crop !== currentCrop) {
+        currentCrop = row.crop;
+        const icon = (currentCrop.includes('Wheat') || currentCrop.includes('Barley')) ? '🌾' :
+                     currentCrop.includes('Rapeseed') ? '🌻' :
+                     currentCrop.includes('Maize') ? '🌽' : '🌻';
+        const campaignLabel = activePanEUMode === 'sowing' ? '2026/27 Autumn Drilling Window' : '2026 Season Harvest Pace';
+
+        const dividerTr = document.createElement('tr');
+        dividerTr.className = 'crop-category-header';
+        dividerTr.innerHTML = `
+          <td colspan="11">
+            <div class="crop-category-banner">
+              <span class="crop-category-title">${icon} ${currentCrop}</span>
+              <span class="crop-category-badge">${campaignLabel}</span>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(dividerTr);
+      }
+
+      const isConsolidated = (row.country_code === 'EU-27');
+      const pace26 = activePanEUMode === 'sowing' ? row.pace_2026_pct : row.harvest_2026_pct;
+      const pace25 = activePanEUMode === 'sowing' ? row.pace_2025_pct : row.harvest_2025_pct;
+      const pace24 = activePanEUMode === 'sowing' ? row.pace_2024_pct : row.harvest_2024_pct;
+      const paceAvg = row.five_yr_avg_pct;
+      const areaPlan = activePanEUMode === 'sowing' ? row.planned_area_mha : row.forecast_area_mha;
+      const areaDone = activePanEUMode === 'sowing' ? row.sown_area_mha : row.harvested_area_mha;
+
+      const yoyDelta = row.yoy_delta_pct;
+      const yoyColor = yoyDelta >= 0 ? 'var(--green)' : 'var(--red)';
+      const yoySign = yoyDelta >= 0 ? '+' : '';
+
+      let badgeClass = 'badge-success';
+      if (row.status.includes('Behind') || row.status.includes('Slow')) badgeClass = 'badge-danger';
+      else if (row.status.includes('Stress') || row.status.includes('Deficit')) badgeClass = 'badge-warning';
+
+      const tr = document.createElement('tr');
+      if (isConsolidated) {
+        tr.className = 'consolidated-row';
+      }
+
+      tr.innerHTML = `
+        <td style="font-weight:${isConsolidated ? '800' : '700'};">
+          <span style="font-size:13px; margin-right:4px;">${row.flag}</span>
+          ${row.country}
+        </td>
+        <td style="font-weight:600; font-size:11.5px;">${row.crop}</td>
+        <td class="mono" style="text-align:center;">${areaDone.toFixed(2)} / ${areaPlan.toFixed(2)}</td>
+        <td class="mono" style="font-weight:800; font-size:12.5px; text-align:center;">${pace26.toFixed(1)}%</td>
+        <td class="mono" style="text-align:center;">${pace25.toFixed(1)}%</td>
+        <td class="mono" style="text-align:center;">${pace24.toFixed(1)}%</td>
+        <td class="mono" style="text-align:center;">${paceAvg.toFixed(1)}%</td>
+        <td class="mono" style="color: ${yoyColor}; font-weight:700; text-align:center;">${yoySign}${yoyDelta.toFixed(1)}%</td>
+        <td><span class="badge ${badgeClass}">${row.status}</span></td>
+        <td><span style="font-size:11px; font-weight:600;">${row.soil_moisture || 'Adequate'}</span></td>
+        <td style="font-size:11px; white-space:normal; max-width:280px; min-width:170px; line-height:1.35; ${isConsolidated ? 'font-weight:600;' : 'color:var(--text-muted);'}">${row.notes}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // -----------------------------------------------------------------
+  // 3. JRC MARS YIELD MATRIX LOGIC
+  // -----------------------------------------------------------------
+  function filterMarsTable(crop) {
+    activeMarsCropFilter = crop;
+    document.querySelectorAll('#mars-crop-filter-pills .pill').forEach(p => {
+      p.classList.remove('active');
+      if (p.getAttribute('onclick').includes(crop)) {
+        p.classList.add('active');
+      }
+    });
+    renderMarsView();
+  }
+
+  function renderMarsView() {
+    const data = ALL_DATASETS['eu_mars_yield_matrix'];
+    if (!data) return;
+    const tbody = document.querySelector('#table-mars-yield tbody');
+    tbody.innerHTML = '';
+
+    const list = data.yield_matrix.filter(r => activeMarsCropFilter === 'ALL' || r.crop.includes(activeMarsCropFilter));
+    let currentCrop = null;
+
+    list.forEach(r => {
+      // Grouping by Crop: insert category header banner
+      if (r.crop !== currentCrop) {
+        currentCrop = r.crop;
+        const icon = (currentCrop.includes('Wheat') || currentCrop.includes('Barley')) ? '🌾' :
+                     currentCrop.includes('Rapeseed') ? '🌻' :
+                     currentCrop.includes('Maize') ? '🌽' : '🌻';
+        const seasonType = (currentCrop.includes('Wheat') || currentCrop.includes('Barley') || currentCrop.includes('Rapeseed')) ?
+                           'Winter Crop Campaign' : 'Summer Crop Campaign';
+
+        const dividerTr = document.createElement('tr');
+        dividerTr.className = 'crop-category-header';
+        dividerTr.innerHTML = `
+          <td colspan="12">
+            <div class="crop-category-banner">
+              <span class="crop-category-title">${icon} ${currentCrop}</span>
+              <span class="crop-category-badge">JRC MARS Official Yield &amp; Phenology Matrix (${seasonType})</span>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(dividerTr);
+      }
+
+      const isConsolidated = (r.country_code === 'EU-27' || r.country.includes('EU-27'));
+      const d5yr = r.diff_5yr_pct;
+      const d5yrColor = d5yr >= 0 ? 'var(--green)' : 'var(--red)';
+      const d5yrSign = d5yr >= 0 ? '+' : '';
+
+      const dly = r.diff_ly_pct;
+      const dlyColor = dly >= 0 ? 'var(--green)' : 'var(--red)';
+      const dlySign = dly >= 0 ? '+' : '';
+
+      const shift = r.phenology_shift_days;
+      let shiftText = `${shift > 0 ? '+' : ''}${shift} days`;
+      let shiftBadge = 'badge-info';
+      if (shift > 4) shiftBadge = 'badge-warning';
+      else if (shift < -4) shiftBadge = 'badge-danger';
+      if (shift === 0) shiftText = 'On Schedule (0d)';
+
+      const tr = document.createElement('tr');
+      if (isConsolidated) {
+        tr.className = 'consolidated-row';
+      }
+
+      tr.innerHTML = `
+        <td style="font-weight:${isConsolidated ? '800' : '700'};">
+          <span style="font-size:13px; margin-right:4px;">${r.flag}</span>
+          ${r.country}
+        </td>
+        <td style="font-weight:600; font-size:11.5px;">${r.crop}</td>
+        <td class="mono" style="font-weight:800; font-size:12.5px; text-align:center;">${r.forecast_yield_tha.toFixed(2)}</td>
+        <td class="mono" style="font-weight:700; font-size:12px; color:var(--accent); text-align:center;">${r.forecast_production_mt !== undefined ? r.forecast_production_mt.toFixed(1) + ' Mt' : '-'}</td>
+        <td class="mono" style="text-align:center;">${r.ly_yield_tha.toFixed(2)}</td>
+        <td class="mono" style="text-align:center;">${r.five_yr_avg_tha.toFixed(2)}</td>
+        <td class="mono" style="color: ${d5yrColor}; font-weight:700; text-align:center;">${d5yrSign}${d5yr.toFixed(1)}%</td>
+        <td class="mono" style="color: ${dlyColor}; font-weight:700; text-align:center;">${dlySign}${dly.toFixed(1)}%</td>
+        <td><span style="font-size:11px; font-weight:600;">${r.phenology_stage}</span></td>
+        <td style="text-align:center;"><span class="badge ${shiftBadge}">${shiftText}</span></td>
+        <td><span style="font-size:11px; font-weight:600;">${r.moisture_status}</span></td>
+        <td style="font-size:11px; white-space:normal; max-width:280px; min-width:170px; line-height:1.35; ${isConsolidated ? 'font-weight:600;' : 'color:var(--text-muted);'}">${r.agronomic_diagnosis}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // -----------------------------------------------------------------
+  // THEME & EXPORT UTILITIES
+  // -----------------------------------------------------------------
+  function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    if (activeView === 'france') {
+      updateFranceCharts();
+    }
+  }
+
+  function exportCSV() {
+    let csv = '';
+    if (activeView === 'france') {
+      const ds = ALL_DATASETS[activeFranceCropId];
+      csv = 'Week,Planted_Pct,Emerged_Pct,Heading_Pct,Harvested_Pct,GE_Pct,Excellent,Good,Fair,Poor,Very_Poor\n';
+      const curIdx = ds.current_week_idx;
+      for (let w = 0; w <= curIdx; w++) {
+        csv += `${ds.weeks[w]},${ds.progress_stages.Planted ? ds.progress_stages.Planted.active_season[w] : ''},${ds.progress_stages.Emerged ? ds.progress_stages.Emerged.active_season[w] : ''},${ds.progress_stages.Heading ? ds.progress_stages.Heading.active_season[w] : ''},${ds.progress_stages.Harvested ? ds.progress_stages.Harvested.active_season[w] : ''},${ds.good_excellent['2026/27'] ? ds.good_excellent['2026/27'][w] : ''},${ds.condition_breakdown.excellent[w]},${ds.condition_breakdown.good[w]},${ds.condition_breakdown.fair[w]},${ds.condition_breakdown.poor[w]},${ds.condition_breakdown.very_poor[w]}\n`;
+      }
+    } else if (activeView === 'paneu') {
+      const data = ALL_DATASETS['pan_eu_harvest_sowing'];
+      const list = activePanEUMode === 'sowing' ? data.autumn_sowing : data.summer_harvest;
+      csv = 'Country,Crop,Planned_Mha,Done_Mha,Pace2026_Pct,Pace2025_Pct,Pace5YrAvg_Pct,YoY_Delta,Status,Moisture\n';
+      list.forEach(r => {
+        const p26 = activePanEUMode === 'sowing' ? r.pace_2026_pct : r.harvest_2026_pct;
+        const p25 = activePanEUMode === 'sowing' ? r.pace_2025_pct : r.harvest_2025_pct;
+        const pAvg = r.five_yr_avg_pct;
+        const aPlan = activePanEUMode === 'sowing' ? r.planned_area_mha : r.forecast_area_mha;
+        const aDone = activePanEUMode === 'sowing' ? r.sown_area_mha : r.harvested_area_mha;
+        csv += `"${r.country}","${r.crop}",${aPlan},${aDone},${p26},${p25},${pAvg},${r.yoy_delta_pct},"${r.status}","${r.soil_moisture || ''}"\n`;
+      });
+    } else {
+      const data = ALL_DATASETS['eu_mars_yield_matrix'];
+      csv = 'Crop,Country,Forecast_Yield_tha,Forecast_Production_Mt,LY_Yield_tha,FiveYrAvg_tha,Diff5Yr_Pct,DiffLY_Pct,Phenology_Stage,Shift_Days,Moisture\n';
+      data.yield_matrix.forEach(r => {
+        csv += `"${r.crop}","${r.country}",${r.forecast_yield_tha},${r.forecast_production_mt || ''},${r.ly_yield_tha},${r.five_yr_avg_tha},${r.diff_5yr_pct},${r.diff_ly_pct},"${r.phenology_stage}",${r.phenology_shift_days},"${r.moisture_status}"\n`;
+      });
+    }
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `EU_Crop_Progress_${activeView}_${new Date().toISOString().slice(0,10)}.csv`;
+    link.click();
+  }
+
+  function exportSnapshot() {
+    const el = document.getElementById('dashboard-capture');
+    html2canvas(el, { scale: 2 }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = `EU_CropProgress_${activeView}_${new Date().toISOString().slice(0,10)}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  }
+
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    switchView('france');
+  });
+</script>
+</body>
+</html>

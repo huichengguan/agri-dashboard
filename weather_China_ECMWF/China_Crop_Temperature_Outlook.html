@@ -10,8 +10,10 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #0b1120;
             color: #f1f5f9;
-            line-height: 1.35;
-            padding: 14px 18px;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
         }
         .dashboard-container {
             max-width: 1780px;
@@ -23,40 +25,12 @@
             overflow: hidden;
         }
         
-        .suite-nav-bar {
-            background: #090e1a;
-            border-bottom: 1px solid #1e293b;
-            padding: 8px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .suite-brand {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1.2px;
-            color: #38bdf8;
-            text-transform: uppercase;
-        }
-        .suite-nav-links { display: flex; gap: 6px; }
-        .nav-tab {
-            padding: 5px 12px;
-            border-radius: 5px;
-            font-size: 11px;
-            font-weight: 600;
-            text-decoration: none;
-            color: #94a3b8;
-            background: #131c2e;
-            border: 1px solid #1e293b;
-            transition: all 0.15s ease;
-        }
-        .nav-tab:hover { color: #f8fafc; background: #1e293b; border-color: #38bdf8; }
-        .nav-tab.active {
-            color: #ffffff;
-            background: #0369a1;
-            border-color: #38bdf8;
-            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
-        }
+        
+        
+        
+        
+        
+        
 
         .header-card {
             padding: 14px 24px 10px 24px;
@@ -180,7 +154,7 @@
         table.temp-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10px;
+            font-size: 11px;
             white-space: nowrap;
         }
         th {
@@ -231,7 +205,7 @@
             text-align: left !important;
             padding-left: 6px !important;
         }
-        .stat-col-th { width: 56px; }
+        .stat-col-th { width: 75px; min-width: 75px; }
 
         .state-col {
             width: 140px;
@@ -286,9 +260,9 @@
         .yield-tag { color: #94a3b8; font-size: 8.5px; }
 
         .stat-col {
-            width: 56px;
-            min-width: 56px;
-            max-width: 56px;
+            width: 75px;
+            min-width: 75px;
+            max-width: 85px;
             padding: 4px 1px !important;
             font-weight: 700;
             border-right: 1px solid #334155;
@@ -366,21 +340,99 @@
             justify-content: space-between;
             align-items: center;
         }
-    </style>
+    
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        .suite-nav-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 44px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .suite-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #2563eb;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+        }
+</style>
 </head>
 <body>
 
 <div class="dashboard-container">
 
+        <!-- Universal Cross-Dashboard Navigation -->
     <div class="suite-nav-bar">
         <div class="suite-nav-left">
-            <span class="suite-brand">&#127793; CHINA CROP AG-WEATHER INTELLIGENCE</span>
+            <span class="suite-brand">&#127464;&#127475; CHINA AG-WEATHER INTELLIGENCE (ECMWF IFS)</span>
         </div>
         <div class="suite-nav-links">
-            <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Outlook</a>
+            <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
             <a href="China_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
             <a href="China_Crop_Temperature_Outlook.html" class="nav-tab active">&#9728;&#65039; Thermal Stress Outlook</a>
-            <a href="China_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010–2026)</a>
+            <a href="China_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010&ndash;2026)</a>
         </div>
     </div>
 
@@ -398,7 +450,7 @@
         </div>
         <div class="header-meta">
             <div>Atmospheric Model: <strong>ECMWF IFS 0.25° Operational &amp; ERA5</strong></div>
-            <div>Generated: <strong>2026-11-10 05:56:00 UTC</strong></div>
+            <div>Generated: <strong>2026-11-11 08:25:14 UTC</strong></div>
             <div>Commodity Focus: <strong>Corn, Wheat &amp; Soybeans</strong></div>
         </div>
     </div>
@@ -407,21 +459,21 @@
         <div class="kpi-card">
             <span class="kpi-label">Avg 14D Daytime High</span>
             <div class="kpi-val-row">
-                <span class="kpi-val" id="kpi-tmax-val">9.7°C</span>
+                <span class="kpi-val" id="kpi-tmax-val">10.2°C</span>
                 <span class="kpi-sub">National Grain Belt</span>
             </div>
         </div>
         <div class="kpi-card">
             <span class="kpi-label">Avg 14D Nighttime Low</span>
             <div class="kpi-val-row">
-                <span class="kpi-val" id="kpi-tmin-val">0.2°C</span>
+                <span class="kpi-val" id="kpi-tmin-val">0.6°C</span>
                 <span class="kpi-sub">National Grain Belt</span>
             </div>
         </div>
         <div class="kpi-card">
             <span class="kpi-label">Frost / Sub-Zero Stations</span>
             <div class="kpi-val-row">
-                <span class="kpi-val" style="color:#60a5fa;">16 / 19</span>
+                <span class="kpi-val" style="color:#60a5fa;">14 / 19</span>
                 <span class="kpi-sub">&le;0°C Night Frost Alert</span>
             </div>
         </div>
@@ -462,7 +514,7 @@
                     <th class="stat-col-th sortable sum-col-1" data-sort="avg-max">Avg Tmax</th>
                     <th class="stat-col-th sortable sum-col-2" data-sort="avg-min">Avg Tmin</th>
                     <th class="stat-col-th sum-col-3">14D Range</th>
-                    <th class="daily-col-th center today-head">11/10<div class="today-tag">TODAY</div></th><th class="daily-col-th center">11/11</th><th class="daily-col-th center">11/12</th><th class="daily-col-th center">11/13</th><th class="daily-col-th center">11/14</th><th class="daily-col-th center">11/15</th><th class="daily-col-th center">11/16</th><th class="daily-col-th center">11/17</th><th class="daily-col-th center">11/18</th><th class="daily-col-th center">11/19</th><th class="daily-col-th center">11/20</th><th class="daily-col-th center">11/21</th><th class="daily-col-th center">11/22</th><th class="daily-col-th center">11/23</th>
+                    <th class="daily-col-th center today-head">11/11<div class="today-tag">TODAY</div></th><th class="daily-col-th center">11/12</th><th class="daily-col-th center">11/13</th><th class="daily-col-th center">11/14</th><th class="daily-col-th center">11/15</th><th class="daily-col-th center">11/16</th><th class="daily-col-th center">11/17</th><th class="daily-col-th center">11/18</th><th class="daily-col-th center">11/19</th><th class="daily-col-th center">11/20</th><th class="daily-col-th center">11/21</th><th class="daily-col-th center">11/22</th><th class="daily-col-th center">11/23</th><th class="daily-col-th center">11/24</th>
                 </tr>
             </thead>
             <tbody id="temp-tbody">
@@ -480,18 +532,17 @@
                 data-name="heilongjiang central-south" 
                 data-code="hlj-cs" 
                 data-region="northeast china - songliao plain grain & oilseed heartland" 
-                data-avg-max="-2.942857142857143"
-                data-avg-min="-12.064285714285713"
-                data-peak-max="4.0"
-                data-trough-min="-18.4"
+                data-avg-max="-1.592857142857143"
+                data-avg-min="-11.028571428571428"
+                data-peak-max="5.1"
+                data-trough-min="-17.1"
                 data-crops="corn (spring) soybeans (spring)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Heilongjiang Central-South (HLJ-CS) — Songnen Rural Black-Soil Tract (Hailun / Wangkui / Suihua Cropland)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Heilongjiang Central-South</span>
+                        <span class="state-name" title="Songnen Rural Black-Soil Tract (Hailun / Wangkui / Suihua Cropland)">Heilongjiang Central-South</span>
                         <span class="state-code">HLJ-CS</span>
                     </div>
-                    <div class="district-name" title="Songnen Rural Black-Soil Tract (Hailun / Wangkui / Suihua Cropland)">Songnen Rural Black-Soil Tract (Hailun / Wangkui / Suihua Cropland)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -500,107 +551,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">-2.9°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-12.1°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-18&ndash;4°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">-1.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-11.0°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-17° to 5°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="-4.0" 
-                    data-tmin="-11.9" 
-                    data-tmean="-9.0"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="3.1" 
-                    data-tmin="-12.0" 
-                    data-tmean="-4.6"
+                    data-tmax="4.7" 
+                    data-tmin="-10.9" 
+                    data-tmean="-4.0"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.0" 
-                    data-tmin="-4.6" 
-                    data-tmean="-1.5"
+                    data-tmax="4.7" 
+                    data-tmin="-4.2" 
+                    data-tmean="-0.9"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.1" 
-                    data-tmin="-9.1" 
-                    data-tmean="-3.5"
+                    data-tmax="5.1" 
+                    data-tmin="-8.3" 
+                    data-tmean="-2.5"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-0.7" 
-                    data-tmin="-8.4" 
-                    data-tmean="-4.6"
+                    data-tmax="0.5" 
+                    data-tmin="-4.3" 
+                    data-tmean="-2.2"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-1.1" 
+                    data-tmax="-2.0" 
                     data-tmin="-10.5" 
-                    data-tmean="-4.7"
+                    data-tmean="-5.0"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-2.5" 
-                    data-tmin="-13.1" 
-                    data-tmean="-8.2"
+                    data-tmax="-2.6" 
+                    data-tmin="-13.5" 
+                    data-tmean="-8.6"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-0.5" 
-                    data-tmin="-10.2" 
-                    data-tmean="-5.5"
+                    data-tmax="0.2" 
+                    data-tmin="-9.0" 
+                    data-tmean="-5.1"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-3.9" 
-                    data-tmin="-10.4" 
-                    data-tmean="-6.9"
+                    data-tmax="-4.0" 
+                    data-tmin="-9.6" 
+                    data-tmean="-5.7"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-9.0" 
-                    data-tmin="-15.7" 
-                    data-tmean="-12.0"
+                    data-tmax="-7.1" 
+                    data-tmin="-15.4" 
+                    data-tmean="-11.2"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-12.5" 
-                    data-tmin="-18.0" 
-                    data-tmean="-15.0"
+                    data-tmax="-9.1" 
+                    data-tmin="-17.1" 
+                    data-tmean="-13.4"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-8.6" 
-                    data-tmin="-18.4" 
-                    data-tmean="-14.2"
+                    data-tmax="-6.4" 
+                    data-tmin="-14.5" 
+                    data-tmean="-11.2"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-6.2" 
-                    data-tmin="-15.1" 
-                    data-tmean="-11.4"
+                    data-tmax="-0.7" 
+                    data-tmin="-12.9" 
+                    data-tmean="-7.4"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-2.4" 
-                    data-tmin="-11.5" 
-                    data-tmean="-7.3"
+                    data-tmax="-4.4" 
+                    data-tmin="-12.2" 
+                    data-tmean="-8.5"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="-1.2" 
+                    data-tmin="-12.0" 
+                    data-tmean="-7.7"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -609,18 +660,17 @@
                 data-name="heilongjiang northern granary" 
                 data-code="hlj-north" 
                 data-region="northeast china - songliao plain grain & oilseed heartland" 
-                data-avg-max="-6.8428571428571425"
-                data-avg-min="-15.085714285714287"
-                data-peak-max="-0.9"
-                data-trough-min="-20.5"
+                data-avg-max="-6.307142857142856"
+                data-avg-min="-15.028571428571428"
+                data-peak-max="-0.4"
+                data-trough-min="-20.0"
                 data-crops="soybeans (spring) corn (spring) spring wheat">
                 
-                <td class="state-col">
+                <td class="state-col" title="Heilongjiang Northern Granary (HLJ-NORTH) — Beidahuang Rural Reclamation Belt (Jiusan / Keshan / Nehe Farmland)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Heilongjiang Northern Granary</span>
+                        <span class="state-name" title="Beidahuang Rural Reclamation Belt (Jiusan / Keshan / Nehe Farmland)">Heilongjiang Northern Granary</span>
                         <span class="state-code">HLJ-NORTH</span>
                     </div>
-                    <div class="district-name" title="Beidahuang Rural Reclamation Belt (Jiusan / Keshan / Nehe Farmland)">Beidahuang Rural Reclamation Belt (Jiusan / Keshan / Nehe Farmland)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -629,107 +679,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">-6.8°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-15.1°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-20&ndash;-1°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">-6.3°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-15.0°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-20° to -0°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="-9.4" 
-                    data-tmin="-16.6" 
-                    data-tmean="-12.4"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="-3.2" 
-                    data-tmin="-12.1" 
-                    data-tmean="-7.2"
+                    data-tmax="-3.6" 
+                    data-tmin="-11.7" 
+                    data-tmean="-8.1"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-0.9" 
-                    data-tmin="-9.9" 
-                    data-tmean="-6.1"
+                    data-tmax="-1.2" 
+                    data-tmin="-10.6" 
+                    data-tmean="-6.4"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-1.8" 
-                    data-tmin="-12.5" 
-                    data-tmean="-7.9"
+                    data-tmax="-0.4" 
+                    data-tmin="-13.0" 
+                    data-tmean="-7.7"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-6.3" 
-                    data-tmin="-13.6" 
-                    data-tmean="-9.8"
+                    data-tmax="-5.6" 
+                    data-tmin="-13.4" 
+                    data-tmean="-9.9"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-6.0" 
-                    data-tmin="-14.1" 
-                    data-tmean="-10.2"
+                    data-tmax="-6.9" 
+                    data-tmin="-15.2" 
+                    data-tmean="-11.2"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="-7.2" 
-                    data-tmin="-18.0" 
-                    data-tmean="-12.2"
+                    data-tmin="-18.9" 
+                    data-tmean="-13.0"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="-4.9" 
-                    data-tmin="-10.5" 
-                    data-tmean="-7.7"
+                    data-tmin="-10.4" 
+                    data-tmean="-7.9"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-6.8" 
-                    data-tmin="-13.0" 
-                    data-tmean="-10.3"
+                    data-tmax="-7.4" 
+                    data-tmin="-12.8" 
+                    data-tmean="-9.5"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-10.4" 
-                    data-tmin="-16.1" 
-                    data-tmean="-13.4"
+                    data-tmax="-10.3" 
+                    data-tmin="-17.6" 
+                    data-tmean="-13.1"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-11.9" 
-                    data-tmin="-19.4" 
-                    data-tmean="-15.3"
+                    data-tmax="-9.5" 
+                    data-tmin="-20.0" 
+                    data-tmean="-14.6"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-10.5" 
-                    data-tmin="-20.5" 
-                    data-tmean="-16.4"
+                    data-tmax="-8.6" 
+                    data-tmin="-16.9" 
+                    data-tmean="-12.8"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-9.1" 
-                    data-tmin="-19.8" 
-                    data-tmean="-15.0"
+                    data-tmax="-6.6" 
+                    data-tmin="-16.2" 
+                    data-tmean="-11.6"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-7.4" 
-                    data-tmin="-15.1" 
-                    data-tmean="-11.2"
+                    data-tmax="-10.3" 
+                    data-tmin="-18.4" 
+                    data-tmean="-14.5"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="-5.8" 
+                    data-tmin="-15.3" 
+                    data-tmean="-11.7"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -738,18 +788,17 @@
                 data-name="jilin central golden corn belt" 
                 data-code="jl-central" 
                 data-region="northeast china - songliao plain grain & oilseed heartland" 
-                data-avg-max="3.1428571428571423"
-                data-avg-min="-5.378571428571429"
-                data-peak-max="11.9"
-                data-trough-min="-10.8"
+                data-avg-max="4.328571428571428"
+                data-avg-min="-4.235714285714286"
+                data-peak-max="11.5"
+                data-trough-min="-8.6"
                 data-crops="corn (spring) soybeans (spring)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Jilin Central Golden Corn Belt (JL-CENTRAL) — Songliao Rural Corn Heartland (Lishu / Gongzhuling / Nong'an Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Jilin Central Golden Corn Belt</span>
+                        <span class="state-name" title="Songliao Rural Corn Heartland (Lishu / Gongzhuling / Nong'an Tract)">Jilin Central Golden Corn Belt</span>
                         <span class="state-code">JL-CENTRAL</span>
                     </div>
-                    <div class="district-name" title="Songliao Rural Corn Heartland (Lishu / Gongzhuling / Nong'an Tract)">Songliao Rural Corn Heartland (Lishu / Gongzhuling / Nong'an Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -758,107 +807,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">3.1°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-5.4°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-11&ndash;12°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">4.3°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-4.2°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-9° to 12°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="5.1" 
-                    data-tmin="-3.2" 
-                    data-tmean="-0.2"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="10.1" 
-                    data-tmin="-2.6" 
-                    data-tmean="3.5"
+                    data-tmax="10.2" 
+                    data-tmin="-2.1" 
+                    data-tmean="3.6"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.9" 
-                    data-tmin="2.2" 
-                    data-tmean="5.7"
+                    data-tmax="11.5" 
+                    data-tmin="0.3" 
+                    data-tmean="5.3"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.9" 
-                    data-tmin="-1.2" 
-                    data-tmean="4.3"
+                    data-tmax="7.2" 
+                    data-tmin="-0.6" 
+                    data-tmean="2.7"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.5" 
-                    data-tmin="-1.3" 
-                    data-tmean="2.0"
+                    data-tmax="9.0" 
+                    data-tmin="-0.9" 
+                    data-tmean="2.9"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.7" 
-                    data-tmin="-4.2" 
-                    data-tmean="-0.1"
+                    data-tmax="4.0" 
+                    data-tmin="-4.7" 
+                    data-tmean="0.5"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="1.0" 
-                    data-tmin="-6.5" 
-                    data-tmean="-3.3"
+                    data-tmax="0.5" 
+                    data-tmin="-6.9" 
+                    data-tmean="-3.6"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="3.3" 
-                    data-tmin="-5.9" 
-                    data-tmean="-2.2"
+                    data-tmin="-4.5" 
+                    data-tmean="-1.0"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-1.1" 
-                    data-tmin="-9.3" 
-                    data-tmean="-4.6"
+                    data-tmax="-0.7" 
+                    data-tmin="-7.6" 
+                    data-tmean="-3.0"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-6.0" 
-                    data-tmin="-10.4" 
-                    data-tmean="-8.3"
+                    data-tmax="-3.6" 
+                    data-tmin="-8.6" 
+                    data-tmean="-6.4"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-5.2" 
-                    data-tmin="-10.8" 
-                    data-tmean="-8.5"
+                    data-tmax="0.7" 
+                    data-tmin="-6.6" 
+                    data-tmean="-3.4"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="0.4" 
-                    data-tmin="-10.6" 
-                    data-tmean="-5.5"
+                    data-tmax="0.7" 
+                    data-tmin="-7.9" 
+                    data-tmean="-3.6"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-0.2" 
-                    data-tmin="-6.8" 
-                    data-tmean="-3.7"
+                    data-tmax="5.9" 
+                    data-tmin="-4.4" 
+                    data-tmean="0.6"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.6" 
-                    data-tmin="-4.7" 
-                    data-tmean="-0.3"
+                    data-tmax="6.3" 
+                    data-tmin="-2.1" 
+                    data-tmean="2.0"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="5.6" 
+                    data-tmin="-2.7" 
+                    data-tmean="0.8"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -867,18 +916,17 @@
                 data-name="liaoning central grain plain" 
                 data-code="ln-central" 
                 data-region="northeast china - songliao plain grain & oilseed heartland" 
-                data-avg-max="4.207142857142856"
-                data-avg-min="-4.707142857142857"
-                data-peak-max="13.4"
-                data-trough-min="-10.5"
+                data-avg-max="5.278571428571429"
+                data-avg-min="-3.5071428571428567"
+                data-peak-max="13.3"
+                data-trough-min="-7.8"
                 data-crops="corn (spring) soybeans (spring)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Liaoning Central Grain Plain (LN-CENTRAL) — Liaohe Rural Grain Tract (Changtu / Kaiyuan / Kangping Cropland)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Liaoning Central Grain Plain</span>
+                        <span class="state-name" title="Liaohe Rural Grain Tract (Changtu / Kaiyuan / Kangping Cropland)">Liaoning Central Grain Plain</span>
                         <span class="state-code">LN-CENTRAL</span>
                     </div>
-                    <div class="district-name" title="Liaohe Rural Grain Tract (Changtu / Kaiyuan / Kangping Cropland)">Liaohe Rural Grain Tract (Changtu / Kaiyuan / Kangping Cropland)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -887,107 +935,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">4.2°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-4.7°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-10&ndash;13°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">5.3°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-3.5°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-8° to 13°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="6.4" 
-                    data-tmin="-3.6" 
-                    data-tmean="0.1"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="10.9" 
+                    data-tmax="11.2" 
                     data-tmin="-1.3" 
                     data-tmean="4.1"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.4" 
-                    data-tmin="3.1" 
-                    data-tmean="6.8"
+                    data-tmax="13.3" 
+                    data-tmin="1.6" 
+                    data-tmean="6.2"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.4" 
-                    data-tmin="0.3" 
-                    data-tmean="5.3"
+                    data-tmax="8.9" 
+                    data-tmin="-0.6" 
+                    data-tmean="3.8"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.3" 
-                    data-tmin="-1.1" 
-                    data-tmean="2.7"
+                    data-tmax="8.6" 
+                    data-tmin="-0.4" 
+                    data-tmean="3.4"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.5" 
-                    data-tmin="-3.1" 
-                    data-tmean="0.7"
+                    data-tmax="4.8" 
+                    data-tmin="-3.7" 
+                    data-tmean="1.4"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="1.9" 
-                    data-tmin="-5.7" 
+                    data-tmax="1.8" 
+                    data-tmin="-5.9" 
                     data-tmean="-2.5"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.8" 
-                    data-tmin="-6.1" 
-                    data-tmean="-1.9"
+                    data-tmax="3.6" 
+                    data-tmin="-4.2" 
+                    data-tmean="-0.4"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-0.5" 
-                    data-tmin="-8.0" 
-                    data-tmean="-3.9"
+                    data-tmax="-0.7" 
+                    data-tmin="-7.0" 
+                    data-tmean="-2.5"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-4.7" 
-                    data-tmin="-9.4" 
-                    data-tmean="-7.1"
+                    data-tmax="-2.5" 
+                    data-tmin="-7.8" 
+                    data-tmean="-5.5"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-3.6" 
-                    data-tmin="-10.1" 
-                    data-tmean="-7.5"
+                    data-tmax="2.3" 
+                    data-tmin="-5.6" 
+                    data-tmean="-2.2"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="1.3" 
-                    data-tmin="-10.5" 
-                    data-tmean="-4.8"
+                    data-tmax="2.1" 
+                    data-tmin="-6.9" 
+                    data-tmean="-2.6"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="0.4" 
-                    data-tmin="-6.0" 
-                    data-tmean="-2.8"
+                    data-tmax="7.2" 
+                    data-tmin="-3.6" 
+                    data-tmean="1.2"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="5.4" 
-                    data-tmin="-4.4" 
-                    data-tmean="0.2"
+                    data-tmax="7.6" 
+                    data-tmin="-1.8" 
+                    data-tmean="2.4"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="5.7" 
+                    data-tmin="-1.9" 
+                    data-tmean="1.6"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -996,18 +1044,17 @@
                 data-name="inner mongolia eastern agro-pastoral belt" 
                 data-code="im-east" 
                 data-region="northeast china - songliao plain grain & oilseed heartland" 
-                data-avg-max="4.135714285714285"
-                data-avg-min="-5.178571428571429"
-                data-peak-max="12.2"
-                data-trough-min="-8.9"
+                data-avg-max="4.6499999999999995"
+                data-avg-min="-4.664285714285714"
+                data-peak-max="12.8"
+                data-trough-min="-8.0"
                 data-crops="corn (spring) soybeans (spring)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Inner Mongolia Eastern Agro-Pastoral Belt (IM-EAST) — West Liao River Rural Irrigated Plain (Kailu / Horqin Left Wing / Tuquan)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Inner Mongolia Eastern Agro-Pastoral Belt</span>
+                        <span class="state-name" title="West Liao River Rural Irrigated Plain (Kailu / Horqin Left Wing / Tuquan)">Inner Mongolia Eastern Agro-Pastoral Belt</span>
                         <span class="state-code">IM-EAST</span>
                     </div>
-                    <div class="district-name" title="West Liao River Rural Irrigated Plain (Kailu / Horqin Left Wing / Tuquan)">West Liao River Rural Irrigated Plain (Kailu / Horqin Left Wing / Tuquan)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1016,107 +1063,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">4.1°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-5.2°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-9&ndash;12°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">4.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-4.7°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-8° to 13°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="6.1" 
-                    data-tmin="-1.6" 
-                    data-tmean="1.0"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="12.2" 
-                    data-tmin="-2.3" 
-                    data-tmean="3.0"
+                    data-tmax="12.8" 
+                    data-tmin="-3.0" 
+                    data-tmean="3.2"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.4" 
-                    data-tmin="-1.9" 
-                    data-tmean="3.1"
+                    data-tmax="11.0" 
+                    data-tmin="-2.6" 
+                    data-tmean="3.0"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.9" 
-                    data-tmin="-3.5" 
-                    data-tmean="1.2"
+                    data-tmax="9.4" 
+                    data-tmin="-2.5" 
+                    data-tmean="2.0"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.6" 
-                    data-tmin="-3.3" 
-                    data-tmean="-0.1"
+                    data-tmax="4.1" 
+                    data-tmin="-3.2" 
+                    data-tmean="0.1"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.0" 
-                    data-tmin="-4.4" 
-                    data-tmean="-1.0"
+                    data-tmax="3.6" 
+                    data-tmin="-4.2" 
+                    data-tmean="-0.8"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="0.6" 
-                    data-tmin="-6.0" 
-                    data-tmean="-3.2"
+                    data-tmax="-0.1" 
+                    data-tmin="-6.6" 
+                    data-tmean="-3.5"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.6" 
-                    data-tmin="-5.6" 
-                    data-tmean="-1.8"
+                    data-tmax="3.3" 
+                    data-tmin="-4.9" 
+                    data-tmean="-1.3"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-1.8" 
-                    data-tmin="-8.0" 
-                    data-tmean="-4.9"
+                    data-tmax="-0.2" 
+                    data-tmin="-7.3" 
+                    data-tmean="-3.8"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-2.9" 
-                    data-tmin="-8.9" 
-                    data-tmean="-6.3"
+                    data-tmax="-1.0" 
+                    data-tmin="-8.0" 
+                    data-tmean="-4.9"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="-2.2" 
-                    data-tmin="-8.4" 
-                    data-tmean="-5.2"
+                    data-tmax="3.5" 
+                    data-tmin="-4.4" 
+                    data-tmean="-0.9"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.0" 
-                    data-tmin="-8.4" 
-                    data-tmean="-3.6"
+                    data-tmax="2.5" 
+                    data-tmin="-5.1" 
+                    data-tmean="-2.2"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="2.2" 
-                    data-tmin="-6.3" 
-                    data-tmean="-2.8"
+                    data-tmax="6.9" 
+                    data-tmin="-4.2" 
+                    data-tmean="0.1"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.2" 
-                    data-tmin="-3.9" 
-                    data-tmean="0.3"
+                    data-tmax="2.9" 
+                    data-tmin="-4.6" 
+                    data-tmean="-1.8"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="6.4" 
+                    data-tmin="-4.7" 
+                    data-tmean="-0.3"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1134,18 +1181,17 @@
                 data-name="henan north-central" 
                 data-code="ha-north" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="13.678571428571429"
-                data-avg-min="3.3000000000000003"
-                data-peak-max="17.2"
+                data-avg-max="13.642857142857142"
+                data-avg-min="4.164285714285714"
+                data-peak-max="17.7"
                 data-trough-min="-0.7"
                 data-crops="winter wheat corn (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Henan North-Central (HA-NORTH) — Yu-North Rural Alluvial Granary (Hua County / Junxian / Yanjin Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Henan North-Central</span>
+                        <span class="state-name" title="Yu-North Rural Alluvial Granary (Hua County / Junxian / Yanjin Tract)">Henan North-Central</span>
                         <span class="state-code">HA-NORTH</span>
                     </div>
-                    <div class="district-name" title="Yu-North Rural Alluvial Granary (Hua County / Junxian / Yanjin Tract)">Yu-North Rural Alluvial Granary (Hua County / Junxian / Yanjin Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1154,107 +1200,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">13.7°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">3.3°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-1&ndash;17°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">13.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">4.2°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-1° to 18°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="15.4" 
-                    data-tmin="2.9" 
-                    data-tmean="8.0"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="16.5" 
-                    data-tmin="4.2" 
-                    data-tmean="9.3"
+                    data-tmax="16.3" 
+                    data-tmin="4.3" 
+                    data-tmean="9.5"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.2" 
-                    data-tmin="5.6" 
-                    data-tmean="10.4"
+                    data-tmax="16.9" 
+                    data-tmin="6.7" 
+                    data-tmean="11.3"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.0" 
-                    data-tmin="8.1" 
-                    data-tmean="12.1"
+                    data-tmax="17.4" 
+                    data-tmin="10.0" 
+                    data-tmean="12.7"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.0" 
-                    data-tmin="7.2" 
-                    data-tmean="11.2"
+                    data-tmax="17.7" 
+                    data-tmin="6.9" 
+                    data-tmean="11.9"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.8" 
-                    data-tmin="6.9" 
-                    data-tmean="10.9"
+                    data-tmax="15.6" 
+                    data-tmin="8.2" 
+                    data-tmean="11.0"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.4" 
-                    data-tmin="4.6" 
-                    data-tmean="8.1"
+                    data-tmax="10.1" 
+                    data-tmin="6.7" 
+                    data-tmean="8.4"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.4" 
-                    data-tmin="3.7" 
-                    data-tmean="7.1"
+                    data-tmax="9.9" 
+                    data-tmin="4.7" 
+                    data-tmean="6.7"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.3" 
-                    data-tmin="-0.5" 
-                    data-tmean="4.5"
+                    data-tmax="8.7" 
+                    data-tmin="0.8" 
+                    data-tmean="5.3"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.1" 
-                    data-tmin="0.7" 
-                    data-tmean="4.0"
+                    data-tmax="12.8" 
+                    data-tmin="-0.7" 
+                    data-tmean="4.8"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.9" 
-                    data-tmin="0.1" 
-                    data-tmean="5.2"
+                    data-tmax="13.6" 
+                    data-tmin="-0.5" 
+                    data-tmean="5.5"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.8" 
-                    data-tmin="-0.7" 
-                    data-tmean="6.2"
+                    data-tmax="13.8" 
+                    data-tmin="1.7" 
+                    data-tmean="6.9"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.0" 
-                    data-tmin="1.0" 
-                    data-tmean="6.1"
+                    data-tmax="15.0" 
+                    data-tmin="1.4" 
+                    data-tmean="6.9"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.7" 
-                    data-tmin="2.4" 
-                    data-tmean="6.6"
+                    data-tmax="12.0" 
+                    data-tmin="3.7" 
+                    data-tmean="8.1"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.2" 
+                    data-tmin="4.4" 
+                    data-tmean="8.3"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1263,18 +1309,17 @@
                 data-name="henan south-central" 
                 data-code="ha-south" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="14.307142857142853"
-                data-avg-min="4.557142857142857"
-                data-peak-max="17.5"
-                data-trough-min="1.2"
+                data-avg-max="15.69285714285714"
+                data-avg-min="5.757142857142858"
+                data-peak-max="18.9"
+                data-trough-min="1.4"
                 data-crops="winter wheat corn (summer) soybeans (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Henan South-Central (HA-SOUTH) — Shahe-Yinghe Rural Plain (Shangshui / Xihua / Suiping / Dancheng Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Henan South-Central</span>
+                        <span class="state-name" title="Shahe-Yinghe Rural Plain (Shangshui / Xihua / Suiping / Dancheng Tract)">Henan South-Central</span>
                         <span class="state-code">HA-SOUTH</span>
                     </div>
-                    <div class="district-name" title="Shahe-Yinghe Rural Plain (Shangshui / Xihua / Suiping / Dancheng Tract)">Shahe-Yinghe Rural Plain (Shangshui / Xihua / Suiping / Dancheng Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1283,107 +1328,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">14.3°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">4.6°</td>
-                <td class="stat-col center sum-col-3" data-field="range">1&ndash;18°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">15.7°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.8°</td>
+                <td class="stat-col center sum-col-3" data-field="range">1° to 19°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="14.9" 
-                    data-tmin="1.9" 
-                    data-tmean="7.8"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="16.2" 
-                    data-tmin="3.7" 
-                    data-tmean="9.4"
+                    data-tmax="16.7" 
+                    data-tmin="4.0" 
+                    data-tmean="9.7"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.2" 
-                    data-tmin="5.9" 
-                    data-tmean="10.7"
+                    data-tmax="17.1" 
+                    data-tmin="7.4" 
+                    data-tmean="11.5"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.0" 
-                    data-tmin="9.4" 
-                    data-tmean="12.2"
+                    data-tmax="17.0" 
+                    data-tmin="9.0" 
+                    data-tmean="12.6"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.2" 
-                    data-tmin="9.6" 
-                    data-tmean="12.8"
+                    data-tmax="18.9" 
+                    data-tmin="9.7" 
+                    data-tmean="14.0"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.5" 
+                    data-tmax="18.6" 
                     data-tmin="8.7" 
-                    data-tmean="12.9"
+                    data-tmean="13.2"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.1" 
-                    data-tmin="6.4" 
-                    data-tmean="10.4"
+                    data-tmax="13.3" 
+                    data-tmin="8.2" 
+                    data-tmean="10.7"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.2" 
-                    data-tmin="6.0" 
-                    data-tmean="8.0"
+                    data-tmax="10.9" 
+                    data-tmin="6.4" 
+                    data-tmean="8.1"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.9" 
-                    data-tmin="2.5" 
-                    data-tmean="6.5"
+                    data-tmax="10.5" 
+                    data-tmin="3.0" 
+                    data-tmean="8.2"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.4" 
+                    data-tmax="13.8" 
                     data-tmin="2.5" 
-                    data-tmean="5.9"
+                    data-tmean="6.6"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.7" 
-                    data-tmin="2.7" 
-                    data-tmean="7.0"
+                    data-tmax="16.1" 
+                    data-tmin="2.3" 
+                    data-tmean="8.0"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.1" 
-                    data-tmin="1.3" 
-                    data-tmean="7.8"
+                    data-tmax="15.7" 
+                    data-tmin="3.7" 
+                    data-tmean="9.3"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.2" 
-                    data-tmin="2.0" 
-                    data-tmean="7.8"
+                    data-tmax="17.5" 
+                    data-tmin="1.4" 
+                    data-tmean="8.8"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.7" 
-                    data-tmin="1.2" 
-                    data-tmean="6.9"
+                    data-tmax="18.7" 
+                    data-tmin="5.9" 
+                    data-tmean="12.2"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="14.9" 
+                    data-tmin="8.4" 
+                    data-tmean="11.1"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1392,18 +1437,17 @@
                 data-name="shandong northwest plain" 
                 data-code="sd-nw" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="12.51428571428571"
-                data-avg-min="2.478571428571428"
-                data-peak-max="17.9"
-                data-trough-min="-1.6"
+                data-avg-max="12.792857142857143"
+                data-avg-min="3.150000000000001"
+                data-peak-max="18.1"
+                data-trough-min="-1.3"
                 data-crops="winter wheat corn (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Shandong Northwest Plain (SD-NW) — Lu-Northwest Rural Ton-of-Grain Belt (Yucheng / Pingyuan / Qihe Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Shandong Northwest Plain</span>
+                        <span class="state-name" title="Lu-Northwest Rural Ton-of-Grain Belt (Yucheng / Pingyuan / Qihe Tract)">Shandong Northwest Plain</span>
                         <span class="state-code">SD-NW</span>
                     </div>
-                    <div class="district-name" title="Lu-Northwest Rural Ton-of-Grain Belt (Yucheng / Pingyuan / Qihe Tract)">Lu-Northwest Rural Ton-of-Grain Belt (Yucheng / Pingyuan / Qihe Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1412,107 +1456,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">12.5°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">2.5°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-2&ndash;18°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">12.8°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">3.2°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-1° to 18°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="14.6" 
-                    data-tmin="2.1" 
-                    data-tmean="7.1"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="15.7" 
-                    data-tmin="3.7" 
-                    data-tmean="8.9"
+                    data-tmax="16.0" 
+                    data-tmin="4.0" 
+                    data-tmean="9.2"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.2" 
-                    data-tmin="5.1" 
-                    data-tmean="10.0"
+                    data-tmax="17.3" 
+                    data-tmin="5.9" 
+                    data-tmean="10.6"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.9" 
-                    data-tmin="7.3" 
-                    data-tmean="10.5"
+                    data-tmax="18.0" 
+                    data-tmin="6.5" 
+                    data-tmean="11.7"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.9" 
-                    data-tmin="7.4" 
-                    data-tmean="12.2"
+                    data-tmax="18.1" 
+                    data-tmin="6.1" 
+                    data-tmean="11.5"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.2" 
-                    data-tmin="6.6" 
-                    data-tmean="10.2"
+                    data-tmax="15.1" 
+                    data-tmin="6.9" 
+                    data-tmean="9.6"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.8" 
-                    data-tmin="3.6" 
-                    data-tmean="7.9"
+                    data-tmax="9.8" 
+                    data-tmin="6.2" 
+                    data-tmean="8.5"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.1" 
-                    data-tmin="1.8" 
-                    data-tmean="5.6"
+                    data-tmax="5.9" 
+                    data-tmin="3.1" 
+                    data-tmean="5.2"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="6.5" 
-                    data-tmin="-1.3" 
-                    data-tmean="2.7"
+                    data-tmax="5.9" 
+                    data-tmin="-0.3" 
+                    data-tmean="3.6"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.8" 
-                    data-tmin="-1.6" 
-                    data-tmean="2.5"
+                    data-tmax="10.0" 
+                    data-tmin="-1.3" 
+                    data-tmean="3.1"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.6" 
-                    data-tmin="0.4" 
-                    data-tmean="4.9"
+                    data-tmax="12.8" 
+                    data-tmin="-0.5" 
+                    data-tmean="5.0"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.5" 
-                    data-tmin="-0.3" 
-                    data-tmean="5.3"
+                    data-tmax="11.5" 
+                    data-tmin="0.2" 
+                    data-tmean="5.1"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.2" 
-                    data-tmin="-0.5" 
-                    data-tmean="4.2"
+                    data-tmax="14.2" 
+                    data-tmin="-0.4" 
+                    data-tmean="6.1"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.2" 
-                    data-tmin="0.4" 
-                    data-tmean="5.8"
+                    data-tmax="14.9" 
+                    data-tmin="3.9" 
+                    data-tmean="9.0"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="9.6" 
+                    data-tmin="3.8" 
+                    data-tmean="8.4"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1521,18 +1565,17 @@
                 data-name="shandong southwest plain" 
                 data-code="sd-sw" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="13.685714285714285"
-                data-avg-min="3.335714285714286"
-                data-peak-max="18.0"
-                data-trough-min="-0.2"
+                data-avg-max="13.964285714285714"
+                data-avg-min="3.978571428571428"
+                data-peak-max="18.7"
+                data-trough-min="-1.0"
                 data-crops="winter wheat corn (summer) soybeans (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Shandong Southwest Plain (SD-SW) — Lu-Southwest Rural Alluvial Basin (Yuncheng / Juye / Juancheng Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Shandong Southwest Plain</span>
+                        <span class="state-name" title="Lu-Southwest Rural Alluvial Basin (Yuncheng / Juye / Juancheng Tract)">Shandong Southwest Plain</span>
                         <span class="state-code">SD-SW</span>
                     </div>
-                    <div class="district-name" title="Lu-Southwest Rural Alluvial Basin (Yuncheng / Juye / Juancheng Tract)">Lu-Southwest Rural Alluvial Basin (Yuncheng / Juye / Juancheng Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1541,107 +1584,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">13.7°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">3.3°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-0&ndash;18°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">14.0°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">4.0°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-1° to 19°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="15.7" 
-                    data-tmin="2.2" 
-                    data-tmean="7.7"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="16.2" 
-                    data-tmin="3.2" 
-                    data-tmean="8.9"
+                    data-tmax="16.7" 
+                    data-tmin="3.5" 
+                    data-tmean="9.2"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.2" 
-                    data-tmin="4.4" 
-                    data-tmean="9.9"
+                    data-tmax="17.1" 
+                    data-tmin="5.9" 
+                    data-tmean="11.0"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="17.7" 
-                    data-tmin="8.1" 
-                    data-tmean="12.3"
+                    data-tmin="9.4" 
+                    data-tmean="12.4"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.0" 
-                    data-tmin="7.5" 
-                    data-tmean="12.3"
+                    data-tmax="18.7" 
+                    data-tmin="7.2" 
+                    data-tmean="12.4"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.3" 
-                    data-tmin="7.5" 
-                    data-tmean="11.9"
+                    data-tmax="17.9" 
+                    data-tmin="8.2" 
+                    data-tmean="12.1"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.4" 
-                    data-tmin="5.6" 
-                    data-tmean="8.7"
+                    data-tmax="11.1" 
+                    data-tmin="7.2" 
+                    data-tmean="9.3"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.2" 
-                    data-tmin="4.7" 
+                    data-tmax="8.9" 
+                    data-tmin="3.4" 
                     data-tmean="6.8"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.5" 
-                    data-tmin="0.3" 
-                    data-tmean="4.0"
+                    data-tmax="7.2" 
+                    data-tmin="0.0" 
+                    data-tmean="4.6"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.6" 
-                    data-tmin="0.7" 
-                    data-tmean="3.5"
+                    data-tmax="12.0" 
+                    data-tmin="-1.0" 
+                    data-tmean="4.2"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="13.3" 
-                    data-tmin="-0.2" 
-                    data-tmean="5.0"
+                    data-tmin="-0.5" 
+                    data-tmean="5.2"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.5" 
-                    data-tmin="0.3" 
-                    data-tmean="6.0"
+                    data-tmax="13.3" 
+                    data-tmin="1.9" 
+                    data-tmean="6.7"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.0" 
-                    data-tmin="1.2" 
-                    data-tmean="5.9"
+                    data-tmax="15.7" 
+                    data-tmin="0.9" 
+                    data-tmean="7.2"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.0" 
-                    data-tmin="1.2" 
-                    data-tmean="6.0"
+                    data-tmax="14.9" 
+                    data-tmin="4.7" 
+                    data-tmean="9.5"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="11.0" 
+                    data-tmin="4.9" 
+                    data-tmean="8.8"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1650,18 +1693,17 @@
                 data-name="hebei central-south plain" 
                 data-code="he-south" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="12.549999999999999"
-                data-avg-min="1.1999999999999997"
-                data-peak-max="15.4"
-                data-trough-min="-1.5"
+                data-avg-max="12.099999999999998"
+                data-avg-min="2.1214285714285714"
+                data-peak-max="15.9"
+                data-trough-min="-1.0"
                 data-crops="winter wheat corn (summer) soybeans (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Hebei Central-South Plain (HE-SOUTH) — Piedmont Rural Strong-Gluten Wheat Belt (Zhao County / Ningjin / Luancheng)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Hebei Central-South Plain</span>
+                        <span class="state-name" title="Piedmont Rural Strong-Gluten Wheat Belt (Zhao County / Ningjin / Luancheng)">Hebei Central-South Plain</span>
                         <span class="state-code">HE-SOUTH</span>
                     </div>
-                    <div class="district-name" title="Piedmont Rural Strong-Gluten Wheat Belt (Zhao County / Ningjin / Luancheng)">Piedmont Rural Strong-Gluten Wheat Belt (Zhao County / Ningjin / Luancheng)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1670,107 +1712,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">12.5°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">1.2°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-2&ndash;15°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">12.1°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">2.1°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-1° to 16°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="15.4" 
-                    data-tmin="-0.3" 
-                    data-tmean="6.5"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="14.5" 
-                    data-tmin="1.2" 
-                    data-tmean="7.0"
+                    data-tmax="15.1" 
+                    data-tmin="1.8" 
+                    data-tmean="7.5"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.0" 
-                    data-tmin="2.6" 
-                    data-tmean="7.9"
+                    data-tmax="15.9" 
+                    data-tmin="3.9" 
+                    data-tmean="8.7"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.0" 
-                    data-tmin="2.3" 
-                    data-tmean="8.0"
+                    data-tmax="15.9" 
+                    data-tmin="3.1" 
+                    data-tmean="8.6"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.0" 
-                    data-tmin="3.7" 
-                    data-tmean="8.4"
+                    data-tmax="15.7" 
+                    data-tmin="4.4" 
+                    data-tmean="8.7"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.0" 
-                    data-tmin="5.5" 
-                    data-tmean="8.9"
+                    data-tmax="12.6" 
+                    data-tmin="4.9" 
+                    data-tmean="8.4"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.2" 
-                    data-tmin="3.1" 
-                    data-tmean="6.2"
+                    data-tmax="8.7" 
+                    data-tmin="4.5" 
+                    data-tmean="6.9"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.7" 
-                    data-tmin="1.8" 
-                    data-tmean="6.3"
+                    data-tmax="8.1" 
+                    data-tmin="3.9" 
+                    data-tmean="5.2"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.0" 
-                    data-tmin="-1.5" 
-                    data-tmean="3.4"
+                    data-tmax="8.0" 
+                    data-tmin="0.0" 
+                    data-tmean="4.0"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.1" 
-                    data-tmin="-0.3" 
-                    data-tmean="3.9"
+                    data-tmax="11.3" 
+                    data-tmin="-0.5" 
+                    data-tmean="4.0"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.1" 
-                    data-tmin="1.7" 
-                    data-tmean="6.0"
+                    data-tmax="13.6" 
+                    data-tmin="-1.0" 
+                    data-tmean="4.7"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.8" 
-                    data-tmin="-1.2" 
-                    data-tmean="5.2"
+                    data-tmax="11.4" 
+                    data-tmin="1.5" 
+                    data-tmean="5.4"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.2" 
-                    data-tmin="-1.5" 
-                    data-tmean="3.9"
+                    data-tmax="12.5" 
+                    data-tmin="-0.4" 
+                    data-tmean="5.0"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.7" 
-                    data-tmin="-0.3" 
-                    data-tmean="5.1"
+                    data-tmax="12.6" 
+                    data-tmin="-0.8" 
+                    data-tmean="4.9"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="8.0" 
+                    data-tmin="4.4" 
+                    data-tmean="5.6"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1779,18 +1821,17 @@
                 data-name="anhui northern huaihe basin" 
                 data-code="ah-north" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="14.27857142857143"
-                data-avg-min="4.528571428571429"
-                data-peak-max="18.5"
-                data-trough-min="-0.5"
+                data-avg-max="15.735714285714286"
+                data-avg-min="5.257142857142857"
+                data-peak-max="20.2"
+                data-trough-min="0.5"
                 data-crops="winter wheat corn (summer) soybeans (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Anhui Northern Huaihe Basin (AH-NORTH) — Huaibei Rural Shajiang Black-Soil Plain (Taihe / Mengcheng / Guoyang Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Anhui Northern Huaihe Basin</span>
+                        <span class="state-name" title="Huaibei Rural Shajiang Black-Soil Plain (Taihe / Mengcheng / Guoyang Tract)">Anhui Northern Huaihe Basin</span>
                         <span class="state-code">AH-NORTH</span>
                     </div>
-                    <div class="district-name" title="Huaibei Rural Shajiang Black-Soil Plain (Taihe / Mengcheng / Guoyang Tract)">Huaibei Rural Shajiang Black-Soil Plain (Taihe / Mengcheng / Guoyang Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1799,107 +1840,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">14.3°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">4.5°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-0&ndash;18°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">15.7°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.3°</td>
+                <td class="stat-col center sum-col-3" data-field="range">0° to 20°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="14.4" 
-                    data-tmin="2.1" 
-                    data-tmean="7.4"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="15.7" 
-                    data-tmin="3.4" 
-                    data-tmean="8.7"
+                    data-tmax="16.8" 
+                    data-tmin="3.2" 
+                    data-tmean="9.3"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.8" 
-                    data-tmin="5.1" 
-                    data-tmean="10.7"
+                    data-tmax="16.8" 
+                    data-tmin="6.5" 
+                    data-tmean="10.9"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.9" 
-                    data-tmin="9.0" 
-                    data-tmean="12.4"
+                    data-tmax="16.9" 
+                    data-tmin="8.8" 
+                    data-tmean="12.7"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.1" 
-                    data-tmin="11.9" 
-                    data-tmean="14.2"
+                    data-tmax="18.8" 
+                    data-tmin="11.6" 
+                    data-tmean="14.7"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.5" 
-                    data-tmin="11.9" 
-                    data-tmean="14.9"
+                    data-tmax="18.8" 
+                    data-tmin="8.6" 
+                    data-tmean="13.9"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.1" 
-                    data-tmin="8.6" 
-                    data-tmean="11.5"
+                    data-tmax="14.8" 
+                    data-tmin="8.9" 
+                    data-tmean="12.1"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.1" 
-                    data-tmin="6.8" 
-                    data-tmean="8.5"
+                    data-tmax="12.3" 
+                    data-tmin="6.6" 
+                    data-tmean="9.6"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.3" 
-                    data-tmin="0.7" 
-                    data-tmean="6.1"
+                    data-tmax="9.8" 
+                    data-tmin="1.5" 
+                    data-tmean="7.1"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.1" 
-                    data-tmin="0.6" 
-                    data-tmean="4.2"
+                    data-tmax="12.7" 
+                    data-tmin="0.5" 
+                    data-tmean="5.4"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.3" 
-                    data-tmin="0.5" 
-                    data-tmean="5.7"
+                    data-tmax="16.0" 
+                    data-tmin="1.0" 
+                    data-tmean="7.0"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.8" 
-                    data-tmin="-0.5" 
-                    data-tmean="6.8"
+                    data-tmax="13.7" 
+                    data-tmin="2.4" 
+                    data-tmean="8.0"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.9" 
-                    data-tmin="2.2" 
-                    data-tmean="7.9"
+                    data-tmax="17.4" 
+                    data-tmin="0.8" 
+                    data-tmean="8.3"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.9" 
-                    data-tmin="1.1" 
-                    data-tmean="7.3"
+                    data-tmax="20.2" 
+                    data-tmin="5.9" 
+                    data-tmean="12.7"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.3" 
+                    data-tmin="7.3" 
+                    data-tmean="12.2"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -1908,18 +1949,17 @@
                 data-name="jiangsu northern plain" 
                 data-code="js-north" 
                 data-region="huang-huai-hai plain - intensive double-cropping granary" 
-                data-avg-max="13.785714285714286"
-                data-avg-min="4.292857142857144"
-                data-peak-max="18.7"
-                data-trough-min="-0.6"
+                data-avg-max="14.814285714285715"
+                data-avg-min="5.292857142857144"
+                data-peak-max="18.9"
+                data-trough-min="-0.3"
                 data-crops="winter wheat corn (summer) soybeans (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Jiangsu Northern Plain (JS-NORTH) — Xu-Huai Rural Alluvial Cropland (Suining / Sihong / Pizhou / Shuyang Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Jiangsu Northern Plain</span>
+                        <span class="state-name" title="Xu-Huai Rural Alluvial Cropland (Suining / Sihong / Pizhou / Shuyang Tract)">Jiangsu Northern Plain</span>
                         <span class="state-code">JS-NORTH</span>
                     </div>
-                    <div class="district-name" title="Xu-Huai Rural Alluvial Cropland (Suining / Sihong / Pizhou / Shuyang Tract)">Xu-Huai Rural Alluvial Cropland (Suining / Sihong / Pizhou / Shuyang Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -1928,107 +1968,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">13.8°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">4.3°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-1&ndash;19°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">14.8°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">5.3°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-0° to 19°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="13.4" 
-                    data-tmin="1.4" 
-                    data-tmean="6.8"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="15.2" 
+                    data-tmax="15.5" 
                     data-tmin="3.2" 
-                    data-tmean="8.1"
+                    data-tmean="8.3"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.9" 
-                    data-tmin="5.4" 
-                    data-tmean="10.5"
+                    data-tmax="16.8" 
+                    data-tmin="6.0" 
+                    data-tmean="10.6"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.9" 
-                    data-tmin="10.8" 
+                    data-tmax="17.0" 
+                    data-tmin="9.3" 
                     data-tmean="13.1"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.3" 
-                    data-tmin="12.8" 
-                    data-tmean="14.6"
+                    data-tmax="17.6" 
+                    data-tmin="12.9" 
+                    data-tmean="14.8"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.7" 
-                    data-tmin="11.1" 
-                    data-tmean="14.5"
+                    data-tmax="18.8" 
+                    data-tmin="11.6" 
+                    data-tmean="15.1"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.3" 
-                    data-tmin="9.3" 
-                    data-tmean="11.4"
+                    data-tmax="14.8" 
+                    data-tmin="7.6" 
+                    data-tmean="11.1"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="10.7" 
-                    data-tmin="5.8" 
-                    data-tmean="9.0"
+                    data-tmin="6.4" 
+                    data-tmean="9.3"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.2" 
+                    data-tmax="9.3" 
                     data-tmin="-0.3" 
-                    data-tmean="4.9"
+                    data-tmean="6.0"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.0" 
-                    data-tmin="-0.6" 
-                    data-tmean="3.2"
+                    data-tmax="11.7" 
+                    data-tmin="-0.3" 
+                    data-tmean="4.3"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.3" 
-                    data-tmin="-0.6" 
-                    data-tmean="4.6"
+                    data-tmax="14.3" 
+                    data-tmin="0.5" 
+                    data-tmean="6.3"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.0" 
-                    data-tmin="-0.5" 
-                    data-tmean="6.1"
+                    data-tmax="11.7" 
+                    data-tmin="2.2" 
+                    data-tmean="6.7"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.7" 
-                    data-tmin="1.2" 
-                    data-tmean="7.0"
+                    data-tmax="15.4" 
+                    data-tmin="0.3" 
+                    data-tmean="7.1"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.4" 
-                    data-tmin="1.1" 
-                    data-tmean="6.5"
+                    data-tmax="18.9" 
+                    data-tmin="6.4" 
+                    data-tmean="11.8"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="14.9" 
+                    data-tmin="8.3" 
+                    data-tmean="13.3"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2046,18 +2086,17 @@
                 data-name="shaanxi guanzhong plain" 
                 data-code="sn-guanzhong" 
                 data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
-                data-avg-max="13.871428571428572"
-                data-avg-min="2.8285714285714283"
-                data-peak-max="19.5"
-                data-trough-min="-1.5"
+                data-avg-max="13.614285714285716"
+                data-avg-min="2.5571428571428574"
+                data-peak-max="19.2"
+                data-trough-min="-0.8"
                 data-crops="winter wheat corn (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Shaanxi Guanzhong Plain (SN-GUANZHONG) — Guanzhong Rural Irrigated Terrace (Pucheng / Dali / Fuping / Wugong Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Shaanxi Guanzhong Plain</span>
+                        <span class="state-name" title="Guanzhong Rural Irrigated Terrace (Pucheng / Dali / Fuping / Wugong Tract)">Shaanxi Guanzhong Plain</span>
                         <span class="state-code">SN-GUANZHONG</span>
                     </div>
-                    <div class="district-name" title="Guanzhong Rural Irrigated Terrace (Pucheng / Dali / Fuping / Wugong Tract)">Guanzhong Rural Irrigated Terrace (Pucheng / Dali / Fuping / Wugong Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2066,107 +2105,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">13.9°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">2.8°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-2&ndash;20°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">13.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">2.6°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-1° to 19°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="13.2" 
-                    data-tmin="-1.5" 
-                    data-tmean="4.9"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="15.0" 
-                    data-tmin="-0.2" 
-                    data-tmean="6.4"
+                    data-tmax="14.1" 
+                    data-tmin="-0.4" 
+                    data-tmean="5.9"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.5" 
-                    data-tmin="2.7" 
-                    data-tmean="8.6"
+                    data-tmax="15.4" 
+                    data-tmin="2.0" 
+                    data-tmean="8.1"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.8" 
-                    data-tmin="6.4" 
-                    data-tmean="11.2"
+                    data-tmax="17.2" 
+                    data-tmin="3.9" 
+                    data-tmean="9.8"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="19.5" 
-                    data-tmin="6.3" 
-                    data-tmean="12.1"
+                    data-tmax="19.2" 
+                    data-tmin="5.2" 
+                    data-tmean="11.3"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.1" 
-                    data-tmin="9.5" 
-                    data-tmean="11.2"
+                    data-tmax="12.4" 
+                    data-tmin="8.5" 
+                    data-tmean="10.6"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.0" 
-                    data-tmin="7.2" 
-                    data-tmean="9.3"
+                    data-tmax="10.9" 
+                    data-tmin="5.0" 
+                    data-tmean="9.0"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.0" 
-                    data-tmin="6.1" 
-                    data-tmean="9.2"
+                    data-tmax="12.4" 
+                    data-tmin="4.7" 
+                    data-tmean="7.5"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.3" 
-                    data-tmin="2.1" 
-                    data-tmean="5.9"
+                    data-tmax="10.0" 
+                    data-tmin="0.8" 
+                    data-tmean="6.0"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.9" 
-                    data-tmin="-0.5" 
+                    data-tmax="12.1" 
+                    data-tmin="-0.7" 
                     data-tmean="4.6"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.1" 
-                    data-tmin="-1.1" 
-                    data-tmean="4.9"
+                    data-tmax="13.4" 
+                    data-tmin="1.1" 
+                    data-tmean="5.5"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.3" 
-                    data-tmin="-0.2" 
-                    data-tmean="5.7"
+                    data-tmax="12.8" 
+                    data-tmin="0.5" 
+                    data-tmean="5.2"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.0" 
-                    data-tmin="2.3" 
-                    data-tmean="6.3"
+                    data-tmax="14.0" 
+                    data-tmin="-0.8" 
+                    data-tmean="5.4"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.5" 
-                    data-tmin="0.5" 
-                    data-tmean="6.1"
+                    data-tmax="10.9" 
+                    data-tmin="2.1" 
+                    data-tmean="5.5"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.8" 
+                    data-tmin="3.9" 
+                    data-tmean="9.5"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2175,18 +2214,17 @@
                 data-name="shanxi fenhe & southern basin" 
                 data-code="sx-south" 
                 data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
-                data-avg-max="13.278571428571427"
-                data-avg-min="2.4714285714285724"
-                data-peak-max="18.4"
-                data-trough-min="-1.3"
+                data-avg-max="13.285714285714286"
+                data-avg-min="2.5000000000000004"
+                data-peak-max="19.3"
+                data-trough-min="-1.8"
                 data-crops="corn (spring/summer) winter wheat">
                 
-                <td class="state-col">
+                <td class="state-col" title="Shanxi Fenhe & Southern Basin (SX-SOUTH) — Fenhe Rural Alluvial Valley (Xiangfen / Xinjiang / Wenxi / Hongtong Tract)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Shanxi Fenhe & Southern Basin</span>
+                        <span class="state-name" title="Fenhe Rural Alluvial Valley (Xiangfen / Xinjiang / Wenxi / Hongtong Tract)">Shanxi Fenhe & Southern Basin</span>
                         <span class="state-code">SX-SOUTH</span>
                     </div>
-                    <div class="district-name" title="Fenhe Rural Alluvial Valley (Xiangfen / Xinjiang / Wenxi / Hongtong Tract)">Fenhe Rural Alluvial Valley (Xiangfen / Xinjiang / Wenxi / Hongtong Tract)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2197,105 +2235,105 @@
                 
                 <td class="stat-col center sum-col-1" data-field="avg-max">13.3°</td>
                 <td class="stat-col center sum-col-2" data-field="avg-min">2.5°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-1&ndash;18°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-2° to 19°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="11.3" 
-                    data-tmin="-0.4" 
-                    data-tmean="4.4"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="14.9" 
-                    data-tmin="1.1" 
-                    data-tmean="6.9"
+                    data-tmax="13.5" 
+                    data-tmin="0.9" 
+                    data-tmean="6.2"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.6" 
-                    data-tmin="4.3" 
-                    data-tmean="10.0"
+                    data-tmax="15.3" 
+                    data-tmin="3.6" 
+                    data-tmean="8.7"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.9" 
-                    data-tmin="7.5" 
-                    data-tmean="12.1"
+                    data-tmax="17.6" 
+                    data-tmin="6.0" 
+                    data-tmean="11.0"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.4" 
-                    data-tmin="6.6" 
-                    data-tmean="11.8"
+                    data-tmax="19.3" 
+                    data-tmin="6.8" 
+                    data-tmean="12.0"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.9" 
-                    data-tmin="9.3" 
-                    data-tmean="11.7"
+                    data-tmax="13.4" 
+                    data-tmin="8.5" 
+                    data-tmean="10.9"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.0" 
-                    data-tmin="6.5" 
-                    data-tmean="8.0"
+                    data-tmax="8.5" 
+                    data-tmin="6.6" 
+                    data-tmean="7.6"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.8" 
-                    data-tmin="2.7" 
-                    data-tmean="8.8"
+                    data-tmax="13.3" 
+                    data-tmin="3.6" 
+                    data-tmean="7.9"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.2" 
-                    data-tmin="-0.3" 
-                    data-tmean="3.5"
+                    data-tmax="8.9" 
+                    data-tmin="-1.3" 
+                    data-tmean="4.1"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.0" 
-                    data-tmin="-0.4" 
-                    data-tmean="3.5"
+                    data-tmax="10.9" 
+                    data-tmin="-1.8" 
+                    data-tmean="2.6"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.2" 
-                    data-tmin="-0.8" 
-                    data-tmean="3.8"
+                    data-tmax="12.0" 
+                    data-tmin="-1.6" 
+                    data-tmean="3.2"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.2" 
-                    data-tmin="-0.8" 
-                    data-tmean="4.2"
+                    data-tmax="10.2" 
+                    data-tmin="-1.2" 
+                    data-tmean="3.5"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="11.1" 
-                    data-tmin="-1.3" 
-                    data-tmean="3.8"
+                    data-tmax="13.9" 
+                    data-tmin="-0.2" 
+                    data-tmean="5.3"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.4" 
-                    data-tmin="0.6" 
-                    data-tmean="5.1"
+                    data-tmax="13.6" 
+                    data-tmin="3.6" 
+                    data-tmean="8.1"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="15.6" 
+                    data-tmin="1.5" 
+                    data-tmean="9.8"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2304,18 +2342,17 @@
                 data-name="xinjiang oasis grain heartland" 
                 data-code="xj-oasis" 
                 data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
-                data-avg-max="6.457142857142856"
-                data-avg-min="-0.1571428571428571"
-                data-peak-max="12.5"
-                data-trough-min="-4.4"
+                data-avg-max="5.957142857142856"
+                data-avg-min="-0.7857142857142857"
+                data-peak-max="12.4"
+                data-trough-min="-4.5"
                 data-crops="corn (grain & seed) winter & spring wheat">
                 
-                <td class="state-col">
+                <td class="state-col" title="Xinjiang Oasis Grain Heartland (XJ-OASIS) — Tianshan North Slope Rural Reclamation Oasis (Manas / Qitai / Shawan Farm Belt)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Xinjiang Oasis Grain Heartland</span>
+                        <span class="state-name" title="Tianshan North Slope Rural Reclamation Oasis (Manas / Qitai / Shawan Farm Belt)">Xinjiang Oasis Grain Heartland</span>
                         <span class="state-code">XJ-OASIS</span>
                     </div>
-                    <div class="district-name" title="Tianshan North Slope Rural Reclamation Oasis (Manas / Qitai / Shawan Farm Belt)">Tianshan North Slope Rural Reclamation Oasis (Manas / Qitai / Shawan Farm Belt)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2324,107 +2361,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">6.5°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-0.2°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-4&ndash;12°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">6.0°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-0.8°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-4° to 12°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="10.0" 
-                    data-tmin="0.1" 
-                    data-tmean="4.4"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="12.5" 
-                    data-tmin="3.2" 
-                    data-tmean="7.1"
+                    data-tmax="12.4" 
+                    data-tmin="2.3" 
+                    data-tmean="6.6"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.3" 
-                    data-tmin="6.6" 
-                    data-tmean="8.1"
+                    data-tmax="10.2" 
+                    data-tmin="6.2" 
+                    data-tmean="7.8"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.3" 
-                    data-tmin="4.4" 
-                    data-tmean="5.7"
+                    data-tmax="8.5" 
+                    data-tmin="3.5" 
+                    data-tmean="6.0"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="5.3" 
-                    data-tmin="2.6" 
-                    data-tmean="4.5"
+                    data-tmax="5.6" 
+                    data-tmin="2.8" 
+                    data-tmean="4.1"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="5.4" 
-                    data-tmin="1.5" 
-                    data-tmean="3.0"
+                    data-tmax="6.4" 
+                    data-tmin="0.5" 
+                    data-tmean="3.4"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.0" 
-                    data-tmin="-1.6" 
-                    data-tmean="1.7"
+                    data-tmax="5.5" 
+                    data-tmin="-1.3" 
+                    data-tmean="1.6"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.2" 
-                    data-tmin="-2.9" 
-                    data-tmean="-0.2"
+                    data-tmax="4.7" 
+                    data-tmin="-3.0" 
+                    data-tmean="0.0"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.6" 
-                    data-tmin="-3.6" 
-                    data-tmean="-1.0"
+                    data-tmax="3.5" 
+                    data-tmin="-4.5" 
+                    data-tmean="-1.4"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="2.2" 
-                    data-tmin="-4.2" 
-                    data-tmean="-1.7"
+                    data-tmax="5.3" 
+                    data-tmin="-2.9" 
+                    data-tmean="0.1"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.9" 
-                    data-tmin="-4.4" 
-                    data-tmean="-1.3"
+                    data-tmax="5.1" 
+                    data-tmin="-1.8" 
+                    data-tmean="0.7"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.1" 
-                    data-tmin="-1.9" 
-                    data-tmean="1.7"
+                    data-tmax="5.3" 
+                    data-tmin="-2.0" 
+                    data-tmean="0.4"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="6.8" 
-                    data-tmin="-1.0" 
-                    data-tmean="1.5"
+                    data-tmax="4.3" 
+                    data-tmin="-3.6" 
+                    data-tmean="1.0"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.8" 
-                    data-tmin="-1.0" 
-                    data-tmean="1.7"
+                    data-tmax="4.3" 
+                    data-tmin="-3.6" 
+                    data-tmean="-0.8"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="2.3" 
+                    data-tmin="-3.6" 
+                    data-tmean="-1.7"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2433,18 +2470,17 @@
                 data-name="gansu hexi corridor & longdong" 
                 data-code="gs-corridor" 
                 data-region="northwest & fen-wei basin - dryland & oasis grain heartland" 
-                data-avg-max="7.014285714285714"
-                data-avg-min="-3.3500000000000005"
-                data-peak-max="10.9"
-                data-trough-min="-5.8"
+                data-avg-max="4.5285714285714285"
+                data-avg-min="-5.371428571428572"
+                data-peak-max="10.5"
+                data-trough-min="-9.2"
                 data-crops="corn (seed & grain) wheat (spring/winter)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Gansu Hexi Corridor & Longdong (GS-CORRIDOR) — Hexi Rural Seed-Corn Oasis (Linze / Gaotai / Minle / Yongchang Cropland)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Gansu Hexi Corridor & Longdong</span>
+                        <span class="state-name" title="Hexi Rural Seed-Corn Oasis (Linze / Gaotai / Minle / Yongchang Cropland)">Gansu Hexi Corridor & Longdong</span>
                         <span class="state-code">GS-CORRIDOR</span>
                     </div>
-                    <div class="district-name" title="Hexi Rural Seed-Corn Oasis (Linze / Gaotai / Minle / Yongchang Cropland)">Hexi Rural Seed-Corn Oasis (Linze / Gaotai / Minle / Yongchang Cropland)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2453,107 +2489,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">7.0°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">-3.4°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-6&ndash;11°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">4.5°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">-5.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">-9° to 10°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="9.8" 
-                    data-tmin="-2.7" 
-                    data-tmean="2.5"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="10.6" 
-                    data-tmin="-1.7" 
-                    data-tmean="2.8"
+                    data-tmax="10.5" 
+                    data-tmin="-1.8" 
+                    data-tmean="2.6"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.9" 
-                    data-tmin="-2.1" 
-                    data-tmean="2.9"
+                    data-tmax="10.0" 
+                    data-tmin="-2.4" 
+                    data-tmean="2.1"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.1" 
-                    data-tmin="-2.3" 
+                    data-tmax="9.3" 
+                    data-tmin="-2.0" 
                     data-tmean="2.4"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.6" 
-                    data-tmin="-1.6" 
-                    data-tmean="2.2"
+                    data-tmax="6.6" 
+                    data-tmin="-2.7" 
+                    data-tmean="1.8"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="9.2" 
-                    data-tmin="-1.9" 
-                    data-tmean="3.1"
+                    data-tmax="8.5" 
+                    data-tmin="-2.4" 
+                    data-tmean="2.3"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.3" 
-                    data-tmin="-2.0" 
-                    data-tmean="2.1"
+                    data-tmax="3.2" 
+                    data-tmin="-2.4" 
+                    data-tmean="0.4"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="2.8" 
-                    data-tmin="-3.8" 
-                    data-tmean="-0.8"
+                    data-tmax="-0.9" 
+                    data-tmin="-9.2" 
+                    data-tmean="-2.8"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="3.5" 
-                    data-tmin="-4.6" 
-                    data-tmean="-1.6"
+                    data-tmax="-1.4" 
+                    data-tmin="-9.2" 
+                    data-tmean="-6.2"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="1.0" 
-                    data-tmin="-4.7" 
-                    data-tmean="-2.2"
+                    data-tmax="-0.6" 
+                    data-tmin="-9.1" 
+                    data-tmean="-5.8"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.5" 
-                    data-tmin="-4.5" 
-                    data-tmean="-0.1"
+                    data-tmax="-0.0" 
+                    data-tmin="-9.0" 
+                    data-tmean="-5.1"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="4.9" 
-                    data-tmin="-5.8" 
-                    data-tmean="-1.5"
+                    data-tmax="3.2" 
+                    data-tmin="-5.9" 
+                    data-tmean="-2.5"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="5.1" 
-                    data-tmin="-5.2" 
-                    data-tmean="-1.2"
+                    data-tmax="6.6" 
+                    data-tmin="-6.3" 
+                    data-tmean="-1.7"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="7.9" 
-                    data-tmin="-4.0" 
-                    data-tmean="-0.1"
+                    data-tmax="2.3" 
+                    data-tmin="-6.1" 
+                    data-tmean="-1.1"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="6.1" 
+                    data-tmin="-6.7" 
+                    data-tmean="-2.1"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2571,18 +2607,17 @@
                 data-name="sichuan basin & hilly plain" 
                 data-code="sc-basin" 
                 data-region="southwest & yangtze basin - hilly & mixed grain zone" 
-                data-avg-max="16.142857142857142"
-                data-avg-min="9.200000000000001"
-                data-peak-max="19.1"
-                data-trough-min="4.2"
+                data-avg-max="16.842857142857138"
+                data-avg-min="8.442857142857143"
+                data-peak-max="19.6"
+                data-trough-min="4.9"
                 data-crops="corn (spring/summer) winter wheat soybeans (intercropped)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Sichuan Basin & Hilly Plain (SC-BASIN) — Central Sichuan Rural Hilly Cropland (Santai / Zhongjiang / Anyue / Renshou)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Sichuan Basin & Hilly Plain</span>
+                        <span class="state-name" title="Central Sichuan Rural Hilly Cropland (Santai / Zhongjiang / Anyue / Renshou)">Sichuan Basin & Hilly Plain</span>
                         <span class="state-code">SC-BASIN</span>
                     </div>
-                    <div class="district-name" title="Central Sichuan Rural Hilly Cropland (Santai / Zhongjiang / Anyue / Renshou)">Central Sichuan Rural Hilly Cropland (Santai / Zhongjiang / Anyue / Renshou)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2591,107 +2626,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">16.1°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">9.2°</td>
-                <td class="stat-col center sum-col-3" data-field="range">4&ndash;19°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">16.8°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">8.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">5° to 20°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="16.1" 
-                    data-tmin="8.6" 
-                    data-tmean="12.0"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="16.4" 
-                    data-tmin="7.9" 
-                    data-tmean="12.2"
+                    data-tmax="15.5" 
+                    data-tmin="7.8" 
+                    data-tmean="11.3"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.4" 
-                    data-tmin="10.5" 
-                    data-tmean="13.2"
+                    data-tmax="16.3" 
+                    data-tmin="9.8" 
+                    data-tmean="13.1"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="19.1" 
-                    data-tmin="11.0" 
-                    data-tmean="14.8"
+                    data-tmax="18.3" 
+                    data-tmin="9.5" 
+                    data-tmean="13.6"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.4" 
-                    data-tmin="9.9" 
-                    data-tmean="14.2"
+                    data-tmax="18.6" 
+                    data-tmin="8.8" 
+                    data-tmean="13.7"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.5" 
-                    data-tmin="12.6" 
-                    data-tmean="15.1"
+                    data-tmax="18.0" 
+                    data-tmin="13.5" 
+                    data-tmean="15.6"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.5" 
-                    data-tmin="11.5" 
-                    data-tmean="13.7"
+                    data-tmax="14.3" 
+                    data-tmin="11.3" 
+                    data-tmean="13.0"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.3" 
-                    data-tmin="10.9" 
-                    data-tmean="12.9"
+                    data-tmax="17.8" 
+                    data-tmin="8.8" 
+                    data-tmean="13.2"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.7" 
-                    data-tmin="10.7" 
-                    data-tmean="12.0"
+                    data-tmax="15.6" 
+                    data-tmin="6.2" 
+                    data-tmean="12.7"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.0" 
-                    data-tmin="9.8" 
-                    data-tmean="11.7"
+                    data-tmax="15.2" 
+                    data-tmin="4.9" 
+                    data-tmean="9.1"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.0" 
-                    data-tmin="5.5" 
-                    data-tmean="10.7"
+                    data-tmax="15.7" 
+                    data-tmin="5.2" 
+                    data-tmean="9.7"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.2" 
-                    data-tmin="4.2" 
-                    data-tmean="9.2"
+                    data-tmax="17.7" 
+                    data-tmin="5.3" 
+                    data-tmean="10.5"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.9" 
-                    data-tmin="5.9" 
-                    data-tmean="10.5"
+                    data-tmax="16.6" 
+                    data-tmin="6.3" 
+                    data-tmean="10.9"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.5" 
-                    data-tmin="9.8" 
-                    data-tmean="11.1"
+                    data-tmax="16.6" 
+                    data-tmin="10.8" 
+                    data-tmean="13.0"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="19.6" 
+                    data-tmin="10.0" 
+                    data-tmean="14.3"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2700,18 +2735,17 @@
                 data-name="hubei northern xiang-jing plain" 
                 data-code="hb-north" 
                 data-region="southwest & yangtze basin - hilly & mixed grain zone" 
-                data-avg-max="15.528571428571427"
-                data-avg-min="5.5857142857142845"
-                data-peak-max="18.6"
-                data-trough-min="1.6"
+                data-avg-max="16.59285714285714"
+                data-avg-min="7.042857142857143"
+                data-peak-max="20.2"
+                data-trough-min="1.5"
                 data-crops="winter wheat corn (summer)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Hubei Northern Xiang-Jing Plain (HB-NORTH) — E-North Gangdi Rural Grain Belt (Zaoyang / Xiangzhou / Yicheng / Zhongxiang)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Hubei Northern Xiang-Jing Plain</span>
+                        <span class="state-name" title="E-North Gangdi Rural Grain Belt (Zaoyang / Xiangzhou / Yicheng / Zhongxiang)">Hubei Northern Xiang-Jing Plain</span>
                         <span class="state-code">HB-NORTH</span>
                     </div>
-                    <div class="district-name" title="E-North Gangdi Rural Grain Belt (Zaoyang / Xiangzhou / Yicheng / Zhongxiang)">E-North Gangdi Rural Grain Belt (Zaoyang / Xiangzhou / Yicheng / Zhongxiang)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2720,107 +2754,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">15.5°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">5.6°</td>
-                <td class="stat-col center sum-col-3" data-field="range">2&ndash;19°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">16.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">7.0°</td>
+                <td class="stat-col center sum-col-3" data-field="range">2° to 20°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="15.9" 
-                    data-tmin="4.3" 
-                    data-tmean="9.2"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="17.0" 
-                    data-tmin="6.0" 
-                    data-tmean="10.7"
+                    data-tmax="16.1" 
+                    data-tmin="7.0" 
+                    data-tmean="11.1"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="16.7" 
-                    data-tmin="7.6" 
-                    data-tmean="11.6"
+                    data-tmax="16.1" 
+                    data-tmin="8.4" 
+                    data-tmean="11.9"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.0" 
-                    data-tmin="10.4" 
-                    data-tmean="11.8"
+                    data-tmax="16.7" 
+                    data-tmin="11.1" 
+                    data-tmean="13.4"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.2" 
-                    data-tmin="10.6" 
-                    data-tmean="13.2"
+                    data-tmax="17.4" 
+                    data-tmin="11.9" 
+                    data-tmean="13.7"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="18.6" 
-                    data-tmin="8.7" 
-                    data-tmean="13.3"
+                    data-tmin="11.2" 
+                    data-tmean="14.6"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="13.4" 
-                    data-tmin="6.6" 
-                    data-tmean="10.6"
+                    data-tmax="15.1" 
+                    data-tmin="8.0" 
+                    data-tmean="11.6"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.7" 
-                    data-tmin="6.2" 
-                    data-tmean="8.7"
+                    data-tmax="13.6" 
+                    data-tmin="6.4" 
+                    data-tmean="9.1"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.7" 
-                    data-tmin="6.3" 
-                    data-tmean="9.1"
+                    data-tmax="13.0" 
+                    data-tmin="3.0" 
+                    data-tmean="9.4"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.9" 
-                    data-tmin="2.9" 
-                    data-tmean="9.4"
+                    data-tmax="15.0" 
+                    data-tmin="1.5" 
+                    data-tmean="7.0"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.6" 
-                    data-tmin="1.6" 
-                    data-tmean="7.4"
+                    data-tmax="16.8" 
+                    data-tmin="2.3" 
+                    data-tmean="8.6"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
                     data-tmax="18.0" 
-                    data-tmin="1.8" 
-                    data-tmean="8.7"
+                    data-tmin="5.2" 
+                    data-tmean="9.9"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="15.7" 
-                    data-tmin="3.5" 
-                    data-tmean="9.0"
+                    data-tmax="18.7" 
+                    data-tmin="5.1" 
+                    data-tmean="10.8"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="14.0" 
-                    data-tmin="1.7" 
-                    data-tmean="7.6"
+                    data-tmax="20.2" 
+                    data-tmin="7.4" 
+                    data-tmean="13.4"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="17.0" 
+                    data-tmin="10.1" 
+                    data-tmean="12.9"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2829,18 +2863,17 @@
                 data-name="yunnan central-eastern plateau" 
                 data-code="yn-plateau" 
                 data-region="southwest & yangtze basin - hilly & mixed grain zone" 
-                data-avg-max="15.328571428571427"
-                data-avg-min="5.835714285714286"
-                data-peak-max="19.6"
-                data-trough-min="-0.1"
+                data-avg-max="17.62142857142857"
+                data-avg-min="6.421428571428571"
+                data-peak-max="20.3"
+                data-trough-min="1.4"
                 data-crops="corn (plateau)">
                 
-                <td class="state-col">
+                <td class="state-col" title="Yunnan Central-Eastern Plateau (YN-PLATEAU) — Dian-East Rural Plateau Corn Basin (Xuanwei / Luliang / Fuyuan / Huize)">
                     <div class="state-name-wrap">
-                        <span class="state-name">Yunnan Central-Eastern Plateau</span>
+                        <span class="state-name" title="Dian-East Rural Plateau Corn Basin (Xuanwei / Luliang / Fuyuan / Huize)">Yunnan Central-Eastern Plateau</span>
                         <span class="state-code">YN-PLATEAU</span>
                     </div>
-                    <div class="district-name" title="Dian-East Rural Plateau Corn Basin (Xuanwei / Luliang / Fuyuan / Huize)">Dian-East Rural Plateau Corn Basin (Xuanwei / Luliang / Fuyuan / Huize)</div>
                 </td>
                 
                 <td class="commodities-col">
@@ -2849,107 +2882,107 @@
                     </div>
                 </td>
                 
-                <td class="stat-col center sum-col-1" data-field="avg-max">15.3°</td>
-                <td class="stat-col center sum-col-2" data-field="avg-min">5.8°</td>
-                <td class="stat-col center sum-col-3" data-field="range">-0&ndash;20°</td>
+                <td class="stat-col center sum-col-1" data-field="avg-max">17.6°</td>
+                <td class="stat-col center sum-col-2" data-field="avg-min">6.4°</td>
+                <td class="stat-col center sum-col-3" data-field="range">1° to 20°</td>
                 
                 
                 <td class="temp-cell center today-col" 
-                    data-tmax="5.8" 
-                    data-tmin="-0.1" 
-                    data-tmean="1.9"
-                    data-date="2026-11-10">
-                </td>
-                
-                <td class="temp-cell center" 
-                    data-tmax="14.3" 
-                    data-tmin="1.8" 
-                    data-tmean="6.6"
+                    data-tmax="14.2" 
+                    data-tmin="1.4" 
+                    data-tmean="6.9"
                     data-date="2026-11-11">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.3" 
-                    data-tmin="9.2" 
-                    data-tmean="11.4"
+                    data-tmax="17.5" 
+                    data-tmin="8.5" 
+                    data-tmean="12.0"
                     data-date="2026-11-12">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.6" 
-                    data-tmin="7.7" 
+                    data-tmax="17.8" 
+                    data-tmin="7.3" 
                     data-tmean="11.8"
                     data-date="2026-11-13">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="19.6" 
+                    data-tmax="19.5" 
                     data-tmin="4.8" 
-                    data-tmean="11.3"
+                    data-tmean="11.2"
                     data-date="2026-11-14">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="18.4" 
-                    data-tmin="7.0" 
-                    data-tmean="12.3"
+                    data-tmax="19.2" 
+                    data-tmin="6.5" 
+                    data-tmean="12.4"
                     data-date="2026-11-15">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="19.0" 
-                    data-tmin="4.7" 
-                    data-tmean="11.5"
+                    data-tmax="20.0" 
+                    data-tmin="7.8" 
+                    data-tmean="13.2"
                     data-date="2026-11-16">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="19.3" 
-                    data-tmin="7.8" 
-                    data-tmean="11.0"
+                    data-tmax="18.7" 
+                    data-tmin="6.2" 
+                    data-tmean="11.4"
                     data-date="2026-11-17">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.4" 
-                    data-tmin="7.6" 
-                    data-tmean="10.5"
+                    data-tmax="10.7" 
+                    data-tmin="5.5" 
+                    data-tmean="7.8"
                     data-date="2026-11-18">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="10.2" 
-                    data-tmin="5.5" 
-                    data-tmean="8.5"
+                    data-tmax="17.6" 
+                    data-tmin="5.9" 
+                    data-tmean="9.1"
                     data-date="2026-11-19">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="8.9" 
-                    data-tmin="5.0" 
-                    data-tmean="6.5"
+                    data-tmax="16.9" 
+                    data-tmin="5.9" 
+                    data-tmean="8.7"
                     data-date="2026-11-20">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.1" 
-                    data-tmin="4.9" 
-                    data-tmean="8.9"
+                    data-tmax="15.1" 
+                    data-tmin="6.5" 
+                    data-tmean="9.2"
                     data-date="2026-11-21">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="12.1" 
-                    data-tmin="7.8" 
-                    data-tmean="9.2"
+                    data-tmax="19.1" 
+                    data-tmin="7.1" 
+                    data-tmean="12.2"
                     data-date="2026-11-22">
                 </td>
                 
                 <td class="temp-cell center" 
-                    data-tmax="17.6" 
-                    data-tmin="8.0" 
-                    data-tmean="11.3"
+                    data-tmax="20.3" 
+                    data-tmin="9.0" 
+                    data-tmean="13.5"
                     data-date="2026-11-23">
+                </td>
+                
+                <td class="temp-cell center" 
+                    data-tmax="20.1" 
+                    data-tmin="7.5" 
+                    data-tmean="12.5"
+                    data-date="2026-11-24">
                 </td>
                 
             </tr>
@@ -2959,7 +2992,7 @@
     </div>
 
     <div class="report-footer">
-        <div>Feeds: <strong>ECMWF IFS 0.25° Operational Forecast &amp; ERA5 Ag-Reanalysis</strong> &bull; Generated: 2026-11-10 05:56:00 UTC</div>
+        <div>Feeds: <strong>ECMWF IFS 0.25° Operational Forecast &amp; ERA5 Ag-Reanalysis</strong> &bull; Generated: 2026-11-11 08:25:14 UTC</div>
         <div>Agri Agent &bull; Weather China Suite &bull; Zero-Token Local Pipeline</div>
     </div>
 
@@ -3032,7 +3065,7 @@
 
             row.querySelector('[data-field="avg-max"]').innerText = `${toUnit(aMax)}°`;
             row.querySelector('[data-field="avg-min"]').innerText = `${toUnit(aMin)}°`;
-            row.querySelector('[data-field="range"]').innerText = `${toUnit(tMin)}&ndash;${toUnit(pMax)}°`;
+            row.querySelector('[data-field="range"]').innerText = `${toUnit(tMin)}° to ${toUnit(pMax)}°`;
         });
     }
 

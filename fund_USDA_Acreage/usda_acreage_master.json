@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "USDA National & State Crop Acreage Intelligence System",
-    "generated_at": "2026-11-10 14:05:05",
+    "generated_at": "2026-11-11 16:33:18",
     "total_crops": 26,
     "min_year": 1866,
     "max_year": 2026,
@@ -129,7 +129,7 @@
       "prev_planted": 11183.0,
       "prev_harvested": 7805.2,
       "planted_yoy": -11.92,
-      "harvested_yoy": null
+      "harvested_yoy": 0.0
     },
     "All Hay": {
       "latest_year": 2026,
@@ -297,7 +297,7 @@
       "prev_planted": 311541.0,
       "prev_harvested": 295542.0,
       "planted_yoy": -0.61,
-      "harvested_yoy": null
+      "harvested_yoy": 0.0
     },
     "Rice": {
       "latest_year": 2026,
@@ -5473,7 +5473,7 @@
       "Abandonment_Pct": null,
       "Uncut_Abandoned_1000_Acres": null,
       "Planted_YoY_Pct": -11.92,
-      "Harvested_YoY_Pct": null
+      "Harvested_YoY_Pct": 0.0
     },
     {
       "Crop": "All Hay",
@@ -40319,7 +40319,7 @@
       "Abandonment_Pct": null,
       "Uncut_Abandoned_1000_Acres": null,
       "Planted_YoY_Pct": -0.61,
-      "Harvested_YoY_Pct": null
+      "Harvested_YoY_Pct": 0.0
     },
     {
       "Crop": "Rice",

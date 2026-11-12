@@ -1,0 +1,2554 @@
+[
+  {
+    "commodity": "CANOLA",
+    "display_name": "ICE Canola (Rapeseed)",
+    "cot_date": "2022-12-27",
+    "actual_price_date": "2022-12-28",
+    "price": 859.0,
+    "reason": "Market holiday on 2022-12-27; used next trading day 2022-12-28"
+  },
+  {
+    "commodity": "CANOLA",
+    "display_name": "ICE Canola (Rapeseed)",
+    "cot_date": "2023-07-03",
+    "actual_price_date": "2023-06-30",
+    "price": 746.9,
+    "reason": "Market holiday on 2023-07-03; used prior trading day 2023-06-30"
+  },
+  {
+    "commodity": "CANOLA",
+    "display_name": "ICE Canola (Rapeseed)",
+    "cot_date": "2023-12-26",
+    "actual_price_date": "2023-12-27",
+    "price": 660.7,
+    "reason": "Market holiday on 2023-12-26; used next trading day 2023-12-27"
+  },
+  {
+    "commodity": "CANOLA",
+    "display_name": "ICE Canola (Rapeseed)",
+    "cot_date": "2025-07-01",
+    "actual_price_date": "2025-06-30",
+    "price": 699.8,
+    "reason": "Market holiday on 2025-07-01; used prior trading day 2025-06-30"
+  },
+  {
+    "commodity": "CANOLA",
+    "display_name": "ICE Canola (Rapeseed)",
+    "cot_date": "2025-09-30",
+    "actual_price_date": "2025-09-29",
+    "price": 605.2,
+    "reason": "Market holiday on 2025-09-30; used prior trading day 2025-09-29"
+  },
+  {
+    "commodity": "COCOA",
+    "display_name": "ICE Cocoa",
+    "cot_date": "2007-12-24",
+    "actual_price_date": "2007-12-21",
+    "price": 2086.0,
+    "reason": "Market holiday on 2007-12-24; used prior trading day 2007-12-21"
+  },
+  {
+    "commodity": "COFFEE",
+    "display_name": "Coffee C",
+    "cot_date": "2007-12-24",
+    "actual_price_date": "2007-12-21",
+    "price": 134.2,
+    "reason": "Market holiday on 2007-12-24; used prior trading day 2007-12-21"
+  },
+  {
+    "commodity": "SUGAR_11",
+    "display_name": "Sugar No. 11 (Raw)",
+    "cot_date": "2007-12-24",
+    "actual_price_date": "2007-12-21",
+    "price": 11.05,
+    "reason": "Market holiday on 2007-12-24; used prior trading day 2007-12-21"
+  },
+  {
+    "commodity": "WHITE_SUGAR",
+    "display_name": "ICE White Sugar",
+    "cot_date": "2017-12-26",
+    "actual_price_date": "2017-12-27",
+    "price": 393.0,
+    "reason": "Market holiday on 2017-12-26; used next trading day 2017-12-27"
+  },
+  {
+    "commodity": "WHITE_SUGAR",
+    "display_name": "ICE White Sugar",
+    "cot_date": "2022-12-27",
+    "actual_price_date": "2022-12-28",
+    "price": 555.7,
+    "reason": "Market holiday on 2022-12-27; used next trading day 2022-12-28"
+  },
+  {
+    "commodity": "WHITE_SUGAR",
+    "display_name": "ICE White Sugar",
+    "cot_date": "2023-12-26",
+    "actual_price_date": "2023-12-27",
+    "price": 594.6,
+    "reason": "Market holiday on 2023-12-26; used next trading day 2023-12-27"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2006-07-03",
+    "actual_price_date": "2006-06-30",
+    "price": 1246.7,
+    "reason": "Market holiday on 2006-07-03; used prior trading day 2006-06-30"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-01-30",
+    "actual_price_date": "2007-01-29",
+    "price": 1180.7,
+    "reason": "Market holiday on 2007-01-30; used prior trading day 2007-01-29"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-02-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-06"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-02-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-13"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-02-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-20"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-03-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-06"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-03-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-13"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-03-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-20"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-03-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-27"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-05-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-01"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-05-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-08"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-05-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-15"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-05-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-22"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-05-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-29"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-06-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-05"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-06-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-12"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-06-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-19"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-06-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-26"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-10-30",
+    "actual_price_date": "2007-10-29",
+    "price": 1468.0,
+    "reason": "Market holiday on 2007-10-30; used prior trading day 2007-10-29"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-11-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-06"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-11-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-13"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-11-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-20"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-11-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-27"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-12-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-04"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-12-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-11"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-12-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-18"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2007-12-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-24"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-02-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-05"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-02-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-12"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-04-29",
+    "actual_price_date": "2008-04-28",
+    "price": 1970.6,
+    "reason": "Market holiday on 2008-04-29; used prior trading day 2008-04-28"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-05-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-06"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-05-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-13"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-05-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-20"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-05-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-27"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-06-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-03"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-06-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-10"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-06-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-17"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-06-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-24"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-08-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-05"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-08-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-12"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-08-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-19"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-08-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-26"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-09-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-02"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-09-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-09"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-09-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-16"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-09-23",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-23"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-11-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-11-04"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-11-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-11-11"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-11-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-11-18"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-11-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-11-25"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-12-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-12-02"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-12-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-12-09"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-12-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-12-16"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2008-12-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-12-22"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-02-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-02-03"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-02-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-02-10"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-02-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-02-17"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-02-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-02-24"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-03-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-03-03"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-03-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-03-10"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-03-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-03-17"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-03-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-03-24"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-05-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-05-05"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-05-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-05-12"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-05-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-05-19"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-05-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-05-26"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-06-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-06-02"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-06-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-06-09"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-06-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-06-16"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-06-23",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-06-23"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-08-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-04"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-08-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-11"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-08-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-18"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-08-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-25"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-09-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-09-01"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-09-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-09-08"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-09-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-09-15"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-09-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-09-22"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-11-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-03"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-11-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-09"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-11-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-17"
+  },
+  {
+    "commodity": "PLATINUM",
+    "display_name": "Platinum (NYMEX)",
+    "cot_date": "2009-11-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-24"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-07-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-07-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-11"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-07-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-18"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-07-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-25"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-08-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-01"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-08-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-08"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-08-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-15"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-08-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-22"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-10-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-10-31",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-31"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-11-07",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-07"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-11-14",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-14"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-11-21",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-21"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2006-11-28",
+    "actual_price_date": "2006-11-29",
+    "price": 322.3,
+    "reason": "Market holiday on 2006-11-28; used next trading day 2006-11-29"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-01-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-01-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-09"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-01-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-16"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-01-23",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-23"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-01-30",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-30"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-02-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-06"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-02-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-13"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-02-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-20"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-04-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-04-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-10"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-04-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-17"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-04-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-24"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-05-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-01"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-05-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-08"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-05-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-15"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-05-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-22"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-07-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-07-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-10"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-07-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-17"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-07-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-24"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-07-31",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-31"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-08-07",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-07"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-08-14",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-14"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-08-21",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-21"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-08-28",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-28"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-10-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-02"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-10-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-09"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-10-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-16"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-10-23",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-23"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-10-30",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-30"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-11-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-06"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-11-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-13"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-11-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-20"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-11-27",
+    "actual_price_date": "2007-11-28",
+    "price": 346.25,
+    "reason": "Market holiday on 2007-11-27; used next trading day 2007-11-28"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2007-12-31",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-31"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-01-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-08"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-01-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-15"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-01-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-22"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-01-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-29"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-02-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-05"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-02-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-12"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-02-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-19"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-02-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-26"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-04-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-01"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-04-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-08"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-04-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-15"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-04-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-22"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-04-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-29"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-05-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-06"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-05-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-13"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-05-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-20"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-05-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-27"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-08-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-05"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-08-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-12"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-08-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-19"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-08-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-26"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-09-30",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-30"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-10-07",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-10-07"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-10-14",
+    "actual_price_date": "2008-10-15",
+    "price": 194.6,
+    "reason": "Market holiday on 2008-10-14; used next trading day 2008-10-15"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2008-12-30",
+    "actual_price_date": "2008-12-29",
+    "price": 186.65,
+    "reason": "Market holiday on 2008-12-30; used prior trading day 2008-12-29"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-02-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-02-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-06-30",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-06-30"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-07-07",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-07-07"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-07-14",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-07-14"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-07-21",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-07-21"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-07-28",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-07-28"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-08-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-04"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-08-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-11"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-08-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-18"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-08-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-08-25"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-11-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-03"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-11-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-09"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-11-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-17"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2009-11-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2009-11-24"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2010-02-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2010-02-02"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2010-02-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2010-02-09"
+  },
+  {
+    "commodity": "PALLADIUM",
+    "display_name": "Palladium (NYMEX)",
+    "cot_date": "2010-02-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2010-02-16"
+  },
+  {
+    "commodity": "SP500",
+    "display_name": "E-mini S&P 500",
+    "cot_date": "2012-10-30",
+    "actual_price_date": "2012-10-31",
+    "price": 1406.75,
+    "reason": "Market holiday on 2012-10-30; used next trading day 2012-10-31"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-06-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-06-13"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-06-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-06-20"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-06-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-06-27"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-07-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-03"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-07-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-11"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-07-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-18"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-07-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-07-25"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-08-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-01"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-08-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-08"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-08-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-15"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-08-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-22"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-08-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-08-29"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-09-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-09-05"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-09-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-09-12"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-09-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-09-19"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-09-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-09-26"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-10-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-03"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-10-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-10"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-10-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-17"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-10-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-24"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-10-31",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-10-31"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-11-07",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-07"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-11-14",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-14"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-11-21",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-21"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-11-28",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-11-28"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-12-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-12-05"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-12-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-12-12"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-12-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-12-19"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2006-12-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2006-12-26"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-01-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-03"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-01-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-09"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-01-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-16"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-01-23",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-23"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-01-30",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-01-30"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-02-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-06"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-02-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-13"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-02-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-20"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-02-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-02-27"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-03-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-06"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-03-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-13"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-03-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-20"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-03-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-03-27"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-04-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-03"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-04-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-10"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-04-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-17"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-04-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-04-24"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-05-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-01"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-05-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-08"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-05-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-15"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-05-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-22"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-05-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-05-29"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-06-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-05"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-06-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-12"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-06-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-19"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-06-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-06-26"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-07-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-03"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-07-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-10"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-07-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-17"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-07-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-24"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-07-31",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-07-31"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-08-07",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-07"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-08-14",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-14"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-08-21",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-21"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-08-28",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-08-28"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-09-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-09-04"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-09-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-09-11"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-09-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-09-18"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-09-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-09-25"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-10-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-02"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-10-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-09"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-10-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-16"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-10-23",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-23"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-10-30",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-10-30"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-11-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-06"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-11-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-13"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-11-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-20"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-11-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-11-27"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-12-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-04"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-12-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-11"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-12-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-18"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-12-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-24"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2007-12-31",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2007-12-31"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-01-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-08"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-01-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-15"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-01-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-22"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-01-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-01-29"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-02-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-05"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-02-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-12"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-02-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-19"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-02-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-02-26"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-03-04",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-03-04"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-03-11",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-03-11"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-03-18",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-03-18"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-03-25",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-03-25"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-04-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-01"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-04-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-08"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-04-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-15"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-04-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-22"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-04-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-04-29"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-05-06",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-06"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-05-13",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-13"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-05-20",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-20"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-05-27",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-05-27"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-06-03",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-03"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-06-10",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-10"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-06-17",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-17"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-06-24",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-06-24"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-07-01",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-07-01"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-07-08",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-07-08"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-07-15",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-07-15"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-07-22",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-07-22"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-07-29",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-07-29"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-08-05",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-05"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-08-12",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-12"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-08-19",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-19"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-08-26",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-08-26"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-09-02",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-02"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-09-09",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-09"
+  },
+  {
+    "commodity": "RUSSELL2000",
+    "display_name": "Russell 2000 E-mini",
+    "cot_date": "2008-09-16",
+    "actual_price_date": null,
+    "price": null,
+    "reason": "No settlement price found within +/- 3 days of 2008-09-16"
+  },
+  {
+    "commodity": "VIX",
+    "display_name": "Cboe VIX Futures",
+    "cot_date": "2012-10-30",
+    "actual_price_date": "2012-10-31",
+    "price": 18.95,
+    "reason": "Market holiday on 2012-10-30; used next trading day 2012-10-31"
+  },
+  {
+    "commodity": "BITCOIN",
+    "display_name": "Bitcoin Futures (CME)",
+    "cot_date": "2022-05-31",
+    "actual_price_date": "2022-06-01",
+    "price": 30035.0,
+    "reason": "Market holiday on 2022-05-31; used next trading day 2022-06-01"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2021-09-07",
+    "actual_price_date": "2021-09-06",
+    "price": 3272.5,
+    "reason": "Market holiday on 2021-09-07; used prior trading day 2021-09-06"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2021-10-12",
+    "actual_price_date": "2021-10-11",
+    "price": 3460.0,
+    "reason": "Market holiday on 2021-10-12; used prior trading day 2021-10-11"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2021-11-02",
+    "actual_price_date": "2021-11-01",
+    "price": 3870.0,
+    "reason": "Market holiday on 2021-11-02; used prior trading day 2021-11-01"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2022-03-01",
+    "actual_price_date": "2022-03-02",
+    "price": 3090.0,
+    "reason": "Market holiday on 2022-03-01; used next trading day 2022-03-02"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2022-11-15",
+    "actual_price_date": "2022-11-14",
+    "price": 2825.0,
+    "reason": "Market holiday on 2022-11-15; used prior trading day 2022-11-14"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2023-02-21",
+    "actual_price_date": "2023-02-22",
+    "price": 2795.0,
+    "reason": "Market holiday on 2023-02-21; used next trading day 2023-02-22"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2024-02-13",
+    "actual_price_date": "2024-02-14",
+    "price": 2284.0,
+    "reason": "Market holiday on 2024-02-13; used next trading day 2024-02-14"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2024-12-24",
+    "actual_price_date": "2024-12-23",
+    "price": 2750.5,
+    "reason": "Market holiday on 2024-12-24; used prior trading day 2024-12-23"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2024-12-31",
+    "actual_price_date": "2024-12-30",
+    "price": 2745.5,
+    "reason": "Market holiday on 2024-12-31; used prior trading day 2024-12-30"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2025-03-04",
+    "actual_price_date": "2025-03-05",
+    "price": 2954.5,
+    "reason": "Market holiday on 2025-03-04; used next trading day 2025-03-05"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2026-02-17",
+    "actual_price_date": "2026-02-18",
+    "price": 3057.0,
+    "reason": "Market holiday on 2026-02-17; used next trading day 2026-02-18"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2026-03-31",
+    "actual_price_date": "2026-03-30",
+    "price": 3040.0,
+    "reason": "Market holiday on 2026-03-31; used prior trading day 2026-03-30"
+  },
+  {
+    "commodity": "ETHER",
+    "display_name": "Ether Cash Settled (CME)",
+    "cot_date": "2026-04-21",
+    "actual_price_date": "2026-04-20",
+    "price": 2608.5,
+    "reason": "Market holiday on 2026-04-21; used prior trading day 2026-04-20"
+  }
+]

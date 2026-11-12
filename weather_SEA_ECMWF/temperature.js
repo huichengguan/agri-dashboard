@@ -267,21 +267,27 @@ function renderHeaderKPIs() {
     });
 
     const meanT = allMeans.length > 0 ? (allMeans.reduce((a, b) => a + b, 0) / allMeans.length) : 27.6;
-    document.getElementById("kpi-temp-mean").innerText = `${meanT.toFixed(1)} °C`;
+    const tempMeanEl = document.getElementById("kpi-temp-mean");
+    if (tempMeanEl) tempMeanEl.innerText = `${meanT.toFixed(1)} °C`;
     
     if (hottest.name !== "-") {
-        document.getElementById("kpi-hot-val").innerText = `${hottest.name} (${hottest.val.toFixed(1)}°C)`;
-        document.getElementById("kpi-hot-sub").innerText = `Oct Forecast Peak • Mean ${hottest.mean.toFixed(1)}°C • ${hottest.group}`;
+        const hotValEl = document.getElementById("kpi-hot-val");
+        if (hotValEl) hotValEl.innerText = `${hottest.name} (${hottest.val.toFixed(1)}°C)`;
+        const hotSubEl = document.getElementById("kpi-hot-sub");
+        if (hotSubEl) hotSubEl.innerText = `Oct Forecast Peak • Mean ${hottest.mean.toFixed(1)}°C • ${hottest.group}`;
     }
     if (coolest.name !== "-") {
-        document.getElementById("kpi-cool-val").innerText = `${coolest.name} (${coolest.val.toFixed(1)}°C)`;
-        document.getElementById("kpi-cool-sub").innerText = `Oct Forecast Night Minimum • ${coolest.group}`;
+        const coolValEl = document.getElementById("kpi-cool-val");
+        if (coolValEl) coolValEl.innerText = `${coolest.name} (${coolest.val.toFixed(1)}°C)`;
+        const coolSubEl = document.getElementById("kpi-cool-sub");
+        if (coolSubEl) coolSubEl.innerText = `Oct Forecast Night Minimum • ${coolest.group}`;
     }
 
     const alertValEl = document.getElementById("kpi-alert-val");
     if (alertValEl) {
         alertValEl.innerText = `${heatAlertCount} Territories`;
-        document.getElementById("kpi-alert-sub").innerText = `Tmax ≥ 33.0°C (High VPD Stomatal Risk)`;
+        const alertSubEl = document.getElementById("kpi-alert-sub");
+        if (alertSubEl) alertSubEl.innerText = `Tmax ≥ 33.0°C (High VPD Stomatal Risk)`;
     }
 }
 

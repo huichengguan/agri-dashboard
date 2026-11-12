@@ -87,8 +87,23 @@ const cropData = [
     { region: "China", commodity: "Cottonseed", subtitle: "Main", estSize: "10 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","h"], Nov: ["h",""], Dec: ["",""] } },
     { region: "India", commodity: "Cottonseed", subtitle: "Kharif", estSize: "11 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["",""], May: ["","p"], Jun: ["pp","pp"], Jul: ["v","v"], Aug: ["v","r"], Sep: ["r","r"], Oct: ["h","ph"], Nov: ["ph","h"], Dec: ["h",""] } },
     { region: "USA", commodity: "Cottonseed", subtitle: "Main", estSize: "4 MMT", stages: { Jan: ["",""], Feb: ["",""], Mar: ["",""], Apr: ["p","pp"], May: ["pp","v"], Jun: ["v","v"], Jul: ["r","r"], Aug: ["r","r"], Sep: ["h","ph"], Oct: ["ph","ph"], Nov: ["h","h"], Dec: ["h",""] } },
-    { region: "Brazil", commodity: "Cottonseed", subtitle: "Safrinha", estSize: "5 MMT", stages: { Jan: ["p","pp"], Feb: ["pp","pp"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["h","ph"], Jul: ["ph","ph"], Aug: ["h","h"], Sep: ["",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } }
+    { region: "Brazil", commodity: "Cottonseed", subtitle: "Safrinha", estSize: "5 MMT", stages: { Jan: ["p","pp"], Feb: ["pp","pp"], Mar: ["v","v"], Apr: ["v","r"], May: ["r","r"], Jun: ["h","ph"], Jul: ["ph","ph"], Aug: ["h","h"], Sep: ["",""], Oct: ["",""], Nov: ["",""], Dec: ["",""] } },
+
+    // Sugarcane (estSize = sugar output, not cane tonnage; "r" = ripening for cane)
+    { region: "Brazil", commodity: "Sugarcane", subtitle: "Centre-South (sugar)", estSize: "40 MMT", stages: { Jan: ["v","v"], Feb: ["v","v"], Mar: ["v","h"], Apr: ["h","h"], May: ["ph","ph"], Jun: ["ph","ph"], Jul: ["ph","ph"], Aug: ["ph","ph"], Sep: ["ph","ph"], Oct: ["ph","ph"], Nov: ["h","h"], Dec: ["h","v"] } },
+    { region: "Brazil", commodity: "Sugarcane", subtitle: "N/NE (sugar)", estSize: "3.5 MMT", stages: { Jan: ["ph","h"], Feb: ["h","h"], Mar: ["h",""], Apr: ["v","v"], May: ["v","v"], Jun: ["v","v"], Jul: ["v","v"], Aug: ["r","h"], Sep: ["ph","ph"], Oct: ["ph","ph"], Nov: ["ph","ph"], Dec: ["ph","ph"] } },
+    { region: "India", commodity: "Sugarcane", subtitle: "MH + KA (sugar)", estSize: "18 MMT", stages: { Jan: ["ph","ph"], Feb: ["ph","ph"], Mar: ["ph","h"], Apr: ["h","h"], May: ["",""], Jun: ["v","v"], Jul: ["v","v"], Aug: ["v","v"], Sep: ["v","v"], Oct: ["r","r"], Nov: ["h","ph"], Dec: ["ph","ph"] } },
+    { region: "India", commodity: "Sugarcane", subtitle: "UP (sugar)", estSize: "10 MMT", stages: { Jan: ["ph","ph"], Feb: ["ph","ph"], Mar: ["ph","ph"], Apr: ["h","h"], May: ["h",""], Jun: ["v","v"], Jul: ["v","v"], Aug: ["v","v"], Sep: ["v","v"], Oct: ["r","h"], Nov: ["ph","ph"], Dec: ["ph","ph"] } },
+    { region: "China", commodity: "Sugarcane", subtitle: "Guangxi (sugar)", estSize: "11 MMT", stages: { Jan: ["ph","ph"], Feb: ["ph","ph"], Mar: ["ph","ph"], Apr: ["h","h"], May: ["v","v"], Jun: ["v","v"], Jul: ["v","v"], Aug: ["v","v"], Sep: ["v","v"], Oct: ["r","r"], Nov: ["h","h"], Dec: ["ph","ph"] } },
+    { region: "Thailand", commodity: "Sugarcane", subtitle: "Main (sugar)", estSize: "10 MMT", stages: { Jan: ["ph","ph"], Feb: ["ph","ph"], Mar: ["ph","ph"], Apr: ["h","h"], May: ["v","v"], Jun: ["v","v"], Jul: ["v","v"], Aug: ["v","v"], Sep: ["v","v"], Oct: ["r","r"], Nov: ["r","r"], Dec: ["h","ph"] } },
+    { region: "Pakistan", commodity: "Sugarcane", subtitle: "Main (sugar)", estSize: "7 MMT", stages: { Jan: ["ph","ph"], Feb: ["ph","ph"], Mar: ["h","h"], Apr: ["v","v"], May: ["v","v"], Jun: ["v","v"], Jul: ["v","v"], Aug: ["v","v"], Sep: ["v","v"], Oct: ["r","r"], Nov: ["h","ph"], Dec: ["ph","ph"] } }
 ];
+
+// Commodity-specific tooltip labels (e.g. sugarcane has no "reproduction" stage — it ripens)
+function stageLabel(commodity, code) {
+    if (commodity === "Sugarcane" && code === "r") return "Ripening (Sugar Build-up)";
+    return STAGE_COLORS[code].label;
+}
 
 const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -163,7 +178,7 @@ function renderCalendar() {
             td1.classList.add("month-cell");
             if (h1 && STAGE_COLORS[h1]) {
                 td1.classList.add(STAGE_COLORS[h1].class);
-                td1.title = `${month} 1st Half - ${STAGE_COLORS[h1].label}`;
+                td1.title = `${month} 1st Half - ${stageLabel(row.commodity, h1)}`;
             } else {
                 td1.classList.add("empty");
             }
@@ -174,7 +189,7 @@ function renderCalendar() {
             td2.classList.add("month-cell");
             if (h2 && STAGE_COLORS[h2]) {
                 td2.classList.add(STAGE_COLORS[h2].class);
-                td2.title = `${month} 2nd Half - ${STAGE_COLORS[h2].label}`;
+                td2.title = `${month} 2nd Half - ${stageLabel(row.commodity, h2)}`;
             } else {
                 td2.classList.add("empty");
             }

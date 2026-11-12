@@ -16,33 +16,17 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            padding: 16px 24px;
+            background-color: #0b1120;
+            color: #f1f5f9;
             line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
         }
         
         /* Universal Navigation Header */
-        .suite-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 10px 18px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .suite-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 15px;
-            font-weight: 700;
-            color: #f8fafc;
-        }
+        
+        
         .suite-brand-badge {
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #fff;
@@ -51,20 +35,10 @@
             border-radius: 6px;
             text-transform: uppercase;
         }
-        .suite-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-        .suite-tab {
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12.5px;
-            font-weight: 600;
-            text-decoration: none;
-            color: #94a3b8;
-            background: #0f172a;
-            border: 1px solid #334155;
-            transition: all 0.2s;
-        }
-        .suite-tab:hover { color: #f8fafc; border-color: #64748b; }
-        .suite-tab.active { background: #0284c7; color: #ffffff; border-color: #0284c7; font-weight: 700; }
+        
+        
+        
+        
 
         /* Header Card */
         .header-card {
@@ -223,23 +197,131 @@
 
         .col-comment { min-width: 280px; font-size: 11.5px; color: #cbd5e1; line-height: 1.4; }
         .ag-comment { background: #0f172a; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #0284c7; }
-    </style>
+    
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        
+        
+        
+        
+
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        .suite-nav-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 44px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .suite-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #2563eb;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+        }
+</style>
 </head>
 <body>
 
-    <!-- Universal Suite Navigation -->
-    <div class="suite-nav">
-        <div class="suite-brand">
-            <span>🌡️</span>
-            <span>Black Sea Crop Ag-Weather Suite</span>
-            <span class="suite-brand-badge">ECMWF IFS 0.25°</span>
+    <div class="dashboard-container">
+        <!-- Universal Cross-Dashboard Navigation -->
+    <div class="suite-nav-bar">
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127806; BLACK SEA CROP AG-WEATHER INTELLIGENCE (ECMWF IFS)</span>
         </div>
-        <div class="suite-tabs">
-            <a href="BlackSea_Crop_2_Week_Outlook.html" class="suite-tab">🌧️ 2-Week Outlook</a>
-            <a href="BlackSea_Crop_Soil_Moisture_Outlook.html" class="suite-tab">🌱 Soil Moisture</a>
-            <a href="BlackSea_Crop_Temperature_Outlook.html" class="suite-tab active">🌡️ Temperature Outlook</a>
-            <a href="BlackSea_Crop_Weather_Matrix.html" class="suite-tab">📊 Weather Matrix</a>
-            <a href="index.html" class="suite-tab">🏠 Suite Portal</a>
+        <div class="suite-nav-links">
+            <a href="BlackSea_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
+            <a href="BlackSea_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="BlackSea_Crop_Temperature_Outlook.html" class="nav-tab active">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="BlackSea_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Year Historical Matrix (2010&ndash;2026)</a>
+            <a href="BlackSea_Crop_Rainfall_Map.html" class="nav-tab">&#128506;&#65039; Rainfall Geospatial Map</a>
         </div>
     </div>
 
@@ -253,7 +335,7 @@
                 </div>
             </div>
             <div class="meta-tags">
-                <div class="meta-tag"><strong>Generated:</strong> 2026-11-10 05:56:01 UTC</div>
+                <div class="meta-tag"><strong>Generated:</strong> 2026-11-11 08:25:13 UTC</div>
                 <div class="meta-tag"><strong>Model:</strong> ECMWF IFS (0.25°) Seamless Operational & Ag-Reanalysis</div>
                 <div class="meta-tag"><strong>Phenology Focus:</strong> Hardening & Harvest Windows</div>
             </div>
@@ -269,12 +351,12 @@
         </div>
         <div class="kpi-card">
             <div class="kpi-label">Air Freezing Days (≤0°C)</div>
-            <div class="kpi-value" style="color: #60a5fa;">153</div>
+            <div class="kpi-value" style="color: #60a5fa;">118</div>
             <div class="kpi-sub">Halts Late Vegetative Rosette Sowing</div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label">Frost Watch Days (≤3°C)</div>
-            <div class="kpi-value" style="color: #38bdf8;">254</div>
+            <div class="kpi-value" style="color: #38bdf8;">224</div>
             <div class="kpi-sub">Triggers Winter Acclimatization</div>
         </div>
         <div class="kpi-card">
@@ -333,10 +415,10 @@
                 data-name="Poltava Oblast" 
                 data-code="UA-POL" 
                 data-country="Ukraine" 
-                data-peak-tmax="13.2" 
-                data-low-tmin="-3.1"
+                data-peak-tmax="14.7" 
+                data-low-tmin="-4.0"
                 data-heat-days="0"
-                data-frost-days="12">
+                data-frost-days="10">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -351,40 +433,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 13.2°C</span>
-                            <span class="t-f" style="display:none;">High: 55.8°F</span>
+                            <span class="t-c">High: 14.7°C</span>
+                            <span class="t-f" style="display:none;">High: 58.5°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.1°C</span>
-                            <span class="t-f" style="display:none;">Low: 26.4°F</span>
+                            <span class="t-c">Low: -4.0°C</span>
+                            <span class="t-f" style="display:none;">Low: 24.8°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 13.2°C (Avg: 6.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 55.8°F (Avg: 43.4°F)</span>
+                            <span class="t-c">Peak: 14.7°C (Avg: 8.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 58.5°F (Avg: 47.6°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.1°C (Avg: 0.3°C)</span>
-                            <span class="t-f" style="display:none;">Low: 26.4°F (Avg: 32.5°F)</span>
+                            <span class="t-c">Low: -4.0°C (Avg: 1.6°C)</span>
+                            <span class="t-f" style="display:none;">Low: 24.8°F (Avg: 34.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.5°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.3°F</span>
+                            <span class="t-c">24-Hr Mean: 4.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 40.9°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.5°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.41 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.1°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -392,10 +474,10 @@
                 data-name="Cherkasy Oblast" 
                 data-code="UA-CHK" 
                 data-country="Ukraine" 
-                data-peak-tmax="15.8" 
-                data-low-tmin="-3.9"
+                data-peak-tmax="16.7" 
+                data-low-tmin="-2.5"
                 data-heat-days="0"
-                data-frost-days="11">
+                data-frost-days="9">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -410,40 +492,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 15.8°C</span>
-                            <span class="t-f" style="display:none;">High: 60.4°F</span>
+                            <span class="t-c">High: 16.7°C</span>
+                            <span class="t-f" style="display:none;">High: 62.1°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.9°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.0°F</span>
+                            <span class="t-c">Low: -2.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 27.5°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 15.8°C (Avg: 7.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 60.4°F (Avg: 45.3°F)</span>
+                            <span class="t-c">Peak: 16.7°C (Avg: 8.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 62.1°F (Avg: 47.6°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.9°C (Avg: 0.2°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.0°F (Avg: 32.3°F)</span>
+                            <span class="t-c">Low: -2.5°C (Avg: 1.8°C)</span>
+                            <span class="t-f" style="display:none;">Low: 27.5°F (Avg: 35.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.8°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.9°F</span>
+                            <span class="t-c">24-Hr Mean: 5.2°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 41.3°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.40 m³/m³. Alert: Subzero night temperature (-2.3°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.41 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.5°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -451,10 +533,10 @@
                 data-name="Vinnytsia Oblast" 
                 data-code="UA-VIN" 
                 data-country="Ukraine" 
-                data-peak-tmax="15.4" 
-                data-low-tmin="-3.3"
+                data-peak-tmax="15.8" 
+                data-low-tmin="-2.9"
                 data-heat-days="0"
-                data-frost-days="12">
+                data-frost-days="9">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -469,40 +551,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 15.4°C</span>
-                            <span class="t-f" style="display:none;">High: 59.7°F</span>
+                            <span class="t-c">High: 15.8°C</span>
+                            <span class="t-f" style="display:none;">High: 60.4°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.3°C</span>
-                            <span class="t-f" style="display:none;">Low: 26.1°F</span>
+                            <span class="t-c">Low: -2.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 15.4°C (Avg: 6.9°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 59.7°F (Avg: 44.4°F)</span>
+                            <span class="t-c">Peak: 15.8°C (Avg: 7.9°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 60.4°F (Avg: 46.2°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.3°C (Avg: 0.2°C)</span>
-                            <span class="t-f" style="display:none;">Low: 26.1°F (Avg: 32.3°F)</span>
+                            <span class="t-c">Low: -2.9°C (Avg: 1.7°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F (Avg: 35.0°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.6°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.5°F</span>
+                            <span class="t-c">24-Hr Mean: 4.8°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 40.6°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-2.0°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-2.9°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -510,10 +592,10 @@
                 data-name="Kirovohrad Oblast" 
                 data-code="UA-KIR" 
                 data-country="Ukraine" 
-                data-peak-tmax="17.6" 
-                data-low-tmin="-3.6"
+                data-peak-tmax="16.0" 
+                data-low-tmin="-2.4"
                 data-heat-days="0"
-                data-frost-days="11">
+                data-frost-days="9">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -528,40 +610,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 17.6°C</span>
-                            <span class="t-f" style="display:none;">High: 63.7°F</span>
+                            <span class="t-c">High: 16.0°C</span>
+                            <span class="t-f" style="display:none;">High: 60.8°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.6°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.5°F</span>
+                            <span class="t-c">Low: -2.4°C</span>
+                            <span class="t-f" style="display:none;">Low: 27.7°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 17.6°C (Avg: 8.0°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 63.7°F (Avg: 46.5°F)</span>
+                            <span class="t-c">Peak: 16.0°C (Avg: 9.3°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 60.8°F (Avg: 48.8°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.6°C (Avg: 0.1°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.5°F (Avg: 32.1°F)</span>
+                            <span class="t-c">Low: -2.4°C (Avg: 1.8°C)</span>
+                            <span class="t-f" style="display:none;">Low: 27.7°F (Avg: 35.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 4.2°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 39.6°F</span>
+                            <span class="t-c">24-Hr Mean: 5.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 42.0°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.40 m³/m³. Alert: Subzero night temperature (-2.1°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.41 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.4°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -578,8 +660,8 @@
                 data-name="Khmelnytskyi Oblast" 
                 data-code="UA-KHM" 
                 data-country="Ukraine" 
-                data-peak-tmax="13.4" 
-                data-low-tmin="-2.3"
+                data-peak-tmax="12.3" 
+                data-low-tmin="-2.9"
                 data-heat-days="0"
                 data-frost-days="11">
                 
@@ -596,40 +678,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 13.4°C</span>
-                            <span class="t-f" style="display:none;">High: 56.1°F</span>
+                            <span class="t-c">High: 12.3°C</span>
+                            <span class="t-f" style="display:none;">High: 54.1°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.3°C</span>
-                            <span class="t-f" style="display:none;">Low: 27.9°F</span>
+                            <span class="t-c">Low: -2.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 13.4°C (Avg: 6.6°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 56.1°F (Avg: 43.8°F)</span>
+                            <span class="t-c">Peak: 12.3°C (Avg: 6.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 54.1°F (Avg: 44.0°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.3°C (Avg: 0.8°C)</span>
-                            <span class="t-f" style="display:none;">Low: 27.9°F (Avg: 33.5°F)</span>
+                            <span class="t-c">Low: -2.9°C (Avg: 1.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F (Avg: 33.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.6°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.6°F</span>
+                            <span class="t-c">24-Hr Mean: 3.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 39.1°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-2.3°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.40 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.9°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -637,8 +719,8 @@
                 data-name="Ternopil Oblast" 
                 data-code="UA-TER" 
                 data-country="Ukraine" 
-                data-peak-tmax="13.0" 
-                data-low-tmin="-3.2"
+                data-peak-tmax="11.4" 
+                data-low-tmin="-3.3"
                 data-heat-days="0"
                 data-frost-days="11">
                 
@@ -655,40 +737,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 13.0°C</span>
-                            <span class="t-f" style="display:none;">High: 55.4°F</span>
+                            <span class="t-c">High: 11.4°C</span>
+                            <span class="t-f" style="display:none;">High: 52.5°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.2°C</span>
-                            <span class="t-f" style="display:none;">Low: 26.2°F</span>
+                            <span class="t-c">Low: -3.3°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.1°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 13.0°C (Avg: 6.6°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 55.4°F (Avg: 43.9°F)</span>
+                            <span class="t-c">Peak: 11.4°C (Avg: 6.6°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 52.5°F (Avg: 43.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.2°C (Avg: 0.5°C)</span>
-                            <span class="t-f" style="display:none;">Low: 26.2°F (Avg: 32.8°F)</span>
+                            <span class="t-c">Low: -3.3°C (Avg: 0.2°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.1°F (Avg: 32.4°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.4°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.1°F</span>
+                            <span class="t-c">24-Hr Mean: 3.3°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 37.9°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.37 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.2°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.40 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.3°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -696,8 +778,8 @@
                 data-name="Lviv Oblast" 
                 data-code="UA-LVI" 
                 data-country="Ukraine" 
-                data-peak-tmax="9.4" 
-                data-low-tmin="-3.2"
+                data-peak-tmax="9.9" 
+                data-low-tmin="-3.1"
                 data-heat-days="0"
                 data-frost-days="13">
                 
@@ -714,30 +796,30 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">High: 9.4°C</span>
-                            <span class="t-f" style="display:none;">High: 48.9°F</span>
+                            <span class="t-c">High: 9.9°C</span>
+                            <span class="t-f" style="display:none;">High: 49.8°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.2°C</span>
-                            <span class="t-f" style="display:none;">Low: 26.2°F</span>
+                            <span class="t-c">Low: -3.1°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.4°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Peak: 9.4°C (Avg: 6.8°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 48.9°F (Avg: 44.2°F)</span>
+                            <span class="t-c">Peak: 9.9°C (Avg: 6.5°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 49.8°F (Avg: 43.7°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.2°C (Avg: -0.0°C)</span>
-                            <span class="t-f" style="display:none;">Low: 26.2°F (Avg: 31.9°F)</span>
+                            <span class="t-c">Low: -3.1°C (Avg: -0.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.4°F (Avg: 32.0°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.2°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 37.8°F</span>
+                            <span class="t-c">24-Hr Mean: 3.0°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 37.5°F</span>
                         </span>
                     </div>
                 </td>
@@ -747,7 +829,7 @@
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.0°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.40 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.1°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -764,10 +846,10 @@
                 data-name="Chernihiv Oblast" 
                 data-code="UA-CHE" 
                 data-country="Ukraine" 
-                data-peak-tmax="10.6" 
-                data-low-tmin="-3.7"
+                data-peak-tmax="13.6" 
+                data-low-tmin="-1.7"
                 data-heat-days="0"
-                data-frost-days="11">
+                data-frost-days="10">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -782,40 +864,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 10.6°C</span>
-                            <span class="t-f" style="display:none;">High: 51.1°F</span>
+                            <span class="t-c">High: 13.6°C</span>
+                            <span class="t-f" style="display:none;">High: 56.5°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.7°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.3°F</span>
+                            <span class="t-c">Low: -1.7°C</span>
+                            <span class="t-f" style="display:none;">Low: 28.9°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 10.6°C (Avg: 5.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 51.1°F (Avg: 41.7°F)</span>
+                            <span class="t-c">Peak: 13.6°C (Avg: 7.4°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 56.5°F (Avg: 45.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.7°C (Avg: -0.0°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.3°F (Avg: 32.0°F)</span>
+                            <span class="t-c">Low: -1.7°C (Avg: 2.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 28.9°F (Avg: 35.5°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 2.8°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 37.1°F</span>
+                            <span class="t-c">24-Hr Mean: 4.7°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 40.4°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 4 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Accelerated topsoil drydown (-0.02 m³/m³); prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.0°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.41 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-1.7°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -823,10 +905,10 @@
                 data-name="Sumy Oblast" 
                 data-code="UA-SUM" 
                 data-country="Ukraine" 
-                data-peak-tmax="11.5" 
-                data-low-tmin="-4.0"
+                data-peak-tmax="13.5" 
+                data-low-tmin="-1.8"
                 data-heat-days="0"
-                data-frost-days="12">
+                data-frost-days="8">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -841,40 +923,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 11.5°C</span>
-                            <span class="t-f" style="display:none;">High: 52.7°F</span>
+                            <span class="t-c">High: 13.5°C</span>
+                            <span class="t-f" style="display:none;">High: 56.3°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -4.0°C</span>
-                            <span class="t-f" style="display:none;">Low: 24.8°F</span>
+                            <span class="t-c">Low: -1.8°C</span>
+                            <span class="t-f" style="display:none;">Low: 28.8°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 11.5°C (Avg: 5.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 52.7°F (Avg: 41.7°F)</span>
+                            <span class="t-c">Peak: 13.5°C (Avg: 7.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 56.3°F (Avg: 45.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -4.0°C (Avg: 0.0°C)</span>
-                            <span class="t-f" style="display:none;">Low: 24.8°F (Avg: 32.0°F)</span>
+                            <span class="t-c">Low: -1.8°C (Avg: 2.2°C)</span>
+                            <span class="t-f" style="display:none;">Low: 28.8°F (Avg: 35.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 2.7°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 36.9°F</span>
+                            <span class="t-c">24-Hr Mean: 4.7°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 40.4°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 4 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.39 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.7°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.41 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-1.8°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -891,10 +973,10 @@
                 data-name="Odesa Oblast" 
                 data-code="UA-ODE" 
                 data-country="Ukraine" 
-                data-peak-tmax="20.9" 
-                data-low-tmin="-1.5"
+                data-peak-tmax="21.1" 
+                data-low-tmin="-1.4"
                 data-heat-days="0"
-                data-frost-days="4">
+                data-frost-days="6">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -909,40 +991,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">High: 20.9°C</span>
-                            <span class="t-f" style="display:none;">High: 69.6°F</span>
+                            <span class="t-c">High: 21.1°C</span>
+                            <span class="t-f" style="display:none;">High: 70.0°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -1.5°C</span>
-                            <span class="t-f" style="display:none;">Low: 29.3°F</span>
+                            <span class="t-c">Low: -1.4°C</span>
+                            <span class="t-f" style="display:none;">Low: 29.5°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">Peak: 20.9°C (Avg: 12.6°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 69.6°F (Avg: 54.7°F)</span>
+                            <span class="t-c">Peak: 21.1°C (Avg: 13.5°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 70.0°F (Avg: 56.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -1.5°C (Avg: 3.8°C)</span>
-                            <span class="t-f" style="display:none;">Low: 29.3°F (Avg: 38.8°F)</span>
+                            <span class="t-c">Low: -1.4°C (Avg: 4.0°C)</span>
+                            <span class="t-f" style="display:none;">Low: 29.5°F (Avg: 39.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 8.1°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 46.6°F</span>
+                            <span class="t-c">24-Hr Mean: 8.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 48.1°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 4 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 2 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Dry forward window (5.3 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.40 m³/m³. Alert: Subzero night temperature (-0.1°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Dry forward window (6.9 mm) provides ideal field conditions for uninterrupted sunflower and corn harvesting; subsoil reserves at 0.39 m³/m³. Alert: Subzero night temperature (-1.4°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -950,10 +1032,10 @@
                 data-name="Mykolaiv Oblast" 
                 data-code="UA-MYK" 
                 data-country="Ukraine" 
-                data-peak-tmax="19.7" 
-                data-low-tmin="-3.0"
+                data-peak-tmax="17.9" 
+                data-low-tmin="-2.2"
                 data-heat-days="0"
-                data-frost-days="10">
+                data-frost-days="8">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -967,41 +1049,41 @@
                 
                 <td class="col-dual">
                     <div class="view-dual">
-                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">High: 19.7°C</span>
-                            <span class="t-f" style="display:none;">High: 67.5°F</span>
+                        <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
+                            <span class="t-c">High: 17.9°C</span>
+                            <span class="t-f" style="display:none;">High: 64.2°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.0°C</span>
-                            <span class="t-f" style="display:none;">Low: 26.6°F</span>
+                            <span class="t-c">Low: -2.2°C</span>
+                            <span class="t-f" style="display:none;">Low: 28.0°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
-                        <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">Peak: 19.7°C (Avg: 10.2°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 67.5°F (Avg: 50.4°F)</span>
+                        <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
+                            <span class="t-c">Peak: 17.9°C (Avg: 11.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 64.2°F (Avg: 53.1°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.0°C (Avg: 1.0°C)</span>
-                            <span class="t-f" style="display:none;">Low: 26.6°F (Avg: 33.9°F)</span>
+                            <span class="t-c">Low: -2.2°C (Avg: 2.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 28.0°F (Avg: 37.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 6.0°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 42.8°F</span>
+                            <span class="t-c">24-Hr Mean: 7.3°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 45.1°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.37 m³/m³. Alert: Subzero night temperature (-2.0°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.37 m³/m³. Alert: Subzero night temperature (-1.6°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1009,8 +1091,8 @@
                 data-name="Dnipropetrovsk Oblast" 
                 data-code="UA-DNI" 
                 data-country="Ukraine" 
-                data-peak-tmax="15.7" 
-                data-low-tmin="-3.5"
+                data-peak-tmax="15.6" 
+                data-low-tmin="-2.9"
                 data-heat-days="0"
                 data-frost-days="11">
                 
@@ -1027,40 +1109,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 15.7°C</span>
-                            <span class="t-f" style="display:none;">High: 60.3°F</span>
+                            <span class="t-c">High: 15.6°C</span>
+                            <span class="t-f" style="display:none;">High: 60.1°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.5°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.7°F</span>
+                            <span class="t-c">Low: -2.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 15.7°C (Avg: 7.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 60.3°F (Avg: 45.4°F)</span>
+                            <span class="t-c">Peak: 15.6°C (Avg: 9.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 60.1°F (Avg: 49.5°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.5°C (Avg: 0.3°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.7°F (Avg: 32.6°F)</span>
+                            <span class="t-c">Low: -2.9°C (Avg: 1.3°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F (Avg: 34.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 4.3°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 39.7°F</span>
+                            <span class="t-c">24-Hr Mean: 5.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 41.9°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.37 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.7°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.9°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1068,10 +1150,10 @@
                 data-name="Kharkiv Oblast" 
                 data-code="UA-KHA" 
                 data-country="Ukraine" 
-                data-peak-tmax="13.6" 
-                data-low-tmin="-3.6"
+                data-peak-tmax="14.4" 
+                data-low-tmin="-2.9"
                 data-heat-days="0"
-                data-frost-days="12">
+                data-frost-days="10">
                 
                 <td class="col-location">
                     <div class="loc-country">🇺🇦 Ukraine</div>
@@ -1086,40 +1168,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 13.6°C</span>
-                            <span class="t-f" style="display:none;">High: 56.5°F</span>
+                            <span class="t-c">High: 14.4°C</span>
+                            <span class="t-f" style="display:none;">High: 57.9°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.6°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.5°F</span>
+                            <span class="t-c">Low: -2.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 13.6°C (Avg: 6.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 56.5°F (Avg: 43.6°F)</span>
+                            <span class="t-c">Peak: 14.4°C (Avg: 8.4°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 57.9°F (Avg: 47.2°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.6°C (Avg: 0.1°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.5°F (Avg: 32.1°F)</span>
+                            <span class="t-c">Low: -2.9°C (Avg: 1.4°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.8°F (Avg: 34.5°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.6°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.4°F</span>
+                            <span class="t-c">24-Hr Mean: 4.8°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 40.7°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 4 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.40 m³/m³. Alert: Subzero night temperature (-3.2°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.41 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.9°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1136,10 +1218,10 @@
                 data-name="Krasnodar Krai (Kuban)" 
                 data-code="RU-KDA" 
                 data-country="Russia" 
-                data-peak-tmax="20.8" 
-                data-low-tmin="-1.8"
+                data-peak-tmax="19.8" 
+                data-low-tmin="-0.2"
                 data-heat-days="0"
-                data-frost-days="8">
+                data-frost-days="6">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1154,40 +1236,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">High: 20.8°C</span>
-                            <span class="t-f" style="display:none;">High: 69.4°F</span>
+                            <span class="t-c">High: 19.8°C</span>
+                            <span class="t-f" style="display:none;">High: 67.6°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -1.8°C</span>
-                            <span class="t-f" style="display:none;">Low: 28.8°F</span>
+                            <span class="t-c">Low: -0.2°C</span>
+                            <span class="t-f" style="display:none;">Low: 31.6°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">Peak: 20.8°C (Avg: 12.7°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 69.4°F (Avg: 54.9°F)</span>
+                            <span class="t-c">Peak: 19.8°C (Avg: 12.8°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 67.6°F (Avg: 55.1°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -1.8°C (Avg: 4.4°C)</span>
-                            <span class="t-f" style="display:none;">Low: 28.8°F (Avg: 39.9°F)</span>
+                            <span class="t-c">Low: -0.2°C (Avg: 4.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 31.6°F (Avg: 40.8°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 8.5°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 47.4°F</span>
+                            <span class="t-c">24-Hr Mean: 8.8°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 47.8°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 4 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 1 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Active topsoil moisture recharge (+0.04 m³/m³); prime moisture conditions (0.34 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-1.4°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Soil moisture profile holding steady; prime moisture conditions (0.34 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-0.2°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1195,10 +1277,10 @@
                 data-name="Rostov Oblast (Don Basin)" 
                 data-code="RU-ROS" 
                 data-country="Russia" 
-                data-peak-tmax="21.7" 
-                data-low-tmin="-2.4"
+                data-peak-tmax="21.2" 
+                data-low-tmin="-1.4"
                 data-heat-days="0"
-                data-frost-days="9">
+                data-frost-days="7">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1213,40 +1295,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">High: 21.7°C</span>
-                            <span class="t-f" style="display:none;">High: 71.1°F</span>
+                            <span class="t-c">High: 21.2°C</span>
+                            <span class="t-f" style="display:none;">High: 70.2°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.4°C</span>
-                            <span class="t-f" style="display:none;">Low: 27.7°F</span>
+                            <span class="t-c">Low: -1.4°C</span>
+                            <span class="t-f" style="display:none;">Low: 29.5°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">Peak: 21.7°C (Avg: 11.8°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 71.1°F (Avg: 53.2°F)</span>
+                            <span class="t-c">Peak: 21.2°C (Avg: 11.6°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 70.2°F (Avg: 53.0°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.4°C (Avg: 3.1°C)</span>
-                            <span class="t-f" style="display:none;">Low: 27.7°F (Avg: 37.7°F)</span>
+                            <span class="t-c">Low: -1.4°C (Avg: 3.5°C)</span>
+                            <span class="t-f" style="display:none;">Low: 29.5°F (Avg: 38.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 7.2°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 45.0°F</span>
+                            <span class="t-c">24-Hr Mean: 7.7°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 45.8°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 3 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Active topsoil moisture recharge (+0.07 m³/m³); prime moisture conditions (0.35 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.4°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.02 m³/m³); prime moisture conditions (0.34 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-0.5°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1254,8 +1336,8 @@
                 data-name="Stavropol Krai" 
                 data-code="RU-STA" 
                 data-country="Russia" 
-                data-peak-tmax="20.3" 
-                data-low-tmin="-2.6"
+                data-peak-tmax="20.8" 
+                data-low-tmin="-1.7"
                 data-heat-days="0"
                 data-frost-days="7">
                 
@@ -1272,40 +1354,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">High: 20.3°C</span>
-                            <span class="t-f" style="display:none;">High: 68.5°F</span>
+                            <span class="t-c">High: 20.8°C</span>
+                            <span class="t-f" style="display:none;">High: 69.4°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.6°C</span>
-                            <span class="t-f" style="display:none;">Low: 27.3°F</span>
+                            <span class="t-c">Low: -1.7°C</span>
+                            <span class="t-f" style="display:none;">Low: 28.9°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#166534; color:#ffffff;">
-                            <span class="t-c">Peak: 20.3°C (Avg: 11.0°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 68.5°F (Avg: 51.8°F)</span>
+                            <span class="t-c">Peak: 20.8°C (Avg: 11.5°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 69.4°F (Avg: 52.8°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.6°C (Avg: 2.6°C)</span>
-                            <span class="t-f" style="display:none;">Low: 27.3°F (Avg: 36.7°F)</span>
+                            <span class="t-c">Low: -1.7°C (Avg: 2.9°C)</span>
+                            <span class="t-f" style="display:none;">Low: 28.9°F (Avg: 37.3°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 6.6°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 43.9°F</span>
+                            <span class="t-c">24-Hr Mean: 7.1°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 44.8°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Active topsoil moisture recharge (+0.06 m³/m³); prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-2.2°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.03 m³/m³); prime moisture conditions (0.38 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-1.7°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1313,10 +1395,10 @@
                 data-name="Volgograd Oblast" 
                 data-code="RU-VGG" 
                 data-country="Russia" 
-                data-peak-tmax="17.7" 
-                data-low-tmin="-4.2"
+                data-peak-tmax="16.2" 
+                data-low-tmin="-3.5"
                 data-heat-days="0"
-                data-frost-days="12">
+                data-frost-days="11">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1331,40 +1413,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 17.7°C</span>
-                            <span class="t-f" style="display:none;">High: 63.9°F</span>
+                            <span class="t-c">High: 16.2°C</span>
+                            <span class="t-f" style="display:none;">High: 61.2°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -4.2°C</span>
-                            <span class="t-f" style="display:none;">Low: 24.4°F</span>
+                            <span class="t-c">Low: -3.5°C</span>
+                            <span class="t-f" style="display:none;">Low: 25.7°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 17.7°C (Avg: 7.4°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 63.9°F (Avg: 45.3°F)</span>
+                            <span class="t-c">Peak: 16.2°C (Avg: 7.0°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 61.2°F (Avg: 44.6°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -4.2°C (Avg: 1.0°C)</span>
-                            <span class="t-f" style="display:none;">Low: 24.4°F (Avg: 33.8°F)</span>
+                            <span class="t-c">Low: -3.5°C (Avg: 0.5°C)</span>
+                            <span class="t-f" style="display:none;">Low: 25.7°F (Avg: 32.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 4.0°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 39.2°F</span>
+                            <span class="t-c">24-Hr Mean: 3.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 38.9°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Accelerated topsoil drydown (-0.03 m³/m³); prime moisture conditions (0.32 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.5°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.25 m³/m³. Alert: Subzero night temperature (-2.6°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1381,10 +1463,10 @@
                 data-name="Voronezh Oblast" 
                 data-code="RU-VOR" 
                 data-country="Russia" 
-                data-peak-tmax="12.9" 
+                data-peak-tmax="13.1" 
                 data-low-tmin="-3.8"
                 data-heat-days="0"
-                data-frost-days="13">
+                data-frost-days="11">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1399,8 +1481,8 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 12.9°C</span>
-                            <span class="t-f" style="display:none;">High: 55.2°F</span>
+                            <span class="t-c">High: 13.1°C</span>
+                            <span class="t-f" style="display:none;">High: 55.6°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
                             <span class="t-c">Low: -3.8°C</span>
@@ -1409,30 +1491,30 @@
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 12.9°C (Avg: 5.1°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 55.2°F (Avg: 41.1°F)</span>
+                            <span class="t-c">Peak: 13.1°C (Avg: 6.7°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 55.6°F (Avg: 44.1°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.8°C (Avg: -0.2°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.2°F (Avg: 31.6°F)</span>
+                            <span class="t-c">Low: -3.8°C (Avg: -0.1°C)</span>
+                            <span class="t-f" style="display:none;">Low: 25.2°F (Avg: 31.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 2.7°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 36.9°F</span>
+                            <span class="t-c">24-Hr Mean: 3.6°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 38.5°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Active topsoil moisture recharge (+0.06 m³/m³); prime moisture conditions (0.34 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.8°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Active topsoil moisture recharge (+0.07 m³/m³); prime moisture conditions (0.35 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-3.8°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1440,10 +1522,10 @@
                 data-name="Kursk Oblast" 
                 data-code="RU-KRS" 
                 data-country="Russia" 
-                data-peak-tmax="12.0" 
-                data-low-tmin="-3.5"
+                data-peak-tmax="12.4" 
+                data-low-tmin="-3.1"
                 data-heat-days="0"
-                data-frost-days="14">
+                data-frost-days="11">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1458,40 +1540,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 12.0°C</span>
-                            <span class="t-f" style="display:none;">High: 53.6°F</span>
+                            <span class="t-c">High: 12.4°C</span>
+                            <span class="t-f" style="display:none;">High: 54.3°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.5°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.7°F</span>
+                            <span class="t-c">Low: -3.1°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.4°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 12.0°C (Avg: 4.2°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 53.6°F (Avg: 39.6°F)</span>
+                            <span class="t-c">Peak: 12.4°C (Avg: 6.8°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 54.3°F (Avg: 44.2°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.5°C (Avg: -0.7°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.7°F (Avg: 30.8°F)</span>
+                            <span class="t-c">Low: -3.1°C (Avg: 0.7°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.4°F (Avg: 33.2°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 1.7°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 35.1°F</span>
+                            <span class="t-c">24-Hr Mean: 3.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 38.3°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 9 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 5 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.39 m³/m³. Alert: Subzero night temperature (-3.5°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.39 m³/m³. Alert: Subzero night temperature (-3.1°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1499,10 +1581,10 @@
                 data-name="Belgorod Oblast" 
                 data-code="RU-BEL" 
                 data-country="Russia" 
-                data-peak-tmax="13.1" 
-                data-low-tmin="-4.0"
+                data-peak-tmax="12.8" 
+                data-low-tmin="-3.9"
                 data-heat-days="0"
-                data-frost-days="13">
+                data-frost-days="11">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1517,40 +1599,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 13.1°C</span>
-                            <span class="t-f" style="display:none;">High: 55.6°F</span>
+                            <span class="t-c">High: 12.8°C</span>
+                            <span class="t-f" style="display:none;">High: 55.0°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -4.0°C</span>
-                            <span class="t-f" style="display:none;">Low: 24.8°F</span>
+                            <span class="t-c">Low: -3.9°C</span>
+                            <span class="t-f" style="display:none;">Low: 25.0°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 13.1°C (Avg: 5.3°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 55.6°F (Avg: 41.6°F)</span>
+                            <span class="t-c">Peak: 12.8°C (Avg: 7.1°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 55.0°F (Avg: 44.8°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -4.0°C (Avg: -0.5°C)</span>
-                            <span class="t-f" style="display:none;">Low: 24.8°F (Avg: 31.1°F)</span>
+                            <span class="t-c">Low: -3.9°C (Avg: 0.4°C)</span>
+                            <span class="t-f" style="display:none;">Low: 25.0°F (Avg: 32.7°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 2.8°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 37.0°F</span>
+                            <span class="t-c">24-Hr Mean: 3.9°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 39.1°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 7 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-4.0°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-3.9°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1558,10 +1640,10 @@
                 data-name="Lipetsk Oblast" 
                 data-code="RU-LIP" 
                 data-country="Russia" 
-                data-peak-tmax="12.2" 
-                data-low-tmin="-3.8"
+                data-peak-tmax="12.4" 
+                data-low-tmin="-3.3"
                 data-heat-days="0"
-                data-frost-days="13">
+                data-frost-days="10">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1576,40 +1658,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 12.2°C</span>
-                            <span class="t-f" style="display:none;">High: 54.0°F</span>
+                            <span class="t-c">High: 12.4°C</span>
+                            <span class="t-f" style="display:none;">High: 54.3°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.8°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.2°F</span>
+                            <span class="t-c">Low: -3.3°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.1°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 12.2°C (Avg: 4.1°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 54.0°F (Avg: 39.5°F)</span>
+                            <span class="t-c">Peak: 12.4°C (Avg: 6.2°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 54.3°F (Avg: 43.2°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.8°C (Avg: -0.3°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.2°F (Avg: 31.4°F)</span>
+                            <span class="t-c">Low: -3.3°C (Avg: 0.8°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.1°F (Avg: 33.5°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 2.0°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 35.6°F</span>
+                            <span class="t-c">24-Hr Mean: 3.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 38.4°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 9 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.37 m³/m³. Alert: Subzero night temperature (-3.8°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.37 m³/m³. Alert: Subzero night temperature (-3.3°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1626,10 +1708,10 @@
                 data-name="Saratov Oblast" 
                 data-code="RU-SAR" 
                 data-country="Russia" 
-                data-peak-tmax="13.7" 
-                data-low-tmin="-3.4"
+                data-peak-tmax="13.0" 
+                data-low-tmin="-3.3"
                 data-heat-days="0"
-                data-frost-days="13">
+                data-frost-days="14">
                 
                 <td class="col-location">
                     <div class="loc-country">🇷🇺 Russia</div>
@@ -1644,40 +1726,40 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">High: 13.7°C</span>
-                            <span class="t-f" style="display:none;">High: 56.7°F</span>
+                            <span class="t-c">High: 13.0°C</span>
+                            <span class="t-f" style="display:none;">High: 55.4°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.4°C</span>
-                            <span class="t-f" style="display:none;">Low: 25.9°F</span>
+                            <span class="t-c">Low: -3.3°C</span>
+                            <span class="t-f" style="display:none;">Low: 26.1°F</span>
                         </span>
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#0284c7; color:#ffffff;">
-                            <span class="t-c">Peak: 13.7°C (Avg: 4.0°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 56.7°F (Avg: 39.2°F)</span>
+                            <span class="t-c">Peak: 13.0°C (Avg: 5.3°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 55.4°F (Avg: 41.6°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -3.4°C (Avg: 0.3°C)</span>
-                            <span class="t-f" style="display:none;">Low: 25.9°F (Avg: 32.6°F)</span>
+                            <span class="t-c">Low: -3.3°C (Avg: -0.1°C)</span>
+                            <span class="t-f" style="display:none;">Low: 26.1°F (Avg: 31.9°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 2.1°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 35.9°F</span>
+                            <span class="t-c">24-Hr Mean: 2.7°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 36.8°F</span>
                         </span>
                     </div>
                 </td>
                 
                 <td class="col-stress">
-                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 8 Freeze Days (≤0°C)</span></div>
+                    <div class="stress-wrap"><span class="stress-badge badge-freeze">❄️ 6 Freeze Days (≤0°C)</span></div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Active topsoil moisture recharge (+0.02 m³/m³); prime moisture conditions (0.31 m³/m³) accelerating autumn winter wheat drilling and supporting vigorous early tillering. Alert: Subzero night temperature (-1.3°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Highly favorable seedbed hydration; balanced conditions across the agricultural basin with subsoil buffer at 0.33 m³/m³. Alert: Subzero night temperature (-3.3°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1685,7 +1767,7 @@
                 data-name="Kaliningrad Oblast" 
                 data-code="RU-KGD" 
                 data-country="Russia" 
-                data-peak-tmax="8.0" 
+                data-peak-tmax="7.7" 
                 data-low-tmin="-2.6"
                 data-heat-days="0"
                 data-frost-days="11">
@@ -1703,8 +1785,8 @@
                 <td class="col-dual">
                     <div class="view-dual">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">High: 8.0°C</span>
-                            <span class="t-f" style="display:none;">High: 46.4°F</span>
+                            <span class="t-c">High: 7.7°C</span>
+                            <span class="t-f" style="display:none;">High: 45.9°F</span>
                         </span>
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
                             <span class="t-c">Low: -2.6°C</span>
@@ -1713,20 +1795,20 @@
                     </div>
                     <div class="view-tmax" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Peak: 8.0°C (Avg: 6.1°C)</span>
-                            <span class="t-f" style="display:none;">Peak: 46.4°F (Avg: 43.0°F)</span>
+                            <span class="t-c">Peak: 7.7°C (Avg: 5.8°C)</span>
+                            <span class="t-f" style="display:none;">Peak: 45.9°F (Avg: 42.4°F)</span>
                         </span>
                     </div>
                     <div class="view-tmin" style="display:none;">
                         <span class="temp-pill" style="background:#1e3a8a; color:#ffffff;">
-                            <span class="t-c">Low: -2.6°C (Avg: 1.2°C)</span>
-                            <span class="t-f" style="display:none;">Low: 27.3°F (Avg: 34.2°F)</span>
+                            <span class="t-c">Low: -2.6°C (Avg: 1.4°C)</span>
+                            <span class="t-f" style="display:none;">Low: 27.3°F (Avg: 34.5°F)</span>
                         </span>
                     </div>
                     <div class="view-tmean" style="display:none;">
                         <span class="temp-pill" style="background:#334155; color:#f8fafc;">
-                            <span class="t-c">24-Hr Mean: 3.6°C</span>
-                            <span class="t-f" style="display:none;">24-Hr Mean: 38.5°F</span>
+                            <span class="t-c">24-Hr Mean: 3.5°C</span>
+                            <span class="t-f" style="display:none;">24-Hr Mean: 38.3°F</span>
                         </span>
                     </div>
                 </td>
@@ -1736,7 +1818,7 @@
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-2.2°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
+                    <div class="ag-comment">Surplus/saturated topsoil condition; balanced conditions across the agricultural basin with subsoil buffer at 0.36 m³/m³. Alert: Subzero night temperature (-0.1°C) triggers early autumn hardening and frost risk on late-sown plots.</div>
                 </td>
             </tr>
             
@@ -1822,5 +1904,6 @@
             rows.forEach(r => tbody.appendChild(r));
         }
     </script>
+</div><!-- /dashboard-container -->
 </body>
 </html>

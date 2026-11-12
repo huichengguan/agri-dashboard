@@ -21,9 +21,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #0b1120;
-            color: var(--text-primary);
-            line-height: 1.5;
-            padding: 20px;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
         }
         .dashboard-container {
             max-width: 1780px;
@@ -36,35 +38,12 @@
         }
         
         /* Suite Nav */
-        .suite-nav-bar {
-            background: #090e1a;
-            border-bottom: 1px solid #1e293b;
-            padding: 10px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .suite-brand {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1.2px;
-            color: #f59e0b;
-            text-transform: uppercase;
-        }
-        .suite-nav-links { display: flex; gap: 8px; }
-        .nav-tab {
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11.5px;
-            font-weight: 600;
-            text-decoration: none;
-            color: #94a3b8;
-            background: #131c2e;
-            border: 1px solid #1e293b;
-            transition: all 0.15s ease;
-        }
-        .nav-tab:hover { color: #f8fafc; background: #1e293b; border-color: #f59e0b; }
-        .nav-tab.active { color: #ffffff; background: #d97706; border-color: #f59e0b; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+        
+        
+        
+        
+        
+        
 
         /* Header */
         .header-card {
@@ -237,23 +216,132 @@
 
         .col-comment { min-width: 320px; }
         .ag-comment { font-size: 11px; color: #cbd5e1; line-height: 1.4; }
-    </style>
+    
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        
+        
+        
+        
+
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        .suite-nav-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 44px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .suite-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #2563eb;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+        }
+</style>
 </head>
 <body>
 
 <div class="dashboard-container">
 
-    <!-- Suite Cross-Navigation -->
+            <!-- Universal Cross-Dashboard Navigation -->
     <div class="suite-nav-bar">
-        <div class="suite-brand">🌾 India Oilseed Weather Suite &bull; ECMWF IFS 0.25°</div>
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127470;&#127475; INDIA OILSEED &amp; CROP AG-WEATHER INTELLIGENCE (ECMWF IFS)</span>
+        </div>
         <div class="suite-nav-links">
-            <a href="index.html" class="nav-tab">&larr; Suite Hub</a>
-            <a href="India_Crop_2_Week_Outlook.html" class="nav-tab">🌧️ 2-Week Precipitation</a>
-            <a href="India_Crop_Soil_Moisture_Outlook.html" class="nav-tab active">🌱 Soil Moisture</a>
-            <a href="India_Crop_Temperature_Outlook.html" class="nav-tab">🌡️ Temperature Outlook</a>
-            <a href="India_Crop_Weather_Matrix.html" class="nav-tab">📊 17-Season Matrix</a>
-            <a href="India_Crop_Planting_Calendar.html" class="nav-tab">📋 Planting Calendar</a>
-            <a href="../dashboard/index.html" class="nav-tab" style="color: #38bdf8;">Master Portal &rarr;</a>
+            <a href="India_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
+            <a href="India_Crop_Soil_Moisture_Outlook.html" class="nav-tab active">&#127793; Soil Moisture Outlook</a>
+            <a href="India_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="India_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Season Weather Matrix (2010&ndash;2026)</a>
+            <a href="India_Crop_Planting_Calendar.html" class="nav-tab">&#128203; Planting Windows &amp; Gantt</a>
         </div>
     </div>
 
@@ -274,7 +362,7 @@
         </div>
         <div class="header-meta">
             <div>Model: <strong>ECMWF IFS 0.25° Operational & Ag-Reanalysis</strong></div>
-            <div>Generated: <strong>2026-11-10 05:56:05 UTC</strong></div>
+            <div>Generated: <strong>2026-11-11 08:25:17 UTC</strong></div>
             <div>Layers: <strong>0–7cm, 7–28cm, 28–100cm</strong></div>
         </div>
     </div>
@@ -283,17 +371,17 @@
     <div class="kpi-grid">
         <div class="kpi-card">
             <div class="kpi-title">National Topsoil Moisture</div>
-            <div class="kpi-val">0.299 m³/m³</div>
+            <div class="kpi-val">0.295 m³/m³</div>
             <div class="kpi-sub">Basin-weighted average (0–7cm)</div>
         </div>
         <div class="kpi-card">
             <div class="kpi-title">National Rootzone Moisture</div>
-            <div class="kpi-val" style="color: #38bdf8;">0.323 m³/m³</div>
+            <div class="kpi-val" style="color: #38bdf8;">0.321 m³/m³</div>
             <div class="kpi-sub">Subsoil root zone (7–100cm)</div>
         </div>
         <div class="kpi-card">
             <div class="kpi-title">Optimal Moisture Centers</div>
-            <div class="kpi-val" style="color: #10b981;">14 / 20</div>
+            <div class="kpi-val" style="color: #10b981;">15 / 20</div>
             <div class="kpi-sub">Favorable germination &amp; harvesting</div>
         </div>
         <div class="kpi-card">
@@ -303,7 +391,7 @@
         </div>
         <div class="kpi-card">
             <div class="kpi-title">Seedbed Drydown Centers</div>
-            <div class="kpi-val" style="color: #eab308;">18 Centers</div>
+            <div class="kpi-val" style="color: #eab308;">17 Centers</div>
             <div class="kpi-sub">Accelerating Kharif harvesting</div>
         </div>
     </div>
@@ -354,9 +442,9 @@
                 data-name="West Madhya Pradesh (Malwa Core)" 
                 data-code="MP-WEST" 
                 data-country="India" 
-                data-top="0.349" 
-                data-sub="0.405" 
-                data-delta="-0.0623"
+                data-top="0.365" 
+                data-sub="0.406" 
+                data-delta="-0.0577"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -368,31 +456,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 5.20M t <span class="yield-tag">(1.15 t/ha, 42.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.35M t <span class="yield-tag">(1.40 t/ha, 4.5%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.349">
+                <td class="col-topsoil" data-val="0.365">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.349 m³/m³</span>
-                        <span class="val-pct" style="display:none;">77.6% Cap</span>
+                        <span class="val-metric">0.365 m³/m³</span>
+                        <span class="val-pct" style="display:none;">81.1% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.405">
+                <td class="col-subsoil" data-val="0.406">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.405 m³/m³</span>
-                        <span class="val-pct" style="display:none;">90.0% Cap</span>
+                        <span class="val-metric">0.406 m³/m³</span>
+                        <span class="val-pct" style="display:none;">90.1% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0623">
-                    <span class="trend-badge trend-down">▼ -6.2% Drydown</span>
+                <td class="col-trend" data-val="-0.0577">
+                    <span class="trend-badge trend-down">▼ -5.8% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.349 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.365 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -400,9 +488,9 @@
                 data-name="Central MP & Narmada Basin" 
                 data-code="MP-CENTRAL" 
                 data-country="India" 
-                data-top="0.355" 
-                data-sub="0.415" 
-                data-delta="-0.0678"
+                data-top="0.368" 
+                data-sub="0.400" 
+                data-delta="-0.0671"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -414,31 +502,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 3.00M t <span class="yield-tag">(1.20 t/ha, 24.0%)</span></span><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.65M t <span class="yield-tag">(1.45 t/ha, 5.0%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.355">
+                <td class="col-topsoil" data-val="0.368">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.355 m³/m³</span>
-                        <span class="val-pct" style="display:none;">78.8% Cap</span>
+                        <span class="val-metric">0.368 m³/m³</span>
+                        <span class="val-pct" style="display:none;">81.8% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.415">
+                <td class="col-subsoil" data-val="0.400">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.415 m³/m³</span>
-                        <span class="val-pct" style="display:none;">92.2% Cap</span>
+                        <span class="val-metric">0.400 m³/m³</span>
+                        <span class="val-pct" style="display:none;">88.8% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0678">
-                    <span class="trend-badge trend-down">▼ -6.8% Drydown</span>
+                <td class="col-trend" data-val="-0.0671">
+                    <span class="trend-badge trend-down">▼ -6.7% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.355 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.368 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep. Moderate daytime temperatures (28.0°C) providing excellent comfort for emerging winter oilseeds.</div>
                 </td>
             </tr>
             
@@ -446,9 +534,9 @@
                 data-name="North MP Chambal Mustard Belt" 
                 data-code="MP-NORTH" 
                 data-country="India" 
-                data-top="0.351" 
-                data-sub="0.345" 
-                data-delta="-0.0830"
+                data-top="0.347" 
+                data-sub="0.346" 
+                data-delta="-0.0675"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -460,31 +548,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.85M t <span class="yield-tag">(1.70 t/ha, 14.5%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 0.40M t <span class="yield-tag">(1.10 t/ha, 3.2%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.351">
+                <td class="col-topsoil" data-val="0.347">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.351 m³/m³</span>
-                        <span class="val-pct" style="display:none;">78.1% Cap</span>
+                        <span class="val-metric">0.347 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.1% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.345">
+                <td class="col-subsoil" data-val="0.346">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.345 m³/m³</span>
-                        <span class="val-pct" style="display:none;">76.7% Cap</span>
+                        <span class="val-metric">0.346 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.0% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0830">
-                    <span class="trend-badge trend-down">▼ -8.3% Drydown</span>
+                <td class="col-trend" data-val="-0.0675">
+                    <span class="trend-badge trend-down">▼ -6.7% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.351 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.347 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -501,9 +589,9 @@
                 data-name="Vidarbha Oilseed Heartland" 
                 data-code="MH-VID" 
                 data-country="India" 
-                data-top="0.279" 
+                data-top="0.282" 
                 data-sub="0.301" 
-                data-delta="-0.0344"
+                data-delta="-0.0358"
                 data-status="Adequate">
                 
                 <td class="col-location">
@@ -515,10 +603,10 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 2.85M t <span class="yield-tag">(1.10 t/ha, 23.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.25M t <span class="yield-tag">(1.25 t/ha, 3.2%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.279">
+                <td class="col-topsoil" data-val="0.282">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.279 m³/m³</span>
-                        <span class="val-pct" style="display:none;">62.0% Cap</span>
+                        <span class="val-metric">0.282 m³/m³</span>
+                        <span class="val-pct" style="display:none;">62.6% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
@@ -527,19 +615,19 @@
                 <td class="col-subsoil" data-val="0.301">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
                         <span class="val-metric">0.301 m³/m³</span>
-                        <span class="val-pct" style="display:none;">66.9% Cap</span>
+                        <span class="val-pct" style="display:none;">66.8% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0344">
-                    <span class="trend-badge trend-down">▼ -3.4% Drydown</span>
+                <td class="col-trend" data-val="-0.0358">
+                    <span class="trend-badge trend-down">▼ -3.6% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.279 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.282 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -547,9 +635,9 @@
                 data-name="Marathwada Agri Basin" 
                 data-code="MH-MAR" 
                 data-country="India" 
-                data-top="0.283" 
+                data-top="0.280" 
                 data-sub="0.327" 
-                data-delta="-0.0306"
+                data-delta="-0.0260"
                 data-status="Adequate">
                 
                 <td class="col-location">
@@ -561,10 +649,10 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 2.10M t <span class="yield-tag">(1.05 t/ha, 17.0%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.20M t <span class="yield-tag">(1.20 t/ha, 2.5%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.283">
+                <td class="col-topsoil" data-val="0.280">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.283 m³/m³</span>
-                        <span class="val-pct" style="display:none;">62.8% Cap</span>
+                        <span class="val-metric">0.280 m³/m³</span>
+                        <span class="val-pct" style="display:none;">62.2% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
@@ -573,19 +661,19 @@
                 <td class="col-subsoil" data-val="0.327">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
                         <span class="val-metric">0.327 m³/m³</span>
-                        <span class="val-pct" style="display:none;">72.7% Cap</span>
+                        <span class="val-pct" style="display:none;">72.6% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0306">
-                    <span class="trend-badge trend-down">▼ -3.1% Drydown</span>
+                <td class="col-trend" data-val="-0.0260">
+                    <span class="trend-badge trend-down">▼ -2.6% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.283 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.280 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -593,10 +681,10 @@
                 data-name="Khandesh & Western Plains" 
                 data-code="MH-WEST" 
                 data-country="India" 
-                data-top="0.304" 
-                data-sub="0.360" 
-                data-delta="-0.0425"
-                data-status="Optimal">
+                data-top="0.297" 
+                data-sub="0.358" 
+                data-delta="-0.0376"
+                data-status="Adequate">
                 
                 <td class="col-location">
                     <div class="loc-name"><strong>Khandesh & Western Plains</strong> <span class="loc-code">(MH-WEST)</span></div>
@@ -607,31 +695,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.45M t <span class="yield-tag">(1.35 t/ha, 5.8%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 0.60M t <span class="yield-tag">(1.20 t/ha, 4.8%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.304">
-                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.304 m³/m³</span>
-                        <span class="val-pct" style="display:none;">67.5% Cap</span>
-                        <span class="status-label">Optimal</span>
-                    </div>
-                    <div class="moist-desc">Optimal Moisture / Favorable Pod Fill & Seedbed</div>
-                </td>
-                
-                <td class="col-subsoil" data-val="0.360">
+                <td class="col-topsoil" data-val="0.297">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.360 m³/m³</span>
-                        <span class="val-pct" style="display:none;">80.0% Cap</span>
+                        <span class="val-metric">0.297 m³/m³</span>
+                        <span class="val-pct" style="display:none;">66.1% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0425">
-                    <span class="trend-badge trend-down">▼ -4.3% Drydown</span>
+                <td class="col-subsoil" data-val="0.358">
+                    <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
+                        <span class="val-metric">0.358 m³/m³</span>
+                        <span class="val-pct" style="display:none;">79.6% Cap</span>
+                        <span class="status-label">Adequate</span>
+                    </div>
+                    <div class="moist-desc">Adequate Moisture / Sufficient for Maturation</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0376">
+                    <span class="trend-badge trend-down">▼ -3.8% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.304 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.297 m³/m³); open dry weather supports efficient Kharif soybean harvest and threshing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -649,8 +737,8 @@
                 data-code="RJ-EAST" 
                 data-country="India" 
                 data-top="0.373" 
-                data-sub="0.348" 
-                data-delta="-0.0793"
+                data-sub="0.349" 
+                data-delta="-0.0707"
                 data-status="Saturated">
                 
                 <td class="col-location">
@@ -671,17 +759,17 @@
                     <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.348">
+                <td class="col-subsoil" data-val="0.349">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.348 m³/m³</span>
-                        <span class="val-pct" style="display:none;">77.3% Cap</span>
+                        <span class="val-metric">0.349 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.6% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0793">
-                    <span class="trend-badge trend-down">▼ -7.9% Drydown</span>
+                <td class="col-trend" data-val="-0.0707">
+                    <span class="trend-badge trend-down">▼ -7.1% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
@@ -694,9 +782,9 @@
                 data-name="Southeast Rajasthan (Hadoti Basin)" 
                 data-code="RJ-HAD" 
                 data-country="India" 
-                data-top="0.460" 
-                data-sub="0.456" 
-                data-delta="-0.0751"
+                data-top="0.473" 
+                data-sub="0.455" 
+                data-delta="-0.0739"
                 data-status="Saturated">
                 
                 <td class="col-location">
@@ -708,31 +796,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 1.15M t <span class="yield-tag">(1.25 t/ha, 9.2%)</span></span><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.85M t <span class="yield-tag">(1.65 t/ha, 6.6%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.460">
+                <td class="col-topsoil" data-val="0.473">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.460 m³/m³</span>
-                        <span class="val-pct" style="display:none;">102.3% Cap</span>
+                        <span class="val-metric">0.473 m³/m³</span>
+                        <span class="val-pct" style="display:none;">105.0% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.456">
+                <td class="col-subsoil" data-val="0.455">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.456 m³/m³</span>
-                        <span class="val-pct" style="display:none;">101.4% Cap</span>
+                        <span class="val-metric">0.455 m³/m³</span>
+                        <span class="val-pct" style="display:none;">101.1% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0751">
-                    <span class="trend-badge trend-down">▼ -7.5% Drydown</span>
+                <td class="col-trend" data-val="-0.0739">
+                    <span class="trend-badge trend-down">▼ -7.4% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">High soil moisture saturation (0.460 m³/m³); waterlogged black soils risk pod rotting and delay combine harvesting. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">High soil moisture saturation (0.473 m³/m³); waterlogged black soils risk pod rotting and delay combine harvesting. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -786,9 +874,9 @@
                 data-name="South Haryana Mustard Belt" 
                 data-code="HR-SOUTH" 
                 data-country="India" 
-                data-top="0.231" 
-                data-sub="0.251" 
-                data-delta="-0.0583"
+                data-top="0.233" 
+                data-sub="0.249" 
+                data-delta="-0.0478"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -800,31 +888,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.45M t <span class="yield-tag">(1.95 t/ha, 11.2%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.231">
+                <td class="col-topsoil" data-val="0.233">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.231 m³/m³</span>
-                        <span class="val-pct" style="display:none;">51.4% Cap</span>
+                        <span class="val-metric">0.233 m³/m³</span>
+                        <span class="val-pct" style="display:none;">51.7% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.251">
+                <td class="col-subsoil" data-val="0.249">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.251 m³/m³</span>
-                        <span class="val-pct" style="display:none;">55.9% Cap</span>
+                        <span class="val-metric">0.249 m³/m³</span>
+                        <span class="val-pct" style="display:none;">55.4% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0583">
-                    <span class="trend-badge trend-down">▼ -5.8% Drydown</span>
+                <td class="col-trend" data-val="-0.0478">
+                    <span class="trend-badge trend-down">▼ -4.8% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.231 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.233 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -841,9 +929,9 @@
                 data-name="West Uttar Pradesh & Braj" 
                 data-code="UP-WEST" 
                 data-country="India" 
-                data-top="0.333" 
-                data-sub="0.348" 
-                data-delta="-0.0638"
+                data-top="0.349" 
+                data-sub="0.349" 
+                data-delta="-0.0472"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -855,31 +943,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 1.25M t <span class="yield-tag">(1.65 t/ha, 9.7%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.333">
+                <td class="col-topsoil" data-val="0.349">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.333 m³/m³</span>
-                        <span class="val-pct" style="display:none;">74.0% Cap</span>
+                        <span class="val-metric">0.349 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.6% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.348">
+                <td class="col-subsoil" data-val="0.349">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.348 m³/m³</span>
-                        <span class="val-pct" style="display:none;">77.3% Cap</span>
+                        <span class="val-metric">0.349 m³/m³</span>
+                        <span class="val-pct" style="display:none;">77.6% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0638">
-                    <span class="trend-badge trend-down">▼ -6.4% Drydown</span>
+                <td class="col-trend" data-val="-0.0472">
+                    <span class="trend-badge trend-down">▼ -4.7% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.333 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.349 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -887,9 +975,9 @@
                 data-name="Central UP & Bundelkhand" 
                 data-code="UP-CENTRAL" 
                 data-country="India" 
-                data-top="0.306" 
-                data-sub="0.385" 
-                data-delta="-0.0347"
+                data-top="0.296" 
+                data-sub="0.384" 
+                data-delta="-0.0140"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -901,31 +989,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.90M t <span class="yield-tag">(1.50 t/ha, 7.0%)</span></span><span class="crop-badge badge-soy"><strong>🌱 Soybean (Kharif)</strong>: 0.25M t <span class="yield-tag">(1.05 t/ha, 2.0%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.306">
+                <td class="col-topsoil" data-val="0.296">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.306 m³/m³</span>
-                        <span class="val-pct" style="display:none;">68.0% Cap</span>
+                        <span class="val-metric">0.296 m³/m³</span>
+                        <span class="val-pct" style="display:none;">65.8% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.385">
+                <td class="col-subsoil" data-val="0.384">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.385 m³/m³</span>
-                        <span class="val-pct" style="display:none;">85.6% Cap</span>
+                        <span class="val-metric">0.384 m³/m³</span>
+                        <span class="val-pct" style="display:none;">85.4% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0347">
-                    <span class="trend-badge trend-down">▼ -3.5% Drydown</span>
+                <td class="col-trend" data-val="-0.0140">
+                    <span class="trend-badge trend-flat">■ -1.4% Steady</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.306 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.296 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -933,9 +1021,9 @@
                 data-name="West Bengal Deltaic Plain" 
                 data-code="WB-DELTA" 
                 data-country="India" 
-                data-top="0.233" 
-                data-sub="0.306" 
-                data-delta="-0.0291"
+                data-top="0.227" 
+                data-sub="0.304" 
+                data-delta="-0.0401"
                 data-status="Adequate">
                 
                 <td class="col-location">
@@ -947,31 +1035,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.82M t <span class="yield-tag">(1.40 t/ha, 6.4%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.233">
+                <td class="col-topsoil" data-val="0.227">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.233 m³/m³</span>
-                        <span class="val-pct" style="display:none;">51.7% Cap</span>
+                        <span class="val-metric">0.227 m³/m³</span>
+                        <span class="val-pct" style="display:none;">50.4% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.306">
+                <td class="col-subsoil" data-val="0.304">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.306 m³/m³</span>
-                        <span class="val-pct" style="display:none;">68.0% Cap</span>
+                        <span class="val-metric">0.304 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.5% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Suitable Conditions</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0291">
-                    <span class="trend-badge trend-down">▼ -2.9% Drydown</span>
+                <td class="col-trend" data-val="-0.0401">
+                    <span class="trend-badge trend-down">▼ -4.0% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.233 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<4.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.227 m³/m³); prime conditions for seedbed tillage and early Rabi rapeseed-mustard drilling. Dry, clear forecast window (<2.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -988,9 +1076,9 @@
                 data-name="Saurashtra Peanut Heartland" 
                 data-code="GJ-SAU" 
                 data-country="India" 
-                data-top="0.289" 
-                data-sub="0.301" 
-                data-delta="-0.0383"
+                data-top="0.293" 
+                data-sub="0.302" 
+                data-delta="-0.0402"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -1002,31 +1090,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 3.30M t <span class="yield-tag">(1.95 t/ha, 42.5%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.289">
+                <td class="col-topsoil" data-val="0.293">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.289 m³/m³</span>
-                        <span class="val-pct" style="display:none;">64.2% Cap</span>
+                        <span class="val-metric">0.293 m³/m³</span>
+                        <span class="val-pct" style="display:none;">65.1% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.301">
+                <td class="col-subsoil" data-val="0.302">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.301 m³/m³</span>
-                        <span class="val-pct" style="display:none;">66.9% Cap</span>
+                        <span class="val-metric">0.302 m³/m³</span>
+                        <span class="val-pct" style="display:none;">67.1% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0383">
-                    <span class="trend-badge trend-down">▼ -3.8% Drydown</span>
+                <td class="col-trend" data-val="-0.0402">
+                    <span class="trend-badge trend-down">▼ -4.0% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.289 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.293 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -1034,9 +1122,9 @@
                 data-name="North Gujarat Semi-Arid Basin" 
                 data-code="GJ-NORTH" 
                 data-country="India" 
-                data-top="0.110" 
-                data-sub="0.152" 
-                data-delta="-0.0031"
+                data-top="0.109" 
+                data-sub="0.154" 
+                data-delta="-0.0020"
                 data-status="Severe Stress">
                 
                 <td class="col-location">
@@ -1048,31 +1136,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-mustard"><strong>🌾 Rapeseed-Mustard (Rabi)</strong>: 0.55M t <span class="yield-tag">(1.75 t/ha, 4.3%)</span></span><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.65M t <span class="yield-tag">(1.80 t/ha, 8.4%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.110">
+                <td class="col-topsoil" data-val="0.109">
                     <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
-                        <span class="val-metric">0.110 m³/m³</span>
-                        <span class="val-pct" style="display:none;">24.5% Cap</span>
+                        <span class="val-metric">0.109 m³/m³</span>
+                        <span class="val-pct" style="display:none;">24.2% Cap</span>
                         <span class="status-label">Severe Stress</span>
                     </div>
                     <div class="moist-desc">Critical Dryness / Poor Seedbed Emergence</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.152">
+                <td class="col-subsoil" data-val="0.154">
                     <div class="moist-pill" style="background-color: #991b1b; color: #ffffff;">
-                        <span class="val-metric">0.152 m³/m³</span>
-                        <span class="val-pct" style="display:none;">33.8% Cap</span>
+                        <span class="val-metric">0.154 m³/m³</span>
+                        <span class="val-pct" style="display:none;">34.3% Cap</span>
                         <span class="status-label">Severe Stress</span>
                     </div>
                     <div class="moist-desc">Critical Dryness / Poor Seedbed Emergence</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0031">
-                    <span class="trend-badge trend-flat">■ -0.3% Steady</span>
+                <td class="col-trend" data-val="-0.0020">
+                    <span class="trend-badge trend-flat">■ -0.2% Steady</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Significant topsoil moisture depletion (0.110 m³/m³); farmers requiring pre-sowing irrigation (Rauni/Palewa) for upcoming Rabi mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.109 m³/m³); farmers requiring pre-sowing irrigation (Rauni/Palewa) for upcoming Rabi mustard drilling. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -1089,10 +1177,10 @@
                 data-name="Rayalaseema Groundnut Basin" 
                 data-code="AP-RAY" 
                 data-country="India" 
-                data-top="0.336" 
-                data-sub="0.295" 
-                data-delta="-0.0929"
-                data-status="Saturated">
+                data-top="0.316" 
+                data-sub="0.296" 
+                data-delta="-0.0752"
+                data-status="Optimal">
                 
                 <td class="col-location">
                     <div class="loc-name"><strong>Rayalaseema Groundnut Basin</strong> <span class="loc-code">(AP-RAY)</span></div>
@@ -1103,31 +1191,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.85M t <span class="yield-tag">(0.95 t/ha, 11.0%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.336">
-                    <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.336 m³/m³</span>
-                        <span class="val-pct" style="display:none;">74.6% Cap</span>
-                        <span class="status-label">Saturated</span>
-                    </div>
-                    <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
-                </td>
-                
-                <td class="col-subsoil" data-val="0.295">
+                <td class="col-topsoil" data-val="0.316">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.295 m³/m³</span>
-                        <span class="val-pct" style="display:none;">65.6% Cap</span>
+                        <span class="val-metric">0.316 m³/m³</span>
+                        <span class="val-pct" style="display:none;">70.2% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0929">
-                    <span class="trend-badge trend-down">▼ -9.3% Drydown</span>
+                <td class="col-subsoil" data-val="0.296">
+                    <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
+                        <span class="val-metric">0.296 m³/m³</span>
+                        <span class="val-pct" style="display:none;">65.7% Cap</span>
+                        <span class="status-label">Optimal</span>
+                    </div>
+                    <div class="moist-desc">Optimal Hydration / Favorable Sowing</div>
+                </td>
+                
+                <td class="col-trend" data-val="-0.0752">
+                    <span class="trend-badge trend-down">▼ -7.5% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.336 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.2 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.316 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -1135,9 +1223,9 @@
                 data-name="Coastal Andhra Delta" 
                 data-code="AP-COAST" 
                 data-country="India" 
-                data-top="0.396" 
-                data-sub="0.334" 
-                data-delta="-0.1028"
+                data-top="0.372" 
+                data-sub="0.333" 
+                data-delta="-0.0692"
                 data-status="Saturated">
                 
                 <td class="col-location">
@@ -1149,31 +1237,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Rabi/Summer)</strong>: 0.38M t <span class="yield-tag">(2.10 t/ha, 21.0%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.396">
+                <td class="col-topsoil" data-val="0.372">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.396 m³/m³</span>
-                        <span class="val-pct" style="display:none;">87.9% Cap</span>
+                        <span class="val-metric">0.372 m³/m³</span>
+                        <span class="val-pct" style="display:none;">82.6% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.334">
+                <td class="col-subsoil" data-val="0.333">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.334 m³/m³</span>
-                        <span class="val-pct" style="display:none;">74.2% Cap</span>
+                        <span class="val-metric">0.333 m³/m³</span>
+                        <span class="val-pct" style="display:none;">74.0% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Waterlogged / Drainage Delay Risk</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.1028">
-                    <span class="trend-badge trend-down">▼ -10.3% Drydown</span>
+                <td class="col-trend" data-val="-0.0692">
+                    <span class="trend-badge trend-down">▼ -6.9% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">High soil moisture saturation (0.396 m³/m³); excess moisture during peanut maturity poses pod sprouting and fungal risks. Dry, clear forecast window (<1.7 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.372 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.2 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -1181,9 +1269,9 @@
                 data-name="Telangana Southern Plateau" 
                 data-code="TG-SOUTH" 
                 data-country="India" 
-                data-top="0.155" 
-                data-sub="0.233" 
-                data-delta="-0.0299"
+                data-top="0.146" 
+                data-sub="0.230" 
+                data-delta="-0.0223"
                 data-status="Adequate">
                 
                 <td class="col-location">
@@ -1195,31 +1283,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Rabi/Summer)</strong>: 0.32M t <span class="yield-tag">(2.05 t/ha, 17.5%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.155">
+                <td class="col-topsoil" data-val="0.146">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.155 m³/m³</span>
-                        <span class="val-pct" style="display:none;">34.4% Cap</span>
+                        <span class="val-metric">0.146 m³/m³</span>
+                        <span class="val-pct" style="display:none;">32.5% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Viable Seedbed</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.233">
+                <td class="col-subsoil" data-val="0.230">
                     <div class="moist-pill" style="background-color: #84cc16; color: #14532d;">
-                        <span class="val-metric">0.233 m³/m³</span>
-                        <span class="val-pct" style="display:none;">51.8% Cap</span>
+                        <span class="val-metric">0.230 m³/m³</span>
+                        <span class="val-pct" style="display:none;">51.1% Cap</span>
                         <span class="status-label">Adequate</span>
                     </div>
                     <div class="moist-desc">Adequate Moisture / Viable Seedbed</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0299">
-                    <span class="trend-badge trend-down">▼ -3.0% Drydown</span>
+                <td class="col-trend" data-val="-0.0223">
+                    <span class="trend-badge trend-down">▼ -2.2% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.155 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Significant topsoil moisture depletion (0.146 m³/m³); dry hard soil may hinder Kharif peanut lifting/digging without light wetting. Dry, clear forecast window (<0.0 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -1236,9 +1324,9 @@
                 data-name="North Tamil Nadu Rainfed Belt" 
                 data-code="TN-NORTH" 
                 data-country="India" 
-                data-top="0.349" 
-                data-sub="0.276" 
-                data-delta="-0.0885"
+                data-top="0.319" 
+                data-sub="0.273" 
+                data-delta="-0.0777"
                 data-status="Optimal">
                 
                 <td class="col-location">
@@ -1250,31 +1338,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Kharif)</strong>: 0.78M t <span class="yield-tag">(1.85 t/ha, 10.0%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.349">
+                <td class="col-topsoil" data-val="0.319">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.349 m³/m³</span>
-                        <span class="val-pct" style="display:none;">77.5% Cap</span>
+                        <span class="val-metric">0.319 m³/m³</span>
+                        <span class="val-pct" style="display:none;">71.0% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.276">
+                <td class="col-subsoil" data-val="0.273">
                     <div class="moist-pill" style="background-color: #15803d; color: #ffffff;">
-                        <span class="val-metric">0.276 m³/m³</span>
-                        <span class="val-pct" style="display:none;">61.3% Cap</span>
+                        <span class="val-metric">0.273 m³/m³</span>
+                        <span class="val-pct" style="display:none;">60.7% Cap</span>
                         <span class="status-label">Optimal</span>
                     </div>
                     <div class="moist-desc">Well-Watered / Favorable Growth</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0885">
-                    <span class="trend-badge trend-down">▼ -8.9% Drydown</span>
+                <td class="col-trend" data-val="-0.0777">
+                    <span class="trend-badge trend-down">▼ -7.8% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">Favorable agronomic moisture status (0.349 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<2.4 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
+                    <div class="ag-comment">Favorable agronomic moisture status (0.319 m³/m³); friable soils facilitate smooth groundnut pod lifting and curing. Dry, clear forecast window (<2.2 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             
@@ -1282,9 +1370,9 @@
                 data-name="Cauvery Delta & Southern Plains" 
                 data-code="TN-CAUVERY" 
                 data-country="India" 
-                data-top="0.437" 
-                data-sub="0.412" 
-                data-delta="-0.0194"
+                data-top="0.419" 
+                data-sub="0.411" 
+                data-delta="-0.0925"
                 data-status="Saturated">
                 
                 <td class="col-location">
@@ -1296,31 +1384,31 @@
                     <div class="commodities-wrap"><span class="crop-badge badge-peanut"><strong>🥜 Groundnut (Rabi/Summer)</strong>: 0.42M t <span class="yield-tag">(2.30 t/ha, 23.0%)</span></span></div>
                 </td>
                 
-                <td class="col-topsoil" data-val="0.437">
+                <td class="col-topsoil" data-val="0.419">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.437 m³/m³</span>
-                        <span class="val-pct" style="display:none;">97.2% Cap</span>
+                        <span class="val-metric">0.419 m³/m³</span>
+                        <span class="val-pct" style="display:none;">93.2% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Saturated / Inundation Risk</div>
                 </td>
                 
-                <td class="col-subsoil" data-val="0.412">
+                <td class="col-subsoil" data-val="0.411">
                     <div class="moist-pill" style="background-color: #581c87; color: #ffffff;">
-                        <span class="val-metric">0.412 m³/m³</span>
-                        <span class="val-pct" style="display:none;">91.6% Cap</span>
+                        <span class="val-metric">0.411 m³/m³</span>
+                        <span class="val-pct" style="display:none;">91.4% Cap</span>
                         <span class="status-label">Saturated</span>
                     </div>
                     <div class="moist-desc">Saturated / Inundation Risk</div>
                 </td>
                 
-                <td class="col-trend" data-val="-0.0194">
-                    <span class="trend-badge trend-down">▼ -1.9% Drydown</span>
+                <td class="col-trend" data-val="-0.0925">
+                    <span class="trend-badge trend-down">▼ -9.2% Drydown</span>
                     <div class="trend-sub">7-Day Dynamic</div>
                 </td>
                 
                 <td class="col-comment">
-                    <div class="ag-comment">High soil moisture saturation (0.437 m³/m³); excess moisture during peanut maturity poses pod sprouting and fungal risks.</div>
+                    <div class="ag-comment">High soil moisture saturation (0.419 m³/m³); excess moisture during peanut maturity poses pod sprouting and fungal risks. Dry, clear forecast window (<1.4 mm) provides ideal harvest speed for Kharif oilseeds and prompt land prep.</div>
                 </td>
             </tr>
             

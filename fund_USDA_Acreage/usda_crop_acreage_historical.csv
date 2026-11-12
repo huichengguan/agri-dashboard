@@ -264,7 +264,7 @@ All Cotton,Fibers & Cotton,2021,11206.5,10263.2,820.0,lbs/acre,17523.0,"1,000 ba
 All Cotton,Fibers & Cotton,2022,13749.0,7289.6,953.0,lbs/acre,14468.0,"1,000 bales (480-lb)",USDA NASS Historical Track Records,13.749,7.29,53.02,46.98,6459.4,22.69,-28.97
 All Cotton,Fibers & Cotton,2023,10230.0,6438.5,900.0,lbs/acre,12066.0,"1,000 bales (480-lb)",USDA NASS Historical Track Records,10.23,6.438,62.94,37.06,3791.5,-25.59,-11.68
 All Cotton,Fibers & Cotton,2024,11183.0,7805.2,886.0,lbs/acre,14413.0,"1,000 bales (480-lb)",USDA NASS Historical Track Records,11.183,7.805,69.8,30.2,3377.8,9.32,21.23
-All Cotton,Fibers & Cotton,2026,9850.0,,,lbs/acre,,"1,000 bales (480-lb)",USDA NASS June 2026 Acreage Report,9.85,,,,,-11.92,
+All Cotton,Fibers & Cotton,2026,9850.0,,,lbs/acre,,"1,000 bales (480-lb)",USDA NASS June 2026 Acreage Report,9.85,,,,,-11.92,0.0
 All Hay,Forages & Hay,1866,18250.0,18250.0,1.17,tons/acre,21298.0,"1,000 tons",USDA NASS Historical Track Records,18.25,18.25,100.0,0.0,0.0,,
 All Hay,Forages & Hay,1867,18641.0,18641.0,1.25,tons/acre,23209.0,"1,000 tons",USDA NASS Historical Track Records,18.641,18.641,100.0,0.0,0.0,2.14,2.14
 All Hay,Forages & Hay,1868,19568.0,19568.0,1.19,tons/acre,23198.0,"1,000 tons",USDA NASS Historical Track Records,19.568,19.568,100.0,0.0,0.0,4.97,4.97
@@ -2098,7 +2098,7 @@ Principal Crops Total,Aggregate Total,2022,310857.0,284510.0,,,,,USDA NASS Histo
 Principal Crops Total,Aggregate Total,2023,319542.0,295043.0,,,,,USDA NASS Historical Track Records,319.542,295.043,92.33,7.67,24499.0,2.79,3.7
 Principal Crops Total,Aggregate Total,2024,311996.0,293919.0,,,,,USDA NASS Historical Track Records,311.996,293.919,94.21,5.79,18077.0,-2.36,-0.38
 Principal Crops Total,Aggregate Total,2025,311541.0,295542.0,,,,,USDA NASS Historical Track Records,311.541,295.542,94.86,5.14,15999.0,-0.15,0.55
-Principal Crops Total,Aggregate Total,2026,309639.0,,,,,,USDA NASS June 2026 Acreage Report,309.639,,,,,-0.61,
+Principal Crops Total,Aggregate Total,2026,309639.0,,,,,,USDA NASS June 2026 Acreage Report,309.639,,,,,-0.61,0.0
 Rice,Food Grains / Wheat,1895,,292.0,1144.0,lbs/acre,3341.0,"1,000 cwt",USDA NASS Historical Track Records,,0.292,,,,,
 Rice,Food Grains / Wheat,1896,,270.0,867.0,lbs/acre,2340.0,"1,000 cwt",USDA NASS Historical Track Records,,0.27,,,,,-7.53
 Rice,Food Grains / Wheat,1897,,290.0,1063.0,lbs/acre,3084.0,"1,000 cwt",USDA NASS Historical Track Records,,0.29,,,,,7.41

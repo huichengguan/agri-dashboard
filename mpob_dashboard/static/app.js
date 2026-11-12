@@ -636,9 +636,9 @@ const SND_ROWS = [
   { key: "production", label: "Production", isCalc: false },
   { key: "import", label: "Import", isCalc: false },
   { key: "export", label: "Export", isCalc: false },
-  { key: "local_disappearance", label: "Local Disappearance [Formula]", isCalc: true },
+  { key: "local_disappearance", label: "Local Disappearance", isCalc: true },
   { key: "end_stock", label: "End Stock", isCalc: false },
-  { key: "stocks_to_use", label: "Stocks-to-Use Ratio (%) [CALC]", isCalc: true, isRatio: true }
+  { key: "stocks_to_use", label: "Stocks-to-Use Ratio (%)", isCalc: true, isRatio: true }
 ];
 
 function renderSndTab() {
@@ -1155,14 +1155,22 @@ function renderSndCharts() {
     return r[compareAttr] != null ? r[compareAttr] : null;
   };
 
+  const latestActual = (STATE.master.metadata && STATE.master.metadata.latest_actual_period) || "2026-10";
+  const p10Data = [];
+  const p90Data = [];
+  let lastActualIdx = -1;
+
   for (const yr of [2026, 2027]) {
     for (let m = 1; m <= 12; m++) {
       const p = `${yr}-${String(m).padStart(2, "0")}`;
       const mRec = modelSnd[p];
       const uRec = userSnd[p];
       if (!mRec) continue;
+      if (p <= latestActual) lastActualIdx = cLabels.length;
+      p10Data.push(mRec.end_stock_p10 ?? null);
+      p90Data.push(mRec.end_stock_p90 ?? null);
 
-      const isActual = yr === 2026 && m <= 10;
+      const isActual = p <= latestActual;
       const isFcst = !isActual;
       cLabels.push(`${MONTH_SHORT[m - 1]} ${String(yr).slice(2)}${isFcst ? 'F' : ''}`);
 
@@ -1181,12 +1189,25 @@ function renderSndCharts() {
     }
   }
 
-  // Connect forecast lines continuously from 2026-10 actual
-  const octIdx = 9; // 2026-10
-  if (actualData[octIdx] !== null) {
+  // Connect forecast lines continuously from the latest actual month
+  const octIdx = lastActualIdx;
+  if (octIdx >= 0 && actualData[octIdx] !== null) {
     modelFcstData[octIdx] = actualData[octIdx];
     userFcstData[octIdx] = actualData[octIdx];
+    p10Data[octIdx] = actualData[octIdx];
+    p90Data[octIdx] = actualData[octIdx];
   }
+  const latestLabel = cLabels[octIdx] || "";
+  const firstFcstLabel = (cLabels[octIdx + 1] || "").replace("F", "");
+  const lastLabel = (cLabels[cLabels.length - 1] || "").replace("F", "");
+
+  // End Stock only: model 80% range (P10-P90) from walk-forward backtests, shaded between the two lines
+  const bandDatasets = compareAttr !== "end_stock" ? [] : [
+    { label: "Model P10", data: p10Data, borderColor: "rgba(37, 99, 235, 0.35)", borderWidth: 1, pointRadius: 0,
+      tension: 0.25, fill: false },
+    { label: "Model P90 (shaded = 80% range)", data: p90Data, borderColor: "rgba(37, 99, 235, 0.35)", borderWidth: 1,
+      pointRadius: 0, tension: 0.25, fill: "-1", backgroundColor: "rgba(37, 99, 235, 0.10)" }
+  ];
 
   const ctx2 = document.getElementById("chart-snd-compare").getContext("2d");
   STATE.charts.sndCompare = new Chart(ctx2, {
@@ -1195,7 +1216,7 @@ function renderSndCharts() {
       labels: cLabels,
       datasets: [
         {
-          label: `Official Actual (Jan - Oct 2026)`,
+          label: `Official Actual (Jan 26 - ${latestLabel})`,
           data: actualData,
           borderColor: "#0f172a",
           backgroundColor: "#0f172a",
@@ -1205,7 +1226,7 @@ function renderSndCharts() {
           tension: 0.2
         },
         {
-          label: `Model Forecast (Nov 2026 - Dec 2027)`,
+          label: `Model Forecast (${firstFcstLabel} - ${lastLabel})`,
           data: modelFcstData,
           borderColor: "#2563eb",
           backgroundColor: "rgba(37, 99, 235, 0.08)",
@@ -1217,7 +1238,7 @@ function renderSndCharts() {
           fill: false
         },
         {
-          label: `My Forecast (Nov 2026 - Dec 2027)`,
+          label: `My Forecast (${firstFcstLabel} - ${lastLabel})`,
           data: userFcstData,
           borderColor: "#d97706",
           backgroundColor: "rgba(217, 119, 6, 0.08)",
@@ -1227,7 +1248,8 @@ function renderSndCharts() {
           pointBackgroundColor: "#d97706",
           tension: 0.25,
           fill: "-1" // Highlight difference between model and user
-        }
+        },
+        ...bandDatasets
       ]
     },
     options: {
@@ -4069,9 +4091,9 @@ function renderSurveyProduction() {
       data: {
         labels: convLabels,
         datasets: [
-          { label: "Sep 2026", data: getConvData("2026-09"), borderColor: "#059669", borderWidth: 2.8, pointRadius: 4, tension: 0.2, spanGaps: true },
-          { label: "Aug 2026", data: getConvData("2026-08"), borderColor: "#0284c7", borderWidth: 2.4, pointRadius: 3.5, tension: 0.2, spanGaps: true },
-          { label: "Jul 2026", data: getConvData("2026-07"), borderColor: "#d97706", borderWidth: 2.2, pointRadius: 3.5, tension: 0.2, spanGaps: true }
+          { label: "Oct 2026", data: getConvData("2026-10"), borderColor: "#059669", borderWidth: 3.0, pointRadius: 4.5, tension: 0.2, spanGaps: true },
+          { label: "Sep 2026", data: getConvData("2026-09"), borderColor: "#0284c7", borderWidth: 2.4, pointRadius: 3.5, tension: 0.2, spanGaps: true },
+          { label: "Aug 2026", data: getConvData("2026-08"), borderColor: "#94a3b8", borderWidth: 2.0, pointRadius: 3.0, tension: 0.2, spanGaps: true }
         ]
       },
       options: chartOptionsCommon("MoM Change (%)")

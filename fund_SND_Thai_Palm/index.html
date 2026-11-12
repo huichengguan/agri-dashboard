@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thailand Palm Oil S&amp;D | Institutional Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="chart.umd.min.js"></script>
+  <script src="dashboard_data.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- TOP INSTITUTIONAL HEADER -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge" id="brand-badge">DIT / OAE THAI PALM LIVE</div>
+      <div class="brand-titles">
+        <h1>Thailand Palm Oil Supply &amp; Demand</h1>
+        <p class="subtitle" id="header-subtitle">Official Thailand Palm Oil Monthly Statistics (Jan 2023&ndash;Jul 2026) &bull; Crude Palm Oil (CPO), Biodiesel (B5/B7) &amp; Edible Consumption</p>
+      </div>
+    </div>
+    <div class="header-kpis" id="header-kpis">
+      <div class="kpi-chip">
+        <span class="kpi-label" id="kpi-label-latest">Latest Official Release</span>
+        <span class="kpi-val" id="kpi-latest-month">July 2026</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label" id="kpi-label-prod">Jul 2026 CPO Production</span>
+        <span class="kpi-val" id="kpi-val-prod">275,174 t</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label" id="kpi-label-stocks">Jul 2026 Ending Stocks</span>
+        <span class="kpi-val" id="kpi-val-stocks">387,387 t</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label" id="kpi-label-bd">Jul 2026 Biodiesel Use</span>
+        <span class="kpi-val" id="kpi-val-bd">104,214 t</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label" id="kpi-label-edible">Jul 2026 Edible Use</span>
+        <span class="kpi-val" id="kpi-val-edible">112,184 t</span>
+      </div>
+      <div class="kpi-chip">
+        <span class="kpi-label" id="kpi-label-ytd-prod">2026 YTD Production</span>
+        <span class="kpi-val" id="kpi-val-ytd-prod">2,116,463 t</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY GLOBAL YEAR SLICER BAR -->
+  <section class="slicer-bar">
+    <div class="slicer-top">
+      <div class="slicer-title-group">
+        <span class="slicer-title">YEAR SLICER</span>
+        <span class="slicer-hint">Click to select single year &bull; Ctrl+Click to multi-select &bull; Shift+Click for range</span>
+      </div>
+      <div class="slicer-presets">
+        <button class="preset-btn active" data-preset="all" title="Default: All History (2023–2026)">All History (2023–2026)</button>
+        <button class="preset-btn" data-preset="last3" title="Last 3 Years (2024–2026)">Last 3Y (2024–2026)</button>
+        <button class="preset-btn" data-preset="latest" title="Current Year (2026 YTD)">Current Year (2026)</button>
+      </div>
+    </div>
+    <div class="year-pills-container" id="year-pills-container">
+      <!-- Populated dynamically 2023 .. 2026 -->
+    </div>
+  </section>
+
+  <!-- MAIN NAVIGATION TABS -->
+  <nav class="main-tabs" id="main-tabs">
+    <button class="tab-btn active" data-tab="tab-snd">Supply &amp; Demand (S&amp;D)</button>
+    <button class="tab-btn" data-tab="tab-seasonality">Seasonality</button>
+  </nav>
+
+  <!-- DISCLOSURE BANNER -->
+  <div class="disclosure-bar" style="justify-content: space-between;">
+    <span id="disclosure-text"><strong>100% Official Source Data:</strong> Thailand Palm Oil Monthly Statistics (Department of Internal Trade / Office of Agricultural Economics / EPPO). Zero estimation.</span>
+    <span class="disclosure-badges">
+      <span class="badge badge-cpo">1. CPO SUPPLY &amp; PRODUCTION</span>
+      <span class="badge badge-trade">2. EXPORTS &amp; IMPORTS</span>
+      <span class="badge badge-bio">3. DOMESTIC CONSUMPTION (BD + EDIBLE)</span>
+      <span class="badge badge-cpo" style="background:#047857; color:#fff;">4. ENDING STOCKS &amp; STU</span>
+      <span class="badge badge-actual" id="badge-actual-range">ACTUAL (Jan 2023&ndash;Jul 2026)</span>
+    </span>
+  </div>
+
+  <!-- TAB CONTENTS -->
+  <main class="main-content">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: SUPPLY & DEMAND (S&D) — VERTICALLY STACKED TABLES            -->
+    <!-- =================================================================== -->
+    <section class="tab-panel active" id="tab-snd">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2 id="snd-panel-title">Thailand Palm Oil Supply &amp; Demand Balance Sheets</h2>
+          <span class="toolbar-sub" id="snd-panel-sub">Click any year header (`[+]`) to expand or collapse monthly breakdown across all stacked tables. Horizontal scroll is synchronized.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>View Format:</label>
+            <div class="seg-group" id="snd-view-format">
+              <button class="seg-btn active" data-fmt="table">Balance Sheet (Stacked)</button>
+              <button class="seg-btn" data-fmt="matrix">Monthly Matrix (By Year)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-metric-group">
+            <label>Metric:</label>
+            <div class="seg-group" id="snd-metric-mode">
+              <button class="seg-btn active" data-metric="volume">Volume</button>
+              <button class="seg-btn" data-metric="both">Volume + % Change</button>
+              <button class="seg-btn" data-metric="pct">MoM % / YoY % Only</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Units:</label>
+            <div class="seg-group" id="snd-unit-mode">
+              <button class="seg-btn active" data-unit="t">Tonnes (t)</button>
+              <button class="seg-btn" data-unit="kt">Thousand Tonnes (kt)</button>
+              <button class="seg-btn" data-unit="mnt">Million Tonnes (mn t)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-table-actions">
+            <button class="action-btn" id="btn-snd-expand-all">Expand All Selected</button>
+            <button class="action-btn" id="btn-snd-collapse-all">Collapse All</button>
+            <button class="action-btn" id="btn-snd-csv">Export CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VERTICALLY STACKED BALANCE SHEETS CONTAINER -->
+      <div id="snd-stacked-tables-wrapper">
+        <!-- 1. CPO PRIMARY BALANCE SHEET -->
+        <div class="card table-card">
+          <div class="card-header cpo-header">
+            <h3><span class="badge badge-cpo">1. PRIMARY S&amp;D</span> Thailand Crude Palm Oil (CPO) Supply &amp; Demand Balance Sheet</h3>
+            <span class="card-sub" id="cpo-card-sub">Starting Stocks, Production, Imports, Total Supply, Exports, Domestic Consumption, Ending Stocks &amp; STU (%)</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-cpo-table-container"></div>
+        </div>
+
+        <!-- 2. DOMESTIC CONSUMPTION & BIODIESEL SUB-LEDGER -->
+        <div class="card table-card">
+          <div class="card-header bio-header">
+            <h3><span class="badge badge-bio">2. DOMESTIC USE</span> Domestic Consumption Breakdown &amp; Biodiesel Mandate Sub-Ledger</h3>
+            <span class="card-sub" id="bio-card-sub">Total Domestic Use, Biodiesel (B100) Consumption, Edible &amp; Oleochemical Use, Biodiesel Share (%) &amp; Mandate Status</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-bio-table-container"></div>
+        </div>
+
+        <!-- 3. TRADE & DISAPPEARANCE SUB-LEDGER -->
+        <div class="card table-card">
+          <div class="card-header trade-header">
+            <h3><span class="badge badge-trade">3. TRADE</span> Thailand Palm Oil Trade Flows &amp; Export Share Sub-Ledger</h3>
+            <span class="card-sub" id="trade-card-sub">CPO Production, Exports, Imports, Net Exports &amp; Export Share of Production (%)</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-trade-table-container"></div>
+        </div>
+      </div>
+
+      <!-- MONTHLY MATRIX CONTAINER (WHEN MATRIX VIEW SELECTED) -->
+      <div id="snd-matrix-wrapper" style="display:none;">
+        <div class="card table-card">
+          <div class="card-header cpo-header">
+            <h3><span class="badge badge-cpo">1. PRODUCTION</span> Monthly CPO Production Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on monthly CPO production volume</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-prod-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header trade-header">
+            <h3><span class="badge badge-trade">2. EXPORTS</span> Monthly Palm Oil Exports Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on monthly export volume</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-exp-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header bio-header">
+            <h3><span class="badge badge-bio">3. DOMESTIC USE</span> Monthly Total Domestic Consumption Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on total domestic demand (Biodiesel + Edible)</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-loc-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header bio-header">
+            <h3><span class="badge badge-bio">4. BIODIESEL</span> Monthly Biodiesel (BD) Consumption Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on B100 methyl ester blending demand</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-bd-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header bio-header">
+            <h3><span class="badge badge-bio">5. EDIBLE USE</span> Monthly Edible &amp; Industrial Consumption Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on cooking oil &amp; food manufacturing demand</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-edible-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header cpo-header">
+            <h3><span class="badge badge-cpo">6. ENDING STOCKS</span> Monthly Commercial Ending Stocks Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on month-end inventory level</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-stocks-container"></div>
+        </div>
+      </div>
+
+      <!-- S&D CHARTS SECTION HEADER & FREQUENCY TOGGLE -->
+      <div class="card" style="margin-top: 18px; margin-bottom: 12px;">
+        <div class="card-header" style="background: #f1f5f9;">
+          <div>
+            <h3>Thailand Palm Oil S&amp;D Visualizations &amp; Trends</h3>
+            <span class="card-sub">Interactive supply, demand, stocks, trade, and domestic consumption trajectory across selected years</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="control-group">
+              <label>Chart Frequency:</label>
+              <div class="seg-group" id="snd-chart-freq">
+                <button class="seg-btn active" data-freq="monthly">Monthly</button>
+                <button class="seg-btn" data-freq="annual">Annual (CY)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2x2 S&D CHARTS GRID -->
+      <div class="charts-grid two-col">
+        <!-- Chart 1: Supply & Demand Balance & Ending Stocks -->
+        <div class="card chart-card">
+          <div class="card-header cpo-header">
+            <div>
+              <h3>1. CPO Supply &amp; Demand: Production, Total Demand, Ending Stocks &amp; STU (%)</h3>
+              <span class="card-sub">Bars: Production &amp; Total Demand (LHS) &bull; Lines: Ending Stocks (LHS) &amp; STU % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-cpo"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Domestic Consumption Breakdown -->
+        <div class="card chart-card">
+          <div class="card-header bio-header">
+            <div>
+              <h3>2. Domestic Consumption Breakdown: Biodiesel (BD) vs Edible Use &amp; BD Share (%)</h3>
+              <span class="card-sub">Stacked Bars: Biodiesel &amp; Edible Consumption (LHS) &bull; Line: Biodiesel Share of Domestic Use % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-domestic"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Palm Oil Trade -->
+        <div class="card chart-card">
+          <div class="card-header trade-header">
+            <div>
+              <h3>3. Trade Flows: CPO Exports vs Imports (LHS) &amp; Net Exports (RHS)</h3>
+              <span class="card-sub">Bars: Exports &amp; Imports (LHS) &bull; Line: Net Exports (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-trade"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Ending Stocks & STU Trajectory -->
+        <div class="card chart-card">
+          <div class="card-header cpo-header">
+            <div>
+              <h3>4. Commercial Ending Stocks &amp; Stocks-to-Use (STU %) Trajectory</h3>
+              <span class="card-sub">Area/Line: Month-End Commercial Stocks (LHS) &bull; Line: Stocks-to-Use Ratio % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-stocks"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- OFFICIAL DATA PROVENANCE NOTES -->
+      <div class="footnote-box">
+        <strong>Official Data Provenance &amp; Accounting Notes (Thailand Palm Oil S&amp;D):</strong>
+        <ul>
+          <li><strong>Source &amp; Methodology:</strong> Compiled from official Thai Palm Oil statistics released by the Department of Internal Trade (DIT), Office of Agricultural Economics (OAE), and Energy Policy and Planning Office (EPPO). 100% official reported numbers, zero interpolation.</li>
+          <li><strong>Accounting Identities (100% Reconciled):</strong> Starting Stocks for month <em>t</em> equals Ending Stocks of month <em>t-1</em>. Total Supply = Starting Stocks + Production + Imports. Total Demand = Exports + Total Domestic Consumption. Ending Stocks = Total Supply &minus; Total Demand + Balancing Figure (where balancing figures reconcile official stock adjustments in 2024).</li>
+          <li><strong>Thailand Biodiesel (BD) Mandates:</strong> Thailand mandates blend ratios for palm methyl ester (B100) into diesel fuel:
+            <ul>
+              <li><strong>2023 &ndash; 2024:</strong> B7 mandate in effect throughout the period.</li>
+              <li><strong>2025:</strong> B5 mandate temporarily implemented to balance domestic CPO supply and manage local price dynamics.</li>
+              <li><strong>2026:</strong> B5 mandate continued through February, transitioning back to B7 from March 2026 onwards.</li>
+            </ul>
+          </li>
+          <li><strong>Coverage &amp; Latest Status:</strong> Full 12-month series available for 2023, 2024, and 2025. 2026 covers January through July actual reported flows, with August 2026 starting inventory confirmed at <strong>387,387 t</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: SEASONALITY (CHART & HEATMAP TABLE)                          -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-seasonality">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Thailand Palm Oil Seasonality Explorer: Curve Chart &amp; Heatmap Matrix</h2>
+          <span class="toolbar-sub">Compare seasonal curves across Production, Exports, Domestic Consumption, Biodiesel, Edible Use, and Stocks with Min&ndash;Max Bands, 3-Year Benchmark Average (2023&ndash;2025), and Cumulative YTD mode.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Select Attribute:</label>
+            <select id="season-attr-select" class="select-input">
+              <optgroup label="1. Primary Supply &amp; Demand">
+                <option value="production" selected>CPO Production</option>
+                <option value="export">Exports</option>
+                <option value="import">Imports</option>
+                <option value="net_export">Net Exports (Exports - Imports)</option>
+                <option value="total_supply">Total Supply</option>
+                <option value="total_demand">Total Demand (Disappearance)</option>
+                <option value="starting_stock">Beginning Stocks</option>
+                <option value="ending_stock">Ending Stocks</option>
+                <option value="stocks_to_use">Stocks-to-Use Ratio (%)</option>
+              </optgroup>
+              <optgroup label="2. Domestic Consumption Breakdown">
+                <option value="total_local_consumption">Total Domestic Consumption</option>
+                <option value="bd_consumption">Biodiesel (BD) Consumption</option>
+                <option value="edible_consumption">Edible Consumption</option>
+                <option value="bd_share_of_local">Biodiesel Share of Domestic Use (%)</option>
+                <option value="export_share_of_production">Exports as % of Production (%)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Curve Mode:</label>
+            <div class="seg-group" id="season-calc-mode">
+              <button class="seg-btn active" data-calc="monthly">Monthly</button>
+              <button class="seg-btn" data-calc="cum">Cumulative (YTD)</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Units:</label>
+            <div class="seg-group" id="season-unit-mode">
+              <button class="seg-btn active" data-unit="t">Tonnes (t)</button>
+              <button class="seg-btn" data-unit="kt">Thousand Tonnes (kt)</button>
+              <button class="seg-btn" data-unit="mnt">Million Tonnes (mn t)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seasonality Chart Card -->
+      <div class="card chart-card">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 id="season-chart-title">Seasonality Curve</h3>
+            <span class="card-sub" id="season-chart-sub">Min&ndash;Max Historical Band &bull; 3Y Benchmark Average &bull; Selected Years</span>
+          </div>
+          <div class="season-year-picker-container" id="season-year-picker">
+            <span class="picker-label" style="font-size:11px;font-weight:600;color:var(--text-muted);margin-right:4px;">Toggle Chart Years:</span>
+            <div class="slicer-box season-pills" id="season-year-pills"></div>
+          </div>
+        </div>
+        <div class="chart-box tall-chart">
+          <canvas id="chart-seasonality"></canvas>
+        </div>
+      </div>
+
+      <!-- Seasonality Table Card (Years x Months + Benchmark + Min + Max + YoY%) -->
+      <div class="card table-card">
+        <div class="card-header">
+          <h3 id="season-table-title">Monthly Seasonality Matrix &amp; Heatmap (Selected Years &amp; Benchmark Averages)</h3>
+          <span class="card-sub" id="season-table-sub">3Y Avg (2023&ndash;2025) Benchmark &bull; Green Intensity Heatmap</span>
+        </div>
+        <div class="table-scroll" id="seasonality-table-container"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

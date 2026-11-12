@@ -317,17 +317,24 @@ async function initDashboard() {
 function renderHeaderKPIs() {
     if (!currentData || !currentData.kpis) return;
     const k = currentData.kpis;
-    document.getElementById("kpi-date").innerText = `Latest: ${k.latest_date}`;
-    document.getElementById("kpi-my-val").innerText = `${k.malaysia_avg.toFixed(1)} mm/d`;
-    document.getElementById("kpi-id-val").innerText = `${k.indonesia_avg.toFixed(1)} mm/d`;
+    const dateEl = document.getElementById("kpi-date");
+    if (dateEl) dateEl.innerText = `Latest: ${k.latest_date}`;
+    const myVal = document.getElementById("kpi-my-val");
+    if (myVal) myVal.innerText = `${k.malaysia_avg.toFixed(1)} mm/d`;
+    const idVal = document.getElementById("kpi-id-val");
+    if (idVal) idVal.innerText = `${k.indonesia_avg.toFixed(1)} mm/d`;
     
     if (k.driest_state && k.driest_state.name) {
-        document.getElementById("kpi-dry-val").innerText = `${k.driest_state.name}`;
-        document.getElementById("kpi-dry-sub").innerText = `${k.driest_state.precipitation_mm.toFixed(1)} mm • ${k.driest_state.major_group}`;
+        const dryVal = document.getElementById("kpi-dry-val");
+        if (dryVal) dryVal.innerText = `${k.driest_state.name}`;
+        const drySub = document.getElementById("kpi-dry-sub");
+        if (drySub) drySub.innerText = `${k.driest_state.precipitation_mm.toFixed(1)} mm • ${k.driest_state.major_group}`;
     }
     if (k.wettest_state && k.wettest_state.name) {
-        document.getElementById("kpi-wet-val").innerText = `${k.wettest_state.name}`;
-        document.getElementById("kpi-wet-sub").innerText = `${k.wettest_state.precipitation_mm.toFixed(1)} mm • ${k.wettest_state.major_group}`;
+        const wetVal = document.getElementById("kpi-wet-val");
+        if (wetVal) wetVal.innerText = `${k.wettest_state.name}`;
+        const wetSub = document.getElementById("kpi-wet-sub");
+        if (wetSub) wetSub.innerText = `${k.wettest_state.precipitation_mm.toFixed(1)} mm • ${k.wettest_state.major_group}`;
     }
 }
 

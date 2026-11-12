@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Argentina Soybeans &amp; Soy Products S&amp;D | Institutional Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="chart.umd.min.js"></script>
+  <script src="dashboard_data.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- TOP INSTITUTIONAL HEADER -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge" id="brand-badge">SAGyP / INDEC LIVE</div>
+      <div class="brand-titles">
+        <h1>Argentina Soybeans &amp; Soy Products Supply &amp; Demand</h1>
+        <p class="subtitle" id="header-subtitle">Official SAGyP, INDEC &amp; Secretar&iacute;a de Energ&iacute;a Monthly Statistics (Jan 2015&ndash;Oct 2026) &bull; Soybeans, Soybean Meal (SBM) &amp; Soybean Oil (SBO)</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY GLOBAL YEAR SLICER BAR -->
+  <section class="slicer-bar">
+    <div class="slicer-top">
+      <div class="slicer-title-group">
+        <span class="slicer-title">YEAR SLICER</span>
+        <span class="slicer-hint">Click to select single year &bull; Ctrl+Click to multi-select &bull; Shift+Click for range</span>
+      </div>
+      <div class="slicer-presets">
+        <button class="preset-btn active" data-preset="last5" title="Default: Last 5 Years (2022–2026)">Last 5Y (Default)</button>
+        <button class="preset-btn" data-preset="last8" title="Last 8 Years (2019–2026)">Last 8Y (2019–2026)</button>
+        <button class="preset-btn" data-preset="all" title="Full History (2015–2026)">All History (2015–2026)</button>
+      </div>
+    </div>
+    <div class="year-pills-container" id="year-pills-container">
+      <!-- Populated dynamically 2015 .. 2026 -->
+    </div>
+  </section>
+
+  <!-- MAIN NAVIGATION TABS -->
+  <nav class="main-tabs" id="main-tabs">
+    <button class="tab-btn active" data-tab="tab-snd">Supply &amp; Demand (S&amp;D)</button>
+    <button class="tab-btn" data-tab="tab-seasonality">Seasonality</button>
+  </nav>
+
+  <!-- DISCLOSURE BANNER -->
+  <div class="disclosure-bar" style="justify-content: space-between;">
+    <span id="disclosure-text"><strong>100% Official Source Data:</strong> Argentina SAGyP (<code>magyp.gob.ar</code>), INDEC, Secretar&iacute;a de Energ&iacute;a &amp; Argus Media (Zero Interpolation). <span style="color:#d97706;font-weight:700;border-bottom:1px dotted #d97706;" title="INDEC Preliminary (Cuadro 6: Balanza Comercial de la Soja YoY Quantity %) — Pending final SAGyP confirmation">Orange numbers</span> indicate preliminary INDEC trade figures (hover for details).</span>
+    <span class="disclosure-badges">
+      <span class="badge badge-soy">1. SOYBEANS &amp; CRUSH</span>
+      <span class="badge badge-sbm">2. SOYBEAN MEAL (SBM)</span>
+      <span class="badge badge-sbo">3. SOYBEAN OIL (SBO)</span>
+      <span class="badge badge-soy" style="background:#0f766e;">4. BIODIESEL</span>
+      <span class="badge badge-actual" id="badge-actual-range">ACTUAL (Jan 2015&ndash;Oct 2026)</span>
+    </span>
+  </div>
+
+  <!-- TAB CONTENTS -->
+  <main class="main-content">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: SUPPLY & DEMAND (S&D) — VERTICALLY STACKED SOY, SBM, SBO     -->
+    <!-- =================================================================== -->
+    <section class="tab-panel active" id="tab-snd">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2 id="snd-panel-title">Argentina Soybean Complex Supply &amp; Demand Balance Sheets (Stacked: Soybeans &rarr; SBM &rarr; SBO)</h2>
+          <span class="toolbar-sub" id="snd-panel-sub">Click any year header (`[+]`) to expand or collapse monthly breakdown across Soybeans, SBM, and SBO simultaneously. Horizontal scroll is synchronized across all stacked tables.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>View Format:</label>
+            <div class="seg-group" id="snd-view-format">
+              <button class="seg-btn active" data-fmt="table">Balance Sheet (Stacked)</button>
+              <button class="seg-btn" data-fmt="matrix">Monthly Matrix (By Year)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-basis-group">
+            <label>Year Basis:</label>
+            <div class="seg-group" id="snd-year-basis">
+              <button class="seg-btn active" data-basis="my">Marketing Year (Apr&ndash;Mar)</button>
+              <button class="seg-btn" data-basis="cy">Calendar Year (Jan&ndash;Dec)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-metric-group">
+            <label>Metric:</label>
+            <div class="seg-group" id="snd-metric-mode">
+              <button class="seg-btn active" data-metric="volume">Volume</button>
+              <button class="seg-btn" data-metric="both">Volume + % Change</button>
+              <button class="seg-btn" data-metric="pct">MoM % / YoY % Only</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Units:</label>
+            <div class="seg-group" id="snd-unit-mode">
+              <button class="seg-btn active" data-unit="t">Tonnes (t)</button>
+              <button class="seg-btn" data-unit="mnt">Million Tonnes (mn t)</button>
+            </div>
+          </div>
+          <div class="control-group" id="snd-table-actions">
+            <button class="action-btn" id="btn-snd-expand-all">Expand All Selected</button>
+            <button class="action-btn" id="btn-snd-collapse-all">Collapse All</button>
+            <button class="action-btn" id="btn-snd-csv">Export CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VERTICALLY STACKED BALANCE SHEETS CONTAINER -->
+      <div id="snd-stacked-tables-wrapper">
+        <!-- 1. SOYBEANS & CRUSHING TABLE -->
+        <div class="card table-card">
+          <div class="card-header soy-header">
+            <h3><span class="badge badge-soy">1. SOYBEANS</span> Argentina Soybeans &amp; Crushing Supply &amp; Demand Balance Sheet</h3>
+            <span class="card-sub" id="soy-card-sub">Off-Farm Total Balance Sheet &amp; Crushers Sub-Ledger &bull; Synchronized Horizontal Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-soy-table-container"></div>
+        </div>
+
+        <!-- 2. SOYBEAN MEAL (SBM) TABLE (STACKED BELOW SOYBEANS) -->
+        <div class="card table-card">
+          <div class="card-header sbm-header">
+            <h3><span class="badge badge-sbm">2. SOYBEAN MEAL (SBM)</span> Argentina Soybean Meal Supply &amp; Demand Balance Sheet</h3>
+            <span class="card-sub" id="sbm-card-sub">Crushers Stocks, Production, Extraction Ratio (%), Imports, Domestic Use, Exports &amp; STU (%) &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-sbm-table-container"></div>
+        </div>
+
+        <!-- 3. SOYBEAN OIL (SBO) TABLE (STACKED BELOW SBM) -->
+        <div class="card table-card">
+          <div class="card-header sbo-header">
+            <h3><span class="badge badge-sbo">3. SOYBEAN OIL (SBO)</span> Argentina Soybean Oil Supply &amp; Demand Balance Sheet</h3>
+            <span class="card-sub" id="sbo-card-sub">Crushers Stocks, Production, Extraction Ratio (%), Biofuel vs Non-Biofuel Domestic Use, Exports &amp; STU (%) &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-sbo-table-container"></div>
+        </div>
+
+        <!-- 4. BIODIESEL S&D TABLE (STACKED BELOW SBO) -->
+        <div class="card table-card">
+          <div class="card-header soy-header" style="border-left: 4px solid #0f766e;">
+            <h3><span class="badge badge-soy" style="background:#0f766e;">4. BIODIESEL</span> Argentina Biodiesel Supply, Domestic Blending &amp; Export Balance Sheet</h3>
+            <span class="card-sub" id="bio-card-sub">Secretar&iacute;a de Energ&iacute;a / INDEC (Cuadro 3.1) &bull; Production, SBO Feedstock Used, Domestic Blending Sales (Corte) &amp; Exports &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-bio-table-container"></div>
+        </div>
+
+        <!-- 5. CORN (MAÍZ) & CORN BIOETHANOL S&D TABLE -->
+        <div class="card table-card">
+          <div class="card-header sbm-header" style="border-left: 4px solid #ca8a04;">
+            <h3><span class="badge badge-sbm" style="background:#ca8a04;">5. CORN (MA&Iacute;Z)</span> Argentina Corn Supply, Domestic Milling, Exports &amp; Corn Bioethanol Sub-Ledger</h3>
+            <span class="card-sub" id="corn-card-sub">SAGyP / INDEC / Secretar&iacute;a de Energ&iacute;a (Cuadro 3.2) &bull; Off-Farm Stocks, Exports, Feed/Wet/Dry Milling &amp; Corn Bioethanol &bull; Synchronized Scroll</span>
+          </div>
+          <div class="table-scroll sync-scroll-snd" id="snd-corn-table-container"></div>
+        </div>
+      </div>
+
+      <!-- MONTHLY MATRIX CONTAINER (STACKED BY COMMODITY WHEN MATRIX VIEW SELECTED) -->
+      <div id="snd-matrix-wrapper" style="display:none;">
+        <div class="card table-card">
+          <div class="card-header soy-header">
+            <h3><span class="badge badge-soy">1. SOYBEANS</span> Monthly S&amp;D Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Soybeans Crushed &amp; Exports</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-soy-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbm-header">
+            <h3><span class="badge badge-sbm">2. SOYBEAN MEAL (SBM)</span> Monthly S&amp;D Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on SBM Production &amp; Exports</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-sbm-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbo-header">
+            <h3><span class="badge badge-sbo">3. SOYBEAN OIL (SBO)</span> Monthly S&amp;D Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on SBO Production &amp; Exports</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-sbo-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header soy-header" style="border-left: 4px solid #0f766e;">
+            <h3><span class="badge badge-soy" style="background:#0f766e;">4. BIODIESEL</span> Monthly S&amp;D Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Biodiesel Production &amp; Domestic Blending Sales</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-bio-container"></div>
+        </div>
+        <div class="card table-card">
+          <div class="card-header sbm-header" style="border-left: 4px solid #ca8a04;">
+            <h3><span class="badge badge-sbm" style="background:#ca8a04;">5. CORN (MA&Iacute;Z)</span> Monthly S&amp;D Matrix (By Year)</h3>
+            <span class="card-sub">Heatmap colored on Corn Exports &amp; Domestic Milling</span>
+          </div>
+          <div class="table-scroll" id="snd-matrix-corn-container"></div>
+        </div>
+      </div>
+
+      <!-- S&D CHARTS SECTION HEADER & FREQUENCY TOGGLE -->
+      <div class="card" style="margin-top: 18px; margin-bottom: 12px;">
+        <div class="card-header" style="background: #f1f5f9;">
+          <div>
+            <h3>Argentina Soybean Complex S&amp;D Charts (Soybeans, Crushing, SBM &amp; SBO)</h3>
+            <span class="card-sub">Interactive supply, demand, stocks, extraction rate &amp; stocks-to-use trajectory across selected years</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="control-group">
+              <label>Chart Frequency:</label>
+              <div class="seg-group" id="snd-chart-freq">
+                <button class="seg-btn active" data-freq="monthly">Monthly</button>
+                <button class="seg-btn" data-freq="annual">Annual (CY / MY)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2x2 S&D CHARTS GRID -->
+      <div class="charts-grid two-col">
+        <!-- Chart 1: Soybeans Supply, Demand & Ending Stocks / STU -->
+        <div class="card chart-card">
+          <div class="card-header soy-header">
+            <div>
+              <h3>1. Soybeans: Crush, Exports, Ending Stocks &amp; STU (%)</h3>
+              <span class="card-sub">Bars: Crushed &amp; Exports (LHS) &bull; Lines: Off-Farm Ending Stocks (LHS) &amp; STU % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-soy"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Soybean Crushing & Extraction Ratios -->
+        <div class="card chart-card">
+          <div class="card-header soy-header">
+            <div>
+              <h3>2. Crushing &amp; Extraction Ratios: Delivered, Ending Stocks (Crushers) &amp; SBM/SBO Yield (%)</h3>
+              <span class="card-sub">LHS: Delivered to Crushers &amp; Ending Stocks (Crushers) &bull; RHS: SBM (~73.7%) &amp; SBO (~19.8%) Extraction %</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-crush"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Soybean Meal (SBM) S&D & STU -->
+        <div class="card chart-card">
+          <div class="card-header sbm-header">
+            <div>
+              <h3>3. Soybean Meal (SBM): Production, Exports, Domestic Use &amp; STU (%)</h3>
+              <span class="card-sub">Bars: SBM Exports &amp; Domestic Use (LHS) &bull; Lines: SBM Production (LHS) &amp; STU % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-sbm"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Soybean Oil (SBO) S&D, Biofuel Split & STU -->
+        <div class="card chart-card">
+          <div class="card-header sbo-header">
+            <div>
+              <h3>4. Soybean Oil (SBO): Production, Exports, Biofuel vs Non-Biofuel Use &amp; STU (%)</h3>
+              <span class="card-sub">Stacked Bars: Exports, Biofuel Use &amp; Non-Biofuel Use (LHS) &bull; Lines: SBO Production (LHS) &amp; STU % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-sbo"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 5: Argentina Biodiesel S&D -->
+        <div class="card chart-card">
+          <div class="card-header soy-header" style="border-left: 4px solid #0f766e;">
+            <div>
+              <h3>5. Argentina Biodiesel S&amp;D: Production, Domestic Blending Sales (Corte) &amp; Exports</h3>
+              <span class="card-sub">Stacked Bars: Domestic Blending Sales + Exports (LHS) &bull; Lines: Biodiesel Production (LHS) &amp; SBO Share of Domestic Use % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-bio"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 6: Argentina Corn (Maíz) S&D -->
+        <div class="card chart-card">
+          <div class="card-header sbm-header" style="border-left: 4px solid #ca8a04;">
+            <div>
+              <h3>6. Argentina Corn (Ma&iacute;z): Exports, Domestic Milling, Ending Stocks &amp; STU (%)</h3>
+              <span class="card-sub">Stacked Bars: Corn Exports + Domestic Milling (LHS) &bull; Lines: Off-Farm Ending Stocks (LHS) &amp; STU % (RHS)</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart-snd-corn"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- OFFICIAL DATA PROVENANCE NOTES -->
+      <div class="footnote-box">
+        <strong>Official Data Provenance &amp; Accounting Notes (SAGyP / Secretar&iacute;a de Energ&iacute;a / Argus Media Issue 26_5):</strong>
+        <ul>
+          <li><strong>Accounting Identities (100% Reconciled):</strong> Ending Stocks for month <em>t</em> equal Beginning Stocks reported on the 1st of month <em>t+1</em>. Soybeans Delivered to Storage = Beginning Stocks + Delivered &minus; Total Demand = Ending Stocks. SBM &amp; SBO Domestic Use = Beginning Stocks + Production + Imports &minus; Exports &minus; Ending Stocks.</li>
+          <li><strong>Marketing Year (MY):</strong> Argentina Soybean Marketing Year runs <strong>April &ndash; March</strong> (MY beginning 1 April). Switch <em>Year Basis</em> above between Calendar Year (Jan&ndash;Dec) and Marketing Year (Apr&ndash;Mar).</li>
+          <li><strong>Dec 2020 (MY 2020/21) Crush Anomaly (846,919 t):</strong> Official SAGyP crush dropped to <strong>846,919 t</strong> in Dec 2020 (with SBM production at 567,643 t and SBO production at 162,319 t) due to the 20-day nationwide Argentine oilseed workers &amp; port grain inspectors strike (FTCIODyARA / SOEA / URGARA), before rebounding to 3,228,878 t in Jan 2021.</li>
+          <li><strong>Historical Note (Dec 2017 &ndash; Feb 2018):</strong> In Jan and Feb 2018, SAGyP reported <code>0</code> for total off-farm Beginning Stocks (causing Argus's residual Delivered to Storage formula in Dec 2017 to be negative), whereas Beginning Stocks (Crushers) and all Crushed, Exports, SBM, and SBO series were reported without interruption.</li>
+          <li><strong>Preliminary Sep 2026 Stock:</strong> Off-farm Soybeans Beginning Stocks for Oct 1, 2026 (= Sep 2026 Ending Stocks) is officially reported at <strong>18,596,977 t</strong> (18.60 mn t); full Sep 2026 S&amp;D flows are pending the next monthly release.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 7: SEASONALITY (CHART & HEATMAP TABLE)                          -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="tab-seasonality">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2>Seasonality Explorer: Chart &amp; Monthly Heatmap Table</h2>
+          <span class="toolbar-sub">Compare seasonal curves across Soybeans, Crushing, Soybean Meal (SBM), and Soybean Oil (SBO) with Historical Min&ndash;Max Bands, 5Y/10Y Benchmarks, and Cumulative MYTD mode.</span>
+        </div>
+        <div class="toolbar-controls">
+          <div class="control-group">
+            <label>Select Attribute:</label>
+            <select id="season-attr-select" class="select-input">
+              <optgroup label="1. Soybeans (Off-Farm S&amp;D)">
+                <option value="soybeans.crushed" selected>Soybeans - Crushed</option>
+                <option value="soybeans.beginning_stocks">Soybeans - Beginning Stocks (Off-Farm)</option>
+                <option value="soybeans.delivered_to_storage">Soybeans - Delivered to Storage (Total)</option>
+                <option value="soybeans.imports">Soybeans - Imports</option>
+                <option value="soybeans.domestic_deliveries_to_storage">Soybeans - Domestic Deliveries to Storage</option>
+                <option value="soybeans.total_demand">Soybeans - Total Demand</option>
+                <option value="soybeans.exports">Soybeans - Exports</option>
+                <option value="soybeans.other_milling_use">Soybeans - Other Milling Use</option>
+                <option value="soybeans.ending_stocks">Soybeans - Ending Stocks (Off-Farm)</option>
+                <option value="soybeans.stocks_to_use">Soybeans - Stocks-to-Use Ratio (%)</option>
+              </optgroup>
+              <optgroup label="2. Soybean Crushing (Crushers Sub-Ledger)">
+                <option value="soybeans.crushers_beginning_stocks">Soybeans - Beginning Stocks (Crushers)</option>
+                <option value="soybeans.delivered_to_crushers">Soybeans - Delivered to Crushers (Total)</option>
+                <option value="soybeans.domestic_delivered_to_crushers">Soybeans - Domestic Delivered to Crushers</option>
+                <option value="soybeans.crushers_ending_stocks">Soybeans - Ending Stocks (Crushers)</option>
+                <option value="soybeans.crushers_stocks_to_use">Soybeans - Stocks-to-Crush Ratio (%)</option>
+              </optgroup>
+              <optgroup label="3. Soybean Meal (SBM)">
+                <option value="sbm.production">SBM - Production</option>
+                <option value="sbm.extraction_ratio">SBM - Extraction Ratio (%)</option>
+                <option value="sbm.beginning_stocks">SBM - Beginning Stocks (Crushers)</option>
+                <option value="sbm.imports">SBM - Imports</option>
+                <option value="sbm.domestic_use">SBM - Domestic Use</option>
+                <option value="sbm.exports">SBM - Exports</option>
+                <option value="sbm.total_demand">SBM - Total Demand (Domestic + Exports)</option>
+                <option value="sbm.ending_stocks">SBM - Ending Stocks (Crushers)</option>
+                <option value="sbm.stocks_to_use">SBM - Stocks-to-Use Ratio (%)</option>
+              </optgroup>
+              <optgroup label="4. Soybean Oil (SBO)">
+                <option value="sbo.production">SBO - Production</option>
+                <option value="sbo.extraction_ratio">SBO - Extraction Ratio (%)</option>
+                <option value="sbo.beginning_stocks">SBO - Beginning Stocks (Crushers)</option>
+                <option value="sbo.imports">SBO - Imports</option>
+                <option value="sbo.domestic_use">SBO - Domestic Use (Total)</option>
+                <option value="sbo.biofuel_use">SBO - Biofuel Use (Biodiesel Eq.)</option>
+                <option value="sbo.non_biofuel_use">SBO - Non-Biofuel Use</option>
+                <option value="sbo.exports">SBO - Exports</option>
+                <option value="sbo.total_demand">SBO - Total Demand (Domestic + Exports)</option>
+                <option value="sbo.ending_stocks">SBO - Ending Stocks (Crushers)</option>
+                <option value="sbo.stocks_to_use">SBO - Stocks-to-Use Ratio (%)</option>
+              </optgroup>
+              <optgroup label="5. Biodiesel S&amp;D (Secretar&iacute;a de Energ&iacute;a / INDEC)">
+                <option value="biodiesel.production">Biodiesel - Production (Elaboraci&oacute;n)</option>
+                <option value="biodiesel.sbo_feedstock_used">Biodiesel - SBO Feedstock Used (Soybean Oil Eq.)</option>
+                <option value="biodiesel.domestic_sales">Biodiesel - Domestic Blending Sales (Corte)</option>
+                <option value="biodiesel.exports">Biodiesel - Exports</option>
+                <option value="biodiesel.total_demand">Biodiesel - Total Disappearance (Domestic Sales + Exports)</option>
+                <option value="biodiesel.export_share">Biodiesel - Export Share of Production (%)</option>
+              </optgroup>
+              <optgroup label="6. Corn (Ma&iacute;z) &amp; Bioethanol S&amp;D (SAGyP / Secretar&iacute;a de Energ&iacute;a)">
+                <option value="corn.exports">Corn (Ma&iacute;z) - Exports</option>
+                <option value="corn.beginning_stocks">Corn (Ma&iacute;z) - Beginning Stocks (Off-Farm)</option>
+                <option value="corn.delivered_to_storage">Corn (Ma&iacute;z) - Delivered to Storage</option>
+                <option value="corn.total_demand">Corn (Ma&iacute;z) - Total Demand (Exports + Milling)</option>
+                <option value="corn.total_milling">Corn (Ma&iacute;z) - Total Domestic Milling</option>
+                <option value="corn.feed_milling">Corn (Ma&iacute;z) - Compound Animal Feed (Balanceado)</option>
+                <option value="corn.wet_milling">Corn (Ma&iacute;z) - Wet Milling (Starch / Fructose)</option>
+                <option value="corn.dry_milling">Corn (Ma&iacute;z) - Dry Milling (Grits / Flour)</option>
+                <option value="corn.ending_stocks">Corn (Ma&iacute;z) - Ending Stocks (Off-Farm)</option>
+                <option value="corn.stocks_to_use">Corn (Ma&iacute;z) - Stocks-to-Use Ratio (%)</option>
+                <option value="corn.bioethanol_corn_tonnes">Corn Bioethanol - Production (Tonnes Eq.)</option>
+                <option value="corn.bioethanol_corn_feedstock_tonnes">Corn Bioethanol - Corn Feedstock Used (Tonnes Eq.)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Seasonal Axis:</label>
+            <div class="seg-group" id="season-axis-mode">
+              <button class="seg-btn active" data-axis="my">Marketing Year (Apr&ndash;Mar)</button>
+              <button class="seg-btn" data-axis="cy">Calendar Year (Jan&ndash;Dec)</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Curve Mode:</label>
+            <div class="seg-group" id="season-calc-mode">
+              <button class="seg-btn active" data-calc="monthly">Monthly</button>
+              <button class="seg-btn" data-calc="cum">Cumulative (YTD / MYTD)</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Units:</label>
+            <div class="seg-group" id="season-unit-mode">
+              <button class="seg-btn active" data-unit="t">Tonnes (t)</button>
+              <button class="seg-btn" data-unit="mnt">Million Tonnes (mn t)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seasonality Chart -->
+      <div class="card chart-card">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 id="season-chart-title">Seasonality Curve</h3>
+            <span class="card-sub" id="season-chart-sub">Min&ndash;Max Historical Band &bull; 5Y Benchmark Average &bull; Selected Years</span>
+          </div>
+          <div class="season-year-picker-container" id="season-year-picker">
+            <span class="picker-label" style="font-size:11px;font-weight:600;color:var(--text-muted);margin-right:4px;">Toggle Chart Years:</span>
+            <div class="slicer-box season-pills" id="season-year-pills"></div>
+          </div>
+        </div>
+        <div class="chart-box tall-chart">
+          <canvas id="chart-seasonality"></canvas>
+        </div>
+      </div>
+
+      <!-- Seasonality Table (Years x Months + Total/Avg + YoY%) -->
+      <div class="card table-card">
+        <div class="card-header">
+          <h3 id="season-table-title">Monthly Seasonality Matrix &amp; Heatmap (Selected Years &amp; Benchmark Averages)</h3>
+          <span class="card-sub" id="season-table-sub">5Y Avg (2021&ndash;2025) &amp; 10Y Avg (2016&ndash;2025) Benchmarks &bull; Green Intensity Heatmap</span>
+        </div>
+        <div class="table-scroll" id="seasonality-table-container"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

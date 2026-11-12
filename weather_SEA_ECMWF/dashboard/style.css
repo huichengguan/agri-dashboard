@@ -29,9 +29,13 @@ body {
     background-color: var(--header-bg);
     color: var(--header-text);
     padding: 10px 24px;
+    height: 60px;
+    min-height: 60px;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -39,6 +43,14 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
+    z-index: 5;
+    max-width: calc(50vw - 300px);
+    overflow: hidden;
+}
+
+.header-title {
+    min-width: 0;
+    overflow: hidden;
 }
 
 .header-title h1 {
@@ -46,22 +58,43 @@ body {
     font-weight: 700;
     letter-spacing: -0.3px;
     font-family: "Georgia", serif;
+    white-space: nowrap;
 }
 
 .header-title p {
     font-size: 11px;
     opacity: 0.85;
     margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .header-right {
     display: flex;
     align-items: center;
     gap: 12px;
+    z-index: 5;
+    max-width: calc(50vw - 300px);
+    justify-content: flex-end;
+}
+
+.header-badge-conviction {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
 }
 
 /* Dashboard Switcher Tabs */
 .dashboard-nav-tabs {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     background: rgba(0, 0, 0, 0.25);
@@ -69,6 +102,7 @@ body {
     border-radius: 8px;
     gap: 3px;
     border: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 10;
 }
 
 .nav-tab {

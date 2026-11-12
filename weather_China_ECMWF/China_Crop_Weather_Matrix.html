@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>China Crop Weather &amp; Climatology Matrix (2010–2027) | ECMWF IFS &amp; SEAS5 6-Mo Forecast</title>
+<title>China Crop Weather & Climatology Matrix (2010–2026)</title>
 <style>
     :root {
-        --primary: #047857;
+        --primary: #064e3b;
         --primary-light: #ecfdf5;
-        --primary-dark: #064e3b;
+        --primary-dark: #022c22;
         --border-color: #e2e8f0;
         --bg-main: #f8fafc;
         --card-bg: #ffffff;
         --text-primary: #0f172a;
         --text-secondary: #475569;
         --text-muted: #64748b;
-        --accent: #0284c7;
-        --accent-light: #f0f9ff;
+        --accent: #2563eb;
+        --accent-light: #eff6ff;
     }
 
     * {
@@ -29,28 +29,30 @@
         background-color: var(--bg-main);
         color: var(--text-primary);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        padding: 14px 18px 40px 18px;
-        width: 1560px;
+        padding: 12px 18px 40px 18px;
+        width: 1680px;
+        max-width: 98vw;
         margin: 0 auto;
+        zoom: 0.85;
         -webkit-font-smoothing: antialiased;
     }
 
     .dashboard-container {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
     }
 
     /* Universal Suite Navigation Bar */
     .suite-nav-bar {
         background: #0f172a;
-        border-radius: 8px;
-        padding: 8px 16px;
+        border-radius: 10px;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         color: #f8fafc;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .suite-nav-left {
         display: flex;
@@ -58,30 +60,30 @@
         gap: 12px;
     }
     .suite-brand {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 800;
         letter-spacing: 0.5px;
         color: #38bdf8;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
     .suite-nav-links {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
     .nav-tab {
-        padding: 5px 12px;
-        border-radius: 5px;
-        font-size: 11px;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
         font-weight: 700;
         text-decoration: none;
         color: #94a3b8;
         transition: all 0.15s ease;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
     }
     .nav-tab:hover {
         background: #1e293b;
@@ -96,61 +98,61 @@
     .header-card {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 10px;
-        padding: 14px 20px;
+        border-radius: 12px;
+        padding: 20px 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         border-bottom: 3px solid var(--primary);
     }
     .header-left {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 4px;
     }
     .header-title-row {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
     .header-badge {
         background: var(--primary);
         color: #ffffff;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 800;
-        padding: 2px 7px;
+        padding: 3px 8px;
         border-radius: 4px;
         letter-spacing: 0.5px;
     }
     .header-badge-17yr {
         background: #0284c7;
         color: #ffffff;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 800;
-        padding: 2px 7px;
+        padding: 3px 8px;
         border-radius: 4px;
     }
     .header-title {
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 800;
         color: var(--primary);
         letter-spacing: -0.3px;
     }
     .header-subtitle {
-        font-size: 11.5px;
+        font-size: 13px;
         font-weight: 500;
         color: var(--text-secondary);
     }
     .header-actions {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
     .btn {
-        padding: 5px 12px;
-        border-radius: 5px;
-        font-size: 11px;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
         font-weight: 700;
         cursor: pointer;
         border: 1px solid var(--border-color);
@@ -159,7 +161,7 @@
         transition: all 0.15s ease;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
     }
     .btn:hover {
         background: #f1f5f9;
@@ -179,37 +181,37 @@
     .controls-bar {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 8px 16px;
+        border-radius: 10px;
+        padding: 12px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        gap: 12px;
+        gap: 16px;
         flex-wrap: wrap;
     }
     .ctrl-section {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         flex-wrap: wrap;
     }
     .var-label {
-        font-size: 11px;
+        font-size: 11.5px;
         font-weight: 700;
         color: var(--text-secondary);
         text-transform: uppercase;
         margin-right: 2px;
     }
     .segmented-btn {
-        padding: 4px 10px;
+        padding: 6px 12px;
         border: 1px solid var(--border-color);
         background: #f8fafc;
         color: var(--text-secondary);
-        font-size: 11px;
+        font-size: 11.5px;
         font-weight: 700;
         cursor: pointer;
-        border-radius: 5px;
+        border-radius: 6px;
         transition: all 0.15s;
     }
     .segmented-btn:hover {
@@ -223,9 +225,9 @@
 
     /* Toggle Switches */
     .mode-switch-btn {
-        padding: 4px 10px;
-        border-radius: 5px;
-        font-size: 11px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 11.5px;
         font-weight: 700;
         cursor: pointer;
         border: 1px solid var(--border-color);
@@ -240,9 +242,9 @@
     }
 
     .unit-switch-btn {
-        padding: 4px 8px;
-        border-radius: 5px;
-        font-size: 10.5px;
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 11px;
         font-weight: 700;
         cursor: pointer;
         border: 1px solid var(--border-color);
@@ -260,78 +262,78 @@
         background: #ffffff;
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 6px 16px;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 10.5px;
+        font-size: 11px;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 12px;
     }
     .legend-scale-container {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         flex-wrap: wrap;
     }
     .legend-chip {
-        padding: 1px 6px;
-        border-radius: 3px;
+        padding: 2px 7px;
+        border-radius: 4px;
         font-weight: 700;
-        font-size: 9.5px;
+        font-size: 10px;
     }
     .legend-key-box {
         display: flex;
         align-items: center;
         gap: 12px;
-        font-size: 10px;
+        font-size: 11px;
         color: var(--text-secondary);
     }
     .sample-solid {
-        width: 12px;
-        height: 10px;
+        width: 14px;
+        height: 12px;
         border-radius: 2px;
         background: #2d7a2f;
         display: inline-block;
         vertical-align: middle;
-        margin-right: 3px;
+        margin-right: 4px;
     }
     .sample-dashed {
-        width: 12px;
-        height: 10px;
+        width: 14px;
+        height: 12px;
         border-radius: 2px;
         border: 1.5px dashed #0284c7;
         background: #e0f2fe;
         display: inline-block;
         vertical-align: middle;
-        margin-right: 3px;
+        margin-right: 4px;
     }
 
     /* Interactive Progression & Benchmark Chart Card */
     .chart-card {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 16px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        border-radius: 10px;
+        padding: 16px 22px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
     }
     .chart-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 10px;
     }
     .chart-title-group {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
     .chart-title {
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 800;
         color: var(--text-primary);
         text-transform: uppercase;
@@ -340,13 +342,13 @@
     .chart-toggles {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         flex-wrap: wrap;
     }
     .bench-chip {
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 700;
-        padding: 2px 7px;
+        padding: 3px 9px;
         border-radius: 4px;
         cursor: pointer;
         border: 1px solid var(--border-color);
@@ -354,13 +356,24 @@
         color: var(--text-secondary);
         transition: all 0.15s;
     }
-    .bench-chip.active-2014 { background: #dc2626; color: #ffffff; border-color: #dc2626; }
-    .bench-chip.active-2016 { background: #2563eb; color: #ffffff; border-color: #2563eb; }
-    .bench-chip.active-2021 { background: #0284c7; color: #ffffff; border-color: #0284c7; }
-    .bench-chip.active-2022 { background: #b45309; color: #ffffff; border-color: #b45309; }
+    .bench-chip.active-2012 {
+        background: #dc2626;
+        color: #ffffff;
+        border-color: #dc2626;
+    }
+    .bench-chip.active-2019 {
+        background: #2563eb;
+        color: #ffffff;
+        border-color: #2563eb;
+    }
+    .bench-chip.active-2025 {
+        background: #7c3aed;
+        color: #ffffff;
+        border-color: #7c3aed;
+    }
     .chart-svg-container {
         width: 100%;
-        height: 140px;
+        height: 190px;
         position: relative;
     }
     .chart-svg {
@@ -373,36 +386,36 @@
     .picker-card {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 16px;
+        border-radius: 10px;
+        padding: 14px 20px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
     .picker-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 10px;
     }
     .picker-title-group {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
     .picker-title {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 800;
         color: var(--text-primary);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     .search-input {
-        padding: 3px 8px;
+        padding: 4px 10px;
         border: 1px solid var(--border-color);
-        border-radius: 4px;
-        font-size: 11px;
+        border-radius: 6px;
+        font-size: 11.5px;
         outline: none;
         width: 180px;
         color: var(--text-primary);
@@ -412,14 +425,14 @@
     }
     .quick-filters {
         display: flex;
-        gap: 5px;
+        gap: 6px;
         flex-wrap: wrap;
     }
     .pill-btn {
-        font-size: 10px;
+        font-size: 10.5px;
         font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 12px;
+        padding: 3px 9px;
+        border-radius: 20px;
         border: 1px solid var(--border-color);
         background: #f8fafc;
         color: var(--text-secondary);
@@ -432,17 +445,16 @@
     .belt-groups-container {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 6px;
     }
     .belt-row {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
     .belt-label {
         width: 250px;
-        min-width: 250px;
-        font-size: 10.5px;
+        font-size: 11px;
         font-weight: 700;
         color: var(--text-secondary);
         white-space: nowrap;
@@ -452,19 +464,18 @@
     .state-chips-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 3px;
+        gap: 4px;
     }
     .state-chip {
-        padding: 2px 7px;
+        padding: 3px 8px;
         border-radius: 4px;
-        font-size: 10px;
+        font-size: 10.5px;
         font-weight: 700;
         border: 1px solid var(--border-color);
         background: #f8fafc;
         color: var(--text-secondary);
         cursor: pointer;
         transition: all 0.15s;
-        user-select: none;
     }
     .state-chip:hover {
         background: #e2e8f0;
@@ -479,36 +490,35 @@
     .filter-pills-bar {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 8px 16px;
+        border-radius: 10px;
+        padding: 12px 20px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 10px;
     }
     .filter-column {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         flex-wrap: wrap;
     }
     .filter-label {
-        font-size: 10.5px;
+        font-size: 11px;
         font-weight: 800;
         color: var(--text-secondary);
         text-transform: uppercase;
-        width: 55px;
+        width: 60px;
     }
     .year-chip, .month-chip {
-        padding: 2px 6px;
-        border-radius: 3px;
-        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 10.5px;
         font-weight: 700;
         border: 1px solid var(--border-color);
         background: #f8fafc;
         color: var(--text-secondary);
         cursor: pointer;
         transition: all 0.15s;
-        user-select: none;
     }
     .year-chip:hover, .month-chip:hover {
         background: #e2e8f0;
@@ -524,16 +534,16 @@
         border-color: #059669;
     }
 
-    /* Matrix Container - Compact High Density */
+    /* Matrix Container */
     .matrix-container {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 14px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        border-radius: 12px;
+        padding: 14px 18px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
         position: relative;
     }
     .matrix-header {
@@ -541,60 +551,55 @@
         align-items: flex-start;
         justify-content: space-between;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 8px;
+        padding-bottom: 10px;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 10px;
     }
     .matrix-title-group h2 {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 800;
         color: var(--primary);
     }
     .matrix-title-group p {
-        font-size: 11px;
+        font-size: 11.5px;
         color: var(--text-secondary);
-        margin-top: 1px;
+        margin-top: 2px;
     }
     .matrix-kpis {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
     .matrix-kpi-item {
         background: #f8fafc;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        padding: 5px 10px;
+        padding: 6px 12px;
         text-align: right;
     }
     .matrix-kpi-label {
-        font-size: 9px;
+        font-size: 9.5px;
         font-weight: 700;
         color: var(--text-muted);
         text-transform: uppercase;
     }
     .matrix-kpi-value {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 800;
         color: var(--text-primary);
-        font-variant-numeric: tabular-nums;
     }
 
-    /* Table Styles - Strict Equal Column Widths Across Dataset */
-    .matrix-area-container {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
+    /* Table Styles - Compact & Tighter Columns */
     .matrix-table-wrapper {
         overflow-x: auto;
     }
     .matrix-table {
         width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         text-align: center;
-        font-size: 10px;
+        font-size: 10.5px;
+        table-layout: fixed;
     }
     .matrix-table th {
         background: #f8fafc;
@@ -603,279 +608,173 @@
         padding: 5px 2px;
         border: 1px solid var(--border-color);
         text-transform: uppercase;
-        font-size: 9.5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        box-sizing: border-box;
+        font-size: 10px;
     }
     .matrix-table th.th-year {
+        width: 58px;
+        background: #f1f5f9;
+        font-size: 11px;
+    }
+    .matrix-table th.th-avg {
+        width: 85px !important;
+        min-width: 85px !important;
+        max-width: 85px !important;
+        text-align: center !important;
         background: #f1f5f9;
         font-size: 10px;
     }
-    .matrix-table th.th-avg {
-        background: #f1f5f9;
-        font-size: 9px;
-    }
     .matrix-table td {
-        padding: 1px 1px;
+        padding: 1.5px 1.5px;
         border: 1px solid #f1f5f9;
         vertical-align: middle;
-        font-variant-numeric: tabular-nums;
-        box-sizing: border-box;
-        overflow: hidden;
     }
     .matrix-year-cell {
         font-weight: 800;
         color: var(--text-primary);
-        font-size: 10.5px;
+        font-size: 11px;
         background: #f8fafc;
         border: 1px solid var(--border-color) !important;
-        position: relative;
-        padding: 1px 2px !important;
-        box-sizing: border-box;
-    }
-    .matrix-year-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 27px;
-        line-height: 1.1;
-    }
-    .matrix-year-current {
-        background: #ecfdf5 !important;
-        color: #065f46 !important;
-        border-left: 3px solid #059669 !important;
-    }
-    .matrix-year-fcst {
-        background: #f0f9ff !important;
-        color: #0369a1 !important;
-        border-left: 3px solid #0284c7 !important;
-    }
-    .fcst-inline-pill {
-        font-size: 7px;
-        font-weight: 900;
-        color: #0284c7;
-        background: rgba(2, 132, 199, 0.15);
-        padding: 0 3px;
-        border-radius: 2px;
-        letter-spacing: 0.2px;
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 2px;
-    }
-    .today-inline-pill {
-        font-size: 7px;
-        font-weight: 900;
-        color: #059669;
-        background: rgba(5, 150, 105, 0.15);
-        padding: 0 3px;
-        border-radius: 2px;
-        letter-spacing: 0.2px;
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 2px;
+        width: 58px;
     }
 
-    /* Square Cell Heatmap - Strict Uniform Box Size */
+    /* Square Cell Heatmap */
     .matrix-square-cell {
         border-radius: 4px;
-        padding: 2px 2px;
+        padding: 3px 2px;
+        min-height: 31px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 1px;
+        gap: 0px;
         cursor: pointer;
         font-weight: 800;
-        font-size: 10px;
-        min-height: 27px;
-        height: 27px;
-        max-height: 27px;
-        line-height: 1.1;
-        transition: transform 0.1s ease, box-shadow 0.1s ease;
+        font-size: 10.5px;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
         position: relative;
-        font-variant-numeric: tabular-nums;
-        box-sizing: border-box;
-        overflow: hidden;
     }
     .matrix-square-cell:hover {
         transform: scale(1.08);
-        box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         z-index: 20;
     }
     .matrix-square-sub {
-        font-size: 7.5px;
+        font-size: 8px;
         font-weight: 600;
         opacity: 0.9;
         white-space: nowrap;
-        font-variant-numeric: tabular-nums;
         line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
     .forecast-square {
         border: 1.5px dashed #0284c7 !important;
     }
-    .matrix-summary-cell {
-        background: #f8fafc !important;
-        border: 1px solid #cbd5e1 !important;
-        color: var(--text-primary) !important;
-        cursor: default !important;
-    }
-    .matrix-summary-cell:hover {
-        transform: none !important;
-        box-shadow: none !important;
-    }
-
-    /* District Comparison Layout Styles (Districts on Left Side) */
-    .dist-compare-season-bar {
-        background: #ffffff;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 7px 14px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    }
-    .compare-season-label {
-        font-size: 10px;
-        font-weight: 800;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-right: 2px;
-    }
-    .season-pill {
-        padding: 3px 8px;
-        border: 1px solid var(--border-color);
-        background: #f8fafc;
-        color: var(--text-secondary);
-        font-size: 10.5px;
-        font-weight: 700;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: all 0.15s;
-    }
-    .season-pill:hover {
-        background: #e2e8f0;
-        color: var(--text-primary);
-    }
-    .season-pill.active {
-        background: var(--primary);
-        color: #ffffff;
-        border-color: var(--primary);
-    }
-    .season-pill.active-fcst {
-        background: #0284c7;
-        color: #ffffff;
-        border-color: #0284c7;
-    }
-    .view-toggle-pill {
-        padding: 3px 8px;
-        border: 1px solid var(--border-color);
-        background: #f8fafc;
-        color: var(--text-secondary);
-        font-size: 10px;
-        font-weight: 700;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: all 0.15s;
-    }
-    .view-toggle-pill:hover {
-        background: #e2e8f0;
-    }
-    .view-toggle-pill.active {
-        background: #1e293b;
-        color: #ffffff;
-        border-color: #1e293b;
-    }
-    .matrix-district-cell {
-        background: #f8fafc;
-        border: 1px solid var(--border-color) !important;
-        font-weight: 800;
-        text-align: left;
-        padding: 2px 8px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        box-sizing: border-box;
-    }
-    .matrix-district-composite {
-        background: #ecfdf5 !important;
-        color: #065f46 !important;
-        border-left: 3.5px solid #059669 !important;
-    }
-    .matrix-dist-inner {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 27px;
-        height: 27px;
-        line-height: 1.15;
-    }
-    .dist-name {
-        font-size: 10.5px;
-        font-weight: 800;
-        color: var(--text-primary);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .dist-code {
-        font-size: 8px;
-        font-weight: 600;
-        color: var(--text-muted);
-    }
-    .multi-section-divider {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 6px 0 2px 0;
-    }
-    .multi-section-title {
-        font-size: 11.5px;
-        font-weight: 800;
-        color: var(--text-secondary);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        white-space: nowrap;
-    }
-    .multi-section-line {
-        flex: 1;
-        height: 1px;
-        background: var(--border-color);
+    .forecast-square::after {
+        content: 'GFS';
+        position: absolute;
+        top: 1px;
+        right: 2px;
+        font-size: 6.5px;
+        font-weight: 900;
+        opacity: 0.8;
     }
 
     /* Density Classes */
-    .matrix-compact .matrix-square-cell,
-    .matrix-compact .matrix-year-inner,
-    .matrix-compact .matrix-dist-inner {
-        padding: 1.5px 1px;
-        font-size: 9px;
-        min-height: 23px;
-        height: 23px;
-        max-height: 23px;
+    .matrix-compact .matrix-square-cell {
+        padding: 2px 1px;
+        min-height: 25px;
+        font-size: 9.5px;
     }
     .matrix-compact .matrix-square-sub {
-        font-size: 7px;
+        font-size: 7.5px;
     }
-    .matrix-dense .matrix-square-cell,
-    .matrix-dense .matrix-year-inner,
-    .matrix-dense .matrix-dist-inner {
-        padding: 1px 1px;
-        font-size: 8.5px;
+    .matrix-dense .matrix-square-cell {
+        padding: 1px 0px;
         min-height: 19px;
-        height: 19px;
-        max-height: 19px;
+        font-size: 8.5px;
     }
     .matrix-dense .matrix-square-sub {
         display: none;
+    }
+
+    /* Individual State Matrices Multi-Select Breakdown */
+    .individual-states-section {
+        margin-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        border-top: 2px dashed var(--border-color);
+        padding-top: 16px;
+    }
+    .individual-states-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+    .state-submatrix-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .state-submatrix-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #f1f5f9;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .state-submatrix-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        color: var(--text-primary);
+    }
+    .state-sub-badge {
+        background: #0284c7;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+    .state-meta {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    .state-submatrix-kpis {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .state-kpi-pill {
+        font-size: 10.5px;
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 2px 7px;
+        color: var(--text-secondary);
+    }
+    .state-kpi-pill strong {
+        color: var(--text-primary);
+    }
+    .picker-hint {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
+        margin-left: 8px;
     }
 
     /* Floating Interactive Cell Inspector Popover */
@@ -886,52 +785,57 @@
         color: #ffffff;
         border: 1px solid #334155;
         border-radius: 8px;
-        padding: 10px 14px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        padding: 12px 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         z-index: 1000;
-        width: 290px;
+        width: 270px;
         pointer-events: none;
-        font-size: 11px;
+        font-size: 11.5px;
     }
     .pop-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid #334155;
-        padding-bottom: 5px;
-        margin-bottom: 6px;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
     }
     .pop-title {
         font-weight: 800;
         color: #38bdf8;
-        font-size: 12px;
+        font-size: 12.5px;
     }
     .pop-badge {
-        font-size: 9px;
-        padding: 2px 5px;
-        border-radius: 3px;
+        font-size: 9.5px;
+        padding: 2px 6px;
+        border-radius: 4px;
         background: #1e293b;
         font-weight: 700;
     }
     .pop-row {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 3px;
+        margin-bottom: 4px;
         color: #cbd5e1;
     }
     .pop-val {
         font-weight: 800;
         color: #ffffff;
-        font-variant-numeric: tabular-nums;
     }
     .pop-diag {
-        margin-top: 6px;
-        padding-top: 5px;
+        margin-top: 8px;
+        padding-top: 6px;
         border-top: 1px dashed #334155;
-        font-size: 10px;
+        font-size: 10.5px;
         color: #fde047;
         font-weight: 600;
-        line-height: 1.3;
+    }
+
+    /* Composite Weighted Banner */
+    .composite-row-header {
+        background: #1e293b !important;
+        color: #ffffff !important;
+        font-weight: 800;
     }
 
     /* Footer */
@@ -939,72 +843,64 @@
         background: #ffffff;
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 10px 16px;
+        padding: 10px 24px;
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
         font-size: 10.5px;
         color: var(--text-muted);
-        flex-wrap: wrap;
-        gap: 8px;
     }
 </style>
 </head>
 <body>
 
 <div class="dashboard-container">
-    <!-- Universal Suite Navigation Bar -->
+
+        <!-- Universal Cross-Dashboard Navigation -->
     <div class="suite-nav-bar">
         <div class="suite-nav-left">
-            <div class="suite-brand">
-                <span>&#127464;&#127475;</span>
-                <span>CHINA AG-WEATHER SUITE</span>
-            </div>
-            <div class="suite-nav-links">
-                <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#127783; Precipitation Forecast</a>
-                <a href="China_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture</a>
-                <a href="China_Crop_Temperature_Outlook.html" class="nav-tab">&#127777; Temperature &amp; Heat</a>
-                <a href="China_Crop_Weather_Matrix.html" class="nav-tab active">&#128197; 17-Yr Matrix &amp; 6-Mo Forecast</a>
-            </div>
+            <span class="suite-brand">&#127464;&#127475; CHINA AG-WEATHER INTELLIGENCE (ECMWF IFS)</span>
         </div>
-        <div>
-            <a href="index.html" class="btn" style="background:#1e293b; color:#ffffff; border-color:#334155;">&#8592; Portal Hub</a>
+        <div class="suite-nav-links">
+            <a href="China_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
+            <a href="China_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="China_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="China_Crop_Weather_Matrix.html" class="nav-tab active">&#128202; 17-Year Historical Matrix (2010&ndash;2026)</a>
         </div>
     </div>
 
-    <!-- Header Card -->
+    <!-- Header -->
     <div class="header-card">
         <div class="header-left">
             <div class="header-title-row">
-                <span class="header-badge">ECMWF IFS 0.25° &amp; SEAS5</span>
-                <span class="header-badge-17yr">17-Yr Climatology + 6-Month Forecast</span>
-                <h1 class="header-title">China Crop Weather &amp; Climatology Matrix</h1>
+                <span class="header-badge">ECMWF IFS 0.25° &bull; ERA5 REANALYSIS</span>
+                <span class="header-badge-17yr">17 CONTINUOUS YEARS (2010–2026)</span>
+                <h1 class="header-title">China Crop Weather & Climatology Matrix</h1>
             </div>
-            <div class="header-subtitle">
-                17 Agricultural Seasons (2010–2026) + Forward 6-Month Seasonal Outlook (Oct 2026 – Mar 2027) &bull; 19 Key Corn, Wheat &amp; Soybean Belts
-            </div>
+            <p class="header-subtitle">Continuous 17-Year Historical Progression (2010–2025) & Operational ECMWF IFS / SEAS5 Forward Guidance (2026) across 19 Agricultural Belts</p>
         </div>
         <div class="header-actions">
-            <button class="btn btn-primary" onclick="exportCSV()">&#128190; Export Matrix CSV</button>
+            <button class="btn" onclick="exportCSV()">&#128229; Export CSV</button>
+            <button class="btn btn-primary" onclick="window.print()">&#128424; Print Matrix</button>
         </div>
     </div>
 
-    <!-- Controls Bar -->
+    <!-- Controls Bar: Variable Switcher, View Mode, Units & Density -->
     <div class="controls-bar">
         <div class="ctrl-section">
             <span class="var-label">Metric:</span>
-            <button class="segmented-btn active" data-var="precip" onclick="setVariable('precip')">&#127783; Precip (Rain)</button>
+            <button class="segmented-btn active" data-var="precip" onclick="setVariable('precip')">&#127783; Precipitation</button>
             <button class="segmented-btn" data-var="temp_max" onclick="setVariable('temp_max')">&#9728;&#65039; Max Temp (T-Max)</button>
             <button class="segmented-btn" data-var="temp_min" onclick="setVariable('temp_min')">&#127769; Min Temp (T-Min)</button>
             <button class="segmented-btn" data-var="temp" onclick="setVariable('temp')">&#127777; Mean Temp</button>
-            <button class="segmented-btn" data-var="topsoil" onclick="setVariable('topsoil')">&#127793; Topsoil (0–7cm)</button>
-            <button class="segmented-btn" data-var="subsoil" onclick="setVariable('subsoil')">&#127794; Subsoil (7–100cm)</button>
+            <button class="segmented-btn" data-var="topsoil" onclick="setVariable('topsoil')">&#127793; Topsoil (0–10cm)</button>
+            <button class="segmented-btn" data-var="subsoil" onclick="setVariable('subsoil')">&#127794; Subsoil (10–100cm)</button>
         </div>
 
         <div class="ctrl-section">
             <span class="var-label">View Mode:</span>
             <button class="mode-switch-btn" id="btn-mode-abs" onclick="setViewMode('absolute')">&#128203; Absolute</button>
-            <button class="mode-switch-btn active" id="btn-mode-anom" onclick="setViewMode('anomaly')">&#9878;&#65039; Anomaly vs Normal</button>
+            <button class="mode-switch-btn active" id="btn-mode-anom" onclick="setViewMode('anomaly')">&#9878;&#65039; Anomaly vs 2010-25 Normal</button>
         </div>
 
         <div class="ctrl-section" id="unit-switch-group">
@@ -1014,9 +910,9 @@
 
         <div class="ctrl-section">
             <span class="var-label">Density:</span>
-            <button class="segmented-btn" id="btn-density-standard" onclick="setDensity('standard')">Standard</button>
-            <button class="segmented-btn active" id="btn-density-compact" onclick="setDensity('compact')">Compact</button>
-            <button class="segmented-btn" id="btn-density-dense" onclick="setDensity('dense')">Dense</button>
+            <button class="segmented-btn active" onclick="setDensity('standard')">Standard</button>
+            <button class="segmented-btn" onclick="setDensity('compact')">Compact</button>
+            <button class="segmented-btn" onclick="setDensity('dense')">Dense</button>
         </div>
     </div>
 
@@ -1029,14 +925,13 @@
     <div class="chart-card">
         <div class="chart-header">
             <div class="chart-title-group">
-                <span class="chart-title">&#128200; Multi-Year Monthly Trajectory, Historical Range Envelope &amp; 6-Month Forward Projection</span>
+                <span class="chart-title">&#128200; Multi-Year Monthly Trajectory &amp; Historical Range Envelope (2010–2026)</span>
             </div>
             <div class="chart-toggles">
-                <span style="font-size:10px; font-weight:700; color:var(--text-secondary);">Benchmark Overlays:</span>
-                <button class="bench-chip" id="bench-2014" onclick="toggleBenchmarkYear(2014)">&#9888;&#65039; 2014 Drought</button>
-                <button class="bench-chip" id="bench-2016" onclick="toggleBenchmarkYear(2016)">&#127783; 2016 Deluge</button>
-                <button class="bench-chip" id="bench-2021" onclick="toggleBenchmarkYear(2021)">&#127754; 2021 Flood</button>
-                <button class="bench-chip" id="bench-2022" onclick="toggleBenchmarkYear(2022)">&#9728;&#65039; 2022 Heatwave</button>
+                <span style="font-size:11px; font-weight:700; color:var(--text-secondary);">Benchmark Overlays:</span>
+                <button class="bench-chip" id="bench-2012" onclick="toggleBenchmarkYear(2012)">&#9888;&#65039; 2012 Historic Drought</button>
+                <button class="bench-chip" id="bench-2019" onclick="toggleBenchmarkYear(2019)">&#127783; 2019 Historic Deluge</button>
+                <button class="bench-chip" id="bench-2025" onclick="toggleBenchmarkYear(2025)">&#128337; 2025 Previous Season</button>
             </div>
         </div>
         <div class="chart-svg-container" id="chart-container">
@@ -1044,19 +939,20 @@
         </div>
     </div>
 
-    <!-- Region / Province Picker Section with Power-BI Style Selection -->
+    <!-- State Picker Section with Search & Quick Filters -->
     <div class="picker-card">
         <div class="picker-header">
             <div class="picker-title-group">
-                <span class="picker-title">&#128506; Production Regions Slicer:</span>
-                <input type="text" class="search-input" id="state-search-input" placeholder="Search region (e.g. Heilongjiang, Henan)..." oninput="filterStatesBySearch()">
+                <span class="picker-title">&#128506; Select States to View:</span>
+                <span class="picker-hint">(Click: Single State &bull; Ctrl+Click: Multi-Select)</span>
+                <input type="text" class="search-input" id="state-search-input" placeholder="Search region or district in China..." oninput="filterStatesBySearch()">
             </div>
             <div class="quick-filters">
-                <button class="pill-btn" onclick="selectCropGroup('corn')">&#127805; Top Corn Regions (7)</button>
-                <button class="pill-btn" onclick="selectCropGroup('soy')">&#129752; Top Soybean Regions (5)</button>
-                <button class="pill-btn" onclick="selectCropGroup('wheat')">&#127806; Top Wheat Regions (8)</button>
-                <button class="pill-btn" onclick="selectAllStates()">&#127464;&#127475; All 19 Regions</button>
-                <button class="pill-btn" onclick="resetToHLJ()">Reset to Heilongjiang</button>
+                <button class="pill-btn" onclick="selectCropGroup('corn')">&#127805; Top Corn Belts</button>
+                <button class="pill-btn" onclick="selectCropGroup('soy')">&#129752; Top Soybean Belts</button>
+                <button class="pill-btn" onclick="selectCropGroup('wheat')">&#127806; Top Wheat Belts</button>
+                <button class="pill-btn" onclick="selectAllStates()">Select All Belts</button>
+                <button class="pill-btn" onclick="resetToDefault()">Reset to HLJ-CS</button>
             </div>
         </div>
         <div class="belt-groups-container" id="belt-pickers-container">
@@ -1064,118 +960,113 @@
         </div>
     </div>
 
-    <!-- 17-Year & Month Filter Controls with Power-BI Style Selection -->
+    <!-- 17-Year & Month Filter Controls -->
     <div class="filter-pills-bar">
         <div class="filter-column">
             <span class="filter-label">Years:</span>
-            <div id="year-chips-container" style="display:flex; gap:3px; flex-wrap:wrap;"></div>
-            <button class="pill-btn" onclick="setYearPreset('all')">All 18 Yrs (2010–27)</button>
-            <button class="pill-btn" onclick="setYearPreset('last10')">Last 10 Yrs</button>
-            <button class="pill-btn" onclick="setYearPreset('last5')">Last 5 Yrs</button>
-            <button class="pill-btn" onclick="setYearPreset('bench')">Benchmark Compare</button>
-            <button class="pill-btn" onclick="setYearPreset('outlook')">2026 + 6-Mo Outlook</button>
+            <div id="year-chips-container" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
+            <button class="pill-btn" onclick="setYearPreset('all')">All 17 Yrs (2010–26)</button>
+            <button class="pill-btn" onclick="setYearPreset('last10')">Last 10 Yrs (2017–26)</button>
+            <button class="pill-btn" onclick="setYearPreset('last5')">Last 5 Yrs (2022–26)</button>
+            <button class="pill-btn" onclick="setYearPreset('bench')">Drought Compare (2012, 2023, 2026)</button>
+            <button class="pill-btn" onclick="setYearPreset('early')">2010–2015 Era</button>
         </div>
         <div class="filter-column">
             <span class="filter-label">Months:</span>
-            <div id="month-chips-container" style="display:flex; gap:3px; flex-wrap:wrap;"></div>
+            <div id="month-chips-container" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
             <button class="pill-btn" onclick="setMonthPreset('all')">All 12 Mo</button>
-            <button class="pill-btn" onclick="setMonthPreset('q2')">Q2 (Planting Apr–Jun)</button>
-            <button class="pill-btn" onclick="setMonthPreset('q3')">Q3 (Grain Fill Jul–Sep)</button>
+            <button class="pill-btn" onclick="setMonthPreset('q2')">Q2 (Planting)</button>
+            <button class="pill-btn" onclick="setMonthPreset('q3')">Q3 (Grain Fill)</button>
             <button class="pill-btn" onclick="setMonthPreset('harvest')">Harvest (Aug–Nov)</button>
-            <button class="pill-btn" onclick="setMonthPreset('winter')">Winter/Dormancy (Nov–Mar)</button>
         </div>
     </div>
 
-    <!-- The Matrix Table Area (Compact) -->
-    <div class="matrix-area-container matrix-compact" id="matrix-wrapper">
-        <!-- Injected dynamically via renderMatrix() -->
+    <!-- The Matrix Table Card -->
+    <div class="matrix-container" id="matrix-wrapper">
+        <div id="matrix-header-container"></div>
+        <div class="matrix-table-wrapper" id="matrix-table-container"></div>
     </div>
 
     <!-- Footer -->
     <div class="footer-bar">
-        <span>Data Grounding: ECMWF IFS 0.25° Operational High-Resolution &bull; ECMWF SEAS5 6-Month Seasonal Forecast (Oct 2026 – Mar 2027) &bull; ERA5 Continuous Ag-Reanalysis (2010–2025)</span>
-        <span>Suite Calibration: Antigravity Ag-Weather Suite &bull; Multi-Model Operational Ensemble</span>
+        <span>Data Grounding: ECMWF IFS 0.25° Operational &bull; Open-Meteo ERA5 Continuous Reanalysis Archive (2010–2025) &bull; China Agricultural Statistics</span>
+        <span>Suite Calibration: Antigravity Ag-Weather Suite &bull; 17-Year Historical Coverage</span>
     </div>
 </div>
 
 <!-- Floating Inspector Popover -->
 <div class="cell-inspector-popover" id="cell-popover">
     <div class="pop-header">
-        <span class="pop-title" id="pop-title">Heilongjiang &bull; Nov 2026</span>
-        <span class="pop-badge" id="pop-badge">FORECAST (ECMWF SEAS5)</span>
+        <span class="pop-title" id="pop-title">Iowa &bull; Jul 2012</span>
+        <span class="pop-badge" id="pop-badge">Observed</span>
     </div>
     <div class="pop-row">
         <span>Metric Value:</span>
-        <span class="pop-val" id="pop-val">1.15 mm/d (34mm)</span>
+        <span class="pop-val" id="pop-val">1.82 mm/d</span>
     </div>
     <div class="pop-row">
         <span>2010–2025 Normal:</span>
-        <span class="pop-val" id="pop-norm">0.40 mm/d (12mm)</span>
+        <span class="pop-val" id="pop-norm">3.45 mm/d</span>
     </div>
     <div class="pop-row">
         <span>Anomaly Departure:</span>
-        <span class="pop-val" id="pop-anom">+0.75 mm/d (+186%)</span>
+        <span class="pop-val" id="pop-anom">-1.63 mm/d (-47%)</span>
     </div>
     <div class="pop-row">
-        <span>Forecast Feed:</span>
-        <span class="pop-val" id="pop-model" style="color:#38bdf8;">ECMWF SEAS5 6-Mo Seasonal</span>
+        <span>17-Year Historical Rank:</span>
+        <span class="pop-val" id="pop-rank">2nd Driest since 2010</span>
     </div>
-    <div class="pop-row">
-        <span>Historical Rank:</span>
-        <span class="pop-val" id="pop-rank">Wet Anomaly</span>
-    </div>
-    <div class="pop-diag" id="pop-diag">Early snowpack accumulation supporting winter soil moisture recharge.</div>
+    <div class="pop-diag" id="pop-diag">Severe drought stress during reproductive pollination window.</div>
 </div>
 
 <!-- Load Matrix Data Cache -->
 <script src="china_crop_matrix_data.js"></script>
 <script>
 // =============================================================
-// CHINA CROP WEATHER MATRIX CONTROLLER (18 YEARS: 2010-2027)
+// US CROP WEATHER MATRIX CONTROLLER (17 CONTINUOUS YEARS: 2010-2026)
 // =============================================================
 
 let currentVar = "precip"; // 'precip', 'temp_max', 'temp_min', 'temp', 'topsoil', 'subsoil'
 let viewMode = "absolute"; // 'absolute', 'anomaly'
 let precipUnit = "mm_day"; // 'mm_day', 'in_total', 'mm_total'
-let tempUnit = "c";        // 'c', 'f'
+let tempUnit = "c";        // 'f', 'c'
 let soilUnit = "vol";      // 'vol' (m3/m3), 'pct' (%)
 let selectedStates = ["HLJ-CS"];
-let benchmarkYears = [];   // e.g. [2014, 2016, 2021, 2022]
+let benchmarkYears = [];   // e.g. [2012, 2019, 2025]
+let activeYear = 2026;
 
-// All 18 years: 2027 down to 2010
-const ALL_YEARS = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+// All 17 years: 2010 to 2026
+const ALL_YEARS = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
 let selectedYears = [...ALL_YEARS];
 let selectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-let matrixDensity = "compact";
-let multiViewMode = "all"; // 'all' (Combined + Each Individual), 'combined' (Combined Only), 'single' (Focus 1 district)
-let focusedDistrict = null;
-let comparisonYear = 2026; // Default to current season (2026: observed + 6-mo FCST)
-let comparisonViewMode = "compare"; // 'compare' = districts on left side (one above another), 'history' = 18-yr matrix stacked
+let matrixDensity = "standard";
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-// 1. Color Heatmap Calculators
+// 1. Color Scales (Absolute & Anomaly)
 function getPrecipColor(val, isAnomaly = false) {
     if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
     const v = parseFloat(val);
     if (!isAnomaly) {
-        if (v < 0.6) return { bg: "#7f1d1d", text: "#ffffff", label: "< 0.6 mm/d Severe Deficit" };
-        if (v < 1.2) return { bg: "#dc2626", text: "#ffffff", label: "0.6-1.2 mm/d Dry" };
-        if (v < 2.0) return { bg: "#ea580c", text: "#ffffff", label: "1.2-2.0 mm/d Below Normal" };
-        if (v < 3.0) return { bg: "#fed7aa", text: "#7c2d12", label: "2.0-3.0 mm/d Moderate" };
-        if (v < 4.5) return { bg: "#e2e8f0", text: "#1e293b", label: "3.0-4.5 mm/d Normal" };
-        if (v < 6.5) return { bg: "#bbf7d0", text: "#14532d", label: "4.5-6.5 mm/d Favorable" };
-        if (v < 9.0) return { bg: "#86efac", text: "#14532d", label: "6.5-9.0 mm/d Wet" };
-        if (v < 13.0) return { bg: "#4ade80", text: "#14532d", label: "9.0-13.0 mm/d Heavy" };
-        return { bg: "#15803d", text: "#ffffff", label: "≥ 13.0 mm/d Deluge" };
+        if (v < 1.0) return { bg: "#991b1b", text: "#ffffff", label: "< 1.0 Extreme Dry" };
+        if (v < 2.0) return { bg: "#ef4444", text: "#ffffff", label: "1.0 - 2.0 Dry" };
+        if (v < 3.0) return { bg: "#fb923c", text: "#ffffff", label: "2.0 - 3.0 Mod Dry" };
+        if (v < 4.0) return { bg: "#fed7aa", text: "#7c2d12", label: "3.0 - 4.0 Below Normal" };
+        if (v <= 5.0) return { bg: "#e2e8f0", text: "#1e293b", label: "4.0 - 5.0 Normal" };
+        if (v < 6.5) return { bg: "#bbf7d0", text: "#14532d", label: "5.0 - 6.5 Favorable" };
+        if (v < 8.5) return { bg: "#86efac", text: "#14532d", label: "6.5 - 8.5 Wet" };
+        if (v < 12.0) return { bg: "#4ade80", text: "#14532d", label: "8.5 - 12.0 Very Wet" };
+        if (v < 16.0) return { bg: "#16a34a", text: "#ffffff", label: "12.0 - 16.0 Heavy" };
+        return { bg: "#14532d", text: "#ffffff", label: "> 16.0 Extreme" };
     } else {
+        // Anomaly scale mm/day vs normal
         if (v < -2.0) return { bg: "#7f1d1d", text: "#ffffff", label: "< -2.0 mm/d Severe Deficit" };
-        if (v < -1.0) return { bg: "#dc2626", text: "#ffffff", label: "-1.0 to -2.0 mm/d Deficit" };
-        if (v < -0.3) return { bg: "#fed7aa", text: "#7c2d12", label: "-0.3 to -1.0 mm/d Below Normal" };
-        if (v <= 0.3) return { bg: "#f1f5f9", text: "#334155", label: "±0.3 mm/d Near Normal" };
-        if (v <= 1.0) return { bg: "#bbf7d0", text: "#14532d", label: "+0.3 to +1.0 mm/d Above Normal" };
-        if (v <= 2.0) return { bg: "#4ade80", text: "#14532d", label: "+1.0 to +2.0 mm/d Surplus" };
-        return { bg: "#15803d", text: "#ffffff", label: "> +2.0 mm/d Excessive Rain" };
+        if (v < -1.0) return { bg: "#dc2626", text: "#ffffff", label: "-1.0 to -2.0 Deficit" };
+        if (v < -0.3) return { bg: "#fed7aa", text: "#7c2d12", label: "-0.3 to -1.0 Moderate Deficit" };
+        if (v <= 0.3) return { bg: "#f1f5f9", text: "#334155", label: "± 0.3 Near Normal" };
+        if (v <= 1.0) return { bg: "#bbf7d0", text: "#14532d", label: "+0.3 to +1.0 Favorable Surplus" };
+        if (v <= 2.0) return { bg: "#4ade80", text: "#14532d", label: "+1.0 to +2.0 Wet Surplus" };
+        return { bg: "#15803d", text: "#ffffff", label: "> +2.0 Heavy Deluge" };
     }
 }
 
@@ -1183,18 +1074,18 @@ function getTempMaxColor(val, isAnomaly = false) {
     if (val === null || val === undefined || isNaN(val)) return { bg: "#f1f5f9", text: "#94a3b8", label: "No Data" };
     const v = parseFloat(val);
     if (!isAnomaly) {
-        if (v < 10.0) return { bg: "#93c5fd", text: "#0f172a", label: "< 10°C Cool" };
-        if (v < 18.0) return { bg: "#86efac", text: "#14532d", label: "10-18°C Mild" };
-        if (v < 25.0) return { bg: "#fed7aa", text: "#7c2d12", label: "18-25°C Optimal Growth" };
-        if (v < 30.0) return { bg: "#fb923c", text: "#ffffff", label: "25-30°C Warm" };
-        if (v < 35.0) return { bg: "#ef4444", text: "#ffffff", label: "30-35°C Heat Stress" };
-        return { bg: "#991b1b", text: "#ffffff", label: "≥ 35°C Severe Heat" };
+        if (v < 15.0) return { bg: "#93c5fd", text: "#0f172a", label: "< 15° Cool Highs" };
+        if (v < 22.0) return { bg: "#86efac", text: "#14532d", label: "15–22° Mild Highs" };
+        if (v < 28.0) return { bg: "#fed7aa", text: "#7c2d12", label: "22–28° Optimal Growth" };
+        if (v < 32.0) return { bg: "#fb923c", text: "#ffffff", label: "28–32° Elevated Warmth" };
+        if (v < 35.0) return { bg: "#ef4444", text: "#ffffff", label: "32–35° Heat Stress (90°F+)" };
+        return { bg: "#991b1b", text: "#ffffff", label: "> 35° Severe Heat (95°F+)" };
     } else {
-        if (v < -2.5) return { bg: "#1e3a8a", text: "#ffffff", label: "< -2.5°C Cool Anomaly" };
-        if (v < -1.0) return { bg: "#60a5fa", text: "#0f172a", label: "-1.0 to -2.5°C Below Normal" };
-        if (v <= 1.0) return { bg: "#f1f5f9", text: "#334155", label: "± 1.0°C Normal" };
+        if (v < -2.5) return { bg: "#1e3a8a", text: "#ffffff", label: "< -2.5°C (-4.5°F) Unusually Cool" };
+        if (v < -1.0) return { bg: "#60a5fa", text: "#0f172a", label: "-1.0 to -2.5°C Cool" };
+        if (v <= 1.0) return { bg: "#f1f5f9", text: "#334155", label: "± 1.0°C Near Normal" };
         if (v <= 2.5) return { bg: "#fb923c", text: "#ffffff", label: "+1.0 to +2.5°C Warm Anomaly" };
-        return { bg: "#dc2626", text: "#ffffff", label: "> +2.5°C Severe Heat Anomaly" };
+        return { bg: "#dc2626", text: "#ffffff", label: "> +2.5°C (+4.5°F) Extreme Heat Wave" };
     }
 }
 
@@ -1203,12 +1094,12 @@ function getTempMinColor(val, isAnomaly = false) {
     const v = parseFloat(val);
     if (!isAnomaly) {
         if (v < -15.0) return { bg: "#1e1b4b", text: "#ffffff", label: "< -15° Severe Freeze" };
-        if (v < -2.0) return { bg: "#1e3a8a", text: "#ffffff", label: "-15 to -2° Hard Freeze" };
-        if (v <= 0.0) return { bg: "#3b82f6", text: "#ffffff", label: "-2 to 0° Light Frost" };
+        if (v < -2.2) return { bg: "#1e3a8a", text: "#ffffff", label: "-15 to -2° Hard Freeze (28°F)" };
+        if (v <= 0.0) return { bg: "#3b82f6", text: "#ffffff", label: "-2 to 0° Light Frost (32°F)" };
         if (v < 10.0) return { bg: "#93c5fd", text: "#0f172a", label: "0 to 10° Cool Night" };
         if (v < 16.0) return { bg: "#86efac", text: "#14532d", label: "10 to 16° Crisp Night" };
-        if (v < 22.0) return { bg: "#fed7aa", text: "#7c2d12", label: "16 to 22° Favorable Night" };
-        return { bg: "#ef4444", text: "#ffffff", label: "≥ 22° Warm Night Respiration" };
+        if (v < 21.1) return { bg: "#fed7aa", text: "#7c2d12", label: "16 to 21° Favorable Night" };
+        return { bg: "#ef4444", text: "#ffffff", label: "≥ 21° Warm Night Respiration (70°F+)" };
     } else {
         if (v < -2.5) return { bg: "#1e1b4b", text: "#ffffff", label: "< -2.5°C Severe Frost Risk" };
         if (v < -1.0) return { bg: "#3b82f6", text: "#ffffff", label: "-1.0 to -2.5°C Cool Night" };
@@ -1279,6 +1170,42 @@ async function initMatrixDashboard() {
         }
     }
 
+    // Read URL parameters if provided
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const varParam = urlParams.get("var");
+        const modeParam = urlParams.get("mode");
+        const stateParam = urlParams.get("state");
+        const benchParam = urlParams.get("bench");
+
+        if (varParam && ["precip", "temp_max", "temp_min", "temp", "topsoil", "subsoil"].includes(varParam)) {
+            currentVar = varParam;
+            document.querySelectorAll(".segmented-btn[data-var]").forEach(b => {
+                b.classList.toggle("active", b.dataset.var === varParam);
+            });
+        }
+        if (modeParam && ["absolute", "anomaly"].includes(modeParam)) {
+            viewMode = modeParam;
+            document.getElementById("btn-mode-abs").classList.toggle("active", modeParam === "absolute");
+            document.getElementById("btn-mode-anom").classList.toggle("active", modeParam === "anomaly");
+        }
+        if (stateParam) {
+            selectedStates = stateParam.split(",").map(s => s.trim().toUpperCase()).filter(Boolean);
+        }
+        if (benchParam) {
+            benchParam.split(",").forEach(y => {
+                const num = parseInt(y.trim());
+                if (!isNaN(num) && !benchmarkYears.includes(num)) {
+                    benchmarkYears.push(num);
+                    const el = document.getElementById(`bench-${num}`);
+                    if (el) el.classList.add(`active-${num}`);
+                }
+            });
+        }
+    } catch (e) {
+        console.warn("URL params error:", e);
+    }
+
     renderStatePickers();
     renderYearChips();
     renderMonthChips();
@@ -1315,40 +1242,27 @@ function renderUnitButtons() {
         `;
     } else {
         container.innerHTML = `
-            <button class="unit-switch-btn ${tempUnit === 'c' ? 'active' : ''}" onclick="setTempUnit('c')">°C</button>
             <button class="unit-switch-btn ${tempUnit === 'f' ? 'active' : ''}" onclick="setTempUnit('f')">°F</button>
+            <button class="unit-switch-btn ${tempUnit === 'c' ? 'active' : ''}" onclick="setTempUnit('c')">°C</button>
         `;
     }
 }
 
-function setPrecipUnit(u) {
-    precipUnit = u;
-    renderUnitButtons();
-    renderMatrix();
-}
+function setPrecipUnit(u) { precipUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+function setTempUnit(u) { tempUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
+function setSoilUnit(u) { soilUnit = u; renderUnitButtons(); renderChart(); renderMatrix(); }
 
-function setTempUnit(u) {
-    tempUnit = u;
-    renderUnitButtons();
-    renderMatrix();
-}
-
-function setSoilUnit(u) {
-    soilUnit = u;
-    renderUnitButtons();
-    renderMatrix();
-}
-
-// Dynamic Legend Bar
+// Render Legend Bar
 function renderLegend() {
     const container = document.getElementById("legend-container");
     if (!container) return;
 
     let chipsHtml = "";
     let title = "";
+    const isAnom = (viewMode === "anomaly");
 
-    if (viewMode === "anomaly") {
-        title = `ANOMALY DEPARTURE vs 2010–2025 Normal (${currentVar}):`;
+    if (isAnom) {
+        title = `ANOMALY DEPARTURE SCALE vs 2010–2025 Normal (${currentVar}):`;
         let scale = [];
         if (currentVar === "precip") {
             scale = [
@@ -1382,38 +1296,39 @@ function renderLegend() {
         if (currentVar === "precip") {
             title = "Precipitation Absolute Scale (mm/day):";
             const scale = [
-                { bg: "#7f1d1d", text: "#fff", lbl: "< 0.6 Dry" },
-                { bg: "#dc2626", text: "#fff", lbl: "0.6–1.2" },
-                { bg: "#ea580c", text: "#fff", lbl: "1.2–2.0" },
-                { bg: "#fed7aa", text: "#7c2d12", lbl: "2.0–3.0" },
-                { bg: "#e2e8f0", text: "#1e293b", lbl: "3.0–4.5 Normal" },
-                { bg: "#bbf7d0", text: "#14532d", lbl: "4.5–6.5" },
-                { bg: "#86efac", text: "#14532d", lbl: "6.5–9.0" },
-                { bg: "#4ade80", text: "#14532d", lbl: "9.0–13.0" },
-                { bg: "#15803d", text: "#fff", lbl: "> 13.0 Deluge" }
+                { bg: "#991b1b", text: "#fff", lbl: "< 1.0 Dry" },
+                { bg: "#ef4444", text: "#fff", lbl: "1.0–2.0" },
+                { bg: "#fb923c", text: "#fff", lbl: "2.0–3.0" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "3.0–4.0" },
+                { bg: "#e2e8f0", text: "#1e293b", lbl: "4.0–5.0 Normal" },
+                { bg: "#bbf7d0", text: "#14532d", lbl: "5.0–6.5" },
+                { bg: "#86efac", text: "#14532d", lbl: "6.5–8.5" },
+                { bg: "#4ade80", text: "#14532d", lbl: "8.5–12.0" },
+                { bg: "#16a34a", text: "#fff", lbl: "12.0–16.0" },
+                { bg: "#14532d", text: "#fff", lbl: "> 16.0 Wet" }
             ];
             chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
         } else if (currentVar === "temp_max") {
-            title = "Daytime High T-Max Scale (°C / °F):";
+            title = "Daytime High T-Max Scale (°C / °F) • Heat Stress:";
             const scale = [
-                { bg: "#93c5fd", text: "#0f172a", lbl: "< 10°C Cool" },
-                { bg: "#86efac", text: "#14532d", lbl: "10–18°C Mild" },
-                { bg: "#fed7aa", text: "#7c2d12", lbl: "18–25°C Optimal" },
-                { bg: "#fb923c", text: "#ffffff", lbl: "25–30°C Warm" },
-                { bg: "#ef4444", text: "#ffffff", lbl: "30–35°C Heat Stress" },
-                { bg: "#991b1b", text: "#ffffff", lbl: "> 35°C Extreme Heat" }
+                { bg: "#93c5fd", text: "#0f172a", lbl: "< 15° (< 59°F) Cool" },
+                { bg: "#86efac", text: "#14532d", lbl: "15–22° (59–72°F) Mild" },
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "22–28° (72–82°F) Optimal" },
+                { bg: "#fb923c", text: "#ffffff", lbl: "28–32° (82–90°F) Warm" },
+                { bg: "#ef4444", text: "#ffffff", lbl: "32–35° (90–95°F) Heat Stress" },
+                { bg: "#991b1b", text: "#ffffff", lbl: "> 35° (> 95°F) Severe Shock" }
             ];
             chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
         } else if (currentVar === "temp_min") {
-            title = "Nighttime Low T-Min Scale (°C / °F):";
+            title = "Nighttime Low T-Min Scale (°C / °F) • Frost & Night Respiration:";
             const scale = [
                 { bg: "#1e1b4b", text: "#fff", lbl: "< -15° Deep Freeze" },
                 { bg: "#1e3a8a", text: "#fff", lbl: "-15 to -2° Hard Freeze" },
                 { bg: "#3b82f6", text: "#fff", lbl: "-2 to 0° Light Frost" },
                 { bg: "#93c5fd", text: "#0f172a", lbl: "0 to 10° Cool Night" },
                 { bg: "#86efac", text: "#14532d", lbl: "10 to 16° Crisp Night" },
-                { bg: "#fed7aa", text: "#7c2d12", lbl: "16 to 22° Favorable" },
-                { bg: "#ef4444", text: "#fff", lbl: "≥ 22° Respiration Penalty" }
+                { bg: "#fed7aa", text: "#7c2d12", lbl: "16 to 21° Favorable" },
+                { bg: "#ef4444", text: "#fff", lbl: "≥ 21° (> 70°F) Respiration Penalty" }
             ];
             chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
         } else if (currentVar === "temp") {
@@ -1430,7 +1345,7 @@ function renderLegend() {
             ];
             chipsHtml = scale.map(s => `<span class="legend-chip" style="background:${s.bg}; color:${s.text};">${s.lbl}</span>`).join("");
         } else {
-            title = `${currentVar === 'topsoil' ? 'Topsoil (0–7cm)' : 'Subsoil (7–100cm)'} Moisture (m³/m³):`;
+            title = `${currentVar === 'topsoil' ? 'Topsoil (0–10cm)' : 'Subsoil (10–100cm)'} Moisture (m³/m³):`;
             const scale = [
                 { bg: "#991b1b", text: "#fff", lbl: "< 0.160 Extreme Deficit" },
                 { bg: "#ef4444", text: "#fff", lbl: "0.160–0.220 Moderate Stress" },
@@ -1445,17 +1360,17 @@ function renderLegend() {
 
     container.innerHTML = `
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-            <strong style="color:var(--text-primary); font-size:10.5px;">${title}</strong>
+            <strong style="color:var(--text-primary); font-size:11.5px;">${title}</strong>
             <div class="legend-scale-container">${chipsHtml}</div>
         </div>
         <div class="legend-key-box">
-            <div><span class="sample-solid"></span><strong>Solid:</strong> Observed ERA5</div>
-            <div><span class="sample-dashed"></span><strong>Dashed [FCST]:</strong> ECMWF IFS &amp; SEAS5 6-Mo Forecast</div>
+            <div><span class="sample-solid"></span><strong>Solid:</strong> Observed ERA5 / Archive</div>
+            <div><span class="sample-dashed"></span><strong>Dashed:</strong> GFS Forward Guidance</div>
         </div>
     `;
 }
 
-// Power-BI Style Region Picker: Plain Click = Single, Ctrl+Click = Multi
+// Render State Pickers
 function renderStatePickers(filterQuery = "") {
     const data = window.CHINA_CROP_MATRIX_DATA;
     if (!data) return;
@@ -1475,7 +1390,7 @@ function renderStatePickers(filterQuery = "") {
     for (const [rtitle, locs] of Object.entries(belts)) {
         let chips = locs.map(l => {
             const isActive = selectedStates.includes(l.code);
-            return `<button class="state-chip ${isActive ? 'active' : ''}" onclick="toggleState('${l.code}', event)" title="Click to select only ${l.name} • Ctrl+Click to add/remove">${l.name} (${l.code})</button>`;
+            return `<button class="state-chip ${isActive ? 'active' : ''}" onclick="toggleState('${l.code}', event)">${l.name} (${l.code})</button>`;
         }).join("");
 
         html += `
@@ -1486,28 +1401,9 @@ function renderStatePickers(filterQuery = "") {
         `;
     }
     if (Object.keys(belts).length === 0) {
-        html = `<div style="font-size:11px; color:var(--text-muted); padding:3px 0;">No agricultural regions match search query.</div>`;
+        html = `<div style="font-size:12px; color:var(--text-muted); padding:4px 0;">No agricultural states match search query.</div>`;
     }
     container.innerHTML = html;
-}
-
-function toggleState(code, event) {
-    if (event && (event.ctrlKey || event.metaKey)) {
-        // Multi-select toggle
-        if (selectedStates.includes(code)) {
-            if (selectedStates.length > 1) {
-                selectedStates = selectedStates.filter(c => c !== code);
-            }
-        } else {
-            selectedStates.push(code);
-        }
-    } else {
-        // Single-select
-        selectedStates = [code];
-    }
-    renderStatePickers();
-    renderChart();
-    renderMatrix();
 }
 
 function filterStatesBySearch() {
@@ -1515,57 +1411,25 @@ function filterStatesBySearch() {
     renderStatePickers(q);
 }
 
-// Power-BI Style Year Chips: Plain Click = Single, Ctrl+Click = Multi
+// Render Year Chips (All 17 Years)
 function renderYearChips() {
     const container = document.getElementById("year-chips-container");
     if (!container) return;
     container.innerHTML = ALL_YEARS.map(y => {
         const isActive = selectedYears.includes(y);
-        const isFcst = (y === 2027);
-        const label = isFcst ? "2027 FCST" : y;
-        return `<button class="year-chip ${isActive ? 'active' : ''}" onclick="toggleYear(${y}, event)" title="Click to view only ${y} • Ctrl+Click to multi-select">${label}</button>`;
+        return `<button class="year-chip ${isActive ? 'active' : ''}" onclick="toggleYear(${y})">${y}</button>`;
     }).join("");
 }
 
-function toggleYear(y, event) {
-    if (event && (event.ctrlKey || event.metaKey)) {
-        if (selectedYears.includes(y)) {
-            if (selectedYears.length > 1) selectedYears = selectedYears.filter(yr => yr !== y);
-        } else {
-            selectedYears.push(y);
-        }
-    } else {
-        selectedYears = [y];
-        comparisonYear = y;
-    }
-    renderYearChips();
-    renderChart();
-    renderMatrix();
-}
-
-// Power-BI Style Month Chips: Plain Click = Single, Ctrl+Click = Multi
+// Render Month Chips
 function renderMonthChips() {
     const container = document.getElementById("month-chips-container");
     if (!container) return;
     container.innerHTML = monthNames.map((m, idx) => {
         const mNum = idx + 1;
         const isActive = selectedMonths.includes(mNum);
-        return `<button class="month-chip ${isActive ? 'active' : ''}" onclick="toggleMonth(${mNum}, event)" title="Click to view only ${m} • Ctrl+Click to multi-select">${m}</button>`;
+        return `<button class="month-chip ${isActive ? 'active' : ''}" onclick="toggleMonth(${mNum})">${m}</button>`;
     }).join("");
-}
-
-function toggleMonth(m, event) {
-    if (event && (event.ctrlKey || event.metaKey)) {
-        if (selectedMonths.includes(m)) {
-            if (selectedMonths.length > 1) selectedMonths = selectedMonths.filter(mn => mn !== m);
-        } else {
-            selectedMonths.push(m);
-        }
-    } else {
-        selectedMonths = [m];
-    }
-    renderMonthChips();
-    renderMatrix();
 }
 
 // Metric Selection
@@ -1586,46 +1450,71 @@ function setDensity(d) {
     wrapper.classList.remove("matrix-compact", "matrix-dense");
     if (d === "compact") wrapper.classList.add("matrix-compact");
     if (d === "dense") wrapper.classList.add("matrix-dense");
-
-    document.getElementById("btn-density-standard").classList.toggle("active", d === "standard");
-    document.getElementById("btn-density-compact").classList.toggle("active", d === "compact");
-    document.getElementById("btn-density-dense").classList.toggle("active", d === "dense");
 }
 
-function selectCropGroup(grp) {
-    if (grp === "corn") selectedStates = ["HLJ-CS", "HLJ-NORTH", "JL-CENTRAL", "LN-CENTRAL", "IM-EAST", "SD-NW", "HA-NORTH"];
-    if (grp === "soy") selectedStates = ["HLJ-NORTH", "HLJ-CS", "JL-CENTRAL", "IM-EAST", "AH-NORTH"];
-    if (grp === "wheat") selectedStates = ["HA-NORTH", "HA-SOUTH", "SD-NW", "SD-SW", "HEB-SOUTH", "AH-NORTH", "JS-NORTH", "SN-GUANZHONG"];
+function toggleState(code, event) {
+    const isMulti = event && (event.ctrlKey || event.metaKey);
+    if (isMulti) {
+        if (selectedStates.includes(code)) {
+            if (selectedStates.length > 1) {
+                selectedStates = selectedStates.filter(c => c !== code);
+            }
+        } else {
+            selectedStates.push(code);
+        }
+    } else {
+        selectedStates = [code];
+    }
     renderStatePickers();
     renderChart();
     renderMatrix();
 }
 
-function selectAllStates() {
-    const data = window.CHINA_CROP_MATRIX_DATA;
-    if (data) {
-        selectedStates = data.locations.map(l => l.code);
-        renderStatePickers();
-        renderChart();
-        renderMatrix();
-    }
+function selectCropGroup(grp) {
+        if (grp === "corn") selectedStates = ["HLJ-CS", "HLJ-NORTH", "JL-CENTRAL", "LN-CENTRAL", "IM-EAST", "HA-NORTH", "HA-SOUTH", "SD-NW", "SD-SW", "HE-SOUTH", "AH-NORTH", "JS-NORTH", "SN-GUANZHONG", "SX-SOUTH", "XJ-OASIS", "GS-CORRIDOR", "SC-BASIN", "HB-NORTH", "YN-PLATEAU"];
+    if (grp === "soy") selectedStates = ["HLJ-CS", "HLJ-NORTH", "JL-CENTRAL", "LN-CENTRAL", "IM-EAST", "HA-SOUTH", "SD-SW", "HE-SOUTH", "AH-NORTH", "JS-NORTH", "SC-BASIN"];
+    if (grp === "wheat") selectedStates = ["HLJ-NORTH", "HA-NORTH", "HA-SOUTH", "SD-NW", "SD-SW", "HE-SOUTH", "AH-NORTH", "JS-NORTH", "SN-GUANZHONG", "SX-SOUTH", "XJ-OASIS", "GS-CORRIDOR", "SC-BASIN", "HB-NORTH"];
+    renderStatePickers();
+    renderChart();
+    renderMatrix();
 }
 
-function resetToHLJ() {
+function resetToDefault() {
     selectedStates = ["HLJ-CS"];
     renderStatePickers();
     renderChart();
     renderMatrix();
 }
 
-function setYearPreset(p) {
-    if (p === "all") selectedYears = [...ALL_YEARS];
-    if (p === "last10") selectedYears = [2027, 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
-    if (p === "last5") selectedYears = [2027, 2026, 2025, 2024, 2023, 2022];
-    if (p === "bench") selectedYears = [2027, 2026, 2022, 2021, 2016, 2014];
-    if (p === "outlook") selectedYears = [2027, 2026];
+function toggleYear(y) {
+    if (selectedYears.includes(y)) {
+        if (selectedYears.length > 1) selectedYears = selectedYears.filter(yr => yr !== y);
+    } else {
+        selectedYears.push(y);
+    }
     renderYearChips();
     renderChart();
+    renderMatrix();
+}
+
+function setYearPreset(p) {
+    if (p === "all") selectedYears = [...ALL_YEARS];
+    if (p === "last10") selectedYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
+    if (p === "last5") selectedYears = [2026, 2025, 2024, 2023, 2022];
+    if (p === "bench") selectedYears = [2026, 2023, 2017, 2012];
+    if (p === "early") selectedYears = [2015, 2014, 2013, 2012, 2011, 2010];
+    renderYearChips();
+    renderChart();
+    renderMatrix();
+}
+
+function toggleMonth(m) {
+    if (selectedMonths.includes(m)) {
+        if (selectedMonths.length > 1) selectedMonths = selectedMonths.filter(mn => mn !== m);
+    } else {
+        selectedMonths.push(m);
+    }
+    renderMonthChips();
     renderMatrix();
 }
 
@@ -1634,7 +1523,6 @@ function setMonthPreset(p) {
     if (p === "q2") selectedMonths = [4, 5, 6];
     if (p === "q3") selectedMonths = [7, 8, 9];
     if (p === "harvest") selectedMonths = [8, 9, 10, 11];
-    if (p === "winter") selectedMonths = [11, 12, 1, 2, 3];
     renderMonthChips();
     renderMatrix();
 }
@@ -1642,17 +1530,15 @@ function setMonthPreset(p) {
 function toggleBenchmarkYear(y) {
     if (benchmarkYears.includes(y)) {
         benchmarkYears = benchmarkYears.filter(item => item !== y);
-        const el = document.getElementById(`bench-${y}`);
-        if (el) el.classList.remove(`active-${y}`);
+        document.getElementById(`bench-${y}`).classList.remove(`active-${y}`);
     } else {
         benchmarkYears.push(y);
-        const el = document.getElementById(`bench-${y}`);
-        if (el) el.classList.add(`active-${y}`);
+        document.getElementById(`bench-${y}`).classList.add(`active-${y}`);
     }
     renderChart();
 }
 
-// Extract metric value
+// Helper: Extract monthly value from record for current variable
 function getMetricValue(rec, v) {
     if (!rec) return null;
     if (v === "precip") return rec.precip_mm_day;
@@ -1664,11 +1550,11 @@ function getMetricValue(rec, v) {
     return null;
 }
 
-// Convert metric value
+// Helper: Convert metric value to chosen unit
 function convertValue(val, v, isDelta = false) {
     if (val === null || val === undefined || isNaN(val)) return null;
     if (v === "precip") {
-        if (precipUnit === "in_total") return (val * 30.4) / 25.4;
+        if (precipUnit === "in_total") return (val * 30.4) / 25.4; // approx monthly inches
         if (precipUnit === "mm_total") return val * 30.4;
         return val; // mm/day
     }
@@ -1679,7 +1565,7 @@ function convertValue(val, v, isDelta = false) {
         return val;
     }
     if (v === "topsoil" || v === "subsoil") {
-        if (soilUnit === "pct") return (val / 0.45) * 100;
+        if (soilUnit === "pct") return (val / 0.45) * 100; // relative saturation %
         return val;
     }
     return val;
@@ -1704,8 +1590,14 @@ function renderChart() {
     if (!container || !data) return;
 
     const width = container.clientWidth || 1500;
-    const height = 140;
-    const padding = { top: 16, right: 24, bottom: 22, left: 50 };
+    const height = 180;
+    const padding = { top: 20, right: 30, bottom: 25, left: 60 };
+
+    // Compute monthly curves across selected states
+    // 1. Min/Max envelope across all 17 years (2010-2026)
+    // 2. Baseline 2010-2025 mean curve
+    // 3. Active 2026 curve
+    // 4. Benchmark years curves (2012, 2019, 2025)
 
     const monthlyMin = [];
     const monthlyMax = [];
@@ -1754,6 +1646,7 @@ function renderChart() {
         monthly2026.push(v2026 !== null ? convertValue(v2026, currentVar) : null);
     }
 
+    // Process benchmarks
     const benchCurves = {};
     benchmarkYears.forEach(by => {
         benchCurves[by] = [];
@@ -1763,6 +1656,7 @@ function renderChart() {
         }
     });
 
+    // Determine scale limits
     let allDisplay = [...monthlyMin, ...monthlyMax, ...monthlyBase, ...monthly2026.filter(v => v !== null)];
     Object.values(benchCurves).forEach(arr => arr.forEach(v => { if (v !== null) allDisplay.push(v); }));
     let yMin = Math.min(...allDisplay);
@@ -1777,14 +1671,15 @@ function renderChart() {
     const getX = (idx) => padding.left + (idx / 11) * plotW;
     const getY = (val) => padding.top + plotH - ((val - yMin) / (yMax - yMin)) * plotH;
 
-    // Gridlines
+    // Build SVG Elements
+    // 1. Gridlines
     let gridHtml = "";
-    for (let i = 0; i <= 3; i++) {
-        const gridVal = yMin + (i / 3) * (yMax - yMin);
+    for (let i = 0; i <= 4; i++) {
+        const gridVal = yMin + (i / 4) * (yMax - yMin);
         const yPos = getY(gridVal);
         gridHtml += `
             <line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#f1f5f9" stroke-width="1"/>
-            <text x="${padding.left - 6}" y="${yPos + 3}" text-anchor="end" font-size="8.5" fill="#94a3b8" font-weight="600">${gridVal.toFixed(1)}</text>
+            <text x="${padding.left - 8}" y="${yPos + 3.5}" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="600">${gridVal.toFixed(1)}</text>
         `;
     }
 
@@ -1793,114 +1688,123 @@ function renderChart() {
     for (let i = 0; i < 12; i++) {
         const xPos = getX(i);
         xLabelsHtml += `
-            <text x="${xPos}" y="${height - 6}" text-anchor="middle" font-size="9" fill="#64748b" font-weight="700">${monthNames[i]}</text>
+            <line x1="${xPos}" y1="${padding.top}" x2="${xPos}" y2="${height - padding.bottom}" stroke="#f8fafc" stroke-width="1"/>
+            <text x="${xPos}" y="${height - padding.bottom + 16}" text-anchor="middle" font-size="10" fill="#64748b" font-weight="700">${monthNames[i]}</text>
         `;
     }
 
-    // Envelope Path
-    let envelopePath = `M ${getX(0)} ${getY(monthlyMax[0])}`;
-    for (let i = 1; i < 12; i++) envelopePath += ` L ${getX(i)} ${getY(monthlyMax[i])}`;
-    for (let i = 11; i >= 0; i--) envelopePath += ` L ${getX(i)} ${getY(monthlyMin[i])}`;
-    envelopePath += " Z";
+    // 2. 17-Year Envelope Area Path
+    let upperPts = monthlyMax.map((v, i) => `${getX(i)},${getY(v)}`).join(" ");
+    let lowerPts = [...monthlyMin].reverse().map((v, i) => `${getX(11 - i)},${getY(v)}`).join(" ");
+    const envelopePath = `M ${upperPts} L ${lowerPts} Z`;
 
-    // Baseline Line
-    let basePts = monthlyBase.map((v, i) => `${getX(i)},${getY(v)}`).join(" L ");
+    // 3. Baseline Line
+    const basePts = monthlyBase.map((v, i) => `${getX(i)},${getY(v)}`).join(" L ");
 
-    // Benchmark lines
-    const benchColors = { 2014: "#dc2626", 2016: "#2563eb", 2021: "#0284c7", 2022: "#b45309" };
+    // 4. Benchmark Lines
     let benchLinesHtml = "";
-    benchmarkYears.forEach(by => {
-        const bPts = benchCurves[by].filter(v => v !== null).map((v, i) => `${getX(i)},${getY(v)}`).join(" L ");
-        const bColor = benchColors[by] || "#7c3aed";
-        if (bPts) {
-            benchLinesHtml += `<path d="M ${bPts}" fill="none" stroke="${bColor}" stroke-width="2" stroke-dasharray="3,3"/>`;
-        }
-    });
-
-    // 2026 Observed and ECMWF Forecast Path
-    let pts2026Obs = [];
-    let pts2026Fc = [];
-    for (let i = 0; i < 12; i++) {
-        const v = monthly2026[i];
-        if (v !== null) {
-            if (i <= 9) pts2026Obs.push(`${getX(i)},${getY(v)}`);
-            if (i >= 9) pts2026Fc.push(`${getX(i)},${getY(v)}`);
+    const benchColors = { 2012: "#dc2626", 2019: "#2563eb", 2025: "#7c3aed" };
+    for (const [by, vals] of Object.entries(benchCurves)) {
+        const validPts = vals.map((v, i) => v !== null ? `${getX(i)},${getY(v)}` : null).filter(Boolean).join(" L ");
+        if (validPts) {
+            benchLinesHtml += `<path d="M ${validPts}" fill="none" stroke="${benchColors[by] || '#059669'}" stroke-width="2" stroke-dasharray="4,3"/>`;
         }
     }
+
+    // 5. 2026 Line (Jan-Aug solid, Sep-Dec dashed)
+    const pts2026_obs = monthly2026.slice(0, 8).map((v, i) => v !== null ? `${getX(i)},${getY(v)}` : null).filter(Boolean).join(" L ");
+    const pts2026_fcst = monthly2026.slice(7, 12).map((v, i) => v !== null ? `${getX(i + 7)},${getY(v)}` : null).filter(Boolean).join(" L ");
 
     let line2026Html = "";
-    if (pts2026Obs.length > 1) {
-        line2026Html += `<path d="M ${pts2026Obs.join(' L ')}" fill="none" stroke="#047857" stroke-width="2.5"/>`;
+    if (pts2026_obs) {
+        line2026Html += `<path d="M ${pts2026_obs}" fill="none" stroke="#064e3b" stroke-width="3"/>`;
     }
-    if (pts2026Fc.length > 1) {
-        line2026Html += `<path d="M ${pts2026Fc.join(' L ')}" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,3"/>`;
+    if (pts2026_fcst) {
+        line2026Html += `<path d="M ${pts2026_fcst}" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5,4"/>`;
     }
 
+    // 6. Data Points for 2026
     let points2026Html = "";
     monthly2026.forEach((v, i) => {
         if (v !== null) {
-            const isFc = (i >= 9);
-            const fillC = isFc ? "#0284c7" : "#047857";
-            points2026Html += `<circle cx="${getX(i)}" cy="${getY(v)}" r="3" fill="${fillC}" stroke="#ffffff" stroke-width="1.5"/>`;
+            const isFcst = i >= 8;
+            points2026Html += `
+                <circle cx="${getX(i)}" cy="${getY(v)}" r="4.5" fill="${isFcst ? '#0284c7' : '#064e3b'}" stroke="#ffffff" stroke-width="1.5">
+                    <title>China Crop Weather & Climatology Matrix (2010–2026)</title>
+                </circle>
+            `;
         }
     });
 
     container.innerHTML = `
         <svg class="chart-svg" viewBox="0 0 ${width} ${height}">
+            <!-- Gridlines -->
             ${gridHtml}
             ${xLabelsHtml}
+
+            <!-- 17-Year Historical Envelope -->
             <path d="${envelopePath}" fill="#e2e8f0" fill-opacity="0.45" stroke="#cbd5e1" stroke-width="1"/>
-            <path d="M ${basePts}" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+            <!-- 2010-2025 Normal Baseline -->
+            <path d="M ${basePts}" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+
+            <!-- Benchmarks -->
             ${benchLinesHtml}
+
+            <!-- 2026 Trajectory -->
             ${line2026Html}
             ${points2026Html}
-            <g transform="translate(${padding.left + 15}, ${padding.top + 2})">
-                <rect x="0" y="0" width="12" height="8" fill="#e2e8f0" fill-opacity="0.7" rx="2"/>
-                <text x="16" y="7" font-size="9" font-weight="700" fill="#475569">17-Yr Range (2010–26 Envelope)</text>
 
-                <line x1="165" y1="4" x2="180" y2="4" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
-                <text x="185" y="7" font-size="9" font-weight="700" fill="#475569">2010–25 Normal</text>
+            <!-- Legend inside Chart -->
+            <g transform="translate(${padding.left + 15}, ${padding.top + 8})">
+                <rect x="0" y="0" width="14" height="10" fill="#e2e8f0" fill-opacity="0.7" rx="2"/>
+                <text x="20" y="9" font-size="10" font-weight="700" fill="#475569">17-Yr Range (2010–26 Envelope)</text>
 
-                <line x1="265" y1="4" x2="280" y2="4" stroke="#047857" stroke-width="2.5"/>
-                <circle cx="272" cy="4" r="2.5" fill="#047857"/>
-                <text x="286" y="7" font-size="9" font-weight="800" fill="#047857">2026 Observed</text>
+                <line x1="190" y1="5" x2="210" y2="5" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="216" y="9" font-size="10" font-weight="700" fill="#475569">2010–25 Normal</text>
 
-                <line x1="375" y1="4" x2="390" y2="4" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,3"/>
-                <circle cx="382" cy="4" r="2.5" fill="#0284c7"/>
-                <text x="396" y="7" font-size="9" font-weight="800" fill="#0284c7">6-Mo ECMWF Forecast [FCST]</text>
+                <line x1="310" y1="5" x2="330" y2="5" stroke="#064e3b" stroke-width="3"/>
+                <circle cx="320" cy="5" r="3.5" fill="#064e3b"/>
+                <text x="336" y="9" font-size="10" font-weight="800" fill="#064e3b">2026 Observed</text>
+
+                <line x1="430" y1="5" x2="450" y2="5" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="4,3"/>
+                <circle cx="440" cy="5" r="3.5" fill="#0284c7"/>
+                <text x="456" y="9" font-size="10" font-weight="800" fill="#0284c7">2026 GFS Guidance</text>
             </g>
         </svg>
     `;
 }
 
-// 4. Render Matrix Blocks (Combined Composite & Individual Districts with Strict Equal Column Widths)
-function renderSingleMatrixBlock(targetStates, isComposite = false, blockId = "") {
+// 4. Generate Single Matrix Table (Modular helper for Composite and Individual States)
+function generateSingleMatrixTable(targetStates, isComposite = false, tableId = "") {
     const data = window.CHINA_CROP_MATRIX_DATA;
-    if (!data) return "";
-
     const yearsSorted = [...selectedYears].sort((a, b) => b - a);
     const monthsSorted = [...selectedMonths].sort((a, b) => a - b);
     const isAnom = (viewMode === "anomaly");
 
-    const locMap = {};
-    data.locations.forEach(l => locMap[l.code] = l);
+    // Table Headers
+    let thead = `
+        <thead>
+            <tr>
+                <th class="th-year">Year</th>
+    `;
+    monthsSorted.forEach(m => {
+        thead += `<th>${monthNames[m - 1]}</th>`;
+    });
+    thead += `
+                <th class="th-avg">${isAnom ? 'Period Anom' : 'Period Avg'}</th>
+                <th class="th-avg">${isAnom ? '16-Yr Baseline' : (currentVar === 'precip' ? 'Total Accum' : '16-Yr Baseline')}</th>
+            </tr>
+        </thead>
+    `;
 
-    let stateTitle = "";
-    let badgeText = "";
-    let badgeBg = "";
+    let grandSum = 0;
+    let grandCount = 0;
+    let grandTotalAccum = 0;
+    let grandAnomSum = 0;
+    let rowsHtml = "";
 
-    if (isComposite) {
-        stateTitle = `★ Multi-Region Composite (${targetStates.length} Chinese Regions) &bull; ${getVarTitle()}`;
-        badgeText = "COMBINED COMPOSITE";
-        badgeBg = "var(--primary)";
-    } else {
-        const l = locMap[targetStates[0]] || {};
-        stateTitle = `📍 ${l.name} (${l.code}) &bull; ${getVarTitle()}`;
-        badgeText = "INDIVIDUAL DISTRICT";
-        badgeBg = "#0284c7";
-    }
-
-    // Pre-calculate baselines for target states across months
+    // Pre-calculate baselines for target states & months
     const stateBaselines = {};
     monthsSorted.forEach(m => {
         const mStr = String(m);
@@ -1914,34 +1818,6 @@ function renderSingleMatrixBlock(targetStates, isComposite = false, blockId = ""
         stateBaselines[m] = bVals.length ? (bVals.reduce((a, b) => a + b, 0) / bVals.length) : 0;
     });
 
-    // Column widths: exactly equal across all columns from Year through Month to Period Average and Total Accum
-    const colCount = 1 + monthsSorted.length + 2;
-    const colWidthPct = (100 / colCount).toFixed(3);
-
-    let colgroup = `<colgroup>`;
-    for (let i = 0; i < colCount; i++) {
-        colgroup += `<col style="width: ${colWidthPct}%;">`;
-    }
-    colgroup += `</colgroup>`;
-
-    // Table Headers
-    let thead = `
-        <thead>
-            <tr>
-                <th class="th-year">Year</th>
-                ${monthsSorted.map(m => `<th>${monthNames[m - 1]}</th>`).join("")}
-                <th class="th-avg">${isAnom ? 'Period Anom' : 'Period Avg'}</th>
-                <th class="th-avg">${isAnom ? '16-Yr Base' : (currentVar === 'precip' ? 'Total Accum' : '16-Yr Base')}</th>
-            </tr>
-        </thead>
-    `;
-
-    let grandSum = 0;
-    let grandCount = 0;
-    let grandTotalAccum = 0;
-    let grandAnomSum = 0;
-    let rowsHtml = "";
-
     yearsSorted.forEach(y => {
         let rowSum = 0;
         let rowCount = 0;
@@ -1953,17 +1829,13 @@ function renderSingleMatrixBlock(targetStates, isComposite = false, blockId = ""
             let mVals = [];
             let mAccums = [];
             let isFcst = false;
-            let fcstModel = "";
 
             targetStates.forEach(code => {
                 const sMatrix = data.matrix_by_state[code] || {};
                 const yData = sMatrix[String(y)] || {};
                 const mInfo = yData[String(m)];
                 if (mInfo) {
-                    if (mInfo.is_forecast) {
-                        isFcst = true;
-                        fcstModel = mInfo.forecast_model || "ECMWF Seasonal";
-                    }
+                    if (mInfo.is_forecast) isFcst = true;
                     const val = getMetricValue(mInfo, currentVar);
                     if (val !== null) mVals.push(val);
                     if (mInfo.precip_total_mm !== undefined) mAccums.push(mInfo.precip_total_mm);
@@ -2005,15 +1877,13 @@ function renderSingleMatrixBlock(targetStates, isComposite = false, blockId = ""
                 }
 
                 const sqClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
-                const fcstTag = isFcst ? ` <span class="fcst-inline-pill">FCST</span>` : "";
-
                 cellsHtml += `
                     <td>
                         <div class="${sqClass}" style="background:${c.bg}; color:${c.text};"
-                             onmouseenter="showCellPopover(event, '${targetStates.join(",")}', ${y}, ${m}, ${rawAvg}, ${norm}, ${anom}, ${isFcst}, '${fcstModel}')"
+                             onmouseenter="showCellPopover(event, '${targetStates.join(",")}', ${y}, ${m}, ${rawAvg}, ${norm}, ${anom}, ${isFcst})"
                              onmouseleave="hideCellPopover()">
                             <span>${displayVal}</span>
-                            <span class="matrix-square-sub">${subText}${fcstTag}</span>
+                            <span class="matrix-square-sub">${subText}</span>
                         </div>
                     </td>
                 `;
@@ -2051,57 +1921,24 @@ function renderSingleMatrixBlock(targetStates, isComposite = false, blockId = ""
             const baseAvg = monthsSorted.map(m => stateBaselines[m]).reduce((a, b) => a + b, 0) / monthsSorted.length;
             const dispBaseAvg = convertValue(baseAvg, currentVar, false);
 
-            let dispSummaryVal = "";
-            let summarySub = "";
-            if (!isAnom && currentVar === 'precip') {
-                dispSummaryVal = Math.round(rowTotalAccum);
-                summarySub = precipUnit === 'in_total' ? 'in/yr' : 'mm/yr';
-            } else if (isAnom) {
-                dispSummaryVal = dispBaseAvg !== null ? dispBaseAvg.toFixed(1) : '-';
-                summarySub = getUnitLabel() + ' Base';
-            } else {
-                dispSummaryVal = dispBaseAvg !== null ? dispBaseAvg.toFixed(1) : '-';
-                summarySub = getUnitLabel() + ' Norm';
-            }
-
             cellsHtml += `
                 <td>
-                    <div class="matrix-square-cell" style="background:${cRow.bg}; color:${cRow.text}; border:1.5px solid rgba(0,0,0,0.15);">
+                    <div class="matrix-square-cell" style="background:${cRow.bg}; color:${cRow.text}; border:1px solid rgba(0,0,0,0.15);">
                         <span>${dispRow}</span>
                         <span class="matrix-square-sub">${subRow}</span>
                     </div>
                 </td>
-                <td>
-                    <div class="matrix-square-cell matrix-summary-cell">
-                        <span>${dispSummaryVal}</span>
-                        <span class="matrix-square-sub">${summarySub}</span>
-                    </div>
+                <td style="font-weight:700; color:var(--text-primary); font-size:10px;">
+                    ${dispBaseAvg !== null ? `${dispBaseAvg.toFixed(1)} ${getUnitLabel()}` : '-'}
                 </td>
             `;
         } else {
             cellsHtml += `<td>-</td><td>-</td>`;
         }
 
-        const isCurrentYear = (y === 2026);
-        const isOutlookYear = (y === 2027);
-
-        let yearBadge = "";
-        let yearClass = "";
-        if (isOutlookYear) {
-            yearClass = "matrix-year-fcst";
-            yearBadge = ` <span class="fcst-inline-pill">FCST</span>`;
-        } else if (isCurrentYear) {
-            yearClass = "matrix-year-current";
-            yearBadge = ` <span class="today-inline-pill">TODAY</span>`;
-        }
-
         rowsHtml += `
             <tr>
-                <td class="matrix-year-cell ${yearClass}">
-                    <div class="matrix-year-inner">
-                        <span>${y}${yearBadge}</span>
-                    </div>
-                </td>
+                <td class="matrix-year-cell">${y}</td>
                 ${cellsHtml}
             </tr>
         `;
@@ -2109,389 +1946,139 @@ function renderSingleMatrixBlock(targetStates, isComposite = false, blockId = ""
 
     const grandAvg = grandCount > 0 ? (grandSum / grandCount) : 0;
     const grandAnomAvg = grandCount > 0 ? (grandAnomSum / grandCount) : 0;
+    const meanAnnualPrecip = yearsSorted.length > 0 ? Math.round(grandTotalAccum / yearsSorted.length) : 0;
 
-    let actionButtons = "";
-    if (selectedStates.length > 1 && comparisonViewMode === 'history') {
-        actionButtons = `
-            <div>
-                <button class="pill-btn" onclick="setComparisonViewMode('compare')" title="Switch back to district comparison view">📊 Compare Districts (Left)</button>
-            </div>
-        `;
-    }
-
-    return `
-        <div class="matrix-container" id="${blockId}">
-            <div class="matrix-header" style="padding-bottom:5px; margin-bottom:4px;">
-                <div class="matrix-title-group">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <span class="header-badge" style="background:${badgeBg};">${badgeText}</span>
-                        <h2 style="font-size:13.5px;">${stateTitle}</h2>
-                    </div>
-                </div>
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <div class="matrix-kpis">
-                        <div class="matrix-kpi-item">
-                            <div class="matrix-kpi-label">Filtered ${isAnom ? 'Net Departure' : 'Period Average'}</div>
-                            <div class="matrix-kpi-value">
-                                ${isAnom ? (grandAnomAvg >= 0 ? '+' : '') + convertValue(grandAnomAvg, currentVar, true).toFixed(1) : convertValue(grandAvg, currentVar, false).toFixed(1)}
-                                <span style="font-size:11px; font-weight:600;">${getUnitLabel()}</span>
-                            </div>
-                        </div>
-                        ${currentVar === 'precip' ? `
-                        <div class="matrix-kpi-item">
-                            <div class="matrix-kpi-label">Mean Annual Rainfall</div>
-                            <div class="matrix-kpi-value">${Math.round(grandTotalAccum / yearsSorted.length)} <span style="font-size:11px; font-weight:600;">mm/yr</span></div>
-                        </div>
-                        ` : ''}
-                    </div>
-                    ${actionButtons}
-                </div>
-            </div>
-            <div class="matrix-table-wrapper">
-                <table class="matrix-table">
-                    ${colgroup}
-                    ${thead}
-                    <tbody>${rowsHtml}</tbody>
-                </table>
-            </div>
-        </div>
+    const tableIdAttr = tableId ? ` id="${tableId}"` : '';
+    const tableHtml = `
+        <table class="matrix-table"${tableIdAttr}>
+            ${thead}
+            <tbody>${rowsHtml}</tbody>
+        </table>
     `;
+
+    return {
+        tableHtml,
+        grandAvg,
+        grandAnomAvg,
+        meanAnnualPrecip,
+        yearsSorted,
+        monthsSorted
+    };
 }
 
-// 4B. District Comparison Matrix (All Selected Districts on the Left Side, One Above Another)
-function renderDistrictComparisonTable(targetStates) {
-    const data = window.CHINA_CROP_MATRIX_DATA;
-    if (!data) return "";
-
-    const monthsSorted = [...selectedMonths].sort((a, b) => a - b);
-    const isAnom = (viewMode === "anomaly");
-    const locMap = {};
-    data.locations.forEach(l => locMap[l.code] = l);
-
-    // Baseline normals for comparison across months
-    const stateBaselines = {};
-    monthsSorted.forEach(m => {
-        const mStr = String(m);
-        let bVals = [];
-        targetStates.forEach(code => {
-            if (data.baseline_monthly && data.baseline_monthly[code] && data.baseline_monthly[code][mStr]) {
-                const bVal = getMetricValue(data.baseline_monthly[code][mStr], currentVar);
-                if (bVal !== null) bVals.push(bVal);
-            }
-        });
-        stateBaselines[m] = bVals.length ? (bVals.reduce((a, b) => a + b, 0) / bVals.length) : 0;
-    });
-
-    const distColWidth = 16.0; // 16% for District column on left
-    const dataColWidth = ((100 - distColWidth) / (monthsSorted.length + 2)).toFixed(3);
-
-    let colgroup = `<colgroup><col style="width: ${distColWidth}%;">`;
-    for (let i = 0; i < monthsSorted.length + 2; i++) {
-        colgroup += `<col style="width: ${dataColWidth}%;">`;
-    }
-    colgroup += `</colgroup>`;
-
-    let thead = `
-        <thead>
-            <tr>
-                <th class="th-year" style="text-align:left; padding-left:10px;">DISTRICT (${targetStates.length})</th>
-                ${monthsSorted.map(m => `<th>${monthNames[m - 1]}</th>`).join("")}
-                <th class="th-avg">${isAnom ? 'PERIOD ANOM' : 'PERIOD AVG'}</th>
-                <th class="th-avg">${isAnom ? '16-YR BASE' : (currentVar === 'precip' ? 'TOTAL ACCUM' : '16-YR BASE')}</th>
-            </tr>
-        </thead>
-    `;
-
-    // Row definitions: 1st is Combined Composite, then each selected district
-    const rowsList = [
-        { isComposite: true, codes: targetStates, name: "★ Combined Composite", code: `${targetStates.length} Regions` }
-    ];
-    targetStates.forEach(c => {
-        const l = locMap[c] || {};
-        rowsList.push({ isComposite: false, codes: [c], name: l.name || c, code: l.code || c, district: l.district || "" });
-    });
-
-    let tbodyHtml = "";
-
-    rowsList.forEach(rowItem => {
-        let rowSum = 0;
-        let rowCount = 0;
-        let rowTotalAccum = 0;
-        let rowAnomSum = 0;
-        let cellsHtml = "";
-
-        monthsSorted.forEach(m => {
-            const mStr = String(m);
-            let mVals = [];
-            let mAccums = [];
-            let isFcst = false;
-            let fcstModel = "";
-
-            if (comparisonYear === "normal") {
-                rowItem.codes.forEach(c => {
-                    const bInfo = data.baseline_monthly && data.baseline_monthly[c] ? data.baseline_monthly[c][mStr] : null;
-                    if (bInfo) {
-                        const val = getMetricValue(bInfo, currentVar);
-                        if (val !== null) mVals.push(val);
-                        if (bInfo.precip_total_mm !== undefined) mAccums.push(bInfo.precip_total_mm);
-                    }
-                });
-            } else {
-                rowItem.codes.forEach(c => {
-                    const sMatrix = data.matrix_by_state[c] || {};
-                    const yData = sMatrix[String(comparisonYear)] || {};
-                    const mInfo = yData[mStr];
-                    if (mInfo) {
-                        if (mInfo.is_forecast) {
-                            isFcst = true;
-                            fcstModel = mInfo.forecast_model || "ECMWF Seasonal";
-                        }
-                        const val = getMetricValue(mInfo, currentVar);
-                        if (val !== null) mVals.push(val);
-                        if (mInfo.precip_total_mm !== undefined) mAccums.push(mInfo.precip_total_mm);
-                    }
-                });
-            }
-
-            if (mVals.length > 0) {
-                const rawAvg = mVals.reduce((a, b) => a + b, 0) / mVals.length;
-                const accum = mAccums.length > 0 ? (mAccums.reduce((a, b) => a + b, 0) / mAccums.length) : 0;
-                const norm = stateBaselines[m] || 0;
-                const anom = rawAvg - norm;
-
-                rowSum += rawAvg;
-                rowCount++;
-                rowTotalAccum += accum;
-                rowAnomSum += anom;
-
-                let displayVal = "";
-                let subText = "";
-                let c = null;
-
-                if (isAnom) {
-                    c = getColorForMetric(anom, currentVar, true);
-                    const dispAnom = convertValue(anom, currentVar, true);
-                    const sign = dispAnom >= 0 ? "+" : "";
-                    displayVal = `${sign}${dispAnom.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1)}`;
-                    subText = `${Math.round((anom / (norm || 1)) * 100)}%`;
-                } else {
-                    c = getColorForMetric(rawAvg, currentVar, false);
-                    const dispVal = convertValue(rawAvg, currentVar, false);
-                    displayVal = dispVal.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1);
-                    if (currentVar === "precip") {
-                        subText = `${Math.round(accum)}mm`;
-                    } else if (currentVar === "temp" || currentVar === "temp_max" || currentVar === "temp_min") {
-                        subText = tempUnit === 'f' ? `${Math.round(dispVal)}°F` : `${Math.round(rawAvg)}°C`;
-                    } else {
-                        subText = rawAvg < 0.220 ? "Stress" : (rawAvg > 0.380 ? "Surplus" : "Optimal");
-                    }
-                }
-
-                const sqClass = isFcst ? "matrix-square-cell forecast-square" : "matrix-square-cell";
-                const fcstTag = isFcst ? ` <span class="fcst-inline-pill">FCST</span>` : "";
-
-                cellsHtml += `
-                    <td>
-                        <div class="${sqClass}" style="background:${c.bg}; color:${c.text};"
-                             onmouseenter="showCellPopover(event, '${rowItem.codes.join(",")}', ${comparisonYear === 'normal' ? 2026 : comparisonYear}, ${m}, ${rawAvg}, ${norm}, ${anom}, ${isFcst}, '${fcstModel}')"
-                             onmouseleave="hideCellPopover()">
-                            <span>${displayVal}</span>
-                            <span class="matrix-square-sub">${subText}${fcstTag}</span>
-                        </div>
-                    </td>
-                `;
-            } else {
-                cellsHtml += `<td><div class="matrix-square-cell" style="background:#f8fafc; color:#cbd5e1; border:1px dashed #e2e8f0;">-</div></td>`;
-            }
-        });
-
-        const rowAvg = rowCount > 0 ? (rowSum / rowCount) : null;
-        const rowAnomAvg = rowCount > 0 ? (rowAnomSum / rowCount) : null;
-
-        if (rowAvg !== null) {
-            let cRow = null;
-            let dispRow = "";
-            let subRow = "";
-
-            if (isAnom) {
-                cRow = getColorForMetric(rowAnomAvg, currentVar, true);
-                const dispAnom = convertValue(rowAnomAvg, currentVar, true);
-                const sign = dispAnom >= 0 ? "+" : "";
-                dispRow = `${sign}${dispAnom.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1)}`;
-                subRow = "Anom";
-            } else {
-                cRow = getColorForMetric(rowAvg, currentVar, false);
-                const dispVal = convertValue(rowAvg, currentVar, false);
-                dispRow = dispVal.toFixed(currentVar === 'topsoil' || currentVar === 'subsoil' ? 3 : 1);
-                subRow = currentVar === 'precip' ? `${Math.round(rowTotalAccum)}mm` : 'Mean';
-            }
-
-            const baseAvg = monthsSorted.map(m => stateBaselines[m]).reduce((a, b) => a + b, 0) / monthsSorted.length;
-            const dispBaseAvg = convertValue(baseAvg, currentVar, false);
-
-            let dispSummaryVal = "";
-            let summarySub = "";
-            if (!isAnom && currentVar === 'precip') {
-                dispSummaryVal = Math.round(rowTotalAccum);
-                summarySub = precipUnit === 'in_total' ? 'in/yr' : 'mm/yr';
-            } else if (isAnom) {
-                dispSummaryVal = dispBaseAvg !== null ? dispBaseAvg.toFixed(1) : '-';
-                summarySub = getUnitLabel() + ' Base';
-            } else {
-                dispSummaryVal = dispBaseAvg !== null ? dispBaseAvg.toFixed(1) : '-';
-                summarySub = getUnitLabel() + ' Norm';
-            }
-
-            cellsHtml += `
-                <td>
-                    <div class="matrix-square-cell" style="background:${cRow.bg}; color:${cRow.text}; border:1.5px solid rgba(0,0,0,0.15);">
-                        <span>${dispRow}</span>
-                        <span class="matrix-square-sub">${subRow}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="matrix-square-cell matrix-summary-cell">
-                        <span>${dispSummaryVal}</span>
-                        <span class="matrix-square-sub">${summarySub}</span>
-                    </div>
-                </td>
-            `;
-        } else {
-            cellsHtml += `<td>-</td><td>-</td>`;
-        }
-
-        const isCompRow = rowItem.isComposite;
-        tbodyHtml += `
-            <tr>
-                <td class="matrix-district-cell ${isCompRow ? 'matrix-district-composite' : ''}">
-                    <div class="matrix-dist-inner">
-                        <span class="dist-name">${isCompRow ? '★ Combined Composite' : rowItem.name}</span>
-                        <span class="dist-code">${isCompRow ? `(${targetStates.length} Regions Average)` : `${rowItem.code}${rowItem.district ? ' • ' + rowItem.district : ''}`}</span>
-                    </div>
-                </td>
-                ${cellsHtml}
-            </tr>
-        `;
-    });
-
-    return `
-        <div class="matrix-container" id="matrix-block-compare">
-            <div class="dist-compare-season-bar">
-                <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                    <span class="compare-season-label">Comparison Season:</span>
-                    <button class="season-pill ${comparisonYear === 2026 ? 'active' : ''}" onclick="setComparisonYear(2026)" title="Current Season (Observed + 6-Mo Forecast)">
-                        🟢 2026 (Today / Current Season)
-                    </button>
-                    <button class="season-pill ${comparisonYear === 2027 ? 'active-fcst' : ''}" onclick="setComparisonYear(2027)" title="ECMWF SEAS5 6-Month Forward Forecast">
-                        🔮 2027 (6-Mo Forecast)
-                    </button>
-                    <button class="season-pill ${comparisonYear === 2025 ? 'active' : ''}" onclick="setComparisonYear(2025)">2025</button>
-                    <button class="season-pill ${comparisonYear === 2024 ? 'active' : ''}" onclick="setComparisonYear(2024)">2024</button>
-                    <button class="season-pill ${comparisonYear === 2023 ? 'active' : ''}" onclick="setComparisonYear(2023)">2023</button>
-                    <button class="season-pill ${comparisonYear === 2022 ? 'active' : ''}" onclick="setComparisonYear(2022)">2022</button>
-                    <button class="season-pill ${comparisonYear === 2021 ? 'active' : ''}" onclick="setComparisonYear(2021)">2021</button>
-                    <button class="season-pill ${comparisonYear === 2016 ? 'active' : ''}" onclick="setComparisonYear(2016)">2016</button>
-                    <button class="season-pill ${comparisonYear === 2014 ? 'active' : ''}" onclick="setComparisonYear(2014)">2014</button>
-                    <button class="season-pill ${comparisonYear === 'normal' ? 'active' : ''}" onclick="setComparisonYear('normal')">16-Yr Normal</button>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span class="compare-season-label">Layout:</span>
-                    <button class="view-toggle-pill ${comparisonViewMode === 'compare' ? 'active' : ''}" onclick="setComparisonViewMode('compare')" title="Keep all districts on the left side, compare rainfall one above another">
-                        📊 Compare Districts (Left)
-                    </button>
-                    <button class="view-toggle-pill ${comparisonViewMode === 'history' ? 'active' : ''}" onclick="setComparisonViewMode('history')" title="18-Year historical matrix by year">
-                        📅 18-Yr History Stacked
-                    </button>
-                </div>
-            </div>
-
-            <div class="matrix-table-wrapper" style="margin-top:6px;">
-                <table class="matrix-table">
-                    ${colgroup}
-                    ${thead}
-                    <tbody>${tbodyHtml}</tbody>
-                </table>
-            </div>
-        </div>
-    `;
-}
-
+// 4b. Render Matrix View (Composite + Individual States Below)
 function renderMatrix() {
     const data = window.CHINA_CROP_MATRIX_DATA;
     if (!data) return;
 
-    const wrapper = document.getElementById("matrix-wrapper");
-    if (!wrapper) return;
+    const headerEl = document.getElementById("matrix-header-container");
+    const tableEl = document.getElementById("matrix-table-container");
 
-    wrapper.className = 'matrix-area-container' + (matrixDensity === 'compact' ? ' matrix-compact' : (matrixDensity === 'dense' ? ' matrix-dense' : ''));
+    const isSingle = (selectedStates.length === 1);
+    const locMap = {};
+    data.locations.forEach(l => locMap[l.code] = l);
+    const isAnom = (viewMode === "anomaly");
 
-    // Case 1: Exactly 1 state/district selected
-    if (selectedStates.length === 1) {
-        wrapper.innerHTML = renderSingleMatrixBlock(selectedStates, false, "matrix-block-" + selectedStates[0]);
-        return;
-    }
+    // Primary/Composite calculation
+    const mainRes = generateSingleMatrixTable(selectedStates, !isSingle, "matrix-export-table");
 
-    // Case 2: Multiple districts selected
-    if (comparisonViewMode === 'compare') {
-        // District Comparison Layout: ALL DISTRICTS ON THE LEFT SIDE, ONE ABOVE ANOTHER!
-        wrapper.innerHTML = renderDistrictComparisonTable(selectedStates);
+    let stateTitle = "";
+    let stateSub = "";
+    if (isSingle) {
+        const l = locMap[selectedStates[0]] || {};
+        stateTitle = `${l.name} (${l.code}) &bull; ${getVarTitle()}`;
+        stateSub = `${l.region_title} &bull; District: ${l.district}`;
     } else {
-        // 18-Year History Stacked without descriptions
-        let html = `
-            <div class="dist-compare-season-bar" style="margin-bottom:6px;">
-                <div style="font-size:11px; font-weight:800; color:var(--text-primary);">
-                    📅 18-Year Agricultural Seasons &bull; ${selectedStates.length} Chinese Production Belts
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span class="compare-season-label">Layout:</span>
-                    <button class="view-toggle-pill" onclick="setComparisonViewMode('compare')" title="Districts on left side, compare rainfall one above another">
-                        📊 Compare Districts (Left)
-                    </button>
-                    <button class="view-toggle-pill active" onclick="setComparisonViewMode('history')">
-                        📅 18-Yr History Stacked
-                    </button>
-                </div>
-            </div>
-        `;
-        html += renderSingleMatrixBlock(selectedStates, true, "matrix-block-composite");
-        selectedStates.forEach(code => {
-            html += renderSingleMatrixBlock([code], false, "matrix-block-" + code);
-        });
-        wrapper.innerHTML = html;
+        const names = selectedStates.map(c => (locMap[c] || {}).name || c).slice(0, 8).join(", ");
+        const extra = selectedStates.length > 8 ? ` +${selectedStates.length - 8} more` : '';
+        stateTitle = `Multi-State Composite (${selectedStates.length} States) &bull; ${getVarTitle()}`;
+        stateSub = `Agricultural Districts: ${names}${extra}`;
     }
-}
 
-function setComparisonYear(y) {
-    comparisonYear = y;
-    renderMatrix();
-}
+    // Header KPI summary for Primary Table
+    headerEl.innerHTML = `
+        <div class="matrix-header">
+            <div class="matrix-title-group">
+                <h2>${stateTitle}</h2>
+                <p>${stateSub} &bull; Filtered Horizon: ${mainRes.yearsSorted[mainRes.yearsSorted.length-1]}–${mainRes.yearsSorted[0]} (${mainRes.yearsSorted.length} Yrs) &bull; Months: ${mainRes.monthsSorted.map(m => monthNames[m-1]).join(", ")}</p>
+            </div>
+            <div class="matrix-kpis">
+                <div class="matrix-kpi-item">
+                    <div class="matrix-kpi-label">Filtered ${isAnom ? 'Net Departure' : 'Period Average'}</div>
+                    <div class="matrix-kpi-value">
+                        ${isAnom ? (mainRes.grandAnomAvg >= 0 ? '+' : '') + convertValue(mainRes.grandAnomAvg, currentVar, true).toFixed(1) : convertValue(mainRes.grandAvg, currentVar, false).toFixed(1)}
+                        <span style="font-size:11px; font-weight:600;">${getUnitLabel()}</span>
+                    </div>
+                </div>
+                ${currentVar === 'precip' ? `
+                <div class="matrix-kpi-item">
+                    <div class="matrix-kpi-label">Mean Annual Rainfall</div>
+                    <div class="matrix-kpi-value">${mainRes.meanAnnualPrecip} <span style="font-size:11px; font-weight:600;">mm/yr</span></div>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
 
-function setComparisonViewMode(m) {
-    comparisonViewMode = m;
-    renderMatrix();
+    let fullHtml = `
+        <div class="matrix-table-wrapper">
+            ${mainRes.tableHtml}
+        </div>
+    `;
+
+    // If more than 1 state selected: Render individual states below!
+    if (!isSingle) {
+        fullHtml += `
+            <div class="individual-states-section">
+                <div class="individual-states-heading">
+                    <span>&#128203; Individual State Matrices (${selectedStates.length} States Breakdown)</span>
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:none;">Granular state-by-state historical matrices shown below</span>
+                </div>
+        `;
+
+        selectedStates.forEach(code => {
+            const l = locMap[code] || { name: code, code: code, region_title: "US Agriculture", district: "Statewide" };
+            const stateRes = generateSingleMatrixTable([code], false, `matrix-table-${code}`);
+            const dispStateVal = isAnom ? (stateRes.grandAnomAvg >= 0 ? '+' : '') + convertValue(stateRes.grandAnomAvg, currentVar, true).toFixed(1) : convertValue(stateRes.grandAvg, currentVar, false).toFixed(1);
+
+            fullHtml += `
+                <div class="state-submatrix-card">
+                    <div class="state-submatrix-header">
+                        <div class="state-submatrix-title">
+                            <span class="state-sub-badge">${l.code}</span>
+                            <strong>${l.name}</strong>
+                            <span class="state-meta">&bull; ${l.region_title} &bull; District: ${l.district}</span>
+                        </div>
+                        <div class="state-submatrix-kpis">
+                            <span class="state-kpi-pill">Filtered ${isAnom ? 'Departure' : 'Avg'}: <strong>${dispStateVal} ${getUnitLabel()}</strong></span>
+                            ${currentVar === 'precip' ? `<span class="state-kpi-pill">Annual Rainfall: <strong>${stateRes.meanAnnualPrecip} mm</strong></span>` : ''}
+                        </div>
+                    </div>
+                    <div class="matrix-table-wrapper">
+                        ${stateRes.tableHtml}
+                    </div>
+                </div>
+            `;
+        });
+
+        fullHtml += `</div>`;
+    }
+
+    tableEl.innerHTML = fullHtml;
 }
 
 // 5. Floating Interactive Cell Popover
-function showCellPopover(e, stateCodes, y, m, val, norm, anom, isFcst, fcstModel) {
+function showCellPopover(e, stateCodes, y, m, val, norm, anom, isFcst) {
     const pop = document.getElementById("cell-popover");
     if (!pop) return;
 
     const data = window.CHINA_CROP_MATRIX_DATA;
     const codes = stateCodes.split(",");
-    const locName = codes.length === 1 ? ((data.locations.find(l => l.code === codes[0]) || {}).name || codes[0]) : `${codes.length} Regions Composite`;
+    const locName = codes.length === 1 ? ((data.locations.find(l => l.code === codes[0]) || {}).name || codes[0]) : `${codes.length} States Composite`;
 
     document.getElementById("pop-title").innerText = `${locName} • ${monthNames[m-1]} ${y}`;
-    const badgeEl = document.getElementById("pop-badge");
-
-    if (isFcst) {
-        badgeEl.innerText = `FORECAST [FCST]`;
-        badgeEl.style.background = "#0284c7";
-        document.getElementById("pop-model").innerText = fcstModel || "ECMWF SEAS5 6-Month Seasonal";
-    } else {
-        badgeEl.innerText = "ERA5 Observed";
-        badgeEl.style.background = "#1e293b";
-        document.getElementById("pop-model").innerText = "ERA5 Ag-Reanalysis";
-    }
+    document.getElementById("pop-badge").innerText = isFcst ? "ECMWF Guidance" : "Observed";
+    document.getElementById("pop-badge").style.background = isFcst ? "#0284c7" : "#1e293b";
 
     const dispVal = convertValue(val, currentVar, false);
     const dispNorm = convertValue(norm, currentVar, false);
@@ -2505,30 +2092,28 @@ function showCellPopover(e, stateCodes, y, m, val, norm, anom, isFcst, fcstModel
 
     // Agronomic Diagnosis
     let diag = "";
-    if (isFcst) {
-        diag = `[6-MONTH FORWARD FORECAST HORIZON: Oct 2026 – Mar 2027] Forward projection generated by ECMWF ${fcstModel || 'SEAS5'} ensemble guidance.`;
-    } else if (currentVar === "precip") {
-        if (anom < -1.5) diag = "Significant moisture deficit; elevated risk of drought stress on canopy & root zone.";
-        else if (anom > 1.5) diag = "Heavy precipitation surplus; risk of soil waterlogging / delay in field operations.";
-        else diag = "Precipitation tracked within normal seasonal climatological boundaries.";
+    if (currentVar === "precip") {
+        if (anom < -1.5) diag = "Critical moisture deficit; elevated risk of drought stress on canopy & root zone.";
+        else if (anom > 1.5) diag = "Significant precipitation surplus; field waterlogging / harvest delay potential.";
+        else diag = "Precipitation tracked within normal climatological boundaries.";
     } else if (currentVar === "temp_max") {
-        if (val >= 35.0) diag = "Severe daytime heat stress (≥35°C); high risk of pollination failure / tassel scorch.";
-        else if (val >= 30.0) diag = "Elevated thermal conditions (30-35°C); monitoring of soil evapotranspiration suggested.";
-        else diag = "Favorable daytime thermal conditions supporting balanced crop development.";
+        if (val >= 32.2) diag = "Elevated daytime heat stress (≥90°F); pollen desiccation / flower abortion hazard.";
+        else diag = "Favorable daytime thermal range for vegetative & grain fill development.";
     } else if (currentVar === "temp_min") {
-        if (val >= 22.0) diag = "Elevated nighttime warmth (≥22°C); heightened nocturnal respiration rate.";
-        else if (val <= 0.0) diag = "Freezing temperatures (≤0°C); risk of frost damage or premature season termination.";
-        else diag = "Crisp nighttime temperatures supporting healthy carbohydrate accumulation.";
+        if (val >= 21.1) diag = "Warm night respiration penalty (≥70°F); elevated carbohydrate consumption.";
+        else if (val <= 0.0) diag = "Sub-freezing temperatures (≤32°F); vegetative frost / maturation termination.";
+        else diag = "Crisp nighttime temperatures supporting balanced respiration & recovery.";
     } else {
-        if (val < 0.200) diag = "Critically low soil moisture; root zone water stress evident.";
-        else if (val > 0.380) diag = "Field capacity surpassed; high moisture saturation & ponding potential.";
-        else diag = "Optimal soil moisture levels for crop transpiration and nutrient uptake.";
+        if (val < 0.200) diag = "Severe root zone moisture depletion; drought stress evident.";
+        else if (val > 0.380) diag = "Field capacity exceeded; high soil saturation / ponding risk.";
+        else diag = "Optimal volumetric soil hydration for root uptake.";
     }
     document.getElementById("pop-diag").innerText = diag;
 
+    // Position popover safely near mouse
     pop.style.display = "block";
-    const x = Math.min(e.clientX + 14, window.innerWidth - 300);
-    const yPos = Math.min(e.clientY - 25, window.innerHeight - 200);
+    const x = Math.min(e.clientX + 16, window.innerWidth - 290);
+    const yPos = Math.min(e.clientY - 30, window.innerHeight - 200);
     pop.style.left = `${x}px`;
     pop.style.top = `${yPos}px`;
 }
@@ -2543,29 +2128,22 @@ function getVarTitle() {
     if (currentVar === "temp_max") return "Daytime High Temperature Matrix (T-Max)";
     if (currentVar === "temp_min") return "Nighttime Low Temperature Matrix (T-Min)";
     if (currentVar === "temp") return "24-Hr Mean Temperature Matrix";
-    if (currentVar === "topsoil") return "Topsoil (0–7 cm) Seedbed Moisture Matrix";
-    return "Subsoil (7–100 cm) Deep Root Zone Moisture Matrix";
+    if (currentVar === "topsoil") return "Topsoil (0–10 cm) Seedbed Moisture Matrix";
+    return "Subsoil (10–100 cm) Deep Root Zone Moisture Matrix";
 }
 
 function exportCSV() {
-    const tables = document.querySelectorAll(".matrix-table");
-    if (!tables.length) return;
+    const table = document.getElementById("matrix-export-table");
+    if (!table) return;
     let csv = [];
-    tables.forEach(table => {
-        const titleEl = table.closest(".matrix-container") ? table.closest(".matrix-container").querySelector(".matrix-title-group h2") : null;
-        if (titleEl) {
-            csv.push(`"=== ${titleEl.innerText.replace(/"/g, '""')} ==="`);
+    for (let r of table.rows) {
+        let row = [];
+        for (let c of r.cells) {
+            row.push(`"${c.innerText.replace(/\n/g, ' ').trim()}"`);
         }
-        for (let r of table.rows) {
-            let row = [];
-            for (let c of r.cells) {
-                row.push(`"${c.innerText.replace(/\n/g, ' ').replace(/"/g, '""').trim()}"`);
-            }
-            csv.push(row.join(","));
-        }
-        csv.push("");
-    });
-    const blob = new Blob([csv.join("\n")], { type: "text/csv;charset=utf-8;" });
+        csv.push(row.join(","));
+    }
+    const blob = new Blob([csv.join("\n")], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

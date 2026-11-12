@@ -1,0 +1,5102 @@
+{
+  "pulled_at": "2026-11-11 19:24:01",
+  "sources": {
+    "off_farm_stocks_xlsx": "https://www.magyp.gob.ar/sitio/areas/ss_mercados_agropecuarios/areas/granos/_archivos/000058_Estad%C3%ADsticas/_descargables-estad/Existencia%20Fisica%20de%20Granos%20en%20Plantas%20de%20Acopio,%20Industria%20y%20Exportacion%20-%20Historico.xlsx",
+    "crush_oleaginosas_xlsx": "https://www.magyp.gob.ar/sitio/areas/ss_mercados_agropecuarios/areas/granos/_archivos/000058_Estad%C3%ADsticas/000032_Evolucion%20de%20la%20Molienda%20(Cereales%20y%20Oleaginosas)/000002_Evoluci%C3%B3n%20de%20la%20Molienda%20Mensual%20-%20Oleaginosas/descarga_molienda_oleaginosas_historico.xlsx",
+    "crush_oleaginosas_php": "https://www.magyp.gob.ar/sitio/areas/ss_mercados_agropecuarios/areas/granos/_archivos/000058_Estad%C3%ADsticas/000032_Evolucion%20de%20la%20Molienda%20(Cereales%20y%20Oleaginosas)/000002_Evoluci%C3%B3n%20de%20la%20Molienda%20Mensual%20-%20Oleaginosas/000002_Evoluci%C3%B3n%20de%20la%20Molienda%20Mensual%20-%20Oleaginosas.php",
+    "milling_cereales_xlsx": "https://www.magyp.gob.ar/sitio/areas/ss_mercados_agropecuarios/areas/granos/_archivos/000058_Estad%C3%ADsticas/000032_Evolucion%20de%20la%20Molienda%20(Cereales%20y%20Oleaginosas)/000001_Evoluci%C3%B3n%20de%20la%20Molienda%20Mensual%20de%20Cereales%20-%20En%20Ton./descarga_molienda_cereales_historico.xlsx",
+    "crusher_stocks_xlsx": "https://www.magyp.gob.ar/sitio/areas/ss_mercados_agropecuarios/areas/granos/_archivos/000058_Estad%C3%ADsticas/000031_Existencias%20de%20Granos%20de%20Aceites%20y%20Subproductos%20por%20Provincia/descarga_existencias_por_provincia_historico.xlsx",
+    "soy_temp_imports_php": "https://www.magyp.gob.ar/sitio/areas/ss_mercados_agropecuarios/exportaciones/_archivos/000034_Importaci%C3%B3n%20Temporal%20de%20Soja/089999_Importacion_Temporal_Soja.php",
+    "indec_ica_sep26_xls": "https://www.indec.gob.ar/ftp/cuadros/economia/ica_cuadros_19_10_26.xls",
+    "indec_energia_xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_indicadores_energeticos.xls"
+  },
+  "off_farm_stocks": {
+    "2015-01": 1675647.0,
+    "2015-02": 1357956.0,
+    "2015-03": 2445211.0,
+    "2015-04": 15349176.0,
+    "2015-05": 19234518.0,
+    "2015-06": 18170422.0,
+    "2015-07": 15227279.0,
+    "2015-08": 14118260.0,
+    "2015-09": 12869275.0,
+    "2015-10": 8577240.0,
+    "2015-11": 6603508.0,
+    "2015-12": 5194457.0,
+    "2016-01": 2917118.0,
+    "2016-02": 1571428.0,
+    "2016-03": 4037533.0,
+    "2016-04": 8046506.0,
+    "2016-05": 14409108.0,
+    "2016-06": 15616630.0,
+    "2016-07": 14443442.0,
+    "2016-08": 12052774.0,
+    "2016-09": 10781276.0,
+    "2016-10": 9234742.0,
+    "2016-11": 7344786.0,
+    "2016-12": 5751088.0,
+    "2017-01": 3936448.0,
+    "2017-02": 2931412.0,
+    "2017-03": 2897979.0,
+    "2017-04": 9890821.0,
+    "2017-05": 13874879.0,
+    "2017-06": 14825370.0,
+    "2017-07": 12719591.0,
+    "2017-08": 11324038.0,
+    "2017-09": 9635190.0,
+    "2017-10": 7723958.0,
+    "2017-11": 6034938.0,
+    "2017-12": 4645303.0,
+    "2018-03": 6319539.0,
+    "2018-04": 13404885.0,
+    "2018-05": 16308987.0,
+    "2018-06": 16633659.0,
+    "2018-07": 13781124.0,
+    "2018-08": 12346517.0,
+    "2018-09": 11539504.0,
+    "2018-10": 8666375.0,
+    "2018-11": 6006748.0,
+    "2018-12": 4832176.0,
+    "2019-01": 3251899.0,
+    "2019-02": 2595795.0,
+    "2019-03": 4303543.0,
+    "2019-04": 15115213.0,
+    "2019-05": 19070824.0,
+    "2019-06": 19864605.0,
+    "2019-07": 17245537.0,
+    "2019-08": 14840290.0,
+    "2019-09": 13174083.0,
+    "2019-10": 9748637.0,
+    "2019-11": 8647008.0,
+    "2019-12": 6120412.0,
+    "2020-01": 5133712.0,
+    "2020-02": 3932365.0,
+    "2020-03": 3672053.0,
+    "2020-04": 17080704.0,
+    "2020-05": 20609706.0,
+    "2020-06": 18336623.0,
+    "2020-07": 16386615.0,
+    "2020-08": 14274508.0,
+    "2020-09": 13814097.0,
+    "2020-10": 11851275.0,
+    "2020-11": 10634971.0,
+    "2020-12": 9819687.0,
+    "2021-01": 10004428.0,
+    "2021-02": 8619496.0,
+    "2021-03": 7553441.0,
+    "2021-04": 6103264.0,
+    "2021-05": 16043455.0,
+    "2021-06": 22610299.0,
+    "2021-07": 21035601.0,
+    "2021-08": 19015997.0,
+    "2021-09": 16738176.0,
+    "2021-10": 13056581.0,
+    "2021-11": 11574398.0,
+    "2021-12": 10253596.0,
+    "2022-01": 8886016.0,
+    "2022-02": 7340834.0,
+    "2022-03": 6062267.0,
+    "2022-04": 5771965.0,
+    "2022-05": 15375715.0,
+    "2022-06": 20032764.0,
+    "2022-07": 19629418.0,
+    "2022-08": 17459343.0,
+    "2022-09": 15589272.0,
+    "2022-10": 16233168.0,
+    "2022-11": 12726358.0,
+    "2022-12": 8943781.0,
+    "2023-01": 6481269.0,
+    "2023-02": 5026273.0,
+    "2023-03": 3839586.0,
+    "2023-04": 3764378.0,
+    "2023-05": 8469880.0,
+    "2023-06": 11358366.0,
+    "2023-07": 11620863.0,
+    "2023-08": 11059287.0,
+    "2023-09": 10568710.0,
+    "2023-10": 10901013.0,
+    "2023-11": 10026337.0,
+    "2023-12": 7963297.0,
+    "2024-01": 7305630.0,
+    "2024-02": 5991593.0,
+    "2024-03": 5022763.0,
+    "2024-04": 4238047.0,
+    "2024-05": 11062980.0,
+    "2024-06": 21733248.62,
+    "2024-07": 21499613.0,
+    "2024-08": 19276077.0,
+    "2024-09": 16838214.0,
+    "2024-10": 15456591.0,
+    "2024-11": 13489984.0,
+    "2024-12": 11534964.096,
+    "2025-01": 8851922.931,
+    "2025-02": 8168537.2380000055,
+    "2025-03": 6749661.390999987,
+    "2025-04": 5578248.177,
+    "2025-05": 15422133.176,
+    "2025-06": 25874985.255,
+    "2025-07": 26716953.369,
+    "2025-08": 23833613.77,
+    "2025-09": 21688679.679,
+    "2025-10": 18582978.818,
+    "2025-11": 15374719.222,
+    "2025-12": 12134748.538,
+    "2026-01": 8955680.523,
+    "2026-02": 6186963.229999998,
+    "2026-03": 5287492.319,
+    "2026-04": 4612907.332,
+    "2026-05": 11843328.363,
+    "2026-06": 23046979.546,
+    "2026-07": 22463823.556,
+    "2026-08": 21512420.75,
+    "2026-09": 20466642.772,
+    "2026-10": 18596976.728,
+    "2026-11": 15881691.34
+  },
+  "crush_and_products": {
+    "2015-01": {
+      "crushed": 1792222.0,
+      "sbo_production": 333315.0,
+      "sbm_production": 1327680.0
+    },
+    "2015-02": {
+      "crushed": 2110764.0,
+      "sbo_production": 398915.0,
+      "sbm_production": 1580327.0
+    },
+    "2015-03": {
+      "crushed": 2273908.0,
+      "sbo_production": 436286.0,
+      "sbm_production": 1663645.0
+    },
+    "2015-04": {
+      "crushed": 4254531.0,
+      "sbo_production": 833740.0,
+      "sbm_production": 3210732.0
+    },
+    "2015-05": {
+      "crushed": 3588586.0,
+      "sbo_production": 693080.0,
+      "sbm_production": 2712118.0
+    },
+    "2015-06": {
+      "crushed": 4531328.0,
+      "sbo_production": 872637.0,
+      "sbm_production": 3419647.0
+    },
+    "2015-07": {
+      "crushed": 4768200.0,
+      "sbo_production": 917556.0,
+      "sbm_production": 3632599.0
+    },
+    "2015-08": {
+      "crushed": 4270805.0,
+      "sbo_production": 816390.0,
+      "sbm_production": 3217261.0
+    },
+    "2015-09": {
+      "crushed": 3830531.0,
+      "sbo_production": 740294.0,
+      "sbm_production": 2857385.0
+    },
+    "2015-10": {
+      "crushed": 3892371.0,
+      "sbo_production": 752035.0,
+      "sbm_production": 2923441.0
+    },
+    "2015-11": {
+      "crushed": 3006109.0,
+      "sbo_production": 588717.0,
+      "sbm_production": 2256674.0
+    },
+    "2015-12": {
+      "crushed": 2620964.0,
+      "sbo_production": 512942.0,
+      "sbm_production": 1974138.0
+    },
+    "2016-01": {
+      "crushed": 3910467.0,
+      "sbo_production": 763453.0,
+      "sbm_production": 2955496.0
+    },
+    "2016-02": {
+      "crushed": 3205307.0,
+      "sbo_production": 625695.0,
+      "sbm_production": 2431852.0
+    },
+    "2016-03": {
+      "crushed": 3230589.0,
+      "sbo_production": 637708.0,
+      "sbm_production": 2428175.0
+    },
+    "2016-04": {
+      "crushed": 3728116.0,
+      "sbo_production": 731852.0,
+      "sbm_production": 2800202.0
+    },
+    "2016-05": {
+      "crushed": 4351900.0,
+      "sbo_production": 842730.0,
+      "sbm_production": 3239989.0
+    },
+    "2016-06": {
+      "crushed": 4045934.0,
+      "sbo_production": 790271.0,
+      "sbm_production": 3065897.0
+    },
+    "2016-07": {
+      "crushed": 3975717.0,
+      "sbo_production": 774794.0,
+      "sbm_production": 2995301.0
+    },
+    "2016-08": {
+      "crushed": 3757883.0,
+      "sbo_production": 714350.0,
+      "sbm_production": 2805981.0
+    },
+    "2016-09": {
+      "crushed": 3541148.0,
+      "sbo_production": 699541.0,
+      "sbm_production": 2664894.0
+    },
+    "2016-10": {
+      "crushed": 3705761.0,
+      "sbo_production": 727427.0,
+      "sbm_production": 2795604.0
+    },
+    "2016-11": {
+      "crushed": 3645433.0,
+      "sbo_production": 707845.0,
+      "sbm_production": 2739739.0
+    },
+    "2016-12": {
+      "crushed": 3384255.0,
+      "sbo_production": 654827.0,
+      "sbm_production": 2560452.0
+    },
+    "2017-01": {
+      "crushed": 2968691.0,
+      "sbo_production": 578937.0,
+      "sbm_production": 2242065.0
+    },
+    "2017-02": {
+      "crushed": 2624641.0,
+      "sbo_production": 504771.0,
+      "sbm_production": 1978155.0
+    },
+    "2017-03": {
+      "crushed": 3364145.0,
+      "sbo_production": 654488.0,
+      "sbm_production": 2567627.0
+    },
+    "2017-04": {
+      "crushed": 4001162.0,
+      "sbo_production": 779123.0,
+      "sbm_production": 2990300.0
+    },
+    "2017-05": {
+      "crushed": 4526786.0,
+      "sbo_production": 869025.0,
+      "sbm_production": 3388294.0
+    },
+    "2017-06": {
+      "crushed": 3917529.0,
+      "sbo_production": 740542.0,
+      "sbm_production": 2886236.0
+    },
+    "2017-07": {
+      "crushed": 4307384.0,
+      "sbo_production": 826742.0,
+      "sbm_production": 3225792.0
+    },
+    "2017-08": {
+      "crushed": 3758004.0,
+      "sbo_production": 723786.0,
+      "sbm_production": 2787448.0
+    },
+    "2017-09": {
+      "crushed": 3244183.0,
+      "sbo_production": 628897.0,
+      "sbm_production": 2424960.0
+    },
+    "2017-10": {
+      "crushed": 3580292.0,
+      "sbo_production": 684940.0,
+      "sbm_production": 2654720.0
+    },
+    "2017-11": {
+      "crushed": 3352362.0,
+      "sbo_production": 646890.0,
+      "sbm_production": 2487277.0
+    },
+    "2017-12": {
+      "crushed": 2178912.0,
+      "sbo_production": 427460.0,
+      "sbm_production": 1610160.0
+    },
+    "2018-01": {
+      "crushed": 2736460.0,
+      "sbo_production": 529826.0,
+      "sbm_production": 2001884.0
+    },
+    "2018-02": {
+      "crushed": 2376499.0,
+      "sbo_production": 465788.0,
+      "sbm_production": 1740432.0
+    },
+    "2018-03": {
+      "crushed": 3050100.0,
+      "sbo_production": 605839.0,
+      "sbm_production": 2234404.0
+    },
+    "2018-04": {
+      "crushed": 3308487.0,
+      "sbo_production": 657002.0,
+      "sbm_production": 2432133.0
+    },
+    "2018-05": {
+      "crushed": 3676107.0,
+      "sbo_production": 720219.0,
+      "sbm_production": 2685167.0
+    },
+    "2018-06": {
+      "crushed": 3272426.0,
+      "sbo_production": 645631.0,
+      "sbm_production": 2418400.0
+    },
+    "2018-07": {
+      "crushed": 3445511.0,
+      "sbo_production": 681714.0,
+      "sbm_production": 2546417.0
+    },
+    "2018-08": {
+      "crushed": 3040524.0,
+      "sbo_production": 598397.0,
+      "sbm_production": 2227629.0
+    },
+    "2018-09": {
+      "crushed": 2917787.0,
+      "sbo_production": 579741.0,
+      "sbm_production": 2155507.0
+    },
+    "2018-10": {
+      "crushed": 3311987.0,
+      "sbo_production": 656989.0,
+      "sbm_production": 2443839.0
+    },
+    "2018-11": {
+      "crushed": 3170523.0,
+      "sbo_production": 628625.0,
+      "sbm_production": 2320800.0
+    },
+    "2018-12": {
+      "crushed": 2438607.0,
+      "sbo_production": 475841.0,
+      "sbm_production": 1806220.0
+    },
+    "2019-01": {
+      "crushed": 2498028.0,
+      "sbo_production": 495163.0,
+      "sbm_production": 1818897.0
+    },
+    "2019-02": {
+      "crushed": 2349648.0,
+      "sbo_production": 468111.0,
+      "sbm_production": 1728596.0
+    },
+    "2019-03": {
+      "crushed": 2913048.0,
+      "sbo_production": 589578.0,
+      "sbm_production": 2143426.0
+    },
+    "2019-04": {
+      "crushed": 3825530.0,
+      "sbo_production": 752027.0,
+      "sbm_production": 2824703.0
+    },
+    "2019-05": {
+      "crushed": 3977906.0,
+      "sbo_production": 765294.0,
+      "sbm_production": 2907051.0
+    },
+    "2019-06": {
+      "crushed": 4301849.0,
+      "sbo_production": 834437.0,
+      "sbm_production": 3169286.0
+    },
+    "2019-07": {
+      "crushed": 4456657.0,
+      "sbo_production": 868992.0,
+      "sbm_production": 3270862.0
+    },
+    "2019-08": {
+      "crushed": 4154259.0,
+      "sbo_production": 807742.0,
+      "sbm_production": 3037967.0
+    },
+    "2019-09": {
+      "crushed": 3153285.0,
+      "sbo_production": 612318.0,
+      "sbm_production": 2287716.0
+    },
+    "2019-10": {
+      "crushed": 3934380.0,
+      "sbo_production": 767456.0,
+      "sbm_production": 2875327.0
+    },
+    "2019-11": {
+      "crushed": 2934140.0,
+      "sbo_production": 578126.0,
+      "sbm_production": 2105515.0
+    },
+    "2019-12": {
+      "crushed": 2745010.0,
+      "sbo_production": 541912.0,
+      "sbm_production": 1982152.0
+    },
+    "2020-01": {
+      "crushed": 2321770.0,
+      "sbo_production": 449859.0,
+      "sbm_production": 1657584.0
+    },
+    "2020-02": {
+      "crushed": 2633492.0,
+      "sbo_production": 511642.0,
+      "sbm_production": 1898537.0
+    },
+    "2020-03": {
+      "crushed": 2749988.0,
+      "sbo_production": 552575.0,
+      "sbm_production": 1986732.0
+    },
+    "2020-04": {
+      "crushed": 3667845.0,
+      "sbo_production": 736601.0,
+      "sbm_production": 2669539.0
+    },
+    "2020-05": {
+      "crushed": 4040012.0,
+      "sbo_production": 797326.0,
+      "sbm_production": 2983238.0
+    },
+    "2020-06": {
+      "crushed": 3656810.0,
+      "sbo_production": 724583.0,
+      "sbm_production": 2682785.0
+    },
+    "2020-07": {
+      "crushed": 3514726.0,
+      "sbo_production": 696907.0,
+      "sbm_production": 2579076.0
+    },
+    "2020-08": {
+      "crushed": 3431259.0,
+      "sbo_production": 683460.0,
+      "sbm_production": 2532043.0
+    },
+    "2020-09": {
+      "crushed": 3140475.0,
+      "sbo_production": 635526.0,
+      "sbm_production": 2297516.0
+    },
+    "2020-10": {
+      "crushed": 3117397.0,
+      "sbo_production": 620089.0,
+      "sbm_production": 2266985.0
+    },
+    "2020-11": {
+      "crushed": 2975869.0,
+      "sbo_production": 589356.0,
+      "sbm_production": 2160931.0
+    },
+    "2020-12": {
+      "crushed": 846919.0,
+      "sbo_production": 162319.0,
+      "sbm_production": 567643.0
+    },
+    "2021-01": {
+      "crushed": 3228878.0,
+      "sbo_production": 642793.0,
+      "sbm_production": 2381185.0
+    },
+    "2021-02": {
+      "crushed": 2855756.0,
+      "sbo_production": 571696.0,
+      "sbm_production": 2075666.0
+    },
+    "2021-03": {
+      "crushed": 3395949.0,
+      "sbo_production": 681774.0,
+      "sbm_production": 2473608.0
+    },
+    "2021-04": {
+      "crushed": 4212341.0,
+      "sbo_production": 844717.0,
+      "sbm_production": 3062469.0
+    },
+    "2021-05": {
+      "crushed": 4300687.0,
+      "sbo_production": 848049.0,
+      "sbm_production": 3144730.0
+    },
+    "2021-06": {
+      "crushed": 4096192.0,
+      "sbo_production": 818549.0,
+      "sbm_production": 3037797.0
+    },
+    "2021-07": {
+      "crushed": 3855443.0,
+      "sbo_production": 753208.0,
+      "sbm_production": 2770260.0
+    },
+    "2021-08": {
+      "crushed": 3574880.0,
+      "sbo_production": 701376.0,
+      "sbm_production": 2593451.0
+    },
+    "2021-09": {
+      "crushed": 3701792.0,
+      "sbo_production": 712776.0,
+      "sbm_production": 2693125.0
+    },
+    "2021-10": {
+      "crushed": 3338045.0,
+      "sbo_production": 658126.0,
+      "sbm_production": 2435948.0
+    },
+    "2021-11": {
+      "crushed": 2920428.0,
+      "sbo_production": 576349.0,
+      "sbm_production": 2086866.0
+    },
+    "2021-12": {
+      "crushed": 2957255.0,
+      "sbo_production": 582630.0,
+      "sbm_production": 2134215.0
+    },
+    "2022-01": {
+      "crushed": 2517871.0,
+      "sbo_production": 494530.0,
+      "sbm_production": 1813513.0
+    },
+    "2022-02": {
+      "crushed": 2643817.0,
+      "sbo_production": 519085.0,
+      "sbm_production": 1913910.0
+    },
+    "2022-03": {
+      "crushed": 2934752.0,
+      "sbo_production": 576491.0,
+      "sbm_production": 2088646.0
+    },
+    "2022-04": {
+      "crushed": 3927838.0,
+      "sbo_production": 781254.0,
+      "sbm_production": 2838110.0
+    },
+    "2022-05": {
+      "crushed": 4142910.0,
+      "sbo_production": 791530.0,
+      "sbm_production": 3024748.0
+    },
+    "2022-06": {
+      "crushed": 3931703.0,
+      "sbo_production": 751602.0,
+      "sbm_production": 2846609.0
+    },
+    "2022-07": {
+      "crushed": 3479766.0,
+      "sbo_production": 663878.0,
+      "sbm_production": 2507935.0
+    },
+    "2022-08": {
+      "crushed": 3146980.0,
+      "sbo_production": 602365.0,
+      "sbm_production": 2251800.0
+    },
+    "2022-09": {
+      "crushed": 2873464.0,
+      "sbo_production": 551443.0,
+      "sbm_production": 2048590.0
+    },
+    "2022-10": {
+      "crushed": 2916139.0,
+      "sbo_production": 564739.0,
+      "sbm_production": 2097498.0
+    },
+    "2022-11": {
+      "crushed": 3323050.0,
+      "sbo_production": 644807.0,
+      "sbm_production": 2393207.0
+    },
+    "2022-12": {
+      "crushed": 2622045.0,
+      "sbo_production": 505966.0,
+      "sbm_production": 1872995.0
+    },
+    "2023-01": {
+      "crushed": 1885017.0,
+      "sbo_production": 367518.0,
+      "sbm_production": 1362759.0
+    },
+    "2023-02": {
+      "crushed": 1554451.0,
+      "sbo_production": 301861.0,
+      "sbm_production": 1106890.0
+    },
+    "2023-03": {
+      "crushed": 2111736.0,
+      "sbo_production": 414086.0,
+      "sbm_production": 1541438.0
+    },
+    "2023-04": {
+      "crushed": 2878991.0,
+      "sbo_production": 549342.0,
+      "sbm_production": 2127724.0
+    },
+    "2023-05": {
+      "crushed": 3493949.0,
+      "sbo_production": 684859.0,
+      "sbm_production": 2604952.0
+    },
+    "2023-06": {
+      "crushed": 3017678.0,
+      "sbo_production": 578535.0,
+      "sbm_production": 2164635.0
+    },
+    "2023-07": {
+      "crushed": 2551641.0,
+      "sbo_production": 493042.0,
+      "sbm_production": 1831723.0
+    },
+    "2023-08": {
+      "crushed": 2078639.0,
+      "sbo_production": 405589.0,
+      "sbm_production": 1501151.0
+    },
+    "2023-09": {
+      "crushed": 1907363.0,
+      "sbo_production": 370562.0,
+      "sbm_production": 1370616.0
+    },
+    "2023-10": {
+      "crushed": 1860826.0,
+      "sbo_production": 361359.0,
+      "sbm_production": 1331317.0
+    },
+    "2023-11": {
+      "crushed": 1898983.0,
+      "sbo_production": 369693.0,
+      "sbm_production": 1362400.0
+    },
+    "2023-12": {
+      "crushed": 1930294.0,
+      "sbo_production": 378925.0,
+      "sbm_production": 1379020.0
+    },
+    "2024-01": {
+      "crushed": 2130427.0,
+      "sbo_production": 420329.0,
+      "sbm_production": 1558524.0
+    },
+    "2024-02": {
+      "crushed": 2362125.0,
+      "sbo_production": 467461.0,
+      "sbm_production": 1720925.0
+    },
+    "2024-03": {
+      "crushed": 2907942.0,
+      "sbo_production": 580195.0,
+      "sbm_production": 2128951.0
+    },
+    "2024-04": {
+      "crushed": 3826521.0,
+      "sbo_production": 773733.0,
+      "sbm_production": 2807427.0
+    },
+    "2024-05": {
+      "crushed": 3976076.0,
+      "sbo_production": 789444.0,
+      "sbm_production": 2919902.0
+    },
+    "2024-06": {
+      "crushed": 3968846.0,
+      "sbo_production": 782949.0,
+      "sbm_production": 2964362.0
+    },
+    "2024-07": {
+      "crushed": 4405351.0,
+      "sbo_production": 880034.0,
+      "sbm_production": 3235296.0
+    },
+    "2024-08": {
+      "crushed": 3233433.0,
+      "sbo_production": 646266.0,
+      "sbm_production": 2360551.0
+    },
+    "2024-09": {
+      "crushed": 4114660.0,
+      "sbo_production": 821065.0,
+      "sbm_production": 3026921.0
+    },
+    "2024-10": {
+      "crushed": 4146668.0,
+      "sbo_production": 820444.0,
+      "sbm_production": 3048384.0
+    },
+    "2024-11": {
+      "crushed": 3437203.0,
+      "sbo_production": 681520.0,
+      "sbm_production": 2511921.0
+    },
+    "2024-12": {
+      "crushed": 3659773.0,
+      "sbo_production": 735645.0,
+      "sbm_production": 2671262.0
+    },
+    "2025-01": {
+      "crushed": 2905671.0,
+      "sbo_production": 576332.0,
+      "sbm_production": 2131615.0
+    },
+    "2025-02": {
+      "crushed": 2644364.0,
+      "sbo_production": 520884.0,
+      "sbm_production": 1900952.0
+    },
+    "2025-03": {
+      "crushed": 3231778.0,
+      "sbo_production": 645890.0,
+      "sbm_production": 2386510.0
+    },
+    "2025-04": {
+      "crushed": 3400222.0,
+      "sbo_production": 680404.0,
+      "sbm_production": 2489737.0
+    },
+    "2025-05": {
+      "crushed": 3884691.0,
+      "sbo_production": 763728.0,
+      "sbm_production": 2821081.0
+    },
+    "2025-06": {
+      "crushed": 4063340.0,
+      "sbo_production": 784272.0,
+      "sbm_production": 3020664.0
+    },
+    "2025-07": {
+      "crushed": 3794737.0,
+      "sbo_production": 740919.0,
+      "sbm_production": 2776416.0
+    },
+    "2025-08": {
+      "crushed": 3907939.0,
+      "sbo_production": 759746.0,
+      "sbm_production": 2838962.0
+    },
+    "2025-09": {
+      "crushed": 4159691.0,
+      "sbo_production": 814026.0,
+      "sbm_production": 3062924.0
+    },
+    "2025-10": {
+      "crushed": 4044484.0,
+      "sbo_production": 795144.0,
+      "sbm_production": 2974552.0
+    },
+    "2025-11": {
+      "crushed": 3496964.0,
+      "sbo_production": 687586.0,
+      "sbm_production": 2559305.0
+    },
+    "2025-12": {
+      "crushed": 3111287.0,
+      "sbo_production": 613559.0,
+      "sbm_production": 2266162.0
+    },
+    "2026-01": {
+      "crushed": 2725213.0,
+      "sbo_production": 536333.0,
+      "sbm_production": 1991073.0
+    },
+    "2026-02": {
+      "crushed": 1991244.0,
+      "sbo_production": 368057.0,
+      "sbm_production": 1351881.0
+    },
+    "2026-03": {
+      "crushed": 3241161.0,
+      "sbo_production": 644449.0,
+      "sbm_production": 2373017.0
+    },
+    "2026-04": {
+      "crushed": 3486361.0,
+      "sbo_production": 694024.0,
+      "sbm_production": 2546173.0
+    },
+    "2026-05": {
+      "crushed": 4193629.0,
+      "sbo_production": 830055.0,
+      "sbm_production": 3114670.0
+    },
+    "2026-06": {
+      "crushed": 4205430.0,
+      "sbo_production": 830705.0,
+      "sbm_production": 3089505.0
+    },
+    "2026-07": {
+      "crushed": 4186683.0,
+      "sbo_production": 827712.0,
+      "sbm_production": 3075702.0
+    },
+    "2026-08": {
+      "crushed": 4255424.0,
+      "sbo_production": 846553.0,
+      "sbm_production": 3136283.0
+    },
+    "2026-09": {
+      "crushed": 3996526.0,
+      "sbo_production": 795948.0,
+      "sbm_production": 2948759.0
+    }
+  },
+  "other_milling_use": {
+    "2015-01": 37839.0,
+    "2015-02": 35394.0,
+    "2015-03": 34661.0,
+    "2015-04": 54253.0,
+    "2015-05": 58431.0,
+    "2015-06": 53990.0,
+    "2015-07": 56397.0,
+    "2015-08": 41594.0,
+    "2015-09": 43507.0,
+    "2015-10": 35675.0,
+    "2015-11": 34325.0,
+    "2015-12": 35163.0,
+    "2016-01": 43362.0,
+    "2016-02": 40767.0,
+    "2016-03": 45552.0,
+    "2016-04": 43981.0,
+    "2016-05": 46347.0,
+    "2016-06": 42959.0,
+    "2016-07": 42647.0,
+    "2016-08": 44467.0,
+    "2016-09": 38718.0,
+    "2016-10": 36173.0,
+    "2016-11": 42080.0,
+    "2016-12": 28955.0,
+    "2017-01": 28054.0,
+    "2017-02": 23958.0,
+    "2017-03": 31259.0,
+    "2017-04": 33132.0,
+    "2017-05": 43332.0,
+    "2017-06": 40351.0,
+    "2017-07": 38013.0,
+    "2017-08": 38367.0,
+    "2017-09": 25916.0,
+    "2017-10": 37720.0,
+    "2017-11": 37480.0,
+    "2017-12": 35901.0,
+    "2018-01": 34018.0,
+    "2018-02": 32348.0,
+    "2018-03": 37742.0,
+    "2018-04": 39022.0,
+    "2018-05": 40335.0,
+    "2018-06": 38341.0,
+    "2018-07": 38676.0,
+    "2018-08": 36950.0,
+    "2018-09": 28361.0,
+    "2018-10": 28774.0,
+    "2018-11": 27967.0,
+    "2018-12": 26898.0,
+    "2019-01": 24632.0,
+    "2019-02": 24041.0,
+    "2019-03": 24733.0,
+    "2019-04": 34519.0,
+    "2019-05": 37917.0,
+    "2019-06": 31730.0,
+    "2019-07": 37602.0,
+    "2019-08": 38559.0,
+    "2019-09": 38717.0,
+    "2019-10": 33522.0,
+    "2019-11": 33985.0,
+    "2019-12": 32585.0,
+    "2020-01": 32406.0,
+    "2020-02": 27148.0,
+    "2020-03": 32328.0,
+    "2020-04": 40699.0,
+    "2020-05": 36737.0,
+    "2020-06": 35694.0,
+    "2020-07": 38319.0,
+    "2020-08": 37213.0,
+    "2020-09": 38483.0,
+    "2020-10": 37254.0,
+    "2020-11": 37196.0,
+    "2020-12": 42471.0,
+    "2021-01": 37140.0,
+    "2021-02": 34759.0,
+    "2021-03": 40661.0,
+    "2021-04": 39879.0,
+    "2021-05": 43774.0,
+    "2021-06": 41006.0,
+    "2021-07": 41380.0,
+    "2021-08": 37525.0,
+    "2021-09": 36090.0,
+    "2021-10": 36391.0,
+    "2021-11": 40863.0,
+    "2021-12": 42873.0,
+    "2022-01": 39773.0,
+    "2022-02": 33814.0,
+    "2022-03": 42283.0,
+    "2022-04": 42615.0,
+    "2022-05": 51875.0,
+    "2022-06": 51614.0,
+    "2022-07": 39439.0,
+    "2022-08": 43175.0,
+    "2022-09": 44260.0,
+    "2022-10": 40439.0,
+    "2022-11": 37344.0,
+    "2022-12": 36475.0,
+    "2023-01": 28251.0,
+    "2023-02": 26816.0,
+    "2023-03": 36436.0,
+    "2023-04": 34358.0,
+    "2023-05": 35085.0,
+    "2023-06": 34355.0,
+    "2023-07": 35180.0,
+    "2023-08": 42174.0,
+    "2023-09": 37073.0,
+    "2023-10": 36389.0,
+    "2023-11": 39784.0,
+    "2023-12": 40403.0,
+    "2024-01": 40104.0,
+    "2024-02": 31967.0,
+    "2024-03": 33601.0,
+    "2024-04": 38833.0,
+    "2024-05": 42433.0,
+    "2024-06": 35705.0,
+    "2024-07": 41613.0,
+    "2024-08": 37294.0,
+    "2024-09": 37004.0,
+    "2024-10": 37474.0,
+    "2024-11": 41486.0,
+    "2024-12": 41612.0,
+    "2025-01": 43227.0,
+    "2025-02": 33776.0,
+    "2025-03": 32960.0,
+    "2025-04": 32506.0,
+    "2025-05": 33750.0,
+    "2025-06": 32354.0,
+    "2025-07": 40920.0,
+    "2025-08": 39962.0,
+    "2025-09": 41023.0,
+    "2025-10": 39810.0,
+    "2025-11": 33774.0,
+    "2025-12": 34394.0,
+    "2026-01": 30564.0,
+    "2026-02": 26960.0,
+    "2026-03": 32409.0,
+    "2026-04": 33038.0,
+    "2026-05": 32086.0,
+    "2026-06": 33583.0,
+    "2026-07": 34235.0,
+    "2026-08": 29551.0,
+    "2026-09": 31825.0
+  },
+  "crusher_stocks": {
+    "2015-01": {
+      "crushers_beginning_stocks": 582861.0,
+      "sbm_beginning_stocks": 805045.0,
+      "sbo_beginning_stocks": 273602.0
+    },
+    "2015-02": {
+      "crushers_beginning_stocks": 544785.0,
+      "sbm_beginning_stocks": 476497.0,
+      "sbo_beginning_stocks": 176875.0
+    },
+    "2015-03": {
+      "crushers_beginning_stocks": 280250.0,
+      "sbm_beginning_stocks": 378981.0,
+      "sbo_beginning_stocks": 197046.0
+    },
+    "2015-04": {
+      "crushers_beginning_stocks": 496012.0,
+      "sbm_beginning_stocks": 527541.0,
+      "sbo_beginning_stocks": 195634.0
+    },
+    "2015-05": {
+      "crushers_beginning_stocks": 3404090.0,
+      "sbm_beginning_stocks": 858671.0,
+      "sbo_beginning_stocks": 285898.0
+    },
+    "2015-06": {
+      "crushers_beginning_stocks": 3492132.0,
+      "sbm_beginning_stocks": 1155308.0,
+      "sbo_beginning_stocks": 404130.0
+    },
+    "2015-07": {
+      "crushers_beginning_stocks": 3150121.0,
+      "sbm_beginning_stocks": 1182747.0,
+      "sbo_beginning_stocks": 414320.0
+    },
+    "2015-08": {
+      "crushers_beginning_stocks": 2993337.0,
+      "sbm_beginning_stocks": 1113105.0,
+      "sbo_beginning_stocks": 311501.0
+    },
+    "2015-09": {
+      "crushers_beginning_stocks": 2242661.0,
+      "sbm_beginning_stocks": 1314486.0,
+      "sbo_beginning_stocks": 409403.0
+    },
+    "2015-10": {
+      "crushers_beginning_stocks": 2299538.0,
+      "sbm_beginning_stocks": 1011431.0,
+      "sbo_beginning_stocks": 334879.0
+    },
+    "2015-11": {
+      "crushers_beginning_stocks": 2135109.0,
+      "sbm_beginning_stocks": 857217.0,
+      "sbo_beginning_stocks": 368955.0
+    },
+    "2015-12": {
+      "crushers_beginning_stocks": 2003269.0,
+      "sbm_beginning_stocks": 1103534.0,
+      "sbo_beginning_stocks": 268926.0
+    },
+    "2016-01": {
+      "crushers_beginning_stocks": 1312084.0,
+      "sbm_beginning_stocks": 855298.0,
+      "sbo_beginning_stocks": 318699.0
+    },
+    "2016-02": {
+      "crushers_beginning_stocks": 932200.0,
+      "sbm_beginning_stocks": 838756.0,
+      "sbo_beginning_stocks": 408940.0
+    },
+    "2016-03": {
+      "crushers_beginning_stocks": 347979.0,
+      "sbm_beginning_stocks": 648235.0,
+      "sbo_beginning_stocks": 380600.0
+    },
+    "2016-04": {
+      "crushers_beginning_stocks": 885081.0,
+      "sbm_beginning_stocks": 707704.0,
+      "sbo_beginning_stocks": 336842.0
+    },
+    "2016-05": {
+      "crushers_beginning_stocks": 1194438.0,
+      "sbm_beginning_stocks": 889150.0,
+      "sbo_beginning_stocks": 331673.0
+    },
+    "2016-06": {
+      "crushers_beginning_stocks": 2423709.0,
+      "sbm_beginning_stocks": 838017.0,
+      "sbo_beginning_stocks": 358994.0
+    },
+    "2016-07": {
+      "crushers_beginning_stocks": 2617471.0,
+      "sbm_beginning_stocks": 900168.0,
+      "sbo_beginning_stocks": 373384.0
+    },
+    "2016-08": {
+      "crushers_beginning_stocks": 2036362.0,
+      "sbm_beginning_stocks": 1213939.0,
+      "sbo_beginning_stocks": 302017.0
+    },
+    "2016-09": {
+      "crushers_beginning_stocks": 2194832.0,
+      "sbm_beginning_stocks": 1040101.0,
+      "sbo_beginning_stocks": 274916.0
+    },
+    "2016-10": {
+      "crushers_beginning_stocks": 2385962.0,
+      "sbm_beginning_stocks": 1317579.0,
+      "sbo_beginning_stocks": 325895.0
+    },
+    "2016-11": {
+      "crushers_beginning_stocks": 2077777.0,
+      "sbm_beginning_stocks": 1303850.0,
+      "sbo_beginning_stocks": 342158.0
+    },
+    "2016-12": {
+      "crushers_beginning_stocks": 1966546.0,
+      "sbm_beginning_stocks": 1227089.0,
+      "sbo_beginning_stocks": 252147.0
+    },
+    "2017-01": {
+      "crushers_beginning_stocks": 1232624.0,
+      "sbm_beginning_stocks": 1508648.0,
+      "sbo_beginning_stocks": 245383.0
+    },
+    "2017-02": {
+      "crushers_beginning_stocks": 836027.0,
+      "sbm_beginning_stocks": 880793.0,
+      "sbo_beginning_stocks": 242460.0
+    },
+    "2017-03": {
+      "crushers_beginning_stocks": 747891.0,
+      "sbm_beginning_stocks": 592104.0,
+      "sbo_beginning_stocks": 300721.0
+    },
+    "2017-04": {
+      "crushers_beginning_stocks": 815166.0,
+      "sbm_beginning_stocks": 812723.0,
+      "sbo_beginning_stocks": 259516.0
+    },
+    "2017-05": {
+      "crushers_beginning_stocks": 2018834.0,
+      "sbm_beginning_stocks": 838466.0,
+      "sbo_beginning_stocks": 215454.0
+    },
+    "2017-06": {
+      "crushers_beginning_stocks": 2613666.0,
+      "sbm_beginning_stocks": 1236093.0,
+      "sbo_beginning_stocks": 227250.0
+    },
+    "2017-07": {
+      "crushers_beginning_stocks": 2740416.0,
+      "sbm_beginning_stocks": 1213929.0,
+      "sbo_beginning_stocks": 263464.0
+    },
+    "2017-08": {
+      "crushers_beginning_stocks": 2084490.0,
+      "sbm_beginning_stocks": 1449228.0,
+      "sbo_beginning_stocks": 347555.0
+    },
+    "2017-09": {
+      "crushers_beginning_stocks": 1876044.0,
+      "sbm_beginning_stocks": 1286096.0,
+      "sbo_beginning_stocks": 339728.0
+    },
+    "2017-10": {
+      "crushers_beginning_stocks": 2133712.0,
+      "sbm_beginning_stocks": 1194827.0,
+      "sbo_beginning_stocks": 269368.0
+    },
+    "2017-11": {
+      "crushers_beginning_stocks": 1834829.0,
+      "sbm_beginning_stocks": 1284722.0,
+      "sbo_beginning_stocks": 269746.0
+    },
+    "2017-12": {
+      "crushers_beginning_stocks": 1697229.0,
+      "sbm_beginning_stocks": 1183245.0,
+      "sbo_beginning_stocks": 273439.0
+    },
+    "2018-01": {
+      "crushers_beginning_stocks": 1275471.0,
+      "sbm_beginning_stocks": 916390.0,
+      "sbo_beginning_stocks": 173473.0
+    },
+    "2018-02": {
+      "crushers_beginning_stocks": 952646.0,
+      "sbm_beginning_stocks": 850682.0,
+      "sbo_beginning_stocks": 176282.0
+    },
+    "2018-03": {
+      "crushers_beginning_stocks": 764570.0,
+      "sbm_beginning_stocks": 691025.0,
+      "sbo_beginning_stocks": 231592.0
+    },
+    "2018-04": {
+      "crushers_beginning_stocks": 1793528.0,
+      "sbm_beginning_stocks": 751048.0,
+      "sbo_beginning_stocks": 310542.0
+    },
+    "2018-05": {
+      "crushers_beginning_stocks": 3084268.0,
+      "sbm_beginning_stocks": 932454.0,
+      "sbo_beginning_stocks": 184800.0
+    },
+    "2018-06": {
+      "crushers_beginning_stocks": 3412724.0,
+      "sbm_beginning_stocks": 1038505.0,
+      "sbo_beginning_stocks": 286981.0
+    },
+    "2018-07": {
+      "crushers_beginning_stocks": 3479528.0,
+      "sbm_beginning_stocks": 1056889.0,
+      "sbo_beginning_stocks": 328403.0
+    },
+    "2018-08": {
+      "crushers_beginning_stocks": 2917115.0,
+      "sbm_beginning_stocks": 1447645.0,
+      "sbo_beginning_stocks": 354506.0
+    },
+    "2018-09": {
+      "crushers_beginning_stocks": 3049992.0,
+      "sbm_beginning_stocks": 1486129.0,
+      "sbo_beginning_stocks": 280182.0
+    },
+    "2018-10": {
+      "crushers_beginning_stocks": 2744157.0,
+      "sbm_beginning_stocks": 1060898.0,
+      "sbo_beginning_stocks": 232463.0
+    },
+    "2018-11": {
+      "crushers_beginning_stocks": 2232283.0,
+      "sbm_beginning_stocks": 1122822.0,
+      "sbo_beginning_stocks": 237651.0
+    },
+    "2018-12": {
+      "crushers_beginning_stocks": 1656440.0,
+      "sbm_beginning_stocks": 1344195.0,
+      "sbo_beginning_stocks": 344660.0
+    },
+    "2019-01": {
+      "crushers_beginning_stocks": 1295689.0,
+      "sbm_beginning_stocks": 1269397.0,
+      "sbo_beginning_stocks": 315537.0
+    },
+    "2019-02": {
+      "crushers_beginning_stocks": 1173096.0,
+      "sbm_beginning_stocks": 917033.0,
+      "sbo_beginning_stocks": 231584.0
+    },
+    "2019-03": {
+      "crushers_beginning_stocks": 1116148.0,
+      "sbm_beginning_stocks": 819782.0,
+      "sbo_beginning_stocks": 169535.0
+    },
+    "2019-04": {
+      "crushers_beginning_stocks": 1057723.0,
+      "sbm_beginning_stocks": 669943.0,
+      "sbo_beginning_stocks": 171698.0
+    },
+    "2019-05": {
+      "crushers_beginning_stocks": 2672523.0,
+      "sbm_beginning_stocks": 908795.0,
+      "sbo_beginning_stocks": 239582.0
+    },
+    "2019-06": {
+      "crushers_beginning_stocks": 3203180.0,
+      "sbm_beginning_stocks": 644905.0,
+      "sbo_beginning_stocks": 166764.0
+    },
+    "2019-07": {
+      "crushers_beginning_stocks": 2933330.0,
+      "sbm_beginning_stocks": 855288.0,
+      "sbo_beginning_stocks": 201939.0
+    },
+    "2019-08": {
+      "crushers_beginning_stocks": 2265192.0,
+      "sbm_beginning_stocks": 1200441.0,
+      "sbo_beginning_stocks": 306297.0
+    },
+    "2019-09": {
+      "crushers_beginning_stocks": 2159726.0,
+      "sbm_beginning_stocks": 1494414.0,
+      "sbo_beginning_stocks": 360826.0
+    },
+    "2019-10": {
+      "crushers_beginning_stocks": 2257414.0,
+      "sbm_beginning_stocks": 1137265.0,
+      "sbo_beginning_stocks": 272977.0
+    },
+    "2019-11": {
+      "crushers_beginning_stocks": 1827747.0,
+      "sbm_beginning_stocks": 1083666.0,
+      "sbo_beginning_stocks": 354315.0
+    },
+    "2019-12": {
+      "crushers_beginning_stocks": 1554608.0,
+      "sbm_beginning_stocks": 762632.0,
+      "sbo_beginning_stocks": 408453.0
+    },
+    "2020-01": {
+      "crushers_beginning_stocks": 966091.0,
+      "sbm_beginning_stocks": 551393.0,
+      "sbo_beginning_stocks": 354908.0
+    },
+    "2020-02": {
+      "crushers_beginning_stocks": 971068.0,
+      "sbm_beginning_stocks": 348537.0,
+      "sbo_beginning_stocks": 222961.0
+    },
+    "2020-03": {
+      "crushers_beginning_stocks": 746326.0,
+      "sbm_beginning_stocks": 518287.0,
+      "sbo_beginning_stocks": 213077.0
+    },
+    "2020-04": {
+      "crushers_beginning_stocks": 721453.0,
+      "sbm_beginning_stocks": 516700.0,
+      "sbo_beginning_stocks": 316479.0
+    },
+    "2020-05": {
+      "crushers_beginning_stocks": 2657705.0,
+      "sbm_beginning_stocks": 824081.0,
+      "sbo_beginning_stocks": 392837.0
+    },
+    "2020-06": {
+      "crushers_beginning_stocks": 3308909.0,
+      "sbm_beginning_stocks": 1029165.0,
+      "sbo_beginning_stocks": 464114.0
+    },
+    "2020-07": {
+      "crushers_beginning_stocks": 3094422.0,
+      "sbm_beginning_stocks": 747034.0,
+      "sbo_beginning_stocks": 360205.0
+    },
+    "2020-08": {
+      "crushers_beginning_stocks": 3073989.0,
+      "sbm_beginning_stocks": 870411.0,
+      "sbo_beginning_stocks": 259202.0
+    },
+    "2020-09": {
+      "crushers_beginning_stocks": 2664716.0,
+      "sbm_beginning_stocks": 1143799.0,
+      "sbo_beginning_stocks": 394215.0
+    },
+    "2020-10": {
+      "crushers_beginning_stocks": 2739497.0,
+      "sbm_beginning_stocks": 955100.0,
+      "sbo_beginning_stocks": 402452.0
+    },
+    "2020-11": {
+      "crushers_beginning_stocks": 2738970.0,
+      "sbm_beginning_stocks": 1026518.0,
+      "sbo_beginning_stocks": 400599.0
+    },
+    "2020-12": {
+      "crushers_beginning_stocks": 2719461.0,
+      "sbm_beginning_stocks": 954971.0,
+      "sbo_beginning_stocks": 325535.0
+    },
+    "2021-01": {
+      "crushers_beginning_stocks": 2542327.0,
+      "sbm_beginning_stocks": 706297.0,
+      "sbo_beginning_stocks": 359047.0
+    },
+    "2021-02": {
+      "crushers_beginning_stocks": 1438694.0,
+      "sbm_beginning_stocks": 579203.0,
+      "sbo_beginning_stocks": 319166.0
+    },
+    "2021-03": {
+      "crushers_beginning_stocks": 1402108.0,
+      "sbm_beginning_stocks": 582420.0,
+      "sbo_beginning_stocks": 214193.0
+    },
+    "2021-04": {
+      "crushers_beginning_stocks": 1337402.0,
+      "sbm_beginning_stocks": 519102.0,
+      "sbo_beginning_stocks": 228474.0
+    },
+    "2021-05": {
+      "crushers_beginning_stocks": 3069543.0,
+      "sbm_beginning_stocks": 481233.0,
+      "sbo_beginning_stocks": 268866.0
+    },
+    "2021-06": {
+      "crushers_beginning_stocks": 3602430.0,
+      "sbm_beginning_stocks": 879947.0,
+      "sbo_beginning_stocks": 282491.0
+    },
+    "2021-07": {
+      "crushers_beginning_stocks": 3380424.0,
+      "sbm_beginning_stocks": 1142300.0,
+      "sbo_beginning_stocks": 285536.0
+    },
+    "2021-08": {
+      "crushers_beginning_stocks": 3104330.0,
+      "sbm_beginning_stocks": 1215356.0,
+      "sbo_beginning_stocks": 323678.0
+    },
+    "2021-09": {
+      "crushers_beginning_stocks": 2951555.0,
+      "sbm_beginning_stocks": 1029143.0,
+      "sbo_beginning_stocks": 278320.0
+    },
+    "2021-10": {
+      "crushers_beginning_stocks": 2508151.0,
+      "sbm_beginning_stocks": 887203.0,
+      "sbo_beginning_stocks": 215901.0
+    },
+    "2021-11": {
+      "crushers_beginning_stocks": 2493933.0,
+      "sbm_beginning_stocks": 978516.0,
+      "sbo_beginning_stocks": 249156.0
+    },
+    "2021-12": {
+      "crushers_beginning_stocks": 2346181.0,
+      "sbm_beginning_stocks": 768301.0,
+      "sbo_beginning_stocks": 226265.0
+    },
+    "2022-01": {
+      "crushers_beginning_stocks": 1698901.0,
+      "sbm_beginning_stocks": 691649.0,
+      "sbo_beginning_stocks": 248192.0
+    },
+    "2022-02": {
+      "crushers_beginning_stocks": 1069171.0,
+      "sbm_beginning_stocks": 884725.0,
+      "sbo_beginning_stocks": 206272.0
+    },
+    "2022-03": {
+      "crushers_beginning_stocks": 861640.0,
+      "sbm_beginning_stocks": 718520.0,
+      "sbo_beginning_stocks": 235754.0
+    },
+    "2022-04": {
+      "crushers_beginning_stocks": 869658.0,
+      "sbm_beginning_stocks": 550684.0,
+      "sbo_beginning_stocks": 204869.0
+    },
+    "2022-05": {
+      "crushers_beginning_stocks": 2434399.0,
+      "sbm_beginning_stocks": 556065.0,
+      "sbo_beginning_stocks": 244029.0
+    },
+    "2022-06": {
+      "crushers_beginning_stocks": 3656943.0,
+      "sbm_beginning_stocks": 742402.0,
+      "sbo_beginning_stocks": 288504.0
+    },
+    "2022-07": {
+      "crushers_beginning_stocks": 3313259.0,
+      "sbm_beginning_stocks": 759705.0,
+      "sbo_beginning_stocks": 262583.0
+    },
+    "2022-08": {
+      "crushers_beginning_stocks": 2825023.0,
+      "sbm_beginning_stocks": 710823.0,
+      "sbo_beginning_stocks": 354694.0
+    },
+    "2022-09": {
+      "crushers_beginning_stocks": 2659408.0,
+      "sbm_beginning_stocks": 1076889.0,
+      "sbo_beginning_stocks": 291279.0
+    },
+    "2022-10": {
+      "crushers_beginning_stocks": 3555742.0,
+      "sbm_beginning_stocks": 1319742.0,
+      "sbo_beginning_stocks": 337584.0
+    },
+    "2022-11": {
+      "crushers_beginning_stocks": 2703421.0,
+      "sbm_beginning_stocks": 987978.0,
+      "sbo_beginning_stocks": 424288.0
+    },
+    "2022-12": {
+      "crushers_beginning_stocks": 1753384.0,
+      "sbm_beginning_stocks": 687050.0,
+      "sbo_beginning_stocks": 383786.0
+    },
+    "2023-01": {
+      "crushers_beginning_stocks": 1691730.0,
+      "sbm_beginning_stocks": 454318.0,
+      "sbo_beginning_stocks": 364367.0
+    },
+    "2023-02": {
+      "crushers_beginning_stocks": 1080308.0,
+      "sbm_beginning_stocks": 388974.0,
+      "sbo_beginning_stocks": 288653.0
+    },
+    "2023-03": {
+      "crushers_beginning_stocks": 697008.0,
+      "sbm_beginning_stocks": 328532.0,
+      "sbo_beginning_stocks": 191929.0
+    },
+    "2023-04": {
+      "crushers_beginning_stocks": 605116.0,
+      "sbm_beginning_stocks": 498828.0,
+      "sbo_beginning_stocks": 236797.0
+    },
+    "2023-05": {
+      "crushers_beginning_stocks": 1446724.0,
+      "sbm_beginning_stocks": 602870.0,
+      "sbo_beginning_stocks": 269000.0
+    },
+    "2023-06": {
+      "crushers_beginning_stocks": 2287718.0,
+      "sbm_beginning_stocks": 820190.0,
+      "sbo_beginning_stocks": 345024.0
+    },
+    "2023-07": {
+      "crushers_beginning_stocks": 2426806.0,
+      "sbm_beginning_stocks": 950316.0,
+      "sbo_beginning_stocks": 323360.0
+    },
+    "2023-08": {
+      "crushers_beginning_stocks": 2307119.0,
+      "sbm_beginning_stocks": 1089935.0,
+      "sbo_beginning_stocks": 347921.0
+    },
+    "2023-09": {
+      "crushers_beginning_stocks": 2199444.0,
+      "sbm_beginning_stocks": 802956.0,
+      "sbo_beginning_stocks": 321764.0
+    },
+    "2023-10": {
+      "crushers_beginning_stocks": 2644023.0,
+      "sbm_beginning_stocks": 782517.0,
+      "sbo_beginning_stocks": 294840.0
+    },
+    "2023-11": {
+      "crushers_beginning_stocks": 2528775.0,
+      "sbm_beginning_stocks": 843086.0,
+      "sbo_beginning_stocks": 311847.0
+    },
+    "2023-12": {
+      "crushers_beginning_stocks": 2188688.0,
+      "sbm_beginning_stocks": 786108.0,
+      "sbo_beginning_stocks": 359192.0
+    },
+    "2024-01": {
+      "crushers_beginning_stocks": 1813610.0,
+      "sbm_beginning_stocks": 783144.0,
+      "sbo_beginning_stocks": 403337.0
+    },
+    "2024-02": {
+      "crushers_beginning_stocks": 1446844.0,
+      "sbm_beginning_stocks": 728129.0,
+      "sbo_beginning_stocks": 375966.0
+    },
+    "2024-03": {
+      "crushers_beginning_stocks": 1090272.0,
+      "sbm_beginning_stocks": 723464.0,
+      "sbo_beginning_stocks": 277615.0
+    },
+    "2024-04": {
+      "crushers_beginning_stocks": 778528.0,
+      "sbm_beginning_stocks": 619190.0,
+      "sbo_beginning_stocks": 267933.0
+    },
+    "2024-05": {
+      "crushers_beginning_stocks": 1805189.0,
+      "sbm_beginning_stocks": 794832.0,
+      "sbo_beginning_stocks": 335520.0
+    },
+    "2024-06": {
+      "crushers_beginning_stocks": 3466378.0,
+      "sbm_beginning_stocks": 422658.0,
+      "sbo_beginning_stocks": 255058.0
+    },
+    "2024-07": {
+      "crushers_beginning_stocks": 3256709.0,
+      "sbm_beginning_stocks": 430266.0,
+      "sbo_beginning_stocks": 241950.0
+    },
+    "2024-08": {
+      "crushers_beginning_stocks": 2967891.0,
+      "sbm_beginning_stocks": 714385.0,
+      "sbo_beginning_stocks": 284383.0
+    },
+    "2024-09": {
+      "crushers_beginning_stocks": 3131611.0,
+      "sbm_beginning_stocks": 628891.0,
+      "sbo_beginning_stocks": 277374.0
+    },
+    "2024-10": {
+      "crushers_beginning_stocks": 2949268.0,
+      "sbm_beginning_stocks": 916350.0,
+      "sbo_beginning_stocks": 339153.0
+    },
+    "2024-11": {
+      "crushers_beginning_stocks": 2542778.0,
+      "sbm_beginning_stocks": 977638.0,
+      "sbo_beginning_stocks": 348722.0
+    },
+    "2024-12": {
+      "crushers_beginning_stocks": 2834072.0,
+      "sbm_beginning_stocks": 847036.0,
+      "sbo_beginning_stocks": 266887.0
+    },
+    "2025-01": {
+      "crushers_beginning_stocks": 1840295.0,
+      "sbm_beginning_stocks": 828594.0,
+      "sbo_beginning_stocks": 308068.0
+    },
+    "2025-02": {
+      "crushers_beginning_stocks": 1354882.0,
+      "sbm_beginning_stocks": 608271.0,
+      "sbo_beginning_stocks": 242223.0
+    },
+    "2025-03": {
+      "crushers_beginning_stocks": 1243347.0,
+      "sbm_beginning_stocks": 490161.0,
+      "sbo_beginning_stocks": 169426.0
+    },
+    "2025-04": {
+      "crushers_beginning_stocks": 666159.0,
+      "sbm_beginning_stocks": 485487.0,
+      "sbo_beginning_stocks": 234313.0
+    },
+    "2025-05": {
+      "crushers_beginning_stocks": 2488172.0,
+      "sbm_beginning_stocks": 428264.0,
+      "sbo_beginning_stocks": 200790.0
+    },
+    "2025-06": {
+      "crushers_beginning_stocks": 3521363.0,
+      "sbm_beginning_stocks": 647657.0,
+      "sbo_beginning_stocks": 224488.0
+    },
+    "2025-07": {
+      "crushers_beginning_stocks": 3514109.0,
+      "sbm_beginning_stocks": 896212.0,
+      "sbo_beginning_stocks": 306271.0
+    },
+    "2025-08": {
+      "crushers_beginning_stocks": 3454720.0,
+      "sbm_beginning_stocks": 848509.0,
+      "sbo_beginning_stocks": 171461.0
+    },
+    "2025-09": {
+      "crushers_beginning_stocks": 3238784.0,
+      "sbm_beginning_stocks": 782710.0,
+      "sbo_beginning_stocks": 223215.0
+    },
+    "2025-10": {
+      "crushers_beginning_stocks": 3115359.0,
+      "sbm_beginning_stocks": 968591.0,
+      "sbo_beginning_stocks": 233376.0
+    },
+    "2025-11": {
+      "crushers_beginning_stocks": 2807919.0,
+      "sbm_beginning_stocks": 1051049.0,
+      "sbo_beginning_stocks": 297870.0
+    },
+    "2025-12": {
+      "crushers_beginning_stocks": 2154639.0,
+      "sbm_beginning_stocks": 704679.0,
+      "sbo_beginning_stocks": 283465.0
+    },
+    "2026-01": {
+      "crushers_beginning_stocks": 1522714.0,
+      "sbm_beginning_stocks": 739833.0,
+      "sbo_beginning_stocks": 261420.0
+    },
+    "2026-02": {
+      "crushers_beginning_stocks": 1259006.0,
+      "sbm_beginning_stocks": 471434.0,
+      "sbo_beginning_stocks": 181208.0
+    },
+    "2026-03": {
+      "crushers_beginning_stocks": 1429466.0,
+      "sbm_beginning_stocks": 393731.0,
+      "sbo_beginning_stocks": 181833.0
+    },
+    "2026-04": {
+      "crushers_beginning_stocks": 899636.0,
+      "sbm_beginning_stocks": 505516.0,
+      "sbo_beginning_stocks": 222225.0
+    },
+    "2026-05": {
+      "crushers_beginning_stocks": 1940437.0,
+      "sbm_beginning_stocks": 358365.0,
+      "sbo_beginning_stocks": 250748.0
+    },
+    "2026-06": {
+      "crushers_beginning_stocks": 4037331.0,
+      "sbm_beginning_stocks": 711159.0,
+      "sbo_beginning_stocks": 334382.0
+    },
+    "2026-07": {
+      "crushers_beginning_stocks": 4128956.0,
+      "sbm_beginning_stocks": 764389.0,
+      "sbo_beginning_stocks": 275696.0
+    },
+    "2026-08": {
+      "crushers_beginning_stocks": 3926433.0,
+      "sbm_beginning_stocks": 1050799.0,
+      "sbo_beginning_stocks": 304439.0
+    },
+    "2026-09": {
+      "crushers_beginning_stocks": 3838330.0,
+      "sbm_beginning_stocks": 895238.0,
+      "sbo_beginning_stocks": 328071.0
+    },
+    "2026-10": {
+      "crushers_beginning_stocks": 3490688.0,
+      "sbm_beginning_stocks": 654543.0,
+      "sbo_beginning_stocks": 318130.0
+    }
+  },
+  "soybean_imports": {
+    "2026-08": 644246.4280000001,
+    "2026-09": 541696.042,
+    "2026-04": 1038595.0859999999,
+    "2026-06": 895222.019,
+    "2026-07": 947768.495,
+    "2026-01": 33972.676999999996,
+    "2026-02": 831375.735,
+    "2026-03": 975818.476,
+    "2026-05": 1018509.861,
+    "2025-08": 390900.84699999995,
+    "2025-09": 382249.647,
+    "2025-10": 238203.908,
+    "2025-03": 623671.7180000001,
+    "2025-04": 811159.85,
+    "2025-05": 777127.28,
+    "2025-06": 635157.6649999999,
+    "2025-07": 542694.466,
+    "2025-01": 69848.316,
+    "2025-02": 749144.557,
+    "2025-11": 268174.563,
+    "2025-12": 62172.048,
+    "2024-03": 994545.9310000001,
+    "2024-04": 749999.585,
+    "2024-07": 959357.093,
+    "2024-08": 555744.5560000001,
+    "2024-09": 652558.926,
+    "2024-01": 129798.225,
+    "2024-02": 702691.45,
+    "2024-05": 795908.33,
+    "2024-06": 697810.96,
+    "2024-10": 740255.336,
+    "2024-11": 489213.362,
+    "2024-12": 109804.495,
+    "2023-03": 1387001.298,
+    "2023-04": 1249299.651,
+    "2023-05": 1367061.748,
+    "2023-06": 1704363.9039999999,
+    "2023-07": 1065399.115,
+    "2023-08": 986047.917,
+    "2023-09": 646685.5970000001,
+    "2023-10": 466738.203,
+    "2023-11": 486020.649,
+    "2023-12": 595476.151,
+    "2023-02": 395588.131,
+    "2023-01": 17472.044,
+    "2022-03": 386685.725,
+    "2022-04": 403881.35199999996,
+    "2022-05": 533699.917,
+    "2022-06": 638552.015,
+    "2022-07": 381735.485,
+    "2022-08": 345426.69299999997,
+    "2022-09": 228397.42300000004,
+    "2022-10": 126036.662,
+    "2022-11": 60201.568,
+    "2022-02": 152685.671,
+    "2022-12": 52153.954,
+    "2021-06": 614323.3400000001,
+    "2021-08": 396534.23000000004,
+    "2021-12": 200471.887,
+    "2021-03": 885870.939,
+    "2021-04": 718441.298,
+    "2021-05": 648480.951,
+    "2021-07": 501371.528,
+    "2021-01": 59320.796,
+    "2021-02": 22117.986,
+    "2021-09": 251059.402,
+    "2021-10": 262795.989,
+    "2021-11": 303237.02900000004,
+    "2020-04": 377542.883,
+    "2020-05": 666106.948,
+    "2020-06": 588607.092,
+    "2020-07": 586540.915,
+    "2020-08": 471397.315,
+    "2020-09": 563867.76,
+    "2020-02": 587851.114,
+    "2020-03": 757651.8,
+    "2020-10": 392761.695,
+    "2020-11": 167553.768,
+    "2020-12": 155037.428,
+    "2019-02": 680257.0,
+    "2019-03": 707268.1,
+    "2019-04": 553272.1,
+    "2019-05": 470593.0,
+    "2019-06": 414715.5,
+    "2019-07": 374293.1,
+    "2019-08": 222927.9,
+    "2019-09": 124387.34,
+    "2019-10": 78406.04000000001,
+    "2019-01": 717200.0,
+    "2019-11": 136495.0,
+    "2019-12": 66169.3,
+    "2018-03": 928435.1,
+    "2018-04": 556139.0,
+    "2018-05": 578514.6,
+    "2018-06": 518422.0,
+    "2018-07": 394882.3,
+    "2018-08": 596973.7,
+    "2018-09": 329325.60000000003,
+    "2018-10": 665989.3,
+    "2018-11": 708864.7,
+    "2018-12": 767194.0,
+    "2018-01": 1003.89,
+    "2018-02": 363005.0,
+    "2017-04": 140522.1,
+    "2017-05": 205758.82,
+    "2017-06": 173750.7,
+    "2017-07": 191217.5,
+    "2017-08": 114342.29999999999,
+    "2017-09": 79759.1,
+    "2017-10": 198368.8,
+    "2017-11": 148159.47,
+    "2017-12": 55456.009999999995,
+    "2017-02": 243702.5,
+    "2017-03": 342356.0,
+    "2017-01": 3978.01,
+    "2016-07": 82599.49,
+    "2016-08": 46864.6,
+    "2016-11": 107456.0,
+    "2016-10": 6510.265,
+    "2016-02": 25985.4,
+    "2016-03": 114167.0,
+    "2016-04": 136130.0,
+    "2016-05": 129850.0,
+    "2016-06": 77880.1,
+    "2016-09": 61941.0,
+    "2016-12": 63361.7
+  },
+  "indec_ica_soy_trade": {
+    "2026-09": {
+      "soybeans_exports_yoy_pct": -49.93667804104492,
+      "sbo_exports_yoy_pct": -6.919440275657774,
+      "sbm_exports_yoy_pct": 5.775192240337712,
+      "source_url": "https://www.indec.gob.ar/ftp/cuadros/economia/ica_cuadros_19_10_26.xls"
+    }
+  },
+  "biodiesel_snd": {
+    "2015-01": {
+      "production": 134435.0,
+      "domestic_sales": 87284.0,
+      "exports": 25250.0,
+      "exports_confidential": false
+    },
+    "2015-02": {
+      "production": 99065.0,
+      "domestic_sales": 84192.0,
+      "exports": 32749.999,
+      "exports_confidential": false
+    },
+    "2015-03": {
+      "production": 96673.0,
+      "domestic_sales": 84492.0,
+      "exports": 37805.0,
+      "exports_confidential": false
+    },
+    "2015-04": {
+      "production": 128439.0,
+      "domestic_sales": 90888.0,
+      "exports": 12169.6,
+      "exports_confidential": false
+    },
+    "2015-05": {
+      "production": 131226.0,
+      "domestic_sales": 88887.0,
+      "exports": 35375.0,
+      "exports_confidential": false
+    },
+    "2015-06": {
+      "production": 190445.0,
+      "domestic_sales": 90140.0,
+      "exports": 93200.0,
+      "exports_confidential": false
+    },
+    "2015-07": {
+      "production": 176765.0,
+      "domestic_sales": 96559.0,
+      "exports": 81800.0,
+      "exports_confidential": false
+    },
+    "2015-08": {
+      "production": 208493.0,
+      "domestic_sales": 97296.0,
+      "exports": 83800.0,
+      "exports_confidential": false
+    },
+    "2015-09": {
+      "production": 182871.0,
+      "domestic_sales": 91027.0,
+      "exports": 94805.0,
+      "exports_confidential": false
+    },
+    "2015-10": {
+      "production": 199680.0,
+      "domestic_sales": 104707.0,
+      "exports": 103300.0,
+      "exports_confidential": false
+    },
+    "2015-11": {
+      "production": 182761.0,
+      "domestic_sales": 87103.0,
+      "exports": 126646.0,
+      "exports_confidential": false
+    },
+    "2015-12": {
+      "production": 79804.0,
+      "domestic_sales": 11786.0,
+      "exports": 61325.0,
+      "exports_confidential": false
+    },
+    "2016-01": {
+      "production": 102682.0,
+      "domestic_sales": 38921.0,
+      "exports": 64800.0,
+      "exports_confidential": false
+    },
+    "2016-02": {
+      "production": 151101.0,
+      "domestic_sales": 74374.0,
+      "exports": 22400.0,
+      "exports_confidential": false
+    },
+    "2016-03": {
+      "production": 146050.0,
+      "domestic_sales": 87988.0,
+      "exports": 98280.0,
+      "exports_confidential": false
+    },
+    "2016-04": {
+      "production": 191408.0,
+      "domestic_sales": 92936.0,
+      "exports": 78465.231,
+      "exports_confidential": false
+    },
+    "2016-05": {
+      "production": 251535.0,
+      "domestic_sales": 89967.0,
+      "exports": 151500.0,
+      "exports_confidential": false
+    },
+    "2016-06": {
+      "production": 261774.0,
+      "domestic_sales": 91314.0,
+      "exports": 174250.0,
+      "exports_confidential": false
+    },
+    "2016-07": {
+      "production": 248648.0,
+      "domestic_sales": 84571.0,
+      "exports": 160140.0,
+      "exports_confidential": false
+    },
+    "2016-08": {
+      "production": 285386.0,
+      "domestic_sales": 90271.0,
+      "exports": 179877.71,
+      "exports_confidential": false
+    },
+    "2016-09": {
+      "production": 292540.0,
+      "domestic_sales": 98683.0,
+      "exports": 167242.21,
+      "exports_confidential": false
+    },
+    "2016-10": {
+      "production": 294168.1,
+      "domestic_sales": 98070.37,
+      "exports": 252797.09,
+      "exports_confidential": false
+    },
+    "2016-11": {
+      "production": 280907.8,
+      "domestic_sales": 87952.92,
+      "exports": 185805.553,
+      "exports_confidential": false
+    },
+    "2016-12": {
+      "production": 153075.55,
+      "domestic_sales": 101349.08,
+      "exports": 90710.0,
+      "exports_confidential": false
+    },
+    "2017-01": {
+      "production": 189763.36999999997,
+      "domestic_sales": 100138.66,
+      "exports": 68350.0,
+      "exports_confidential": false
+    },
+    "2017-02": {
+      "production": 162199.72000000003,
+      "domestic_sales": 89053.65,
+      "exports": 69400.0,
+      "exports_confidential": false
+    },
+    "2017-03": {
+      "production": 172221.30000000005,
+      "domestic_sales": 84047.72999999998,
+      "exports": 40200.0,
+      "exports_confidential": false
+    },
+    "2017-04": {
+      "production": 249430.87,
+      "domestic_sales": 91833.19000000002,
+      "exports": 170400.0,
+      "exports_confidential": false
+    },
+    "2017-05": {
+      "production": 296823.87999999995,
+      "domestic_sales": 94494.43,
+      "exports": 215006.44,
+      "exports_confidential": false
+    },
+    "2017-06": {
+      "production": 282713.99999999994,
+      "domestic_sales": 104724.24,
+      "exports": 178129.0,
+      "exports_confidential": false
+    },
+    "2017-07": {
+      "production": 272984.60000000003,
+      "domestic_sales": 96979.28,
+      "exports": 231550.82,
+      "exports_confidential": false
+    },
+    "2017-08": {
+      "production": 169883.49000000005,
+      "domestic_sales": 102157.98000000003,
+      "exports": 79482.842,
+      "exports_confidential": false
+    },
+    "2017-09": {
+      "production": 213971.21000000002,
+      "domestic_sales": 94095.01000000001,
+      "exports": 42000.0,
+      "exports_confidential": false
+    },
+    "2017-10": {
+      "production": 293096.32,
+      "domestic_sales": 107889.13000000002,
+      "exports": 200000.0,
+      "exports_confidential": false
+    },
+    "2017-11": {
+      "production": 302618.48000000004,
+      "domestic_sales": 102167.83,
+      "exports": 185000.0,
+      "exports_confidential": false
+    },
+    "2017-12": {
+      "production": 265727.76,
+      "domestic_sales": 105951.93999999997,
+      "exports": 170793.008,
+      "exports_confidential": false
+    },
+    "2018-01": {
+      "production": 244128.15999999997,
+      "domestic_sales": 82541.29999999999,
+      "exports": 213910.343,
+      "exports_confidential": false
+    },
+    "2018-02": {
+      "production": 157007.22,
+      "domestic_sales": 83868.48,
+      "exports": 40000.0,
+      "exports_confidential": false
+    },
+    "2018-03": {
+      "production": 177938.87999999995,
+      "domestic_sales": 94027.09,
+      "exports": 65200.0,
+      "exports_confidential": false
+    },
+    "2018-04": {
+      "production": 226424.78,
+      "domestic_sales": 105135.25,
+      "exports": 120195.74,
+      "exports_confidential": false
+    },
+    "2018-05": {
+      "production": 290434.69000000006,
+      "domestic_sales": 89561.97999999997,
+      "exports": 183670.0,
+      "exports_confidential": false
+    },
+    "2018-06": {
+      "production": 265426.92,
+      "domestic_sales": 87048.24000000003,
+      "exports": 175330.0,
+      "exports_confidential": false
+    },
+    "2018-07": {
+      "production": 260050.77,
+      "domestic_sales": 93542.34999999999,
+      "exports": 234261.601,
+      "exports_confidential": false
+    },
+    "2018-08": {
+      "production": 134849.91,
+      "domestic_sales": 92918.31999999999,
+      "exports": 56590.358,
+      "exports_confidential": false
+    },
+    "2018-09": {
+      "production": 174085.0,
+      "domestic_sales": 101860.24,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2018-10": {
+      "production": 132450.22000000003,
+      "domestic_sales": 84880.13,
+      "exports": 39559.731,
+      "exports_confidential": false
+    },
+    "2018-11": {
+      "production": 259636.46000000005,
+      "domestic_sales": 94256.68,
+      "exports": 136000.0,
+      "exports_confidential": false
+    },
+    "2018-12": {
+      "production": 106564.04999999999,
+      "domestic_sales": 90251.44000000002,
+      "exports": 76313.67,
+      "exports_confidential": false
+    },
+    "2019-01": {
+      "production": 83487.41999999998,
+      "domestic_sales": 85146.57,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2019-02": {
+      "production": 93137.39999999998,
+      "domestic_sales": 78136.06,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2019-03": {
+      "production": 198837.54999999996,
+      "domestic_sales": 93994.71999999999,
+      "exports": 60000.0,
+      "exports_confidential": false
+    },
+    "2019-04": {
+      "production": 274971.94999999995,
+      "domestic_sales": 98455.13000000003,
+      "exports": 163260.0,
+      "exports_confidential": false
+    },
+    "2019-05": {
+      "production": 273161.6,
+      "domestic_sales": 95611.86,
+      "exports": 193260.0,
+      "exports_confidential": false
+    },
+    "2019-06": {
+      "production": 176760.43000000005,
+      "domestic_sales": 99909.04,
+      "exports": 75000.0,
+      "exports_confidential": false
+    },
+    "2019-07": {
+      "production": 135786.0,
+      "domestic_sales": 103627.0,
+      "exports": 75000.0,
+      "exports_confidential": false
+    },
+    "2019-08": {
+      "production": 203047.57999999996,
+      "domestic_sales": 67247.08,
+      "exports": 60000.0,
+      "exports_confidential": false
+    },
+    "2019-09": {
+      "production": 208479.53000000003,
+      "domestic_sales": 98109.21,
+      "exports": 179844.809,
+      "exports_confidential": false
+    },
+    "2019-10": {
+      "production": 172332.16000000003,
+      "domestic_sales": 101022.23,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2019-11": {
+      "production": 163012.43000000005,
+      "domestic_sales": 108097.35999999999,
+      "exports": 60000.0,
+      "exports_confidential": false
+    },
+    "2019-12": {
+      "production": 164256.43000000002,
+      "domestic_sales": 107372.41,
+      "exports": 148670.0,
+      "exports_confidential": false
+    },
+    "2020-01": {
+      "production": 105060.33,
+      "domestic_sales": 51696.48699999999,
+      "exports": 30312.67,
+      "exports_confidential": false
+    },
+    "2020-02": {
+      "production": 189691.69,
+      "domestic_sales": 67289.854,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2020-03": {
+      "production": 173827.60000000003,
+      "domestic_sales": 86985.65800000002,
+      "exports": 179677.213,
+      "exports_confidential": false
+    },
+    "2020-04": {
+      "production": 44793.299999999996,
+      "domestic_sales": 34819.067,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2020-05": {
+      "production": 78667.62999999998,
+      "domestic_sales": 76898.659,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2020-06": {
+      "production": 133137.00999999998,
+      "domestic_sales": 86250.73999999998,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2020-07": {
+      "production": 169827.24000000005,
+      "domestic_sales": 72816.367,
+      "exports": 119431.0,
+      "exports_confidential": false
+    },
+    "2020-08": {
+      "production": 106755.03,
+      "domestic_sales": 13035.629999999997,
+      "exports": 60004.37,
+      "exports_confidential": false
+    },
+    "2020-09": {
+      "production": 105941.04,
+      "domestic_sales": 5295.499999999999,
+      "exports": 150000.0,
+      "exports_confidential": false
+    },
+    "2020-10": {
+      "production": 12289.05,
+      "domestic_sales": 1562.0600000000002,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2020-11": {
+      "production": 28315.760000000002,
+      "domestic_sales": 367.17999999999995,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2020-12": {
+      "production": 9058.43,
+      "domestic_sales": 1842.07,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2021-01": {
+      "production": 28073.120000000003,
+      "domestic_sales": 22651.09,
+      "exports": 58507.776,
+      "exports_confidential": false
+    },
+    "2021-02": {
+      "production": 164411.47000000006,
+      "domestic_sales": 43887.739649,
+      "exports": 90005.011,
+      "exports_confidential": false
+    },
+    "2021-03": {
+      "production": 126450.01,
+      "domestic_sales": 51003.95,
+      "exports": 118883.58,
+      "exports_confidential": false
+    },
+    "2021-04": {
+      "production": 84848.98999999998,
+      "domestic_sales": 36334.702,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2021-05": {
+      "production": 188078.56,
+      "domestic_sales": 15103.88,
+      "exports": 141809.848,
+      "exports_confidential": false
+    },
+    "2021-06": {
+      "production": 170383.05000000002,
+      "domestic_sales": 7424.389999999999,
+      "exports": 169289.472,
+      "exports_confidential": false
+    },
+    "2021-07": {
+      "production": 218220.08000000002,
+      "domestic_sales": 43437.81500000001,
+      "exports": 210528.0,
+      "exports_confidential": false
+    },
+    "2021-08": {
+      "production": 182509.21000000008,
+      "domestic_sales": 38264.445999999996,
+      "exports": 139795.0,
+      "exports_confidential": false
+    },
+    "2021-09": {
+      "production": 170614.0,
+      "domestic_sales": 50215.0,
+      "exports": 100752.0,
+      "exports_confidential": false
+    },
+    "2021-10": {
+      "production": 147626.0,
+      "domestic_sales": 39684.0,
+      "exports": 170028.89,
+      "exports_confidential": false
+    },
+    "2021-11": {
+      "production": 99923.0,
+      "domestic_sales": 45878.0,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2021-12": {
+      "production": 142528.0,
+      "domestic_sales": 45530.0,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2022-01": {
+      "production": 189216.78999999998,
+      "domestic_sales": 44855.346,
+      "exports": 150870.506,
+      "exports_confidential": false
+    },
+    "2022-02": {
+      "production": 177386.34999999998,
+      "domestic_sales": 35840.68699999999,
+      "exports": 175224.0,
+      "exports_confidential": false
+    },
+    "2022-03": {
+      "production": 173267.24,
+      "domestic_sales": 17783.177,
+      "exports": 127601.465,
+      "exports_confidential": false
+    },
+    "2022-04": {
+      "production": 201273.25,
+      "domestic_sales": 51183.381,
+      "exports": 139640.0,
+      "exports_confidential": false
+    },
+    "2022-05": {
+      "production": 169575.48,
+      "domestic_sales": 53241.48600000001,
+      "exports": 143294.0,
+      "exports_confidential": false
+    },
+    "2022-06": {
+      "production": 186721.60999999993,
+      "domestic_sales": 60720.96199999999,
+      "exports": 149890.25,
+      "exports_confidential": false
+    },
+    "2022-07": {
+      "production": 120064.85000000002,
+      "domestic_sales": 94356.461,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2022-08": {
+      "production": 114334.24,
+      "domestic_sales": 81183.41000000003,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2022-09": {
+      "production": 113963.35000000002,
+      "domestic_sales": 75892.921,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2022-10": {
+      "production": 200355.37000000002,
+      "domestic_sales": 82430.45599999999,
+      "exports": 119468.5,
+      "exports_confidential": false
+    },
+    "2022-11": {
+      "production": 164637.45,
+      "domestic_sales": 58831.74600000001,
+      "exports": 157444.02,
+      "exports_confidential": false
+    },
+    "2022-12": {
+      "production": 98822.42,
+      "domestic_sales": 57994.155999999995,
+      "exports": 59308.5,
+      "exports_confidential": false
+    },
+    "2023-01": {
+      "production": 60607.670000000006,
+      "domestic_sales": 55156.439000000006,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2023-02": {
+      "production": 44574.26000000001,
+      "domestic_sales": 46069.04900000002,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2023-03": {
+      "production": 100427.18999999999,
+      "domestic_sales": 52972.664999999986,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2023-04": {
+      "production": 97986.25000000001,
+      "domestic_sales": 57534.131,
+      "exports": 90000.0,
+      "exports_confidential": false
+    },
+    "2023-05": {
+      "production": 85583.62999999999,
+      "domestic_sales": 61270.022,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2023-06": {
+      "production": 63536.78000000001,
+      "domestic_sales": 63574.10999999999,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2023-07": {
+      "production": 86327.24,
+      "domestic_sales": 68515.68699999998,
+      "exports": 12000.0,
+      "exports_confidential": false
+    },
+    "2023-08": {
+      "production": 92156.29999999997,
+      "domestic_sales": 49105.89100000001,
+      "exports": 58000.0,
+      "exports_confidential": false
+    },
+    "2023-09": {
+      "production": 89429.49999999999,
+      "domestic_sales": 52144.53699999998,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2023-10": {
+      "production": 57829.20999999999,
+      "domestic_sales": 35153.261,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2023-11": {
+      "production": 31182.840000000004,
+      "domestic_sales": 32281.723,
+      "exports": null,
+      "exports_confidential": true
+    },
+    "2023-12": {
+      "production": 21627.68,
+      "domestic_sales": 15026.870000000003,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2024-01": {
+      "production": 69904.54000000001,
+      "domestic_sales": 69895.37500000001,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2024-02": {
+      "production": 60788.64,
+      "domestic_sales": 56053.43999999999,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2024-03": {
+      "production": 100482.88999999998,
+      "domestic_sales": 58337.971000000005,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2024-04": {
+      "production": 121657.58,
+      "domestic_sales": 62181.533,
+      "exports": 60785.994,
+      "exports_confidential": false
+    },
+    "2024-05": {
+      "production": 109716.53999999996,
+      "domestic_sales": 66667.18400000001,
+      "exports": 74589.653,
+      "exports_confidential": false
+    },
+    "2024-06": {
+      "production": 123483.22,
+      "domestic_sales": 67950.70299999998,
+      "exports": 30300.0,
+      "exports_confidential": false
+    },
+    "2024-07": {
+      "production": 158400.2,
+      "domestic_sales": 70099.26100000001,
+      "exports": 83170.0,
+      "exports_confidential": false
+    },
+    "2024-08": {
+      "production": 106992.36,
+      "domestic_sales": 72131.21999999997,
+      "exports": 46073.347,
+      "exports_confidential": false
+    },
+    "2024-09": {
+      "production": 71382.26999999997,
+      "domestic_sales": 71683.674,
+      "exports": 27818.0,
+      "exports_confidential": false
+    },
+    "2024-10": {
+      "production": 78915.23,
+      "domestic_sales": 68411.388,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2024-11": {
+      "production": 77239.37999999999,
+      "domestic_sales": 41951.73300000001,
+      "exports": 30601.0,
+      "exports_confidential": false
+    },
+    "2024-12": {
+      "production": 83733.73000000001,
+      "domestic_sales": 71852.59,
+      "exports": 30000.0,
+      "exports_confidential": false
+    },
+    "2025-01": {
+      "production": 66538.24,
+      "domestic_sales": 65866.21399999999,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2025-02": {
+      "production": 64095.18,
+      "domestic_sales": 51448.854999999996,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2025-03": {
+      "production": 69635.56,
+      "domestic_sales": 55505.08,
+      "exports": 30600.0,
+      "exports_confidential": false
+    },
+    "2025-04": {
+      "production": 65742.52,
+      "domestic_sales": 65632.75,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2025-05": {
+      "production": 74713.37,
+      "domestic_sales": 73568.74,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2025-06": {
+      "production": 105251.56,
+      "domestic_sales": 72306.89,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2025-07": {
+      "production": 107677.35,
+      "domestic_sales": 62084.63,
+      "exports": 60000.0,
+      "exports_confidential": false
+    },
+    "2025-08": {
+      "production": 95491.48,
+      "domestic_sales": 56667.98,
+      "exports": 49686.445,
+      "exports_confidential": false
+    },
+    "2025-09": {
+      "production": 101306.38,
+      "domestic_sales": 34385.61,
+      "exports": 41600.0,
+      "exports_confidential": false
+    },
+    "2025-10": {
+      "production": 81462.05,
+      "domestic_sales": 29798.41,
+      "exports": 60000.0,
+      "exports_confidential": false
+    },
+    "2025-11": {
+      "production": 65351.41,
+      "domestic_sales": 61893.97,
+      "exports": 31500.0,
+      "exports_confidential": false
+    },
+    "2025-12": {
+      "production": 74936.52,
+      "domestic_sales": 74150.05,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2026-01": {
+      "production": 90116.0,
+      "domestic_sales": 64006.0,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2026-02": {
+      "production": 67335.58,
+      "domestic_sales": 62852.42,
+      "exports": 30360.0,
+      "exports_confidential": false
+    },
+    "2026-03": {
+      "production": 67947.19,
+      "domestic_sales": 67098.66,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2026-04": {
+      "production": 83163.57,
+      "domestic_sales": 77793.61,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2026-05": {
+      "production": 93100.66,
+      "domestic_sales": 75893.23999999999,
+      "exports": 0.0,
+      "exports_confidential": false
+    },
+    "2026-06": {
+      "production": 118583.51,
+      "domestic_sales": 83688.37,
+      "exports": 45145.0,
+      "exports_confidential": false
+    },
+    "2026-07": {
+      "production": 101097.0,
+      "domestic_sales": 82892.0,
+      "exports": 14000.0,
+      "exports_confidential": false
+    },
+    "2026-08": {
+      "production": 146604.0,
+      "domestic_sales": 82302.0,
+      "exports": 76176.0,
+      "exports_confidential": false
+    }
+  },
+  "corn_off_farm_stocks": {
+    "2015-01": 4026742.0,
+    "2015-02": 3556556.0,
+    "2015-03": 5308692.0,
+    "2015-04": 4144897.0,
+    "2015-05": 4885576.0,
+    "2015-06": 4206465.0,
+    "2015-07": 5273113.0,
+    "2015-08": 5538591.0,
+    "2015-09": 5765244.0,
+    "2015-10": 5396495.0,
+    "2015-11": 4879471.0,
+    "2015-12": 4448270.0,
+    "2016-01": 3810459.0,
+    "2016-02": 2904699.0,
+    "2016-03": 2980458.0,
+    "2016-04": 2177509.0,
+    "2016-05": 1977415.0,
+    "2016-06": 2142907.0,
+    "2016-07": 2680917.0,
+    "2016-08": 4969322.0,
+    "2016-09": 4868158.0,
+    "2016-10": 3940239.0,
+    "2016-11": 3206792.0,
+    "2016-12": 2472041.0,
+    "2017-01": 2007417.0,
+    "2017-02": 2089434.0,
+    "2017-03": 4407647.0,
+    "2017-04": 3329908.0,
+    "2017-05": 2570647.0,
+    "2017-06": 3526368.0,
+    "2017-07": 4706875.0,
+    "2017-08": 7040283.0,
+    "2017-09": 6958807.0,
+    "2017-10": 6085925.0,
+    "2017-11": 5074625.0,
+    "2017-12": 3827595.0,
+    "2018-03": 6994407.0,
+    "2018-04": 6271746.0,
+    "2018-05": 5090098.0,
+    "2018-06": 7228039.0,
+    "2018-07": 8536079.0,
+    "2018-08": 10270004.0,
+    "2018-09": 8463208.0,
+    "2018-10": 7354145.0,
+    "2018-11": 5740208.0,
+    "2018-12": 5123187.0,
+    "2019-01": 4032171.0,
+    "2019-02": 4330357.0,
+    "2019-03": 6895737.0,
+    "2019-04": 6804753.0,
+    "2019-05": 5331591.0,
+    "2019-06": 6157042.0,
+    "2019-07": 9617219.0,
+    "2019-08": 12601704.0,
+    "2019-09": 12052807.0,
+    "2019-10": 10604695.0,
+    "2019-11": 8591509.0,
+    "2019-12": 7904823.0,
+    "2020-01": 7225919.0,
+    "2020-02": 7319638.0,
+    "2020-03": 9804866.0,
+    "2020-04": 13645958.0,
+    "2020-05": 13518749.0,
+    "2020-06": 12732635.0,
+    "2020-07": 13995981.0,
+    "2020-08": 14509352.0,
+    "2020-09": 13146946.0,
+    "2020-10": 12666415.0,
+    "2020-11": 10917129.0,
+    "2020-12": 9965478.0,
+    "2021-01": 11025435.0,
+    "2021-02": 10176405.0,
+    "2021-03": 9620071.0,
+    "2021-04": 11259432.0,
+    "2021-05": 12578165.0,
+    "2021-06": 11861007.0,
+    "2021-07": 12806589.0,
+    "2021-08": 18512755.0,
+    "2021-09": 16631266.0,
+    "2021-10": 15429083.0,
+    "2021-11": 13040646.0,
+    "2021-12": 11794184.0,
+    "2022-01": 10498929.0,
+    "2022-02": 9327428.0,
+    "2022-03": 9527900.0,
+    "2022-04": 12093421.0,
+    "2022-05": 12508128.0,
+    "2022-06": 10975863.0,
+    "2022-07": 13175592.0,
+    "2022-08": 17256011.0,
+    "2022-09": 19075489.0,
+    "2022-10": 17816568.0,
+    "2022-11": 16736431.0,
+    "2022-12": 15259610.0,
+    "2023-01": 11912342.0,
+    "2023-02": 11112187.0,
+    "2023-03": 10308032.0,
+    "2023-04": 9534079.0,
+    "2023-05": 10045826.0,
+    "2023-06": 10020298.0,
+    "2023-07": 12147810.0,
+    "2023-08": 15116668.0,
+    "2023-09": 17922298.0,
+    "2023-10": 16429079.0,
+    "2023-11": 15362555.0,
+    "2023-12": 12997610.0,
+    "2024-01": 11549530.0,
+    "2024-02": 10429603.0,
+    "2024-03": 9638504.0,
+    "2024-04": 9614505.0,
+    "2024-05": 10433531.0,
+    "2024-06": 12999369.04,
+    "2024-07": 16618563.26,
+    "2024-08": 21734920.139,
+    "2024-09": 20588992.297,
+    "2024-10": 19206565.427,
+    "2024-11": 17618395.777,
+    "2024-12": 15002016.245,
+    "2025-01": 13031636.365,
+    "2025-02": 11126558.63700001,
+    "2025-03": 10813785.215999952,
+    "2025-04": 13220488.263,
+    "2025-05": 12301957.215,
+    "2025-06": 11439896.356,
+    "2025-07": 13476354.74,
+    "2025-08": 14414481.768,
+    "2025-09": 15887694.83,
+    "2025-10": 15539169.485,
+    "2025-11": 14327291.773,
+    "2025-12": 13127191.405,
+    "2026-01": 12148429.987,
+    "2026-02": 11082889.840000013,
+    "2026-03": 13018934.294,
+    "2026-04": 19296929.045,
+    "2026-05": 16831754.523,
+    "2026-06": 17169390.978,
+    "2026-07": 16717551.391,
+    "2026-08": 20371633.043,
+    "2026-09": 26570978.709,
+    "2026-10": 26562612.66,
+    "2026-11": 24403982.182
+  },
+  "corn_milling": {
+    "2015-01": {
+      "total_milling": 434901.0,
+      "feed_milling": 265527.0,
+      "dry_milling": 18801.0,
+      "wet_milling": 103410.0,
+      "other_industrial": 47163.0
+    },
+    "2015-02": {
+      "total_milling": 417929.0,
+      "feed_milling": 251121.0,
+      "dry_milling": 17253.0,
+      "wet_milling": 104558.0,
+      "other_industrial": 44997.0
+    },
+    "2015-03": {
+      "total_milling": 457367.0,
+      "feed_milling": 281374.0,
+      "dry_milling": 21192.0,
+      "wet_milling": 105519.0,
+      "other_industrial": 49282.0
+    },
+    "2015-04": {
+      "total_milling": 447589.0,
+      "feed_milling": 285942.0,
+      "dry_milling": 25931.0,
+      "wet_milling": 88213.0,
+      "other_industrial": 47503.0
+    },
+    "2015-05": {
+      "total_milling": 462229.0,
+      "feed_milling": 294921.0,
+      "dry_milling": 22102.0,
+      "wet_milling": 109871.0,
+      "other_industrial": 35335.0
+    },
+    "2015-06": {
+      "total_milling": 463036.0,
+      "feed_milling": 296036.0,
+      "dry_milling": 18560.0,
+      "wet_milling": 103885.0,
+      "other_industrial": 44555.0
+    },
+    "2015-07": {
+      "total_milling": 489874.0,
+      "feed_milling": 303529.0,
+      "dry_milling": 19410.0,
+      "wet_milling": 116753.0,
+      "other_industrial": 50182.0
+    },
+    "2015-08": {
+      "total_milling": 441255.0,
+      "feed_milling": 278952.0,
+      "dry_milling": 14247.0,
+      "wet_milling": 111526.0,
+      "other_industrial": 36530.0
+    },
+    "2015-09": {
+      "total_milling": 493841.0,
+      "feed_milling": 314102.0,
+      "dry_milling": 13790.0,
+      "wet_milling": 115458.0,
+      "other_industrial": 50491.0
+    },
+    "2015-10": {
+      "total_milling": 503228.0,
+      "feed_milling": 317232.0,
+      "dry_milling": 10543.0,
+      "wet_milling": 123562.0,
+      "other_industrial": 51891.0
+    },
+    "2015-11": {
+      "total_milling": 448158.0,
+      "feed_milling": 282198.0,
+      "dry_milling": 12111.0,
+      "wet_milling": 104045.0,
+      "other_industrial": 49804.0
+    },
+    "2015-12": {
+      "total_milling": 456947.0,
+      "feed_milling": 286111.0,
+      "dry_milling": 14218.0,
+      "wet_milling": 105450.0,
+      "other_industrial": 51168.0
+    },
+    "2016-01": {
+      "total_milling": 451414.0,
+      "feed_milling": 274616.0,
+      "dry_milling": 14383.0,
+      "wet_milling": 110719.0,
+      "other_industrial": 51696.0
+    },
+    "2016-02": {
+      "total_milling": 416106.0,
+      "feed_milling": 250221.0,
+      "dry_milling": 16680.0,
+      "wet_milling": 101250.0,
+      "other_industrial": 47955.0
+    },
+    "2016-03": {
+      "total_milling": 466502.0,
+      "feed_milling": 277475.0,
+      "dry_milling": 19969.0,
+      "wet_milling": 107246.0,
+      "other_industrial": 61812.0
+    },
+    "2016-04": {
+      "total_milling": 457099.0,
+      "feed_milling": 269967.0,
+      "dry_milling": 32092.0,
+      "wet_milling": 103565.0,
+      "other_industrial": 51475.0
+    },
+    "2016-05": {
+      "total_milling": 417920.0,
+      "feed_milling": 270625.0,
+      "dry_milling": 18932.0,
+      "wet_milling": 88935.0,
+      "other_industrial": 39428.0
+    },
+    "2016-06": {
+      "total_milling": 404035.0,
+      "feed_milling": 269800.0,
+      "dry_milling": 17768.0,
+      "wet_milling": 74608.0,
+      "other_industrial": 41859.0
+    },
+    "2016-07": {
+      "total_milling": 425787.0,
+      "feed_milling": 272383.0,
+      "dry_milling": 21105.0,
+      "wet_milling": 85659.0,
+      "other_industrial": 46640.0
+    },
+    "2016-08": {
+      "total_milling": 463206.0,
+      "feed_milling": 287608.0,
+      "dry_milling": 23304.0,
+      "wet_milling": 98806.0,
+      "other_industrial": 53488.0
+    },
+    "2016-09": {
+      "total_milling": 448784.0,
+      "feed_milling": 278189.0,
+      "dry_milling": 12016.0,
+      "wet_milling": 104319.0,
+      "other_industrial": 54260.0
+    },
+    "2016-10": {
+      "total_milling": 420647.0,
+      "feed_milling": 257197.0,
+      "dry_milling": 9961.0,
+      "wet_milling": 101648.0,
+      "other_industrial": 51841.0
+    },
+    "2016-11": {
+      "total_milling": 449966.0,
+      "feed_milling": 285775.0,
+      "dry_milling": 8884.0,
+      "wet_milling": 103152.0,
+      "other_industrial": 52155.0
+    },
+    "2016-12": {
+      "total_milling": 406866.0,
+      "feed_milling": 259942.0,
+      "dry_milling": 10344.0,
+      "wet_milling": 81148.0,
+      "other_industrial": 55432.0
+    },
+    "2017-01": {
+      "total_milling": 442819.0,
+      "feed_milling": 270668.0,
+      "dry_milling": 15455.0,
+      "wet_milling": 104308.0,
+      "other_industrial": 52388.0
+    },
+    "2017-02": {
+      "total_milling": 391675.0,
+      "feed_milling": 231322.0,
+      "dry_milling": 9290.0,
+      "wet_milling": 96468.0,
+      "other_industrial": 54595.0
+    },
+    "2017-03": {
+      "total_milling": 479873.0,
+      "feed_milling": 295516.0,
+      "dry_milling": 16695.0,
+      "wet_milling": 104487.0,
+      "other_industrial": 63175.0
+    },
+    "2017-04": {
+      "total_milling": 449431.0,
+      "feed_milling": 285708.0,
+      "dry_milling": 16135.0,
+      "wet_milling": 91029.0,
+      "other_industrial": 56559.0
+    },
+    "2017-05": {
+      "total_milling": 455560.0,
+      "feed_milling": 313521.0,
+      "dry_milling": 15721.0,
+      "wet_milling": 67451.0,
+      "other_industrial": 58867.0
+    },
+    "2017-06": {
+      "total_milling": 471383.0,
+      "feed_milling": 315690.0,
+      "dry_milling": 16754.0,
+      "wet_milling": 84745.0,
+      "other_industrial": 54194.0
+    },
+    "2017-07": {
+      "total_milling": 475235.0,
+      "feed_milling": 313103.0,
+      "dry_milling": 10627.0,
+      "wet_milling": 89632.0,
+      "other_industrial": 61873.0
+    },
+    "2017-08": {
+      "total_milling": 483268.0,
+      "feed_milling": 309163.0,
+      "dry_milling": 8082.0,
+      "wet_milling": 104060.0,
+      "other_industrial": 61963.0
+    },
+    "2017-09": {
+      "total_milling": 487019.0,
+      "feed_milling": 306294.0,
+      "dry_milling": 9483.0,
+      "wet_milling": 111182.0,
+      "other_industrial": 60060.0
+    },
+    "2017-10": {
+      "total_milling": 506359.0,
+      "feed_milling": 320939.0,
+      "dry_milling": 11559.0,
+      "wet_milling": 111562.0,
+      "other_industrial": 62299.0
+    },
+    "2017-11": {
+      "total_milling": 502225.0,
+      "feed_milling": 319953.0,
+      "dry_milling": 12452.0,
+      "wet_milling": 107499.0,
+      "other_industrial": 62321.0
+    },
+    "2017-12": {
+      "total_milling": 472799.0,
+      "feed_milling": 294383.0,
+      "dry_milling": 14417.0,
+      "wet_milling": 99923.0,
+      "other_industrial": 64076.0
+    },
+    "2018-01": {
+      "total_milling": 506269.0,
+      "feed_milling": 316179.0,
+      "dry_milling": 13076.0,
+      "wet_milling": 112748.0,
+      "other_industrial": 64266.0
+    },
+    "2018-02": {
+      "total_milling": 460507.0,
+      "feed_milling": 279832.0,
+      "dry_milling": 17547.0,
+      "wet_milling": 105633.0,
+      "other_industrial": 57496.0
+    },
+    "2018-03": {
+      "total_milling": 517599.0,
+      "feed_milling": 322099.0,
+      "dry_milling": 17385.0,
+      "wet_milling": 121986.0,
+      "other_industrial": 56129.0
+    },
+    "2018-04": {
+      "total_milling": 516933.0,
+      "feed_milling": 323444.0,
+      "dry_milling": 17282.0,
+      "wet_milling": 109146.0,
+      "other_industrial": 67061.0
+    },
+    "2018-05": {
+      "total_milling": 519924.0,
+      "feed_milling": 338686.0,
+      "dry_milling": 19717.0,
+      "wet_milling": 101672.0,
+      "other_industrial": 59849.0
+    },
+    "2018-06": {
+      "total_milling": 494874.0,
+      "feed_milling": 330627.0,
+      "dry_milling": 16046.0,
+      "wet_milling": 90417.0,
+      "other_industrial": 57784.0
+    },
+    "2018-07": {
+      "total_milling": 514497.0,
+      "feed_milling": 347113.0,
+      "dry_milling": 12832.0,
+      "wet_milling": 96670.0,
+      "other_industrial": 57882.0
+    },
+    "2018-08": {
+      "total_milling": 522931.0,
+      "feed_milling": 345978.0,
+      "dry_milling": 9866.0,
+      "wet_milling": 106288.0,
+      "other_industrial": 60799.0
+    },
+    "2018-09": {
+      "total_milling": 495630.0,
+      "feed_milling": 327351.0,
+      "dry_milling": 9324.0,
+      "wet_milling": 105709.0,
+      "other_industrial": 53246.0
+    },
+    "2018-10": {
+      "total_milling": 532671.0,
+      "feed_milling": 355346.0,
+      "dry_milling": 9137.0,
+      "wet_milling": 116985.0,
+      "other_industrial": 51203.0
+    },
+    "2018-11": {
+      "total_milling": 530760.0,
+      "feed_milling": 354020.0,
+      "dry_milling": 8620.0,
+      "wet_milling": 108679.0,
+      "other_industrial": 59441.0
+    },
+    "2018-12": {
+      "total_milling": 537592.0,
+      "feed_milling": 373928.0,
+      "dry_milling": 5799.0,
+      "wet_milling": 94551.0,
+      "other_industrial": 63314.0
+    },
+    "2019-01": {
+      "total_milling": 498067.0,
+      "feed_milling": 325815.0,
+      "dry_milling": 14009.0,
+      "wet_milling": 96580.0,
+      "other_industrial": 61664.0
+    },
+    "2019-02": {
+      "total_milling": 465118.0,
+      "feed_milling": 293986.0,
+      "dry_milling": 16166.0,
+      "wet_milling": 97477.0,
+      "other_industrial": 57490.0
+    },
+    "2019-03": {
+      "total_milling": 504970.0,
+      "feed_milling": 323839.0,
+      "dry_milling": 15439.0,
+      "wet_milling": 104009.0,
+      "other_industrial": 61683.0
+    },
+    "2019-04": {
+      "total_milling": 524169.0,
+      "feed_milling": 340114.0,
+      "dry_milling": 19257.0,
+      "wet_milling": 103084.0,
+      "other_industrial": 61714.0
+    },
+    "2019-05": {
+      "total_milling": 520625.0,
+      "feed_milling": 345827.0,
+      "dry_milling": 19387.0,
+      "wet_milling": 98536.0,
+      "other_industrial": 56875.0
+    },
+    "2019-06": {
+      "total_milling": 471729.0,
+      "feed_milling": 309613.0,
+      "dry_milling": 14786.0,
+      "wet_milling": 85610.0,
+      "other_industrial": 61720.0
+    },
+    "2019-07": {
+      "total_milling": 518727.0,
+      "feed_milling": 345870.0,
+      "dry_milling": 12349.0,
+      "wet_milling": 98179.0,
+      "other_industrial": 62329.0
+    },
+    "2019-08": {
+      "total_milling": 511227.0,
+      "feed_milling": 334837.0,
+      "dry_milling": 8998.0,
+      "wet_milling": 105096.0,
+      "other_industrial": 62297.0
+    },
+    "2019-09": {
+      "total_milling": 516056.0,
+      "feed_milling": 316625.0,
+      "dry_milling": 11072.0,
+      "wet_milling": 128758.0,
+      "other_industrial": 59600.0
+    },
+    "2019-10": {
+      "total_milling": 550736.0,
+      "feed_milling": 343893.0,
+      "dry_milling": 10212.0,
+      "wet_milling": 131866.0,
+      "other_industrial": 64765.0
+    },
+    "2019-11": {
+      "total_milling": 541988.0,
+      "feed_milling": 346729.0,
+      "dry_milling": 10681.0,
+      "wet_milling": 126760.0,
+      "other_industrial": 57818.0
+    },
+    "2019-12": {
+      "total_milling": 531772.0,
+      "feed_milling": 333636.0,
+      "dry_milling": 10901.0,
+      "wet_milling": 122671.0,
+      "other_industrial": 64564.0
+    },
+    "2020-01": {
+      "total_milling": 520020.0,
+      "feed_milling": 334598.0,
+      "dry_milling": 11698.0,
+      "wet_milling": 122591.0,
+      "other_industrial": 51133.0
+    },
+    "2020-02": {
+      "total_milling": 471568.0,
+      "feed_milling": 288620.0,
+      "dry_milling": 14459.0,
+      "wet_milling": 124237.0,
+      "other_industrial": 44252.0
+    },
+    "2020-03": {
+      "total_milling": 531721.0,
+      "feed_milling": 326192.0,
+      "dry_milling": 15801.0,
+      "wet_milling": 132466.0,
+      "other_industrial": 57261.0
+    },
+    "2020-04": {
+      "total_milling": 472932.0,
+      "feed_milling": 324750.0,
+      "dry_milling": 21790.0,
+      "wet_milling": 95296.0,
+      "other_industrial": 31095.0
+    },
+    "2020-05": {
+      "total_milling": 499737.0,
+      "feed_milling": 322138.0,
+      "dry_milling": 20982.0,
+      "wet_milling": 109380.0,
+      "other_industrial": 47237.0
+    },
+    "2020-06": {
+      "total_milling": 530397.0,
+      "feed_milling": 350505.0,
+      "dry_milling": 25375.0,
+      "wet_milling": 105415.0,
+      "other_industrial": 49103.0
+    },
+    "2020-07": {
+      "total_milling": 571978.0,
+      "feed_milling": 367886.0,
+      "dry_milling": 23688.0,
+      "wet_milling": 128169.0,
+      "other_industrial": 52235.0
+    },
+    "2020-08": {
+      "total_milling": 570716.0,
+      "feed_milling": 371978.0,
+      "dry_milling": 15393.0,
+      "wet_milling": 130877.0,
+      "other_industrial": 52468.0
+    },
+    "2020-09": {
+      "total_milling": 560186.0,
+      "feed_milling": 377813.0,
+      "dry_milling": 11985.0,
+      "wet_milling": 122319.0,
+      "other_industrial": 48069.0
+    },
+    "2020-10": {
+      "total_milling": 585323.0,
+      "feed_milling": 375316.0,
+      "dry_milling": 11235.0,
+      "wet_milling": 146237.0,
+      "other_industrial": 52535.0
+    },
+    "2020-11": {
+      "total_milling": 548237.0,
+      "feed_milling": 360379.0,
+      "dry_milling": 11103.0,
+      "wet_milling": 138735.0,
+      "other_industrial": 38020.0
+    },
+    "2020-12": {
+      "total_milling": 539929.0,
+      "feed_milling": 371374.0,
+      "dry_milling": 10629.0,
+      "wet_milling": 122256.0,
+      "other_industrial": 35671.0
+    },
+    "2021-01": {
+      "total_milling": 525784.0,
+      "feed_milling": 331579.0,
+      "dry_milling": 15679.0,
+      "wet_milling": 127424.0,
+      "other_industrial": 51102.0
+    },
+    "2021-02": {
+      "total_milling": 529164.0,
+      "feed_milling": 338395.0,
+      "dry_milling": 15999.0,
+      "wet_milling": 131685.0,
+      "other_industrial": 43085.0
+    },
+    "2021-03": {
+      "total_milling": 598338.0,
+      "feed_milling": 381366.0,
+      "dry_milling": 19649.0,
+      "wet_milling": 143101.0,
+      "other_industrial": 54222.0
+    },
+    "2021-04": {
+      "total_milling": 575990.0,
+      "feed_milling": 373317.0,
+      "dry_milling": 23002.0,
+      "wet_milling": 127164.0,
+      "other_industrial": 52507.0
+    },
+    "2021-05": {
+      "total_milling": 535824.0,
+      "feed_milling": 348321.0,
+      "dry_milling": 18852.0,
+      "wet_milling": 117624.0,
+      "other_industrial": 51028.0
+    },
+    "2021-06": {
+      "total_milling": 517997.0,
+      "feed_milling": 350777.0,
+      "dry_milling": 14973.0,
+      "wet_milling": 105298.0,
+      "other_industrial": 46949.0
+    },
+    "2021-07": {
+      "total_milling": 562632.0,
+      "feed_milling": 382150.0,
+      "dry_milling": 17495.0,
+      "wet_milling": 113924.0,
+      "other_industrial": 49063.0
+    },
+    "2021-08": {
+      "total_milling": 597245.0,
+      "feed_milling": 382304.0,
+      "dry_milling": 14780.0,
+      "wet_milling": 144347.0,
+      "other_industrial": 55814.0
+    },
+    "2021-09": {
+      "total_milling": 608935.0,
+      "feed_milling": 388036.0,
+      "dry_milling": 9990.0,
+      "wet_milling": 151417.0,
+      "other_industrial": 59493.0
+    },
+    "2021-10": {
+      "total_milling": 611961.0,
+      "feed_milling": 385805.0,
+      "dry_milling": 11018.0,
+      "wet_milling": 154525.0,
+      "other_industrial": 60613.0
+    },
+    "2021-11": {
+      "total_milling": 621540.0,
+      "feed_milling": 403201.0,
+      "dry_milling": 12016.0,
+      "wet_milling": 146177.0,
+      "other_industrial": 60147.0
+    },
+    "2021-12": {
+      "total_milling": 626669.0,
+      "feed_milling": 396245.0,
+      "dry_milling": 11668.0,
+      "wet_milling": 149585.0,
+      "other_industrial": 69172.0
+    },
+    "2022-01": {
+      "total_milling": 578635.0,
+      "feed_milling": 373857.0,
+      "dry_milling": 10882.0,
+      "wet_milling": 135252.0,
+      "other_industrial": 58645.0
+    },
+    "2022-02": {
+      "total_milling": 555213.0,
+      "feed_milling": 332830.0,
+      "dry_milling": 14056.0,
+      "wet_milling": 145914.0,
+      "other_industrial": 62412.0
+    },
+    "2022-03": {
+      "total_milling": 627426.0,
+      "feed_milling": 389854.0,
+      "dry_milling": 18838.0,
+      "wet_milling": 158751.0,
+      "other_industrial": 59983.0
+    },
+    "2022-04": {
+      "total_milling": 611962.0,
+      "feed_milling": 387039.0,
+      "dry_milling": 21072.0,
+      "wet_milling": 147934.0,
+      "other_industrial": 55917.0
+    },
+    "2022-05": {
+      "total_milling": 635799.0,
+      "feed_milling": 406861.0,
+      "dry_milling": 20814.0,
+      "wet_milling": 147561.0,
+      "other_industrial": 60563.0
+    },
+    "2022-06": {
+      "total_milling": 610886.0,
+      "feed_milling": 403753.0,
+      "dry_milling": 23246.0,
+      "wet_milling": 124775.0,
+      "other_industrial": 59112.0
+    },
+    "2022-07": {
+      "total_milling": 602137.0,
+      "feed_milling": 404618.0,
+      "dry_milling": 16234.0,
+      "wet_milling": 125202.0,
+      "other_industrial": 56083.0
+    },
+    "2022-08": {
+      "total_milling": 636824.0,
+      "feed_milling": 426294.0,
+      "dry_milling": 12952.0,
+      "wet_milling": 139187.0,
+      "other_industrial": 58390.0
+    },
+    "2022-09": {
+      "total_milling": 620087.0,
+      "feed_milling": 412688.0,
+      "dry_milling": 11676.0,
+      "wet_milling": 135555.0,
+      "other_industrial": 60169.0
+    },
+    "2022-10": {
+      "total_milling": 625014.0,
+      "feed_milling": 414351.0,
+      "dry_milling": 9696.0,
+      "wet_milling": 140592.0,
+      "other_industrial": 60375.0
+    },
+    "2022-11": {
+      "total_milling": 598881.0,
+      "feed_milling": 399623.0,
+      "dry_milling": 11313.0,
+      "wet_milling": 129073.0,
+      "other_industrial": 58873.0
+    },
+    "2022-12": {
+      "total_milling": 618386.0,
+      "feed_milling": 425304.0,
+      "dry_milling": 11966.0,
+      "wet_milling": 123993.0,
+      "other_industrial": 57122.0
+    },
+    "2023-01": {
+      "total_milling": 610642.0,
+      "feed_milling": 407524.0,
+      "dry_milling": 18504.0,
+      "wet_milling": 127714.0,
+      "other_industrial": 56900.0
+    },
+    "2023-02": {
+      "total_milling": 565778.0,
+      "feed_milling": 379522.0,
+      "dry_milling": 15480.0,
+      "wet_milling": 121270.0,
+      "other_industrial": 49506.0
+    },
+    "2023-03": {
+      "total_milling": 660959.0,
+      "feed_milling": 455754.0,
+      "dry_milling": 18783.0,
+      "wet_milling": 130595.0,
+      "other_industrial": 55827.0
+    },
+    "2023-04": {
+      "total_milling": 636969.0,
+      "feed_milling": 425145.0,
+      "dry_milling": 21847.0,
+      "wet_milling": 133345.0,
+      "other_industrial": 56633.0
+    },
+    "2023-05": {
+      "total_milling": 654484.0,
+      "feed_milling": 439195.0,
+      "dry_milling": 23317.0,
+      "wet_milling": 133232.0,
+      "other_industrial": 58740.0
+    },
+    "2023-06": {
+      "total_milling": 654859.0,
+      "feed_milling": 451317.0,
+      "dry_milling": 23725.0,
+      "wet_milling": 122631.0,
+      "other_industrial": 57186.0
+    },
+    "2023-07": {
+      "total_milling": 654906.0,
+      "feed_milling": 444135.0,
+      "dry_milling": 21930.0,
+      "wet_milling": 127523.0,
+      "other_industrial": 61318.0
+    },
+    "2023-08": {
+      "total_milling": 662683.0,
+      "feed_milling": 458974.0,
+      "dry_milling": 14015.0,
+      "wet_milling": 126777.0,
+      "other_industrial": 62917.0
+    },
+    "2023-09": {
+      "total_milling": 636381.0,
+      "feed_milling": 439608.0,
+      "dry_milling": 13034.0,
+      "wet_milling": 140531.0,
+      "other_industrial": 43207.0
+    },
+    "2023-10": {
+      "total_milling": 644690.0,
+      "feed_milling": 447348.0,
+      "dry_milling": 14546.0,
+      "wet_milling": 145693.0,
+      "other_industrial": 37103.0
+    },
+    "2023-11": {
+      "total_milling": 654664.0,
+      "feed_milling": 467215.0,
+      "dry_milling": 15510.0,
+      "wet_milling": 136324.0,
+      "other_industrial": 35615.0
+    },
+    "2023-12": {
+      "total_milling": 596187.0,
+      "feed_milling": 420744.0,
+      "dry_milling": 13772.0,
+      "wet_milling": 127138.0,
+      "other_industrial": 34533.0
+    },
+    "2024-01": {
+      "total_milling": 597052.0,
+      "feed_milling": 420131.0,
+      "dry_milling": 15980.0,
+      "wet_milling": 121824.0,
+      "other_industrial": 39117.0
+    },
+    "2024-02": {
+      "total_milling": 545054.0,
+      "feed_milling": 387980.0,
+      "dry_milling": 17018.0,
+      "wet_milling": 103256.0,
+      "other_industrial": 36800.0
+    },
+    "2024-03": {
+      "total_milling": 549611.0,
+      "feed_milling": 382516.0,
+      "dry_milling": 19022.0,
+      "wet_milling": 107382.0,
+      "other_industrial": 40691.0
+    },
+    "2024-04": {
+      "total_milling": 526148.0,
+      "feed_milling": 362153.0,
+      "dry_milling": 18596.0,
+      "wet_milling": 105659.0,
+      "other_industrial": 39739.0
+    },
+    "2024-05": {
+      "total_milling": 577110.0,
+      "feed_milling": 405127.0,
+      "dry_milling": 23860.0,
+      "wet_milling": 107518.0,
+      "other_industrial": 40605.0
+    },
+    "2024-06": {
+      "total_milling": 573398.0,
+      "feed_milling": 412867.0,
+      "dry_milling": 20311.0,
+      "wet_milling": 101158.0,
+      "other_industrial": 39062.0
+    },
+    "2024-07": {
+      "total_milling": 625511.0,
+      "feed_milling": 456115.0,
+      "dry_milling": 16749.0,
+      "wet_milling": 118916.0,
+      "other_industrial": 33731.0
+    },
+    "2024-08": {
+      "total_milling": 623534.0,
+      "feed_milling": 438201.0,
+      "dry_milling": 13968.0,
+      "wet_milling": 131906.0,
+      "other_industrial": 39459.0
+    },
+    "2024-09": {
+      "total_milling": 598296.0,
+      "feed_milling": 421024.0,
+      "dry_milling": 13705.0,
+      "wet_milling": 126943.0,
+      "other_industrial": 36625.0
+    },
+    "2024-10": {
+      "total_milling": 634683.0,
+      "feed_milling": 453172.0,
+      "dry_milling": 13853.0,
+      "wet_milling": 131852.0,
+      "other_industrial": 35805.0
+    },
+    "2024-11": {
+      "total_milling": 609245.0,
+      "feed_milling": 426284.0,
+      "dry_milling": 14617.0,
+      "wet_milling": 129998.0,
+      "other_industrial": 38346.0
+    },
+    "2024-12": {
+      "total_milling": 600726.0,
+      "feed_milling": 418820.0,
+      "dry_milling": 16253.0,
+      "wet_milling": 127033.0,
+      "other_industrial": 38619.0
+    },
+    "2025-01": {
+      "total_milling": 590160.0,
+      "feed_milling": 418584.0,
+      "dry_milling": 15069.0,
+      "wet_milling": 120677.0,
+      "other_industrial": 35830.0
+    },
+    "2025-02": {
+      "total_milling": 541271.0,
+      "feed_milling": 368017.0,
+      "dry_milling": 17039.0,
+      "wet_milling": 121897.0,
+      "other_industrial": 34317.0
+    },
+    "2025-03": {
+      "total_milling": 571545.0,
+      "feed_milling": 386884.0,
+      "dry_milling": 17925.0,
+      "wet_milling": 133390.0,
+      "other_industrial": 33346.0
+    },
+    "2025-04": {
+      "total_milling": 587008.0,
+      "feed_milling": 415333.0,
+      "dry_milling": 21888.0,
+      "wet_milling": 119406.0,
+      "other_industrial": 30382.0
+    },
+    "2025-05": {
+      "total_milling": 605774.0,
+      "feed_milling": 425901.0,
+      "dry_milling": 22023.0,
+      "wet_milling": 118732.0,
+      "other_industrial": 39118.0
+    },
+    "2025-06": {
+      "total_milling": 589994.0,
+      "feed_milling": 420599.0,
+      "dry_milling": 17965.0,
+      "wet_milling": 114212.0,
+      "other_industrial": 37218.0
+    },
+    "2025-07": {
+      "total_milling": 636969.0,
+      "feed_milling": 473204.0,
+      "dry_milling": 16189.0,
+      "wet_milling": 109662.0,
+      "other_industrial": 37914.0
+    },
+    "2025-08": {
+      "total_milling": 630549.0,
+      "feed_milling": 452008.0,
+      "dry_milling": 13281.0,
+      "wet_milling": 130440.0,
+      "other_industrial": 34820.0
+    },
+    "2025-09": {
+      "total_milling": 601581.0,
+      "feed_milling": 432872.0,
+      "dry_milling": 12394.0,
+      "wet_milling": 119198.0,
+      "other_industrial": 37118.0
+    },
+    "2025-10": {
+      "total_milling": 614777.0,
+      "feed_milling": 453629.0,
+      "dry_milling": 12054.0,
+      "wet_milling": 114999.0,
+      "other_industrial": 34095.0
+    },
+    "2025-11": {
+      "total_milling": 594162.0,
+      "feed_milling": 423503.0,
+      "dry_milling": 10978.0,
+      "wet_milling": 124526.0,
+      "other_industrial": 35156.0
+    },
+    "2025-12": {
+      "total_milling": 570097.0,
+      "feed_milling": 401574.0,
+      "dry_milling": 13312.0,
+      "wet_milling": 120143.0,
+      "other_industrial": 35069.0
+    },
+    "2026-01": {
+      "total_milling": 533215.0,
+      "feed_milling": 367425.0,
+      "dry_milling": 14606.0,
+      "wet_milling": 117542.0,
+      "other_industrial": 33642.0
+    },
+    "2026-02": {
+      "total_milling": 531908.0,
+      "feed_milling": 366459.0,
+      "dry_milling": 17283.0,
+      "wet_milling": 115034.0,
+      "other_industrial": 33131.0
+    },
+    "2026-03": {
+      "total_milling": 604607.0,
+      "feed_milling": 418825.0,
+      "dry_milling": 17604.0,
+      "wet_milling": 128699.0,
+      "other_industrial": 39478.0
+    },
+    "2026-04": {
+      "total_milling": 606180.0,
+      "feed_milling": 417345.0,
+      "dry_milling": 20459.0,
+      "wet_milling": 126886.0,
+      "other_industrial": 41490.0
+    },
+    "2026-05": {
+      "total_milling": 624774.0,
+      "feed_milling": 439895.0,
+      "dry_milling": 22872.0,
+      "wet_milling": 123129.0,
+      "other_industrial": 38879.0
+    },
+    "2026-06": {
+      "total_milling": 612943.0,
+      "feed_milling": 453439.0,
+      "dry_milling": 18213.0,
+      "wet_milling": 103532.0,
+      "other_industrial": 37759.0
+    },
+    "2026-07": {
+      "total_milling": 646875.0,
+      "feed_milling": 465703.0,
+      "dry_milling": 13705.0,
+      "wet_milling": 124043.0,
+      "other_industrial": 43424.0
+    },
+    "2026-08": {
+      "total_milling": 597017.0,
+      "feed_milling": 423338.0,
+      "dry_milling": 14743.0,
+      "wet_milling": 123096.0,
+      "other_industrial": 35839.0
+    },
+    "2026-09": {
+      "total_milling": 625401.0,
+      "feed_milling": 440755.0,
+      "dry_milling": 13321.0,
+      "wet_milling": 134391.0,
+      "other_industrial": 36933.0
+    }
+  },
+  "corn_exports": {
+    "2015-01": 865658.87996,
+    "2015-02": 705674.94846,
+    "2015-03": 1878951.1295999999,
+    "2015-04": 2430268.64796,
+    "2015-05": 1684857.268,
+    "2015-06": 2248537.3954000003,
+    "2015-07": 1972156.34796,
+    "2015-08": 1510830.6998,
+    "2015-09": 1407361.87992,
+    "2015-10": 1089796.7174000002,
+    "2015-11": 503071.384,
+    "2015-12": 416464.38389999996,
+    "2016-01": 1194016.15388,
+    "2016-02": 2605147.75288,
+    "2016-03": 2789350.91152,
+    "2016-04": 1971845.86592,
+    "2016-05": 1600908.5366,
+    "2016-06": 1514003.1069200002,
+    "2016-07": 2052069.12784,
+    "2016-08": 4105342.84,
+    "2016-09": 1822521.92,
+    "2016-10": 2040406.76328,
+    "2016-11": 1773824.475,
+    "2016-12": 1024349.311,
+    "2017-01": 701099.66,
+    "2017-02": 243679.384,
+    "2017-03": 1896021.345,
+    "2017-04": 2819244.243,
+    "2017-05": 2223171.862,
+    "2017-06": 2116868.638,
+    "2017-07": 3171840.20321,
+    "2017-08": 2926168.8194,
+    "2017-09": 2000145.8958,
+    "2017-10": 2204996.58948,
+    "2017-11": 1957768.10484,
+    "2017-12": 1437750.2,
+    "2018-01": 1762333.598,
+    "2018-02": 1464242.651,
+    "2018-03": 2585948.362,
+    "2018-04": 2478130.66156,
+    "2018-05": 1812337.67096,
+    "2018-06": 1761687.331,
+    "2018-07": 2492954.643,
+    "2018-08": 2417875.6245999997,
+    "2018-09": 1814374.8298,
+    "2018-10": 2024352.5631199998,
+    "2018-11": 1243062.14492,
+    "2018-12": 1386767.6063599999,
+    "2019-01": 1036443.78696,
+    "2019-02": 1410116.703,
+    "2019-03": 3691625.458,
+    "2019-04": 3882207.928,
+    "2019-05": 4093324.097,
+    "2019-06": 2987207.2783600003,
+    "2019-07": 4426319.08592,
+    "2019-08": 3429388.88392,
+    "2019-09": 3260805.08054,
+    "2019-10": 3187074.70168,
+    "2019-11": 2864430.9931199998,
+    "2019-12": 1885311.08256,
+    "2020-01": 1862382.704,
+    "2020-02": 1663345.7666800001,
+    "2020-03": 3651999.504,
+    "2020-04": 4204827.987,
+    "2020-05": 4086364.652,
+    "2020-06": 4579302.922,
+    "2020-07": 4321012.568,
+    "2020-08": 4585991.628,
+    "2020-09": 3028751.946,
+    "2020-10": 2541854.499,
+    "2020-11": 1520482.604,
+    "2020-12": 985835.26,
+    "2021-01": 1682497.177,
+    "2021-02": 1073513.04824,
+    "2021-03": 2912329.64,
+    "2021-04": 4251185.861,
+    "2021-05": 3431683.169,
+    "2021-06": 4171303.142,
+    "2021-07": 4927082.601,
+    "2021-08": 4689287.164,
+    "2021-09": 4349992.257,
+    "2021-10": 3792986.2993699997,
+    "2021-11": 2477160.35,
+    "2021-12": 2333238.8724,
+    "2022-01": 1848894.8644400002,
+    "2022-02": 1747253.9893800002,
+    "2022-03": 3206061.776,
+    "2022-04": 4162300.935,
+    "2022-05": 3865542.8128000004,
+    "2022-06": 3788332.954,
+    "2022-07": 4963442.732,
+    "2022-08": 3824660.746,
+    "2022-09": 2836194.198,
+    "2022-10": 2117136.4122,
+    "2022-11": 1846117.55547,
+    "2022-12": 1474551.217,
+    "2023-01": 1006431.0,
+    "2023-02": 1415124.0,
+    "2023-03": 1899146.0,
+    "2023-04": 1451016.0,
+    "2023-05": 1720193.0,
+    "2023-06": 2214253.0,
+    "2023-07": 2835046.0,
+    "2023-08": 3934564.0,
+    "2023-09": 2891785.0,
+    "2023-10": 1637070.0,
+    "2023-11": 1130563.0,
+    "2023-12": 1182111.0,
+    "2024-01": 1940076.0,
+    "2024-02": 1775038.0,
+    "2024-03": 3710101.0,
+    "2024-04": 4601941.0,
+    "2024-05": 3473277.0,
+    "2024-06": 2201931.0,
+    "2024-07": 4080103.0,
+    "2024-08": 2649428.0,
+    "2024-09": 2834758.0,
+    "2024-10": 2511152.0,
+    "2024-11": 2417069.0,
+    "2024-12": 2267359.0,
+    "2025-01": 2473190.0,
+    "2025-02": 2337546.0,
+    "2025-03": 2913436.0,
+    "2025-04": 3686749.0,
+    "2025-05": 2998992.0,
+    "2025-06": 2847562.0,
+    "2025-07": 3498909.0,
+    "2025-08": 2446935.0,
+    "2025-09": 1982115.0,
+    "2025-10": 1705079.0,
+    "2025-11": 1576717.0,
+    "2025-12": 1464352.0,
+    "2026-01": 1614284.0,
+    "2026-02": 1342383.0,
+    "2026-03": 4598672.0,
+    "2026-04": 4411500.0,
+    "2026-05": 4055925.0,
+    "2026-06": 2743262.0,
+    "2026-07": 4530981.0,
+    "2026-08": 3228643.0,
+    "2026-09": 3419852.0
+  },
+  "corn_bioethanol": {
+    "2015-01": {
+      "total_prod_m3": 53786.0,
+      "cane_prod_m3": 17158.0,
+      "corn_prod_m3": 36628.0,
+      "domestic_sales_m3": 66577.0,
+      "corn_prod_tonnes": 28910.48,
+      "corn_feedstock_tonnes": 96389.47
+    },
+    "2015-02": {
+      "total_prod_m3": 51625.0,
+      "cane_prod_m3": 17571.0,
+      "corn_prod_m3": 34054.0,
+      "domestic_sales_m3": 61674.0,
+      "corn_prod_tonnes": 26878.82,
+      "corn_feedstock_tonnes": 89615.79
+    },
+    "2015-03": {
+      "total_prod_m3": 64599.0,
+      "cane_prod_m3": 20550.0,
+      "corn_prod_m3": 44049.0,
+      "domestic_sales_m3": 68105.0,
+      "corn_prod_tonnes": 34767.88,
+      "corn_feedstock_tonnes": 115918.42
+    },
+    "2015-04": {
+      "total_prod_m3": 60217.0,
+      "cane_prod_m3": 21088.0,
+      "corn_prod_m3": 39129.0,
+      "domestic_sales_m3": 66346.0,
+      "corn_prod_tonnes": 30884.52,
+      "corn_feedstock_tonnes": 102971.05
+    },
+    "2015-05": {
+      "total_prod_m3": 54562.0,
+      "cane_prod_m3": 18911.0,
+      "corn_prod_m3": 35651.0,
+      "domestic_sales_m3": 63256.0,
+      "corn_prod_tonnes": 28139.33,
+      "corn_feedstock_tonnes": 93818.42
+    },
+    "2015-06": {
+      "total_prod_m3": 74464.0,
+      "cane_prod_m3": 31681.0,
+      "corn_prod_m3": 42783.0,
+      "domestic_sales_m3": 64446.0,
+      "corn_prod_tonnes": 33768.62,
+      "corn_feedstock_tonnes": 112586.84
+    },
+    "2015-07": {
+      "total_prod_m3": 78868.0,
+      "cane_prod_m3": 38207.0,
+      "corn_prod_m3": 40661.0,
+      "domestic_sales_m3": 66256.0,
+      "corn_prod_tonnes": 32093.73,
+      "corn_feedstock_tonnes": 107002.63
+    },
+    "2015-08": {
+      "total_prod_m3": 72603.0,
+      "cane_prod_m3": 32911.0,
+      "corn_prod_m3": 39692.0,
+      "domestic_sales_m3": 64203.0,
+      "corn_prod_tonnes": 31328.9,
+      "corn_feedstock_tonnes": 104452.63
+    },
+    "2015-09": {
+      "total_prod_m3": 73144.0,
+      "cane_prod_m3": 37753.0,
+      "corn_prod_m3": 35391.0,
+      "domestic_sales_m3": 66908.0,
+      "corn_prod_tonnes": 27934.12,
+      "corn_feedstock_tonnes": 93134.21
+    },
+    "2015-10": {
+      "total_prod_m3": 86136.0,
+      "cane_prod_m3": 39498.0,
+      "corn_prod_m3": 46638.0,
+      "domestic_sales_m3": 69576.0,
+      "corn_prod_tonnes": 36811.37,
+      "corn_feedstock_tonnes": 122731.58
+    },
+    "2015-11": {
+      "total_prod_m3": 73434.0,
+      "cane_prod_m3": 32984.0,
+      "corn_prod_m3": 40450.0,
+      "domestic_sales_m3": 69122.0,
+      "corn_prod_tonnes": 31927.19,
+      "corn_feedstock_tonnes": 106447.37
+    },
+    "2015-12": {
+      "total_prod_m3": 71970.0,
+      "cane_prod_m3": 27832.0,
+      "corn_prod_m3": 44138.0,
+      "domestic_sales_m3": 77171.0,
+      "corn_prod_tonnes": 34838.12,
+      "corn_feedstock_tonnes": 116152.63
+    },
+    "2016-01": {
+      "total_prod_m3": 66620.0,
+      "cane_prod_m3": 21596.0,
+      "corn_prod_m3": 45024.0,
+      "domestic_sales_m3": 74141.0,
+      "corn_prod_tonnes": 35537.44,
+      "corn_feedstock_tonnes": 118484.21
+    },
+    "2016-02": {
+      "total_prod_m3": 65050.0,
+      "cane_prod_m3": 24156.0,
+      "corn_prod_m3": 40894.0,
+      "domestic_sales_m3": 67947.0,
+      "corn_prod_tonnes": 32277.63,
+      "corn_feedstock_tonnes": 107615.79
+    },
+    "2016-03": {
+      "total_prod_m3": 65050.0,
+      "cane_prod_m3": 19112.0,
+      "corn_prod_m3": 45938.0,
+      "domestic_sales_m3": 70577.0,
+      "corn_prod_tonnes": 36258.86,
+      "corn_feedstock_tonnes": 120889.47
+    },
+    "2016-04": {
+      "total_prod_m3": 60670.0,
+      "cane_prod_m3": 20459.0,
+      "corn_prod_m3": 40211.0,
+      "domestic_sales_m3": 66480.0,
+      "corn_prod_tonnes": 31738.54,
+      "corn_feedstock_tonnes": 105818.42
+    },
+    "2016-05": {
+      "total_prod_m3": 62659.0,
+      "cane_prod_m3": 24041.0,
+      "corn_prod_m3": 38618.0,
+      "domestic_sales_m3": 64774.0,
+      "corn_prod_tonnes": 30481.19,
+      "corn_feedstock_tonnes": 101626.32
+    },
+    "2016-06": {
+      "total_prod_m3": 60696.0,
+      "cane_prod_m3": 28972.0,
+      "corn_prod_m3": 31724.0,
+      "domestic_sales_m3": 67444.0,
+      "corn_prod_tonnes": 25039.75,
+      "corn_feedstock_tonnes": 83484.21
+    },
+    "2016-07": {
+      "total_prod_m3": 71659.0,
+      "cane_prod_m3": 33973.0,
+      "corn_prod_m3": 37686.0,
+      "domestic_sales_m3": 73661.0,
+      "corn_prod_tonnes": 29745.56,
+      "corn_feedstock_tonnes": 99173.68
+    },
+    "2016-08": {
+      "total_prod_m3": 87670.0,
+      "cane_prod_m3": 42323.0,
+      "corn_prod_m3": 45347.0,
+      "domestic_sales_m3": 79650.0,
+      "corn_prod_tonnes": 35792.39,
+      "corn_feedstock_tonnes": 119334.21
+    },
+    "2016-09": {
+      "total_prod_m3": 92162.0,
+      "cane_prod_m3": 48954.0,
+      "corn_prod_m3": 43208.0,
+      "domestic_sales_m3": 82436.0,
+      "corn_prod_tonnes": 34104.07,
+      "corn_feedstock_tonnes": 113705.26
+    },
+    "2016-10": {
+      "total_prod_m3": 84945.9,
+      "cane_prod_m3": 49363.26,
+      "corn_prod_m3": 35582.64,
+      "domestic_sales_m3": 84863.88,
+      "corn_prod_tonnes": 28085.38,
+      "corn_feedstock_tonnes": 93638.53
+    },
+    "2016-11": {
+      "total_prod_m3": 87028.27539,
+      "cane_prod_m3": 46051.74984,
+      "corn_prod_m3": 40976.52555,
+      "domestic_sales_m3": 85986.13848,
+      "corn_prod_tonnes": 32342.77,
+      "corn_feedstock_tonnes": 107832.96
+    },
+    "2016-12": {
+      "total_prod_m3": 85736.23000000001,
+      "cane_prod_m3": 41107.68,
+      "corn_prod_m3": 44628.55,
+      "domestic_sales_m3": 92932.0,
+      "corn_prod_tonnes": 35225.31,
+      "corn_feedstock_tonnes": 117443.55
+    },
+    "2017-01": {
+      "total_prod_m3": 84345.28796777572,
+      "cane_prod_m3": 37794.43101489447,
+      "corn_prod_m3": 46550.85695288125,
+      "domestic_sales_m3": 90931.03577359165,
+      "corn_prod_tonnes": 36742.59,
+      "corn_feedstock_tonnes": 122502.26
+    },
+    "2017-02": {
+      "total_prod_m3": 80095.56,
+      "cane_prod_m3": 35606.57,
+      "corn_prod_m3": 44488.99,
+      "domestic_sales_m3": 84868.62,
+      "corn_prod_tonnes": 35115.16,
+      "corn_feedstock_tonnes": 117076.29
+    },
+    "2017-03": {
+      "total_prod_m3": 82796.55,
+      "cane_prod_m3": 38696.17,
+      "corn_prod_m3": 44100.380000000005,
+      "domestic_sales_m3": 87474.12,
+      "corn_prod_tonnes": 34808.43,
+      "corn_feedstock_tonnes": 116053.63
+    },
+    "2017-04": {
+      "total_prod_m3": 80573.26,
+      "cane_prod_m3": 35354.869999999995,
+      "corn_prod_m3": 45218.39,
+      "domestic_sales_m3": 86436.59,
+      "corn_prod_tonnes": 35690.88,
+      "corn_feedstock_tonnes": 118995.76
+    },
+    "2017-05": {
+      "total_prod_m3": 84274.98999999999,
+      "cane_prod_m3": 44052.6,
+      "corn_prod_m3": 40222.39,
+      "domestic_sales_m3": 84804.85999999999,
+      "corn_prod_tonnes": 31747.53,
+      "corn_feedstock_tonnes": 105848.39
+    },
+    "2017-06": {
+      "total_prod_m3": 92959.41,
+      "cane_prod_m3": 51159.2,
+      "corn_prod_m3": 41800.21000000001,
+      "domestic_sales_m3": 88154.42000000001,
+      "corn_prod_tonnes": 32992.91,
+      "corn_feedstock_tonnes": 110000.55
+    },
+    "2017-07": {
+      "total_prod_m3": 97319.65,
+      "cane_prod_m3": 53923.829999999994,
+      "corn_prod_m3": 43395.82,
+      "domestic_sales_m3": 88044.31,
+      "corn_prod_tonnes": 34252.32,
+      "corn_feedstock_tonnes": 114199.53
+    },
+    "2017-08": {
+      "total_prod_m3": 104563.28,
+      "cane_prod_m3": 55710.79,
+      "corn_prod_m3": 48852.49,
+      "domestic_sales_m3": 90469.31,
+      "corn_prod_tonnes": 38559.27,
+      "corn_feedstock_tonnes": 128559.18
+    },
+    "2017-09": {
+      "total_prod_m3": 102827.72,
+      "cane_prod_m3": 55345.04,
+      "corn_prod_m3": 47482.68,
+      "domestic_sales_m3": 89375.04000000001,
+      "corn_prod_tonnes": 37478.08,
+      "corn_feedstock_tonnes": 124954.42
+    },
+    "2017-10": {
+      "total_prod_m3": 111264.81,
+      "cane_prod_m3": 60414.83,
+      "corn_prod_m3": 50849.979999999996,
+      "domestic_sales_m3": 92166.14,
+      "corn_prod_tonnes": 40135.89,
+      "corn_feedstock_tonnes": 133815.74
+    },
+    "2017-11": {
+      "total_prod_m3": 96565.42,
+      "cane_prod_m3": 48723.97,
+      "corn_prod_m3": 47841.45,
+      "domestic_sales_m3": 94110.56,
+      "corn_prod_tonnes": 37761.26,
+      "corn_feedstock_tonnes": 125898.55
+    },
+    "2017-12": {
+      "total_prod_m3": 87520.9,
+      "cane_prod_m3": 36361.01,
+      "corn_prod_m3": 51159.89,
+      "domestic_sales_m3": 100039.6,
+      "corn_prod_tonnes": 40380.5,
+      "corn_feedstock_tonnes": 134631.29
+    },
+    "2018-01": {
+      "total_prod_m3": 83694.36,
+      "cane_prod_m3": 33251.060000000005,
+      "corn_prod_m3": 50443.299999999996,
+      "domestic_sales_m3": 98469.4,
+      "corn_prod_tonnes": 39814.9,
+      "corn_feedstock_tonnes": 132745.53
+    },
+    "2018-02": {
+      "total_prod_m3": 80920.94,
+      "cane_prod_m3": 35328.22,
+      "corn_prod_m3": 45592.72,
+      "domestic_sales_m3": 88478.52,
+      "corn_prod_tonnes": 35986.33,
+      "corn_feedstock_tonnes": 119980.84
+    },
+    "2018-03": {
+      "total_prod_m3": 67486.43,
+      "cane_prod_m3": 17967.54,
+      "corn_prod_m3": 49518.89,
+      "domestic_sales_m3": 86275.33,
+      "corn_prod_tonnes": 39085.26,
+      "corn_feedstock_tonnes": 130312.87
+    },
+    "2018-04": {
+      "total_prod_m3": 75058.45000000001,
+      "cane_prod_m3": 24521.61,
+      "corn_prod_m3": 50536.840000000004,
+      "domestic_sales_m3": 89909.93000000001,
+      "corn_prod_tonnes": 39888.73,
+      "corn_feedstock_tonnes": 132991.68
+    },
+    "2018-05": {
+      "total_prod_m3": 87942.17000000001,
+      "cane_prod_m3": 38335.73,
+      "corn_prod_m3": 49606.44,
+      "domestic_sales_m3": 87281.23000000001,
+      "corn_prod_tonnes": 39154.36,
+      "corn_feedstock_tonnes": 130543.26
+    },
+    "2018-06": {
+      "total_prod_m3": 106737.18,
+      "cane_prod_m3": 57253.65999999999,
+      "corn_prod_m3": 49483.52,
+      "domestic_sales_m3": 86604.95999999999,
+      "corn_prod_tonnes": 39057.34,
+      "corn_feedstock_tonnes": 130219.79
+    },
+    "2018-07": {
+      "total_prod_m3": 107270.92,
+      "cane_prod_m3": 60455.77,
+      "corn_prod_m3": 46815.15,
+      "domestic_sales_m3": 87766.51,
+      "corn_prod_tonnes": 36951.2,
+      "corn_feedstock_tonnes": 123197.76
+    },
+    "2018-08": {
+      "total_prod_m3": 107314.93000000002,
+      "cane_prod_m3": 59361.70000000001,
+      "corn_prod_m3": 47953.23,
+      "domestic_sales_m3": 91305.4,
+      "corn_prod_tonnes": 37849.48,
+      "corn_feedstock_tonnes": 126192.71
+    },
+    "2018-09": {
+      "total_prod_m3": 106008.77,
+      "cane_prod_m3": 59862.380000000005,
+      "corn_prod_m3": 46146.39,
+      "domestic_sales_m3": 83504.20999999999,
+      "corn_prod_tonnes": 36423.35,
+      "corn_feedstock_tonnes": 121437.87
+    },
+    "2018-10": {
+      "total_prod_m3": 103205.34,
+      "cane_prod_m3": 54597.0,
+      "corn_prod_m3": 48608.34,
+      "domestic_sales_m3": 85770.87000000001,
+      "corn_prod_tonnes": 38366.56,
+      "corn_feedstock_tonnes": 127916.68
+    },
+    "2018-11": {
+      "total_prod_m3": 98535.20999999999,
+      "cane_prod_m3": 49554.42,
+      "corn_prod_m3": 48980.79,
+      "domestic_sales_m3": 86095.35999999999,
+      "corn_prod_tonnes": 38660.54,
+      "corn_feedstock_tonnes": 128896.82
+    },
+    "2018-12": {
+      "total_prod_m3": 89606.1,
+      "cane_prod_m3": 37673.07000000001,
+      "corn_prod_m3": 51933.03,
+      "domestic_sales_m3": 92406.08000000002,
+      "corn_prod_tonnes": 40990.74,
+      "corn_feedstock_tonnes": 136665.87
+    },
+    "2019-01": {
+      "total_prod_m3": 70319.64000000001,
+      "cane_prod_m3": 30504.79,
+      "corn_prod_m3": 39814.850000000006,
+      "domestic_sales_m3": 89033.98999999999,
+      "corn_prod_tonnes": 31425.86,
+      "corn_feedstock_tonnes": 104775.92
+    },
+    "2019-02": {
+      "total_prod_m3": 68395.79000000001,
+      "cane_prod_m3": 26710.629999999997,
+      "corn_prod_m3": 41685.16,
+      "domestic_sales_m3": 86264.69,
+      "corn_prod_tonnes": 32902.1,
+      "corn_feedstock_tonnes": 109697.79
+    },
+    "2019-03": {
+      "total_prod_m3": 76836.59,
+      "cane_prod_m3": 28898.049999999996,
+      "corn_prod_m3": 47938.54,
+      "domestic_sales_m3": 88854.73,
+      "corn_prod_tonnes": 37837.89,
+      "corn_feedstock_tonnes": 126154.05
+    },
+    "2019-04": {
+      "total_prod_m3": 67240.73,
+      "cane_prod_m3": 17288.769999999997,
+      "corn_prod_m3": 49951.96,
+      "domestic_sales_m3": 84323.5,
+      "corn_prod_tonnes": 39427.08,
+      "corn_feedstock_tonnes": 131452.53
+    },
+    "2019-05": {
+      "total_prod_m3": 85164.23000000001,
+      "cane_prod_m3": 37316.450000000004,
+      "corn_prod_m3": 47847.780000000006,
+      "domestic_sales_m3": 89422.38,
+      "corn_prod_tonnes": 37766.25,
+      "corn_feedstock_tonnes": 125915.21
+    },
+    "2019-06": {
+      "total_prod_m3": 94835.26000000001,
+      "cane_prod_m3": 50183.99,
+      "corn_prod_m3": 44651.270000000004,
+      "domestic_sales_m3": 82122.89,
+      "corn_prod_tonnes": 35243.25,
+      "corn_feedstock_tonnes": 117503.34
+    },
+    "2019-07": {
+      "total_prod_m3": 96383.4,
+      "cane_prod_m3": 57666.439999999995,
+      "corn_prod_m3": 38716.96,
+      "domestic_sales_m3": 89017.02,
+      "corn_prod_tonnes": 30559.3,
+      "corn_feedstock_tonnes": 101886.74
+    },
+    "2019-08": {
+      "total_prod_m3": 111191.3,
+      "cane_prod_m3": 65577.95,
+      "corn_prod_m3": 45613.350000000006,
+      "domestic_sales_m3": 86713.46,
+      "corn_prod_tonnes": 36002.62,
+      "corn_feedstock_tonnes": 120035.13
+    },
+    "2019-09": {
+      "total_prod_m3": 109774.16,
+      "cane_prod_m3": 61733.44,
+      "corn_prod_m3": 48040.72,
+      "domestic_sales_m3": 90390.31,
+      "corn_prod_tonnes": 37918.54,
+      "corn_feedstock_tonnes": 126422.95
+    },
+    "2019-10": {
+      "total_prod_m3": 103182.69,
+      "cane_prod_m3": 54095.41,
+      "corn_prod_m3": 49087.28,
+      "domestic_sales_m3": 91768.18,
+      "corn_prod_tonnes": 38744.59,
+      "corn_feedstock_tonnes": 129177.05
+    },
+    "2019-11": {
+      "total_prod_m3": 103745.29000000001,
+      "cane_prod_m3": 56174.32000000001,
+      "corn_prod_m3": 47570.97,
+      "domestic_sales_m3": 88069.26199999999,
+      "corn_prod_tonnes": 37547.77,
+      "corn_feedstock_tonnes": 125186.76
+    },
+    "2019-12": {
+      "total_prod_m3": 86426.41,
+      "cane_prod_m3": 33516.46,
+      "corn_prod_m3": 52909.95,
+      "domestic_sales_m3": 97437.57900000001,
+      "corn_prod_tonnes": 41761.82,
+      "corn_feedstock_tonnes": 139236.71
+    },
+    "2020-01": {
+      "total_prod_m3": 76799.33,
+      "cane_prod_m3": 22384.02,
+      "corn_prod_m3": 54415.31,
+      "domestic_sales_m3": 95902.98000000001,
+      "corn_prod_tonnes": 42950.0,
+      "corn_feedstock_tonnes": 143198.18
+    },
+    "2020-02": {
+      "total_prod_m3": 70153.73999999999,
+      "cane_prod_m3": 22959.67,
+      "corn_prod_m3": 47194.07,
+      "domestic_sales_m3": 87547.902,
+      "corn_prod_tonnes": 37250.28,
+      "corn_feedstock_tonnes": 124194.92
+    },
+    "2020-03": {
+      "total_prod_m3": 68643.75,
+      "cane_prod_m3": 20691.760000000002,
+      "corn_prod_m3": 47951.990000000005,
+      "domestic_sales_m3": 77686.62999999998,
+      "corn_prod_tonnes": 37848.51,
+      "corn_feedstock_tonnes": 126189.45
+    },
+    "2020-04": {
+      "total_prod_m3": 15882.0,
+      "cane_prod_m3": 268.19,
+      "corn_prod_m3": 15613.81,
+      "domestic_sales_m3": 9983.279999999999,
+      "corn_prod_tonnes": 12323.98,
+      "corn_feedstock_tonnes": 41088.97
+    },
+    "2020-05": {
+      "total_prod_m3": 26088.379999999997,
+      "cane_prod_m3": 12021.14,
+      "corn_prod_m3": 14067.24,
+      "domestic_sales_m3": 42578.1,
+      "corn_prod_tonnes": 11103.27,
+      "corn_feedstock_tonnes": 37019.05
+    },
+    "2020-06": {
+      "total_prod_m3": 67448.54999999999,
+      "cane_prod_m3": 34815.549999999996,
+      "corn_prod_m3": 32633.0,
+      "domestic_sales_m3": 55227.893,
+      "corn_prod_tonnes": 25757.23,
+      "corn_feedstock_tonnes": 85876.32
+    },
+    "2020-07": {
+      "total_prod_m3": 84819.81,
+      "cane_prod_m3": 43053.71,
+      "corn_prod_m3": 41766.100000000006,
+      "domestic_sales_m3": 62065.759999999995,
+      "corn_prod_tonnes": 32965.98,
+      "corn_feedstock_tonnes": 109910.79
+    },
+    "2020-08": {
+      "total_prod_m3": 77825.98999999999,
+      "cane_prod_m3": 44599.69,
+      "corn_prod_m3": 33226.299999999996,
+      "domestic_sales_m3": 60815.92,
+      "corn_prod_tonnes": 26225.52,
+      "corn_feedstock_tonnes": 87437.63
+    },
+    "2020-09": {
+      "total_prod_m3": 80817.67,
+      "cane_prod_m3": 44185.39,
+      "corn_prod_m3": 36632.28,
+      "domestic_sales_m3": 62900.06100000001,
+      "corn_prod_tonnes": 28913.86,
+      "corn_feedstock_tonnes": 96400.74
+    },
+    "2020-10": {
+      "total_prod_m3": 69434.44,
+      "cane_prod_m3": 46326.67,
+      "corn_prod_m3": 23107.77,
+      "domestic_sales_m3": 61297.17,
+      "corn_prod_tonnes": 18238.96,
+      "corn_feedstock_tonnes": 60809.92
+    },
+    "2020-11": {
+      "total_prod_m3": 88775.68,
+      "cane_prod_m3": 55906.03,
+      "corn_prod_m3": 32869.65,
+      "domestic_sales_m3": 68028.3,
+      "corn_prod_tonnes": 25944.01,
+      "corn_feedstock_tonnes": 86499.08
+    },
+    "2020-12": {
+      "total_prod_m3": 82035.19,
+      "cane_prod_m3": 37937.880000000005,
+      "corn_prod_m3": 44097.31,
+      "domestic_sales_m3": 80294.66999999998,
+      "corn_prod_tonnes": 34806.01,
+      "corn_feedstock_tonnes": 116045.55
+    },
+    "2021-01": {
+      "total_prod_m3": 60992.0,
+      "cane_prod_m3": 21434.0,
+      "corn_prod_m3": 39558.0,
+      "domestic_sales_m3": 82803.0,
+      "corn_prod_tonnes": 31223.13,
+      "corn_feedstock_tonnes": 104100.0
+    },
+    "2021-02": {
+      "total_prod_m3": 67132.0,
+      "cane_prod_m3": 22841.0,
+      "corn_prod_m3": 44291.0,
+      "domestic_sales_m3": 81391.0,
+      "corn_prod_tonnes": 34958.89,
+      "corn_feedstock_tonnes": 116555.26
+    },
+    "2021-03": {
+      "total_prod_m3": 79917.0,
+      "cane_prod_m3": 36125.0,
+      "corn_prod_m3": 43792.0,
+      "domestic_sales_m3": 88747.0,
+      "corn_prod_tonnes": 34565.03,
+      "corn_feedstock_tonnes": 115242.11
+    },
+    "2021-04": {
+      "total_prod_m3": 68795.0,
+      "cane_prod_m3": 22341.0,
+      "corn_prod_m3": 46454.0,
+      "domestic_sales_m3": 84076.0,
+      "corn_prod_tonnes": 36666.14,
+      "corn_feedstock_tonnes": 122247.37
+    },
+    "2021-05": {
+      "total_prod_m3": 60027.0,
+      "cane_prod_m3": 19474.0,
+      "corn_prod_m3": 40553.0,
+      "domestic_sales_m3": 71512.0,
+      "corn_prod_tonnes": 32008.48,
+      "corn_feedstock_tonnes": 106718.42
+    },
+    "2021-06": {
+      "total_prod_m3": 74127.0,
+      "cane_prod_m3": 41518.0,
+      "corn_prod_m3": 32609.0,
+      "domestic_sales_m3": 58340.0,
+      "corn_prod_tonnes": 25738.28,
+      "corn_feedstock_tonnes": 85813.16
+    },
+    "2021-07": {
+      "total_prod_m3": 98488.0,
+      "cane_prod_m3": 55848.0,
+      "corn_prod_m3": 42640.0,
+      "domestic_sales_m3": 78769.0,
+      "corn_prod_tonnes": 33655.75,
+      "corn_feedstock_tonnes": 112210.53
+    },
+    "2021-08": {
+      "total_prod_m3": 102057.0,
+      "cane_prod_m3": 54869.0,
+      "corn_prod_m3": 47188.0,
+      "domestic_sales_m3": 88751.0,
+      "corn_prod_tonnes": 37245.49,
+      "corn_feedstock_tonnes": 124178.95
+    },
+    "2021-09": {
+      "total_prod_m3": 106134.0,
+      "cane_prod_m3": 56933.0,
+      "corn_prod_m3": 49201.0,
+      "domestic_sales_m3": 88222.0,
+      "corn_prod_tonnes": 38834.35,
+      "corn_feedstock_tonnes": 129476.32
+    },
+    "2021-10": {
+      "total_prod_m3": 101151.0,
+      "cane_prod_m3": 59932.0,
+      "corn_prod_m3": 41219.0,
+      "domestic_sales_m3": 87761.0,
+      "corn_prod_tonnes": 32534.16,
+      "corn_feedstock_tonnes": 108471.05
+    },
+    "2021-11": {
+      "total_prod_m3": 101838.0,
+      "cane_prod_m3": 51382.0,
+      "corn_prod_m3": 50456.0,
+      "domestic_sales_m3": 92379.0,
+      "corn_prod_tonnes": 39824.92,
+      "corn_feedstock_tonnes": 132778.95
+    },
+    "2021-12": {
+      "total_prod_m3": 87400.0,
+      "cane_prod_m3": 31433.0,
+      "corn_prod_m3": 55967.0,
+      "domestic_sales_m3": 95757.0,
+      "corn_prod_tonnes": 44174.75,
+      "corn_feedstock_tonnes": 147281.58
+    },
+    "2022-01": {
+      "total_prod_m3": 79107.20000000001,
+      "cane_prod_m3": 29058.810000000005,
+      "corn_prod_m3": 50048.39,
+      "domestic_sales_m3": 91621.08000000003,
+      "corn_prod_tonnes": 39503.19,
+      "corn_feedstock_tonnes": 131706.29
+    },
+    "2022-02": {
+      "total_prod_m3": 75255.38,
+      "cane_prod_m3": 30978.94,
+      "corn_prod_m3": 44276.44,
+      "domestic_sales_m3": 107320.72999999998,
+      "corn_prod_tonnes": 34947.39,
+      "corn_feedstock_tonnes": 116516.95
+    },
+    "2022-03": {
+      "total_prod_m3": 67347.02,
+      "cane_prod_m3": 18026.39,
+      "corn_prod_m3": 49320.630000000005,
+      "domestic_sales_m3": 76503.16,
+      "corn_prod_tonnes": 38928.77,
+      "corn_feedstock_tonnes": 129791.13
+    },
+    "2022-04": {
+      "total_prod_m3": 67557.93000000001,
+      "cane_prod_m3": 8618.570000000002,
+      "corn_prod_m3": 58939.36,
+      "domestic_sales_m3": 77335.05999999997,
+      "corn_prod_tonnes": 46520.84,
+      "corn_feedstock_tonnes": 155103.58
+    },
+    "2022-05": {
+      "total_prod_m3": 84229.78,
+      "cane_prod_m3": 22486.86,
+      "corn_prod_m3": 61742.92,
+      "domestic_sales_m3": 87606.75,
+      "corn_prod_tonnes": 48733.69,
+      "corn_feedstock_tonnes": 162481.37
+    },
+    "2022-06": {
+      "total_prod_m3": 108809.44,
+      "cane_prod_m3": 50333.48,
+      "corn_prod_m3": 58475.95999999999,
+      "domestic_sales_m3": 89788.0,
+      "corn_prod_tonnes": 46155.08,
+      "corn_feedstock_tonnes": 153884.11
+    },
+    "2022-07": {
+      "total_prod_m3": 114000.53,
+      "cane_prod_m3": 52905.08,
+      "corn_prod_m3": 61095.450000000004,
+      "domestic_sales_m3": 90929.14199999999,
+      "corn_prod_tonnes": 48222.64,
+      "corn_feedstock_tonnes": 160777.5
+    },
+    "2022-08": {
+      "total_prod_m3": 118536.98000000001,
+      "cane_prod_m3": 53683.87,
+      "corn_prod_m3": 64853.11,
+      "domestic_sales_m3": 96996.64000000001,
+      "corn_prod_tonnes": 51188.56,
+      "corn_feedstock_tonnes": 170666.08
+    },
+    "2022-09": {
+      "total_prod_m3": 119621.76999999999,
+      "cane_prod_m3": 55458.70999999999,
+      "corn_prod_m3": 64163.06,
+      "domestic_sales_m3": 97302.95999999999,
+      "corn_prod_tonnes": 50643.9,
+      "corn_feedstock_tonnes": 168850.16
+    },
+    "2022-10": {
+      "total_prod_m3": 125168.36000000002,
+      "cane_prod_m3": 57899.67000000001,
+      "corn_prod_m3": 67268.69,
+      "domestic_sales_m3": 101259.74999999999,
+      "corn_prod_tonnes": 53095.18,
+      "corn_feedstock_tonnes": 177022.87
+    },
+    "2022-11": {
+      "total_prod_m3": 104462.54000000001,
+      "cane_prod_m3": 47997.41,
+      "corn_prod_m3": 56465.13,
+      "domestic_sales_m3": 101878.407,
+      "corn_prod_tonnes": 44567.93,
+      "corn_feedstock_tonnes": 148592.45
+    },
+    "2022-12": {
+      "total_prod_m3": 94744.41999999998,
+      "cane_prod_m3": 28540.649999999998,
+      "corn_prod_m3": 66203.76999999999,
+      "domestic_sales_m3": 107616.58700000001,
+      "corn_prod_tonnes": 52254.64,
+      "corn_feedstock_tonnes": 174220.45
+    },
+    "2023-01": {
+      "total_prod_m3": 95216.62,
+      "cane_prod_m3": 24476.86,
+      "corn_prod_m3": 70739.76,
+      "domestic_sales_m3": 103136.766,
+      "corn_prod_tonnes": 55834.89,
+      "corn_feedstock_tonnes": 186157.26
+    },
+    "2023-02": {
+      "total_prod_m3": 79498.07,
+      "cane_prod_m3": 18996.71,
+      "corn_prod_m3": 60501.36,
+      "domestic_sales_m3": 92533.448,
+      "corn_prod_tonnes": 47753.72,
+      "corn_feedstock_tonnes": 159214.11
+    },
+    "2023-03": {
+      "total_prod_m3": 79034.28000000001,
+      "cane_prod_m3": 12339.52,
+      "corn_prod_m3": 66694.76000000001,
+      "domestic_sales_m3": 91473.14600000001,
+      "corn_prod_tonnes": 52642.17,
+      "corn_feedstock_tonnes": 175512.53
+    },
+    "2023-04": {
+      "total_prod_m3": 81745.88,
+      "cane_prod_m3": 15303.779999999999,
+      "corn_prod_m3": 66442.1,
+      "domestic_sales_m3": 89608.65299999999,
+      "corn_prod_tonnes": 52442.75,
+      "corn_feedstock_tonnes": 174847.63
+    },
+    "2023-05": {
+      "total_prod_m3": 81190.56,
+      "cane_prod_m3": 15876.23,
+      "corn_prod_m3": 65314.33,
+      "domestic_sales_m3": 90056.50200000001,
+      "corn_prod_tonnes": 51552.6,
+      "corn_feedstock_tonnes": 171879.82
+    },
+    "2023-06": {
+      "total_prod_m3": 86671.95000000001,
+      "cane_prod_m3": 34482.350000000006,
+      "corn_prod_m3": 52189.600000000006,
+      "domestic_sales_m3": 89971.579,
+      "corn_prod_tonnes": 41193.25,
+      "corn_feedstock_tonnes": 137341.05
+    },
+    "2023-07": {
+      "total_prod_m3": 110786.82,
+      "cane_prod_m3": 43184.48,
+      "corn_prod_m3": 67602.34,
+      "domestic_sales_m3": 95775.23800000001,
+      "corn_prod_tonnes": 53358.53,
+      "corn_feedstock_tonnes": 177900.89
+    },
+    "2023-08": {
+      "total_prod_m3": 111210.51,
+      "cane_prod_m3": 43567.90999999999,
+      "corn_prod_m3": 67642.6,
+      "domestic_sales_m3": 100798.713,
+      "corn_prod_tonnes": 53390.3,
+      "corn_feedstock_tonnes": 178006.84
+    },
+    "2023-09": {
+      "total_prod_m3": 105858.98,
+      "cane_prod_m3": 39227.45,
+      "corn_prod_m3": 66631.53,
+      "domestic_sales_m3": 100284.57400000001,
+      "corn_prod_tonnes": 52592.27,
+      "corn_feedstock_tonnes": 175346.13
+    },
+    "2023-10": {
+      "total_prod_m3": 108685.76000000001,
+      "cane_prod_m3": 44632.54,
+      "corn_prod_m3": 64053.22,
+      "domestic_sales_m3": 95454.50399999999,
+      "corn_prod_tonnes": 50557.21,
+      "corn_feedstock_tonnes": 168561.11
+    },
+    "2023-11": {
+      "total_prod_m3": 108139.71,
+      "cane_prod_m3": 49447.46000000001,
+      "corn_prod_m3": 58692.25,
+      "domestic_sales_m3": 90275.53,
+      "corn_prod_tonnes": 46325.79,
+      "corn_feedstock_tonnes": 154453.29
+    },
+    "2023-12": {
+      "total_prod_m3": 108663.81999999999,
+      "cane_prod_m3": 38420.28,
+      "corn_prod_m3": 70243.54,
+      "domestic_sales_m3": 97485.94400000005,
+      "corn_prod_tonnes": 55443.23,
+      "corn_feedstock_tonnes": 184851.42
+    },
+    "2024-01": {
+      "total_prod_m3": 102957.72,
+      "cane_prod_m3": 33986.25,
+      "corn_prod_m3": 68971.47,
+      "domestic_sales_m3": 104191.10700000002,
+      "corn_prod_tonnes": 54439.18,
+      "corn_feedstock_tonnes": 181503.87
+    },
+    "2024-02": {
+      "total_prod_m3": 72547.83000000002,
+      "cane_prod_m3": 15599.370000000003,
+      "corn_prod_m3": 56948.46000000001,
+      "domestic_sales_m3": 94445.57800000001,
+      "corn_prod_tonnes": 44949.42,
+      "corn_feedstock_tonnes": 149864.37
+    },
+    "2024-03": {
+      "total_prod_m3": 77717.90000000001,
+      "cane_prod_m3": 19564.08,
+      "corn_prod_m3": 58153.82000000001,
+      "domestic_sales_m3": 88223.44,
+      "corn_prod_tonnes": 45900.81,
+      "corn_feedstock_tonnes": 153036.37
+    },
+    "2024-04": {
+      "total_prod_m3": 73518.5,
+      "cane_prod_m3": 21743.980000000003,
+      "corn_prod_m3": 51774.520000000004,
+      "domestic_sales_m3": 86923.13799999999,
+      "corn_prod_tonnes": 40865.63,
+      "corn_feedstock_tonnes": 136248.74
+    },
+    "2024-05": {
+      "total_prod_m3": 95399.0,
+      "cane_prod_m3": 32698.020000000004,
+      "corn_prod_m3": 62700.98,
+      "domestic_sales_m3": 87326.478,
+      "corn_prod_tonnes": 49489.88,
+      "corn_feedstock_tonnes": 165002.58
+    },
+    "2024-06": {
+      "total_prod_m3": 116964.0,
+      "cane_prod_m3": 52454.25,
+      "corn_prod_m3": 64509.75,
+      "domestic_sales_m3": 88794.563,
+      "corn_prod_tonnes": 50917.55,
+      "corn_feedstock_tonnes": 169762.5
+    },
+    "2024-07": {
+      "total_prod_m3": 121475.73000000001,
+      "cane_prod_m3": 59129.68000000001,
+      "corn_prod_m3": 62346.05,
+      "domestic_sales_m3": 94298.30099999999,
+      "corn_prod_tonnes": 49209.74,
+      "corn_feedstock_tonnes": 164068.55
+    },
+    "2024-08": {
+      "total_prod_m3": 123180.39,
+      "cane_prod_m3": 64644.25,
+      "corn_prod_m3": 58536.14,
+      "domestic_sales_m3": 93128.56,
+      "corn_prod_tonnes": 46202.58,
+      "corn_feedstock_tonnes": 154042.47
+    },
+    "2024-09": {
+      "total_prod_m3": 118664.67000000001,
+      "cane_prod_m3": 59423.42000000001,
+      "corn_prod_m3": 59241.25,
+      "domestic_sales_m3": 90041.14399999999,
+      "corn_prod_tonnes": 46759.12,
+      "corn_feedstock_tonnes": 155898.03
+    },
+    "2024-10": {
+      "total_prod_m3": 113364.03,
+      "cane_prod_m3": 54811.619999999995,
+      "corn_prod_m3": 58552.41,
+      "domestic_sales_m3": 96877.17199999999,
+      "corn_prod_tonnes": 46215.42,
+      "corn_feedstock_tonnes": 154085.29
+    },
+    "2024-11": {
+      "total_prod_m3": 93813.58000000002,
+      "cane_prod_m3": 36745.69,
+      "corn_prod_m3": 57067.89000000001,
+      "domestic_sales_m3": 94985.69899999998,
+      "corn_prod_tonnes": 45043.69,
+      "corn_feedstock_tonnes": 150178.66
+    },
+    "2024-12": {
+      "total_prod_m3": 97914.01,
+      "cane_prod_m3": 27777.0,
+      "corn_prod_m3": 70137.01,
+      "domestic_sales_m3": 104794.76000000001,
+      "corn_prod_tonnes": 55359.14,
+      "corn_feedstock_tonnes": 184571.08
+    },
+    "2025-01": {
+      "total_prod_m3": 99412.73,
+      "cane_prod_m3": 33327.89,
+      "corn_prod_m3": 66084.84,
+      "domestic_sales_m3": 102243.837,
+      "corn_prod_tonnes": 52160.76,
+      "corn_feedstock_tonnes": 173907.47
+    },
+    "2025-02": {
+      "total_prod_m3": 89746.08000000002,
+      "cane_prod_m3": 28978.29,
+      "corn_prod_m3": 60767.79000000001,
+      "domestic_sales_m3": 96807.94099999999,
+      "corn_prod_tonnes": 47964.02,
+      "corn_feedstock_tonnes": 159915.24
+    },
+    "2025-03": {
+      "total_prod_m3": 94684.82,
+      "cane_prod_m3": 25246.66,
+      "corn_prod_m3": 69438.16,
+      "domestic_sales_m3": 101595.83,
+      "corn_prod_tonnes": 54807.54,
+      "corn_feedstock_tonnes": 182732.0
+    },
+    "2025-04": {
+      "total_prod_m3": 88223.86,
+      "cane_prod_m3": 26746.04,
+      "corn_prod_m3": 61477.82,
+      "domestic_sales_m3": 90899.79999999999,
+      "corn_prod_tonnes": 48524.44,
+      "corn_feedstock_tonnes": 161783.74
+    },
+    "2025-05": {
+      "total_prod_m3": 100442.38,
+      "cane_prod_m3": 31776.4,
+      "corn_prod_m3": 68665.98,
+      "domestic_sales_m3": 102106.86,
+      "corn_prod_tonnes": 54198.06,
+      "corn_feedstock_tonnes": 180699.95
+    },
+    "2025-06": {
+      "total_prod_m3": 113706.02,
+      "cane_prod_m3": 55712.9,
+      "corn_prod_m3": 57993.12,
+      "domestic_sales_m3": 96067.73000000001,
+      "corn_prod_tonnes": 45773.97,
+      "corn_feedstock_tonnes": 152613.47
+    },
+    "2025-07": {
+      "total_prod_m3": 128438.2,
+      "cane_prod_m3": 61469.17,
+      "corn_prod_m3": 66969.03,
+      "domestic_sales_m3": 98850.95999999999,
+      "corn_prod_tonnes": 52858.66,
+      "corn_feedstock_tonnes": 176234.29
+    },
+    "2025-08": {
+      "total_prod_m3": 137373.40000000002,
+      "cane_prod_m3": 67782.63,
+      "corn_prod_m3": 69590.77,
+      "domestic_sales_m3": 96444.37,
+      "corn_prod_tonnes": 54927.99,
+      "corn_feedstock_tonnes": 183133.61
+    },
+    "2025-09": {
+      "total_prod_m3": 116878.04000000001,
+      "cane_prod_m3": 59371.49,
+      "corn_prod_m3": 57506.55,
+      "domestic_sales_m3": 93460.29000000001,
+      "corn_prod_tonnes": 45389.92,
+      "corn_feedstock_tonnes": 151333.03
+    },
+    "2025-10": {
+      "total_prod_m3": 113031.74,
+      "cane_prod_m3": 56250.19,
+      "corn_prod_m3": 56781.55,
+      "domestic_sales_m3": 96653.31,
+      "corn_prod_tonnes": 44817.68,
+      "corn_feedstock_tonnes": 149425.13
+    },
+    "2025-11": {
+      "total_prod_m3": 115067.4,
+      "cane_prod_m3": 49985.53,
+      "corn_prod_m3": 65081.87,
+      "domestic_sales_m3": 100511.39,
+      "corn_prod_tonnes": 51369.12,
+      "corn_feedstock_tonnes": 171268.08
+    },
+    "2025-12": {
+      "total_prod_m3": 97879.24,
+      "cane_prod_m3": 32611.52,
+      "corn_prod_m3": 65267.72,
+      "domestic_sales_m3": 105413.62,
+      "corn_prod_tonnes": 51515.81,
+      "corn_feedstock_tonnes": 171757.16
+    },
+    "2026-01": {
+      "total_prod_m3": 95946.0,
+      "cane_prod_m3": 33170.0,
+      "corn_prod_m3": 62776.0,
+      "domestic_sales_m3": 103742.0,
+      "corn_prod_tonnes": 49549.1,
+      "corn_feedstock_tonnes": 165200.0
+    },
+    "2026-02": {
+      "total_prod_m3": 99464.81,
+      "cane_prod_m3": 29484.53,
+      "corn_prod_m3": 69980.28,
+      "domestic_sales_m3": 102465.95000000001,
+      "corn_prod_tonnes": 55235.44,
+      "corn_feedstock_tonnes": 184158.63
+    },
+    "2026-03": {
+      "total_prod_m3": 100773.01,
+      "cane_prod_m3": 30663.59,
+      "corn_prod_m3": 70109.42,
+      "domestic_sales_m3": 99193.36,
+      "corn_prod_tonnes": 55337.37,
+      "corn_feedstock_tonnes": 184498.47
+    },
+    "2026-04": {
+      "total_prod_m3": 80017.44,
+      "cane_prod_m3": 13787.48,
+      "corn_prod_m3": 66229.96,
+      "domestic_sales_m3": 89326.63,
+      "corn_prod_tonnes": 52275.31,
+      "corn_feedstock_tonnes": 174289.37
+    },
+    "2026-05": {
+      "total_prod_m3": 102404.79,
+      "cane_prod_m3": 33618.42,
+      "corn_prod_m3": 68786.37,
+      "domestic_sales_m3": 92844.89,
+      "corn_prod_tonnes": 54293.08,
+      "corn_feedstock_tonnes": 181016.76
+    },
+    "2026-06": {
+      "total_prod_m3": 113204.07,
+      "cane_prod_m3": 48331.71,
+      "corn_prod_m3": 64872.36,
+      "domestic_sales_m3": 90248.65,
+      "corn_prod_tonnes": 51203.75,
+      "corn_feedstock_tonnes": 170716.74
+    },
+    "2026-07": {
+      "total_prod_m3": 122233.0,
+      "cane_prod_m3": 48960.0,
+      "corn_prod_m3": 73273.0,
+      "domestic_sales_m3": null,
+      "corn_prod_tonnes": 57834.38,
+      "corn_feedstock_tonnes": 192823.68
+    },
+    "2026-08": {
+      "total_prod_m3": 139521.0,
+      "cane_prod_m3": 64872.0,
+      "corn_prod_m3": 74649.0,
+      "domestic_sales_m3": null,
+      "corn_prod_tonnes": 58920.46,
+      "corn_feedstock_tonnes": 196444.74
+    }
+  },
+  "status": "ok",
+  "errors": [
+    "off_farm_stocks: HTTP Error 403: Forbidden",
+    "other_milling_use: HTTP Error 403: Forbidden",
+    "crusher_stocks: HTTP Error 403: Forbidden",
+    "soybean_imports: HTTP Error 403: Forbidden",
+    "corn_off_farm_stocks: HTTP Error 403: Forbidden",
+    "corn_milling: HTTP Error 403: Forbidden"
+  ]
+}

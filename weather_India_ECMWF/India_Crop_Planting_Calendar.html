@@ -20,10 +20,12 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text);
+            background-color: #0b1120;
+            color: #f1f5f9;
             line-height: 1.4;
-            padding: 20px;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
         }
         .dashboard-container {
             max-width: 1780px;
@@ -36,35 +38,12 @@
         }
 
         /* Suite Nav */
-        .suite-nav-bar {
-            background: #090e1a;
-            border-bottom: 1px solid var(--border);
-            padding: 10px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .suite-brand {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1.2px;
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-        .suite-nav-links { display: flex; gap: 8px; }
-        .nav-tab {
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11.5px;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--text-muted);
-            background: #131c2e;
-            border: 1px solid var(--border);
-            transition: all 0.15s ease;
-        }
-        .nav-tab:hover { color: #ffffff; background: #1e293b; border-color: var(--accent); }
-        .nav-tab.active { color: #ffffff; background: #d97706; border-color: var(--accent); box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+        
+        
+        
+        
+        
+        
 
         /* Header */
         .header-card {
@@ -220,23 +199,132 @@
         }
         .legend-items { display: flex; align-items: center; gap: 12px; }
         .legend-box { display: inline-block; width: 14px; height: 12px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
-    </style>
+    
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        
+        
+        
+        
+
+        /* Universal Standard Navigation Bar & Container Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+            line-height: 1.4;
+            padding: 14px 20px 40px 20px;
+            zoom: 0.85;
+            -webkit-font-smoothing: antialiased;
+        }
+        .dashboard-container {
+            max-width: 1780px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        .suite-nav-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 44px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .suite-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .suite-brand {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #38bdf8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .suite-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #94a3b8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-tab:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background: #2563eb;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+        }
+</style>
 </head>
 <body>
 
 <div class="dashboard-container">
 
-    <!-- Suite Cross-Navigation -->
+            <!-- Universal Cross-Dashboard Navigation -->
     <div class="suite-nav-bar">
-        <div class="suite-brand">🌾 India Oilseed Weather Suite &bull; ECMWF IFS 0.25°</div>
+        <div class="suite-nav-left">
+            <span class="suite-brand">&#127470;&#127475; INDIA OILSEED &amp; CROP AG-WEATHER INTELLIGENCE (ECMWF IFS)</span>
+        </div>
         <div class="suite-nav-links">
-            <a href="index.html" class="nav-tab">&larr; Suite Hub</a>
-            <a href="India_Crop_2_Week_Outlook.html" class="nav-tab">🌧️ 2-Week Precipitation</a>
-            <a href="India_Crop_Soil_Moisture_Outlook.html" class="nav-tab">🌱 Soil Moisture</a>
-            <a href="India_Crop_Temperature_Outlook.html" class="nav-tab">🌡️ Temperature Outlook</a>
-            <a href="India_Crop_Weather_Matrix.html" class="nav-tab">📊 17-Season Matrix</a>
-            <a href="India_Crop_Planting_Calendar.html" class="nav-tab active">📋 Planting Calendar</a>
-            <a href="../dashboard/index.html" class="nav-tab" style="color: #38bdf8;">Master Portal &rarr;</a>
+            <a href="India_Crop_2_Week_Outlook.html" class="nav-tab">&#128197; 2-Week Daily Matrix</a>
+            <a href="India_Crop_Soil_Moisture_Outlook.html" class="nav-tab">&#127793; Soil Moisture Outlook</a>
+            <a href="India_Crop_Temperature_Outlook.html" class="nav-tab">&#9728;&#65039; Thermal Stress Outlook</a>
+            <a href="India_Crop_Weather_Matrix.html" class="nav-tab">&#128202; 17-Season Weather Matrix (2010&ndash;2026)</a>
+            <a href="India_Crop_Planting_Calendar.html" class="nav-tab active">&#128203; Planting Windows &amp; Gantt</a>
         </div>
     </div>
 
